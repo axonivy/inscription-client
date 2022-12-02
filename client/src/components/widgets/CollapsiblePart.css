@@ -1,0 +1,15 @@
+.collapsible-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.collapsible-trigger {
+  font-size: 12px;
+  margin-bottom: 1rem;
+}
+.collapsible-trigger:hover {
+  cursor: pointer;
+}
+.collapsible-trigger:focus {
+  box-shadow: var(--focus-shadow);
+}

@@ -1,0 +1,89 @@
+button {
+  all: unset;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.header-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.header-editor {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 24px;
+}
+.header-status {
+  padding-top: 0.5rem;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 10px;
+}
+.header-status.message-error {
+  color: var(--error-color);
+}
+.header-status.message-warning {
+  color: var(--warning-color);
+}
+.header-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.tabs-list {
+  flex-shrink: 0;
+  display: flex;
+  gap: 4px;
+}
+.tabs-trigger {
+  font-family: inherit;
+  background-color: var(--button-bg);
+  border-radius: var(--border-radius);
+  padding: 6px 10px;
+  height: 12px;
+  width: 76px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+  color: var(--button-color);
+  user-select: none;
+}
+.tabs-trigger[data-state='inactive'] {
+  border: 1px solid #a0a0a0;
+}
+.tabs-trigger:hover {
+  border: 1px solid #202020;
+}
+.tabs-trigger[data-state='active'] {
+  border: 1px solid #202020;
+}
+.tabs-trigger:focus {
+  position: relative;
+  box-shadow: var(--focus-shadow);
+}
+
+.tabs-trigger .dirty-state {
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 0.5rem;
+  margin-right: 0.25rem;
+  background-color: var(--button-color);
+}
+.tabs-trigger .dirty-state[data-state='configured'] {
+  background-color: var(--info-color);
+}
+.tabs-trigger .dirty-state[data-state='dirty'] {
+  background-color: var(--success-color);
+}
+.tabs-trigger .dirty-state[data-state='warning'] {
+  background-color: var(--warning-color);
+}
+.tabs-trigger .dirty-state[data-state='error'] {
+  background-color: var(--error-color);
+}
