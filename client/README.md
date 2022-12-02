@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Prototype of the web-based Inscription Editor
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This prototype is build with React and Headless Components.
+
+*This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).*
 
 ## Available Scripts
 

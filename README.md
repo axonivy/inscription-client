@@ -1,16 +1,10 @@
-# nextGenInscription
+# Next Gen Inscription Editor (Prototype)
 
-## Figma ideas:
+This repo contains the prototype of the web-based next gen inscription editors.
 
-Iscription panel auf der rechten Seite vom glsp editor (vielleicht als teil oder getrent in einer eigenen view)
+- [Client](client/README.md)
+- Server
 
-![Inscription panel](doc/figma-insc-panel.png)
+## UI Mockups
 
-### Mockups:
-
-![Mockup1](doc/figma-mockup-1.png)
-![Mockup2](doc/figma-mockup-2.png)
-![Mockup3](doc/figma-mockup-3.png)
-![Mockup4](doc/figma-mockup-4.png)
-![Mockup5](doc/figma-mockup-5.png)
-![Mockup6](doc/figma-mockup-6.png)
+[UI Mockups](doc/README.md)
