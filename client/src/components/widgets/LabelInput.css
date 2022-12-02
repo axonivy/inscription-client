@@ -1,0 +1,17 @@
+.label-input-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.label,
+.input-message {
+  padding-left: 4px;
+  font-size: 10px;
+}
+.input-message.input-error {
+  color: var(--error-color);
+}
+.input-message.input-warning {
+  color: var(--warning-color);
+}

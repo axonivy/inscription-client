@@ -1,0 +1,65 @@
+:root {
+  --editor-bg: #2c2c2c;
+  --editor-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
+    0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
+    0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
+  --seperator-color: #5a5a5a;
+  --tab-inactive-border: #a0a0a0;
+
+  --input-bg: #202020;
+  --input-color: white;
+  --button-bg: #202020;
+  --button-color: #bababa;
+  --text-color: #bababa;
+  --table-bg: #202020;
+  --table-row-bg: #333333;
+
+  --border-radius: 4px;
+  --focus-shadow: 0 0 0 1px var(--text-color);
+
+  --error-color: #ff796f;
+  --warning-color: #ff9f46;
+  --success-color: #1dca5a;
+  --info-color: #75beff;
+}
+
+.editor {
+  background: var(--editor-bg);
+  box-shadow: var(--editor-shadow);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  color: var(--text-color);
+}
+.tabs-root {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+/* Separator */
+.separator-root {
+  background-color: var(--seperator-color);
+}
+.separator-root[data-orientation='horizontal'] {
+  height: 1px;
+  width: 100%;
+}
+
+/* Input fields*/
+.input {
+  all: unset;
+  border-radius: var(--border-radius);
+  background: var(--input-bg);
+  width: calc(100% - 20px);
+  font-size: 12px;
+  line-height: 1;
+  color: var(--input-color);
+  text-align: start;
+  padding: 10px;
+}
+textarea.input {
+  resize: vertical;
+}
+.input:focus {
+  box-shadow: var(--focus-shadow);
+}

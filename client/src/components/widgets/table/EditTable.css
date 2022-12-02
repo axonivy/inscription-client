@@ -1,0 +1,92 @@
+.edit-table {
+  background: var(--table-bg);
+  border-radius: var(--border-radius);
+  width: calc(100% - 1rem);
+  padding: 0 0.5rem;
+}
+.table {
+  width: 100%;
+  border-spacing: 0 0.5rem;
+}
+.table .table-column-header {
+  padding: 10px;
+  text-align: start;
+  font-size: 10px;
+}
+.table .table-column-header .sortable-column {
+  cursor: pointer;
+}
+.table .table-column-header:last-child {
+  width: 4.5rem;
+}
+
+/* Table content */
+.table-cell {
+  padding: 12px;
+  background: var(--table-row-bg);
+}
+.table-cell:has(.input) {
+  padding: 7px;
+}
+.table-cell:first-child {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+.table-cell:last-child {
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+.table-cell .input {
+  background-color: var(--table-row-bg);
+  padding: 5px;
+}
+.table-cell .input:focus {
+  background-color: var(--input-bg);
+}
+.table-cell .action-buttons {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+.table-cell .action-buttons button {
+  border-radius: 4px;
+  font-size: 12px;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+}
+.table-cell .action-buttons button:hover {
+  cursor: pointer;
+  background-color: var(--button-bg);
+}
+.table-cell .action-buttons button:focus {
+  background-color: var(--button-bg);
+  box-shadow: var(--focus-shadow);
+}
+
+/* Add row button */
+.table .add-row {
+  background: var(--table-row-bg);
+  border-radius: var(--border-radius);
+}
+.table .add-row button {
+  height: 2rem;
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+.table .add-row button:hover,
+.table .add-row button:focus {
+  cursor: pointer;
+  box-shadow: var(--focus-shadow);
+}
+.table .add-row .add-row-plus {
+  margin-right: 0.5rem;
+  border: 1px solid currentColor;
+  border-radius: 1rem;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+}
