@@ -1,0 +1,249 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "UserTask",
+  "type": "object",
+  "additionalProperties": false,
+  "format": "categories",
+  "properties": {
+    "task": {
+      "$ref": "#/definitions/JTask"
+    },
+    "dialogId": {
+      "type": "string"
+    },
+    "startMethod": {
+      "type": "string"
+    },
+    "call": {
+      "$ref": "#/definitions/ParamMapCode"
+    },
+    "output": {
+      "$ref": "#/definitions/MapCode"
+    },
+    "case": {
+      "$ref": "#/definitions/Case"
+    }
+  },
+  "definitions": {
+    "JTask": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "EXCEPTION",
+            "HIGH",
+            "NORMAL",
+            "LOW"
+          ]
+        },
+        "responsible": {
+          "$ref": "#/definitions/JActivator"
+        },
+        "skipTaskList": {
+          "type": "boolean",
+          "format": "checkbox"
+        },
+        "delay": {
+          "type": "string"
+        },
+        "expiry": {
+          "$ref": "#/definitions/JExpiry"
+        },
+        "customFields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomField"
+          },
+          "format": "table"
+        },
+        "code": {
+          "type": "string",
+          "format": "textarea"
+        }
+      },
+      "required": [
+        "skipTaskList"
+      ]
+    },
+    "JActivator": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "userFromAttribute": {
+          "type": "string"
+        },
+        "roleFromAttribute": {
+          "type": "string"
+        }
+      }
+    },
+    "JExpiry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "timeout": {
+          "type": "string"
+        },
+        "responsible": {
+          "$ref": "#/definitions/JExpiryActivator"
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "EXCEPTION",
+            "HIGH",
+            "NORMAL",
+            "LOW"
+          ]
+        }
+      }
+    },
+    "JExpiryActivator": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "userFromAttribute": {
+          "type": "string"
+        },
+        "roleFromAttribute": {
+          "type": "string"
+        },
+        "deleteTask": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "deleteTask"
+      ]
+    },
+    "CustomField": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "default": "String",
+          "enum": [
+            "STRING",
+            "TEXT",
+            "NUMBER",
+            "TIMESTAMP"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "ParamMapCode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "params": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Param"
+          },
+          "format": "table"
+        },
+        "map": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mapping"
+          },
+          "format": "table"
+        },
+        "code": {
+          "type": "string",
+          "format": "textarea"
+        }
+      }
+    },
+    "Param": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        }
+      }
+    },
+    "Mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "leftSide": {
+          "type": "string"
+        },
+        "rightSide": {
+          "type": "string"
+        }
+      }
+    },
+    "MapCode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "map": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mapping"
+          },
+          "format": "table"
+        },
+        "code": {
+          "type": "string",
+          "format": "textarea"
+        }
+      }
+    },
+    "Case": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "customFields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomField"
+          },
+          "format": "table"
+        }
+      }
+    }
+  }
+}
