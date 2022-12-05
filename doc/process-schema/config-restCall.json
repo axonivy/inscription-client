@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "RestClientCall",
+  "type": "object",
+  "additionalProperties": false,
+  "format": "categories",
+  "properties": {
+    "request": {
+      "$ref": "#/definitions/JRequest"
+    },
+    "response": {
+      "$ref": "#/definitions/JResponse"
+    }
+  },
+  "definitions": {
+    "JRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "HEAD",
+            "DELETE",
+            "PATCH",
+            "OPTIONS",
+            "JAX_RS"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "queryParams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mapping"
+          },
+          "format": "table"
+        },
+        "templateParams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mapping"
+          },
+          "format": "table"
+        },
+        "body": {
+          "$ref": "#/definitions/JBody"
+        }
+      }
+    },
+    "Mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "leftSide": {
+          "type": "string"
+        },
+        "rightSide": {
+          "type": "string"
+        }
+      }
+    },
+    "JBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bodyInputType": {
+          "type": "string",
+          "enum": [
+            "ENTITY",
+            "FORM",
+            "RAW"
+          ],
+          "format": "radio"
+        },
+        "bodyObjectType": {
+          "type": "string"
+        },
+        "bodyObjectMapping": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mapping"
+          },
+          "format": "table"
+        }
+      }
+    },
+    "JResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resultType": {
+          "type": "string"
+        },
+        "responseMapping": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mapping"
+          },
+          "format": "table"
+        },
+        "responseCode": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "errors": {
+          "$ref": "#/definitions/JErrors"
+        }
+      }
+    },
+    "JErrors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "clientErrorCode": {
+          "type": "string"
+        },
+        "statusErrorCode": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
