@@ -5,6 +5,6 @@ This repo contains the prototype of the web-based next gen inscription editors.
 - [Client](client/README.md)
 - Server
 
-## UI Mockups
+## Docs
 
-[UI Mockups](doc/README.md)
+- [UI Mockups](doc/ui-mockup/README.md)
