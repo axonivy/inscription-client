@@ -24,6 +24,7 @@
   margin: 2px;
   z-index: 10;
   box-shadow: var(--editor-shadow);
+  top: calc(1em + 0.5rem + 30px);
 }
 .combobox-menu-entry {
   padding: 0.5rem;
