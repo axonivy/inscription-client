@@ -1,0 +1,36 @@
+.table-root {
+  background: var(--table-bg);
+  border-radius: var(--border-radius);
+  width: calc(100% - 1rem);
+  padding: 0 0.5rem;
+}
+.table {
+  width: 100%;
+  border-spacing: 0 0.5rem;
+}
+
+.table .table-column-header {
+  padding: 10px;
+  text-align: start;
+  font-size: 10px;
+}
+.table .table-column-header .sortable-column {
+  cursor: pointer;
+}
+.table .table-column-header:last-child {
+  width: 4.5rem;
+}
+
+.table-cell {
+  padding: 12px;
+  font-size: 12px;
+  background: var(--table-row-bg);
+}
+.table-cell:first-child {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+.table-cell:last-child {
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}

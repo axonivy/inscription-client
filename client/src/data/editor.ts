@@ -29,7 +29,31 @@ export function useUserDialogEditor(): EditorProps {
     ],
     tags: ['bla', 'zag']
   });
-  const callTabProps = useCallTab({ dialog: '', start: '' });
+  const callTabProps = useCallTab({
+    dialog: '',
+    start: '',
+    mappingData: {
+      mapping: [
+        {
+          attribute: 'param',
+          type: '<ProcurementRequest>',
+          expression: '',
+          children: [
+            {
+              attribute: 'procurementRequest',
+              type: 'ProcurementRequest',
+              expression: 'in',
+              children: [
+                { attribute: 'accepted', type: 'Boolean', expression: '', children: [] },
+                { attribute: 'amount', type: 'Number', expression: '', children: [] }
+              ]
+            }
+          ]
+        }
+      ],
+      code: 'ivy.log.info("Hello World")'
+    }
+  });
   const [headerState, setHeaderState] = useState([] as Message[]);
 
   const tabs: TabProps[] = [
