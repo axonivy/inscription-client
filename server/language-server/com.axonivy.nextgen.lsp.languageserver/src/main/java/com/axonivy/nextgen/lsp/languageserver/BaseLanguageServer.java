@@ -18,6 +18,7 @@ import org.eclipse.lsp4j.InitializedParams;
 import org.eclipse.lsp4j.PublishDiagnosticsParams;
 import org.eclipse.lsp4j.ServerCapabilities;
 import org.eclipse.lsp4j.ServerInfo;
+import org.eclipse.lsp4j.SetTraceParams;
 import org.eclipse.lsp4j.TextDocumentItem;
 import org.eclipse.lsp4j.TextDocumentSyncKind;
 import org.eclipse.lsp4j.services.LanguageClient;
@@ -57,6 +58,11 @@ public class BaseLanguageServer
 	@Override
 	public void connect(LanguageClient client) {
 		this.client = client;
+	}
+
+	@Override
+	public void setTrace(SetTraceParams params) {
+		// ignore
 	}
 
 	//
@@ -118,8 +124,9 @@ public class BaseLanguageServer
 	public void didChange(DidChangeTextDocumentParams params) {
 		Document document = openDocuments.get(params.getTextDocument().getUri());
 		if (document != null) {
-			document.applyTextDocumentChanges(params.getContentChanges());
-			documentChanged(document);
+			Document updatedDocument = document.applyTextDocumentChanges(params.getContentChanges());
+			openDocuments.put(params.getTextDocument().getUri(), updatedDocument);
+			documentChanged(updatedDocument);
 		}
 	}
 
@@ -164,14 +171,12 @@ public class BaseLanguageServer
 	}
 
 	protected void publishDiagnostics(String uri, List<Diagnostic> diagnostics) {
-		if (!diagnostics.isEmpty()) {
-			initialized.thenAccept((initParams) -> {
-				PublishDiagnosticsParams publishDiagnosticsParams = new PublishDiagnosticsParams();
-				publishDiagnosticsParams.setUri(uri);
-				publishDiagnosticsParams.setDiagnostics(diagnostics);
-				client.publishDiagnostics(publishDiagnosticsParams);
-			});
-		}
+		initialized.thenAccept((initParams) -> {
+			PublishDiagnosticsParams publishDiagnosticsParams = new PublishDiagnosticsParams();
+			publishDiagnosticsParams.setUri(uri);
+			publishDiagnosticsParams.setDiagnostics(diagnostics);
+			client.publishDiagnostics(publishDiagnosticsParams);
+		});
 	}
 
 	@Override

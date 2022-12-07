@@ -1,5 +1,6 @@
 package com.axonivy.nextgen.inscription.server;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
@@ -10,7 +11,8 @@ import com.axonivy.nextgen.inscription.server.protocol.DefaultInscriptionServer;
 import com.axonivy.nextgen.inscription.server.protocol.InscriptionClient;
 import com.axonivy.nextgen.inscription.server.protocol.InscriptionServer;
 import com.axonivy.nextgen.inscription.server.protocol.UserDialogParams;
-import com.axonivy.nextgen.inscription.server.protocol.model.UserDialog;
+import com.axonivy.nextgen.inscription.server.protocol.model.Document;
+import com.axonivy.nextgen.inscription.server.protocol.model.UserDialogData;
 
 public class DefaultInscriptionServerTest
 		extends ServerTest<InscriptionClient, InscriptionServer, DefaultInscriptionServer> {
@@ -28,17 +30,20 @@ public class DefaultInscriptionServerTest
 	@Test
 	public void testUserDialogEven() throws Exception {
 		UserDialogParams params = new UserDialogParams(2);
-		UserDialog expectedDialog = new UserDialog("Even", "Even Dialog", "workflow.task.evenRequest",
-				"start(StartRequest):Boolean,LogEntry", null);
-		UserDialog returnedDialog = serverProxy.userDialog(params).get(1, TimeUnit.MINUTES);
+		UserDialogData expectedDialog = new UserDialogData("Even Name", "Description",
+				List.of(new Document("Doc 1", "axonivy.com"), new Document("ivyTeam ❤️", "ivyteam.ch")),
+				List.of("bla", "zag"));
+		UserDialogData returnedDialog = serverProxy.userDialog(params).get(1, TimeUnit.MINUTES);
 		Assert.assertEquals(expectedDialog, returnedDialog);
 	}
 
 	@Test
 	public void testUserDialogOdd() throws Exception {
 		UserDialogParams params = new UserDialogParams(1);
-		UserDialog expectedDialog = new UserDialog();
-		UserDialog returnedDialog = serverProxy.userDialog(params).get(1, TimeUnit.MINUTES);
+		UserDialogData expectedDialog = new UserDialogData("Odd Name", "Description",
+				List.of(new Document("Doc 1", "axonivy.com"), new Document("ivyTeam ❤️", "ivyteam.ch")),
+				List.of("bla", "zag"));
+		UserDialogData returnedDialog = serverProxy.userDialog(params).get(1, TimeUnit.MINUTES);
 		Assert.assertEquals(expectedDialog, returnedDialog);
 	}
 }

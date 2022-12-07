@@ -15,9 +15,9 @@ export interface EditorProps {
 
 export function useUserDialogEditor(): EditorProps {
   const nameTabProps = useNameTab({
-    name: 'test name',
+    displayName: 'test name',
     description: 'test desc',
-    docs: [
+    documents: [
       {
         description: 'Doc 1',
         url: 'axonivy.com'
@@ -51,7 +51,7 @@ export function useUserDialogEditor(): EditorProps {
     if (messages.length > 0) {
       setHeaderState(messages);
     } else {
-      setHeaderState([{ field: 'name', severity: MessageSeverity.INFO, message: nameTabProps.data.name }]);
+      setHeaderState([{ field: 'name', severity: MessageSeverity.INFO, message: nameTabProps.data.displayName }]);
     }
   }, [nameTabProps.data, nameTabProps.messages, callTabProps.messages]);
   return { title: 'Inscribe User Dialog', headerState: headerState, tabs: tabs };

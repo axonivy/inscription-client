@@ -1,8 +1,8 @@
-import { Tabs, TabsContent } from '@radix-ui/react-tabs';
 import { Separator } from '@radix-ui/react-separator';
-import Header from './Header';
+import { Tabs, TabsContent } from '@radix-ui/react-tabs';
 import { EditorProps } from '../data/editor';
 import './Editor.css';
+import Header from './Header';
 
 const Editor = (props: EditorProps) => {
   const defaultTab = props.tabs.length > 0 ? props.tabs[0].name : '';

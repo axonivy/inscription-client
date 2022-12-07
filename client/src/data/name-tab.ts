@@ -4,9 +4,9 @@ import { Message, MessageSeverity } from './message';
 import { TabState, useTabState } from './tab';
 
 export interface NameTabData {
-  name: string;
+  displayName: string;
   description: string;
-  docs: Doc[];
+  documents: Doc[];
   tags: string[];
 }
 
@@ -23,7 +23,7 @@ export function useNameTab(initData: NameTabData, initMessages: Message[] = []):
   const tabState = useTabState(JSON.stringify(initData), data, messages);
   useEffect(() => {
     const msgs: Message[] = [];
-    if (data.name.length === 0) {
+    if (data.displayName.length === 0) {
       msgs.push({ field: 'name', severity: MessageSeverity.ERROR, message: '🚫 Name must not be empty' });
     }
     if (data.description.length === 0) {

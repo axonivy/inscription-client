@@ -57,7 +57,7 @@ public class WebSocketServerLauncher<SERVER_TYPE, CLIENT_TYPE> extends Disposabl
 
 	@Override
 	public void start(String hostname, int port) {
-		Log.setLog(new Log4j2Logger("WebsocketServerLauncher"));
+		Log.setLog(new Log4j2Logger(getClass().getSimpleName()));
 		try {
 			Server server = createServer(hostname, port);
 			addToDispose(() -> stopServer(server));
@@ -133,6 +133,7 @@ public class WebSocketServerLauncher<SERVER_TYPE, CLIENT_TYPE> extends Disposabl
 
 	protected class ServerWebSocketEndpoint extends WebSocketEndpoint<CLIENT_TYPE> {
 		public static final int MAX_TEXT_MESSAGE_BUFFER_SIZE = 8 * 1024 * 1024; // 8 MB
+		public static final int NO_IDLE_TIMEOUT = 0;
 
 		private SERVER_TYPE server;
 		private Class<CLIENT_TYPE> clientClass;
@@ -145,7 +146,9 @@ public class WebSocketServerLauncher<SERVER_TYPE, CLIENT_TYPE> extends Disposabl
 		@Override
 		public void onOpen(Session session, EndpointConfig config) {
 			session.setMaxTextMessageBufferSize(MAX_TEXT_MESSAGE_BUFFER_SIZE);
+			session.setMaxIdleTimeout(NO_IDLE_TIMEOUT);
 			super.onOpen(session, config);
+			LOGGER.info(getName() + " [Client-" + session.getId() + "] Connected.");
 		}
 
 		@Override
@@ -163,6 +166,7 @@ public class WebSocketServerLauncher<SERVER_TYPE, CLIENT_TYPE> extends Disposabl
 		public void onClose(Session session, CloseReason closeReason) {
 			IDisposable.disposeIfExists(server);
 			super.onClose(session, closeReason);
+			LOGGER.info(getName() + " [Client-" + session.getId() + "] Disconnected.");
 		}
 
 		@Override
