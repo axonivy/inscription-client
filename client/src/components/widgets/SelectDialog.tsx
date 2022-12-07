@@ -1,4 +1,4 @@
-import CollapsiblePart from './CollapsiblePart';
+import CollapsiblePart from './collapsible/CollapsiblePart';
 import Combobox, { ComboboxItem } from './Combobox';
 import { Message, MessageUtil } from '../../data/message';
 import { CallTabData } from '../../data/call-tab';
