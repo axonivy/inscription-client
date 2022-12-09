@@ -1,5 +1,5 @@
 import './App.css';
-import Editor from './components/Editor';
+import Editor from './components/InscriptionEditor';
 import { useUserDialogEditor } from './data/editor';
 
 function App() {

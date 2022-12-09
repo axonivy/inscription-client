@@ -1,8 +1,7 @@
 import CollapsiblePart from './collapsible/CollapsiblePart';
-import Combobox, { ComboboxItem } from './Combobox';
+import Combobox, { ComboboxItem } from './combobox/Combobox';
 import { Message, MessageUtil } from '../../data/message';
 import { CallTabData } from '../../data/call-tab';
-import './SelectDialog.css';
 
 const SelectDialog = (props: { data: CallTabData; onChange: (change: CallTabData) => void; messages: Message[] }) => {
   const callables: Callable[] = [
@@ -49,9 +48,9 @@ function isCallable(item: ComboboxItem): item is Callable {
 interface Start extends ComboboxItem {}
 
 const StartCombobox = (props: { starts: Start[]; value: string; onChange: (change: any) => void }) => {
-  const children = (item: Start) => <span>➡️ {item.value}</span>;
+  const comboboxItem = (item: Start) => <span>➡️ {item.value}</span>;
 
-  return <Combobox label='Start' items={props.starts} children={children} value={props.value} onChange={props.onChange} />;
+  return <Combobox label='Start' items={props.starts} comboboxItem={comboboxItem} value={props.value} onChange={props.onChange} />;
 };
 
 const CallableCombobox = (props: { callables: Callable[]; value: string; onChange: (change: any) => void; message?: Message }) => {
@@ -70,7 +69,7 @@ const CallableCombobox = (props: { callables: Callable[]; value: string; onChang
     );
   };
 
-  const children = (item: ComboboxItem) => {
+  const comboboxItem = (item: ComboboxItem) => {
     if (!isCallable(item)) {
       return <></>;
     }
@@ -86,7 +85,7 @@ const CallableCombobox = (props: { callables: Callable[]; value: string; onChang
     <Combobox
       label='Dialog'
       items={props.callables}
-      children={children}
+      comboboxItem={comboboxItem}
       itemFilter={itemFilter}
       value={props.value}
       onChange={props.onChange}
