@@ -1,7 +1,8 @@
+import './Combobox.css';
 import React, { useState } from 'react';
 import { useCombobox } from 'downshift';
-import LabelInput from './label/LabelInput';
-import { Message } from '../../data/message';
+import LabelInput from '../label/LabelInput';
+import { Message } from '../../../data/message';
 
 export interface ComboboxItem {
   value: string;
@@ -11,7 +12,7 @@ const Combobox = (props: {
   label: string;
   items: ComboboxItem[];
   itemFilter?: (item: ComboboxItem, input?: string) => boolean;
-  children: (item: ComboboxItem) => JSX.Element;
+  comboboxItem: (item: ComboboxItem) => JSX.Element;
   value: string;
   onChange: (change: string) => void;
   message?: Message;
@@ -65,7 +66,7 @@ const Combobox = (props: {
               key={`${item.value}${index}`}
               {...getItemProps({ item, index })}
             >
-              {props.children(item)}
+              {props.comboboxItem(item)}
             </li>
           ))}
       </ul>
