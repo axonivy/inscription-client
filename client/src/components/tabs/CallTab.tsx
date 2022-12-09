@@ -1,6 +1,6 @@
 import { CallTabData } from '../../data/call-tab';
 import { Message } from '../../data/message';
-import CollapsiblePart from '../widgets/CollapsiblePart';
+import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
 import SelectDialog from '../widgets/SelectDialog';
 import './CallTab.css';
 

@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
 import { useKeyboard } from 'react-aria';
 import * as Popover from '@radix-ui/react-popover';
-import LabelInput from './LabelInput';
+import LabelInput from '../label/LabelInput';
 import './Tags.css';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
-  const handleRemoveTag = (removeTag: string) => {
-    props.onChange(props.tags.filter(tag => tag !== removeTag));
-  };
+  const [tags, setTags] = useState(() => props.tags);
   const [newTag, setNewTag] = useState('');
   const [isOpen, setOpen] = useState(false);
+
+  const handleRemoveTag = (removeTag: string) => {
+    const newTags = tags.filter(tag => tag !== removeTag);
+    setTags(newTags);
+    props.onChange(newTags);
+  };
   const handleAddPopoverChange = (open: boolean) => {
     setOpen(open);
     if (!open && newTag.length > 0) {
-      props.tags.push(newTag);
-      props.onChange(props.tags);
+      const newTags = [...tags, newTag];
+      setTags(newTags);
+      props.onChange(newTags);
     }
     setNewTag('');
   };
@@ -31,8 +36,8 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
 
   return (
     <div className='tags'>
-      {props.tags.map((tag, index) => (
-        <div key={`${tag}-${index}`} className='tag'>
+      {tags.map((tag, index) => (
+        <div key={`${tag}-${index}`} className='tag' role='gridcell'>
           <button className='tag-remove' onClick={() => handleRemoveTag(tag)} aria-label={`Remove Tag ${tag}`} {...keyboardProps}>
             X
           </button>
@@ -41,7 +46,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
       ))}
       <Popover.Root open={isOpen} onOpenChange={handleAddPopoverChange}>
         <Popover.Trigger asChild>
-          <button className='tag-add' aria-label='Add mew tag'>
+          <button className='tag-add' aria-label='Add new tag'>
             <span className='tag-add-plus'>+</span>
             <span>Add</span>
           </button>

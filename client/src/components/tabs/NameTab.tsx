@@ -2,10 +2,10 @@ import React from 'react';
 import { Doc } from '../../data/document';
 import { Message, MessageUtil } from '../../data/message';
 import { NameTabData } from '../../data/name-tab';
-import CollapsiblePart from '../widgets/CollapsiblePart';
-import LabelInput from '../widgets/LabelInput';
+import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
+import LabelInput from '../widgets/label/LabelInput';
 import EditTable from '../widgets/table/EditTable';
-import Tags from '../widgets/Tags';
+import Tags from '../widgets/tag/Tags';
 import './NameTab.css';
 
 const NameTab = (props: { data: NameTabData; onChange: (change: NameTabData) => void; messages: Message[] }) => {

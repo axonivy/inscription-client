@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCombobox } from 'downshift';
-import LabelInput from './LabelInput';
+import LabelInput from './label/LabelInput';
 import { Message } from '../../data/message';
 
 export interface ComboboxItem {
