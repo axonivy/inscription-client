@@ -13,6 +13,12 @@ public class InscriptionServerSocketLauncher extends SocketServerLauncher<Inscri
 		super(InscriptionServerLaunch.NAME, DefaultInscriptionServer::new, InscriptionClient.class);
 	}
 
+	@Override
+	protected void connect(InscriptionServer server, InscriptionClient client) {
+		server.connect(client);
+		super.connect(server, client);
+	}
+
 	public static void main(String[] args) {
 		LogUtil.configure(true, Level.DEBUG);
 		new InscriptionServerSocketLauncher().start(InscriptionServerLaunch.HOST, InscriptionServerLaunch.PORT);

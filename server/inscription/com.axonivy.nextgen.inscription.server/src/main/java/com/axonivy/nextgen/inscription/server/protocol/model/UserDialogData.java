@@ -1,27 +1,30 @@
 package com.axonivy.nextgen.inscription.server.protocol.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.Gson;
 
-public class UserDialog {
+public class UserDialogData {
 	private String displayName;
 	private String description;
+	private List<Document> documents;
+	private List<String> tags;
 
-	private String dialog;
-	private String start;
-
-	private DataMapping root;
-
-	public UserDialog() {
+	public UserDialogData() {
 		super();
 	}
 
-	public UserDialog(String displayName, String description, String dialog, String start, DataMapping root) {
+	public UserDialogData(UserDialogData data) {
+		this(data.getDisplayName(), data.getDescription(), data.getDocuments(), data.getTags());
+	}
+
+	public UserDialogData(String displayName, String description, List<Document> documents, List<String> tags) {
 		super();
 		this.displayName = displayName;
 		this.description = description;
-		this.dialog = dialog;
-		this.start = start;
-		this.root = root;
+		this.documents = new ArrayList<>(documents);
+		this.tags = new ArrayList<>(tags);
 	}
 
 	public String getDisplayName() {
@@ -40,28 +43,20 @@ public class UserDialog {
 		this.description = description;
 	}
 
-	public String getDialog() {
-		return dialog;
+	public List<Document> getDocuments() {
+		return documents;
 	}
 
-	public void setDialog(String dialog) {
-		this.dialog = dialog;
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
 	}
 
-	public String getStart() {
-		return start;
+	public List<String> getTags() {
+		return tags;
 	}
 
-	public void setStart(String start) {
-		this.start = start;
-	}
-
-	public DataMapping getRoot() {
-		return root;
-	}
-
-	public void setRoot(DataMapping root) {
-		this.root = root;
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 
 	@Override
@@ -69,10 +64,9 @@ public class UserDialog {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((dialog == null) ? 0 : dialog.hashCode());
 		result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
-		result = prime * result + ((root == null) ? 0 : root.hashCode());
-		result = prime * result + ((start == null) ? 0 : start.hashCode());
+		result = prime * result + ((documents == null) ? 0 : documents.hashCode());
+		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		return result;
 	}
 
@@ -84,31 +78,26 @@ public class UserDialog {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserDialog other = (UserDialog) obj;
+		UserDialogData other = (UserDialogData) obj;
 		if (description == null) {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
-			return false;
-		if (dialog == null) {
-			if (other.dialog != null)
-				return false;
-		} else if (!dialog.equals(other.dialog))
 			return false;
 		if (displayName == null) {
 			if (other.displayName != null)
 				return false;
 		} else if (!displayName.equals(other.displayName))
 			return false;
-		if (root == null) {
-			if (other.root != null)
+		if (documents == null) {
+			if (other.documents != null)
 				return false;
-		} else if (!root.equals(other.root))
+		} else if (!documents.equals(other.documents))
 			return false;
-		if (start == null) {
-			if (other.start != null)
+		if (tags == null) {
+			if (other.tags != null)
 				return false;
-		} else if (!start.equals(other.start))
+		} else if (!tags.equals(other.tags))
 			return false;
 		return true;
 	}
