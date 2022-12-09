@@ -1,0 +1,11 @@
+.table-cell:has(.input) {
+  padding: 7px;
+}
+.table-cell .input {
+  background-color: var(--table-row-bg);
+  padding: 5px;
+}
+.table-cell .input:hover,
+.table-cell .input:focus {
+  background-color: var(--input-bg);
+}

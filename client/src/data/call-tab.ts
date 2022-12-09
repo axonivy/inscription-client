@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { MappingData } from './mapping';
 import { Message, MessageSeverity } from './message';
 import { TabState, useTabState } from './tab';
 
 export interface CallTabData {
   dialog: string;
   start: string;
+  mappingData: MappingData;
 }
 
 export interface CallTabProps {

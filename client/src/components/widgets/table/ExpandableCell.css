@@ -1,0 +1,13 @@
+.table-column-header .column-expand-button {
+  cursor: pointer;
+}
+.table-column-header .column-expand-button:focus {
+  box-shadow: var(--focus-shadow);
+}
+
+.table-cell .row-expand-button {
+  cursor: pointer;
+}
+.table-cell .row-expand-button:focus {
+  box-shadow: var(--focus-shadow);
+}
