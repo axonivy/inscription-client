@@ -46,7 +46,7 @@
     "serve": "vite preview",
     "test": "react-scripts test",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
-    "test:ci": "npm run test -- --testResultsProcessor=\"jest-junit\""
+    "test:ci": "yarn test -- --testResultsProcessor=\"jest-junit\""
   },
   "eslintConfig": {
     "extends": [
