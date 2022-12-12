@@ -13,7 +13,7 @@ import {
 import { Mapping } from '../../../data/mapping';
 import { EditableCell, editableCellMeta } from './EditableCell';
 import { ExpandableCell, ExpandableHeader } from './ExpandableCell';
-import { Table, TableCell, TableHeader, TableHeaderSorted } from './Table';
+import { Table, TableCell, TableHeader } from './Table';
 
 const MappingTree = (props: { data: Mapping[]; onChange: (change: Mapping[]) => void }) => {
   const columns = React.useMemo<ColumnDef<Mapping>[]>(
@@ -74,7 +74,7 @@ const MappingTree = (props: { data: Mapping[]; onChange: (change: Mapping[]) => 
           <tr key={headerGroup.id}>
             {headerGroup.headers.map(header => (
               <TableHeader key={header.id} colSpan={header.colSpan}>
-                <TableHeaderSorted header={header} />
+                {flexRender(header.column.columnDef.header, header.getContext())}
               </TableHeader>
             ))}
           </tr>

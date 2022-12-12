@@ -17,8 +17,8 @@
 .table .table-column-header .sortable-column {
   cursor: pointer;
 }
-.table .table-column-header:last-child {
-  width: 4.5rem;
+.table .table-column-header .sortable-column:focus {
+  box-shadow: var(--focus-shadow);
 }
 
 .table-cell {

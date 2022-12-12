@@ -44,6 +44,18 @@ describe('DocumentTable', () => {
     assertTableRows([/Description/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '+']);
   });
 
+  test('table can sort columns', async () => {
+    renderTable();
+    const columnHeader = screen.getByRole('button', { name: 'Description' });
+    await userEvent.click(columnHeader);
+    assertTableHeaders(['Description 🔼', 'URL', 'Actions', '+']);
+    assertTableRows([/Description/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '+']);
+
+    await userEvent.click(columnHeader);
+    assertTableHeaders(['Description 🔽', 'URL', 'Actions', '+']);
+    assertTableRows([/Description/, /ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/, '+']);
+  });
+
   test('table can add new row', async () => {
     let data: Doc[] = [];
     renderTable({ onChange: (change: Doc[]) => (data = change) });
@@ -90,7 +102,10 @@ describe('DocumentTable', () => {
     let data: Doc[] = [];
     renderTable({ onChange: (change: Doc[]) => (data = change) });
 
+    await userEvent.tab(); // column header 1
+    await userEvent.tab(); // column header 2
     await userEvent.tab();
+    expect(screen.getByDisplayValue(/Doc 1/)).toHaveFocus();
     await userEvent.keyboard('Hello');
     await userEvent.tab();
 

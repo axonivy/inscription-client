@@ -1,5 +1,6 @@
 import './Table.css';
 import { flexRender, Header } from '@tanstack/react-table';
+import { ReactNode } from 'react';
 
 export const Table = (props: { children?: JSX.Element[] }) => (
   <div className='table-root'>
@@ -7,7 +8,7 @@ export const Table = (props: { children?: JSX.Element[] }) => (
   </div>
 );
 
-export const TableHeader = (props: { colSpan: number; children?: JSX.Element | string }) => (
+export const TableHeader = (props: { colSpan: number; children?: JSX.Element | string | ReactNode }) => (
   <th className='table-column-header' colSpan={props.colSpan}>
     {props.children}
   </th>
@@ -18,7 +19,7 @@ export function TableHeaderSorted<TData>(props: { header: Header<TData, unknown>
   return (
     <>
       {header.isPlaceholder ? undefined : (
-        <div
+        <button
           {...{
             className: header.column.getCanSort() ? 'sortable-column' : '',
             onClick: header.column.getToggleSortingHandler()
@@ -29,7 +30,7 @@ export function TableHeaderSorted<TData>(props: { header: Header<TData, unknown>
             asc: ' 🔼',
             desc: ' 🔽'
           }[header.column.getIsSorted() as string] ?? null}
-        </div>
+        </button>
       )}
     </>
   );
