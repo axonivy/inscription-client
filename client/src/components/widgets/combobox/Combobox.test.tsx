@@ -1,8 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Message, MessageSeverity } from '../../props/message';
 import Combobox, { ComboboxItem } from './Combobox';
-import { Message, MessageSeverity } from '../../../data/message';
 
 describe('Combobox', () => {
   function renderCombobox(
@@ -22,7 +21,7 @@ describe('Combobox', () => {
         itemFilter={options.itemFilter}
         comboboxItem={options.comboboxItem ? options.comboboxItem : item => <span>{item.value}</span>}
         value={value}
-        onChange={options.onChange ? options.onChange : () => {}}
+        onChange={options.onChange ? options.onChange : () => { }}
         message={options.message}
       />
     );

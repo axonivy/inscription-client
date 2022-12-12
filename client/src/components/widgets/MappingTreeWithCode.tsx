@@ -1,11 +1,15 @@
-import { Mapping, MappingData } from '../../data/mapping';
-import { Message, MessageUtil } from '../../data/message';
+
+import Editor from '@monaco-editor/react';
+import { memo } from 'react';
+import { MINIMAL_STYLE } from '../../client/monaco-util';
+import { Mapping, MappingData } from '../../data/inscription';
+import { Message, MessageUtil } from '../props/message';
 import LabelInput from './label/LabelInput';
 import MappingTree from './table/MappingTree';
 
 const MappingTreeWithCode = (props: { data: MappingData; onChange: (change: MappingData) => void; messages: Message[] }) => {
   const handleMappingChange = (change: Mapping[]) => props.onChange({ ...props.data, mapping: change });
-  const handleCodeChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => props.onChange({ ...props.data, code: event.target.value });
+  const handleCodeChange = (code?: string) => props.onChange({ ...props.data, code: code || '' });
 
   return (
     <>
@@ -13,10 +17,20 @@ const MappingTreeWithCode = (props: { data: MappingData; onChange: (change: Mapp
         <MappingTree data={props.data.mapping} onChange={handleMappingChange} />
       </LabelInput>
       <LabelInput label='Code' htmlFor='code' message={MessageUtil.findMessage(props.messages, 'code')}>
-        <textarea className='input' id='code' value={props.data.code} onChange={handleCodeChange} />
+        <Editor
+          className='input'
+          defaultValue={props.data.code}
+          value={props.data.code}
+          defaultLanguage='form'
+          height='90px'
+          defaultPath='root.form'
+          options={MINIMAL_STYLE}
+          theme='axon-input'
+          onChange={handleCodeChange}
+        />
       </LabelInput>
     </>
   );
 };
 
-export default MappingTreeWithCode;
+export default memo(MappingTreeWithCode);

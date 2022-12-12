@@ -4,19 +4,21 @@ import {
     Event
 } from 'vscode-jsonrpc';
 import {
-    Disposable, toSocket, WebSocketMessageReader, WebSocketMessageWriter
+    Disposable
 } from 'vscode-ws-jsonrpc';
-import { Inscription, InscriptionNotificationTypes, InscriptionRequestTypes } from './inscription-protocol';
+import { UserDialogData } from '../data/inscription';
+import { ConnectionUtil } from './connection-util';
+import { InscriptionNotificationTypes, InscriptionRequestTypes } from './inscription-protocol';
 import { BaseRcpClient } from './rcp-client';
 
 export interface InscriptionClient {
     initialize(): Promise<boolean>;
-    userDialog(dialogId: number): Promise<Inscription.UserDialogData>;
-    onUserDialogChanged: Event<Inscription.UserDialogData>
+    userDialog(dialogId: number): Promise<UserDialogData>;
+    onUserDialogChanged: Event<UserDialogData>
 }
 
 export class JsonRpcInscriptionClient extends BaseRcpClient implements InscriptionClient {
-    protected onUserDialogChangedEmitter = new Emitter<Inscription.UserDialogData>();
+    protected onUserDialogChangedEmitter = new Emitter<UserDialogData>();
     onUserDialogChanged = this.onUserDialogChangedEmitter.event;
 
     protected override setupConnection(): void {
@@ -25,7 +27,7 @@ export class JsonRpcInscriptionClient extends BaseRcpClient implements Inscripti
         this.onNotification('userDialogChanged', dialog => this.onUserDialogChangedEmitter.fire(dialog));
     }
 
-    userDialog(dialogId: number): Promise<Inscription.UserDialogData> {
+    userDialog(dialogId: number): Promise<UserDialogData> {
         return this.sendRequest('userDialog', { dialogId });
     }
 
@@ -45,20 +47,12 @@ export class JsonRpcInscriptionClient extends BaseRcpClient implements Inscripti
 }
 
 export namespace InscriptionClient {
-    export function startWebSocketClient(url: string): Promise<InscriptionClient> {
-        return new Promise<InscriptionClient>(resolve => {
-            const webSocket = new WebSocket(url);
-            webSocket.onopen = async () => {
-                const socket = toSocket(webSocket);
-                const reader = new WebSocketMessageReader(socket);
-                const writer = new WebSocketMessageWriter(socket);
-                const connection = createMessageConnection(reader, writer);
-                const client = new JsonRpcInscriptionClient(connection);
-                client.start();
-                reader.onClose(() => client.stop());
-                resolve(client);
-            };
-            webSocket.onerror = _event => alert('Connection to server errored. Please make sure that the server is running');
-        });
+    export async function startWebSocketClient(url: string): Promise<InscriptionClient> {
+        const connection = await ConnectionUtil.createWebSocketConnection(url);
+        const messageConnection = createMessageConnection(connection.reader, connection.writer);
+        const client = new JsonRpcInscriptionClient(messageConnection);
+        client.start();
+        connection.reader.onClose(() => client.stop());
+        return client;
     }
 }

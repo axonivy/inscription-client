@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const ResultTab = () => <div>Content of Result</div>;
 
-export default ResultTab;
+export default memo(ResultTab);

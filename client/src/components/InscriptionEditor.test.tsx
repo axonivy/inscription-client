@@ -1,9 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Editor from './InscriptionEditor';
-import { TabProps, TabState } from '../data/tab';
-import { Message, MessageSeverity } from '../data/message';
 import userEvent from '@testing-library/user-event';
+import Editor from './InscriptionEditor';
+import { Message, MessageSeverity } from './props/message';
+import { TabProps, TabState } from './props/tab';
 
 describe('Editor', () => {
   function renderEditor(options: { headerState?: Message[] } = {}) {

@@ -1,8 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Mapping } from '../../../data/inscription';
 import MappingTree from './MappingTree';
-import { Mapping } from '../../../data/mapping';
 
 describe('MappingTree', () => {
   const data: Mapping[] = [

@@ -7,14 +7,26 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.axonivy.nextgen.common.DisposableCollection;
+import com.axonivy.nextgen.inscription.server.protocol.model.CallData;
 import com.axonivy.nextgen.inscription.server.protocol.model.Document;
+import com.axonivy.nextgen.inscription.server.protocol.model.Mapping;
+import com.axonivy.nextgen.inscription.server.protocol.model.MappingData;
+import com.axonivy.nextgen.inscription.server.protocol.model.NameData;
 import com.axonivy.nextgen.inscription.server.protocol.model.UserDialogData;
 
 public class DefaultInscriptionServer extends DisposableCollection implements InscriptionServer {
 
-	private static final UserDialogData EXAMPLE_DIALOG = new UserDialogData("Name", "Description",
-			List.of(new Document("Doc 1", "axonivy.com"), new Document("ivyTeam ❤️", "ivyteam.ch")),
-			List.of("bla", "zag"));
+	private static final UserDialogData EXAMPLE_DIALOG = new UserDialogData(
+			new NameData("Name", "Description",
+					List.of(new Document("Doc 1", "axonivy.com"), new Document("ivyTeam ❤️", "ivyteam.ch")),
+					List.of("bla", "zag")),
+			new CallData("", "",
+					new MappingData(
+							List.of(new Mapping("param", "<ProcurementRequest>", "",
+									List.of(new Mapping("procurementRequest", "ProcurementRequest", "in",
+											List.of(new Mapping("accepted", "Boolean", "", List.of()),
+													new Mapping("amount", "Number", "", List.of())))))),
+							"ivy.log.info(\"Hello World\")")));
 
 	@Override
 	public void connect(InscriptionClient client) {
@@ -25,8 +37,8 @@ public class DefaultInscriptionServer extends DisposableCollection implements In
 
 	private void updateClient(InscriptionClient client) {
 		UserDialogData data = new UserDialogData(EXAMPLE_DIALOG);
-		data.setDescription("Updated on " + Long.toString(System.currentTimeMillis()));
-		data.getTags().add("update");
+		data.getNameData().setDescription("Updated on " + Long.toString(System.currentTimeMillis()));
+		data.getNameData().getTags().add("update");
 		client.userDialogChanged(data);
 	}
 
@@ -42,7 +54,7 @@ public class DefaultInscriptionServer extends DisposableCollection implements In
 
 	protected UserDialogData supplyUserDialog(UserDialogParams params) {
 		UserDialogData data = new UserDialogData(EXAMPLE_DIALOG);
-		data.setDisplayName(params.getDialogId() % 2 == 0 ? "Even Name" : "Odd Name");
+		data.getNameData().setDisplayName(params.getDialogId() % 2 == 0 ? "Even Name" : "Odd Name");
 		return data;
 	}
 }

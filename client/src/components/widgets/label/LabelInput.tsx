@@ -1,5 +1,6 @@
 import { Label } from '@radix-ui/react-label';
-import { Message } from '../../../data/message';
+import { memo } from 'react';
+import { Message } from '../../props/message';
 import './LabelInput.css';
 
 const LabelInput = (props: { label: string; htmlFor: string; message?: Message; children: JSX.Element }) => (
@@ -12,4 +13,4 @@ const LabelInput = (props: { label: string; htmlFor: string; message?: Message; 
   </div>
 );
 
-export default LabelInput;
+export default memo(LabelInput);

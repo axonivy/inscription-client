@@ -1,7 +1,7 @@
-import './EditableCell.css';
-import React from 'react';
 import { CellContext, RowData } from '@tanstack/react-table';
-import { TreeData } from '../../../data/tree';
+import React, { useEffect } from 'react';
+import { TreeData } from '../../../data/inscription';
+import './EditableCell.css';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -48,7 +48,7 @@ export function EditableCell<TData>(props: { cell: CellContext<TData, unknown> }
   const onBlur = () => {
     props.cell.table.options.meta?.updateData(props.cell.row.id, props.cell.column.id, value);
   };
-  React.useEffect(() => {
+  useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
   return <input className='input' value={value as string} onChange={e => setValue(e.target.value)} onBlur={onBlur} />;

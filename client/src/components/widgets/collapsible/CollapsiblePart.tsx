@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
+import { memo, useState } from 'react';
 import './CollapsiblePart.css';
 
 const CollapsiblePart = (props: { collapsibleLabel: string; defaultOpen: boolean; children: JSX.Element[] | JSX.Element }) => {
@@ -19,4 +19,4 @@ const CollapsiblePart = (props: { collapsibleLabel: string; defaultOpen: boolean
   );
 };
 
-export default CollapsiblePart;
+export default memo(CollapsiblePart);

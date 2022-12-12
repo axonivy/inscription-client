@@ -1,12 +1,12 @@
+import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
+import React, { memo, useState } from 'react';
+import { Document } from '../../../data/inscription';
 import './DocumentTable.css';
-import React from 'react';
-import { ColumnDef, useReactTable, getCoreRowModel, flexRender, SortingState, getSortedRowModel } from '@tanstack/react-table';
-import { Doc } from '../../../data/document';
 import { EditableCell, editableCellMeta } from './EditableCell';
 import { Table, TableCell, TableHeader, TableHeaderSorted } from './Table';
 
-const DocumentTable = (props: { data: Doc[]; onChange: (change: Doc[]) => void }) => {
-  const columns = React.useMemo<ColumnDef<Doc>[]>(
+const DocumentTable = (props: { data: Document[]; onChange: (change: Document[]) => void }) => {
+  const columns = React.useMemo<ColumnDef<Document>[]>(
     () => [
       {
         accessorKey: 'description',
@@ -25,37 +25,28 @@ const DocumentTable = (props: { data: Doc[]; onChange: (change: Doc[]) => void }
     []
   );
 
-  const [data, setData] = React.useState(() => props.data);
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
 
-  const addRow = () =>
-    setData(() => {
-      const newData = [...data];
-      newData.push({ description: '', url: '' });
-      props.onChange(newData);
-      return newData;
-    });
+  const addRow = () => {
+    const newData = [...props.data];
+    newData.push({ description: '', url: '' });
+    props.onChange(newData);
+  }
 
   const removeTableRow = (index: number) => {
-    const newData = [...data];
+    const newData = [...props.data];
     newData.splice(index, 1);
     props.onChange(newData);
-    setData(newData);
   };
 
   const table = useReactTable({
-    data,
+    data: props.data,
     columns,
-    state: {
-      sorting
-    },
+    state: { sorting },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    meta: editableCellMeta(data, (newData: Doc[]) => {
-      setData(newData);
-      props.onChange(newData);
-    })
+    meta: editableCellMeta(props.data, newData => props.onChange(newData))
   });
 
   return (
@@ -101,4 +92,4 @@ const DocumentTable = (props: { data: Doc[]; onChange: (change: Doc[]) => void }
   );
 };
 
-export default DocumentTable;
+export default memo(DocumentTable);
