@@ -35,5 +35,6 @@
   },
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "jest.jestCommandLine": "yarn test"
 }

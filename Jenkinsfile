@@ -15,7 +15,7 @@ pipeline {
         script {
           dir ('client') {
             docker.build('node').inside {
-              sh 'yarn build'
+              sh 'yarn ci'
             }
           }
         }
@@ -37,11 +37,11 @@ pipeline {
     always {
       discoverGitReferenceBuild defaultBranch: 'master'
       // Record & publish ESLint issues
-      recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: '**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+      recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
       // recordIssues tools: [mavenConsole()], unstableTotalAll: 1
 
       withChecks('Client Tests') {
-        junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/junit.xml'
+        junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/junit.xml'
       }
       withChecks('Server Tests') {
         junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/target/surefire-reports/**/*.xml'

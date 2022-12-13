@@ -1,0 +1,29 @@
+{
+  "name": "@axon-ivy/core",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@axon-ivy/core": "0.1.0",
+    "monaco-editor": "^0.34.1",
+    "monaco-editor-workers": "^0.34.2",
+    "vscode-languageserver-protocol": "^3.17.2",
+    "monaco-languageclient": "^4.0.3",
+    "vscode-ws-jsonrpc": "^2.0.1",
+    "vscode-jsonrpc": "^8.0.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "prepare": "yarn build",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "build": "tsc -b",
+    "build:clean": "yarn clean && yarn build",
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
+    "watch": "tsc -w"
+  }
+}

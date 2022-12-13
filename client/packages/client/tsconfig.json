@@ -1,0 +1,17 @@
+{
+    "extends": "../../config/tsconfig.json",
+    "compilerOptions": {
+        "composite": true,
+        "baseUrl": ".",
+        "rootDir": "src",
+        "outDir": "lib",
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "esnext"
+        ]
+    },
+    "include": [
+        "src"
+    ]
+}
