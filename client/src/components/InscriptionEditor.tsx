@@ -1,8 +1,9 @@
-import './InscriptionEditor.css';
-import editorIcon from '../icons/user-dialog.svg';
 import { Separator } from '@radix-ui/react-separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
-import { EditorProps } from '../data/editor';
+import { memo } from 'react';
+import editorIcon from '../icons/user-dialog.svg';
+import './InscriptionEditor.css';
+import { EditorProps } from './props/editor';
 
 const Header = (props: EditorProps) => (
   <>
@@ -45,4 +46,5 @@ const Editor = (props: EditorProps) => {
   );
 };
 
-export default Editor;
+const MemoizedEditor = memo(Editor);
+export default MemoizedEditor;

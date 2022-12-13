@@ -1,7 +1,6 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { Message, MessageSeverity } from '../../props/message';
 import LabelInput from './LabelInput';
-import { Message, MessageSeverity } from '../../../data/message';
 
 describe('LabelInput', () => {
   function renderLabelInput(message?: Message) {

@@ -1,9 +1,8 @@
+import { CallData } from '../../data/inscription';
+import { Message, MessageUtil } from '../props/message';
 import CollapsiblePart from './collapsible/CollapsiblePart';
 import Combobox, { ComboboxItem } from './combobox/Combobox';
-import { Message, MessageUtil } from '../../data/message';
-import { CallTabData } from '../../data/call-tab';
-
-const SelectDialog = (props: { data: CallTabData; onChange: (change: CallTabData) => void; messages: Message[] }) => {
+const SelectDialog = (props: { data: CallData; onChange: (change: CallData) => void; messages: Message[] }) => {
   const callables: Callable[] = [
     { value: 'workflow.humantask.AcceptRequest', process: 'AcceptRequest', project: 'workflow.humantask [workflow-demos]' },
     { value: 'workflow.credit.ApproveLevel1', process: 'ApproveLevel1', project: 'workflow.credit [workflow-demos]' },

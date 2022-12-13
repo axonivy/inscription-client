@@ -1,21 +1,24 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import DocumentTable from './DocumentTable';
-import { Doc } from '../../../data/document';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Document } from '../../../data/inscription';
+import DocumentTable from './DocumentTable';
 
 describe('DocumentTable', () => {
-  const documents: Doc[] = [
+  const documents: Document[] = [
     { description: 'Doc 1', url: 'axonivy.com' },
     { description: 'ivyTeam ❤️', url: 'ivyteam.ch' }
   ];
-
-  function renderTable(
-    options: {
-      onChange?: (change: Doc[]) => void;
-    } = {}
-  ) {
-    render(<DocumentTable data={documents} onChange={options.onChange ? options.onChange : () => {}} />);
+  function renderTable(): {
+    data: () => Document[],
+    rerender: () => void
+  } {
+    let data: Document[] = [];
+    const view = render(<DocumentTable data={documents} onChange={change => data = change} />);
+    return {
+      data: () => data,
+      // eslint-disable-next-line testing-library/no-unnecessary-act
+      rerender: () => view.rerender(<DocumentTable data={data} onChange={change => data = change} />)
+    };
   }
 
   function assertTableHeaders(expectedHeaders: string[]) {
@@ -34,8 +37,8 @@ describe('DocumentTable', () => {
     });
   }
 
-  function assertTableRowCount(expectedRows: number) {
-    expect(screen.getAllByRole('row')).toHaveLength(expectedRows);
+  function assertTableRowCount(expectedRows: number): Promise<void> {
+    return waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(expectedRows));
   }
 
   test('table will render', () => {
@@ -57,67 +60,70 @@ describe('DocumentTable', () => {
   });
 
   test('table can add new row', async () => {
-    let data: Doc[] = [];
-    renderTable({ onChange: (change: Doc[]) => (data = change) });
-    assertTableRowCount(4);
+    const view = renderTable();
+    await assertTableRowCount(4);
 
     const addButton = screen.getByRole('button', { name: '+' });
     await userEvent.click(addButton);
-    assertTableRowCount(5);
-    expect(data).toHaveLength(3);
+    expect(view.data()).toHaveLength(3);
+
+    view.rerender();
+    await assertTableRowCount(5);
   });
 
   test('table can remove a row', async () => {
-    let data: Doc[] = [];
-    renderTable({ onChange: (change: Doc[]) => (data = change) });
-    assertTableRowCount(4);
+    const view = renderTable();
+    await assertTableRowCount(4);
 
     const removeButtons = screen.getAllByRole('button', { name: '🗑️' });
     expect(removeButtons).toHaveLength(2);
     await userEvent.click(removeButtons[0]);
-    assertTableRowCount(3);
-    expect(data).toHaveLength(1);
+    expect(view.data()).toHaveLength(1);
+
+    view.rerender();
+    await assertTableRowCount(3);
   });
 
   test('table can add/remove rows by keyboard', async () => {
-    let data: Doc[] = [];
-    renderTable({ onChange: (change: Doc[]) => (data = change) });
-    assertTableRowCount(4);
+    const view = renderTable();
+    await assertTableRowCount(4);
 
     const addButton = screen.getByRole('button', { name: '+' });
     addButton.focus();
     await userEvent.keyboard('[Enter]');
-    assertTableRowCount(5);
-    expect(data).toHaveLength(3);
+    expect(view.data()).toHaveLength(3);
+
+    view.rerender();
+    await assertTableRowCount(5);
 
     const removeButtons = screen.getAllByRole('button', { name: '🗑️' });
     expect(removeButtons).toHaveLength(3);
     removeButtons[2].focus();
     await userEvent.keyboard('[Enter]');
-    assertTableRowCount(4);
-    expect(data).toHaveLength(2);
+    expect(view.data()).toHaveLength(2);
+
+    view.rerender();
+    await assertTableRowCount(4);
   });
 
   test('table can edit cells', async () => {
-    let data: Doc[] = [];
-    renderTable({ onChange: (change: Doc[]) => (data = change) });
-
+    const view = renderTable();
     await userEvent.tab(); // column header 1
     await userEvent.tab(); // column header 2
     await userEvent.tab();
     expect(screen.getByDisplayValue(/Doc 1/)).toHaveFocus();
     await userEvent.keyboard('Hello');
     await userEvent.tab();
+    view.rerender();
 
     const descInput = screen.getByDisplayValue(/ivyteam.ch/);
     await userEvent.clear(descInput);
     await userEvent.type(descInput, 'World');
 
-    expect(JSON.stringify(data)).toEqual(
-      JSON.stringify([
+    expect(view.data()).toEqual(
+      [
         { description: 'Hello', url: 'axonivy.com' },
         { description: 'ivyTeam ❤️', url: 'ivyteam.ch' }
-      ])
-    );
+      ]);
   });
 });

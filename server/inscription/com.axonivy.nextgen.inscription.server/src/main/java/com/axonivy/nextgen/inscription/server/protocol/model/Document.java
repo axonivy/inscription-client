@@ -1,5 +1,7 @@
 package com.axonivy.nextgen.inscription.server.protocol.model;
 
+import java.util.Objects;
+
 import com.google.gson.Gson;
 
 public class Document {
@@ -34,33 +36,19 @@ public class Document {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((url == null) ? 0 : url.hashCode());
-		return result;
+		return Objects.hash(description, url);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (!(obj instanceof Document)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		Document other = (Document) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (url == null) {
-			if (other.url != null)
-				return false;
-		} else if (!url.equals(other.url))
-			return false;
-		return true;
+		return Objects.equals(description, other.description) && Objects.equals(url, other.url);
 	}
 
 	@Override

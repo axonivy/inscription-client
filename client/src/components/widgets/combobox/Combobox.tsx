@@ -1,8 +1,8 @@
-import './Combobox.css';
-import React, { useState } from 'react';
 import { useCombobox } from 'downshift';
+import { memo, useState } from 'react';
+import { Message } from '../../props/message';
 import LabelInput from '../label/LabelInput';
-import { Message } from '../../../data/message';
+import './Combobox.css';
 
 export interface ComboboxItem {
   value: string;
@@ -20,12 +20,12 @@ const Combobox = (props: {
   const itemFilter = props.itemFilter
     ? props.itemFilter
     : (item: ComboboxItem, input?: string) => {
-        if (!input) {
-          return true;
-        }
-        var filter = input.toLowerCase();
-        return item.value.toLowerCase().includes(filter);
-      };
+      if (!input) {
+        return true;
+      }
+      var filter = input.toLowerCase();
+      return item.value.toLowerCase().includes(filter);
+    };
 
   const [items, setItems] = useState(props.items);
   const { isOpen, getToggleButtonProps, getLabelProps, getMenuProps, getInputProps, highlightedIndex, getItemProps, selectedItem } =
@@ -60,9 +60,8 @@ const Combobox = (props: {
         {isOpen &&
           items.map((item, index) => (
             <li
-              className={`combobox-menu-entry ${highlightedIndex === index ? 'hover' : ''} ${
-                selectedItem?.value === item.value ? 'selected' : ''
-              }`}
+              className={`combobox-menu-entry ${highlightedIndex === index ? 'hover' : ''} ${selectedItem?.value === item.value ? 'selected' : ''
+                }`}
               key={`${item.value}${index}`}
               {...getItemProps({ item, index })}
             >
@@ -74,4 +73,4 @@ const Combobox = (props: {
   );
 };
 
-export default Combobox;
+export default memo(Combobox);

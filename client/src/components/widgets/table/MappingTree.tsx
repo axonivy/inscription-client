@@ -1,16 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import {
-  ColumnDef,
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-  SortingState,
-  getSortedRowModel,
-  ExpandedState,
-  getExpandedRowModel
+  ColumnDef, ExpandedState, flexRender, getCoreRowModel, getExpandedRowModel, getSortedRowModel, SortingState, useReactTable
 } from '@tanstack/react-table';
-import { Mapping } from '../../../data/mapping';
+import { Mapping } from '../../../data/inscription';
 import { EditableCell, editableCellMeta } from './EditableCell';
 import { ExpandableCell, ExpandableHeader } from './ExpandableCell';
 import { Table, TableCell, TableHeader } from './Table';
@@ -44,12 +37,11 @@ const MappingTree = (props: { data: Mapping[]; onChange: (change: Mapping[]) => 
     []
   );
 
-  const [data, setData] = React.useState(() => props.data);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [expanded, setExpanded] = React.useState<ExpandedState>({ 0: true });
 
   const table = useReactTable({
-    data,
+    data: props.data,
     columns,
     state: {
       sorting,
@@ -61,10 +53,7 @@ const MappingTree = (props: { data: Mapping[]; onChange: (change: Mapping[]) => 
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
-    meta: editableCellMeta(data, (newData: Mapping[]) => {
-      setData(newData);
-      props.onChange(newData);
-    })
+    meta: editableCellMeta(props.data, newData => props.onChange(newData))
   });
 
   return (
@@ -93,4 +82,4 @@ const MappingTree = (props: { data: Mapping[]; onChange: (change: Mapping[]) => 
   );
 };
 
-export default MappingTree;
+export default memo(MappingTree);

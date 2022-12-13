@@ -1,24 +1,21 @@
-import React, { useState } from 'react';
-import { useKeyboard } from 'react-aria';
 import * as Popover from '@radix-ui/react-popover';
+import { memo, useState } from 'react';
+import { useKeyboard } from 'react-aria';
 import LabelInput from '../label/LabelInput';
 import './Tags.css';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
-  const [tags, setTags] = useState(() => props.tags);
   const [newTag, setNewTag] = useState('');
   const [isOpen, setOpen] = useState(false);
 
   const handleRemoveTag = (removeTag: string) => {
-    const newTags = tags.filter(tag => tag !== removeTag);
-    setTags(newTags);
+    const newTags = props.tags.filter(tag => tag !== removeTag);
     props.onChange(newTags);
   };
   const handleAddPopoverChange = (open: boolean) => {
     setOpen(open);
     if (!open && newTag.length > 0) {
-      const newTags = [...tags, newTag];
-      setTags(newTags);
+      const newTags = [...props.tags, newTag];
       props.onChange(newTags);
     }
     setNewTag('');
@@ -36,7 +33,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
 
   return (
     <div className='tags'>
-      {tags.map((tag, index) => (
+      {props.tags.map((tag, index) => (
         <div key={`${tag}-${index}`} className='tag' role='gridcell'>
           <button className='tag-remove' onClick={() => handleRemoveTag(tag)} aria-label={`Remove Tag ${tag}`} {...keyboardProps}>
             X
@@ -67,4 +64,4 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
   );
 };
 
-export default Tags;
+export default memo(Tags);
