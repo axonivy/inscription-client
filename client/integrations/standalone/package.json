@@ -1,17 +1,16 @@
 {
-  "name": "@axon-ivy/standalone",
+  "name": "@axonivy/inscription-standalone",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@axon-ivy/core": "0.1.0",
-    "@axon-ivy/react-ui": "0.1.0",
+    "@axonivy/inscription-core": "0.1.0",
+    "@axonivy/inscription-editor": "0.1.0",
     "path-browserify": "^1.0.1"
   },
   "devDependencies": {
-    "vite": "^3.2.5",
-    "web-vitals": "^2.1.0",
-    "@vitejs/plugin-react": "^2.2.0",
-    "vite-tsconfig-paths": "^4.0.1"
+    "@vitejs/plugin-react": "^3.0.0",
+    "vite": "^4.0.1",
+    "vite-tsconfig-paths": "^4.0.3"
   },
   "scripts": {
     "clean": "rimraf build",
@@ -19,15 +18,11 @@
     "build:clean": "yarn clean && yarn build",
     "build:production": "vite build",
     "start": "vite",
+    "start:mock": "MOCK=true vite",
+    "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "watch": "tsc -w"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [

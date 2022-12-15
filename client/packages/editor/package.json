@@ -1,0 +1,48 @@
+{
+  "name": "@axonivy/inscription-editor",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@axonivy/inscription-core": "0.1.0",
+    "@monaco-editor/react": "^4.4.6",
+    "@radix-ui/react-collapsible": "^1.0.1",
+    "@radix-ui/react-label": "^2.0.0",
+    "@radix-ui/react-popover": "^1.0.2",
+    "@radix-ui/react-separator": "^1.0.1",
+    "@radix-ui/react-tabs": "^1.0.1",
+    "@tanstack/react-table": "^8.7.0",
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "downshift": "^7.0.1",
+    "react": "^18.2.0",
+    "react-aria": "^3.21.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.2.4",
+    "babel-jest": "^29.3.1",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
+    "jest-junit": "^15.0.0",
+    "jest-resolve": "^29.3.1",
+    "jest-watch-typeahead": "^2.2.1"
+  },
+  "main": "lib/index",
+  "types": "lib/index",
+  "scripts": {
+    "prepare": "yarn build",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "build": "tsc -b",
+    "build:clean": "yarn clean && yarn build",
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
+    "watch": "tsc -w",
+    "test": "jest --watchAll",
+    "test:ci": "yarn test --watchAll=false"
+  }
+}

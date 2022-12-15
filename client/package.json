@@ -17,11 +17,13 @@
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
     "lint:fix": "lerna run lint:fix --",
     "standalone": "yarn -s --cwd integrations/standalone",
-    "test": "yarn --cwd packages/react-ui test",
+    "test": "yarn --cwd packages/editor test",
     "test:ci": "lerna run test:ci"
   },
   "devDependencies": {
     "@types/node": "^16.7.13",
+    "eslint": "^8.29.0",
+    "eslint-config-react-app": "^7.0.1",
     "lerna": "^6.1.0",
     "rimraf": "^3.0.2",
     "typescript": "~4.5.5"
