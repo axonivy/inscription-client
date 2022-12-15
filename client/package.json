@@ -1,71 +1,33 @@
 {
-  "name": "next-gen-inscription",
-  "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@radix-ui/react-collapsible": "^1.0.1",
-    "@radix-ui/react-label": "^2.0.0",
-    "@radix-ui/react-popover": "^1.0.2",
-    "@radix-ui/react-separator": "^1.0.1",
-    "@radix-ui/react-tabs": "^1.0.1",
-    "@tanstack/react-table": "^8.7.0",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/lodash": "^4.14.191",
-    "downshift": "^7.0.1",
-    "react": "^18.2.0",
-    "react-aria": "^3.21.0",
-    "react-dom": "^18.2.0",
-    "vscode-ws-jsonrpc": "^2.0.1",
-    "path-browserify": "^1.0.1",
-    "monaco-editor": "^0.34.1",
-    "monaco-editor-workers": "^0.34.2",
-    "vscode-languageserver-protocol": "^3.17.2",
-    "monaco-languageclient": "^4.0.3",
-    "vscode-debugprotocol": "1.51.0",
-    "@monaco-editor/react": "^4.4.6",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "prettier": "^2.8.0",
-    "jest-junit": "^15.0.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^27.0.1",
-    "react-scripts": "5.0.1",
-    "vite": "^3.2.5",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0",
-    "@vitejs/plugin-react": "^2.2.0",
-    "vite-tsconfig-paths": "^4.0.1"
+  "name": "parent",
+  "version": "0.1.0",
+  "engines": {
+    "yarn": ">=1.7.0 <2.x.x",
+    "node": ">=14.18.0"
   },
   "scripts": {
-    "start": "vite",
-    "build": "yarn install --ignore-scripts && yarn lint -o eslint.xml -f checkstyle && yarn test:ci && vite build",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "serve": "vite preview",
-    "test": "react-scripts test",
-    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
-    "test:ci": "yarn test -- --testResultsProcessor=\"jest-junit\""
+    "prepare": "lerna run prepare",
+    "ci": "yarn install && yarn lint:ci && yarn test:ci && yarn standalone build:production",
+    "clean": "lerna run clean",
+    "build": "lerna run build",
+    "build:clean": "lerna run build:clean",
+    "watch": "lerna run --parallel watch",
+    "lint": "lerna run lint --",
+    "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
+    "lint:fix": "lerna run lint:fix --",
+    "standalone": "yarn -s --cwd integrations/standalone",
+    "test": "yarn --cwd packages/react-ui test",
+    "test:ci": "lerna run test:ci"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "devDependencies": {
+    "@types/node": "^16.7.13",
+    "lerna": "^6.1.0",
+    "rimraf": "^3.0.2",
+    "typescript": "~4.5.5"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "workspaces": [
+    "packages/*",
+    "integrations/*"
+  ]
 }
