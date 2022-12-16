@@ -25,5 +25,9 @@ yarn-error.log*
 
 junit.xml
 eslint.xml
+report.xml
+
+test-results
+playwright-report
 
 tsconfig.tsbuildinfo

@@ -18,6 +18,25 @@ pipeline {
               sh 'yarn ci'
             }
           }
+          recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+          withChecks('Client Tests') {
+            junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/junit.xml'
+          }
+        }
+      }
+    }
+    stage('Integration Tests') {
+      steps {
+        script {
+          dir ('client') {
+            docker.image('mcr.microsoft.com/playwright:v1.28.1').inside {
+              sh 'yarn standalone webtest:ci'
+            }
+          }
+          archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
+          withChecks('Integration Tests') {
+            junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
+          }
         }
       }
     }
@@ -29,22 +48,10 @@ pipeline {
               maven cmd: 'clean verify'
             }
           }
+          withChecks('Server Tests') {
+            junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/target/surefire-reports/**/*.xml'
+          }
         }
-      }
-    }
-  }
-  post {
-    always {
-      discoverGitReferenceBuild defaultBranch: 'master'
-      // Record & publish ESLint issues
-      recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
-      // recordIssues tools: [mavenConsole()], unstableTotalAll: 1
-
-      withChecks('Client Tests') {
-        junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/junit.xml'
-      }
-      withChecks('Server Tests') {
-        junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/target/surefire-reports/**/*.xml'
       }
     }
   }
