@@ -11,14 +11,16 @@ export async function start(): Promise<void> {
   const root = ReactDOM.createRoot(document.getElementById('root')!);
 
   try {
-    await FormLanguage.startWebSocketClient('ws://localhost:5013');
-    const inscriptionClient = await InscriptionClient.startWebSocketClient('ws://localhost:5015');
+    const server = 'localhost:8081/designer';
+    const pid = '15254DC87A1B183B-f5';
+    await FormLanguage.startWebSocketClient(`ws://${server}/ivy-script-lsp`);
+    const inscriptionClient = await InscriptionClient.startWebSocketClient(`ws://${server}/ivy-inscription-lsp`);
     console.log(`Inscription client initialized: ${await inscriptionClient.initialize()}`);
 
     root.render(
       <React.StrictMode>
         <ClientContextInstance.Provider value={{ client: inscriptionClient }}>
-          <App id={1} />
+          <App pid={pid} />
         </ClientContextInstance.Provider>
       </React.StrictMode>
     );

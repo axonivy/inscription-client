@@ -16,11 +16,11 @@ export function useCallTab(): CallTabProps {
   // messages are derived from data
   const messages = useMemo(() => {
     const msgs: Message[] = [];
-    if (data.dialog.length === 0) {
+    if (data.dialogStart.length === 0) {
       msgs.push({ field: 'dialog', severity: MessageSeverity.WARNING, message: '⚠️ No User Dialog specified, auto dialog will be shown.' });
     }
     return msgs;
-  }, [data.dialog.length]);
+  }, [data.dialogStart.length]);
   const tabState = useTabState(initData, data, messages);
   return { data: data, onChange: setData, state: tabState, messages: messages };
 }

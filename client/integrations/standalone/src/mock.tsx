@@ -16,7 +16,7 @@ export async function start(): Promise<void> {
   root.render(
     <React.StrictMode>
       <ClientContextInstance.Provider value={{ client: inscriptionClient }}>
-        <App id={1} />
+        <App pid={'1'} />
       </ClientContextInstance.Provider>
     </React.StrictMode>
   );
