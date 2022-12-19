@@ -1,12 +1,9 @@
 import { useCombobox } from 'downshift';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
+import { ComboboxItem } from '../../props/combobox';
 import '../../../../style/Combobox.css';
 import { Message } from '../../props/message';
 import LabelInput from '../label/LabelInput';
-
-export interface ComboboxItem {
-  value: string;
-}
 
 const Combobox = (props: {
   label: string;
@@ -28,6 +25,7 @@ const Combobox = (props: {
       };
 
   const [items, setItems] = useState(props.items);
+  useEffect(() => setItems(props.items), [props.items]);
   const { isOpen, getToggleButtonProps, getLabelProps, getMenuProps, getInputProps, highlightedIndex, getItemProps, selectedItem } =
     useCombobox({
       onSelectedItemChange(change) {

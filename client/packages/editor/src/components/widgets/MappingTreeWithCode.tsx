@@ -1,4 +1,4 @@
-import { Mapping, MappingData } from '@axonivy/inscription-core';
+import { Mapping, MappingData, Variable } from '@axonivy/inscription-core';
 import Editor from '@monaco-editor/react';
 import { memo } from 'react';
 import { MINIMAL_STYLE } from '../../monaco-editor-util';
@@ -6,14 +6,19 @@ import { Message, MessageUtil } from '../props/message';
 import LabelInput from './label/LabelInput';
 import MappingTree from './table/MappingTree';
 
-const MappingTreeWithCode = (props: { data: MappingData; onChange: (change: MappingData) => void; messages: Message[] }) => {
-  const handleMappingChange = (change: Mapping[]) => props.onChange({ ...props.data, mapping: change });
+const MappingTreeWithCode = (props: {
+  data: MappingData;
+  onChange: (change: MappingData) => void;
+  mappingTree?: Variable[];
+  messages: Message[];
+}) => {
+  const handleMappingChange = (change: Mapping[]) => props.onChange({ ...props.data, mappings: change });
   const handleCodeChange = (code?: string) => props.onChange({ ...props.data, code: code || '' });
 
   return (
     <>
       <LabelInput label='Mapping' htmlFor='mapping'>
-        <MappingTree data={props.data.mapping} onChange={handleMappingChange} />
+        <MappingTree data={props.data.mappings} mappingTree={props.mappingTree} onChange={handleMappingChange} />
       </LabelInput>
       <LabelInput label='Code' htmlFor='code' message={MessageUtil.findMessage(props.messages, 'code')}>
         <Editor

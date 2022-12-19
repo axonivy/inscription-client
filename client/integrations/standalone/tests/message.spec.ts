@@ -23,7 +23,7 @@ test.describe('Global Messages', () => {
     await page.getByRole('tab', { name: 'Call' }).click();
     const dialog = page.getByLabel('Dialog');
     await dialog.fill('Acc');
-    await page.getByRole('option', { name: 'AcceptRequest' }).click();
+    await page.getByRole('option', { name: 'AcceptRequest' }).first().click();
     await expect(warning).toBeHidden();
     await expect(info).toBeVisible();
   });

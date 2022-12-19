@@ -1,10 +1,10 @@
-import { CallData, Document, MappingData, NameData, UserDialogData } from '@axonivy/inscription-core';
+import { CallData, Document, MappingData, NameData } from '@axonivy/inscription-core';
 import get from 'lodash/get';
 import React, { useContext } from 'react';
 
 export interface DataContext {
-  initialData: UserDialogData;
-  data: UserDialogData;
+  initialData: any;
+  data: any;
   updateData: <T>(path: string | string[], value: T) => void;
 }
 
@@ -20,8 +20,7 @@ export interface DataAccess {
   'nameData/documents': Document[];
   'nameData/tags': string[];
   callData: CallData;
-  'callData/start': string;
-  'callData/dialog': string;
+  'callData/dialogStart': string;
   'callData/mappingData': MappingData;
   'callData/mappingData/code': string;
 }

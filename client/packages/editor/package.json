@@ -42,7 +42,7 @@
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "watch": "tsc -w",
-    "test": "jest --watchAll",
+    "test": "jest --config ../../jest.config.js --watchAll",
     "test:ci": "yarn test --watchAll=false"
   }
 }

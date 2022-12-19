@@ -1,35 +1,19 @@
 import React from 'react';
-import { Mapping } from '@axonivy/inscription-core';
+import { USER_DIALOG_META_CALL } from '@axonivy/inscription-core/lib/meta/inscription-meta';
+import { Mapping } from '@axonivy/inscription-core/lib/data/call-data';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MappingTree from './MappingTree';
 
 describe('MappingTree', () => {
-  const data: Mapping[] = [
-    {
-      attribute: 'param',
-      type: '<ProcurementRequest>',
-      expression: '',
-      children: [
-        {
-          attribute: 'procurementRequest',
-          type: 'ProcurementRequest',
-          expression: 'in',
-          children: [
-            { attribute: 'accepted', type: 'Boolean', expression: '', children: [] },
-            { attribute: 'amount', type: 'Number', expression: '', children: [] }
-          ]
-        }
-      ]
-    }
-  ];
+  const data: Mapping[] = [{ attribute: 'param.procurementRequest', expression: 'in' }];
 
   function renderTree(
     options: {
       onChange?: (change: Mapping[]) => void;
     } = {}
   ) {
-    render(<MappingTree data={data} onChange={options.onChange ? options.onChange : () => {}} />);
+    render(<MappingTree data={data} mappingTree={USER_DIALOG_META_CALL} onChange={options.onChange ? options.onChange : () => {}} />);
   }
 
   function assertTableHeaders(expectedHeaders: string[]) {
@@ -97,11 +81,12 @@ describe('MappingTree', () => {
     await userEvent.tab();
     expect(inputs[1]).toHaveValue('in');
     expect(inputs[3]).toHaveValue('text3');
-    // eslint-disable-next-line testing-library/no-node-access
-    const exp1 = mapping[0].children[0].expression;
-    // eslint-disable-next-line testing-library/no-node-access
-    const exp2 = mapping[0].children[0].children[1].expression;
-    expect(exp1).toEqual('in');
-    expect(exp2).toEqual('text3');
+    assertDataMapping(mapping[0], { attribute: 'param.procurementRequest', expression: 'in' });
+    assertDataMapping(mapping[1], { attribute: 'param.procurementRequest.amount', expression: 'text3' });
   });
+
+  function assertDataMapping(mapping: Mapping, expectedMapping: Mapping) {
+    expect(mapping.attribute).toEqual(expectedMapping.attribute);
+    expect(mapping.expression).toEqual(expectedMapping.expression);
+  }
 });

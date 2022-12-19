@@ -1,16 +1,16 @@
 import set from 'lodash/fp/set';
 
-import { UserDialogData } from '@axonivy/inscription-core';
-import { useEffect, useMemo, useState } from 'react';
+import { InscriptionData, InscriptionType } from '@axonivy/inscription-core';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import '../style/App.css';
-import InscriptionEditor from './components/InscriptionEditor';
-import { useUserDialogEditor } from './components/props/editor';
 import { useClient } from './context/useClient';
 import { DataContextInstance } from './context/useData';
+import UserDialogEditor from './components/editors/UserDialogEditor';
+import UserTaskEditor from './components/editors/UserTaskEditor';
 
 export interface AppState {
   state: 'waiting' | 'success' | 'error';
-  initialData: UserDialogData | null;
+  initialData: InscriptionData | null;
   error: string | null;
 }
 
@@ -22,36 +22,36 @@ export function error(error: string): AppState {
   return { state: 'error', initialData: null, error };
 }
 
-export function success(initialData: UserDialogData): AppState {
+export function success(initialData: InscriptionData): AppState {
   return { state: 'success', initialData, error: null };
 }
 
 export interface AppProps {
-  id: number;
+  pid: string;
 }
 
 function App(props: AppProps) {
-  const [data, setData] = useState<UserDialogData>();
+  const [data, setData] = useState<any>();
   const [appState, setAppState] = useState<AppState>(waiting());
   const client = useClient();
 
   useEffect(() => {
     client
-      .userDialog(props.id)
+      .data(props.pid)
       .then(data => {
         setAppState(success(data));
-        setData(data);
+        setData(data.data);
       })
       .catch(error => error(error));
-  }, [client, props.id]);
+  }, [client, props.pid]);
 
   const updateData = <T,>(path: string | string[], value: T): void => {
     // we know this function is always called on success when data is available
-    setData(prev => set(path, value, prev!));
+    setData((prev: any) => set(path, value, prev!));
   };
 
   const dataContext = useMemo(() => {
-    return { data: data!, initialData: appState.initialData!, updateData };
+    return { data: data, initialData: appState.initialData?.data, updateData };
   }, [appState.initialData, data]);
 
   if (appState.state === 'waiting') {
@@ -60,18 +60,23 @@ function App(props: AppProps) {
   if (appState.state === 'error') {
     return <div>Error: {appState.error}</div>;
   }
+
   return (
     <div className='App-header'>
-      <DataContextInstance.Provider value={dataContext}>
-        <ContextAwareInscriptionEditor />
-      </DataContextInstance.Provider>
+      <DataContextInstance.Provider value={dataContext}>{inscriptionEditor(appState.initialData?.type)}</DataContextInstance.Provider>
     </div>
   );
 }
 
-const ContextAwareInscriptionEditor = () => {
-  const props = useUserDialogEditor();
-  return <InscriptionEditor {...props} />;
+const inscriptionEditor = (type?: InscriptionType): ReactNode => {
+  switch (type) {
+    case 'UserDialog':
+      return <UserDialogEditor />;
+    case 'UserTask':
+      return <UserTaskEditor />;
+    default:
+      return <div>No Editor found for type: {type}</div>;
+  }
 };
 
 export default App;

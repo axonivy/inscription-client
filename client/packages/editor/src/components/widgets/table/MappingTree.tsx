@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 
-import { Mapping } from '@axonivy/inscription-core';
+import { Mapping, Variable } from '@axonivy/inscription-core';
 import {
   ColumnDef,
   ExpandedState,
@@ -11,12 +11,19 @@ import {
   SortingState,
   useReactTable
 } from '@tanstack/react-table';
-import { EditableCell, editableCellMeta } from './EditableCell';
+import { EditableCell } from './EditableCell';
 import { ExpandableCell, ExpandableHeader } from './ExpandableCell';
 import { Table, TableCell, TableHeader } from './Table';
+import { MappingTreeData } from './mapping-tree-data';
 
-const MappingTree = (props: { data: Mapping[]; onChange: (change: Mapping[]) => void }) => {
-  const columns = React.useMemo<ColumnDef<Mapping>[]>(
+const MappingTree = (props: { data: Mapping[]; mappingTree?: Variable[]; onChange: (change: Mapping[]) => void }) => {
+  const data: MappingTreeData[] = useMemo(() => {
+    const treeData = MappingTreeData.of(props.mappingTree);
+    props.data.forEach(mapping => MappingTreeData.update(treeData, mapping.attribute.split('.'), mapping.expression));
+    return treeData;
+  }, [props.data, props.mappingTree]);
+
+  const columns = React.useMemo<ColumnDef<MappingTreeData>[]>(
     () => [
       {
         accessorKey: 'attribute',
@@ -48,7 +55,7 @@ const MappingTree = (props: { data: Mapping[]; onChange: (change: Mapping[]) => 
   const [expanded, setExpanded] = React.useState<ExpandedState>({ 0: true });
 
   const table = useReactTable({
-    data: props.data,
+    data: data,
     columns,
     state: {
       sorting,
@@ -60,7 +67,12 @@ const MappingTree = (props: { data: Mapping[]; onChange: (change: Mapping[]) => 
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
-    meta: editableCellMeta(props.data, newData => props.onChange(newData))
+    meta: {
+      updateData: (rowId: string, columnId: string, value: unknown) => {
+        const rowIndex = rowId.split('.').map(parseFloat);
+        props.onChange(MappingTreeData.to(MappingTreeData.updateDeep(data, rowIndex, columnId, value)));
+      }
+    }
   });
 
   return (

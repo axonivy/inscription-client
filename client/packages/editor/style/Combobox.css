@@ -28,6 +28,9 @@
 }
 .combobox-menu-entry {
   padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 .combobox-menu-entry:where(.hover, .selected) {
   background: var(--editor-bg);

@@ -2,7 +2,7 @@ import { Document } from '@axonivy/inscription-core';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import React, { memo, useState } from 'react';
 import '../../../../style/DocumentTable.css';
-import { EditableCell, editableCellMeta } from './EditableCell';
+import { EditableCell } from './EditableCell';
 import { Table, TableCell, TableHeader, TableHeaderSorted } from './Table';
 
 const DocumentTable = (props: { data: Document[]; onChange: (change: Document[]) => void }) => {
@@ -46,7 +46,22 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    meta: editableCellMeta(props.data, newData => props.onChange(newData))
+    meta: {
+      updateData: (rowId: string, columnId: string, value: unknown) => {
+        const rowIndex = parseInt(rowId);
+        props.onChange(
+          props.data.map((row, index) => {
+            if (index === rowIndex) {
+              return {
+                ...props.data[rowIndex]!,
+                [columnId]: value
+              };
+            }
+            return row;
+          })
+        );
+      }
+    }
   });
 
   return (
