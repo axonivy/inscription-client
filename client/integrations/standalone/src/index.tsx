@@ -4,6 +4,7 @@ import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import { URLParams } from './url-helper';
 
 export async function start(): Promise<void> {
   MonacoEditorUtil.initMonaco(monaco);
@@ -11,8 +12,8 @@ export async function start(): Promise<void> {
   const root = ReactDOM.createRoot(document.getElementById('root')!);
 
   try {
-    const server = 'localhost:8081/designer';
-    const pid = '15254DC87A1B183B-f5';
+    const server = URLParams.getServer();
+    const pid = URLParams.getPid();
     await FormLanguage.startWebSocketClient(`ws://${server}/ivy-script-lsp`);
     const inscriptionClient = await InscriptionClient.startWebSocketClient(`ws://${server}/ivy-inscription-lsp`);
     console.log(`Inscription client initialized: ${await inscriptionClient.initialize()}`);
