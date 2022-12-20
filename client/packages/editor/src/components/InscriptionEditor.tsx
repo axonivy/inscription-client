@@ -21,8 +21,8 @@ const Header = (props: EditorProps) => (
       </TabsList>
       <img src={editorIcon} className='header-icon' alt='icon' />
     </div>
-    {props.headerState.map((state, index) => (
-      <div key={`${index}-${state.field}`} className={`header-status message-${state.severity}`}>
+    {props.editorState.map((state, index) => (
+      <div key={index} className={`header-status message-${state.severity}`}>
         {state.message}
       </div>
     ))}

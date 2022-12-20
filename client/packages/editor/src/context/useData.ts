@@ -1,4 +1,4 @@
-import { CallData, Document, MappingData, NameData } from '@axonivy/inscription-core';
+import { CallData, Document, InscriptionValidation, MappingData, NameData } from '@axonivy/inscription-core';
 import get from 'lodash/get';
 import React, { useContext } from 'react';
 
@@ -6,6 +6,7 @@ export interface DataContext {
   initialData: any;
   data: any;
   updateData: <T>(path: string | string[], value: T) => void;
+  validation: InscriptionValidation[];
 }
 
 const defaultDataContext: any = undefined;

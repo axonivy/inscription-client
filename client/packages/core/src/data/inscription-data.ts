@@ -4,8 +4,15 @@ import { NameData } from './name-data';
 export type InscriptionType = 'UserDialog' | 'UserTask';
 
 export interface InscriptionData {
+  pid: string;
   type: InscriptionType;
   readonly: boolean;
+  data: any;
+}
+
+export interface InscriptionSaveData {
+  pid: string;
+  type: InscriptionType;
   data: any;
 }
 
