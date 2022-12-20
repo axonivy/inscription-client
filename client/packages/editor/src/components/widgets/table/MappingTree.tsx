@@ -33,10 +33,10 @@ const MappingTree = (props: { data: Mapping[]; mappingTree?: Variable[]; onChang
         enableSorting: false
       },
       {
-        accessorFn: row => row.type,
-        id: 'type',
+        accessorFn: row => row.simpleType,
+        id: 'simpleType',
         header: () => <span>Type</span>,
-        cell: cell => <span>{cell.getValue() as string}</span>,
+        cell: cell => <span title={cell.row.original.type}>{cell.getValue() as string}</span>,
         footer: props => props.column.id,
         enableSorting: false
       },

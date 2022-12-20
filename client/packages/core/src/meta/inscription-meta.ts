@@ -11,20 +11,23 @@ export interface DialogStart {
 export interface Variable {
   attribute: string;
   type: string;
+  simpleType: string;
   children: Variable[];
 }
 
 export const USER_DIALOG_META_CALL: Variable[] = [
   {
     attribute: 'param',
-    type: '<ProcurementRequest>',
+    type: '<workflow.humantask.ProcurementRequest procurementRequest>',
+    simpleType: '<ProcurementRequest>',
     children: [
       {
         attribute: 'procurementRequest',
-        type: 'ProcurementRequest',
+        type: 'workflow.humantask.ProcurementRequest',
+        simpleType: 'ProcurementRequest',
         children: [
-          { attribute: 'accepted', type: 'Boolean', children: [] },
-          { attribute: 'amount', type: 'Number', children: [] }
+          { attribute: 'accepted', type: 'java.lang.Boolean', simpleType: 'Boolean', children: [] },
+          { attribute: 'amount', type: 'java.lang.Number', simpleType: 'Number', children: [] }
         ]
       }
     ]
