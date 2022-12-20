@@ -3,6 +3,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "editor.insertSpaces": true,
   "eslint.validate": ["javascript", "typescript"],
   "prettier.prettierPath": "node_modules/prettier",
   "search.exclude": {
@@ -11,7 +12,6 @@
   },
   "task.autoDetect": "off",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "editor.insertSpaces": true,
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
