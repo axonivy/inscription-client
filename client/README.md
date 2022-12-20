@@ -4,9 +4,9 @@ This prototype is build with React and Headless Components.
 
 ## Available Scripts
 
-Run the following command to install and build all packages:
+Run the following command to install all packages:
 
-### `yarn all`
+### `yarn`
 
 Run the following command to watch for any changes during development:
 
@@ -19,13 +19,15 @@ In the project directory, you can run:
 Runs the standalone app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+If you don't have an active LSP backend, you can test the frontend with a mocked backend.\
+Open [http://localhost:3000/mock.html](http://localhost:3000/mock.html) to view mocked data.
+
 The page will reload if you make edits, if you watch all packages.\
 You will also see any lint errors in the console.
 
-### `yarn test:ci`
+### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `yarn standalone build`
 
@@ -36,3 +38,13 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## VsCode integration
+
+### Debug
+
+Simply start the `Chrome` launch config to get debug and breakpoint support.
+
+### Run tests
+
+To run tests you can ether start a script above or start Playwright or Jest with the recommended workspace extensions.
