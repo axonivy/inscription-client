@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import InscriptionEditor from './InscriptionEditor';
-import { Message, MessageSeverity } from './props/message';
+import { Message } from './props/message';
 import { TabProps, TabState } from './props/tab';
 
 describe('Editor', () => {
@@ -12,7 +12,7 @@ describe('Editor', () => {
       { name: 'Call', state: TabState.CONFIGURED, content: <h1>Call</h1> },
       { name: 'Result', state: TabState.CONFIGURED, content: <h1>Result</h1> }
     ];
-    render(<InscriptionEditor title='Test Editor' tabs={tabs} headerState={options.headerState ?? []} />);
+    render(<InscriptionEditor title='Test Editor' tabs={tabs} editorState={options.headerState ?? []} />);
   }
 
   test('editor will render', () => {
@@ -23,8 +23,8 @@ describe('Editor', () => {
 
   test('editor show state', () => {
     const headerState: Message[] = [
-      { field: 'error', message: 'this is an error', severity: MessageSeverity.ERROR },
-      { field: 'warning', message: 'this is an warning', severity: MessageSeverity.WARNING }
+      { message: 'this is an error', severity: 'error' },
+      { message: 'this is an warning', severity: 'warning' }
     ];
     renderEditor({ headerState: headerState });
     expect(screen.getByText(/this is an error/i)).toHaveClass('header-status', 'message-error');

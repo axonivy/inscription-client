@@ -1,17 +1,14 @@
-import { CallData } from '@axonivy/inscription-core';
 import { ComboboxItem, DialogStartItem } from '../props/combobox';
-import { Message, MessageUtil } from '../props/message';
+import { Message } from '../props/message';
 import CollapsiblePart from './collapsible/CollapsiblePart';
 import Combobox from './combobox/Combobox';
 
 const SelectDialog = (props: {
-  data: CallData;
-  onChange: (change: CallData) => void;
+  dialogStart: string;
+  onChange: (change: string) => void;
   dialogStarts: DialogStartItem[];
-  messages: Message[];
+  message?: Message;
 }) => {
-  const handleDialogChange = (change: string) => props.onChange({ ...props.data, dialogStart: change });
-
   const comboboxItem = (item: ComboboxItem) => {
     if (!DialogStartItem.is(item)) {
       return <></>;
@@ -53,9 +50,9 @@ const SelectDialog = (props: {
         items={props.dialogStarts}
         comboboxItem={comboboxItem}
         itemFilter={itemFilter}
-        value={props.data.dialogStart}
-        onChange={handleDialogChange}
-        message={MessageUtil.findMessage(props.messages, 'dialog')}
+        value={props.dialogStart}
+        onChange={props.onChange}
+        message={props.message}
       />
     </CollapsiblePart>
   );

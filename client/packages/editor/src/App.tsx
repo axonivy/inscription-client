@@ -1,6 +1,6 @@
 import set from 'lodash/fp/set';
 
-import { InscriptionData, InscriptionType } from '@axonivy/inscription-core';
+import { InscriptionData, InscriptionType, InscriptionValidation } from '@axonivy/inscription-core';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import '../style/App.css';
 import { useClient } from './context/useClient';
@@ -33,6 +33,7 @@ export interface AppProps {
 function App(props: AppProps) {
   const [data, setData] = useState<any>();
   const [appState, setAppState] = useState<AppState>(waiting());
+  const [validation, setValidation] = useState<InscriptionValidation[]>([]);
   const client = useClient();
 
   useEffect(() => {
@@ -45,14 +46,23 @@ function App(props: AppProps) {
       .catch(error => error(error));
   }, [client, props.pid]);
 
+  useEffect(() => {
+    //Fix: first load shouldn't trigger a save
+    if (appState.initialData) {
+      client
+        .saveData({ data: data, pid: appState.initialData.pid, type: appState.initialData.type })
+        .then(validation => setValidation(validation));
+    }
+  }, [client, data, appState]);
+
   const updateData = <T,>(path: string | string[], value: T): void => {
     // we know this function is always called on success when data is available
     setData((prev: any) => set(path, value, prev!));
   };
 
   const dataContext = useMemo(() => {
-    return { data: data, initialData: appState.initialData?.data, updateData };
-  }, [appState.initialData, data]);
+    return { data: data, initialData: appState.initialData?.data, updateData, validation: validation };
+  }, [appState.initialData, data, validation]);
 
   if (appState.state === 'waiting') {
     return <div>Loading...</div>;

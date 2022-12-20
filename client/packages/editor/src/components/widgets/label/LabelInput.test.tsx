@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Message, MessageSeverity } from '../../props/message';
+import { Message } from '../../props/message';
 import LabelInput from './LabelInput';
 
 describe('LabelInput', () => {
@@ -19,13 +19,13 @@ describe('LabelInput', () => {
   });
 
   test('label input will render message', () => {
-    renderLabelInput({ field: 'input', message: 'this is a error', severity: MessageSeverity.ERROR });
+    renderLabelInput({ field: 'input', message: 'this is a error', severity: 'error' });
     expect(screen.getByText('this is a error')).toHaveClass('input-message', 'input-error');
 
-    renderLabelInput({ field: 'input', message: 'this is a warning', severity: MessageSeverity.WARNING });
+    renderLabelInput({ field: 'input', message: 'this is a warning', severity: 'warning' });
     expect(screen.getByText('this is a warning')).toHaveClass('input-message', 'input-warning');
 
-    renderLabelInput({ field: 'input', message: 'this is a info', severity: MessageSeverity.INFO });
+    renderLabelInput({ field: 'input', message: 'this is a info', severity: 'info' });
     expect(screen.getByText('this is a info')).toHaveClass('input-message', 'input-info');
   });
 });

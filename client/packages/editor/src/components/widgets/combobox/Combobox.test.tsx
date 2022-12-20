@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Message, MessageSeverity } from '../../props/message';
-import Combobox, { ComboboxItem } from './Combobox';
+import { Message } from '../../props/message';
+import Combobox from './Combobox';
+import { ComboboxItem } from '../../props/combobox';
 
 describe('Combobox', () => {
   function renderCombobox(
@@ -120,7 +121,7 @@ describe('Combobox', () => {
   });
 
   test('combobox will render message', async () => {
-    renderCombobox('test', { message: { field: 'combobox', message: 'this is a message', severity: MessageSeverity.ERROR } });
+    renderCombobox('test', { message: { field: 'combobox', message: 'this is a message', severity: 'error' } });
     expect(screen.getByText('this is a message')).toHaveClass('input-message', 'input-error');
   });
 });

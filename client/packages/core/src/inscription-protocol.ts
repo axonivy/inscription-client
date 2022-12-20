@@ -1,4 +1,4 @@
-import { InscriptionData } from './data/inscription-data';
+import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 import { DialogStart, Variable } from './meta/inscription-meta';
 import { InscriptionValidation } from './validation/inscription-validation';
 
@@ -8,6 +8,9 @@ export declare module InscriptionProtocol {
 
   export type InscriptionDataArgs = { pid: string };
   export type InscriptionDataRes = InscriptionData;
+
+  export type InscriptionSaveDataArgs = InscriptionSaveData;
+  export type InscriptionSaveDataRes = InscriptionValidation[];
 
   export type DialogStartsArgs = {}; //maybe later with param to filter offline dialogs
   export type DialogStartsRes = DialogStart[];
@@ -19,6 +22,7 @@ export declare module InscriptionProtocol {
 export interface InscriptionRequestTypes {
   initialize: [InscriptionProtocol.InitializeArgs, InscriptionProtocol.InitializeRes];
   data: [InscriptionProtocol.InscriptionDataArgs, InscriptionProtocol.InscriptionDataRes];
+  saveData: [InscriptionProtocol.InscriptionSaveDataArgs, InscriptionProtocol.InscriptionSaveDataRes];
 
   dialogStarts: [InscriptionProtocol.DialogStartsArgs, InscriptionProtocol.DialogStartsRes];
   outMapping: [InscriptionProtocol.OutMappingArgs, InscriptionProtocol.OutMappingRes];

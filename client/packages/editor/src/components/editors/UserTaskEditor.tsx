@@ -1,19 +1,18 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
+import { useData } from '../../context';
 import InscriptionEditor from '../InscriptionEditor';
-import { EditorProps, TabProps, TabState, useCallTab, useHeaderState, useNameTab } from '../props';
-import { CallTab, NameTab, ResultTab } from '../tabs';
+import { EditorProps, TabProps, TabState, useEditorState } from '../props';
+import { useCallTab, useNameTab, useResultTab } from '../tabs';
 
 function useUserTaskEditor(): EditorProps {
-  const nameTabProps = useNameTab();
-  const callTabProps = useCallTab();
-  const headerState = useHeaderState(nameTabProps.data.displayName, [nameTabProps.messages, callTabProps.messages]);
+  const [, displayName] = useData('nameData/displayName');
+  const editorState = useEditorState(displayName);
+  const nameTab = useNameTab();
+  const callTab = useCallTab();
+  const resultTab = useResultTab();
 
   const tabs: TabProps[] = [
-    {
-      name: 'Name',
-      state: nameTabProps.state,
-      content: React.createElement(NameTab, nameTabProps)
-    },
+    nameTab,
     {
       name: 'Task',
       state: TabState.EMPTY,
@@ -24,15 +23,11 @@ function useUserTaskEditor(): EditorProps {
       state: TabState.EMPTY,
       content: <h1>Case</h1>
     },
-    {
-      name: 'Call',
-      state: callTabProps.state,
-      content: React.createElement(CallTab, callTabProps)
-    },
-    { name: 'Result', state: TabState.CONFIGURED, content: React.createElement(ResultTab) }
+    callTab,
+    resultTab
   ];
 
-  return { title: 'Inscribe User Task', headerState, tabs };
+  return { title: 'Inscribe User Task', editorState: editorState, tabs };
 }
 const UserTaskEditor = () => {
   const props = useUserTaskEditor();

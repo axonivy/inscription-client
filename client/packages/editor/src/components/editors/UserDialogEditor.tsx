@@ -1,28 +1,17 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
+import { useData } from '../../context';
 import InscriptionEditor from '../InscriptionEditor';
-import { EditorProps, TabProps, TabState, useCallTab, useHeaderState, useNameTab } from '../props';
-import { CallTab, NameTab, ResultTab } from '../tabs';
+import { EditorProps, useEditorState } from '../props';
+import { useCallTab, useNameTab, useResultTab } from '../tabs';
 
 function useUserDialogEditor(): EditorProps {
-  const nameTabProps = useNameTab();
-  const callTabProps = useCallTab();
-  const headerState = useHeaderState(nameTabProps.data.displayName, [nameTabProps.messages, callTabProps.messages]);
+  const [, displayName] = useData('nameData/displayName');
+  const headerState = useEditorState(displayName);
+  const nameTab = useNameTab();
+  const callTab = useCallTab();
+  const resultTab = useResultTab();
 
-  const tabs: TabProps[] = [
-    {
-      name: 'Name',
-      state: nameTabProps.state,
-      content: React.createElement(NameTab, nameTabProps)
-    },
-    {
-      name: 'Call',
-      state: callTabProps.state,
-      content: React.createElement(CallTab, callTabProps)
-    },
-    { name: 'Result', state: TabState.CONFIGURED, content: React.createElement(ResultTab) }
-  ];
-
-  return { title: 'Inscribe User Dialog', headerState, tabs };
+  return { title: 'Inscribe User Dialog', editorState: headerState, tabs: [nameTab, callTab, resultTab] };
 }
 
 const UserDialogEditor = () => {

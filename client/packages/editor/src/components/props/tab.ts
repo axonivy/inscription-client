@@ -1,6 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import { useMemo } from 'react';
-import { Message, MessageSeverity } from './message';
+import { Message } from './message';
 
 export enum TabState {
   EMPTY = 'empty',
@@ -11,19 +11,19 @@ export enum TabState {
 }
 
 export interface TabProps {
-  name: any;
+  name: string;
   content: JSX.Element;
   state: TabState;
 }
 
 export function useTabState(initData: any, data: any, messages: Message[]): TabState {
   const tabState = useMemo(() => {
-    const errors = messages.find(message => message.severity === MessageSeverity.ERROR);
+    const errors = messages.find(message => message.severity === 'error');
     if (errors) {
       return TabState.ERROR;
     }
 
-    const warnings = messages.find(message => message.severity === MessageSeverity.WARNING);
+    const warnings = messages.find(message => message.severity === 'warning');
     if (warnings) {
       return TabState.WARNING;
     }

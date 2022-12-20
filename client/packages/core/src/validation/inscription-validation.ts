@@ -1,5 +1,5 @@
 export interface InscriptionValidation {
   path: string;
-  severtiy: 'error' | 'warning' | 'info';
+  severity: 'error' | 'warning' | 'info';
   message: string;
 }

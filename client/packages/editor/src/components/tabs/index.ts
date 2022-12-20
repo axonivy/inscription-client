@@ -1,3 +1,3 @@
-export { default as CallTab } from './CallTab';
-export { default as NameTab } from './NameTab';
-export { default as ResultTab } from './ResultTab';
+export * from './CallTab';
+export * from './NameTab';
+export * from './ResultTab';
