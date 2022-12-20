@@ -21,7 +21,7 @@ const SelectDialog = (props: {
         <div>
           <span>🖥️ {item.dialogName} </span>
           <span className='comboboy-menu-entry-additional'>
-            {item.package} - [{item.project}]
+            {item.packageName} - [{item.project}]
           </span>
         </div>
       </>
@@ -38,7 +38,7 @@ const SelectDialog = (props: {
     var filter = input.toLowerCase();
     return (
       item.value.toLowerCase().includes(filter) ||
-      item.package.toLowerCase().includes(filter) ||
+      item.packageName.toLowerCase().includes(filter) ||
       item.project.toLowerCase().includes(filter)
     );
   };

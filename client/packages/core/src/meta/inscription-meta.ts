@@ -3,7 +3,7 @@ export interface DialogStart {
   dialogName: string;
   startName: string;
   description: string;
-  package: string;
+  packageName: string;
   project: string;
   callParameter: Variable[];
 }
@@ -37,7 +37,7 @@ export const DIALOG_STARTS_META: DialogStart[] = [
     dialogName: 'AcceptRequest',
     startName: 'start():ProcurementRequest,LogEntry',
     description: '',
-    package: 'workflow.humantask',
+    packageName: 'workflow.humantask',
     project: 'workflow-demos',
     callParameter: USER_DIALOG_META_CALL
   },
@@ -46,7 +46,7 @@ export const DIALOG_STARTS_META: DialogStart[] = [
     dialogName: 'AcceptRequest',
     startName: 'start2()',
     description: '',
-    package: 'workflow.humantask',
+    packageName: 'workflow.humantask',
     project: 'workflow-demos',
     callParameter: []
   },
@@ -55,7 +55,7 @@ export const DIALOG_STARTS_META: DialogStart[] = [
     dialogName: 'test1',
     startName: 'start()',
     description: '',
-    package: 'demo',
+    packageName: 'demo',
     project: 'demo',
     callParameter: []
   }
