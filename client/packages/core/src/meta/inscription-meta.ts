@@ -3,7 +3,7 @@ export interface DialogStart {
   dialogName: string;
   startName: string;
   description: string;
-  package: string;
+  packageName: string;
   project: string;
   callParameter: Variable[];
 }
@@ -11,20 +11,23 @@ export interface DialogStart {
 export interface Variable {
   attribute: string;
   type: string;
+  simpleType: string;
   children: Variable[];
 }
 
 export const USER_DIALOG_META_CALL: Variable[] = [
   {
     attribute: 'param',
-    type: '<ProcurementRequest>',
+    type: '<workflow.humantask.ProcurementRequest procurementRequest>',
+    simpleType: '<ProcurementRequest>',
     children: [
       {
         attribute: 'procurementRequest',
-        type: 'ProcurementRequest',
+        type: 'workflow.humantask.ProcurementRequest',
+        simpleType: 'ProcurementRequest',
         children: [
-          { attribute: 'accepted', type: 'Boolean', children: [] },
-          { attribute: 'amount', type: 'Number', children: [] }
+          { attribute: 'accepted', type: 'java.lang.Boolean', simpleType: 'Boolean', children: [] },
+          { attribute: 'amount', type: 'java.lang.Number', simpleType: 'Number', children: [] }
         ]
       }
     ]
@@ -37,7 +40,7 @@ export const DIALOG_STARTS_META: DialogStart[] = [
     dialogName: 'AcceptRequest',
     startName: 'start():ProcurementRequest,LogEntry',
     description: '',
-    package: 'workflow.humantask',
+    packageName: 'workflow.humantask',
     project: 'workflow-demos',
     callParameter: USER_DIALOG_META_CALL
   },
@@ -46,7 +49,7 @@ export const DIALOG_STARTS_META: DialogStart[] = [
     dialogName: 'AcceptRequest',
     startName: 'start2()',
     description: '',
-    package: 'workflow.humantask',
+    packageName: 'workflow.humantask',
     project: 'workflow-demos',
     callParameter: []
   },
@@ -55,7 +58,7 @@ export const DIALOG_STARTS_META: DialogStart[] = [
     dialogName: 'test1',
     startName: 'start()',
     description: '',
-    package: 'demo',
+    packageName: 'demo',
     project: 'demo',
     callParameter: []
   }

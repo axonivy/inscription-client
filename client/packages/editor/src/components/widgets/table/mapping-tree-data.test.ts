@@ -4,22 +4,24 @@ import { MappingTreeData } from './mapping-tree-data';
 
 describe('MappingTreeData', () => {
   const treeData = USER_DIALOG_META_CALL;
-  const tree = [
+  const tree: MappingTreeData[] = [
     {
       attribute: 'param',
       children: [
         {
           attribute: 'procurementRequest',
           children: [
-            { attribute: 'accepted', children: [], expression: '', type: 'Boolean' },
-            { attribute: 'amount', children: [], expression: '', type: 'Number' }
+            { attribute: 'accepted', children: [], expression: '', type: 'java.lang.Boolean', simpleType: 'Boolean' },
+            { attribute: 'amount', children: [], expression: '', type: 'java.lang.Number', simpleType: 'Number' }
           ],
           expression: '',
-          type: 'ProcurementRequest'
+          type: 'workflow.humantask.ProcurementRequest',
+          simpleType: 'ProcurementRequest'
         }
       ],
       expression: '',
-      type: '<ProcurementRequest>'
+      type: '<workflow.humantask.ProcurementRequest procurementRequest>',
+      simpleType: '<ProcurementRequest>'
     }
   ];
 

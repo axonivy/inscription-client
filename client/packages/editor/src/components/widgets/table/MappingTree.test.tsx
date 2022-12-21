@@ -6,6 +6,15 @@ import userEvent from '@testing-library/user-event';
 import MappingTree from './MappingTree';
 
 describe('MappingTree', () => {
+  const COL_ATTRIBUTES = /▶️ Attribute/;
+  const EXP_ATTRIBUTES = /🔽 Attribute/;
+  const COL_PARAMS = /▶️ param <workflow.humantask.ProcurementRequest procurementRequest>/;
+  const EXP_PARAMS = /🔽 param <workflow.humantask.ProcurementRequest procurementRequest>/;
+  const COL_REQUEST = /▶️ procurementRequest workflow.humantask.ProcurementRequest in/;
+  const EXP_REQUEST = /🔽 procurementRequest workflow.humantask.ProcurementRequest in/;
+  const NODE_BOOLEAN = /🔵 accepted java.lang.Boolean/;
+  const NODE_NUMBER = /🔵 amount java.lang.Number/;
+
   const data: Mapping[] = [{ attribute: 'param.procurementRequest', expression: 'in' }];
 
   function renderTree(
@@ -35,38 +44,26 @@ describe('MappingTree', () => {
   test('tree will render', () => {
     renderTree();
     assertTableHeaders(['▶️ Attribute', 'Type', 'Expression']);
-    assertTableRows([/▶️ Attribute/, /🔽 param <ProcurementRequest>/, /▶️ procurementRequest ProcurementRequest in/]);
+    assertTableRows([COL_ATTRIBUTES, EXP_PARAMS, COL_REQUEST]);
   });
 
   test('tree can expand / collapse all', async () => {
     renderTree();
     const treeExpander = screen.getByRole('button', { name: 'Expand tree' });
     await userEvent.click(treeExpander);
-    assertTableRows([
-      /🔽 Attribute/,
-      /🔽 param <ProcurementRequest>/,
-      /🔽 procurementRequest ProcurementRequest in/,
-      /🔵 accepted Boolean/,
-      /🔵 amount Number/
-    ]);
+    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, EXP_REQUEST, NODE_BOOLEAN, NODE_NUMBER]);
 
     await userEvent.click(treeExpander);
-    assertTableRows([/▶️ Attribute/, /▶️ param <ProcurementRequest>/]);
+    assertTableRows([COL_ATTRIBUTES, COL_PARAMS]);
   });
 
   test('tree can expand / collapse row', async () => {
     renderTree();
     const rowExpander = screen.getByRole('button', { name: 'Expand row' });
     await userEvent.click(rowExpander);
-    assertTableRows([
-      /▶️ Attribute/,
-      /🔽 param <ProcurementRequest>/,
-      /🔽 procurementRequest ProcurementRequest in/,
-      /🔵 accepted Boolean/,
-      /🔵 amount Number/
-    ]);
+    assertTableRows([COL_ATTRIBUTES, EXP_PARAMS, EXP_REQUEST, NODE_BOOLEAN, NODE_NUMBER]);
     await userEvent.click(rowExpander);
-    assertTableRows([/▶️ Attribute/, /🔽 param <ProcurementRequest>/, /▶️ procurementRequest ProcurementRequest in/]);
+    assertTableRows([COL_ATTRIBUTES, EXP_PARAMS, COL_REQUEST]);
   });
 
   test('tree can edit expression', async () => {
