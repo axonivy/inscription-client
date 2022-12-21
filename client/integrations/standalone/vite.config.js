@@ -11,6 +11,7 @@ export default defineConfig(() => {
     resolve: {
       alias: { path: 'path-browserify' }
     },
+    base: './',
     optimizeDeps: {
       needsInterop: [
         'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.js',

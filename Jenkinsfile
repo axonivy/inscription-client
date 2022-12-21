@@ -18,6 +18,7 @@ pipeline {
               sh 'yarn ci'
             }
           }
+          archiveArtifacts artifacts: '**/integrations/standalone/build/**', allowEmptyArchive: true
           recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
           withChecks('Client Tests') {
             junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/junit.xml'
