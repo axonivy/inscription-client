@@ -21,9 +21,9 @@
     "task.autoDetect": "off",
     "typescript.tsdk": "node_modules/typescript/lib",
     "jest.disabledWorkspaceFolders": [
-      "client",
-      "core",
-      "standalone"
+      "client (root)",
+      "package/core",
+      "integrations/standalone"
     ],
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
