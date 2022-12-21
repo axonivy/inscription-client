@@ -1,5 +1,5 @@
 import { InscriptionValidation } from '@axonivy/inscription-core';
-import { useDataContext } from './useData';
+import { useDataContext } from './useDataContext';
 
 export type ValidationAccess = 'nameData/displayName' | 'nameData/description' | 'callData/dialogStart' | 'callData/mappingData/code';
 
