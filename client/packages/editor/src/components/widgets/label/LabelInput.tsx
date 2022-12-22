@@ -1,6 +1,6 @@
 import { Label } from '@radix-ui/react-label';
 import { memo } from 'react';
-import '../../../../style/LabelInput.css';
+import './LabelInput.css';
 import { Message } from '../../props/message';
 
 const LabelInput = (props: { label: string; htmlFor: string; message?: Message; children: JSX.Element }) => (

@@ -11,7 +11,8 @@
       "url": "http://localhost:3000/mock.html",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
-      }
+      },
+      "preLaunchTask": "Start Dev Server"
     }
   ]
 }

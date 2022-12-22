@@ -1,6 +1,6 @@
 import { flexRender, Header } from '@tanstack/react-table';
 import { ReactNode } from 'react';
-import '../../../../style/Table.css';
+import './Table.css';
 
 export const Table = (props: { children?: JSX.Element[] }) => (
   <div className='table-root'>

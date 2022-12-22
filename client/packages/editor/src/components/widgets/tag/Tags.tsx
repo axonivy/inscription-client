@@ -1,7 +1,7 @@
 import * as Popover from '@radix-ui/react-popover';
 import { memo, useState } from 'react';
 import { useKeyboard } from 'react-aria';
-import '../../../../style/Tags.css';
+import './Tags.css';
 import LabelInput from '../label/LabelInput';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {

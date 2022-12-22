@@ -1,7 +1,7 @@
 import { Document } from '@axonivy/inscription-core';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import React, { memo, useState } from 'react';
-import '../../../../style/DocumentTable.css';
+import './DocumentTable.css';
 import { EditableCell } from './EditableCell';
 import { Table, TableCell, TableHeader, TableHeaderSorted } from './Table';
 

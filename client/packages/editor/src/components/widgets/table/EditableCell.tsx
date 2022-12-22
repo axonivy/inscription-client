@@ -1,6 +1,6 @@
 import { CellContext, RowData } from '@tanstack/react-table';
 import React, { useEffect } from 'react';
-import '../../../../style/EditableCell.css';
+import './EditableCell.css';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

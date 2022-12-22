@@ -1,7 +1,7 @@
 import { useCombobox } from 'downshift';
 import { memo, useEffect, useState } from 'react';
 import { ComboboxItem } from '../../props/combobox';
-import '../../../../style/Combobox.css';
+import './Combobox.css';
 import { Message } from '../../props/message';
 import LabelInput from '../label/LabelInput';
 

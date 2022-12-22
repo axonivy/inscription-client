@@ -2,7 +2,7 @@ import set from 'lodash/fp/set';
 
 import { InscriptionData, InscriptionType, InscriptionValidation } from '@axonivy/inscription-core';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
-import '../style/App.css';
+import './App.css';
 import UserDialogEditor from './components/editors/UserDialogEditor';
 import UserTaskEditor from './components/editors/UserTaskEditor';
 import { DataContextInstance, useClient } from './context';
