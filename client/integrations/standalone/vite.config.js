@@ -20,7 +20,7 @@ export default defineConfig(() => {
   };
   if (process.env.MOCK) {
     config.build.rollupOptions = { input: { app: './mock.html' } };
-    config.server.open = '/mock.html';
+    config.server.open = false;
   }
   return config;
 });
