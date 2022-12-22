@@ -3,10 +3,9 @@ import set from 'lodash/fp/set';
 import { InscriptionData, InscriptionType, InscriptionValidation } from '@axonivy/inscription-core';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import '../style/App.css';
-import { useClient } from './context/useClient';
-import { DataContextInstance } from './context/useData';
 import UserDialogEditor from './components/editors/UserDialogEditor';
 import UserTaskEditor from './components/editors/UserTaskEditor';
+import { DataContextInstance, useClient } from './context';
 
 export interface AppState {
   state: 'waiting' | 'success' | 'error';
