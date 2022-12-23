@@ -1,5 +1,5 @@
 import { Mapping } from '@axonivy/inscription-core';
-import { USER_DIALOG_META_CALL } from '@axonivy/inscription-core/lib/meta/inscription-meta';
+import { USER_DIALOG_META_CALL } from '@axonivy/inscription-core/src/meta';
 import { MappingTreeData } from './mapping-tree-data';
 
 describe('MappingTreeData', () => {

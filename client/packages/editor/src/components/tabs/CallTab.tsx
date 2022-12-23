@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useClient, useData, useValidation, useValidations } from '../../context';
-import '../../../style/CallTab.css';
+import './CallTab.css';
 import { DialogStartItem } from '../props/combobox';
 import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
 import MappingTreeWithCode from '../widgets/MappingTreeWithCode';

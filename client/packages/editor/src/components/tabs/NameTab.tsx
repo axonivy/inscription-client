@@ -1,4 +1,4 @@
-import '../../../style/NameTab.css';
+import './NameTab.css';
 import { useData, useValidation, useValidations } from '../../context';
 import { TabProps, useTabState } from '../props';
 import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';

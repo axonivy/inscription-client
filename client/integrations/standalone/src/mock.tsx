@@ -1,5 +1,5 @@
 import { MonacoUtil, InscriptionClientMock } from '@axonivy/inscription-core';
-import { App, ClientContextInstance, MonacoEditorUtil } from '../../../packages/editor/lib';
+import { App, ClientContextInstance, MonacoEditorUtil } from '@axonivy/inscription-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import ReactDOM from 'react-dom/client';

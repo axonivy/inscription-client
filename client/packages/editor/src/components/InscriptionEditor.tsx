@@ -2,7 +2,7 @@ import { Separator } from '@radix-ui/react-separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { memo } from 'react';
 import editorIcon from '../../style/icons/user-dialog.svg';
-import '../../style/InscriptionEditor.css';
+import './InscriptionEditor.css';
 import { EditorProps } from './props/editor';
 
 const Header = (props: EditorProps) => (

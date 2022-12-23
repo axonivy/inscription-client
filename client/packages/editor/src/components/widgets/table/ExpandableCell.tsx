@@ -1,5 +1,5 @@
 import { CellContext, HeaderContext } from '@tanstack/react-table';
-import '../../../../style/ExpandableCell.css';
+import './ExpandableCell.css';
 
 export function ExpandableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string }) {
   const table = props.header.table;

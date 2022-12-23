@@ -1,6 +1,6 @@
 import React from 'react';
-import { USER_DIALOG_META_CALL } from '@axonivy/inscription-core/lib/meta/inscription-meta';
-import { Mapping } from '@axonivy/inscription-core/lib/data/call-data';
+import { USER_DIALOG_META_CALL } from '@axonivy/inscription-core/src/meta/';
+import { Mapping } from '@axonivy/inscription-core';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MappingTree from './MappingTree';
