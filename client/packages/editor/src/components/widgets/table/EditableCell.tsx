@@ -1,5 +1,6 @@
 import { CellContext, RowData } from '@tanstack/react-table';
 import React, { useEffect } from 'react';
+import { useReadonly } from '../../../context';
 import './EditableCell.css';
 
 declare module '@tanstack/react-table' {
@@ -18,5 +19,6 @@ export function EditableCell<TData>(props: { cell: CellContext<TData, unknown> }
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
-  return <input className='input' value={value as string} onChange={e => setValue(e.target.value)} onBlur={onBlur} />;
+  const readonly = useReadonly();
+  return <input className='input' value={value as string} onChange={e => setValue(e.target.value)} onBlur={onBlur} disabled={readonly} />;
 }

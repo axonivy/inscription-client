@@ -4,6 +4,7 @@ import { Mapping } from '@axonivy/inscription-core';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MappingTree from './MappingTree';
+import { ReadonlyContextInstance } from '../../../context';
 
 describe('MappingTree', () => {
   const COL_ATTRIBUTES = /▶️ Attribute/;
@@ -80,6 +81,16 @@ describe('MappingTree', () => {
     expect(inputs[3]).toHaveValue('text3');
     assertDataMapping(mapping[0], { attribute: 'param.procurementRequest', expression: 'in' });
     assertDataMapping(mapping[1], { attribute: 'param.procurementRequest.amount', expression: 'text3' });
+  });
+
+  test('tree support readonly mode', async () => {
+    render(
+      <ReadonlyContextInstance.Provider value={true}>
+        <MappingTree data={data} mappingTree={USER_DIALOG_META_CALL} onChange={() => {}} />
+      </ReadonlyContextInstance.Provider>
+    );
+
+    expect(screen.getByDisplayValue(/in/)).toBeDisabled();
   });
 
   function assertDataMapping(mapping: Mapping, expectedMapping: Mapping) {

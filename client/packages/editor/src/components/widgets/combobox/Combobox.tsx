@@ -4,6 +4,7 @@ import { ComboboxItem } from '../../props/combobox';
 import './Combobox.css';
 import { Message } from '../../props/message';
 import LabelInput from '../label/LabelInput';
+import { useReadonly } from '../../../context';
 
 const Combobox = (props: {
   label: string;
@@ -44,12 +45,14 @@ const Combobox = (props: {
       initialSelectedItem: { value: props.value }
     });
 
+  const readonly = useReadonly();
+
   return (
     <div className='combobox'>
       <LabelInput label={props.label} htmlFor='input' {...getLabelProps()} message={props.message}>
         <div className='combobox-input'>
-          <input id='input' placeholder={`Select ${props.label}`} className='input' {...getInputProps()} />
-          <button aria-label='toggle menu' className='combobox-button' type='button' {...getToggleButtonProps()}>
+          <input id='input' placeholder={`Select ${props.label}`} className='input' {...getInputProps()} disabled={readonly} />
+          <button aria-label='toggle menu' className='combobox-button' type='button' {...getToggleButtonProps()} disabled={readonly}>
             {isOpen ? <>&#8593;</> : <>&#8595;</>}
           </button>
         </div>

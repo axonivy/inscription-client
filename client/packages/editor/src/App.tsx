@@ -1,29 +1,12 @@
 import set from 'lodash/fp/set';
 
-import { InscriptionData, InscriptionType, InscriptionValidation } from '@axonivy/inscription-core';
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { InscriptionValidation } from '@axonivy/inscription-core';
+import { useEffect, useMemo, useState } from 'react';
 import './App.css';
-import UserDialogEditor from './components/editors/UserDialogEditor';
-import UserTaskEditor from './components/editors/UserTaskEditor';
-import { DataContextInstance, useClient } from './context';
-
-export interface AppState {
-  state: 'waiting' | 'success' | 'error';
-  initialData: InscriptionData | null;
-  error: string | null;
-}
-
-export function waiting(): AppState {
-  return { state: 'waiting', initialData: null, error: null };
-}
-
-export function error(error: string): AppState {
-  return { state: 'error', initialData: null, error };
-}
-
-export function success(initialData: InscriptionData): AppState {
-  return { state: 'success', initialData, error: null };
-}
+import { DataContextInstance, ReadonlyContextInstance, useClient, useTheme } from './context';
+import { inscriptionEditor } from './components/editors/InscriptionEditor';
+import AppStateView from './AppStateView';
+import { AppState, errorState, successState, waitingState } from './app-state';
 
 export interface AppProps {
   pid: string;
@@ -31,18 +14,19 @@ export interface AppProps {
 
 function App(props: AppProps) {
   const [data, setData] = useState<any>();
-  const [appState, setAppState] = useState<AppState>(waiting());
+  const [appState, setAppState] = useState<AppState>(waitingState());
   const [validation, setValidation] = useState<InscriptionValidation[]>([]);
   const client = useClient();
+  const theme = useTheme();
 
   useEffect(() => {
     client
       .data(props.pid)
       .then(data => {
-        setAppState(success(data));
+        setAppState(successState(data));
         setData(data.data);
       })
-      .catch(error => error(error));
+      .catch(error => errorState(error));
   }, [client, props.pid]);
 
   useEffect(() => {
@@ -63,29 +47,17 @@ function App(props: AppProps) {
     return { data: data, initialData: appState.initialData?.data, updateData, validation: validation };
   }, [appState.initialData, data, validation]);
 
-  if (appState.state === 'waiting') {
-    return <div>Loading...</div>;
-  }
-  if (appState.state === 'error') {
-    return <div>Error: {appState.error}</div>;
+  if (appState.state === 'success') {
+    return (
+      <div className='editor-root' data-theme={theme}>
+        <ReadonlyContextInstance.Provider value={appState.initialData?.readonly ?? false}>
+          <DataContextInstance.Provider value={dataContext}>{inscriptionEditor(appState.initialData?.type)}</DataContextInstance.Provider>
+        </ReadonlyContextInstance.Provider>
+      </div>
+    );
   }
 
-  return (
-    <div className='App-header'>
-      <DataContextInstance.Provider value={dataContext}>{inscriptionEditor(appState.initialData?.type)}</DataContextInstance.Provider>
-    </div>
-  );
+  return <AppStateView {...appState} />;
 }
-
-const inscriptionEditor = (type?: InscriptionType): ReactNode => {
-  switch (type) {
-    case 'UserDialog':
-      return <UserDialogEditor />;
-    case 'UserTask':
-      return <UserTaskEditor />;
-    default:
-      return <div>No Editor found for type: {type}</div>;
-  }
-};
 
 export default App;

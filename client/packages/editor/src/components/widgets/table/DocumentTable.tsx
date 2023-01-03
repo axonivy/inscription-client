@@ -1,6 +1,7 @@
 import { Document } from '@axonivy/inscription-core';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import React, { memo, useState } from 'react';
+import { useReadonly } from '../../../context';
 import './DocumentTable.css';
 import { EditableCell } from './EditableCell';
 import { Table, TableCell, TableHeader, TableHeaderSorted } from './Table';
@@ -38,6 +39,8 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
     newData.splice(index, 1);
     props.onChange(newData);
   };
+
+  const readonly = useReadonly();
 
   const table = useReactTable({
     data: props.data,
@@ -86,7 +89,9 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
             ))}
             <TableCell key={`${row.id}-actions`}>
               <span className='action-buttons'>
-                <button onClick={() => removeTableRow(row.index)}>🗑️</button>
+                <button onClick={() => removeTableRow(row.index)} disabled={readonly}>
+                  🗑️
+                </button>
                 <button>🔍</button>
                 <button>➡️</button>
               </span>
@@ -97,7 +102,7 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
       <tfoot>
         <tr>
           <th colSpan={3} className='add-row'>
-            <button onClick={addRow}>
+            <button onClick={addRow} disabled={readonly}>
               <span className='add-row-plus'>+</span>
             </button>
           </th>

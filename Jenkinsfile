@@ -55,5 +55,22 @@ pipeline {
         }
       }
     }
+    stage('Deploy') {
+      when {
+        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
+      }
+      steps {
+        script {
+          docker.image('maven:3.8.6-eclipse-temurin-17').inside {
+            maven cmd: '-ntp -f client/integrations/standalone clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
+          }
+          archiveArtifacts 'client/integrations/standalone/target/inscription-client-standalone-*.jar'
+        }
+      }
+    }
   }
+}
+
+def isReleaseOrMasterBranch() {
+  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
 }

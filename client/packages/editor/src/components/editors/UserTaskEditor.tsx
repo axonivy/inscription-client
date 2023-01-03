@@ -1,8 +1,9 @@
 import { memo } from 'react';
 import { useData } from '../../context';
-import InscriptionEditor from '../InscriptionEditor';
+import InscriptionEditor from './InscriptionEditor';
 import { EditorProps, TabProps, TabState, useEditorState } from '../props';
 import { useCallTab, useNameTab, useResultTab } from '../tabs';
+import icon from './user-dialog.svg';
 
 function useUserTaskEditor(): EditorProps {
   const [, displayName] = useData('nameData/displayName');
@@ -27,7 +28,7 @@ function useUserTaskEditor(): EditorProps {
     resultTab
   ];
 
-  return { title: 'Inscribe User Task', editorState: editorState, tabs };
+  return { title: 'Inscribe User Task', icon: icon, editorState: editorState, tabs };
 }
 const UserTaskEditor = () => {
   const props = useUserTaskEditor();

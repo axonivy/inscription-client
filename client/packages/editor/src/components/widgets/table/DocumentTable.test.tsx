@@ -3,6 +3,7 @@ import { Document } from '@axonivy/inscription-core';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DocumentTable from './DocumentTable';
+import { ReadonlyContextInstance } from '../../../context';
 
 describe('DocumentTable', () => {
   const documents: Document[] = [
@@ -125,5 +126,17 @@ describe('DocumentTable', () => {
       { description: 'Hello', url: 'axonivy.com' },
       { description: 'ivyTeam ❤️', url: 'ivyteam.ch' }
     ]);
+  });
+
+  test('table support readonly mode', async () => {
+    render(
+      <ReadonlyContextInstance.Provider value={true}>
+        <DocumentTable data={documents} onChange={() => {}} />
+      </ReadonlyContextInstance.Provider>
+    );
+
+    expect(screen.getByRole('button', { name: '+' })).toBeDisabled();
+    expect(screen.getAllByRole('button', { name: '🗑️' })[0]).toBeDisabled();
+    expect(screen.getByDisplayValue(/Doc 1/)).toBeDisabled();
   });
 });
