@@ -1,9 +1,9 @@
 import './NameTab.css';
 import { useData, useReadonly, useValidation, useValidations } from '../../context';
 import { TabProps, useTabState } from '../props';
-import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
 import LabelInput from '../widgets/label/LabelInput';
 import DocumentTable from '../widgets/table/DocumentTable';
+import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
 import Tags from '../widgets/tag/Tags';
 
 export function useNameTab(): TabProps {
@@ -14,10 +14,10 @@ export function useNameTab(): TabProps {
 }
 
 const NameTab = () => {
-  const [, displayName, setDisplayName] = useData('nameData/displayName');
-  const [, description, setDescription] = useData('nameData/description');
-  const [, documents, setDocuments] = useData('nameData/documents');
-  const [, tags, setTags] = useData('nameData/tags');
+  const [, displayName, setDisplayName] = useData('name');
+  const [, description, setDescription] = useData('description');
+  const [, documents, setDocuments] = useData('docs');
+  const [, tags, setTags] = useData('tags');
 
   const displayNameValidation = useValidation('nameData/displayName');
   const descripitonValidation = useValidation('nameData/description');

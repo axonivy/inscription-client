@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useDataContext } from '../../context';
+import { useData, useDataContext } from '../../context';
 import { Message } from './message';
 import { TabProps } from './tab';
 
@@ -10,13 +10,14 @@ export interface EditorProps {
   tabs: TabProps[];
 }
 
-export const useEditorState = (emptyMessage: string) => {
+export const useEditorState = () => {
+  const [, name] = useData('name');
   const { validation } = useDataContext();
   const headerState = useMemo<Message[]>(() => {
     if (validation.length > 0) {
       return validation;
     }
-    return [{ severity: 'info', message: emptyMessage }];
-  }, [emptyMessage, validation]);
+    return [{ severity: 'info', message: name }];
+  }, [name, validation]);
   return headerState;
 };
