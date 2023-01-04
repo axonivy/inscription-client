@@ -21,12 +21,14 @@ export interface InscriptionClient {
 }
 
 export class InscriptionClientMock implements InscriptionClient {
+  constructor(readonly readonly = false) {}
+
   initialize(): Promise<boolean> {
     return Promise.resolve(true);
   }
 
   data(pid: string): Promise<InscriptionData> {
-    return Promise.resolve({ pid: pid, type: 'UserDialog', readonly: false, data: USER_DIALOG_DATA });
+    return Promise.resolve({ pid: pid, type: 'UserDialog', readonly: this.readonly, data: USER_DIALOG_DATA });
   }
 
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {

@@ -1,6 +1,7 @@
 import { Mapping, MappingData, Variable } from '@axonivy/inscription-core';
 import Editor from '@monaco-editor/react';
 import { memo } from 'react';
+import { useReadonly } from '../../context';
 import { MINIMAL_STYLE } from '../../monaco-editor-util';
 import { Message } from '../props/message';
 import LabelInput from './label/LabelInput';
@@ -15,6 +16,9 @@ const MappingTreeWithCode = (props: {
   const handleMappingChange = (change: Mapping[]) => props.onChange({ ...props.data, mappings: change });
   const handleCodeChange = (code?: string) => props.onChange({ ...props.data, code: code || '' });
 
+  const monacoOptions = MINIMAL_STYLE;
+  monacoOptions.readOnly = useReadonly();
+
   return (
     <>
       <LabelInput label='Mapping' htmlFor='mapping'>
@@ -28,7 +32,7 @@ const MappingTreeWithCode = (props: {
           defaultLanguage='form'
           height='90px'
           defaultPath='root.form'
-          options={MINIMAL_STYLE}
+          options={monacoOptions}
           theme='axon-input'
           onChange={handleCodeChange}
         />

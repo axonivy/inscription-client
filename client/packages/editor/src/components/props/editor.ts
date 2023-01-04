@@ -5,6 +5,7 @@ import { TabProps } from './tab';
 
 export interface EditorProps {
   title: string;
+  icon: string;
   editorState: Message[];
   tabs: TabProps[];
 }

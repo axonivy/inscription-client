@@ -1,9 +1,53 @@
-.App-header {
+:root {
+  --editor-bg: #f5f5f5;
+  --editor-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
+    0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
+    0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
+  --seperator-color: #7a7a7a;
+  --tab-inactive-border: #a0a0a0;
+
+  --input-bg: #ffffff;
+  --input-color: #202020;
+  --button-bg: #ffffff;
+  --button-color: #202020;
+  --text-color: #202020;
+  --table-bg: #ffffff;
+  --table-row-bg: #f5f5f5;
+
+  --border-radius: 4px;
+  --focus-shadow: 0 0 0 1px var(--text-color);
+
+  --error-color: #ff796f;
+  --warning-color: #ff9f46;
+  --success-color: #48c46b;
+  --info-color: #75beff;
+}
+
+.editor-root {
+  color-scheme: light;
+  background: var(--editor-bg);
+  min-height: 100vh;
+}
+
+.editor-root[data-theme='dark'] {
   color-scheme: dark;
-  background-color: #282c34;
+  --editor-bg: #2c2c2c;
+  --seperator-color: #5a5a5a;
+
+  --input-bg: #202020;
+  --input-color: white;
+  --button-bg: #202020;
+  --button-color: #bababa;
+  --text-color: #bababa;
+  --table-bg: #202020;
+  --table-row-bg: #333333;
+}
+
+.editor-state {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: var(--text-color);
 }

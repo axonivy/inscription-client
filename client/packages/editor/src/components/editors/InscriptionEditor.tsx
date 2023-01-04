@@ -1,9 +1,23 @@
 import { Separator } from '@radix-ui/react-separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
-import { memo } from 'react';
-import editorIcon from '../../style/icons/user-dialog.svg';
+import { memo, ReactNode } from 'react';
 import './InscriptionEditor.css';
-import { EditorProps } from './props/editor';
+import { EditorProps } from '../props/editor';
+import { InscriptionType } from '@axonivy/inscription-core';
+import NoEditor from './NoEditor';
+import UserDialogEditor from './UserDialogEditor';
+import UserTaskEditor from './UserTaskEditor';
+
+export const inscriptionEditor = (type?: InscriptionType): ReactNode => {
+  switch (type) {
+    case 'UserDialog':
+      return <UserDialogEditor />;
+    case 'UserTask':
+      return <UserTaskEditor />;
+    default:
+      return <NoEditor type={type} />;
+  }
+};
 
 const Header = (props: EditorProps) => (
   <>
@@ -19,7 +33,7 @@ const Header = (props: EditorProps) => (
           </TabsTrigger>
         ))}
       </TabsList>
-      <img src={editorIcon} className='header-icon' alt='icon' />
+      <img src={props.icon} className='header-icon' alt='icon' />
     </div>
     {props.editorState.map((state, index) => (
       <div key={index} className={`header-status message-${state.severity}`}>

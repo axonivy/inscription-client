@@ -1,5 +1,5 @@
 import './NameTab.css';
-import { useData, useValidation, useValidations } from '../../context';
+import { useData, useReadonly, useValidation, useValidations } from '../../context';
 import { TabProps, useTabState } from '../props';
 import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
 import LabelInput from '../widgets/label/LabelInput';
@@ -22,13 +22,29 @@ const NameTab = () => {
   const displayNameValidation = useValidation('nameData/displayName');
   const descripitonValidation = useValidation('nameData/description');
 
+  const readonly = useReadonly();
+
   return (
     <div className='name-tab'>
       <LabelInput label='Display name' htmlFor='displayName' message={displayNameValidation}>
-        <input className='input' type='text' id='displayName' value={displayName} onChange={event => setDisplayName(event.target.value)} />
+        <textarea
+          rows={1}
+          className='input'
+          id='displayName'
+          value={displayName}
+          onChange={event => setDisplayName(event.target.value)}
+          disabled={readonly}
+        />
       </LabelInput>
       <LabelInput label='Description' htmlFor='description' message={descripitonValidation}>
-        <input className='input' type='text' id='description' value={description} onChange={event => setDescription(event.target.value)} />
+        <textarea
+          rows={2}
+          className='input'
+          id='description'
+          value={description}
+          onChange={event => setDescription(event.target.value)}
+          disabled={readonly}
+        />
       </LabelInput>
       <LabelInput label='Means / Documents' htmlFor='documents'>
         <DocumentTable data={documents} onChange={setDocuments} />

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Tags from './Tags';
+import { ReadonlyContextInstance } from '../../../context';
 
 describe('Tags', () => {
   function renderTags(): {
@@ -83,5 +84,16 @@ describe('Tags', () => {
     view.rerender();
     await assertTags(['bla', 'new tag']);
     expect(view.data()).toHaveLength(2);
+  });
+
+  test('tags support readonly mode', async () => {
+    render(
+      <ReadonlyContextInstance.Provider value={true}>
+        <Tags tags={['test']} onChange={() => {}} />
+      </ReadonlyContextInstance.Provider>
+    );
+
+    expect(screen.getByRole('button', { name: /test/i })).toBeDisabled();
+    expect(screen.getByRole('button', { name: /Add new tag/i })).toBeDisabled();
   });
 });

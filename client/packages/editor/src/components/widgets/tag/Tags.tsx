@@ -3,6 +3,7 @@ import { memo, useState } from 'react';
 import { useKeyboard } from 'react-aria';
 import './Tags.css';
 import LabelInput from '../label/LabelInput';
+import { useReadonly } from '../../../context';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
   const [newTag, setNewTag] = useState('');
@@ -31,11 +32,19 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
     }
   });
 
+  const readonly = useReadonly();
+
   return (
     <div className='tags'>
       {props.tags.map((tag, index) => (
         <div key={`${tag}-${index}`} className='tag' role='gridcell'>
-          <button className='tag-remove' onClick={() => handleRemoveTag(tag)} aria-label={`Remove Tag ${tag}`} {...keyboardProps}>
+          <button
+            className='tag-remove'
+            onClick={() => handleRemoveTag(tag)}
+            aria-label={`Remove Tag ${tag}`}
+            {...keyboardProps}
+            disabled={readonly}
+          >
             X
           </button>
           <span>{tag}</span>
@@ -43,7 +52,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
       ))}
       <Popover.Root open={isOpen} onOpenChange={handleAddPopoverChange}>
         <Popover.Trigger asChild>
-          <button className='tag-add' aria-label='Add new tag'>
+          <button className='tag-add' aria-label='Add new tag' disabled={readonly}>
             <span className='tag-add-plus'>+</span>
             <span>Add</span>
           </button>
