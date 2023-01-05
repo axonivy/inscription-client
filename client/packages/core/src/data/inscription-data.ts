@@ -1,7 +1,6 @@
-import { CallData } from './call-data';
-import { NameData } from './name-data';
+import { NameDataAccess } from './name-data';
 
-export type InscriptionType = 'UserDialog' | 'UserTask';
+export type InscriptionType = 'DialogCall' | 'UserTask';
 
 export interface InscriptionData {
   pid: string;
@@ -16,42 +15,29 @@ export interface InscriptionSaveData {
   data: any;
 }
 
-export interface UserTaskData {
-  nameData: NameData;
-  taskData: any;
-  caseData: any;
-  callData: CallData;
-  outputData: any;
-}
+export interface UserTaskData extends NameDataAccess {}
 
-export interface UserDialogData {
-  nameData: NameData;
-  callData: CallData;
-  outputData: any;
-}
+export interface DialogCallData extends NameDataAccess {}
 
-export const USER_DIALOG_DATA: UserDialogData = {
-  nameData: {
-    displayName: 'test name',
-    description: 'test desc',
-    documents: [
-      {
-        description: 'Doc 1',
-        url: 'axonivy.com'
-      },
-      {
-        description: 'ivyTeam ❤️',
-        url: 'ivyteam.ch'
-      }
-    ],
-    tags: ['bla', 'zag']
-  },
-  callData: {
-    dialogStart: '',
-    mappingData: {
-      mappings: [{ attribute: 'param.procurementRequest', expression: 'in' }],
-      code: 'ivy.log.info("Hello World")'
+export const USER_DIALOG_DATA: DialogCallData = {
+  name: 'test name',
+  description: 'test desc',
+  docs: [
+    {
+      description: 'Doc 1',
+      url: 'axonivy.com'
+    },
+    {
+      description: 'ivyTeam ❤️',
+      url: 'ivyteam.ch'
     }
-  },
-  outputData: {}
+  ],
+  tags: ['bla', 'zag']
+  // callData: {
+  //   dialogStart: '',
+  //   mappingData: {
+  //     mappings: [{ attribute: 'param.procurementRequest', expression: 'in' }],
+  //     code: 'ivy.log.info("Hello World")'
+  //   }
+  // },
 };

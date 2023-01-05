@@ -7,8 +7,8 @@ import { ReadonlyContextInstance } from '../../../context';
 
 describe('DocumentTable', () => {
   const documents: Document[] = [
-    { description: 'Doc 1', url: 'axonivy.com' },
-    { description: 'ivyTeam ❤️', url: 'ivyteam.ch' }
+    { name: 'Doc 1', url: 'axonivy.com' },
+    { name: 'ivyTeam ❤️', url: 'ivyteam.ch' }
   ];
   function renderTable(): {
     data: () => Document[];
@@ -45,20 +45,20 @@ describe('DocumentTable', () => {
 
   test('table will render', () => {
     renderTable();
-    assertTableHeaders(['Description', 'URL', 'Actions', '+']);
-    assertTableRows([/Description/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '+']);
+    assertTableHeaders(['Name', 'URL', 'Actions', '+']);
+    assertTableRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '+']);
   });
 
   test('table can sort columns', async () => {
     renderTable();
-    const columnHeader = screen.getByRole('button', { name: 'Description' });
+    const columnHeader = screen.getByRole('button', { name: 'Name' });
     await userEvent.click(columnHeader);
-    assertTableHeaders(['Description 🔼', 'URL', 'Actions', '+']);
-    assertTableRows([/Description/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '+']);
+    assertTableHeaders(['Name 🔼', 'URL', 'Actions', '+']);
+    assertTableRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '+']);
 
     await userEvent.click(columnHeader);
-    assertTableHeaders(['Description 🔽', 'URL', 'Actions', '+']);
-    assertTableRows([/Description/, /ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/, '+']);
+    assertTableHeaders(['Name 🔽', 'URL', 'Actions', '+']);
+    assertTableRows([/Name/, /ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/, '+']);
   });
 
   test('table can add new row', async () => {
@@ -123,8 +123,8 @@ describe('DocumentTable', () => {
     await userEvent.type(descInput, 'World');
 
     expect(view.data()).toEqual([
-      { description: 'Hello', url: 'axonivy.com' },
-      { description: 'ivyTeam ❤️', url: 'ivyteam.ch' }
+      { name: 'Hello', url: 'axonivy.com' },
+      { name: 'ivyTeam ❤️', url: 'ivyteam.ch' }
     ]);
   });
 

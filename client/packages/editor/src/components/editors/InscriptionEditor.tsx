@@ -5,13 +5,13 @@ import './InscriptionEditor.css';
 import { EditorProps } from '../props/editor';
 import { InscriptionType } from '@axonivy/inscription-core';
 import NoEditor from './NoEditor';
-import UserDialogEditor from './UserDialogEditor';
+import DialogCallEditor from './DialogCallEditor';
 import UserTaskEditor from './UserTaskEditor';
 
 export const inscriptionEditor = (type?: InscriptionType): ReactNode => {
   switch (type) {
-    case 'UserDialog':
-      return <UserDialogEditor />;
+    case 'DialogCall':
+      return <DialogCallEditor />;
     case 'UserTask':
       return <UserTaskEditor />;
     default:

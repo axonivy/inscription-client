@@ -10,8 +10,8 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
   const columns = React.useMemo<ColumnDef<Document>[]>(
     () => [
       {
-        accessorKey: 'description',
-        header: () => <span>Description</span>,
+        accessorKey: 'name',
+        header: () => <span>Name</span>,
         cell: cell => <EditableCell cell={cell} />,
         footer: props => props.column.id
       },
@@ -30,7 +30,7 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
 
   const addRow = () => {
     const newData = [...props.data];
-    newData.push({ description: '', url: '' });
+    newData.push({ name: '', url: '' });
     props.onChange(newData);
   };
 
