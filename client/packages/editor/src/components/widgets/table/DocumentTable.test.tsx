@@ -45,27 +45,27 @@ describe('DocumentTable', () => {
 
   test('table will render', () => {
     renderTable();
-    assertTableHeaders(['Name', 'URL', 'Actions', '+']);
-    assertTableRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '+']);
+    assertTableHeaders(['Name', 'URL', 'Actions', '']);
+    assertTableRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '']);
   });
 
   test('table can sort columns', async () => {
     renderTable();
     const columnHeader = screen.getByRole('button', { name: 'Name' });
     await userEvent.click(columnHeader);
-    assertTableHeaders(['Name 🔼', 'URL', 'Actions', '+']);
-    assertTableRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '+']);
+    assertTableHeaders(['Name 🔼', 'URL', 'Actions', '']);
+    assertTableRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '']);
 
     await userEvent.click(columnHeader);
-    assertTableHeaders(['Name 🔽', 'URL', 'Actions', '+']);
-    assertTableRows([/Name/, /ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/, '+']);
+    assertTableHeaders(['Name 🔽', 'URL', 'Actions', '']);
+    assertTableRows([/Name/, /ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/, '']);
   });
 
   test('table can add new row', async () => {
     const view = renderTable();
     await assertTableRowCount(4);
 
-    const addButton = screen.getByRole('button', { name: '+' });
+    const addButton = screen.getByRole('button', { name: 'Add row' });
     await userEvent.click(addButton);
     expect(view.data()).toHaveLength(3);
 
@@ -77,7 +77,7 @@ describe('DocumentTable', () => {
     const view = renderTable();
     await assertTableRowCount(4);
 
-    const removeButtons = screen.getAllByRole('button', { name: '🗑️' });
+    const removeButtons = screen.getAllByRole('button', { name: 'Remove row' });
     expect(removeButtons).toHaveLength(2);
     await userEvent.click(removeButtons[0]);
     expect(view.data()).toHaveLength(1);
@@ -90,7 +90,7 @@ describe('DocumentTable', () => {
     const view = renderTable();
     await assertTableRowCount(4);
 
-    const addButton = screen.getByRole('button', { name: '+' });
+    const addButton = screen.getByRole('button', { name: 'Add row' });
     addButton.focus();
     await userEvent.keyboard('[Enter]');
     expect(view.data()).toHaveLength(3);
@@ -98,7 +98,7 @@ describe('DocumentTable', () => {
     view.rerender();
     await assertTableRowCount(5);
 
-    const removeButtons = screen.getAllByRole('button', { name: '🗑️' });
+    const removeButtons = screen.getAllByRole('button', { name: 'Remove row' });
     expect(removeButtons).toHaveLength(3);
     removeButtons[2].focus();
     await userEvent.keyboard('[Enter]');
@@ -135,8 +135,8 @@ describe('DocumentTable', () => {
       </ReadonlyContextInstance.Provider>
     );
 
-    expect(screen.getByRole('button', { name: '+' })).toBeDisabled();
-    expect(screen.getAllByRole('button', { name: '🗑️' })[0]).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Add row' })).toBeDisabled();
+    expect(screen.getAllByRole('button', { name: 'Remove row' })[0]).toBeDisabled();
     expect(screen.getByDisplayValue(/Doc 1/)).toBeDisabled();
   });
 });

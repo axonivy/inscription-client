@@ -1,3 +1,4 @@
+import { IvyIcons } from '@axonivy/editor-icons';
 import { useMemo } from 'react';
 import { useData, useDataContext } from '../../context';
 import { Message } from './message';
@@ -5,8 +6,7 @@ import { TabProps } from './tab';
 
 export interface EditorProps {
   title: string;
-  icon: string;
-  editorState: Message[];
+  icon: IvyIcons;
   tabs: TabProps[];
 }
 

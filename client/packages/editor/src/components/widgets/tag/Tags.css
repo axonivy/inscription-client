@@ -1,38 +1,31 @@
 .tags {
   display: flex;
   gap: 1rem;
-  font-size: 10px;
+  font-size: 12px;
 }
 .tag {
   background: var(--input-bg);
   border-radius: 12px;
   padding: 6px 10px;
 }
-.tag-remove {
-  margin-right: 0.5rem;
-  border: 1px solid currentColor;
-  border-radius: 1rem;
-  width: 10px;
-  height: 10px;
-  text-align: center;
-  color: var(--error-color);
-  font-size: 7px;
-}
 .tag-add {
   border-radius: 12px;
   padding: 4px 10px;
   border: 1px dashed var(--button-color);
 }
-.tag-add-plus {
+.tag-remove .ivy {
+  color: var(--error-color);
+}
+.tag-remove .ivy,
+.tag-add .ivy {
   margin-right: 0.5rem;
   border: 1px solid currentColor;
   border-radius: 1rem;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   text-align: center;
-  display: inline-block;
   font-size: 8px;
-  line-height: 10px;
+  line-height: 12px;
 }
 .tag-remove:hover,
 .tag-add:hover {

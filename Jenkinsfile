@@ -13,9 +13,11 @@ pipeline {
     stage('Client') {
       steps {
         script {
-          dir ('client') {
-            docker.build('node').inside {
-              sh 'yarn ci'
+          catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+            dir ('client') {
+              docker.build('node').inside {
+                sh 'yarn ci'
+              }
             }
           }
           archiveArtifacts artifacts: '**/integrations/standalone/build/**', allowEmptyArchive: true

@@ -5,7 +5,7 @@
 }
 .table-cell .action-buttons button {
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 16px;
   height: 20px;
   width: 20px;
   text-align: center;
@@ -34,8 +34,7 @@
   cursor: pointer;
   box-shadow: var(--focus-shadow);
 }
-.table .add-row .add-row-plus {
-  margin-right: 0.5rem;
+.table .add-row .ivy {
   border: 1px solid currentColor;
   border-radius: 1rem;
   width: 20px;
@@ -44,5 +43,5 @@
   display: inline-block;
   font-size: 16px;
   font-weight: 400;
-  line-height: 18px;
+  line-height: 20px;
 }

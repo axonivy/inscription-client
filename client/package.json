@@ -7,7 +7,7 @@
     "node": ">=14.18.0"
   },
   "scripts": {
-    "ci": "yarn install && yarn lint:ci && yarn test:ci && yarn standalone build:production",
+    "ci": "yarn install && yarn icons && yarn lint:ci && yarn test:ci && yarn standalone build:production",
     "clean": "lerna run clean",
     "build": "lerna run build",
     "build:clean": "lerna run build:clean",
@@ -15,6 +15,7 @@
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
     "lint:fix": "lerna run lint:fix --",
     "standalone": "yarn -s --cwd integrations/standalone",
+    "icons": "yarn --cwd packages/icons build",
     "dev": "yarn standalone start:mock",
     "test": "yarn --cwd packages/editor test",
     "test:ci": "lerna run test:ci"

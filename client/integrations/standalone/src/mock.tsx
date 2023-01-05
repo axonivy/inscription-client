@@ -10,13 +10,14 @@ import { URLParams } from './url-helper';
 export async function start(): Promise<void> {
   const theme = URLParams.getThemeMode();
   const readonly = URLParams.getParameter('readonly') ? true : false;
+  const type = URLParams.getParameter('type') ?? undefined;
 
   MonacoEditorUtil.initMonaco(monaco, theme);
   MonacoUtil.initStandalone();
   const root = ReactDOM.createRoot(document.getElementById('root')!);
 
   console.log('Use Inscription client mock');
-  const inscriptionClient = new InscriptionClientMock(readonly);
+  const inscriptionClient = new InscriptionClientMock(readonly, type);
 
   root.render(
     <React.StrictMode>

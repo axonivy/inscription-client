@@ -1,8 +1,7 @@
 import { memo } from 'react';
 import './NoEditor.css';
-import { InscriptionType } from '@axonivy/inscription-core';
 
-const NoEditor = (props: { type?: InscriptionType }) => {
+const NoEditor = (props: { type?: string }) => {
   return props.type ? (
     <div className='no-editor'>No Editor found for type: {props.type}</div>
   ) : (

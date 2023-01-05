@@ -4,6 +4,8 @@ import { useKeyboard } from 'react-aria';
 import './Tags.css';
 import LabelInput from '../label/LabelInput';
 import { useReadonly } from '../../../context';
+import IvyIcon from '../IvyIcon';
+import { IvyIcons } from '@axonivy/editor-icons';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
   const [newTag, setNewTag] = useState('');
@@ -45,7 +47,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
             {...keyboardProps}
             disabled={readonly}
           >
-            X
+            <IvyIcon icon={IvyIcons.Add} rotate={45} />
           </button>
           <span>{tag}</span>
         </div>
@@ -53,7 +55,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
       <Popover.Root open={isOpen} onOpenChange={handleAddPopoverChange}>
         <Popover.Trigger asChild>
           <button className='tag-add' aria-label='Add new tag' disabled={readonly}>
-            <span className='tag-add-plus'>+</span>
+            <IvyIcon icon={IvyIcons.Add} />
             <span>Add</span>
           </button>
         </Popover.Trigger>
