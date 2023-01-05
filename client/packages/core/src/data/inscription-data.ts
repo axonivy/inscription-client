@@ -24,11 +24,11 @@ export const USER_DIALOG_DATA: DialogCallData = {
   description: 'test desc',
   docs: [
     {
-      description: 'Doc 1',
+      name: 'Doc 1',
       url: 'axonivy.com'
     },
     {
-      description: 'ivyTeam ❤️',
+      name: 'ivyTeam ❤️',
       url: 'ivyteam.ch'
     }
   ],
