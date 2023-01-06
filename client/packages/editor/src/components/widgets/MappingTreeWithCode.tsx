@@ -13,7 +13,7 @@ const MappingTreeWithCode = (props: {
   mappingTree?: Variable[];
   message?: Message;
 }) => {
-  const handleMappingChange = (change: Mapping[]) => props.onChange({ ...props.data, mappings: change });
+  const handleMappingChange = (change: Mapping[]) => props.onChange({ ...props.data, map: change });
   const handleCodeChange = (code?: string) => props.onChange({ ...props.data, code: code || '' });
 
   const monacoOptions = MINIMAL_STYLE;
@@ -22,13 +22,13 @@ const MappingTreeWithCode = (props: {
   return (
     <>
       <LabelInput label='Mapping' htmlFor='mapping'>
-        <MappingTree data={props.data.mappings} mappingTree={props.mappingTree} onChange={handleMappingChange} />
+        <MappingTree data={props.data?.map ?? []} mappingTree={props.mappingTree} onChange={handleMappingChange} />
       </LabelInput>
       <LabelInput label='Code' htmlFor='code' message={props.message}>
         <Editor
           className='input'
-          defaultValue={props.data.code}
-          value={props.data.code}
+          defaultValue={props.data?.code}
+          value={props.data?.code}
           defaultLanguage='form'
           height='90px'
           defaultPath='root.form'

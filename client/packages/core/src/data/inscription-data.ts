@@ -1,3 +1,4 @@
+import { CallDataAccess } from './call-data';
 import { NameDataAccess } from './name-data';
 
 export type InscriptionType = 'DialogCall' | 'UserTask';
@@ -17,7 +18,7 @@ export interface InscriptionSaveData {
 
 export interface UserTaskData extends NameDataAccess {}
 
-export interface DialogCallData extends NameDataAccess {}
+export interface DialogCallData extends NameDataAccess, CallDataAccess {}
 
 export const USER_DIALOG_DATA: DialogCallData = {
   name: 'test name',
@@ -32,12 +33,12 @@ export const USER_DIALOG_DATA: DialogCallData = {
       url: 'ivyteam.ch'
     }
   ],
-  tags: ['bla', 'zag']
-  // callData: {
-  //   dialogStart: '',
-  //   mappingData: {
-  //     mappings: [{ attribute: 'param.procurementRequest', expression: 'in' }],
-  //     code: 'ivy.log.info("Hello World")'
-  //   }
-  // },
+  tags: ['bla', 'zag'],
+  config: {
+    dialog: '',
+    call: {
+      map: [{ key: 'param.procurementRequest', value: 'in' }],
+      code: 'ivy.log.info("Hello World")'
+    }
+  }
 };
