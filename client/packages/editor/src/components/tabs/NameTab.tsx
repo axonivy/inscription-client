@@ -47,10 +47,10 @@ const NameTab = () => {
         />
       </LabelInput>
       <LabelInput label='Means / Documents' htmlFor='documents'>
-        <DocumentTable data={documents} onChange={setDocuments} />
+        <DocumentTable data={documents ?? []} onChange={setDocuments} />
       </LabelInput>
-      <CollapsiblePart collapsibleLabel='Tags' defaultOpen={tags.length > 0}>
-        <Tags tags={tags} onChange={setTags} />
+      <CollapsiblePart collapsibleLabel='Tags' defaultOpen={tags?.length > 0}>
+        <Tags tags={tags ?? []} onChange={setTags} />
       </CollapsiblePart>
     </div>
   );
