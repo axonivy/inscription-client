@@ -13,6 +13,10 @@
       "path": "./packages/editor"
     },
     {
+      "name": "package/icons",
+      "path": "./packages/icons"
+    },
+    {
       "name": "integrations/standalone",
       "path": "./integrations/standalone"
     }
@@ -23,8 +27,13 @@
     "jest.disabledWorkspaceFolders": [
       "client (root)",
       "package/core",
+      "package/icons",
       "integrations/standalone"
     ],
+    "jest.autoRun": {
+      "watch": false,
+      "onSave": "test-file",
+    },
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true

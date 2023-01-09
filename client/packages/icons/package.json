@@ -1,0 +1,17 @@
+{
+  "name": "@axonivy/editor-icons",
+  "version": "0.1.0",
+  "fontVersion": "1.0",
+  "description": "The icon font for the Axon Ivy Process Editor",
+  "private": true,
+  "main": "dist/ivy-icons.ts",
+  "devDependencies": {
+    "fantasticon": "^2.0.0",
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "fantasticon",
+    "build:clean": "yarn clean && yarn build"
+  }
+}

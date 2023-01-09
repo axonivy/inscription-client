@@ -2,17 +2,29 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import InscriptionEditor from './InscriptionEditor';
-import { Message } from '../props/message';
 import { TabProps, TabState } from '../props/tab';
+import { DataContext, DataContextInstance } from '../../context';
+import { InscriptionValidation } from '@axonivy/inscription-core';
+import { IvyIcons } from '@axonivy/editor-icons';
 
 describe('Editor', () => {
-  function renderEditor(options: { headerState?: Message[] } = {}) {
+  function renderEditor(options: { headerState?: InscriptionValidation[] } = {}) {
     const tabs: TabProps[] = [
       { name: 'Name', state: TabState.EMPTY, content: <h1>Name</h1> },
       { name: 'Call', state: TabState.CONFIGURED, content: <h1>Call</h1> },
       { name: 'Result', state: TabState.CONFIGURED, content: <h1>Result</h1> }
     ];
-    render(<InscriptionEditor title='Test Editor' tabs={tabs} editorState={options.headerState ?? []} />);
+    const data: DataContext = {
+      data: {},
+      initialData: {},
+      updateData: () => {},
+      validation: options.headerState ?? []
+    };
+    render(
+      <DataContextInstance.Provider value={data}>
+        <InscriptionEditor title='Test Editor' icon={IvyIcons.Add} tabs={tabs} />
+      </DataContextInstance.Provider>
+    );
   }
 
   test('editor will render', () => {
@@ -22,9 +34,9 @@ describe('Editor', () => {
   });
 
   test('editor show state', () => {
-    const headerState: Message[] = [
-      { message: 'this is an error', severity: 'error' },
-      { message: 'this is an warning', severity: 'warning' }
+    const headerState: InscriptionValidation[] = [
+      { path: '', message: 'this is an error', severity: 'error' },
+      { path: '', message: 'this is an warning', severity: 'warning' }
     ];
     renderEditor({ headerState: headerState });
     expect(screen.getByText(/this is an error/i)).toHaveClass('header-status', 'message-error');

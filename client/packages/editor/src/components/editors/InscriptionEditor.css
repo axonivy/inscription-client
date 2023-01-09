@@ -33,7 +33,6 @@ textarea.input {
 /* Header */
 .header {
   display: flex;
-  justify-content: space-between;
   gap: 1rem;
 }
 .header-title {
@@ -58,33 +57,37 @@ textarea.input {
 .header-status.message-warning {
   color: var(--warning-color);
 }
-.header-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+.header .ivy {
+  font-size: 1.5rem;
 }
 
 /* Tabs */
 .tabs-root {
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
 }
 .tabs-list {
   flex-shrink: 0;
   display: flex;
   gap: 4px;
+  margin-left: auto;
+  flex-wrap: wrap;
+  flex: 1 1 0;
+  justify-content: flex-end;
 }
 .tabs-trigger {
   font-family: inherit;
   background-color: var(--button-bg);
   border-radius: var(--border-radius);
-  padding: 6px 10px;
-  height: 12px;
-  width: 76px;
-  flex: 1;
+  padding: 5px 10px;
+  height: 0.75rem;
+  width: 5rem;
+  max-width: 7rem;
   display: flex;
+  flex: 1 0 0;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
   font-size: 12px;
   line-height: 1;
   color: var(--button-color);

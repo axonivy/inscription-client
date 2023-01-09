@@ -3,6 +3,7 @@ import set from 'lodash/fp/set';
 import { InscriptionValidation } from '@axonivy/inscription-core';
 import { useEffect, useMemo, useState } from 'react';
 import './App.css';
+import '@axonivy/editor-icons/dist/ivy-icons.css';
 import { DataContextInstance, ReadonlyContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
 import AppStateView from './AppStateView';

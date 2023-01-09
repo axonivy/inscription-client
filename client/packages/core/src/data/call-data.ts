@@ -8,6 +8,13 @@ export interface Mapping {
   value: string;
 }
 
+export interface CallData {
+  config: {
+    dialog: string;
+    call: MappingData;
+  };
+}
+
 export interface CallDataAccess {
   'config/dialog': string;
   'config/call': MappingData;

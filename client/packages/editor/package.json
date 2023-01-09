@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@axonivy/inscription-core": "0.1.0",
+    "@axonivy/editor-icons": "0.1.0",
     "@monaco-editor/react": "^4.4.6",
     "@radix-ui/react-collapsible": "^1.0.1",
     "@radix-ui/react-label": "^2.0.0",

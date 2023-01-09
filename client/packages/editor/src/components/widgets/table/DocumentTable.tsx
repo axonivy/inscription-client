@@ -1,7 +1,9 @@
 import { Document } from '@axonivy/inscription-core';
+import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import React, { memo, useState } from 'react';
 import { useReadonly } from '../../../context';
+import IvyIcon from '../IvyIcon';
 import './DocumentTable.css';
 import { EditableCell } from './EditableCell';
 import { Table, TableCell, TableHeader, TableHeaderSorted } from './Table';
@@ -89,11 +91,15 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
             ))}
             <TableCell key={`${row.id}-actions`}>
               <span className='action-buttons'>
-                <button onClick={() => removeTableRow(row.index)} disabled={readonly}>
-                  🗑️
+                <button onClick={() => removeTableRow(row.index)} disabled={readonly} aria-label='Remove row'>
+                  <IvyIcon icon={IvyIcons.Delete} />
                 </button>
-                <button>🔍</button>
-                <button>➡️</button>
+                <button aria-label='Browse'>
+                  <IvyIcon icon={IvyIcons.Search} />
+                </button>
+                <button aria-label='Open URL'>
+                  <IvyIcon icon={IvyIcons.GoToSource} />
+                </button>
               </span>
             </TableCell>
           </tr>
@@ -102,8 +108,8 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
       <tfoot>
         <tr>
           <th colSpan={3} className='add-row'>
-            <button onClick={addRow} disabled={readonly}>
-              <span className='add-row-plus'>+</span>
+            <button onClick={addRow} disabled={readonly} aria-label='Add row'>
+              <IvyIcon icon={IvyIcons.Add} />
             </button>
           </th>
         </tr>

@@ -1,24 +1,23 @@
-import { CallDataAccess } from './call-data';
+import { CallData } from './call-data';
+import { InscriptionEditorType } from './inscription-type';
 import { NameDataAccess } from './name-data';
-
-export type InscriptionType = 'DialogCall' | 'UserTask';
 
 export interface InscriptionData {
   pid: string;
-  type: InscriptionType;
+  type: InscriptionEditorType;
   readonly: boolean;
   data: any;
 }
 
 export interface InscriptionSaveData {
   pid: string;
-  type: InscriptionType;
+  type: InscriptionEditorType;
   data: any;
 }
 
 export interface UserTaskData extends NameDataAccess {}
 
-export interface DialogCallData extends NameDataAccess, CallDataAccess {}
+export interface DialogCallData extends NameDataAccess, CallData {}
 
 export const USER_DIALOG_DATA: DialogCallData = {
   name: 'test name',
