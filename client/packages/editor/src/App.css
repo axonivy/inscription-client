@@ -17,8 +17,8 @@
   --border-radius: 4px;
   --focus-shadow: 0 0 0 1px var(--text-color);
 
-  --error-color: #ff796f;
-  --warning-color: #ff9f46;
+  --error-color: #ff4a3d;
+  --warning-color: #ff8614;
   --success-color: #48c46b;
   --info-color: #75beff;
 }
@@ -41,6 +41,9 @@
   --text-color: #bababa;
   --table-bg: #202020;
   --table-row-bg: #333333;
+
+  --error-color: #ff796f;
+  --warning-color: #ff9f46;
 }
 
 .editor-state {

@@ -18,12 +18,12 @@ export interface TabProps {
 
 export function useTabState(initData: any, data: any, messages: Message[]): TabState {
   const tabState = useMemo(() => {
-    const errors = messages.find(message => message.severity === 'error');
+    const errors = messages.find(message => message?.severity === 'error');
     if (errors) {
       return TabState.ERROR;
     }
 
-    const warnings = messages.find(message => message.severity === 'warning');
+    const warnings = messages.find(message => message?.severity === 'warning');
     if (warnings) {
       return TabState.WARNING;
     }

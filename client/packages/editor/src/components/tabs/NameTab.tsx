@@ -1,14 +1,21 @@
 import './NameTab.css';
-import { useData, useReadonly, useValidation, useValidations } from '../../context';
+import { useData, useReadonly, useValidation } from '../../context';
 import { TabProps, useTabState } from '../props';
 import LabelInput from '../widgets/label/LabelInput';
 import DocumentTable from '../widgets/table/DocumentTable';
 import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
 import Tags from '../widgets/tag/Tags';
+import { InscriptionValidation } from '@axonivy/inscription-core';
+
+function useNameTabValidation(): InscriptionValidation[] {
+  const name = useValidation('name');
+  const description = useValidation('description');
+  return [name, description];
+}
 
 export function useNameTab(): TabProps {
   const [initData, data] = useData('nameData');
-  const validation = useValidations('nameData');
+  const validation = useNameTabValidation();
   const tabState = useTabState(initData, data, validation);
   return { name: 'Name', state: tabState, content: <NameTab /> };
 }
@@ -19,14 +26,13 @@ const NameTab = () => {
   const [, documents, setDocuments] = useData('docs');
   const [, tags, setTags] = useData('tags');
 
-  const displayNameValidation = useValidation('nameData/displayName');
-  const descripitonValidation = useValidation('nameData/description');
+  const [nameValidation, descriptionValidation] = useNameTabValidation();
 
   const readonly = useReadonly();
 
   return (
     <div className='name-tab'>
-      <LabelInput label='Display name' htmlFor='displayName' message={displayNameValidation}>
+      <LabelInput label='Display name' htmlFor='displayName' message={nameValidation}>
         <textarea
           rows={1}
           className='input'
@@ -36,7 +42,7 @@ const NameTab = () => {
           disabled={readonly}
         />
       </LabelInput>
-      <LabelInput label='Description' htmlFor='description' message={descripitonValidation}>
+      <LabelInput label='Description' htmlFor='description' message={descriptionValidation}>
         <textarea
           rows={2}
           className='input'

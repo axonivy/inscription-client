@@ -48,8 +48,10 @@ textarea.input {
 .header-status {
   padding-top: 0.5rem;
   font-weight: 400;
-  font-size: 10px;
-  line-height: 10px;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 .header-status.message-error {
   color: var(--error-color);
@@ -107,24 +109,23 @@ textarea.input {
   position: relative;
   box-shadow: var(--focus-shadow);
 }
-
-.tabs-trigger .dirty-state {
+.tabs-trigger .tab-state {
   height: 0.5rem;
   width: 0.5rem;
   border-radius: 0.5rem;
   margin-right: 0.25rem;
   background-color: var(--button-color);
 }
-.tabs-trigger .dirty-state[data-state='configured'] {
+.tabs-trigger .tab-state[data-state='configured'] {
   background-color: var(--info-color);
 }
-.tabs-trigger .dirty-state[data-state='dirty'] {
+.tabs-trigger .tab-state[data-state='dirty'] {
   background-color: var(--success-color);
 }
-.tabs-trigger .dirty-state[data-state='warning'] {
+.tabs-trigger .tab-state[data-state='warning'] {
   background-color: var(--warning-color);
 }
-.tabs-trigger .dirty-state[data-state='error'] {
+.tabs-trigger .tab-state[data-state='error'] {
   background-color: var(--error-color);
 }
 

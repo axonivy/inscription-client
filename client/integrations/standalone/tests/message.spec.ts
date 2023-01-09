@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { selectDialog } from './combobox-util';
 
 test.describe('Global Messages', () => {
   test('multiple errors', async ({ page }) => {
@@ -25,9 +26,7 @@ test.describe('Global Messages', () => {
     await expect(info).toBeHidden();
 
     await page.getByRole('tab', { name: 'Call' }).click();
-    const dialog = page.getByLabel('Dialog');
-    await dialog.fill('Acc');
-    await page.getByRole('option', { name: 'AcceptRequest' }).first().click();
+    await selectDialog(page);
     await expect(warning).toBeHidden();
     await expect(info).toBeVisible();
   });
