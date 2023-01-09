@@ -19,14 +19,15 @@ import { MappingTreeData } from './mapping-tree-data';
 const MappingTree = (props: { data: Mapping[]; mappingTree?: Variable[]; onChange: (change: Mapping[]) => void }) => {
   const data: MappingTreeData[] = useMemo(() => {
     const treeData = MappingTreeData.of(props.mappingTree);
-    props.data.forEach(mapping => MappingTreeData.update(treeData, mapping.attribute.split('.'), mapping.expression));
+    props.data?.forEach(mapping => MappingTreeData.update(treeData, mapping.key.split('.'), mapping.value));
     return treeData;
   }, [props.data, props.mappingTree]);
 
   const columns = React.useMemo<ColumnDef<MappingTreeData>[]>(
     () => [
       {
-        accessorKey: 'attribute',
+        accessorFn: row => row.attribute,
+        id: 'attribute',
         header: header => <ExpandableHeader header={header} name='Attribute' />,
         cell: cell => <ExpandableCell cell={cell} />,
         footer: props => props.column.id,
@@ -41,8 +42,8 @@ const MappingTree = (props: { data: Mapping[]; mappingTree?: Variable[]; onChang
         enableSorting: false
       },
       {
-        accessorFn: row => row.expression,
-        id: 'expression',
+        accessorFn: row => row.value,
+        id: 'value',
         header: () => <span>Expression</span>,
         cell: cell => <EditableCell cell={cell} />,
         footer: props => props.column.id

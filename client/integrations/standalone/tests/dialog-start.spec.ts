@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Dialog Starts', () => {
-  test.skip('change will update mapping tree', async ({ page }) => {
+  test('change will update mapping tree', async ({ page }) => {
     await page.goto('');
     await page.getByRole('tab', { name: 'Call' }).click();
     const dialog = page.getByLabel('Dialog');

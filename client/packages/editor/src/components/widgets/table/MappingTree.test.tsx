@@ -16,7 +16,7 @@ describe('MappingTree', () => {
   const NODE_BOOLEAN = /🔵 accepted java.lang.Boolean/;
   const NODE_NUMBER = /🔵 amount java.lang.Number/;
 
-  const data: Mapping[] = [{ attribute: 'param.procurementRequest', expression: 'in' }];
+  const data: Mapping[] = [{ key: 'param.procurementRequest', value: 'in' }];
 
   function renderTree(
     options: {
@@ -79,8 +79,8 @@ describe('MappingTree', () => {
     await userEvent.tab();
     expect(inputs[1]).toHaveValue('in');
     expect(inputs[3]).toHaveValue('text3');
-    assertDataMapping(mapping[0], { attribute: 'param.procurementRequest', expression: 'in' });
-    assertDataMapping(mapping[1], { attribute: 'param.procurementRequest.amount', expression: 'text3' });
+    assertDataMapping(mapping[0], { key: 'param.procurementRequest', value: 'in' });
+    assertDataMapping(mapping[1], { key: 'param.procurementRequest.amount', value: 'text3' });
   });
 
   test('tree support readonly mode', async () => {
@@ -94,7 +94,7 @@ describe('MappingTree', () => {
   });
 
   function assertDataMapping(mapping: Mapping, expectedMapping: Mapping) {
-    expect(mapping.attribute).toEqual(expectedMapping.attribute);
-    expect(mapping.expression).toEqual(expectedMapping.expression);
+    expect(mapping.key).toEqual(expectedMapping.key);
+    expect(mapping.value).toEqual(expectedMapping.value);
   }
 });

@@ -1,5 +1,5 @@
 import { InscriptionValidation } from '.';
-import { InscriptionSaveData, DialogCallData, NameDataAccess } from '../data';
+import { InscriptionSaveData, DialogCallData, NameDataAccess, CallDataAccess } from '../data';
 
 export function validateInscriptionData(data: InscriptionSaveData): InscriptionValidation[] {
   switch (data.type) {
@@ -13,7 +13,7 @@ export function validateInscriptionData(data: InscriptionSaveData): InscriptionV
 export function validateUserDialogEditor(data: DialogCallData): InscriptionValidation[] {
   const msgs: InscriptionValidation[] = [];
   msgs.push(...validateNameData(data));
-  // msgs.push(...validateCallData(data));
+  msgs.push(...validateCallData(data));
   return msgs;
 }
 
@@ -28,10 +28,10 @@ export function validateNameData(data: NameDataAccess): InscriptionValidation[] 
   return msgs;
 }
 
-// export function validateCallData(data: CallData): InscriptionValidation[] {
-//   const msgs: InscriptionValidation[] = [];
-//   if (data.dialogStart.length === 0) {
-//     msgs.push({ path: 'callData/dialogStart', severity: 'warning', message: '⚠️ No User Dialog specified, auto dialog will be shown.' });
-//   }
-//   return msgs;
-// }
+export function validateCallData(data: CallDataAccess): InscriptionValidation[] {
+  const msgs: InscriptionValidation[] = [];
+  if (data.config.dialog.length === 0) {
+    msgs.push({ path: 'config/dialog', severity: 'warning', message: '⚠️ No User Dialog specified, auto dialog will be shown.' });
+  }
+  return msgs;
+}

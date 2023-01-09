@@ -1,21 +1,15 @@
-export interface CallData {
-  dialogStart: string;
-  mappingData: MappingData;
-}
-
 export type MappingData = {
-  mappings: Mapping[];
+  map: Mapping[];
   code: string;
 };
 
 export interface Mapping {
-  attribute: string;
-  expression: string;
+  key: string;
+  value: string;
 }
 
 export interface CallDataAccess {
-  callData: CallData;
-  'callData/dialogStart': string;
-  'callData/mappingData': MappingData;
-  'callData/mappingData/code': string;
+  'config/dialog': string;
+  'config/call': MappingData;
+  'config/call/code': string;
 }

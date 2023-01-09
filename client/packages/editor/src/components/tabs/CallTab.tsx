@@ -15,24 +15,24 @@ export function useCallTab(): TabProps {
 }
 
 const CallTab = () => {
-  const [, mappingData, setMappingData] = useData('callData/mappingData');
-  const [, dialogStart, setDialogStarts] = useData('callData/dialogStart');
+  const [, mappingData, setMappingData] = useData('config/call');
+  const [, dialogStart, setDialogStarts] = useData('config/dialog');
   const [dialogStartItems, setDialogStartItems] = useState<DialogStartItem[]>([]);
-  const dialogStartValidation = useValidation('callData/dialogStart');
+  const dialogStartValidation = useValidation('config/dialog');
 
   const client = useClient();
   useEffect(() => {
     client.dialogStarts().then(dialogStarts =>
       setDialogStartItems(
         dialogStarts.map(dialogStart => {
-          return { ...dialogStart, value: dialogStart.id };
+          return { ...dialogStart, value: dialogStart.dialog };
         })
       )
     );
   }, [client]);
 
   const mappingTree = useMemo(() => {
-    return dialogStartItems.find(ds => ds.id === dialogStart)?.callParameter;
+    return dialogStartItems.find(ds => ds.dialog === dialogStart)?.callParameter;
   }, [dialogStart, dialogStartItems]);
 
   return (

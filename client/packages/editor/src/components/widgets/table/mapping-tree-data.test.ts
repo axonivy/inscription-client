@@ -11,15 +11,15 @@ describe('MappingTreeData', () => {
         {
           attribute: 'procurementRequest',
           children: [
-            { attribute: 'accepted', children: [], expression: '', type: 'java.lang.Boolean', simpleType: 'Boolean' },
-            { attribute: 'amount', children: [], expression: '', type: 'java.lang.Number', simpleType: 'Number' }
+            { attribute: 'accepted', children: [], value: '', type: 'java.lang.Boolean', simpleType: 'Boolean' },
+            { attribute: 'amount', children: [], value: '', type: 'java.lang.Number', simpleType: 'Number' }
           ],
-          expression: '',
+          value: '',
           type: 'workflow.humantask.ProcurementRequest',
           simpleType: 'ProcurementRequest'
         }
       ],
-      expression: '',
+      value: '',
       type: '<workflow.humantask.ProcurementRequest procurementRequest>',
       simpleType: '<ProcurementRequest>'
     }
@@ -32,7 +32,7 @@ describe('MappingTreeData', () => {
         {
           attribute: 'dummy',
           children: [],
-          expression: '',
+          value: '',
           type: 'dummyType'
         }
       ])
@@ -51,23 +51,23 @@ describe('MappingTreeData', () => {
     MappingTreeData.update(tree, ['dummy'], 'dummy');
 
     expect(tree).not.toEqual(resultTree);
-    resultTree[0].children[0].expression = 'in';
-    resultTree[0].children[0].children[1].expression = '12';
-    resultTree[1].expression = 'dummy';
+    resultTree[0].children[0].value = 'in';
+    resultTree[0].children[0].children[1].value = '12';
+    resultTree[1].value = 'dummy';
     expect(tree).toEqual(resultTree);
   });
 
   test('update deep', () => {
     const resultTree = mappingTreeMultiRootData();
     let tree = JSON.parse(JSON.stringify(resultTree));
-    tree = MappingTreeData.updateDeep(tree, [0], 'expression', 'root');
-    tree = MappingTreeData.updateDeep(tree, [0, 0, 1], 'expression', '12');
-    tree = MappingTreeData.updateDeep(tree, [1], 'expression', 'dummy');
+    tree = MappingTreeData.updateDeep(tree, [0], 'value', 'root');
+    tree = MappingTreeData.updateDeep(tree, [0, 0, 1], 'value', '12');
+    tree = MappingTreeData.updateDeep(tree, [1], 'value', 'dummy');
 
     expect(tree).not.toEqual(resultTree);
-    resultTree[0].expression = 'root';
-    resultTree[0].children[0].children[1].expression = '12';
-    resultTree[1].expression = 'dummy';
+    resultTree[0].value = 'root';
+    resultTree[0].children[0].children[1].value = '12';
+    resultTree[1].value = 'dummy';
     expect(tree).toEqual(resultTree);
   });
 
@@ -75,17 +75,17 @@ describe('MappingTreeData', () => {
     const tree = mappingTreeMultiRootData();
     expect(MappingTreeData.to(tree)).toEqual([]);
 
-    tree[0].expression = 'root';
-    tree[0].children[0].children[1].expression = '12';
-    tree[1].expression = 'dummy';
+    tree[0].value = 'root';
+    tree[0].children[0].children[1].value = '12';
+    tree[1].value = 'dummy';
     const mapping = MappingTreeData.to(tree);
-    assertDataMapping(mapping[0], { attribute: 'param', expression: 'root' });
-    assertDataMapping(mapping[1], { attribute: 'param.procurementRequest.amount', expression: '12' });
-    assertDataMapping(mapping[2], { attribute: 'dummy', expression: 'dummy' });
+    assertDataMapping(mapping[0], { key: 'param', value: 'root' });
+    assertDataMapping(mapping[1], { key: 'param.procurementRequest.amount', value: '12' });
+    assertDataMapping(mapping[2], { key: 'dummy', value: 'dummy' });
   });
 
   function assertDataMapping(mapping: Mapping, expectedMapping: Mapping) {
-    expect(mapping.attribute).toEqual(expectedMapping.attribute);
-    expect(mapping.expression).toEqual(expectedMapping.expression);
+    expect(mapping.key).toEqual(expectedMapping.key);
+    expect(mapping.value).toEqual(expectedMapping.value);
   }
 });

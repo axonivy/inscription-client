@@ -1,6 +1,6 @@
 import { Mapping, Variable } from '@axonivy/inscription-core';
 
-export interface MappingTreeData extends Variable, Mapping {
+export interface MappingTreeData extends Variable, Omit<Mapping, 'key'> {
   children: MappingTreeData[];
 }
 
@@ -10,7 +10,7 @@ export namespace MappingTreeData {
       return [];
     }
     const treeData = tree?.map(node => {
-      return { ...node, expression: '', children: of(node.children) };
+      return { ...node, value: '', children: of(node.children) };
     });
     return treeData;
   }
@@ -23,7 +23,7 @@ export namespace MappingTreeData {
       if (node.attribute === mappingPath[0]) {
         mappingPath.shift();
         if (mappingPath.length === 0) {
-          node.expression = mappingValue;
+          node.value = mappingValue;
         } else {
           update(node.children, mappingPath, mappingValue);
         }
@@ -56,13 +56,13 @@ export namespace MappingTreeData {
   export function to(tree: MappingTreeData[]): Mapping[] {
     return tree.flatMap(node => {
       const mappings: Mapping[] = [];
-      if (node.expression.length > 0) {
-        mappings.push(node);
+      if (node.value.length > 0) {
+        mappings.push({ key: node.attribute, value: node.value });
       }
       if (node.children.length > 0) {
         mappings.push(
           ...to(node.children).map(mapping => {
-            return { ...mapping, attribute: `${node.attribute}.${mapping.attribute}` };
+            return { ...mapping, key: `${node.attribute}.${mapping.key}` };
           })
         );
       }
