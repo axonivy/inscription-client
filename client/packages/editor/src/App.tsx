@@ -4,7 +4,7 @@ import { InscriptionValidation } from '@axonivy/inscription-core';
 import { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import '@axonivy/editor-icons/dist/ivy-icons.css';
-import { DataContextInstance, ReadonlyContextInstance, useClient, useTheme } from './context';
+import { DataContextInstance, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
 import AppStateView from './AppStateView';
 import { AppState, errorState, successState, waitingState } from './app-state';
@@ -48,12 +48,16 @@ function App(props: AppProps) {
     return { data: data, initialData: appState.initialData?.data, updateData, validation: validation };
   }, [appState.initialData, data, validation]);
 
+  const editorContext = useMemo(() => {
+    return { pid: props.pid, readonly: appState.initialData?.readonly ?? false, type: appState.initialData?.type };
+  }, [props.pid, appState.initialData]);
+
   if (appState.state === 'success') {
     return (
       <div className='editor-root' data-theme={theme}>
-        <ReadonlyContextInstance.Provider value={appState.initialData?.readonly ?? false}>
+        <EditorContextInstance.Provider value={editorContext}>
           <DataContextInstance.Provider value={dataContext}>{inscriptionEditor(appState.initialData?.type)}</DataContextInstance.Provider>
-        </ReadonlyContextInstance.Provider>
+        </EditorContextInstance.Provider>
       </div>
     );
   }

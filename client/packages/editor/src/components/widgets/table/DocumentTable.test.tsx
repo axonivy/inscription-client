@@ -3,7 +3,7 @@ import { Document } from '@axonivy/inscription-core';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DocumentTable from './DocumentTable';
-import { ReadonlyContextInstance } from '../../../context';
+import { EditorContextInstance } from '../../../context';
 
 describe('DocumentTable', () => {
   const documents: Document[] = [
@@ -130,9 +130,9 @@ describe('DocumentTable', () => {
 
   test('table support readonly mode', async () => {
     render(
-      <ReadonlyContextInstance.Provider value={true}>
+      <EditorContextInstance.Provider value={{ pid: '', readonly: true }}>
         <DocumentTable data={documents} onChange={() => {}} />
-      </ReadonlyContextInstance.Provider>
+      </EditorContextInstance.Provider>
     );
 
     expect(screen.getByRole('button', { name: 'Add row' })).toBeDisabled();

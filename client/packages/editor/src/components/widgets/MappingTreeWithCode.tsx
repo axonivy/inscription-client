@@ -25,7 +25,7 @@ const MappingTreeWithCode = (props: {
         <MappingTree data={props.data?.map ?? []} mappingTree={props.mappingTree} onChange={handleMappingChange} />
       </LabelInput>
       <LabelInput label='Code' htmlFor='code' message={props.message}>
-        <CodeEditor code={props.data?.code} onChange={handleCodeChange} />
+        <CodeEditor code={props.data?.code} onChange={handleCodeChange} location='call.code' />
       </LabelInput>
     </>
   );

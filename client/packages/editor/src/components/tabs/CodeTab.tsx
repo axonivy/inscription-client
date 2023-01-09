@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { MINIMAL_STYLE } from '../../monaco-editor-util';
-import { useReadonly } from '../../context';
+import { useData } from '../../context';
 import { TabProps, TabState } from '../props';
 import LabelInput from '../widgets/label/LabelInput';
 import { CodeEditor } from '../widgets';
@@ -10,13 +8,11 @@ export function useCodeTab(): TabProps {
 }
 
 const CodeTab = () => {
-  const [code, setCode] = useState('');
+  const [, code, setCode] = useData('config/output/code');
 
-  const monacoOptions = MINIMAL_STYLE;
-  monacoOptions.readOnly = useReadonly();
   return (
     <LabelInput label='Code' htmlFor='code'>
-      <CodeEditor code={code} onChange={code => setCode(code ?? '')} />
+      <CodeEditor code={code} onChange={code => setCode(code ?? '')} location='output.code' />
     </LabelInput>
     // disable permission checkbox
   );
