@@ -1,6 +1,7 @@
 import { loader, Monaco } from '@monaco-editor/react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { ThemeContext } from './context/useTheme';
+import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
 
 export const MINIMAL_STYLE: monaco.editor.IStandaloneEditorConstructionOptions = {
   glyphMargin: false,
@@ -13,8 +14,10 @@ export const MINIMAL_STYLE: monaco.editor.IStandaloneEditorConstructionOptions =
   folding: false,
   renderLineHighlight: 'none',
   fontFamily:
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
-  fontSize: 12
+    "'Droid Sans Mono', 'monospace', monospace, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+  fontSize: 12,
+  tabSize: 2,
+  renderWhitespace: 'all'
 };
 
 export namespace MonacoEditorUtil {
@@ -22,10 +25,12 @@ export namespace MonacoEditorUtil {
     loader.config({ monaco });
 
     monaco.languages.register({
-      id: 'form',
-      extensions: ['.form', '.form'],
-      aliases: ['Form', 'form']
+      id: 'ivyScript',
+      extensions: ['.ivyScript', '.ivyScript'],
+      aliases: ['IvyScript', 'ivyScript']
     });
+    monaco.languages.setLanguageConfiguration('ivyScript', ivyScriptConf);
+    monaco.languages.setMonarchTokensProvider('ivyScript', ivyScriptLang);
 
     monaco.editor.defineTheme('axon-input', themeData(theme));
   }

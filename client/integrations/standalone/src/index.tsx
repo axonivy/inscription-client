@@ -1,4 +1,4 @@
-import { MonacoUtil, InscriptionClient, FormLanguage } from '@axonivy/inscription-core';
+import { MonacoUtil, InscriptionClient, IvyScriptLanguage } from '@axonivy/inscription-core';
 import { App, AppStateView, ClientContextInstance, errorState, MonacoEditorUtil } from '@axonivy/inscription-editor';
 import { ThemeContextInstance } from '@axonivy/inscription-editor/src/context/useTheme';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
@@ -17,7 +17,7 @@ export async function start(): Promise<void> {
   const root = ReactDOM.createRoot(document.getElementById('root')!);
 
   try {
-    await FormLanguage.startWebSocketClient(`ws://${server}/ivy-script-lsp`);
+    await IvyScriptLanguage.startWebSocketClient(`ws://${server}/ivy-script-lsp`);
     const inscriptionClient = await InscriptionClient.startWebSocketClient(`ws://${server}/ivy-inscription-lsp`);
     console.log(`Inscription client initialized: ${await inscriptionClient.initialize()}`);
 

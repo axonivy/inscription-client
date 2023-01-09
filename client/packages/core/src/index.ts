@@ -1,5 +1,5 @@
 export * from './connection-util';
-export * from './form-client';
+export * from './ivy-script-client';
 export * from './inscription-client';
 export * from './inscription-protocol';
 export * from './monaco-util';

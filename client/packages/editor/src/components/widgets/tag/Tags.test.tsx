@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Tags from './Tags';
-import { ReadonlyContextInstance } from '../../../context';
+import { EditorContextInstance } from '../../../context';
 
 describe('Tags', () => {
   function renderTags(): {
@@ -88,9 +88,9 @@ describe('Tags', () => {
 
   test('tags support readonly mode', async () => {
     render(
-      <ReadonlyContextInstance.Provider value={true}>
+      <EditorContextInstance.Provider value={{ pid: '', readonly: true }}>
         <Tags tags={['test']} onChange={() => {}} />
-      </ReadonlyContextInstance.Provider>
+      </EditorContextInstance.Provider>
     );
 
     expect(screen.getByRole('button', { name: /test/i })).toBeDisabled();

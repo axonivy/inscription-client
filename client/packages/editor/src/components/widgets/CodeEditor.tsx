@@ -1,19 +1,21 @@
 import Editor from '@monaco-editor/react';
-import { useReadonly } from '../../context';
+import { useEditorContext } from '../../context';
 import { MINIMAL_STYLE } from '../../monaco-editor-util';
 
-const CodeEditor = (props: { code: string; onChange: (code?: string) => void }) => {
+const CodeEditor = (props: { code: string; onChange: (code?: string) => void; location?: string }) => {
+  const editorContext = useEditorContext();
+
   const monacoOptions = MINIMAL_STYLE;
-  monacoOptions.readOnly = useReadonly();
+  monacoOptions.readOnly = editorContext.readonly;
 
   return (
     <Editor
       className='input'
       defaultValue={props.code}
       value={props.code}
-      defaultLanguage='form'
+      defaultLanguage='ivyScript'
       height='90px'
-      defaultPath='root.form'
+      defaultPath={`ivyScript/${editorContext.pid}?location=${props.location ?? ''}`}
       options={monacoOptions}
       theme='axon-input'
       onChange={props.onChange}

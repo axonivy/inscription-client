@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { Message } from '../../props/message';
 import Combobox from './Combobox';
 import { ComboboxItem } from '../../props/combobox';
-import { ReadonlyContextInstance } from '../../../context';
+import { EditorContextInstance } from '../../../context';
 
 describe('Combobox', () => {
   function renderCombobox(
@@ -122,13 +122,13 @@ describe('Combobox', () => {
   });
 
   test('combobox will render message', async () => {
-    renderCombobox('test', { message: { field: 'combobox', message: 'this is a message', severity: 'error' } });
+    renderCombobox('test', { message: { message: 'this is a message', severity: 'error' } });
     expect(screen.getByText('this is a message')).toHaveClass('input-message', 'input-error');
   });
 
   test('combobox support readonly mode', async () => {
     render(
-      <ReadonlyContextInstance.Provider value={true}>
+      <EditorContextInstance.Provider value={{ pid: '', readonly: true }}>
         <Combobox
           label='Combobox'
           items={[{ value: 'test' }]}
@@ -136,7 +136,7 @@ describe('Combobox', () => {
           value={'test'}
           onChange={() => {}}
         />
-      </ReadonlyContextInstance.Provider>
+      </EditorContextInstance.Provider>
     );
 
     expect(screen.getByRole('combobox', { name: 'Combobox' })).toBeDisabled();
