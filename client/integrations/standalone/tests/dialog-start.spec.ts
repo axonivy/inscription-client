@@ -1,16 +1,15 @@
 import { test, expect } from '@playwright/test';
+import { selectDialog } from './combobox-util';
 
 test.describe('Dialog Starts', () => {
   test('change will update mapping tree', async ({ page }) => {
     await page.goto('');
     await page.getByRole('tab', { name: 'Call' }).click();
-    const dialog = page.getByLabel('Dialog');
-    await dialog.fill('Acc');
-    await page.getByRole('option', { name: 'AcceptRequest' }).first().click();
+
+    await selectDialog(page, 'AcceptRequest');
     await expect(page.getByRole('row')).toHaveCount(3);
 
-    await dialog.fill('test');
-    await page.getByRole('option', { name: 'test1' }).click();
+    await selectDialog(page, 'test1');
     await expect(page.getByRole('row')).toHaveCount(1);
   });
 });

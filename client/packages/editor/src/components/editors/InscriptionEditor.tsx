@@ -31,7 +31,7 @@ const Header = (props: EditorProps) => {
         <TabsList className='tabs-list'>
           {props.tabs.map((tab, index) => (
             <TabsTrigger key={`${index}-${tab.name}`} className='tabs-trigger' value={tab.name}>
-              <span className='dirty-state' data-state={tab.state} />
+              <span className='tab-state' data-state={tab.state} />
               {tab.name}
             </TabsTrigger>
           ))}
@@ -40,6 +40,7 @@ const Header = (props: EditorProps) => {
       </div>
       {headerState.map((state, index) => (
         <div key={index} className={`header-status message-${state.severity}`}>
+          <IvyIcon icon={state.severity} />
           {state.message}
         </div>
       ))}
