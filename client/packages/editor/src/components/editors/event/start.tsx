@@ -13,14 +13,12 @@ const RequestStartEditor = memo(() => {
   const triggerTab = { name: 'Trigger', content: <h1>Trigger</h1>, state: TabState.EMPTY };
   const taskTab = useTaskTab();
   const caseTab = useCaseTab();
-  return (
-    <InscriptionEditor title='Request Start' icon={IvyIcons.Start} tabs={[nameTab, startTab, requestTab, triggerTab, taskTab, caseTab]} />
-  );
+  return <InscriptionEditor icon={IvyIcons.Start} tabs={[nameTab, startTab, requestTab, triggerTab, taskTab, caseTab]} />;
 });
 
 export const startEventEditors = new Map<EventEditorType.Start, JSX.Element>([
   ['RequestStart', <RequestStartEditor />],
-  ['SignalStartEvent', <NameEditor title='Signal Start Event' icon={IvyIcons.Signal} />],
-  ['ProgramStart', <NameEditor title='Program Start' icon={IvyIcons.StartProgram} />],
-  ['ErrorStartEvent', <NameEditor title='Error Start Event' icon={IvyIcons.ErrorEvent} />]
+  ['SignalStartEvent', <NameEditor icon={IvyIcons.Signal} />],
+  ['ProgramStart', <NameEditor icon={IvyIcons.StartProgram} />],
+  ['ErrorStartEvent', <NameEditor icon={IvyIcons.ErrorEvent} />]
 ]);

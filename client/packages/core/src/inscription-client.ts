@@ -1,7 +1,7 @@
 import { createMessageConnection, Emitter, Event } from 'vscode-jsonrpc';
 import { Disposable } from 'vscode-ws-jsonrpc';
 import { ConnectionUtil } from './connection-util';
-import { InscriptionData, InscriptionEditorType, InscriptionSaveData, USER_DIALOG_DATA } from './data';
+import { InscriptionData, InscriptionEditorType, InscriptionSaveData, InscriptionType, USER_DIALOG_DATA } from './data';
 import { InscriptionNotificationTypes, InscriptionRequestTypes } from './inscription-protocol';
 import { DialogStart, DIALOG_STARTS_META, Variable } from './meta';
 import { BaseRcpClient } from './rcp-client';
@@ -28,7 +28,14 @@ export class InscriptionClientMock implements InscriptionClient {
   }
 
   data(pid: string): Promise<InscriptionData> {
-    return Promise.resolve({ pid: pid, type: this.type, readonly: this.readonly, data: USER_DIALOG_DATA });
+    const inscriptionType: InscriptionType = {
+      id: this.type,
+      label: 'User Dialog',
+      shortLabel: 'User Dialog',
+      description: '',
+      iconId: 'UserDialog'
+    };
+    return Promise.resolve({ pid: pid, type: inscriptionType, readonly: this.readonly, data: USER_DIALOG_DATA });
   }
 
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {
