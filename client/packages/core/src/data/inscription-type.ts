@@ -22,6 +22,14 @@ export namespace ActivityEditorType {
   export type All = General | Interface | Bpmn;
 }
 
-export type OtherEditorType = 'ProcessAnnotation';
+export type OtherEditorType = 'ProcessAnnotation' | 'Unknown';
 
 export type InscriptionEditorType = EventEditorType.All | GatewayEditorType | ActivityEditorType.All | OtherEditorType;
+
+export interface InscriptionType {
+  id: InscriptionEditorType;
+  label: string;
+  shortLabel: string;
+  description: string;
+  iconId: string;
+}

@@ -11,10 +11,10 @@ const TaskSwitchEventEditor = memo(() => {
   const taskTab = useTaskTab();
   const caseTab = useCaseTab();
   const endPageTab = useEndPageTab();
-  return <InscriptionEditor title='Task Switch Event' icon={IvyIcons.Task} tabs={[nameTab, outputTab, taskTab, caseTab, endPageTab]} />;
+  return <InscriptionEditor icon={IvyIcons.Task} tabs={[nameTab, outputTab, taskTab, caseTab, endPageTab]} />;
 });
 
 export const intermediateEventEditors = new Map<EventEditorType.Intermediate, JSX.Element>([
   ['TaskSwitchEvent', <TaskSwitchEventEditor />],
-  ['WaitEvent', <NameEditor title='Program Intermediate Event' icon={IvyIcons.Wait} />]
+  ['WaitEvent', <NameEditor icon={IvyIcons.Wait} />]
 ]);

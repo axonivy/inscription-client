@@ -22,14 +22,14 @@ describe('Editor', () => {
     };
     render(
       <DataContextInstance.Provider value={data}>
-        <InscriptionEditor title='Test Editor' icon={IvyIcons.Add} tabs={tabs} />
+        <InscriptionEditor icon={IvyIcons.Add} tabs={tabs} />
       </DataContextInstance.Provider>
     );
   }
 
   test('editor will render', () => {
     renderEditor();
-    expect(screen.getByText(/Test Editor/i)).toBeInTheDocument();
+    expect(screen.getByText(/Unknown/i)).toBeInTheDocument();
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
   });
 

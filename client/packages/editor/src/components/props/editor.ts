@@ -5,7 +5,6 @@ import { Message } from './message';
 import { TabProps } from './tab';
 
 export interface EditorProps {
-  title: string;
   icon: IvyIcons;
   tabs: TabProps[];
 }

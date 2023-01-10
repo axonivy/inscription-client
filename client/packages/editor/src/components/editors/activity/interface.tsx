@@ -11,14 +11,14 @@ const EMailEditor = memo(() => {
   const headerTab = { name: 'Header', content: <div>Header</div>, state: TabState.EMPTY };
   const contentTab = { name: 'Content', content: <div>Content</div>, state: TabState.EMPTY };
   const attachmentTab = { name: 'Attachments', content: <div>Attachments</div>, state: TabState.EMPTY };
-  return <InscriptionEditor title='E-Mail Activity' icon={IvyIcons.EMail} tabs={[nameTab, headerTab, contentTab, attachmentTab]} />;
+  return <InscriptionEditor icon={IvyIcons.EMail} tabs={[nameTab, headerTab, contentTab, attachmentTab]} />;
 });
 
 export const interfaceActivityEditors = new Map<ActivityEditorType.Interface, JSX.Element>([
-  ['Database', <NameEditor title='Datebase Activity' icon={IvyIcons.Database} />],
-  ['WebServiceCall', <NameEditor title='Web Service Call Activity' icon={IvyIcons.WebService} />],
-  ['RestClientCall', <NameEditor title='Rest Service Call Activity' icon={IvyIcons.RestClient} />],
+  ['Database', <NameEditor icon={IvyIcons.Database} />],
+  ['WebServiceCall', <NameEditor icon={IvyIcons.WebService} />],
+  ['RestClientCall', <NameEditor icon={IvyIcons.RestClient} />],
   ['EMail', <EMailEditor />],
   // ['Rule', <NameEditor title='Rule Activity'/>],
-  ['ProgramInterface', <NameEditor title='Program Interface Activity' icon={IvyIcons.Program} />]
+  ['ProgramInterface', <NameEditor icon={IvyIcons.Program} />]
 ]);

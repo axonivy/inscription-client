@@ -4,7 +4,7 @@ import { InscriptionValidation } from '@axonivy/inscription-core';
 import { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import '@axonivy/editor-icons/dist/ivy-icons.css';
-import { DataContextInstance, EditorContextInstance, useClient, useTheme } from './context';
+import { DataContextInstance, DEFAULT_INSCRIPTION_TYPE, EditorContext, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
 import AppStateView from './AppStateView';
 import { AppState, errorState, successState, waitingState } from './app-state';
@@ -34,7 +34,7 @@ function App(props: AppProps) {
     //Fix: first load shouldn't trigger a save
     if (appState.initialData) {
       client
-        .saveData({ data: data, pid: appState.initialData.pid, type: appState.initialData.type })
+        .saveData({ data: data, pid: appState.initialData.pid, type: appState.initialData.type.id })
         .then(validation => setValidation(validation));
     }
   }, [client, data, appState]);
@@ -48,15 +48,21 @@ function App(props: AppProps) {
     return { data: data, initialData: appState.initialData?.data, updateData, validation: validation };
   }, [appState.initialData, data, validation]);
 
-  const editorContext = useMemo(() => {
-    return { pid: props.pid, readonly: appState.initialData?.readonly ?? false, type: appState.initialData?.type };
+  const editorContext = useMemo<EditorContext>(() => {
+    return {
+      pid: props.pid,
+      readonly: appState.initialData?.readonly ?? false,
+      type: appState.initialData?.type ?? DEFAULT_INSCRIPTION_TYPE
+    };
   }, [props.pid, appState.initialData]);
 
   if (appState.state === 'success') {
     return (
       <div className='editor-root' data-theme={theme}>
         <EditorContextInstance.Provider value={editorContext}>
-          <DataContextInstance.Provider value={dataContext}>{inscriptionEditor(appState.initialData?.type)}</DataContextInstance.Provider>
+          <DataContextInstance.Provider value={dataContext}>
+            {inscriptionEditor(appState.initialData?.type.id)}
+          </DataContextInstance.Provider>
         </EditorContextInstance.Provider>
       </div>
     );

@@ -10,6 +10,7 @@ import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
 import { otherEditors } from './others/other-editors';
 import { IvyIcon } from '../widgets';
+import { useEditorContext } from '../../context';
 
 const editors = new Map<InscriptionEditorType, JSX.Element>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
 
@@ -21,12 +22,13 @@ export const inscriptionEditor = (type?: InscriptionEditorType): ReactNode => {
 };
 
 const Header = (props: EditorProps) => {
+  const editorContext = useEditorContext();
   const headerState = useEditorState();
   return (
     <>
       <div className='header'>
         <div className='header-title'>
-          <div className='header-editor'>{props.title}</div>
+          <div className='header-editor'>{editorContext.type.shortLabel}</div>
         </div>
         <TabsList className='tabs-list'>
           {props.tabs.map((tab, index) => (

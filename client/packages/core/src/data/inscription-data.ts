@@ -1,10 +1,10 @@
 import { CallData } from './call-data';
-import { InscriptionEditorType } from './inscription-type';
+import { InscriptionEditorType, InscriptionType } from './inscription-type';
 import { NameDataAccess } from './name-data';
 
 export interface InscriptionData {
   pid: string;
-  type: InscriptionEditorType;
+  type: InscriptionType;
   readonly: boolean;
   data: any;
 }
