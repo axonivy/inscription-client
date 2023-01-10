@@ -10,7 +10,7 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf dist/ivy-icons.*",
     "build": "fantasticon",
     "build:clean": "yarn clean && yarn build"
   }

@@ -32,14 +32,14 @@ const CallTab = () => {
     client.dialogStarts().then(dialogStarts =>
       setDialogStartItems(
         dialogStarts.map(dialogStart => {
-          return { ...dialogStart, value: dialogStart.dialog };
+          return { ...dialogStart, value: dialogStart.id };
         })
       )
     );
   }, [client]);
 
   const mappingTree = useMemo(() => {
-    return dialogStartItems.find(ds => ds.dialog === dialogStart)?.callParameter;
+    return dialogStartItems.find(ds => ds.id === dialogStart)?.callParameter;
   }, [dialogStart, dialogStartItems]);
 
   return (

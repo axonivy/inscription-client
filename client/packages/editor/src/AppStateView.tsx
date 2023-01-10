@@ -6,7 +6,7 @@ function AppStateView(props: AppState) {
   const theme = useTheme();
   return (
     <div className='editor-root editor-state' data-theme={theme}>
-      {visualizeState(props.state)}
+      {visualizeState(props)}
     </div>
   );
 }
