@@ -1,7 +1,7 @@
+import './EditableCell.css';
 import { CellContext, RowData } from '@tanstack/react-table';
 import React, { useEffect } from 'react';
-import { useReadonly } from '../../../context';
-import './EditableCell.css';
+import { useReadonly } from '../../../../context';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

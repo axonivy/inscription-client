@@ -1,12 +1,6 @@
+import './TableHeader.css';
 import { flexRender, Header } from '@tanstack/react-table';
 import { ReactNode } from 'react';
-import './Table.css';
-
-export const Table = (props: { children?: JSX.Element[] }) => (
-  <div className='table-root'>
-    <table className='table'>{props.children}</table>
-  </div>
-);
 
 export const TableHeader = (props: { colSpan: number; children?: JSX.Element | string | ReactNode }) => (
   <th className='table-column-header' colSpan={props.colSpan}>
@@ -35,5 +29,3 @@ export function TableHeaderSorted<TData>(props: { header: Header<TData, unknown>
     </>
   );
 }
-
-export const TableCell = (props: { children: JSX.Element | React.ReactNode }) => <td className='table-cell'>{props.children}</td>;

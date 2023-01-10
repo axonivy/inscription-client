@@ -1,0 +1,25 @@
+.table-footer .add-row {
+  background: var(--table-row-bg);
+  border-radius: var(--border-radius);
+}
+.table-footer .add-row button {
+  height: 2rem;
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+.table-footer .add-row button:hover,
+.table-footer .add-row button:focus {
+  cursor: pointer;
+  box-shadow: var(--focus-shadow);
+}
+.table-footer .add-row .ivy {
+  border: 1px solid currentColor;
+  border-radius: 1rem;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}

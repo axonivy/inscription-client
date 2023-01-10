@@ -1,0 +1,10 @@
+.table-root {
+  background: var(--table-bg);
+  border-radius: var(--border-radius);
+  width: calc(100% - 1rem);
+  padding: 0 0.5rem;
+}
+.table {
+  width: 100%;
+  border-spacing: 0 0.5rem;
+}

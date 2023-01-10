@@ -1,0 +1,15 @@
+.responsible-select .select-input {
+  gap: 1rem;
+}
+.responsible-select .select-button {
+  flex: 0 0 6rem;
+}
+.responsible-select .select-input .input {
+  width: calc(100% - 7rem);
+}
+.responsible-select .select-input .select-input .select-button {
+  flex: 0 1 auto;
+}
+.responsible-select .select-input .label-input-column .label {
+  display: none;
+}

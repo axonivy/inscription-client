@@ -1,0 +1,11 @@
+.table .table-column-header {
+  padding: 10px;
+  text-align: start;
+  font-size: 10px;
+}
+.table .table-column-header .sortable-column {
+  cursor: pointer;
+}
+.table .table-column-header .sortable-column:focus {
+  box-shadow: var(--focus-shadow);
+}

@@ -1,0 +1,16 @@
+.table-cell .label {
+  display: none;
+}
+.table-cell .select-button {
+  background-color: var(--table-row-bg);
+  padding: 5px;
+}
+.table-cell .select-button:hover,
+.table-cell .select-button:focus {
+  background-color: var(--input-bg);
+}
+.table-cell .select-menu {
+  top: unset;
+  margin: 0;
+  width: 6rem;
+}

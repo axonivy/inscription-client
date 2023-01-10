@@ -5,6 +5,8 @@
 }
 .collapsible-trigger {
   font-size: 12px;
+}
+.collapsible-trigger[data-state='open'] {
   margin-bottom: 1rem;
 }
 .collapsible-trigger:hover {

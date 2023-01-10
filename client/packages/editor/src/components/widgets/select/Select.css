@@ -1,0 +1,49 @@
+.select {
+  position: relative;
+  width: 100%;
+}
+.select-input {
+  display: flex;
+  width: 100%;
+}
+.select-button {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 12px;
+  border-radius: var(--border-radius);
+  background: var(--input-bg);
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 0.3rem;
+  width: 100%;
+}
+.select-button:focus {
+  box-shadow: var(--focus-shadow);
+}
+.select-menu {
+  overflow: auto;
+  width: 100%;
+  max-height: 20rem;
+  position: absolute;
+  list-style: none;
+  font-size: 12px;
+  text-align: start;
+  background-color: var(--input-bg);
+  padding: 0;
+  margin-block: 2px;
+  z-index: 10;
+  box-shadow: var(--editor-shadow);
+  top: calc(1em + 0.5rem + 30px);
+}
+.select-menu-entry {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.select-menu-entry:where(.hover, .selected) {
+  background: var(--editor-bg);
+}
+.select-menu-entry-additional {
+  color: var(--seperator-color);
+}

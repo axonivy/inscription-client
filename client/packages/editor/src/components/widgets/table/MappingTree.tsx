@@ -11,10 +11,12 @@ import {
   SortingState,
   useReactTable
 } from '@tanstack/react-table';
-import { EditableCell } from './EditableCell';
-import { ExpandableCell, ExpandableHeader } from './ExpandableCell';
-import { Table, TableCell, TableHeader } from './Table';
+import { EditableCell } from './cell/EditableCell';
+import { ExpandableCell, ExpandableHeader } from './cell/ExpandableCell';
+import { Table } from './table/Table';
 import { MappingTreeData } from './mapping-tree-data';
+import { TableHeader } from './header/TableHeader';
+import { TableCell } from './cell/TableCell';
 
 const MappingTree = (props: { data: Mapping[]; mappingTree?: Variable[]; onChange: (change: Mapping[]) => void }) => {
   const data: MappingTreeData[] = useMemo(() => {
