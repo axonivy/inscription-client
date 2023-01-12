@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { useReadonly } from '../../context';
 import { MINIMAL_STYLE } from '../../monaco-editor-util';
 import { Message } from '../props/message';
-import CodeEditor from './CodeEditor';
+import CodeEditor from './code-editor/CodeEditor';
 import LabelInput from './label/LabelInput';
 import MappingTree from './table/MappingTree';
 

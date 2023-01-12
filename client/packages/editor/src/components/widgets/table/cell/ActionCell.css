@@ -1,0 +1,19 @@
+.table-cell .action-buttons {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+.table-cell .action-buttons button {
+  border-radius: 4px;
+  font-size: 16px;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+}
+.table-cell .action-buttons button:hover {
+  cursor: pointer;
+  background-color: var(--button-bg);
+}
+.table-cell .action-buttons button:focus {
+  background-color: var(--button-bg);
+  box-shadow: var(--focus-shadow);
+}

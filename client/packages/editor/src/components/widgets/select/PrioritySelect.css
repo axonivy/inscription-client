@@ -1,0 +1,9 @@
+.priority-select .select-input {
+  gap: 1rem;
+}
+.priority-select .select-button {
+  flex: 0 0 6rem;
+}
+.priority-select .select-input .input {
+  width: calc(100% - 7rem);
+}

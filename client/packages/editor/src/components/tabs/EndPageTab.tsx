@@ -5,5 +5,5 @@ export function useEndPageTab(): TabProps {
 }
 
 const EndPageTab = () => {
-  return <div>Content of End Page</div>;
+  return <>Content of End Page</>;
 };

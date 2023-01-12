@@ -1,4 +1,3 @@
-import './NameTab.css';
 import { useData, useReadonly, useValidation } from '../../context';
 import { TabProps, useTabState } from '../props';
 import LabelInput from '../widgets/label/LabelInput';
@@ -31,7 +30,7 @@ const NameTab = () => {
   const readonly = useReadonly();
 
   return (
-    <div className='name-tab'>
+    <>
       <LabelInput label='Display name' htmlFor='displayName' message={nameValidation}>
         <textarea
           rows={1}
@@ -58,6 +57,6 @@ const NameTab = () => {
       <CollapsiblePart collapsibleLabel='Tags' defaultOpen={tags?.length > 0}>
         <Tags tags={tags ?? []} onChange={setTags} />
       </CollapsiblePart>
-    </div>
+    </>
   );
 };

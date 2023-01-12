@@ -4,4 +4,4 @@ export function useStartTab(): TabProps {
   return { name: 'Start', state: TabState.CONFIGURED, content: <StartTab /> };
 }
 
-const StartTab = () => <div>Content of Start</div>;
+const StartTab = () => <>Content of Start</>;
