@@ -1,7 +1,7 @@
 {
   "folders": [
     {
-      "name": "client (root)",
+      "name": "root",
       "path": ".",
     },
     {
@@ -25,7 +25,7 @@
     "task.autoDetect": "off",
     "typescript.tsdk": "node_modules/typescript/lib",
     "jest.disabledWorkspaceFolders": [
-      "client (root)",
+      "root",
       "package/core",
       "package/icons",
       "integrations/standalone"
