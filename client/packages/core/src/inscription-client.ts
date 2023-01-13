@@ -1,9 +1,9 @@
 import { createMessageConnection, Emitter, Event } from 'vscode-jsonrpc';
 import { Disposable } from 'vscode-ws-jsonrpc';
 import { ConnectionUtil } from './connection-util';
-import { InscriptionData, InscriptionEditorType, InscriptionSaveData, InscriptionType, USER_DIALOG_DATA } from './data';
+import { InscriptionData, InscriptionEditorType, InscriptionSaveData, InscriptionType, USER_TASK_DATA } from './data';
 import { InscriptionNotificationTypes, InscriptionRequestTypes } from './inscription-protocol';
-import { DialogStart, DIALOG_STARTS_META, Variable } from './meta';
+import { DialogStart, DIALOG_STARTS_META, Role, ROLES_META, Variable } from './meta';
 import { BaseRcpClient } from './rcp-client';
 import { InscriptionValidation } from './validation/inscription-validation';
 import { validateInscriptionData } from './validation/validation-mock';
@@ -14,6 +14,7 @@ export interface InscriptionClient {
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]>;
 
   dialogStarts(): Promise<DialogStart[]>;
+  roles(): Promise<Role[]>;
   outMapping(): Promise<Variable[]>;
 
   onDataChanged: Event<InscriptionData>;
@@ -21,7 +22,7 @@ export interface InscriptionClient {
 }
 
 export class InscriptionClientMock implements InscriptionClient {
-  constructor(readonly readonly = false, readonly type: InscriptionEditorType = 'DialogCall') {}
+  constructor(readonly readonly = false, readonly type: InscriptionEditorType = 'UserTask') {}
 
   initialize(): Promise<boolean> {
     return Promise.resolve(true);
@@ -30,12 +31,12 @@ export class InscriptionClientMock implements InscriptionClient {
   data(pid: string): Promise<InscriptionData> {
     const inscriptionType: InscriptionType = {
       id: this.type,
-      label: 'User Dialog',
-      shortLabel: 'User Dialog',
+      label: 'User Task',
+      shortLabel: 'User Task',
       description: '',
-      iconId: 'UserDialog'
+      iconId: 'UserTask'
     };
-    return Promise.resolve({ pid: pid, type: inscriptionType, readonly: this.readonly, data: USER_DIALOG_DATA });
+    return Promise.resolve({ pid: pid, type: inscriptionType, readonly: this.readonly, data: USER_TASK_DATA });
   }
 
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {
@@ -45,6 +46,11 @@ export class InscriptionClientMock implements InscriptionClient {
   dialogStarts(): Promise<DialogStart[]> {
     return Promise.resolve(DIALOG_STARTS_META);
   }
+
+  roles(): Promise<Role[]> {
+    return Promise.resolve(ROLES_META);
+  }
+
   outMapping(): Promise<Variable[]> {
     return Promise.resolve([]);
   }
@@ -80,11 +86,15 @@ export class JsonRpcInscriptionClient extends BaseRcpClient implements Inscripti
   }
 
   dialogStarts(): Promise<DialogStart[]> {
-    return this.sendRequest('dialogStarts', {});
+    return this.sendRequest('meta/dialog/starts', {});
+  }
+
+  roles(): Promise<Role[]> {
+    return this.sendRequest('meta/workflow/roles', {});
   }
 
   outMapping(): Promise<Variable[]> {
-    return this.sendRequest('outMapping', {});
+    return this.sendRequest('meta/out/map', {});
   }
 
   sendRequest<K extends keyof InscriptionRequestTypes>(

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ResponsibleSelect from './ResponsibleSelect';
 import { Message } from '../../props';
-import { DataContext, DataContextInstance } from '../../../context';
+import { ClientContext, ClientContextInstance, DataContext, DataContextInstance } from '../../../context';
 
 describe('ResponsibleSelect', () => {
   function renderSelect(responsible: any, message?: Message) {
@@ -12,10 +12,24 @@ describe('ResponsibleSelect', () => {
       updateData: () => {},
       validation: []
     };
+    const client: ClientContext = {
+      // @ts-ignore
+      client: {
+        roles() {
+          return Promise.resolve([
+            { id: 'Everybody', label: 'In this role is everyone' },
+            { id: 'Employee', label: '' },
+            { id: 'Teamleader', label: '' }
+          ]);
+        }
+      }
+    };
     render(
-      <DataContextInstance.Provider value={data}>
-        <ResponsibleSelect />
-      </DataContextInstance.Provider>
+      <ClientContextInstance.Provider value={client}>
+        <DataContextInstance.Provider value={data}>
+          <ResponsibleSelect />
+        </DataContextInstance.Provider>
+      </ClientContextInstance.Provider>
     );
   }
 

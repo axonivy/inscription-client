@@ -20,7 +20,7 @@ const Select = (props: {
 }) => {
   const { isOpen, selectedItem, getToggleButtonProps, getLabelProps, getMenuProps, highlightedIndex, getItemProps } = useSelect<SelectItem>(
     {
-      selectedItem: props.value,
+      initialSelectedItem: props.value,
       items: props.items,
       onSelectedItemChange: change => change.selectedItem && props.onChange(change.selectedItem)
     }

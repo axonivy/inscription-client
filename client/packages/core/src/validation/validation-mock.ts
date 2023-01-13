@@ -1,8 +1,9 @@
 import { InscriptionValidation } from '.';
-import { InscriptionSaveData, DialogCallData, NameDataAccess, CallData } from '../data';
+import { InscriptionSaveData, CallData, NameData } from '../data';
 
 export function validateInscriptionData(data: InscriptionSaveData): InscriptionValidation[] {
   switch (data.type) {
+    case 'UserTask':
     case 'DialogCall':
       return validateUserDialogEditor(data.data);
     default:
@@ -10,14 +11,14 @@ export function validateInscriptionData(data: InscriptionSaveData): InscriptionV
   }
 }
 
-export function validateUserDialogEditor(data: DialogCallData): InscriptionValidation[] {
+export function validateUserDialogEditor(data: any): InscriptionValidation[] {
   const msgs: InscriptionValidation[] = [];
   msgs.push(...validateNameData(data));
   msgs.push(...validateCallData(data));
   return msgs;
 }
 
-export function validateNameData(data: NameDataAccess): InscriptionValidation[] {
+export function validateNameData(data: NameData): InscriptionValidation[] {
   const msgs: InscriptionValidation[] = [];
   if (data.name.length === 0) {
     msgs.push({ path: 'name', severity: 'error', message: 'Display name must not be empty' });

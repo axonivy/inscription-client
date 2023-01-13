@@ -1,6 +1,7 @@
 import { CallData } from './call-data';
 import { InscriptionEditorType, InscriptionType } from './inscription-type';
 import { NameDataAccess } from './name-data';
+import { TaskData } from './task-data';
 
 export interface InscriptionData {
   pid: string;
@@ -15,11 +16,7 @@ export interface InscriptionSaveData {
   data: any;
 }
 
-export interface UserTaskData extends NameDataAccess {}
-
-export interface DialogCallData extends NameDataAccess, CallData {}
-
-export const USER_DIALOG_DATA: DialogCallData = {
+export const USER_TASK_DATA: NameDataAccess | CallData | TaskData = {
   name: 'test name',
   description: 'test desc',
   docs: [
