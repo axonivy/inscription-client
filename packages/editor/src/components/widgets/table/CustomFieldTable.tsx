@@ -1,4 +1,4 @@
-import { CustomField, CustomFieldType } from '@axonivy/inscription-core/src/data/task-data';
+import { CustomField, CustomFieldType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';

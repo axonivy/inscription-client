@@ -1,4 +1,4 @@
-import { ActivityEditorType } from '@axonivy/inscription-core';
+import { ActivityEditorType } from '@axonivy/inscription-protocol';
 import { workflowActivityEditors } from './workflow';
 import { bpmnActivityEditors } from './bpmn';
 import { interfaceActivityEditors } from './interface';

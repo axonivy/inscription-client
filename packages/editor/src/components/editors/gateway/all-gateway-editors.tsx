@@ -1,5 +1,5 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import { GatewayEditorType } from '@axonivy/inscription-core';
+import { GatewayEditorType } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
 import { TabState } from '../../../components/props';
 import { useCaseTab, useEndPageTab, useNameTab, useOutputTab, useTaskTab } from '../../../components/tabs';

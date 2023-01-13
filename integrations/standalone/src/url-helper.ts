@@ -1,8 +1,9 @@
-import { ThemeContext } from '@axonivy/inscription-editor/src/context/useTheme';
+import { ThemeContext } from '@axonivy/inscription-editor';
 
 export namespace URLParams {
   export function getParameter(key: string): string | undefined {
-    return new URLSearchParams(window.location.search).get(key);
+    const param = new URLSearchParams(window.location.search).get(key);
+    return param !== null ? param : undefined;
   }
 
   export function getPid(): string {
@@ -14,7 +15,7 @@ export namespace URLParams {
   }
 
   export function getThemeMode(): ThemeContext {
-    return getParameter('theme') ?? defaultTheme();
+    return (getParameter('theme') as ThemeContext) ?? defaultTheme();
   }
 
   function defaultPid(): string {

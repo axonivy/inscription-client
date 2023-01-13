@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 
-import { Mapping, Variable } from '@axonivy/inscription-core';
+import { Mapping, Variable } from '@axonivy/inscription-protocol';
 import {
   ColumnDef,
   ExpandedState,

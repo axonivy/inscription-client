@@ -1,4 +1,4 @@
-import { InscriptionData } from '@axonivy/inscription-core';
+import { InscriptionData } from '@axonivy/inscription-protocol';
 
 export interface AppState {
   state: 'waiting' | 'success' | 'error';

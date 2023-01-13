@@ -12,10 +12,10 @@ export declare module InscriptionProtocol {
   export type InscriptionSaveDataArgs = InscriptionSaveData;
   export type InscriptionSaveDataRes = InscriptionValidation[];
 
-  export type DialogStartsArgs = {}; //maybe later with param to filter offline dialogs
+  export type DialogStartsArgs = {};
   export type DialogStartsRes = DialogStart[];
 
-  export type RolesArgs = {}; //maybe later with param to filter offline dialogs
+  export type RolesArgs = {};
   export type RolesRes = Role[];
 
   export type OutMappingArgs = {};

@@ -1,5 +1,5 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import { ActivityEditorType } from '@axonivy/inscription-core';
+import { ActivityEditorType } from '@axonivy/inscription-protocol';
 import NameEditor from '../NameEditor';
 
 export const bpmnActivityEditors = new Map<ActivityEditorType.Bpmn, JSX.Element>([

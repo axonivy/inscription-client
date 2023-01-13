@@ -1,4 +1,4 @@
-import { EventEditorType } from '@axonivy/inscription-core';
+import { EventEditorType } from '@axonivy/inscription-protocol';
 import { callSubEventEditors } from './call-sub';
 import { embeddedEventEditors } from './embedded';
 import { endEventEditors } from './end';

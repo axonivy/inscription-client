@@ -1,5 +1,5 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import { ActivityEditorType } from '@axonivy/inscription-core';
+import { ActivityEditorType } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
 import { TabState } from '../../../components/props';
 import { useNameTab } from '../../../components/tabs';

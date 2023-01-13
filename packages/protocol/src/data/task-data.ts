@@ -18,29 +18,6 @@ export interface CustomField {
   value: string;
 }
 
-export interface TaskData {
-  config: {
-    persist: boolean;
-    task: {
-      name: string;
-      description: string;
-      category: string;
-      priority: string;
-      expiry: {
-        timeout: string;
-        error: string;
-        responsible: {
-          role?: string;
-          user?: string;
-        };
-        priority: string;
-      };
-      customFields: CustomField[];
-      code: string;
-    };
-  };
-}
-
 export interface TaskDataAccess {
   'config/persist': boolean;
   'config/task/name': string;

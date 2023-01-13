@@ -1,16 +1,16 @@
+import './index.css';
 import { MonacoUtil, InscriptionClientMock } from '@axonivy/inscription-core';
-import { App, ClientContextInstance, MonacoEditorUtil } from '@axonivy/inscription-editor';
-import { ThemeContextInstance } from '@axonivy/inscription-editor/src/context/useTheme';
+import { App, ClientContextInstance, MonacoEditorUtil, ThemeContextInstance } from '@axonivy/inscription-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import { URLParams } from './url-helper';
+import { InscriptionEditorType } from '@axonivy/inscription-protocol';
 
 export async function start(): Promise<void> {
   const theme = URLParams.getThemeMode();
   const readonly = URLParams.getParameter('readonly') ? true : false;
-  const type = URLParams.getParameter('type') ?? undefined;
+  const type = (URLParams.getParameter('type') as InscriptionEditorType) ?? undefined;
 
   MonacoEditorUtil.initMonaco(monaco, theme);
   MonacoUtil.initStandalone();

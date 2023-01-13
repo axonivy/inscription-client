@@ -1,4 +1,4 @@
-import { Document } from '@axonivy/inscription-core';
+import { Document } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import React, { memo, useState } from 'react';

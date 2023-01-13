@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { memo, ReactNode } from 'react';
 import './InscriptionEditor.css';
 import { EditorProps, useEditorState } from '../props/editor';
-import { InscriptionEditorType } from '@axonivy/inscription-core';
+import { InscriptionEditorType } from '@axonivy/inscription-protocol';
 import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';

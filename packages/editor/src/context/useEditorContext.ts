@@ -1,4 +1,4 @@
-import { InscriptionType } from '@axonivy/inscription-core';
+import { InscriptionType } from '@axonivy/inscription-protocol';
 import React, { useContext } from 'react';
 
 export interface EditorContext {

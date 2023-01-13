@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomField, CustomFieldType } from '@axonivy/inscription-core/src/data/task-data';
+import { CustomField, CustomFieldType } from '@axonivy/inscription-protocol';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CustomFieldTable from './CustomFieldTable';

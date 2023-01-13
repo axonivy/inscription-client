@@ -1,4 +1,4 @@
-import { InscriptionValidation } from '@axonivy/inscription-core';
+import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useDataContext } from './useDataContext';
 
 export type ValidationAccess = 'name' | 'description' | 'config/dialog';

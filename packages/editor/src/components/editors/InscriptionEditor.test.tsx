@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import InscriptionEditor from './InscriptionEditor';
 import { TabProps, TabState } from '../props/tab';
 import { DataContext, DataContextInstance } from '../../context';
-import { InscriptionValidation } from '@axonivy/inscription-core';
+import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 describe('Editor', () => {

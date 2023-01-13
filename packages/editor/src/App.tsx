@@ -1,6 +1,6 @@
 import set from 'lodash/fp/set';
 
-import { InscriptionValidation } from '@axonivy/inscription-core';
+import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import '@axonivy/editor-icons/dist/ivy-icons.css';

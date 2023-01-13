@@ -1,4 +1,4 @@
-import { InscriptionClient } from '@axonivy/inscription-core';
+import { InscriptionClient } from '@axonivy/inscription-protocol';
 import React, { useContext } from 'react';
 
 export interface ClientContext {

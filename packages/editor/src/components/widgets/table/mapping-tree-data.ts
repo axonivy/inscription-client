@@ -1,4 +1,4 @@
-import { Mapping, Variable } from '@axonivy/inscription-core';
+import { Mapping, Variable } from '@axonivy/inscription-protocol';
 
 export interface MappingTreeData extends Variable, Omit<Mapping, 'key'> {
   children: MappingTreeData[];

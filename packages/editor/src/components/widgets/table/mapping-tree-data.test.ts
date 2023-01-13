@@ -1,9 +1,27 @@
-import { Mapping } from '@axonivy/inscription-core';
-import { USER_DIALOG_META_CALL } from '@axonivy/inscription-core/src/meta';
+import { Mapping } from '@axonivy/inscription-protocol';
+import { Variable } from '@axonivy/inscription-protocol';
 import { MappingTreeData } from './mapping-tree-data';
 
 describe('MappingTreeData', () => {
-  const treeData = USER_DIALOG_META_CALL;
+  const treeData: Variable[] = [
+    {
+      attribute: 'param',
+      type: '<workflow.humantask.ProcurementRequest procurementRequest>',
+      simpleType: '<ProcurementRequest>',
+      children: [
+        {
+          attribute: 'procurementRequest',
+          type: 'workflow.humantask.ProcurementRequest',
+          simpleType: 'ProcurementRequest',
+          children: [
+            { attribute: 'accepted', type: 'java.lang.Boolean', simpleType: 'Boolean', children: [] },
+            { attribute: 'amount', type: 'java.lang.Number', simpleType: 'Number', children: [] }
+          ]
+        }
+      ]
+    }
+  ];
+
   const tree: MappingTreeData[] = [
     {
       attribute: 'param',

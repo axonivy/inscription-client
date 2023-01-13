@@ -5,7 +5,7 @@ import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
 import MappingTreeWithCode from '../widgets/MappingTreeWithCode';
 import SelectDialog from '../widgets/SelectDialog';
 import { TabProps, useTabState } from '../props';
-import { InscriptionValidation } from '@axonivy/inscription-core';
+import { InscriptionValidation } from '@axonivy/inscription-protocol';
 
 function useCallTabValidation(): InscriptionValidation[] {
   const dialog = useValidation('config/dialog');

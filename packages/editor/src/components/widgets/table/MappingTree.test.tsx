@@ -1,6 +1,6 @@
 import React from 'react';
-import { USER_DIALOG_META_CALL } from '@axonivy/inscription-core/src/meta/';
-import { Mapping } from '@axonivy/inscription-core';
+import { Variable } from '@axonivy/inscription-protocol';
+import { Mapping } from '@axonivy/inscription-protocol';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MappingTree from './MappingTree';
@@ -18,12 +18,31 @@ describe('MappingTree', () => {
 
   const data: Mapping[] = [{ key: 'param.procurementRequest', value: 'in' }];
 
+  const mappingTree: Variable[] = [
+    {
+      attribute: 'param',
+      type: '<workflow.humantask.ProcurementRequest procurementRequest>',
+      simpleType: '<ProcurementRequest>',
+      children: [
+        {
+          attribute: 'procurementRequest',
+          type: 'workflow.humantask.ProcurementRequest',
+          simpleType: 'ProcurementRequest',
+          children: [
+            { attribute: 'accepted', type: 'java.lang.Boolean', simpleType: 'Boolean', children: [] },
+            { attribute: 'amount', type: 'java.lang.Number', simpleType: 'Number', children: [] }
+          ]
+        }
+      ]
+    }
+  ];
+
   function renderTree(
     options: {
       onChange?: (change: Mapping[]) => void;
     } = {}
   ) {
-    render(<MappingTree data={data} mappingTree={USER_DIALOG_META_CALL} onChange={options.onChange ? options.onChange : () => {}} />);
+    render(<MappingTree data={data} mappingTree={mappingTree} onChange={options.onChange ? options.onChange : () => {}} />);
   }
 
   function assertTableHeaders(expectedHeaders: string[]) {
@@ -86,7 +105,7 @@ describe('MappingTree', () => {
   test('tree support readonly mode', async () => {
     render(
       <EditorContextInstance.Provider value={{ ...DEFAULT_EDITOR_CONTEXT, readonly: true }}>
-        <MappingTree data={data} mappingTree={USER_DIALOG_META_CALL} onChange={() => {}} />
+        <MappingTree data={data} mappingTree={mappingTree} onChange={() => {}} />
       </EditorContextInstance.Provider>
     );
 

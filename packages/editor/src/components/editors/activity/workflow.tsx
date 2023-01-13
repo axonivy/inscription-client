@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useCallTab, useCaseTab, useCodeTab, useNameTab, useOutputTab, useTaskTab } from '../../tabs';
 import InscriptionEditor from '../InscriptionEditor';
-import { ActivityEditorType } from '@axonivy/inscription-core';
+import { ActivityEditorType } from '@axonivy/inscription-protocol';
 import NameEditor from '../NameEditor';
 import { IvyIcons } from '@axonivy/editor-icons';
 

@@ -2,7 +2,7 @@ import './PrioritySelect.css';
 import { useMemo } from 'react';
 import { useData } from '../../../context';
 import Select, { SelectItem } from './Select';
-import { TaskDataAccess } from '@axonivy/inscription-core';
+import { TaskDataAccess } from '@axonivy/inscription-protocol';
 import { Message } from '../../../components/props';
 
 const items: SelectItem[] = [

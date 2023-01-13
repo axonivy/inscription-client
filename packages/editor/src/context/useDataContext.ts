@@ -1,4 +1,4 @@
-import { InscriptionValidation } from '@axonivy/inscription-core';
+import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { createContext, useContext } from 'react';
 
 export interface DataContext {

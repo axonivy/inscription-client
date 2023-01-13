@@ -1,65 +1,20 @@
-import { createMessageConnection, Emitter, Event } from 'vscode-jsonrpc';
+import {
+  DialogStart,
+  InscriptionClient,
+  InscriptionData,
+  InscriptionNotificationTypes,
+  InscriptionRequestTypes,
+  InscriptionSaveData,
+  InscriptionValidation,
+  Role,
+  Variable
+} from '@axonivy/inscription-protocol';
+import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
 import { Disposable } from 'vscode-ws-jsonrpc';
 import { ConnectionUtil } from './connection-util';
-import { InscriptionData, InscriptionEditorType, InscriptionSaveData, InscriptionType, USER_TASK_DATA } from './data';
-import { InscriptionNotificationTypes, InscriptionRequestTypes } from './inscription-protocol';
-import { DialogStart, DIALOG_STARTS_META, Role, ROLES_META, Variable } from './meta';
 import { BaseRcpClient } from './rcp-client';
-import { InscriptionValidation } from './validation/inscription-validation';
-import { validateInscriptionData } from './validation/validation-mock';
 
-export interface InscriptionClient {
-  initialize(): Promise<boolean>;
-  data(pid: string): Promise<InscriptionData>;
-  saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]>;
-
-  dialogStarts(): Promise<DialogStart[]>;
-  roles(): Promise<Role[]>;
-  outMapping(): Promise<Variable[]>;
-
-  onDataChanged: Event<InscriptionData>;
-  onValidation: Event<InscriptionValidation[]>;
-}
-
-export class InscriptionClientMock implements InscriptionClient {
-  constructor(readonly readonly = false, readonly type: InscriptionEditorType = 'UserTask') {}
-
-  initialize(): Promise<boolean> {
-    return Promise.resolve(true);
-  }
-
-  data(pid: string): Promise<InscriptionData> {
-    const inscriptionType: InscriptionType = {
-      id: this.type,
-      label: 'User Task',
-      shortLabel: 'User Task',
-      description: '',
-      iconId: 'UserTask'
-    };
-    return Promise.resolve({ pid: pid, type: inscriptionType, readonly: this.readonly, data: USER_TASK_DATA });
-  }
-
-  saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {
-    return Promise.resolve(validateInscriptionData(args));
-  }
-
-  dialogStarts(): Promise<DialogStart[]> {
-    return Promise.resolve(DIALOG_STARTS_META);
-  }
-
-  roles(): Promise<Role[]> {
-    return Promise.resolve(ROLES_META);
-  }
-
-  outMapping(): Promise<Variable[]> {
-    return Promise.resolve([]);
-  }
-
-  onDataChanged = new Emitter<InscriptionData>().event;
-  onValidation = new Emitter<InscriptionValidation[]>().event;
-}
-
-export class JsonRpcInscriptionClient extends BaseRcpClient implements InscriptionClient {
+export class InscriptionClientJsonRpc extends BaseRcpClient implements InscriptionClient {
   protected onDataChangedEmitter = new Emitter<InscriptionData>();
   onDataChanged = this.onDataChangedEmitter.event;
   protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
@@ -112,11 +67,11 @@ export class JsonRpcInscriptionClient extends BaseRcpClient implements Inscripti
   }
 }
 
-export namespace InscriptionClient {
+export namespace InscriptionClientJsonRpc {
   export async function startWebSocketClient(url: string): Promise<InscriptionClient> {
     const connection = await ConnectionUtil.createWebSocketConnection(url);
     const messageConnection = createMessageConnection(connection.reader, connection.writer);
-    const client = new JsonRpcInscriptionClient(messageConnection);
+    const client = new InscriptionClientJsonRpc(messageConnection);
     client.start();
     connection.reader.onClose(() => client.stop());
     return client;

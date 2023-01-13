@@ -1,4 +1,4 @@
-import { CallDataAccess, NameDataAccess, OutputDataAccess, TaskDataAccess } from '@axonivy/inscription-core';
+import { CallDataAccess, NameDataAccess, OutputDataAccess, TaskDataAccess } from '@axonivy/inscription-protocol';
 import get from 'lodash/get';
 import { useDataContext } from './useDataContext';
 

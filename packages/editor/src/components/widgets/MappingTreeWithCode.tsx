@@ -1,4 +1,4 @@
-import { Mapping, MappingData, Variable } from '@axonivy/inscription-core';
+import { Mapping, MappingData, Variable } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
 import { useReadonly } from '../../context';
 import { MINIMAL_STYLE } from '../../monaco-editor-util';

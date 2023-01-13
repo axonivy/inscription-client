@@ -4,7 +4,7 @@ import LabelInput from '../widgets/label/LabelInput';
 import DocumentTable from '../widgets/table/DocumentTable';
 import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
 import Tags from '../widgets/tag/Tags';
-import { InscriptionValidation } from '@axonivy/inscription-core';
+import { InscriptionValidation } from '@axonivy/inscription-protocol';
 
 function useNameTabValidation(): InscriptionValidation[] {
   const name = useValidation('name');

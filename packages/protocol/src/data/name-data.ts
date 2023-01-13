@@ -3,8 +3,6 @@ export type Document = {
   url: string;
 };
 
-export interface NameData extends NameDataAccess {}
-
 export interface NameDataAccess {
   name: string;
   description: string;

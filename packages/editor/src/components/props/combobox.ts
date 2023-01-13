@@ -1,4 +1,4 @@
-import { DialogStart } from '@axonivy/inscription-core';
+import { DialogStart } from '@axonivy/inscription-protocol';
 
 export interface ComboboxItem {
   value: string;
