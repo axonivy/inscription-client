@@ -16,7 +16,7 @@ export interface InscriptionClient {
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]>;
 
   dialogStarts(): Promise<DialogStart[]>;
-  roles(): Promise<Role[]>;
+  roles(pid: string): Promise<Role[]>;
   outMapping(): Promise<Variable[]>;
 
   onDataChanged: Event<InscriptionData>;

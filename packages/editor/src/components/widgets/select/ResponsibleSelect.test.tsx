@@ -1,13 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import ResponsibleSelect from './ResponsibleSelect';
 import { Message } from '../../props';
 import { ClientContext, ClientContextInstance, DataContext, DataContextInstance } from '../../../context';
 
 describe('ResponsibleSelect', () => {
-  function renderSelect(responsible: any, message?: Message) {
+  function renderSelect(options: { type?: string; activator?: string; message?: Message }) {
     const data: DataContext = {
-      data: { config: { task: { expiry: { responsible: { ...responsible } } } } },
+      data: { config: { task: { expiry: { responsible: { type: options.type, activator: options.activator } } } } },
       initialData: {},
       updateData: () => {},
       validation: []
@@ -34,27 +34,27 @@ describe('ResponsibleSelect', () => {
   }
 
   test('responsible select will render select for role', async () => {
-    renderSelect({ role: 'ROLE' });
+    renderSelect({ type: 'ROLE', activator: 'Teamleader' });
     const selects = screen.getAllByRole('combobox');
     expect(selects[0]).toHaveTextContent('Role');
-    expect(selects[1]).toHaveTextContent('Everybody');
+    await waitFor(() => expect(selects[1]).toHaveTextContent('Teamleader'));
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 
   test('responsible select will render input for role attr option', async () => {
-    renderSelect({ role: 'ROLE_FROM_ATTR' });
+    renderSelect({ type: 'ROLE_FROM_ATTRIBUTE', activator: 'role activator' });
     expect(screen.getByRole('combobox')).toHaveTextContent('Role from Attr');
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toHaveValue('role activator');
   });
 
   test('responsible select will render input for user attr option', async () => {
-    renderSelect({ role: 'USER_FROM_ATTR' });
+    renderSelect({ type: 'USER_FROM_ATTRIBUTE', activator: 'user activator' });
     expect(screen.getByRole('combobox')).toHaveTextContent('User from Attr');
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toHaveValue('user activator');
   });
 
   test('responsible select will render nothing for delete option', async () => {
-    renderSelect({ role: 'NOBODY_DELETE' });
+    renderSelect({ type: 'DELETE_TASK' });
     expect(screen.getByRole('combobox')).toHaveTextContent('Nobody & delete');
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });

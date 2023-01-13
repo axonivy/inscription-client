@@ -15,7 +15,7 @@ export declare module InscriptionProtocol {
   export type DialogStartsArgs = {};
   export type DialogStartsRes = DialogStart[];
 
-  export type RolesArgs = {};
+  export type RolesArgs = { pid: string };
   export type RolesRes = Role[];
 
   export type OutMappingArgs = {};

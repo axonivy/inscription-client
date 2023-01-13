@@ -44,8 +44,8 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('meta/dialog/starts', {});
   }
 
-  roles(): Promise<Role[]> {
-    return this.sendRequest('meta/workflow/roles', {});
+  roles(pid: string): Promise<Role[]> {
+    return this.sendRequest('meta/workflow/roles', { pid });
   }
 
   outMapping(): Promise<Variable[]> {

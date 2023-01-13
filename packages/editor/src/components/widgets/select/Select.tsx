@@ -1,6 +1,6 @@
 import './Select.css';
 import { useSelect } from 'downshift';
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import LabelInput from '../label/LabelInput';
 import { useReadonly } from '../../../context';
 import { Message } from 'src/components/props';
@@ -18,13 +18,16 @@ const Select = (props: {
   message?: Message;
   children?: JSX.Element;
 }) => {
-  const { isOpen, selectedItem, getToggleButtonProps, getLabelProps, getMenuProps, highlightedIndex, getItemProps } = useSelect<SelectItem>(
-    {
-      initialSelectedItem: props.value,
-      items: props.items,
-      onSelectedItemChange: change => change.selectedItem && props.onChange(change.selectedItem)
-    }
-  );
+  const [items, setItems] = useState(props.items);
+  useEffect(() => setItems(props.items), [props.items]);
+  const [selectedItem, setSelectedItem] = useState(props.value);
+  useEffect(() => setSelectedItem(props.value), [props.value]);
+
+  const { isOpen, getToggleButtonProps, getLabelProps, getMenuProps, highlightedIndex, getItemProps } = useSelect<SelectItem>({
+    selectedItem: selectedItem,
+    items: items,
+    onSelectedItemChange: change => change.selectedItem && props.onChange(change.selectedItem)
+  });
   const readonly = useReadonly();
 
   return (
