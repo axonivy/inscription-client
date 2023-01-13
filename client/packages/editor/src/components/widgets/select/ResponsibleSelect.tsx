@@ -1,6 +1,6 @@
 import './ResponsibleSelect.css';
-import { useMemo } from 'react';
-import { useData } from '../../../context';
+import { useEffect, useMemo, useState } from 'react';
+import { useClient, useData } from '../../../context';
 import Select, { SelectItem } from './Select';
 
 const responsibleItems: SelectItem[] = [
@@ -10,16 +10,26 @@ const responsibleItems: SelectItem[] = [
   { label: 'Nobody & delete', value: 'NOBODY_DELETE' }
 ];
 
-const roleItems: SelectItem[] = [
-  { label: 'Everybody', value: 'Everybody' },
-  { label: 'Employee', value: 'Employee' },
-  { label: 'Teamleader', value: 'Teamleader' }
-];
-
 const ResponsibleSelect = () => {
   const [, responsible, setResponsible] = useData('config/task/expiry/responsible/role');
   const selectedResponsible = useMemo(() => responsibleItems.find(e => e.value === responsible), [responsible]);
-  const selectedRole = useMemo(() => roleItems.find(e => e.value === 'Everybody'), []);
+  const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
+
+  const client = useClient();
+  useEffect(() => {
+    client.roles().then(roles =>
+      setRoleItems(
+        roles.map(role => {
+          return { label: role.id, value: role.id };
+        })
+      )
+    );
+  }, [client]);
+
+  const selectedRole = useMemo(() => roleItems.find(e => e.value === 'Everybody'), [roleItems]) ?? {
+    label: 'Everybody',
+    value: 'Everybody'
+  };
 
   return (
     <div className='responsible-select'>

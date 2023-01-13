@@ -1,5 +1,5 @@
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
-import { DialogStart, Variable } from './meta/inscription-meta';
+import { DialogStart, Role, Variable } from './meta/inscription-meta';
 import { InscriptionValidation } from './validation/inscription-validation';
 
 export declare module InscriptionProtocol {
@@ -15,6 +15,9 @@ export declare module InscriptionProtocol {
   export type DialogStartsArgs = {}; //maybe later with param to filter offline dialogs
   export type DialogStartsRes = DialogStart[];
 
+  export type RolesArgs = {}; //maybe later with param to filter offline dialogs
+  export type RolesRes = Role[];
+
   export type OutMappingArgs = {};
   export type OutMappingRes = Variable[];
 }
@@ -24,8 +27,9 @@ export interface InscriptionRequestTypes {
   data: [InscriptionProtocol.InscriptionDataArgs, InscriptionProtocol.InscriptionDataRes];
   saveData: [InscriptionProtocol.InscriptionSaveDataArgs, InscriptionProtocol.InscriptionSaveDataRes];
 
-  dialogStarts: [InscriptionProtocol.DialogStartsArgs, InscriptionProtocol.DialogStartsRes];
-  outMapping: [InscriptionProtocol.OutMappingArgs, InscriptionProtocol.OutMappingRes];
+  'meta/dialog/starts': [InscriptionProtocol.DialogStartsArgs, InscriptionProtocol.DialogStartsRes];
+  'meta/workflow/roles': [InscriptionProtocol.RolesArgs, InscriptionProtocol.RolesRes];
+  'meta/out/map': [InscriptionProtocol.OutMappingArgs, InscriptionProtocol.OutMappingRes];
 }
 
 export interface InscriptionNotificationTypes {

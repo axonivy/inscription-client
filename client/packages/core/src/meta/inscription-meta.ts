@@ -9,6 +9,11 @@ export interface DialogStart {
   callParameter: Variable[];
 }
 
+export interface Role {
+  id: string;
+  label: string;
+}
+
 export interface Variable {
   attribute: string;
   type: string;
@@ -66,4 +71,10 @@ export const DIALOG_STARTS_META: DialogStart[] = [
     project: 'demo',
     callParameter: []
   }
+];
+
+export const ROLES_META: Role[] = [
+  { id: 'Everybody', label: 'In this role is everyone' },
+  { id: 'Employee', label: '' },
+  { id: 'Teamleader', label: '' }
 ];
