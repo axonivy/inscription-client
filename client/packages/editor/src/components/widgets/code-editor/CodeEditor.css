@@ -1,7 +1,16 @@
-.resizable-editor {
-  height: 90px;
+.code-editor {
   width: 100%;
-  resize: vertical;
-  overflow: auto;
-  z-index: 10;
+  position: relative;
+}
+.code-editor .resize-line {
+  cursor: ns-resize;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  height: 2px;
+}
+.code-editor .resize-line:where(:hover, [data-resize-active='true']) {
+  background-color: var(--seperator-color);
 }

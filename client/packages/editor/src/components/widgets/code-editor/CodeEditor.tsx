@@ -1,33 +1,9 @@
 import './CodeEditor.css';
 import Editor from '@monaco-editor/react';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useEditorContext } from '../../../context';
 import { MINIMAL_STYLE } from '../../../monaco-editor-util';
-
-function useResizeHeight(elRef: React.MutableRefObject<null>, initHeight: number) {
-  const [height, setHeight] = useState(initHeight);
-
-  const observer = useRef(
-    new ResizeObserver(entries => {
-      setHeight(entries[0].contentRect.height);
-    })
-  );
-
-  useEffect(() => {
-    const current = observer.current;
-    const element = elRef.current;
-    if (element) {
-      current.observe(element);
-    }
-    return () => {
-      if (element) {
-        current.unobserve(element);
-      }
-    };
-  }, [elRef, observer]);
-
-  return height;
-}
+import { useMove } from 'react-aria';
 
 const CodeEditor = (props: {
   code: string;
@@ -37,22 +13,25 @@ const CodeEditor = (props: {
   initHeight?: number;
 }) => {
   const editorContext = useEditorContext();
-  const resizeDiv = useRef(null);
-  const height = useResizeHeight(resizeDiv, props.initHeight ?? 90);
+  const [resizeActive, setResizeActive] = useState(false);
+  const [height, setHeight] = useState(props.initHeight ?? 90);
+  const { moveProps } = useMove({
+    onMoveStart(e) {
+      setResizeActive(true);
+    },
+    onMove(e) {
+      setHeight(y => y + e.deltaY);
+    },
+    onMoveEnd(e) {
+      setResizeActive(false);
+    }
+  });
 
   const monacoOptions = MINIMAL_STYLE;
   monacoOptions.readOnly = editorContext.readonly;
 
   return (
-    <div
-      ref={resizeDiv}
-      onResize={e => console.log(e)}
-      className='resizable-editor'
-      style={{
-        height: `${props.initHeight ?? 90}px`,
-        resize: props.resizable ? 'vertical' : 'none'
-      }}
-    >
+    <div className='code-editor'>
       <Editor
         className='input'
         defaultValue={props.code}
@@ -64,6 +43,7 @@ const CodeEditor = (props: {
         theme='axon-input'
         onChange={props.onChange}
       />
+      {props.resizable && <hr className='resize-line' data-resize-active={resizeActive} {...moveProps} style={{ top: height }} />}
     </div>
   );
 };
