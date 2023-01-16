@@ -1,4 +1,10 @@
-export { default as MappingTreeWithCode } from './MappingTreeWithCode';
-export { default as SelectDialog } from './SelectDialog';
-export { default as CodeEditor } from './code-editor/CodeEditor';
+export * from './checkbox';
+export * from './code-editor';
+export * from './collapsible';
+export * from './combobox';
+export * from './label';
+export * from './select';
+export * from './table';
+export * from './tag';
+
 export { default as IvyIcon } from './IvyIcon';

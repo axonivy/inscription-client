@@ -1,10 +1,8 @@
-import { useData, useReadonly, useValidation } from '../../context';
-import { TabProps, useTabState } from '../props';
-import LabelInput from '../widgets/label/LabelInput';
-import DocumentTable from '../widgets/table/DocumentTable';
-import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
-import Tags from '../widgets/tag/Tags';
+import { useData, useReadonly, useValidation } from '../../../context';
+import { TabProps, useTabState } from '../../props';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import DocumentTable from './document/DocumentTable';
+import { CollapsiblePart, LabelInput, Tags } from '../../../components/widgets';
 
 function useNameTabValidation(): InscriptionValidation[] {
   const name = useValidation('name');

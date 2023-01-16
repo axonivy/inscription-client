@@ -1,8 +1,7 @@
 import { Separator } from '@radix-ui/react-separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
-import { memo, ReactNode } from 'react';
+import { memo, ReactNode, useMemo } from 'react';
 import './InscriptionEditor.css';
-import { EditorProps, useEditorState } from '../props/editor';
 import { InscriptionEditorType } from '@axonivy/inscription-protocol';
 import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
@@ -10,7 +9,9 @@ import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
 import { otherEditors } from './others/other-editors';
 import { IvyIcon } from '../widgets';
-import { useEditorContext } from '../../context';
+import { useData, useDataContext, useEditorContext } from '../../context';
+import { IvyIcons } from '@axonivy/editor-icons';
+import { Message, TabProps } from '../props';
 
 const editors = new Map<InscriptionEditorType, JSX.Element>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
 
@@ -21,9 +22,22 @@ export const inscriptionEditor = (type?: InscriptionEditorType): ReactNode => {
   return <NoEditor />;
 };
 
+export interface EditorProps {
+  icon: IvyIcons;
+  tabs: TabProps[];
+}
+
 const Header = (props: EditorProps) => {
+  const [, name] = useData('name');
+  const { validation } = useDataContext();
+  const headerState = useMemo<Message[]>(() => {
+    if (validation.length > 0) {
+      return validation;
+    }
+    return [{ severity: 'info', message: name }];
+  }, [name, validation]);
+
   const editorContext = useEditorContext();
-  const headerState = useEditorState();
   return (
     <>
       <div className='header'>

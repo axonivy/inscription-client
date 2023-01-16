@@ -1,26 +1,20 @@
-import { CustomField, CustomFieldType } from '@axonivy/inscription-protocol';
+import { Document } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
-import { memo, useMemo, useState } from 'react';
-import { EditableCell } from './cell/EditableCell';
-import { Table } from './table/Table';
-import { SelectCell } from './cell/SelectCell';
-import { SelectItem } from '../select/Select';
-import { TableAddRow, TableFooter } from './footer/TableFooter';
-import { TableHeader, TableHeaderSorted } from './header/TableHeader';
-import { TableCell } from './cell/TableCell';
-import { ActionCell } from './cell/ActionCell';
+import React, { memo, useState } from 'react';
+import {
+  ActionCell,
+  EditableCell,
+  Table,
+  TableAddRow,
+  TableCell,
+  TableFooter,
+  TableHeader,
+  TableHeaderSorted
+} from '../../../../components/widgets';
 
-const CustomFieldTable = (props: { data: CustomField[]; onChange: (change: CustomField[]) => void }) => {
-  const items = useMemo<SelectItem[]>(
-    () =>
-      Object.values(CustomFieldType).map(key => {
-        return { label: key, value: key };
-      }),
-    []
-  );
-
-  const columns = useMemo<ColumnDef<CustomField>[]>(
+const DocumentTable = (props: { data: Document[]; onChange: (change: Document[]) => void }) => {
+  const columns = React.useMemo<ColumnDef<Document>[]>(
     () => [
       {
         accessorKey: 'name',
@@ -29,26 +23,21 @@ const CustomFieldTable = (props: { data: CustomField[]; onChange: (change: Custo
         footer: props => props.column.id
       },
       {
-        accessorKey: 'type',
-        header: () => <span>Type</span>,
-        cell: cell => <SelectCell cell={cell} items={items} />,
-        footer: props => props.column.id
-      },
-      {
-        accessorKey: 'value',
-        header: () => <span>Expression</span>,
+        accessorFn: row => row.url,
+        id: 'url',
+        header: () => <span>URL</span>,
         cell: cell => <EditableCell cell={cell} />,
         footer: props => props.column.id
       }
     ],
-    [items]
+    []
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const addRow = () => {
     const newData = [...props.data];
-    newData.push({ name: '', type: CustomFieldType.STRING, value: '' });
+    newData.push({ name: '', url: '' });
     props.onChange(newData);
   };
 
@@ -93,7 +82,7 @@ const CustomFieldTable = (props: { data: CustomField[]; onChange: (change: Custo
                 <TableHeaderSorted header={header} />
               </TableHeader>
             ))}
-            <TableHeader colSpan={1}>Actions</TableHeader>
+            <TableHeader colSpan={2}>Actions</TableHeader>
           </tr>
         ))}
       </thead>
@@ -106,17 +95,18 @@ const CustomFieldTable = (props: { data: CustomField[]; onChange: (change: Custo
             <ActionCell
               actions={[
                 { label: 'Remove row', icon: IvyIcons.Delete, action: () => removeTableRow(row.index) },
-                { label: 'Open custom field configuration', icon: IvyIcons.GoToSource, action: () => {} }
+                { label: 'Browse', icon: IvyIcons.Search, action: () => {} },
+                { label: 'Open URL', icon: IvyIcons.GoToSource, action: () => {} }
               ]}
             />
           </tr>
         ))}
       </tbody>
       <TableFooter>
-        <TableAddRow colSpan={4} addRow={addRow} />
+        <TableAddRow colSpan={3} addRow={addRow} />
       </TableFooter>
     </Table>
   );
 };
 
-export default memo(CustomFieldTable);
+export default memo(DocumentTable);

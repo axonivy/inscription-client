@@ -10,7 +10,7 @@ import {
   assertTableHeaders,
   assertTableRows,
   renderReadonlyTable
-} from './table.test-helper';
+} from '../../../widgets/table/table.test-helper';
 
 describe('CustomFieldTable', () => {
   const customFields: CustomField[] = [

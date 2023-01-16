@@ -11,7 +11,7 @@ const RequestStartEditor = memo(() => {
   const startTab = useStartTab();
   const requestTab = { name: 'Request', content: <h1>Request</h1>, state: TabState.EMPTY };
   const triggerTab = { name: 'Trigger', content: <h1>Trigger</h1>, state: TabState.EMPTY };
-  const taskTab = useTaskTab();
+  const taskTab = useTaskTab({ showPersist: true });
   const caseTab = useCaseTab();
   return <InscriptionEditor icon={IvyIcons.Start} tabs={[nameTab, startTab, requestTab, triggerTab, taskTab, caseTab]} />;
 });

@@ -1,8 +1,6 @@
 import { useData } from '../../context';
 import { TabProps, TabState } from '../props';
-import LabelInput from '../widgets/label/LabelInput';
-import { CodeEditor } from '../widgets';
-import Checkbox from '../widgets/checkbox/Checkbox';
+import { Checkbox, CodeEditor, LabelInput } from '../widgets';
 
 export function useCodeTab(): TabProps {
   return { name: 'Code', state: TabState.CONFIGURED, content: <CodeTab /> };

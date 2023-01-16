@@ -1,8 +1,8 @@
 import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
-import { useClient, useData, useEditorContext } from '../../../context';
-import Select, { SelectItem } from './Select';
 import { ResponsibleType } from '@axonivy/inscription-protocol';
+import { Select, SelectItem } from '../../../../components/widgets';
+import { useClient, useData, useEditorContext } from '../../../../context';
 
 const ResponsibleSelect = () => {
   const [, type, setType] = useData('config/task/expiry/responsible/type');

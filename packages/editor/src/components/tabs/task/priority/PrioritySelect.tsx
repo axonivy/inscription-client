@@ -1,9 +1,9 @@
 import './PrioritySelect.css';
 import { useMemo } from 'react';
-import { useData } from '../../../context';
-import Select, { SelectItem } from './Select';
+import { useData } from '../../../../context';
 import { TaskDataAccess } from '@axonivy/inscription-protocol';
-import { Message } from '../../../components/props';
+import { Select, SelectItem } from '../../../../components/widgets';
+import { Message } from '../../../../components/props';
 
 const items: SelectItem[] = [
   { label: 'Low', value: 'LOW' },
