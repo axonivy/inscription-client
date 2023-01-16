@@ -5,12 +5,13 @@ import PersistPart from './options/PersistPart';
 import PrioritySelect from './priority/PrioritySelect';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { CodeEditor, CollapsiblePart, LabelInput } from '../../../components/widgets';
+import TaskListPart from './options/TaskListPart';
 
-export function useTaskTab(): TabProps {
-  return { name: 'Task', state: TabState.CONFIGURED, content: <TaskTab /> };
+export function useTaskTab(options?: { showPersist?: boolean }): TabProps {
+  return { name: 'Task', state: TabState.CONFIGURED, content: <TaskTab showPersist={options?.showPersist} /> };
 }
 
-const TaskTab = () => {
+const TaskTab = (props: { showPersist?: boolean }) => {
   const [, name, setName] = useData('config/task/name');
   const [, description, setDescription] = useData('config/task/description');
   const [, category, setCategory] = useData('config/task/category');
@@ -36,7 +37,7 @@ const TaskTab = () => {
         <input className='input' id='category' value={category} onChange={event => setCategory(event.target.value)} disabled={readonly} />
       </LabelInput>
       <PrioritySelect dataPath='config/task/priority' />
-      <PersistPart />
+      {props.showPersist ? <PersistPart /> : <TaskListPart />}
       <ExpiryPart />
       <CustomFieldPart />
       <CollapsiblePart collapsibleLabel='Code' defaultOpen={false}>
