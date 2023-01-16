@@ -10,6 +10,8 @@ export interface SelectItem {
   value: string;
 }
 
+export const EMPTY_SELECT_ITEM: SelectItem = { label: '', value: '' };
+
 const Select = (props: {
   label: string;
   value?: SelectItem;

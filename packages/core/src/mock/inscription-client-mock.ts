@@ -1,5 +1,6 @@
 import {
   DialogStart,
+  ExpiryError,
   InscriptionClient,
   InscriptionData,
   InscriptionEditorType,
@@ -42,6 +43,10 @@ export class InscriptionClientMock implements InscriptionClient {
 
   roles(pid: string): Promise<Role[]> {
     return Promise.resolve(MetaMock.ROLES);
+  }
+
+  expiryErrors(pid: string): Promise<ExpiryError[]> {
+    return Promise.resolve(MetaMock.EXPIRY_ERRORS);
   }
 
   outMapping(): Promise<Variable[]> {

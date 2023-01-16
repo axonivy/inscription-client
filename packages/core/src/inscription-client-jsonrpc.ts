@@ -1,5 +1,6 @@
 import {
   DialogStart,
+  ExpiryError,
   InscriptionClient,
   InscriptionData,
   InscriptionNotificationTypes,
@@ -46,6 +47,10 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
 
   roles(pid: string): Promise<Role[]> {
     return this.sendRequest('meta/workflow/roles', { pid });
+  }
+
+  expiryErrors(pid: string): Promise<ExpiryError[]> {
+    return this.sendRequest('meta/workflow/expiryErrors', { pid });
   }
 
   outMapping(): Promise<Variable[]> {
