@@ -18,22 +18,27 @@ export interface CustomField {
   value: string;
 }
 
+export namespace TaskDataAccess {
+  export const SINGLE_PREFIX = 'config/task';
+  export const MULTI_PREFIX = 'config/tasks';
+}
+
 export interface TaskDataAccess {
-  'config/task/name': string;
-  'config/task/description': string;
-  'config/task/category': string;
-  'config/task/priority': string;
+  name: string;
+  description: string;
+  category: string;
+  priority: string;
 
-  'config/task/expiry/timeout': string;
-  'config/task/expiry/error': string;
-  'config/task/expiry/responsible/type': ResponsibleType;
-  'config/task/expiry/responsible/activator': string;
-  'config/task/expiry/priority': string;
+  'expiry/timeout': string;
+  'expiry/error': string;
+  'expiry/responsible/type': ResponsibleType;
+  'expiry/responsible/activator': string;
+  'expiry/priority': string;
 
-  'config/task/customFields': CustomField[];
-  'config/task/code': string;
+  customFields: CustomField[];
+  code: string;
 
-  'config/task/skipTasklist': boolean;
-  'config/task/delay': string;
+  skipTasklist: boolean;
+  delay: string;
   'config/persist': boolean;
 }

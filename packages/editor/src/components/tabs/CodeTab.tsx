@@ -1,9 +1,22 @@
-import { useData } from '../../context';
-import { TabProps, TabState } from '../props';
+import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import { useData, useValidation } from '../../context';
+import { TabProps, useTabState } from '../props';
 import { Checkbox, CodeEditor, LabelInput } from '../widgets';
 
+function useCodeTabValidation(): InscriptionValidation[] {
+  const dialog = useValidation('config/output/code');
+  return [dialog];
+}
+
 export function useCodeTab(): TabProps {
-  return { name: 'Code', state: TabState.CONFIGURED, content: <CodeTab /> };
+  const [initData, data] = useData('config/output/code');
+  const validation = useCodeTabValidation();
+  const tabState = useTabState(initData, data, validation);
+  return {
+    name: 'Code',
+    state: tabState,
+    content: <CodeTab />
+  };
 }
 
 const CodeTab = () => {

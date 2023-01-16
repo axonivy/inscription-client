@@ -1,9 +1,9 @@
 import { CallData } from './call-data';
 import { NameData } from './name-data';
-import { TaskData } from './task-data';
+import { TaskData, TasksData } from './task-data';
 
 export namespace DataMock {
-  export const USER_TASK: NameData | CallData | TaskData = {
+  export const NAME: NameData = {
     name: 'test name',
     description: 'test desc',
     docs: [
@@ -16,13 +16,30 @@ export namespace DataMock {
         url: 'ivyteam.ch'
       }
     ],
-    tags: ['bla', 'zag'],
+    tags: ['bla', 'zag']
+  };
+
+  export const USER_TASK: NameData | CallData | TaskData = {
+    ...NAME,
     config: {
       dialog: '',
       call: {
         map: [{ key: 'param.procurementRequest', value: 'in' }],
         code: 'ivy.log.info("Hello World")'
+      },
+      task: {
+        name: 'user task'
       }
+    }
+  };
+
+  export const TASK_SWITCH_GATEWAY: NameData | TasksData = {
+    ...NAME,
+    config: {
+      tasks: [
+        { id: 'TaskA', name: 'TaskA' },
+        { id: 'TaskB', name: 'TaskB' }
+      ]
     }
   };
 }

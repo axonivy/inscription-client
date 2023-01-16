@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CollapsiblePart, EMPTY_SELECT_ITEM, LabelInput, Select, SelectItem } from '../../../components/widgets';
-import { useData, useEditorContext, useClient } from '../../../context';
+import { useEditorContext, useClient, useTaskData } from '../../../context';
 import PrioritySelect from './priority/PrioritySelect';
 import ResponsibleSelect from './responsible/ResponsibleSelect';
 
 const ExpiryPart = () => {
-  const [, timeout, setTimeout] = useData('config/task/expiry/timeout');
-  const [, error, setError] = useData('config/task/expiry/error');
+  const [, timeout, setTimeout] = useTaskData('expiry/timeout');
+  const [, error, setError] = useTaskData('expiry/error');
 
   const [errorItems, setErrorItems] = useState<SelectItem[]>([]);
   const editorContext = useEditorContext();
@@ -36,7 +36,7 @@ const ExpiryPart = () => {
       </LabelInput>
       <Select label='Error' items={errorItems} value={selectedError} onChange={item => setError(item.value)} />
       <ResponsibleSelect />
-      <PrioritySelect dataPath='config/task/expiry/priority' />
+      <PrioritySelect dataPath='expiry/priority' />
     </CollapsiblePart>
   );
 };

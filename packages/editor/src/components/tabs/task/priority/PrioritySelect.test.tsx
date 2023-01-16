@@ -14,7 +14,7 @@ describe('PrioritySelect', () => {
     };
     render(
       <DataContextInstance.Provider value={data}>
-        <PrioritySelect dataPath='config/task/priority' message={message} />
+        <PrioritySelect dataPath='priority' message={message} />
       </DataContextInstance.Provider>
     );
   }
