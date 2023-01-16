@@ -1,5 +1,5 @@
 import { InscriptionData, InscriptionSaveData } from './data';
-import { DialogStart, Role, Variable } from './meta';
+import { DialogStart, ExpiryError, Role, Variable } from './meta';
 import { InscriptionValidation } from './validation';
 
 export interface Event<T> {
@@ -17,6 +17,7 @@ export interface InscriptionClient {
 
   dialogStarts(): Promise<DialogStart[]>;
   roles(pid: string): Promise<Role[]>;
+  expiryErrors(pid: string): Promise<ExpiryError[]>;
   outMapping(): Promise<Variable[]>;
 
   onDataChanged: Event<InscriptionData>;

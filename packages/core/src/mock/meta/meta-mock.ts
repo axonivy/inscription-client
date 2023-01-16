@@ -1,4 +1,4 @@
-import { DialogStart, Role, Variable } from '@axonivy/inscription-protocol';
+import { DialogStart, ExpiryError, Role, Variable } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
   const USER_DIALOG_MAPPING: Variable[] = [
@@ -57,5 +57,10 @@ export namespace MetaMock {
     { id: 'Everybody', label: 'In this role is everyone' },
     { id: 'Employee', label: '' },
     { id: 'Teamleader', label: '' }
+  ];
+
+  export const EXPIRY_ERRORS: ExpiryError[] = [
+    { label: 'ProcurementRequestParallel -> error:task', id: 'f29' },
+    { label: 'ProcurementRequestParallel -> error:task:bla', id: 'f31' }
   ];
 }

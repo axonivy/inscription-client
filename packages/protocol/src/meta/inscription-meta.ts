@@ -14,6 +14,11 @@ export interface Role {
   label: string;
 }
 
+export interface ExpiryError {
+  id: string;
+  label: string;
+}
+
 export interface Variable {
   attribute: string;
   type: string;
