@@ -40,7 +40,7 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(MetaMock.DIALOG_STARTS);
   }
 
-  roles(): Promise<Role[]> {
+  roles(pid: string): Promise<Role[]> {
     return Promise.resolve(MetaMock.ROLES);
   }
 

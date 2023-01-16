@@ -1,8 +1,8 @@
-export enum Responsible {
+export enum ResponsibleType {
   ROLE = 'Role',
-  ROLE_ATTR = 'Role form Attr.',
-  USER_ATTR = 'User form Attr.',
-  NOBODY = 'Nobody & delete'
+  ROLE_FROM_ATTRIBUTE = 'Role from Attr.',
+  USER_FROM_ATTRIBUTE = 'User from Attr.',
+  DELETE_TASK = 'Nobody & delete'
 }
 
 export enum CustomFieldType {
@@ -26,7 +26,8 @@ export interface TaskDataAccess {
   'config/task/priority': string;
   'config/task/expiry/timeout': string;
   'config/task/expiry/error': string;
-  'config/task/expiry/responsible/role': string;
+  'config/task/expiry/responsible/type': ResponsibleType;
+  'config/task/expiry/responsible/activator': string;
   'config/task/expiry/priority': string;
   'config/task/customFields': CustomField[];
   'config/task/code': string;

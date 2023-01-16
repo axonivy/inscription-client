@@ -1,43 +1,53 @@
 import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
-import { useClient, useData } from '../../../context';
+import { useClient, useData, useEditorContext } from '../../../context';
 import Select, { SelectItem } from './Select';
-
-const responsibleItems: SelectItem[] = [
-  { label: 'Role', value: 'ROLE' },
-  { label: 'Role from Attr', value: 'ROLE_FROM_ATTR' },
-  { label: 'User from Attr', value: 'USER_FROM_ATTR' },
-  { label: 'Nobody & delete', value: 'NOBODY_DELETE' }
-];
+import { ResponsibleType } from '@axonivy/inscription-protocol';
 
 const ResponsibleSelect = () => {
-  const [, responsible, setResponsible] = useData('config/task/expiry/responsible/role');
-  const selectedResponsible = useMemo(() => responsibleItems.find(e => e.value === responsible), [responsible]);
-  const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
+  const [, type, setType] = useData('config/task/expiry/responsible/type');
+  const [, activator, setActivator] = useData('config/task/expiry/responsible/activator');
 
+  const typeItems = useMemo<SelectItem[]>(
+    () =>
+      Object.entries(ResponsibleType).map(entry => {
+        return { label: entry[1], value: entry[0] };
+      }),
+    []
+  );
+  const selectedType = useMemo(() => typeItems.find(e => e.value === type), [type, typeItems]);
+
+  const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
+  const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.roles().then(roles =>
+    client.roles(editorContext.pid).then(roles =>
       setRoleItems(
         roles.map(role => {
           return { label: role.id, value: role.id };
         })
       )
     );
-  }, [client]);
+  }, [client, editorContext.pid]);
 
-  const selectedRole = useMemo(() => roleItems.find(e => e.value === 'Everybody'), [roleItems]) ?? {
+  const selectedRole = useMemo(() => roleItems.find(e => e.value === activator), [activator, roleItems]) ?? {
     label: 'Everybody',
     value: 'Everybody'
   };
 
   return (
     <div className='responsible-select'>
-      <Select label='Responsible' items={responsibleItems} value={selectedResponsible} onChange={item => setResponsible(item.value)}>
+      <Select label='Responsible' items={typeItems} value={selectedType} onChange={item => setType(item.value as ResponsibleType)}>
         <>
-          {selectedResponsible?.value === 'ROLE' && <Select label='Role' items={roleItems} value={selectedRole} onChange={() => {}} />}
-          {selectedResponsible?.value === 'ROLE_FROM_ATTR' && <input className='input' />}
-          {selectedResponsible?.value === 'USER_FROM_ATTR' && <input className='input' />}
+          {selectedType?.label === ResponsibleType.ROLE && (
+            <Select label='Role' items={roleItems} value={selectedRole} onChange={item => setActivator(item.value)} />
+          )}
+          {selectedType?.label === ResponsibleType.ROLE_FROM_ATTRIBUTE && (
+            <input className='input' value={activator} onChange={e => setActivator(e.target.value)} />
+          )}
+          {selectedType?.label === ResponsibleType.USER_FROM_ATTRIBUTE && (
+            <input className='input' value={activator} onChange={e => setActivator(e.target.value)} />
+          )}
         </>
       </Select>
     </div>
