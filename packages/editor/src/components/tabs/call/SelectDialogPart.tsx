@@ -1,9 +1,16 @@
-import { ComboboxItem, DialogStartItem } from '../props/combobox';
-import { Message } from '../props/message';
-import CollapsiblePart from './collapsible/CollapsiblePart';
-import Combobox from './combobox/Combobox';
+import { DialogStart } from '@axonivy/inscription-protocol';
+import { CollapsiblePart, Combobox, ComboboxItem } from '../../widgets';
+import { Message } from '../../props/message';
 
-const SelectDialog = (props: {
+export interface DialogStartItem extends DialogStart, ComboboxItem {}
+
+export namespace DialogStartItem {
+  export function is(item: ComboboxItem): item is DialogStartItem {
+    return (item as DialogStartItem).startName !== undefined;
+  }
+}
+
+const SelectDialogPart = (props: {
   dialogStart: string;
   onChange: (change: string) => void;
   dialogStarts: DialogStartItem[];
@@ -58,4 +65,4 @@ const SelectDialog = (props: {
   );
 };
 
-export default SelectDialog;
+export default SelectDialogPart;

@@ -1,12 +1,10 @@
-import { useMemo, useEffect, useState } from 'react';
-import { useClient, useData, useEditorContext } from '../../context';
-import CollapsiblePart from './collapsible/CollapsiblePart';
-import LabelInput from './label/LabelInput';
-import PrioritySelect from './select/PrioritySelect';
-import ResponsibleSelect from './select/ResponsibleSelect';
-import Select, { EMPTY_SELECT_ITEM, SelectItem } from './select/Select';
+import { useEffect, useMemo, useState } from 'react';
+import { CollapsiblePart, EMPTY_SELECT_ITEM, LabelInput, Select, SelectItem } from '../../../components/widgets';
+import { useData, useEditorContext, useClient } from '../../../context';
+import PrioritySelect from './priority/PrioritySelect';
+import ResponsibleSelect from './responsible/ResponsibleSelect';
 
-const Expiry = () => {
+const ExpiryPart = () => {
   const [, timeout, setTimeout] = useData('config/task/expiry/timeout');
   const [, error, setError] = useData('config/task/expiry/error');
 
@@ -43,4 +41,4 @@ const Expiry = () => {
   );
 };
 
-export default Expiry;
+export default ExpiryPart;

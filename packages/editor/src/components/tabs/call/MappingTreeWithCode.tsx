@@ -1,11 +1,9 @@
 import { Mapping, MappingData, Variable } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
-import { useReadonly } from '../../context';
-import { MINIMAL_STYLE } from '../../monaco-editor-util';
-import { Message } from '../props/message';
-import CodeEditor from './code-editor/CodeEditor';
-import LabelInput from './label/LabelInput';
-import MappingTree from './table/MappingTree';
+import { CodeEditor, LabelInput, MappingTree } from '../../../components/widgets';
+import { useReadonly } from '../../../context';
+import { MINIMAL_STYLE } from '../../../monaco-editor-util';
+import { Message } from '../../props/message';
 
 const MappingTreeWithCode = (props: {
   data: MappingData;

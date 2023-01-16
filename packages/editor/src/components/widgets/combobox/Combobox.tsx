@@ -1,10 +1,13 @@
 import { useCombobox } from 'downshift';
 import { memo, useEffect, useState } from 'react';
-import { ComboboxItem } from '../../props/combobox';
 import './Combobox.css';
 import { Message } from '../../props/message';
 import LabelInput from '../label/LabelInput';
 import { useReadonly } from '../../../context';
+
+export interface ComboboxItem {
+  value: string;
+}
 
 const Combobox = (props: {
   label: string;

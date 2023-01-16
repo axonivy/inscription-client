@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useClient, useData, useValidation } from '../../context';
-import { DialogStartItem } from '../props/combobox';
-import CollapsiblePart from '../widgets/collapsible/CollapsiblePart';
-import MappingTreeWithCode from '../widgets/MappingTreeWithCode';
-import SelectDialog from '../widgets/SelectDialog';
-import { TabProps, useTabState } from '../props';
+import { useClient, useData, useValidation } from '../../../context';
+import SelectDialogPart, { DialogStartItem } from './SelectDialogPart';
+import { TabProps, useTabState } from '../../props';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import { CollapsiblePart } from '../../../components/widgets';
+import MappingTreeWithCode from './MappingTreeWithCode';
 
 function useCallTabValidation(): InscriptionValidation[] {
   const dialog = useValidation('config/dialog');
@@ -43,7 +42,7 @@ const CallTab = () => {
 
   return (
     <>
-      <SelectDialog dialogStart={dialogStart} onChange={setDialogStarts} dialogStarts={dialogStartItems} message={dialogValidation} />
+      <SelectDialogPart dialogStart={dialogStart} onChange={setDialogStarts} dialogStarts={dialogStartItems} message={dialogValidation} />
       <CollapsiblePart collapsibleLabel='Mapping of process to dialog data' defaultOpen={true}>
         <MappingTreeWithCode data={mappingData} onChange={setMappingData} mappingTree={mappingTree} message={undefined} />
       </CollapsiblePart>

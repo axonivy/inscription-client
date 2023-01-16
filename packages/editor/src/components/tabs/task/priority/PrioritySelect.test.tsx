@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import PrioritySelect from './PrioritySelect';
-import { Message } from '../../props';
-import { DataContext, DataContextInstance } from '../../../context';
+import { Message } from '../../../props';
+import { DataContext, DataContextInstance } from '../../../../context';
 
 describe('PrioritySelect', () => {
   function renderSelect(selectedItem: string, message?: Message) {

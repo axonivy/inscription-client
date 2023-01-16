@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import ResponsibleSelect from './ResponsibleSelect';
-import { Message } from '../../props';
-import { ClientContext, ClientContextInstance, DataContext, DataContextInstance } from '../../../context';
+import { Message } from '../../../props';
+import { ClientContext, ClientContextInstance, DataContext, DataContextInstance } from '../../../../context';
 
 describe('ResponsibleSelect', () => {
   function renderSelect(options: { type?: string; activator?: string; message?: Message }) {
