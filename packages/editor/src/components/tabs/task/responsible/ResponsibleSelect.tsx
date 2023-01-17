@@ -2,11 +2,11 @@ import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
 import { ResponsibleType } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
-import { useClient, useData, useEditorContext } from '../../../../context';
+import { useClient, useEditorContext, useTaskData } from '../../../../context';
 
 const ResponsibleSelect = () => {
-  const [, type, setType] = useData('config/task/expiry/responsible/type');
-  const [, activator, setActivator] = useData('config/task/expiry/responsible/activator');
+  const [, type, setType] = useTaskData('expiry/responsible/type');
+  const [, activator, setActivator] = useTaskData('expiry/responsible/activator');
 
   const typeItems = useMemo<SelectItem[]>(
     () =>
