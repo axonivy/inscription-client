@@ -22,8 +22,8 @@ const Select = (props: {
 }) => {
   const [items, setItems] = useState(props.items);
   useEffect(() => setItems(props.items), [props.items]);
-  const [selectedItem, setSelectedItem] = useState(props.value);
-  useEffect(() => setSelectedItem(props.value), [props.value]);
+  const [selectedItem, setSelectedItem] = useState(props.value ?? EMPTY_SELECT_ITEM);
+  useEffect(() => setSelectedItem(props.value ?? EMPTY_SELECT_ITEM), [props.value]);
 
   const { isOpen, getToggleButtonProps, getLabelProps, getMenuProps, highlightedIndex, getItemProps } = useSelect<SelectItem>({
     selectedItem: selectedItem,

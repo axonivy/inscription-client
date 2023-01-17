@@ -49,6 +49,14 @@ describe('ResponsibleSelect', () => {
     expect(screen.getAllByRole('option')).toHaveLength(3);
   });
 
+  test('responsible select will render select for role with default option', async () => {
+    renderSelect({ type: 'ROLE' });
+    const selects = screen.getAllByRole('combobox');
+    expect(selects[0]).toHaveTextContent('Role');
+    await waitFor(() => expect(selects[1]).toHaveTextContent('Everybody'));
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+  });
+
   test('responsible select will render select for role', async () => {
     renderSelect({ type: 'ROLE', activator: 'Teamleader' });
     const selects = screen.getAllByRole('combobox');
