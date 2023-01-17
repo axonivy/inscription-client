@@ -26,7 +26,7 @@ const ExpiryPart = () => {
           <>
             <ErrorSelect />
             <ResponsibleSelect typePath='expiry/responsible/type' activatorPath='expiry/responsible/activator' />
-            <PrioritySelect dataPath='expiry/priority' />
+            <PrioritySelect levelPath='expiry/priority/level' scriptPath='expiry/priority/script' />
           </>
         )}
       </>

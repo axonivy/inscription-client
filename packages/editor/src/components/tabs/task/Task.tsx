@@ -35,7 +35,7 @@ const Task = (props: { showPersist?: boolean }) => {
       {!props.showPersist && (
         <ResponsibleSelect typePath='responsible/type' activatorPath='responsible/activator' hideDeleteOption={true} />
       )}
-      <PrioritySelect dataPath='priority' />
+      <PrioritySelect levelPath='priority/level' scriptPath='priority/script' />
       {props.showPersist ? <PersistPart /> : <TaskListPart />}
       <ExpiryPart />
       <CustomFieldPart />

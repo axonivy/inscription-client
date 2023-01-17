@@ -4,6 +4,8 @@ import { ResponsibleType } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
 import { useClient, useEditorContext, useTaskData } from '../../../../context';
 
+const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' };
+
 const ResponsibleSelect = (props: {
   typePath: 'responsible/type' | 'expiry/responsible/type';
   activatorPath: 'responsible/activator' | 'expiry/responsible/activator';
@@ -36,10 +38,7 @@ const ResponsibleSelect = (props: {
     );
   }, [client, editorContext.pid]);
 
-  const selectedRole = useMemo(() => roleItems.find(e => e.value === activator), [activator, roleItems]) ?? {
-    label: 'Everybody',
-    value: 'Everybody'
-  };
+  const selectedRole = useMemo(() => roleItems.find(e => e.value === activator), [activator, roleItems]) ?? DEFAULT_ROLE;
 
   return (
     <div className='responsible-select'>
