@@ -5,6 +5,7 @@ import PrioritySelect from './priority/PrioritySelect';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { CodeEditor, CollapsiblePart, LabelInput } from '../../widgets';
 import TaskListPart from './options/TaskListPart';
+import ResponsibleSelect from './responsible/ResponsibleSelect';
 
 const Task = (props: { showPersist?: boolean }) => {
   const [, name, setName] = useTaskData('name');
@@ -31,6 +32,9 @@ const Task = (props: { showPersist?: boolean }) => {
       <LabelInput label='Category' htmlFor='category'>
         <input className='input' id='category' value={category} onChange={event => setCategory(event.target.value)} disabled={readonly} />
       </LabelInput>
+      {!props.showPersist && (
+        <ResponsibleSelect typePath='responsible/type' activatorPath='responsible/activator' hideDeleteOption={true} />
+      )}
       <PrioritySelect dataPath='priority' />
       {props.showPersist ? <PersistPart /> : <TaskListPart />}
       <ExpiryPart />

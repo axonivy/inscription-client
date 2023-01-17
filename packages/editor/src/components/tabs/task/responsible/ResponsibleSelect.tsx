@@ -4,16 +4,22 @@ import { ResponsibleType } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
 import { useClient, useEditorContext, useTaskData } from '../../../../context';
 
-const ResponsibleSelect = () => {
-  const [, type, setType] = useTaskData('expiry/responsible/type');
-  const [, activator, setActivator] = useTaskData('expiry/responsible/activator');
+const ResponsibleSelect = (props: {
+  typePath: 'responsible/type' | 'expiry/responsible/type';
+  activatorPath: 'responsible/activator' | 'expiry/responsible/activator';
+  hideDeleteOption?: boolean;
+}) => {
+  const [, type, setType] = useTaskData(props.typePath);
+  const [, activator, setActivator] = useTaskData(props.activatorPath);
 
   const typeItems = useMemo<SelectItem[]>(
     () =>
-      Object.entries(ResponsibleType).map(entry => {
-        return { label: entry[1], value: entry[0] };
-      }),
-    []
+      Object.entries(ResponsibleType)
+        .filter(entry => !(props.hideDeleteOption && entry[1] === ResponsibleType.DELETE_TASK))
+        .map(entry => {
+          return { label: entry[1], value: entry[0] };
+        }),
+    [props.hideDeleteOption]
   );
   const selectedType = useMemo(() => typeItems.find(e => e.value === type), [type, typeItems]);
 
