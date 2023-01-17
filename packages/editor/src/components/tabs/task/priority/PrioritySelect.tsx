@@ -6,12 +6,8 @@ import { Select, SelectItem } from '../../../../components/widgets';
 
 const DEFAULT_PRIORITY: SelectItem = { label: PriorityLevel.NORMAL, value: 'NORMAL' };
 
-const PrioritySelect = (props: {
-  levelPath: 'priority/level' | 'expiry/priority/level';
-  scriptPath: 'priority/script' | 'expiry/priority/script';
-}) => {
-  const [, level, setLevel] = useTaskData(props.levelPath);
-  const [, script, setScript] = useTaskData(props.scriptPath);
+const PrioritySelect = (props: { expiry?: boolean }) => {
+  const [, priority, setPriority] = useTaskData(props.expiry ? 'expiry/priority' : 'priority');
 
   const priorityItems = useMemo<SelectItem[]>(
     () =>
@@ -21,14 +17,20 @@ const PrioritySelect = (props: {
     []
   );
 
-  const selectedItem = useMemo(() => priorityItems.find(e => e.value === level), [level, priorityItems]) ?? DEFAULT_PRIORITY;
+  const selectedItem =
+    useMemo(() => priorityItems.find(e => e.value === priority?.level), [priority?.level, priorityItems]) ?? DEFAULT_PRIORITY;
 
   return (
     <div className='priority-select'>
-      <Select label='Priority' value={selectedItem} onChange={item => setLevel(item.value as PriorityLevel)} items={priorityItems}>
+      <Select
+        label='Priority'
+        value={selectedItem}
+        onChange={item => setPriority({ ...priority, level: item.value as PriorityLevel })}
+        items={priorityItems}
+      >
         <>
           {selectedItem?.label === PriorityLevel.SCRIPT && (
-            <input className='input' value={script ?? ''} onChange={e => setScript(e.target.value)} />
+            <input className='input' value={priority?.script ?? ''} onChange={e => setPriority({ ...priority, script: e.target.value })} />
           )}
         </>
       </Select>

@@ -5,9 +5,10 @@ import { ClientContext, ClientContextInstance, DataContext, DataContextInstance 
 import userEvent from '@testing-library/user-event';
 
 describe('ResponsibleSelect', () => {
-  function renderSelect(options: { type?: string; activator?: string; hideDeleteOption?: boolean }) {
+  function renderSelect(options?: { type?: string; activator?: string; expiry?: boolean }) {
+    const responsible = { responsible: { type: options?.type, activator: options?.activator } };
     const data: DataContext = {
-      data: { config: { task: { expiry: { responsible: { type: options.type, activator: options.activator } } } } },
+      data: { config: { task: { ...responsible, expiry: { ...responsible } } } },
       initialData: {},
       updateData: () => {},
       validation: []
@@ -27,26 +28,22 @@ describe('ResponsibleSelect', () => {
     render(
       <ClientContextInstance.Provider value={client}>
         <DataContextInstance.Provider value={data}>
-          <ResponsibleSelect
-            typePath='expiry/responsible/type'
-            activatorPath='expiry/responsible/activator'
-            hideDeleteOption={options.hideDeleteOption}
-          />
+          <ResponsibleSelect expiry={options?.expiry} />
         </DataContextInstance.Provider>
       </ClientContextInstance.Provider>
     );
   }
 
   test('responsible select will render all options', async () => {
-    renderSelect({});
+    renderSelect();
     await userEvent.click(screen.getByRole('combobox'));
-    expect(screen.getAllByRole('option')).toHaveLength(4);
+    expect(screen.getAllByRole('option')).toHaveLength(3);
   });
 
   test('responsible select will render no delete option', async () => {
-    renderSelect({ hideDeleteOption: true });
+    renderSelect({ expiry: true });
     await userEvent.click(screen.getByRole('combobox'));
-    expect(screen.getAllByRole('option')).toHaveLength(3);
+    expect(screen.getAllByRole('option')).toHaveLength(4);
   });
 
   test('responsible select will render select for role with default option', async () => {
@@ -78,7 +75,7 @@ describe('ResponsibleSelect', () => {
   });
 
   test('responsible select will render nothing for delete option', async () => {
-    renderSelect({ type: 'DELETE_TASK' });
+    renderSelect({ type: 'DELETE_TASK', expiry: true });
     expect(screen.getByRole('combobox')).toHaveTextContent('Nobody & delete');
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });

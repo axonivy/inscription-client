@@ -32,10 +32,8 @@ const Task = (props: { showPersist?: boolean }) => {
       <LabelInput label='Category' htmlFor='category'>
         <input className='input' id='category' value={category} onChange={event => setCategory(event.target.value)} disabled={readonly} />
       </LabelInput>
-      {!props.showPersist && (
-        <ResponsibleSelect typePath='responsible/type' activatorPath='responsible/activator' hideDeleteOption={true} />
-      )}
-      <PrioritySelect levelPath='priority/level' scriptPath='priority/script' />
+      {!props.showPersist && <ResponsibleSelect />}
+      <PrioritySelect />
       {props.showPersist ? <PersistPart /> : <TaskListPart />}
       <ExpiryPart />
       <CustomFieldPart />
