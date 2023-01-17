@@ -1,5 +1,4 @@
 import { Separator } from '@radix-ui/react-separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { memo, ReactNode, useMemo } from 'react';
 import './InscriptionEditor.css';
 import { InscriptionEditorType } from '@axonivy/inscription-protocol';
@@ -8,7 +7,7 @@ import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
 import { otherEditors } from './others/other-editors';
-import { IvyIcon } from '../widgets';
+import { IvyIcon, TabContent, TabList, TabRoot } from '../widgets';
 import { useData, useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Message, TabProps } from '../props';
@@ -44,14 +43,7 @@ const Header = (props: EditorProps) => {
         <div className='header-title'>
           <div className='header-editor'>{editorContext.type.shortLabel}</div>
         </div>
-        <TabsList className='tabs-list'>
-          {props.tabs.map((tab, index) => (
-            <TabsTrigger key={`${index}-${tab.name}`} className='tabs-trigger' value={tab.name}>
-              <span className='tab-state' data-state={tab.state} />
-              {tab.name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+        <TabList {...props} />
         <IvyIcon icon={props.icon} />
       </div>
       {headerState.map((state, index) => (
@@ -65,18 +57,13 @@ const Header = (props: EditorProps) => {
 };
 
 const InscriptionEditor = (props: EditorProps) => {
-  const defaultTab = props.tabs.length > 0 ? props.tabs[0].name : '';
   return (
     <div className='editor'>
-      <Tabs className='tabs-root' defaultValue={defaultTab}>
+      <TabRoot {...props}>
         <Header {...props} />
         <Separator className='separator-root' style={{ margin: '15px 0' }} />
-        {props.tabs.map((tab, index) => (
-          <TabsContent key={`${index}-${tab.name}`} className='tabs-content' value={tab.name}>
-            {tab.content}
-          </TabsContent>
-        ))}
-      </Tabs>
+        <TabContent {...props} />
+      </TabRoot>
     </div>
   );
 };

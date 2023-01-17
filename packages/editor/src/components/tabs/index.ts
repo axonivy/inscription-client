@@ -5,5 +5,6 @@ export * from './StartTab';
 export * from './ResultTab';
 export * from './CaseTab';
 export * from './task/TaskTab';
+export * from './task/TasksTab';
 export * from './call/CallTab';
 export * from './EndPageTab';

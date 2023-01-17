@@ -1,8 +1,8 @@
-import { CallDataAccess, NameDataAccess, OutputDataAccess, TaskDataAccess } from '@axonivy/inscription-protocol';
+import { CallDataAccess, NameDataAccess, OutputDataAccess } from '@axonivy/inscription-protocol';
 import get from 'lodash/get';
 import { useDataContext } from './useDataContext';
 
-export interface DataAccess extends NameDataAccess, CallDataAccess, OutputDataAccess, TaskDataAccess {}
+export interface DataAccess extends NameDataAccess, CallDataAccess, OutputDataAccess {}
 
 export function useData<K extends keyof DataAccess>(path: K): [DataAccess[K], DataAccess[K], (newData: DataAccess[K]) => void];
 export function useData<T>(path: string): [T, T, (newData: T) => void];

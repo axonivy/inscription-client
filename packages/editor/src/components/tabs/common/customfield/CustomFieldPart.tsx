@@ -1,9 +1,9 @@
 import { CollapsiblePart } from '../../../../components/widgets';
-import { useData } from '../../../../context';
+import { useTaskData } from '../../../../context';
 import CustomFieldTable from './CustomFieldTable';
 
 const CustomFieldPart = () => {
-  const [, customField, setCustomField] = useData('config/task/customFields');
+  const [, customField, setCustomField] = useTaskData('customFields');
 
   return (
     <CollapsiblePart collapsibleLabel='Custom Fields' defaultOpen={customField !== undefined}>

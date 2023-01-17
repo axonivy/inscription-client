@@ -25,12 +25,19 @@ export class InscriptionClientMock implements InscriptionClient {
   data(pid: string): Promise<InscriptionData> {
     const inscriptionType: InscriptionType = {
       id: this.type,
-      label: 'User Task',
-      shortLabel: 'User Task',
-      description: '',
-      iconId: 'UserTask'
+      label: this.type,
+      shortLabel: this.type,
+      description: this.type,
+      iconId: this.type
     };
-    return Promise.resolve({ pid: pid, type: inscriptionType, readonly: this.readonly, data: DataMock.USER_TASK });
+    let data: any = DataMock.NAME;
+    if (this.type === 'UserTask' || this.type === 'DialogCall') {
+      data = DataMock.USER_TASK;
+    }
+    if (this.type === 'TaskSwitchGateway') {
+      data = DataMock.TASK_SWITCH_GATEWAY;
+    }
+    return Promise.resolve({ pid: pid, type: inscriptionType, readonly: this.readonly, data: data });
   }
 
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {

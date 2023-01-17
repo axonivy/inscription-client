@@ -1,6 +1,6 @@
 import './PrioritySelect.css';
 import { useMemo } from 'react';
-import { useData } from '../../../../context';
+import { useTaskData } from '../../../../context';
 import { TaskDataAccess } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
 import { Message } from '../../../../components/props';
@@ -14,7 +14,7 @@ const items: SelectItem[] = [
 ];
 
 const PrioritySelect = (props: { dataPath: keyof TaskDataAccess; message?: Message }) => {
-  const [, priority, setPriority] = useData(props.dataPath);
+  const [, priority, setPriority] = useTaskData(props.dataPath);
   const selectedItem = useMemo(() => items.find(e => e.value === priority), [priority]);
 
   return (

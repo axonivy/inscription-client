@@ -1,9 +1,9 @@
 import { Checkbox, CollapsiblePart, LabelInput } from '../../../widgets';
-import { useData, useReadonly } from '../../../../context';
+import { useReadonly, useTaskData } from '../../../../context';
 
 const TaskListPart = () => {
-  const [, skipTaskList, setSkipTaskList] = useData('config/task/skipTasklist');
-  const [, delay, setDelay] = useData('config/task/delay');
+  const [, skipTaskList, setSkipTaskList] = useTaskData('skipTasklist');
+  const [, delay, setDelay] = useTaskData('delay');
   const readonly = useReadonly();
 
   return (

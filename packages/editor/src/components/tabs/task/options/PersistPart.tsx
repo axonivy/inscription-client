@@ -1,8 +1,8 @@
 import { Checkbox, CollapsiblePart } from '../../../../components/widgets';
-import { useData } from '../../../../context';
+import { useTaskData } from '../../../../context';
 
 const PersistPart = () => {
-  const [, persist, setPersist] = useData('config/persist');
+  const [, persist, setPersist] = useTaskData('config/persist');
 
   return (
     <CollapsiblePart collapsibleLabel='Options' defaultOpen={persist}>
