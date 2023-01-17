@@ -25,7 +25,7 @@ const ExpiryPart = () => {
         {isTimeout && (
           <>
             <ErrorSelect />
-            <ResponsibleSelect />
+            <ResponsibleSelect typePath='expiry/responsible/type' activatorPath='expiry/responsible/activator' />
             <PrioritySelect dataPath='expiry/priority' />
           </>
         )}

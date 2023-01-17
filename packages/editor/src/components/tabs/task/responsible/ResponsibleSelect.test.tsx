@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import ResponsibleSelect from './ResponsibleSelect';
-import { Message } from '../../../props';
 import { ClientContext, ClientContextInstance, DataContext, DataContextInstance } from '../../../../context';
+import userEvent from '@testing-library/user-event';
 
 describe('ResponsibleSelect', () => {
-  function renderSelect(options: { type?: string; activator?: string; message?: Message }) {
+  function renderSelect(options: { type?: string; activator?: string; hideDeleteOption?: boolean }) {
     const data: DataContext = {
       data: { config: { task: { expiry: { responsible: { type: options.type, activator: options.activator } } } } },
       initialData: {},
@@ -27,11 +27,27 @@ describe('ResponsibleSelect', () => {
     render(
       <ClientContextInstance.Provider value={client}>
         <DataContextInstance.Provider value={data}>
-          <ResponsibleSelect />
+          <ResponsibleSelect
+            typePath='expiry/responsible/type'
+            activatorPath='expiry/responsible/activator'
+            hideDeleteOption={options.hideDeleteOption}
+          />
         </DataContextInstance.Provider>
       </ClientContextInstance.Provider>
     );
   }
+
+  test('responsible select will render all options', async () => {
+    renderSelect({});
+    await userEvent.click(screen.getByRole('combobox'));
+    expect(screen.getAllByRole('option')).toHaveLength(4);
+  });
+
+  test('responsible select will render no delete option', async () => {
+    renderSelect({ hideDeleteOption: true });
+    await userEvent.click(screen.getByRole('combobox'));
+    expect(screen.getAllByRole('option')).toHaveLength(3);
+  });
 
   test('responsible select will render select for role', async () => {
     renderSelect({ type: 'ROLE', activator: 'Teamleader' });

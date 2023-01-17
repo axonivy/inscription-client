@@ -28,6 +28,8 @@ export interface TaskDataAccess {
   description: string;
   category: string;
   priority: string;
+  'responsible/type': ResponsibleType;
+  'responsible/activator': string;
 
   'expiry/timeout': string;
   'expiry/error': string;
