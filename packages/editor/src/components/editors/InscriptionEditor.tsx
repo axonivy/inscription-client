@@ -8,7 +8,7 @@ import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
 import { otherEditors } from './others/other-editors';
 import { IvyIcon, TabContent, TabList, TabRoot } from '../widgets';
-import { useData, useDataContext, useEditorContext } from '../../context';
+import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Message, TabProps } from '../props';
 
@@ -27,14 +27,13 @@ export interface EditorProps {
 }
 
 const Header = (props: EditorProps) => {
-  const [, name] = useData('name');
-  const { validation } = useDataContext();
+  const { data, validation } = useDataContext();
   const headerState = useMemo<Message[]>(() => {
     if (validation.length > 0) {
       return validation;
     }
-    return [{ severity: 'info', message: name }];
-  }, [name, validation]);
+    return [{ severity: 'info', message: data.name ?? '' }];
+  }, [data.name, validation]);
 
   const editorContext = useEditorContext();
   return (

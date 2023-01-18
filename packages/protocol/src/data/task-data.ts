@@ -1,3 +1,5 @@
+import { CustomField } from './common';
+
 export enum ResponsibleType {
   ROLE = 'Role',
   ROLE_FROM_ATTRIBUTE = 'Role from Attr.',
@@ -6,8 +8,8 @@ export enum ResponsibleType {
 }
 
 export interface Responsible {
-  type: ResponsibleType;
-  activator: string;
+  type?: ResponsibleType;
+  activator?: string;
 }
 
 export enum PriorityLevel {
@@ -19,47 +21,40 @@ export enum PriorityLevel {
 }
 
 export interface Priority {
-  level: PriorityLevel;
-  script: string;
+  level?: PriorityLevel;
+  script?: string;
 }
 
-export enum CustomFieldType {
-  STRING = 'String',
-  TEXT = 'Text',
-  NUMBER = 'Number',
-  TIMESTAMP = 'Timestamp'
+export interface Expiry {
+  timeout?: string;
+  error?: string;
+  responsible?: Responsible;
+  priority?: Priority;
 }
 
-export interface CustomField {
-  name: string;
-  type: CustomFieldType;
-  value: string;
+export interface Task {
+  id?: string;
+  name?: string;
+  description?: string;
+  category?: string;
+  responsible?: Responsible;
+  priority?: Priority;
+  expiry?: Expiry;
+  customFields?: CustomField[];
+  code?: string;
+  skipTasklist?: boolean;
+  delay?: string;
 }
 
-export namespace TaskDataAccess {
-  export const SINGLE_PREFIX = 'config/task';
-  export const MULTI_PREFIX = 'config/tasks';
+export interface TaskData {
+  config: {
+    task?: Task;
+    tasks?: Task[];
+  };
 }
 
-export interface TaskDataAccess {
-  name: string;
-  description: string;
-  category: string;
-  responsible: Responsible;
-  priority: Priority;
-
-  'expiry/timeout': string;
-  'expiry/error': string;
-  'expiry/responsible': Responsible;
-  'expiry/priority': Priority;
-
-  customFields: CustomField[];
-  code: string;
-
-  skipTasklist: boolean;
-  delay: string;
-}
-
-export interface PersistTaskDataAccess {
-  'config/persist': boolean;
+export interface PersistTaskData {
+  config: {
+    persist?: boolean;
+  };
 }

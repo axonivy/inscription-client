@@ -1,13 +1,11 @@
+import { CustomField } from '@axonivy/inscription-protocol';
 import { CollapsiblePart } from '../../../../components/widgets';
-import { useTaskData } from '../../../../context';
 import CustomFieldTable from './CustomFieldTable';
 
-const CustomFieldPart = () => {
-  const [, customField, setCustomField] = useTaskData('customFields');
-
+const CustomFieldPart = (props: { customFields?: CustomField[]; updateCustomFields: (customFields: CustomField[]) => void }) => {
   return (
-    <CollapsiblePart collapsibleLabel='Custom Fields' defaultOpen={customField !== undefined}>
-      <CustomFieldTable data={customField ?? []} onChange={setCustomField} />
+    <CollapsiblePart collapsibleLabel='Custom Fields' defaultOpen={props.customFields !== undefined}>
+      <CustomFieldTable data={props.customFields ?? []} onChange={props.updateCustomFields} />
     </CollapsiblePart>
   );
 };

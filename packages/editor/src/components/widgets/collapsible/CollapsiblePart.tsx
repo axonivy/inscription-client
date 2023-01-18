@@ -2,8 +2,8 @@ import { Collapsible as CollapsibleRoot, CollapsibleContent, CollapsibleTrigger 
 import { memo, useState } from 'react';
 import './CollapsiblePart.css';
 
-const CollapsiblePart = (props: { collapsibleLabel: string; defaultOpen: boolean; children: JSX.Element[] | JSX.Element }) => {
-  const [open, setOpen] = useState(props.defaultOpen);
+const CollapsiblePart = (props: { collapsibleLabel: string; defaultOpen?: boolean; children: JSX.Element[] | JSX.Element }) => {
+  const [open, setOpen] = useState(props.defaultOpen ?? false);
   return (
     <CollapsibleRoot className='collapsible-root' open={open} onOpenChange={setOpen}>
       <div>

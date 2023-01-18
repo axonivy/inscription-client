@@ -1,16 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { ClientContext, ClientContextInstance, DataContext, DataContextInstance } from '../../../context';
 import ExpiryPart from './ExpiryPart';
 import userEvent from '@testing-library/user-event';
 
-describe('ResponsibleSelect', () => {
+describe('ExpiryPart', () => {
   function renderExpiryPart(options?: { timeout?: string }) {
+    // @ts-ignore
     const data: DataContext = {
-      data: { config: { task: { expiry: { timeout: options?.timeout } } } },
-      initialData: {},
-      updateData: () => {},
-      validation: []
+      data: { config: { task: { expiry: { timeout: options?.timeout } } } }
     };
     const client: ClientContext = {
       // @ts-ignore
@@ -45,7 +43,7 @@ describe('ResponsibleSelect', () => {
   test('expiry part will render all', async () => {
     renderExpiryPart({ timeout: 'timeout' });
     const timeoutInput = screen.getByLabelText('Timeout');
-    expect(timeoutInput).toHaveValue('timeout');
+    await waitFor(() => expect(timeoutInput).toHaveValue('timeout'));
     expect(screen.getByText('Responsible')).toBeInTheDocument();
   });
 });

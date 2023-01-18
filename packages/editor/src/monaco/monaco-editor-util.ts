@@ -1,9 +1,9 @@
 import { loader, Monaco } from '@monaco-editor/react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import { ThemeContext } from './context/useTheme';
+import { ThemeContext } from '../context/useTheme';
 import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
 
-export const MINIMAL_STYLE: monaco.editor.IStandaloneEditorConstructionOptions = {
+export const MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
   glyphMargin: false,
   lineNumbers: 'off',
   minimap: { enabled: false },

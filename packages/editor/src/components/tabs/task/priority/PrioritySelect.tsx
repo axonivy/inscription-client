@@ -1,13 +1,13 @@
 import './PrioritySelect.css';
 import { useMemo } from 'react';
-import { useTaskData } from '../../../../context';
 import { PriorityLevel } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
+import { usePriorityData } from './usePriorityData';
 
 const DEFAULT_PRIORITY: SelectItem = { label: PriorityLevel.NORMAL, value: 'NORMAL' };
 
 const PrioritySelect = (props: { expiry?: boolean }) => {
-  const [, priority, setPriority] = useTaskData(props.expiry ? 'expiry/priority' : 'priority');
+  const { priority, updateLevel, updateScript } = usePriorityData(props.expiry);
 
   const priorityItems = useMemo<SelectItem[]>(
     () =>
@@ -22,15 +22,10 @@ const PrioritySelect = (props: { expiry?: boolean }) => {
 
   return (
     <div className='priority-select'>
-      <Select
-        label='Priority'
-        value={selectedItem}
-        onChange={item => setPriority({ ...priority, level: item.value as PriorityLevel })}
-        items={priorityItems}
-      >
+      <Select label='Priority' value={selectedItem} onChange={item => updateLevel(item.value as PriorityLevel)} items={priorityItems}>
         <>
           {selectedItem?.label === PriorityLevel.SCRIPT && (
-            <input className='input' value={priority?.script ?? ''} onChange={e => setPriority({ ...priority, script: e.target.value })} />
+            <input className='input' value={priority?.script ?? ''} onChange={e => updateScript(e.target.value)} />
           )}
         </>
       </Select>

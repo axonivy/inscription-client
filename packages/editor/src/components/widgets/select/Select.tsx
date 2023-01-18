@@ -3,7 +3,7 @@ import { useSelect } from 'downshift';
 import { memo, useEffect, useState } from 'react';
 import LabelInput from '../label/LabelInput';
 import { useReadonly } from '../../../context';
-import { Message } from 'src/components/props';
+import { Message } from '../../../components/props';
 
 export interface SelectItem {
   label: string;

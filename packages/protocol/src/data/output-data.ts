@@ -1,4 +1,8 @@
-export interface OutputDataAccess {
-  'config/output/code': string;
-  'config/sudo': boolean;
+export interface OutputData {
+  config: {
+    output?: {
+      code?: string;
+    };
+    sudo?: boolean;
+  };
 }

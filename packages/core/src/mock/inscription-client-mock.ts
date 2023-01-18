@@ -13,10 +13,15 @@ import {
 import { Emitter } from 'vscode-jsonrpc';
 import { DataMock } from './data';
 import { MetaMock } from './meta';
-import { ValiationMock } from './validation';
+import { ValidationMock } from './validation';
 
 export class InscriptionClientMock implements InscriptionClient {
   constructor(readonly readonly = false, readonly type: InscriptionEditorType = 'UserTask') {}
+
+  protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
+  onValidation = this.onValidationEmitter.event;
+  protected onDataChangedEmitter = new Emitter<InscriptionData>();
+  onDataChanged = this.onDataChangedEmitter.event;
 
   initialize(): Promise<boolean> {
     return Promise.resolve(true);
@@ -37,11 +42,12 @@ export class InscriptionClientMock implements InscriptionClient {
     if (this.type === 'TaskSwitchGateway') {
       data = DataMock.TASK_SWITCH_GATEWAY;
     }
+    this.onValidationEmitter.fire(ValidationMock.validateData({ data: data, pid: pid, type: inscriptionType.id }));
     return Promise.resolve({ pid: pid, type: inscriptionType, readonly: this.readonly, data: data });
   }
 
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {
-    return Promise.resolve(ValiationMock.validateData(args));
+    return Promise.resolve(ValidationMock.validateData(args));
   }
 
   dialogStarts(): Promise<DialogStart[]> {
@@ -59,7 +65,4 @@ export class InscriptionClientMock implements InscriptionClient {
   outMapping(): Promise<Variable[]> {
     return Promise.resolve([]);
   }
-
-  onDataChanged = new Emitter<InscriptionData>().event;
-  onValidation = new Emitter<InscriptionValidation[]>().event;
 }

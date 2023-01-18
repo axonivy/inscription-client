@@ -1,6 +1,6 @@
 export type MappingData = {
-  map: Mapping[];
-  code: string;
+  map?: Mapping[];
+  code?: string;
 };
 
 export interface Mapping {
@@ -8,8 +8,9 @@ export interface Mapping {
   value: string;
 }
 
-export interface CallDataAccess {
-  'config/dialog': string;
-  'config/call': MappingData;
-  'config/call/code': string;
+export interface CallData {
+  config: {
+    dialog?: string;
+    call?: MappingData;
+  };
 }

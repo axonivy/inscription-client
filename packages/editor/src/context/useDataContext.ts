@@ -1,10 +1,10 @@
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import { Data, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { createContext, useContext } from 'react';
 
 export interface DataContext {
-  initialData: any;
-  data: any;
-  updateData: <T>(path: string | string[], value: T) => void;
+  initialData: Data;
+  data: Data;
+  setData: (data: any) => void;
   validation: InscriptionValidation[];
 }
 

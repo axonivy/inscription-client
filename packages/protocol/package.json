@@ -5,8 +5,9 @@
   "main": "src/index.ts",
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "build": "tsc -b",
+    "build": "tsc",
     "build:clean": "yarn clean && yarn build",
+    "type": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src"
   }

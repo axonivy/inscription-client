@@ -1,6 +1,4 @@
-import { CallData } from './call-data';
-import { NameData } from './name-data';
-import { TaskData, TasksData } from './task-data';
+import { CallData, NameData, TaskData } from '@axonivy/inscription-protocol';
 
 export namespace DataMock {
   export const NAME: NameData = {
@@ -33,7 +31,7 @@ export namespace DataMock {
     }
   };
 
-  export const TASK_SWITCH_GATEWAY: NameData | TasksData = {
+  export const TASK_SWITCH_GATEWAY: NameData | TaskData = {
     ...NAME,
     config: {
       tasks: [

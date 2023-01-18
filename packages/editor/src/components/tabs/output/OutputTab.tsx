@@ -1,4 +1,4 @@
-import { TabProps, TabState } from '../props';
+import { TabProps, TabState } from '../../props';
 
 export function useOutputTab(): TabProps {
   return { name: 'Output', state: TabState.CONFIGURED, content: <OutputTab /> };
