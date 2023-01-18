@@ -6,24 +6,19 @@ import { useClient, useEditorContext, useTaskData } from '../../../../context';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' };
 
-const ResponsibleSelect = (props: {
-  typePath: 'responsible/type' | 'expiry/responsible/type';
-  activatorPath: 'responsible/activator' | 'expiry/responsible/activator';
-  hideDeleteOption?: boolean;
-}) => {
-  const [, type, setType] = useTaskData(props.typePath);
-  const [, activator, setActivator] = useTaskData(props.activatorPath);
+const ResponsibleSelect = (props: { expiry?: boolean }) => {
+  const [, responsible, setResponsible] = useTaskData(props.expiry ? 'expiry/responsible' : 'responsible');
 
   const typeItems = useMemo<SelectItem[]>(
     () =>
       Object.entries(ResponsibleType)
-        .filter(entry => !(props.hideDeleteOption && entry[1] === ResponsibleType.DELETE_TASK))
+        .filter(entry => !(!props.expiry && entry[1] === ResponsibleType.DELETE_TASK))
         .map(entry => {
           return { label: entry[1], value: entry[0] };
         }),
-    [props.hideDeleteOption]
+    [props.expiry]
   );
-  const selectedType = useMemo(() => typeItems.find(e => e.value === type), [type, typeItems]);
+  const selectedType = useMemo(() => typeItems.find(e => e.value === responsible?.type), [responsible?.type, typeItems]);
 
   const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
   const editorContext = useEditorContext();
@@ -38,20 +33,28 @@ const ResponsibleSelect = (props: {
     );
   }, [client, editorContext.pid]);
 
-  const selectedRole = useMemo(() => roleItems.find(e => e.value === activator), [activator, roleItems]) ?? DEFAULT_ROLE;
+  const selectedRole =
+    useMemo(() => roleItems.find(e => e.value === responsible?.activator), [responsible?.activator, roleItems]) ?? DEFAULT_ROLE;
+
+  const updateActivator = (value: string) => setResponsible({ ...responsible, activator: value });
 
   return (
     <div className='responsible-select'>
-      <Select label='Responsible' items={typeItems} value={selectedType} onChange={item => setType(item.value as ResponsibleType)}>
+      <Select
+        label='Responsible'
+        items={typeItems}
+        value={selectedType}
+        onChange={item => setResponsible({ ...responsible, type: item.value as ResponsibleType })}
+      >
         <>
           {selectedType?.label === ResponsibleType.ROLE && (
-            <Select label='Role' items={roleItems} value={selectedRole} onChange={item => setActivator(item.value)} />
+            <Select label='Role' items={roleItems} value={selectedRole} onChange={item => updateActivator(item.value)} />
           )}
           {selectedType?.label === ResponsibleType.ROLE_FROM_ATTRIBUTE && (
-            <input className='input' value={activator} onChange={e => setActivator(e.target.value)} />
+            <input className='input' value={responsible?.activator} onChange={e => updateActivator(e.target.value)} />
           )}
           {selectedType?.label === ResponsibleType.USER_FROM_ATTRIBUTE && (
-            <input className='input' value={activator} onChange={e => setActivator(e.target.value)} />
+            <input className='input' value={responsible?.activator} onChange={e => updateActivator(e.target.value)} />
           )}
         </>
       </Select>

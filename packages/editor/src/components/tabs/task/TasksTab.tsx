@@ -10,7 +10,7 @@ function useTasksTabValidation(): InscriptionValidation[] {
   return [tasks];
 }
 
-export function useTasksTab(options?: { showPersist?: boolean }): TabProps {
+export function useTasksTab(): TabProps {
   const [initData, data] = useData('config/tasks');
   const validation = useTasksTabValidation();
   const tabState = useTabState(initData, data, validation);

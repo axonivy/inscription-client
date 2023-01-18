@@ -5,12 +5,22 @@ export enum ResponsibleType {
   DELETE_TASK = 'Nobody & delete'
 }
 
+export interface Responsible {
+  type: ResponsibleType;
+  activator: string;
+}
+
 export enum PriorityLevel {
   LOW = 'Low',
   NORMAL = 'Normal',
   HIGH = 'High',
   EXCEPTION = 'Exception',
   SCRIPT = 'Script'
+}
+
+export interface Priority {
+  level: PriorityLevel;
+  script: string;
 }
 
 export enum CustomFieldType {
@@ -35,22 +45,21 @@ export interface TaskDataAccess {
   name: string;
   description: string;
   category: string;
-  'responsible/type': ResponsibleType;
-  'responsible/activator': string;
-  'priority/level': PriorityLevel;
-  'priority/script': string;
+  responsible: Responsible;
+  priority: Priority;
 
   'expiry/timeout': string;
   'expiry/error': string;
-  'expiry/responsible/type': ResponsibleType;
-  'expiry/responsible/activator': string;
-  'expiry/priority/level': PriorityLevel;
-  'expiry/priority/script': string;
+  'expiry/responsible': Responsible;
+  'expiry/priority': Priority;
 
   customFields: CustomField[];
   code: string;
 
   skipTasklist: boolean;
   delay: string;
+}
+
+export interface PersistTaskDataAccess {
   'config/persist': boolean;
 }
