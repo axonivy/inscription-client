@@ -15,7 +15,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 10px var(--blackA7);
 }
 .checkbox-root:hover {
   cursor: pointer;
@@ -24,8 +23,8 @@ button {
   box-shadow: var(--focus-shadow);
 }
 
-.checkbox-indicator {
-  color: var(--violet11);
+.checkbox-indicator svg path {
+  fill: var(--text-color);
 }
 
 .checkbox-label {
