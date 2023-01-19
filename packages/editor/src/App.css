@@ -42,6 +42,8 @@
   --table-bg: #202020;
   --table-row-bg: #333333;
 
+  --focus-shadow: 0 0 0 1px var(--text-color);
+
   --error-color: #ff796f;
   --warning-color: #ff9f46;
 }
