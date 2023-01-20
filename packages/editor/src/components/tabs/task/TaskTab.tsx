@@ -1,7 +1,7 @@
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useValidation } from '../../../context';
 import { TabProps, useTabState } from '../../props';
-import Task from './Task';
+import TaskPart from './TaskPart';
 
 function useTaskTabValidation(): InscriptionValidation[] {
   const task = useValidation('config/task');
@@ -19,5 +19,5 @@ export function useTaskTab(options?: { showPersist?: boolean }): TabProps {
 }
 
 const TaskTab = (props: { showPersist?: boolean }) => {
-  return <Task showPersist={props.showPersist} />;
+  return <TaskPart showPersist={props.showPersist} />;
 };

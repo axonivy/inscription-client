@@ -13,7 +13,7 @@ export interface AppProps {
 }
 
 function App(props: AppProps) {
-  const [data, setData] = useState<Data>();
+  const [data, setData] = useState<Data>({ config: {} });
   const [appState, setAppState] = useState<AppState>(waitingState());
   const [validation, setValidation] = useState<InscriptionValidation[]>([]);
   const client = useClient();
@@ -41,25 +41,25 @@ function App(props: AppProps) {
   }, [client, props.pid, initData]);
 
   useEffect(() => {
-    if (appState.initialData && data && !deepEqual(data, appState.initialData.data)) {
+    if (appState.state === 'success' && !deepEqual(data, appState.initialData.data)) {
       client.saveData({ data: data, pid: appState.initialData.pid, type: appState.initialData.type.id }).then(setValidation);
     }
   }, [client, data, appState]);
 
-  if (appState.state === 'success' && data) {
+  if (appState.state === 'success') {
     return (
       <div className='editor-root' data-theme={theme}>
         <EditorContextInstance.Provider
           value={{
             pid: props.pid,
-            readonly: appState.initialData?.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
-            type: appState.initialData?.type ?? DEFAULT_EDITOR_CONTEXT.type
+            readonly: appState.initialData.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
+            type: appState.initialData.type ?? DEFAULT_EDITOR_CONTEXT.type
           }}
         >
           <DataContextInstance.Provider
-            value={{ data: data, initialData: appState.initialData!.data, setData: setData, validation: validation }}
+            value={{ data: data, initialData: appState.initialData.data, setData: setData, validation: validation }}
           >
-            {inscriptionEditor(appState.initialData?.type.id)}
+            {inscriptionEditor(appState.initialData.type.id)}
           </DataContextInstance.Provider>
         </EditorContextInstance.Provider>
       </div>

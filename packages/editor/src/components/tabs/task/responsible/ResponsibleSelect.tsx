@@ -1,25 +1,27 @@
 import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
-import { ResponsibleType } from '@axonivy/inscription-protocol';
+import { Responsible, ResponsibleType } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
 import { useClient, useEditorContext } from '../../../../context';
-import { useResponsibleData } from './useResponsibleData';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' };
 
-const ResponsibleSelect = (props: { expiry?: boolean }) => {
-  const { responsible, updateType, updateActivator } = useResponsibleData(props.expiry);
+export interface ResponsibleUpdater {
+  updateType: (type: ResponsibleType) => void;
+  updateActivator: (activator: string) => void;
+}
 
+const ResponsibleSelect = (props: { responsible?: Responsible; updateResponsible: ResponsibleUpdater; optionFilter?: string[] }) => {
   const typeItems = useMemo<SelectItem[]>(
     () =>
       Object.entries(ResponsibleType)
-        .filter(entry => !(!props.expiry && entry[1] === ResponsibleType.DELETE_TASK))
+        .filter(entry => !(props.optionFilter && props.optionFilter.includes(entry[1])))
         .map(entry => {
           return { label: entry[1], value: entry[0] };
         }),
-    [props.expiry]
+    [props.optionFilter]
   );
-  const selectedType = useMemo(() => typeItems.find(e => e.value === responsible?.type), [responsible?.type, typeItems]);
+  const selectedType = useMemo(() => typeItems.find(e => e.value === props.responsible?.type), [props.responsible?.type, typeItems]);
 
   const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
   const editorContext = useEditorContext();
@@ -35,20 +37,38 @@ const ResponsibleSelect = (props: { expiry?: boolean }) => {
   }, [client, editorContext.pid]);
 
   const selectedRole =
-    useMemo(() => roleItems.find(e => e.value === responsible?.activator), [responsible?.activator, roleItems]) ?? DEFAULT_ROLE;
+    useMemo(() => roleItems.find(e => e.value === props.responsible?.activator), [props.responsible?.activator, roleItems]) ?? DEFAULT_ROLE;
 
   return (
     <div className='responsible-select'>
-      <Select label='Responsible' items={typeItems} value={selectedType} onChange={item => updateType(item.value as ResponsibleType)}>
+      <Select
+        label='Responsible'
+        items={typeItems}
+        value={selectedType}
+        onChange={item => props.updateResponsible.updateType(item.value as ResponsibleType)}
+      >
         <>
           {selectedType?.label === ResponsibleType.ROLE && (
-            <Select label='Role' items={roleItems} value={selectedRole} onChange={item => updateActivator(item.value)} />
+            <Select
+              label='Role'
+              items={roleItems}
+              value={selectedRole}
+              onChange={item => props.updateResponsible.updateActivator(item.value)}
+            />
           )}
           {selectedType?.label === ResponsibleType.ROLE_FROM_ATTRIBUTE && (
-            <input className='input' value={responsible?.activator ?? ''} onChange={e => updateActivator(e.target.value)} />
+            <input
+              className='input'
+              value={props.responsible?.activator ?? ''}
+              onChange={e => props.updateResponsible.updateActivator(e.target.value)}
+            />
           )}
           {selectedType?.label === ResponsibleType.USER_FROM_ATTRIBUTE && (
-            <input className='input' value={responsible?.activator ?? ''} onChange={e => updateActivator(e.target.value)} />
+            <input
+              className='input'
+              value={props.responsible?.activator ?? ''}
+              onChange={e => props.updateResponsible.updateActivator(e.target.value)}
+            />
           )}
         </>
       </Select>

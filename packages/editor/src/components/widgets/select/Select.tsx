@@ -1,6 +1,6 @@
 import './Select.css';
 import { useSelect } from 'downshift';
-import { memo, useEffect, useState } from 'react';
+import { memo, ReactNode, useEffect, useState } from 'react';
 import LabelInput from '../label/LabelInput';
 import { useReadonly } from '../../../context';
 import { Message } from '../../../components/props';
@@ -18,7 +18,7 @@ const Select = (props: {
   onChange: (value: SelectItem) => void;
   items: SelectItem[];
   message?: Message;
-  children?: JSX.Element;
+  children?: ReactNode;
 }) => {
   const [items, setItems] = useState(props.items);
   useEffect(() => setItems(props.items), [props.items]);

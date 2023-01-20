@@ -1,6 +1,7 @@
 import './Tab.css';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { TabProps } from '../../../components/props';
+import { ReactNode } from 'react';
 
 export const Tab = (props: { tabs: TabProps[] }) => {
   return (
@@ -11,7 +12,7 @@ export const Tab = (props: { tabs: TabProps[] }) => {
   );
 };
 
-export const TabRoot = (props: { tabs: TabProps[]; children: JSX.Element | JSX.Element[] }) => {
+export const TabRoot = (props: { tabs: TabProps[]; children: ReactNode }) => {
   const defaultTab = props.tabs.length > 0 ? props.tabs[0].name : '';
   return (
     <Tabs className='tabs-root' defaultValue={defaultTab}>

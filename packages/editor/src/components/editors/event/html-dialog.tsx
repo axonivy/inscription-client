@@ -1,8 +1,9 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { EventEditorType } from '@axonivy/inscription-protocol';
+import { ReactNode } from 'react';
 import NameEditor from '../NameEditor';
 
-export const htmlDialogEventEditors = new Map<EventEditorType.HtmlDialog, JSX.Element>([
+export const htmlDialogEventEditors = new Map<EventEditorType.HtmlDialog, ReactNode>([
   ['HtmlDialogStart', <NameEditor icon={IvyIcons.InitStart} />],
   ['HtmlDialogMethodStart', <NameEditor icon={IvyIcons.MethodStart} />],
   ['HtmlDialogEventStart', <NameEditor icon={IvyIcons.EventStart} />],

@@ -1,10 +1,6 @@
 import { InscriptionData } from '@axonivy/inscription-protocol';
 
-export interface AppState {
-  state: 'waiting' | 'success' | 'error';
-  initialData?: InscriptionData;
-  error?: string;
-}
+export type AppState = { state: 'waiting' } | { state: 'error'; error: string } | { state: 'success'; initialData: InscriptionData };
 
 export function waitingState(): AppState {
   return { state: 'waiting' };
