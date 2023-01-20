@@ -41,7 +41,7 @@ function App(props: AppProps) {
   }, [client, props.pid, initData]);
 
   useEffect(() => {
-    if (appState.initialData && data && !deepEqual(data, appState.initialData.data)) {
+    if (appState.state === 'success' && data && !deepEqual(data, appState.initialData.data)) {
       client.saveData({ data: data, pid: appState.initialData.pid, type: appState.initialData.type.id }).then(setValidation);
     }
   }, [client, data, appState]);
@@ -52,14 +52,14 @@ function App(props: AppProps) {
         <EditorContextInstance.Provider
           value={{
             pid: props.pid,
-            readonly: appState.initialData?.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
-            type: appState.initialData?.type ?? DEFAULT_EDITOR_CONTEXT.type
+            readonly: appState.initialData.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
+            type: appState.initialData.type ?? DEFAULT_EDITOR_CONTEXT.type
           }}
         >
           <DataContextInstance.Provider
-            value={{ data: data, initialData: appState.initialData!.data, setData: setData, validation: validation }}
+            value={{ data: data, initialData: appState.initialData.data, setData: setData, validation: validation }}
           >
-            {inscriptionEditor(appState.initialData?.type.id)}
+            {inscriptionEditor(appState.initialData.type.id)}
           </DataContextInstance.Provider>
         </EditorContextInstance.Provider>
       </div>
