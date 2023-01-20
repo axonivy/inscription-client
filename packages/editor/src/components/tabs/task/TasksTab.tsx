@@ -1,7 +1,7 @@
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
-import { TaskDataContextInstance } from '../../../context/useTaskData';
+import { InscriptionValidation, Task as TaskData } from '@axonivy/inscription-protocol';
+import { TaskDataContextInstance } from '../../../context/useTaskDataContext';
 import { Tab } from '../../../components/widgets';
-import { useData, useValidation } from '../../../context';
+import { useDataContext, useValidation } from '../../../context';
 import { TabProps, useTabState } from '../../props';
 import Task from './Task';
 
@@ -11,9 +11,8 @@ function useTasksTabValidation(): InscriptionValidation[] {
 }
 
 export function useTasksTab(): TabProps {
-  const [initData, data] = useData('config/tasks');
   const validation = useTasksTabValidation();
-  const tabState = useTabState(initData, data, validation);
+  const tabState = useTabState({}, {}, validation);
   return {
     name: 'Tasks',
     state: tabState,
@@ -22,18 +21,19 @@ export function useTasksTab(): TabProps {
 }
 
 const TasksTab = () => {
-  const [tasks] = useData('config/tasks') as any[];
+  const { data } = useDataContext();
 
-  const tabs: TabProps[] = tasks.map((task: any, index: any) => {
-    return {
-      name: task.name,
-      content: (
-        <TaskDataContextInstance.Provider value={`config/tasks/${index}`}>
-          <Task />
-        </TaskDataContextInstance.Provider>
-      )
-    } as TabProps;
-  });
+  const tabs: TabProps[] =
+    data.config.tasks?.map((task: TaskData, index: any) => {
+      return {
+        name: task.id,
+        content: (
+          <TaskDataContextInstance.Provider value={index}>
+            <Task />
+          </TaskDataContextInstance.Provider>
+        )
+      } as TabProps;
+    }) ?? [];
 
   return <Tab tabs={tabs} />;
 };

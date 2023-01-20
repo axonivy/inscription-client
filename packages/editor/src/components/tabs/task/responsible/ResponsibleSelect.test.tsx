@@ -3,15 +3,14 @@ import { render, screen, waitFor } from '@testing-library/react';
 import ResponsibleSelect from './ResponsibleSelect';
 import { ClientContext, ClientContextInstance, DataContext, DataContextInstance } from '../../../../context';
 import userEvent from '@testing-library/user-event';
+import { Responsible, ResponsibleType } from '@axonivy/inscription-protocol';
 
 describe('ResponsibleSelect', () => {
   function renderSelect(options?: { type?: string; activator?: string; expiry?: boolean }) {
-    const responsible = { responsible: { type: options?.type, activator: options?.activator } };
+    const responsible: Responsible = { type: options?.type as ResponsibleType, activator: options?.activator };
+    // @ts-ignore
     const data: DataContext = {
-      data: { config: { task: { ...responsible, expiry: { ...responsible } } } },
-      initialData: {},
-      updateData: () => {},
-      validation: []
+      data: { config: { task: { responsible: responsible, expiry: { responsible: responsible } } } }
     };
     const client: ClientContext = {
       // @ts-ignore
@@ -64,19 +63,19 @@ describe('ResponsibleSelect', () => {
 
   test('responsible select will render input for role attr option', async () => {
     renderSelect({ type: 'ROLE_FROM_ATTRIBUTE', activator: 'role activator' });
-    expect(screen.getByRole('combobox')).toHaveTextContent('Role from Attr');
+    await waitFor(() => expect(screen.getByRole('combobox')).toHaveTextContent('Role from Attr'));
     expect(screen.getByRole('textbox')).toHaveValue('role activator');
   });
 
   test('responsible select will render input for user attr option', async () => {
     renderSelect({ type: 'USER_FROM_ATTRIBUTE', activator: 'user activator' });
-    expect(screen.getByRole('combobox')).toHaveTextContent('User from Attr');
+    await waitFor(() => expect(screen.getByRole('combobox')).toHaveTextContent('User from Attr'));
     expect(screen.getByRole('textbox')).toHaveValue('user activator');
   });
 
   test('responsible select will render nothing for delete option', async () => {
     renderSelect({ type: 'DELETE_TASK', expiry: true });
-    expect(screen.getByRole('combobox')).toHaveTextContent('Nobody & delete');
+    await waitFor(() => expect(screen.getByRole('combobox')).toHaveTextContent('Nobody & delete'));
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 });

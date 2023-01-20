@@ -29,7 +29,7 @@ pipeline {
     stage('Integration Tests') {
       steps {
         script {
-          docker.image('mcr.microsoft.com/playwright:v1.28.1').inside {
+          docker.image('mcr.microsoft.com/playwright:v1.29.2').inside {
             sh 'yarn standalone webtest:ci'
           }
           archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true

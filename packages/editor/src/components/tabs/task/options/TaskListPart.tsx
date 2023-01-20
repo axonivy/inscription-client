@@ -1,16 +1,22 @@
 import { Checkbox, CollapsiblePart, LabelInput } from '../../../widgets';
-import { useReadonly, useTaskData } from '../../../../context';
+import { useReadonly } from '../../../../context';
+import { useTaskOptionsData } from './useTaskOptionsData';
 
 const TaskListPart = () => {
-  const [, skipTaskList, setSkipTaskList] = useTaskData('skipTasklist');
-  const [, delay, setDelay] = useTaskData('delay');
+  const { task, updateSkipTasklist, updateDelay } = useTaskOptionsData();
   const readonly = useReadonly();
 
   return (
-    <CollapsiblePart collapsibleLabel='Options' defaultOpen={skipTaskList}>
-      <Checkbox label='Skip Tasklist' value={skipTaskList} onChange={setSkipTaskList} />
+    <CollapsiblePart collapsibleLabel='Options' defaultOpen={task.skipTasklist}>
+      <Checkbox label='Skip Tasklist' value={task.skipTasklist ?? false} onChange={updateSkipTasklist} />
       <LabelInput label='Delay' htmlFor='delay'>
-        <input className='input' id='delay' value={delay} onChange={event => setDelay(event.target.value)} disabled={readonly} />
+        <input
+          className='input'
+          id='delay'
+          value={task.delay ?? ''}
+          onChange={event => updateDelay(event.target.value)}
+          disabled={readonly}
+        />
       </LabelInput>
     </CollapsiblePart>
   );

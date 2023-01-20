@@ -3,15 +3,14 @@ import { render, screen } from '@testing-library/react';
 import PrioritySelect from './PrioritySelect';
 import { DataContext, DataContextInstance } from '../../../../context';
 import userEvent from '@testing-library/user-event';
+import { Priority, PriorityLevel } from '@axonivy/inscription-protocol';
 
 describe('PrioritySelect', () => {
   function renderSelect(options?: { level?: string; script?: string; expiry?: boolean }) {
-    const priority = { priority: { level: options?.level, script: options?.script } };
+    const priority: Priority = { level: options?.level as PriorityLevel, script: options?.script };
+    // @ts-ignore
     const data: DataContext = {
-      data: { config: { task: { ...priority, expiry: { ...priority } } } },
-      initialData: {},
-      updateData: () => {},
-      validation: []
+      data: { config: { task: { priority: priority, expiry: { priority: priority } } } }
     };
     render(
       <DataContextInstance.Provider value={data}>

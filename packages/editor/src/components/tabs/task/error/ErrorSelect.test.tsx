@@ -6,11 +6,9 @@ import userEvent from '@testing-library/user-event';
 
 describe('ErrorSelect', () => {
   function renderSelect(options?: { error?: string }) {
+    // @ts-ignore
     const data: DataContext = {
-      data: { config: { task: { expiry: { error: options?.error } } } },
-      initialData: {},
-      updateData: () => {},
-      validation: []
+      data: { config: { task: { expiry: { error: options?.error } } } }
     };
     const client: ClientContext = {
       // @ts-ignore

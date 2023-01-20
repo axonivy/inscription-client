@@ -13,10 +13,9 @@ describe('Editor', () => {
       { name: 'Call', state: TabState.CONFIGURED, content: <h1>Call</h1> },
       { name: 'Result', state: TabState.CONFIGURED, content: <h1>Result</h1> }
     ];
+    // @ts-ignore
     const data: DataContext = {
-      data: {},
-      initialData: {},
-      updateData: () => {},
+      data: { config: {} },
       validation: options.headerState ?? []
     };
     const editorContext = DEFAULT_EDITOR_CONTEXT;

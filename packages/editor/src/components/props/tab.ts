@@ -1,5 +1,5 @@
-import isEqual from 'lodash/isEqual';
 import { useMemo } from 'react';
+import { deepEqual } from '../../utils/equals';
 import { Message } from './message';
 
 export enum TabState {
@@ -27,8 +27,7 @@ export function useTabState(initData: any, data: any, messages: Message[]): TabS
     if (warnings) {
       return TabState.WARNING;
     }
-
-    return isEqual(data, initData) ? TabState.EMPTY : TabState.DIRTY;
+    return deepEqual(data, initData) ? TabState.EMPTY : TabState.DIRTY;
   }, [messages, data, initData]);
 
   return tabState;

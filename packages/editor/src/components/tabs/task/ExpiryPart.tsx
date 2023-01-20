@@ -1,13 +1,13 @@
 import { CollapsiblePart, LabelInput } from '../../../components/widgets';
-import { useTaskData, useReadonly } from '../../../context';
+import { useReadonly } from '../../../context';
 import ErrorSelect from './error/ErrorSelect';
 import PrioritySelect from './priority/PrioritySelect';
 import ResponsibleSelect from './responsible/ResponsibleSelect';
+import { useExpiryData } from './useExpiryData';
 
 const ExpiryPart = () => {
-  const [, timeout, setTimeout] = useTaskData('expiry/timeout');
-  const isTimeout = timeout?.length > 0;
-
+  const { task, updateTimeout } = useExpiryData();
+  const isTimeout = task.expiry?.timeout !== undefined && task.expiry.timeout.length > 0;
   const readonly = useReadonly();
 
   return (
@@ -16,8 +16,8 @@ const ExpiryPart = () => {
         <input
           className='input'
           id='timeout'
-          value={timeout ?? ''}
-          onChange={event => setTimeout(event.target.value)}
+          value={task.expiry?.timeout ?? ''}
+          onChange={event => updateTimeout(event.target.value)}
           disabled={readonly}
         />
       </LabelInput>

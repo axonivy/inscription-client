@@ -3,9 +3,9 @@ export type Document = {
   url: string;
 };
 
-export interface NameDataAccess {
-  name: string;
-  description: string;
-  docs: Document[];
-  tags: string[];
+export interface NameData {
+  name?: string;
+  description?: string;
+  docs?: Document[];
+  tags?: string[];
 }

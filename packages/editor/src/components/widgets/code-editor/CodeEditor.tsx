@@ -2,7 +2,7 @@ import './CodeEditor.css';
 import Editor from '@monaco-editor/react';
 import { useState } from 'react';
 import { useEditorContext } from '../../../context';
-import { MINIMAL_STYLE } from '../../../monaco-editor-util';
+import { MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
 import { useMove } from 'react-aria';
 
 const CodeEditor = (props: {
@@ -27,7 +27,7 @@ const CodeEditor = (props: {
     }
   });
 
-  const monacoOptions = MINIMAL_STYLE;
+  const monacoOptions = MONACO_OPTIONS;
   monacoOptions.readOnly = editorContext.readonly;
 
   return (

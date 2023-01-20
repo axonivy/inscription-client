@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { EMPTY_SELECT_ITEM, Select, SelectItem } from '../../../widgets';
-import { useClient, useEditorContext, useTaskData } from '../../../../context';
+import { useClient, useEditorContext } from '../../../../context';
+import { useErrorData } from './useErrorData';
 
 const ErrorSelect = () => {
-  const [, error, setError] = useTaskData('expiry/error');
+  const { task, updateError } = useErrorData();
 
   const [errorItems, setErrorItems] = useState<SelectItem[]>([]);
   const editorContext = useEditorContext();
@@ -19,11 +20,11 @@ const ErrorSelect = () => {
     );
   }, [client, editorContext.pid]);
 
-  const selectedError = useMemo(() => errorItems.find(e => e.value === error), [error, errorItems]);
+  const selectedError = useMemo(() => errorItems.find(e => e.value === task.expiry?.error), [task, errorItems]);
 
   return (
     <div className='error-select'>
-      <Select label='Error' items={errorItems} value={selectedError} onChange={item => setError(item.value)} />
+      <Select label='Error' items={errorItems} value={selectedError} onChange={item => updateError(item.value)} />
     </div>
   );
 };

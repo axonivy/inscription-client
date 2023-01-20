@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useClient, useData, useValidation } from '../../../context';
+import { useClient, useValidation } from '../../../context';
 import SelectDialogPart, { DialogStartItem } from './SelectDialogPart';
 import { TabProps, useTabState } from '../../props';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { CollapsiblePart } from '../../../components/widgets';
 import MappingTreeWithCode from './MappingTreeWithCode';
+import { useCallData } from './useCallData';
 
 function useCallTabValidation(): InscriptionValidation[] {
   const dialog = useValidation('config/dialog');
@@ -12,17 +13,14 @@ function useCallTabValidation(): InscriptionValidation[] {
 }
 
 export function useCallTab(): TabProps {
-  const [initData, data] = useData('callData');
   const validation = useCallTabValidation();
-  const tabState = useTabState(initData, data, validation);
+  const tabState = useTabState({}, {}, validation);
   return { name: 'Call', state: tabState, content: <CallTab /> };
 }
 
 const CallTab = () => {
-  const [, mappingData, setMappingData] = useData('config/call');
-  const [, dialogStart, setDialogStarts] = useData('config/dialog');
+  const { data, updateDialog } = useCallData();
   const [dialogStartItems, setDialogStartItems] = useState<DialogStartItem[]>([]);
-
   const [dialogValidation] = useCallTabValidation();
 
   const client = useClient();
@@ -37,14 +35,19 @@ const CallTab = () => {
   }, [client]);
 
   const mappingTree = useMemo(() => {
-    return dialogStartItems.find(ds => ds.id === dialogStart)?.callParameter;
-  }, [dialogStart, dialogStartItems]);
+    return dialogStartItems.find(ds => ds.id === data.config.dialog)?.callParameter;
+  }, [data.config.dialog, dialogStartItems]);
 
   return (
     <>
-      <SelectDialogPart dialogStart={dialogStart} onChange={setDialogStarts} dialogStarts={dialogStartItems} message={dialogValidation} />
+      <SelectDialogPart
+        dialogStart={data.config.dialog ?? ''}
+        onChange={updateDialog}
+        dialogStarts={dialogStartItems}
+        message={dialogValidation}
+      />
       <CollapsiblePart collapsibleLabel='Mapping of process to dialog data' defaultOpen={true}>
-        <MappingTreeWithCode data={mappingData} onChange={setMappingData} mappingTree={mappingTree} message={undefined} />
+        <MappingTreeWithCode mappingTree={mappingTree} />
       </CollapsiblePart>
     </>
   );

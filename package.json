@@ -7,10 +7,11 @@
     "node": ">=14.18.0"
   },
   "scripts": {
-    "ci": "yarn install && yarn icons && yarn lint:ci && yarn test:ci && yarn standalone build:production",
+    "ci": "yarn install && yarn icons && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
     "clean": "lerna run clean",
     "build": "lerna run build",
     "build:clean": "lerna run build:clean",
+    "type": "lerna run type",
     "lint": "lerna run lint --",
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
     "lint:fix": "lerna run lint:fix --",
@@ -22,11 +23,11 @@
   },
   "devDependencies": {
     "@types/node": "^16.7.13",
-    "eslint": "^8.29.0",
+    "eslint": "^8.32.0",
     "eslint-config-react-app": "^7.0.1",
     "lerna": "^6.1.0",
-    "rimraf": "^3.0.2",
-    "typescript": "~4.5.5"
+    "rimraf": "^4.1.1",
+    "typescript": "~4.9.4"
   },
   "workspaces": [
     "packages/*",
