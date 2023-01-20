@@ -2,7 +2,7 @@ import './TableHeader.css';
 import { flexRender, Header } from '@tanstack/react-table';
 import { ReactNode } from 'react';
 
-export const TableHeader = (props: { colSpan: number; children?: JSX.Element | string | ReactNode }) => (
+export const TableHeader = (props: { colSpan: number; children?: ReactNode }) => (
   <th className='table-column-header' colSpan={props.colSpan}>
     {props.children}
   </th>

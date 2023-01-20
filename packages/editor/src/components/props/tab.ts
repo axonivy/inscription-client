@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { deepEqual } from '../../utils/equals';
 import { Message } from './message';
 
@@ -12,7 +12,7 @@ export enum TabState {
 
 export interface TabProps {
   name: string;
-  content: JSX.Element;
+  content: ReactNode;
   state: TabState;
 }
 

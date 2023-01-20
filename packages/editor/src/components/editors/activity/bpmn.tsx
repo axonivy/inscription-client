@@ -1,8 +1,9 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ActivityEditorType } from '@axonivy/inscription-protocol';
+import { ReactNode } from 'react';
 import NameEditor from '../NameEditor';
 
-export const bpmnActivityEditors = new Map<ActivityEditorType.Bpmn, JSX.Element>([
+export const bpmnActivityEditors = new Map<ActivityEditorType.Bpmn, ReactNode>([
   ['GenericBpmnElement', <NameEditor icon={IvyIcons.Sub} />],
   ['UserBpmnElement', <NameEditor icon={IvyIcons.User} />],
   ['ManualBpmnElement', <NameEditor icon={IvyIcons.Manual} />],

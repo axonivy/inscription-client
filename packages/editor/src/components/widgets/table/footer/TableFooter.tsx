@@ -2,8 +2,9 @@ import './TableFooter.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useReadonly } from '../../../../context';
 import IvyIcon from '../../IvyIcon';
+import { ReactNode } from 'react';
 
-export const TableFooter = (props: { children: JSX.Element }) => {
+export const TableFooter = (props: { children: ReactNode }) => {
   return <tfoot className='table-footer'>{props.children}</tfoot>;
 };
 

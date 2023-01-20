@@ -1,6 +1,6 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { EventEditorType } from '@axonivy/inscription-protocol';
-import { memo } from 'react';
+import { memo, ReactNode } from 'react';
 import { TabState } from '../../../components/props';
 import { useCaseTab, useNameTab, useStartTab, useTaskTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
@@ -16,7 +16,7 @@ const RequestStartEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Start} tabs={[nameTab, startTab, requestTab, triggerTab, taskTab, caseTab]} />;
 });
 
-export const startEventEditors = new Map<EventEditorType.Start, JSX.Element>([
+export const startEventEditors = new Map<EventEditorType.Start, ReactNode>([
   ['RequestStart', <RequestStartEditor />],
   ['SignalStartEvent', <NameEditor icon={IvyIcons.Signal} />],
   ['ProgramStart', <NameEditor icon={IvyIcons.StartProgram} />],

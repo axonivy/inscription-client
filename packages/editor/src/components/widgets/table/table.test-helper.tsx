@@ -1,5 +1,6 @@
 import { waitFor, screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ReactNode } from 'react';
 import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../../../context';
 
 export function assertTableHeaders(expectedHeaders: string[]) {
@@ -69,7 +70,7 @@ export async function assertAddAndRemoveWithKeyboard(
   await assertTableRowCount(defaultRows + 2);
 }
 
-export async function renderReadonlyTable(table: JSX.Element): Promise<void> {
+export async function renderReadonlyTable(table: ReactNode): Promise<void> {
   render(<EditorContextInstance.Provider value={{ ...DEFAULT_EDITOR_CONTEXT, readonly: true }}>{table}</EditorContextInstance.Provider>);
   expect(screen.getByRole('button', { name: 'Add row' })).toBeDisabled();
   expect(screen.getAllByRole('button', { name: 'Remove row' })[0]).toBeDisabled();
