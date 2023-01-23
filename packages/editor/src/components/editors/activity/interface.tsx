@@ -1,16 +1,15 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ActivityEditorType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
-import { TabState } from '../../../components/props';
 import { useNameTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
 
 const EMailEditor = memo(() => {
   const nameTab = useNameTab();
-  const headerTab = { name: 'Header', content: <div>Header</div>, state: TabState.EMPTY };
-  const contentTab = { name: 'Content', content: <div>Content</div>, state: TabState.EMPTY };
-  const attachmentTab = { name: 'Attachments', content: <div>Attachments</div>, state: TabState.EMPTY };
+  const headerTab = { name: 'Header', content: <div>Header</div> };
+  const contentTab = { name: 'Content', content: <div>Content</div> };
+  const attachmentTab = { name: 'Attachments', content: <div>Attachments</div> };
   return <InscriptionEditor icon={IvyIcons.EMail} tabs={[nameTab, headerTab, contentTab, attachmentTab]} />;
 });
 

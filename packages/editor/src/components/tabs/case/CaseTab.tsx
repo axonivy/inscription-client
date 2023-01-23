@@ -1,11 +1,11 @@
 import { LabelInput } from '../../widgets';
 import { useReadonly } from '../../../context';
-import { TabProps, TabState } from '../../props';
+import { TabProps } from '../../props';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
 
 export function useCaseTab(): TabProps {
-  return { name: 'Case', state: TabState.CONFIGURED, content: <CaseTab /> };
+  return { name: 'Case', content: <CaseTab /> };
 }
 
 const CaseTab = () => {

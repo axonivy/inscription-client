@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { Responsible, ResponsibleType } from '@axonivy/inscription-protocol';
 
 describe('ResponsibleSelect', () => {
-  function renderSelect(options?: { type?: string; activator?: string; optionsFilter?: string[] }) {
+  function renderSelect(options?: { type?: ResponsibleType; activator?: string; optionsFilter?: ResponsibleType[] }) {
     const responsible: Responsible = { type: options?.type as ResponsibleType, activator: options?.activator };
     const client: ClientContext = {
       // @ts-ignore
@@ -38,7 +38,7 @@ describe('ResponsibleSelect', () => {
   });
 
   test('responsible select will render no delete option', async () => {
-    renderSelect({ optionsFilter: [ResponsibleType.DELETE_TASK] });
+    renderSelect({ optionsFilter: ['DELETE_TASK'] });
     await userEvent.click(screen.getByRole('combobox'));
     expect(screen.getAllByRole('option')).toHaveLength(3);
   });

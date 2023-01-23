@@ -1,28 +1,17 @@
 import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
-import { Responsible, ResponsibleType } from '@axonivy/inscription-protocol';
+import { Responsible, ResponsibleType, RESPONSIBLE_TYPE } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
 import { useClient, useEditorContext } from '../../../../context';
 
-const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' };
+const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
 
 export interface ResponsibleUpdater {
   updateType: (type: ResponsibleType) => void;
   updateActivator: (activator: string) => void;
 }
 
-const ResponsibleSelect = (props: { responsible?: Responsible; updateResponsible: ResponsibleUpdater; optionFilter?: string[] }) => {
-  const typeItems = useMemo<SelectItem[]>(
-    () =>
-      Object.entries(ResponsibleType)
-        .filter(entry => !(props.optionFilter && props.optionFilter.includes(entry[1])))
-        .map(entry => {
-          return { label: entry[1], value: entry[0] };
-        }),
-    [props.optionFilter]
-  );
-  const selectedType = useMemo(() => typeItems.find(e => e.value === props.responsible?.type), [props.responsible?.type, typeItems]);
-
+const RoleSelect = (props: { responsible?: Responsible; updateResponsible: ResponsibleUpdater }) => {
   const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
   const editorContext = useEditorContext();
   const client = useClient();
@@ -35,9 +24,50 @@ const ResponsibleSelect = (props: { responsible?: Responsible; updateResponsible
       )
     );
   }, [client, editorContext.pid]);
-
   const selectedRole =
     useMemo(() => roleItems.find(e => e.value === props.responsible?.activator), [props.responsible?.activator, roleItems]) ?? DEFAULT_ROLE;
+
+  return (
+    <Select label='Role' items={roleItems} value={selectedRole} onChange={item => props.updateResponsible.updateActivator(item.value)} />
+  );
+};
+
+const ResponsibleActivator = (props: {
+  responsible?: Responsible;
+  updateResponsible: ResponsibleUpdater;
+  selectedType?: ResponsibleType;
+}) => {
+  switch (props.selectedType) {
+    case 'ROLE':
+      return <RoleSelect {...props} />;
+    case 'ROLE_FROM_ATTRIBUTE':
+    case 'USER_FROM_ATTRIBUTE':
+      return (
+        <input
+          className='input'
+          value={props.responsible?.activator ?? ''}
+          onChange={e => props.updateResponsible.updateActivator(e.target.value)}
+        />
+      );
+    case 'DELETE_TASK':
+    default:
+      return <></>;
+  }
+};
+
+const ResponsibleSelect = (props: {
+  responsible?: Responsible;
+  updateResponsible: ResponsibleUpdater;
+  optionFilter?: ResponsibleType[];
+}) => {
+  const typeItems = useMemo<SelectItem[]>(
+    () =>
+      Object.entries(RESPONSIBLE_TYPE)
+        .filter(([value]) => !(props.optionFilter && props.optionFilter.includes(value as ResponsibleType)))
+        .map(([value, label]) => ({ label, value })),
+    [props.optionFilter]
+  );
+  const selectedType = useMemo(() => typeItems.find(e => e.value === props.responsible?.type), [props.responsible?.type, typeItems]);
 
   return (
     <div className='responsible-select'>
@@ -47,30 +77,7 @@ const ResponsibleSelect = (props: { responsible?: Responsible; updateResponsible
         value={selectedType}
         onChange={item => props.updateResponsible.updateType(item.value as ResponsibleType)}
       >
-        <>
-          {selectedType?.label === ResponsibleType.ROLE && (
-            <Select
-              label='Role'
-              items={roleItems}
-              value={selectedRole}
-              onChange={item => props.updateResponsible.updateActivator(item.value)}
-            />
-          )}
-          {selectedType?.label === ResponsibleType.ROLE_FROM_ATTRIBUTE && (
-            <input
-              className='input'
-              value={props.responsible?.activator ?? ''}
-              onChange={e => props.updateResponsible.updateActivator(e.target.value)}
-            />
-          )}
-          {selectedType?.label === ResponsibleType.USER_FROM_ATTRIBUTE && (
-            <input
-              className='input'
-              value={props.responsible?.activator ?? ''}
-              onChange={e => props.updateResponsible.updateActivator(e.target.value)}
-            />
-          )}
-        </>
+        <ResponsibleActivator {...props} selectedType={selectedType?.value as ResponsibleType} />
       </Select>
     </div>
   );

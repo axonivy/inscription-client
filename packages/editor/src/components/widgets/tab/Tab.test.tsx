@@ -2,13 +2,13 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Tab } from './Tab';
-import { TabProps, TabState } from '../../props';
+import { TabProps } from '../../props';
 
 describe('Tabs', () => {
   const tabs: TabProps[] = [
-    { name: 'Name', state: TabState.EMPTY, content: <h1>Name</h1> },
-    { name: 'Call', state: TabState.WARNING, content: <h1>Call</h1> },
-    { name: 'Result', state: TabState.ERROR, content: <h1>Result</h1> }
+    { name: 'Name', state: 'empty', content: <h1>Name</h1> },
+    { name: 'Call', state: 'warning', content: <h1>Call</h1> },
+    { name: 'Result', state: 'error', content: <h1>Result</h1> }
   ];
 
   function renderTabs() {

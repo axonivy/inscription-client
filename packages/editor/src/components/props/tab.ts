@@ -2,33 +2,22 @@ import { ReactNode, useMemo } from 'react';
 import { deepEqual } from '../../utils/equals';
 import { Message } from './message';
 
-export enum TabState {
-  EMPTY = 'empty',
-  CONFIGURED = 'configured',
-  DIRTY = 'dirty',
-  WARNING = 'warning',
-  ERROR = 'error'
-}
+export type TabState = 'empty' | 'configured' | 'dirty' | 'warning' | 'error';
 
 export interface TabProps {
   name: string;
   content: ReactNode;
-  state: TabState;
+  state?: TabState;
 }
 
 export function useTabState(initData: any, data: any, messages: Message[]): TabState {
-  const tabState = useMemo(() => {
-    const errors = messages.find(message => message?.severity === 'error');
-    if (errors) {
-      return TabState.ERROR;
+  return useMemo<TabState>(() => {
+    if (messages.find(message => message?.severity === 'error')) {
+      return 'error';
     }
-
-    const warnings = messages.find(message => message?.severity === 'warning');
-    if (warnings) {
-      return TabState.WARNING;
+    if (messages.find(message => message?.severity === 'warning')) {
+      return 'warning';
     }
-    return deepEqual(data, initData) ? TabState.EMPTY : TabState.DIRTY;
+    return deepEqual(data, initData) ? 'empty' : 'dirty';
   }, [messages, data, initData]);
-
-  return tabState;
 }

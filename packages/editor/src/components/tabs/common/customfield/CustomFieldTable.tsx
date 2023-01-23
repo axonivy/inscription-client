@@ -1,4 +1,4 @@
-import { CustomField, CustomFieldType } from '@axonivy/inscription-protocol';
+import { CustomField, CUSTOM_FIELD_TYPE } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
@@ -16,13 +16,7 @@ import {
 } from '../../../../components/widgets';
 
 const CustomFieldTable = (props: { data: CustomField[]; onChange: (change: CustomField[]) => void }) => {
-  const items = useMemo<SelectItem[]>(
-    () =>
-      Object.values(CustomFieldType).map(key => {
-        return { label: key, value: key };
-      }),
-    []
-  );
+  const items = useMemo<SelectItem[]>(() => CUSTOM_FIELD_TYPE.map(type => ({ label: type, value: type })), []);
 
   const columns = useMemo<ColumnDef<CustomField>[]>(
     () => [
@@ -52,7 +46,7 @@ const CustomFieldTable = (props: { data: CustomField[]; onChange: (change: Custo
 
   const addRow = () => {
     const newData = [...props.data];
-    newData.push({ name: '', type: CustomFieldType.STRING, value: '' });
+    newData.push({ name: '', type: 'String', value: '' });
     props.onChange(newData);
   };
 

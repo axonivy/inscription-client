@@ -1,7 +1,6 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { EventEditorType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
-import { TabState } from '../../../components/props';
 import { useCaseTab, useNameTab, useStartTab, useTaskTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
@@ -9,8 +8,8 @@ import NameEditor from '../NameEditor';
 const RequestStartEditor = memo(() => {
   const nameTab = useNameTab();
   const startTab = useStartTab();
-  const requestTab = { name: 'Request', content: <h1>Request</h1>, state: TabState.EMPTY };
-  const triggerTab = { name: 'Trigger', content: <h1>Trigger</h1>, state: TabState.EMPTY };
+  const requestTab = { name: 'Request', content: <h1>Request</h1> };
+  const triggerTab = { name: 'Trigger', content: <h1>Trigger</h1> };
   const taskTab = useTaskTab({ showPersist: true });
   const caseTab = useCaseTab();
   return <InscriptionEditor icon={IvyIcons.Start} tabs={[nameTab, startTab, requestTab, triggerTab, taskTab, caseTab]} />;

@@ -1,7 +1,7 @@
-import { TabProps, TabState } from '../props';
+import { TabProps } from '../props';
 
 export function useEndPageTab(): TabProps {
-  return { name: 'End Page', state: TabState.EMPTY, content: <EndPageTab /> };
+  return { name: 'End Page', content: <EndPageTab /> };
 }
 
 const EndPageTab = () => {
