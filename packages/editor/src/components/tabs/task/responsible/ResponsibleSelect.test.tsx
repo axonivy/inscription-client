@@ -1,17 +1,13 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import ResponsibleSelect from './ResponsibleSelect';
-import { ClientContext, ClientContextInstance, DataContext, DataContextInstance } from '../../../../context';
+import { ClientContext, ClientContextInstance } from '../../../../context';
 import userEvent from '@testing-library/user-event';
 import { Responsible, ResponsibleType } from '@axonivy/inscription-protocol';
 
 describe('ResponsibleSelect', () => {
-  function renderSelect(options?: { type?: string; activator?: string; expiry?: boolean }) {
+  function renderSelect(options?: { type?: string; activator?: string; optionsFilter?: string[] }) {
     const responsible: Responsible = { type: options?.type as ResponsibleType, activator: options?.activator };
-    // @ts-ignore
-    const data: DataContext = {
-      data: { config: { task: { responsible: responsible, expiry: { responsible: responsible } } } }
-    };
     const client: ClientContext = {
       // @ts-ignore
       client: {
@@ -26,9 +22,11 @@ describe('ResponsibleSelect', () => {
     };
     render(
       <ClientContextInstance.Provider value={client}>
-        <DataContextInstance.Provider value={data}>
-          <ResponsibleSelect expiry={options?.expiry} />
-        </DataContextInstance.Provider>
+        <ResponsibleSelect
+          responsible={responsible}
+          updateResponsible={{ updateType: () => {}, updateActivator: () => {} }}
+          optionFilter={options?.optionsFilter}
+        />
       </ClientContextInstance.Provider>
     );
   }
@@ -36,13 +34,13 @@ describe('ResponsibleSelect', () => {
   test('responsible select will render all options', async () => {
     renderSelect();
     await userEvent.click(screen.getByRole('combobox'));
-    expect(screen.getAllByRole('option')).toHaveLength(3);
+    expect(screen.getAllByRole('option')).toHaveLength(4);
   });
 
   test('responsible select will render no delete option', async () => {
-    renderSelect({ expiry: true });
+    renderSelect({ optionsFilter: [ResponsibleType.DELETE_TASK] });
     await userEvent.click(screen.getByRole('combobox'));
-    expect(screen.getAllByRole('option')).toHaveLength(4);
+    expect(screen.getAllByRole('option')).toHaveLength(3);
   });
 
   test('responsible select will render select for role with default option', async () => {
@@ -74,7 +72,7 @@ describe('ResponsibleSelect', () => {
   });
 
   test('responsible select will render nothing for delete option', async () => {
-    renderSelect({ type: 'DELETE_TASK', expiry: true });
+    renderSelect({ type: 'DELETE_TASK' });
     await waitFor(() => expect(screen.getByRole('combobox')).toHaveTextContent('Nobody & delete'));
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });

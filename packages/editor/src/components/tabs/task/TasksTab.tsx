@@ -3,7 +3,7 @@ import { TaskDataContextInstance } from '../../../context/useTaskDataContext';
 import { Tab } from '../../../components/widgets';
 import { useDataContext, useValidation } from '../../../context';
 import { TabProps, useTabState } from '../../props';
-import Task from './Task';
+import TaskPart from './TaskPart';
 
 function useTasksTabValidation(): InscriptionValidation[] {
   const tasks = useValidation('config/tasks');
@@ -29,7 +29,7 @@ const TasksTab = () => {
         name: task.id,
         content: (
           <TaskDataContextInstance.Provider value={index}>
-            <Task />
+            <TaskPart />
           </TaskDataContextInstance.Provider>
         )
       } as TabProps;

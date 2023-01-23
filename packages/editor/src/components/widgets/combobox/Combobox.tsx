@@ -1,5 +1,5 @@
 import { useCombobox } from 'downshift';
-import { memo, useEffect, useState } from 'react';
+import { memo, ReactNode, useEffect, useState } from 'react';
 import './Combobox.css';
 import { Message } from '../../props/message';
 import LabelInput from '../label/LabelInput';
@@ -13,7 +13,7 @@ const Combobox = (props: {
   label: string;
   items: ComboboxItem[];
   itemFilter?: (item: ComboboxItem, input?: string) => boolean;
-  comboboxItem: (item: ComboboxItem) => JSX.Element;
+  comboboxItem: (item: ComboboxItem) => ReactNode;
   value: string;
   onChange: (change: string) => void;
   message?: Message;

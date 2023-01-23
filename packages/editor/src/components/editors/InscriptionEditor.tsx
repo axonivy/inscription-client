@@ -12,7 +12,7 @@ import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Message, TabProps } from '../props';
 
-const editors = new Map<InscriptionEditorType, JSX.Element>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
+const editors = new Map<InscriptionEditorType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
 
 export const inscriptionEditor = (type?: InscriptionEditorType): ReactNode => {
   if (type) {

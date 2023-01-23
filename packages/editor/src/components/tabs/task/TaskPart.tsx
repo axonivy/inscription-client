@@ -1,5 +1,5 @@
 import { useReadonly } from '../../../context';
-import ExpiryPart from './ExpiryPart';
+import ExpiryPart from './expiry/ExpiryPart';
 import PersistPart from './options/PersistPart';
 import PrioritySelect from './priority/PrioritySelect';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
@@ -7,9 +7,11 @@ import { CodeEditor, CollapsiblePart, LabelInput } from '../../widgets';
 import TaskListPart from './options/TaskListPart';
 import ResponsibleSelect from './responsible/ResponsibleSelect';
 import { useTaskData } from './useTaskData';
+import { ResponsibleType } from '@axonivy/inscription-protocol';
 
-const Task = (props: { showPersist?: boolean }) => {
-  const { task, updateName, updateDescription, updateCategory, updateCustomFields, updateCode } = useTaskData();
+const TaskPart = (props: { showPersist?: boolean }) => {
+  const { task, updateName, updateDescription, updateCategory, updateCustomFields, updateCode, updateResponsible, updatePriority } =
+    useTaskData();
   const readonly = useReadonly();
 
   return (
@@ -36,8 +38,14 @@ const Task = (props: { showPersist?: boolean }) => {
           disabled={readonly}
         />
       </LabelInput>
-      {!props.showPersist && <ResponsibleSelect />}
-      <PrioritySelect />
+      {!props.showPersist && (
+        <ResponsibleSelect
+          responsible={task.responsible}
+          updateResponsible={updateResponsible}
+          optionFilter={[ResponsibleType.DELETE_TASK]}
+        />
+      )}
+      <PrioritySelect priority={task.priority} updatePriority={updatePriority} />
       {props.showPersist ? <PersistPart /> : <TaskListPart />}
       <ExpiryPart />
       <CustomFieldPart customFields={task.customFields} updateCustomFields={updateCustomFields} />
@@ -48,4 +56,4 @@ const Task = (props: { showPersist?: boolean }) => {
   );
 };
 
-export default Task;
+export default TaskPart;

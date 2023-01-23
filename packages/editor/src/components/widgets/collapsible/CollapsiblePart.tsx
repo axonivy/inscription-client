@@ -1,8 +1,8 @@
 import { Collapsible as CollapsibleRoot, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
-import { memo, useState } from 'react';
+import { memo, ReactNode, useState } from 'react';
 import './CollapsiblePart.css';
 
-const CollapsiblePart = (props: { collapsibleLabel: string; defaultOpen?: boolean; children: JSX.Element[] | JSX.Element }) => {
+const CollapsiblePart = (props: { collapsibleLabel: string; defaultOpen?: boolean; children: ReactNode }) => {
   const [open, setOpen] = useState(props.defaultOpen ?? false);
   return (
     <CollapsibleRoot className='collapsible-root' open={open} onOpenChange={setOpen}>

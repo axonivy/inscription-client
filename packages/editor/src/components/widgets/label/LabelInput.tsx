@@ -1,10 +1,10 @@
 import { Label } from '@radix-ui/react-label';
-import { memo } from 'react';
+import { memo, ReactNode } from 'react';
 import './LabelInput.css';
 import { Message } from '../../props/message';
 import IvyIcon from '../IvyIcon';
 
-const LabelInput = (props: { label: string; htmlFor: string; message?: Message; children: JSX.Element }) => (
+const LabelInput = (props: { label: string; htmlFor: string; message?: Message; children: ReactNode }) => (
   <div className='label-input-column'>
     <Label className='label' htmlFor={props.htmlFor}>
       {props.label}

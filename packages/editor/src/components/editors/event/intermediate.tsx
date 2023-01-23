@@ -1,6 +1,6 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { EventEditorType } from '@axonivy/inscription-protocol';
-import { memo } from 'react';
+import { memo, ReactNode } from 'react';
 import { useCaseTab, useEndPageTab, useNameTab, useOutputTab, useTaskTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
@@ -14,7 +14,7 @@ const TaskSwitchEventEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Task} tabs={[nameTab, outputTab, taskTab, caseTab, endPageTab]} />;
 });
 
-export const intermediateEventEditors = new Map<EventEditorType.Intermediate, JSX.Element>([
+export const intermediateEventEditors = new Map<EventEditorType.Intermediate, ReactNode>([
   ['TaskSwitchEvent', <TaskSwitchEventEditor />],
   ['WaitEvent', <NameEditor icon={IvyIcons.Wait} />]
 ]);

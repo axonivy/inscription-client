@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, ReactNode } from 'react';
 import { useCallTab, useCaseTab, useCodeTab, useNameTab, useOutputTab, useTaskTab } from '../../tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import { ActivityEditorType } from '@axonivy/inscription-protocol';
@@ -28,7 +28,7 @@ const ScriptEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Script} tabs={[nameTab, outputTab, codeTab]} />;
 });
 
-export const workflowActivityEditors = new Map<ActivityEditorType.General, JSX.Element>([
+export const workflowActivityEditors = new Map<ActivityEditorType.General, ReactNode>([
   ['DialogCall', <DialogCallEditor />],
   ['UserTask', <UserTaskEditor />],
   ['Script', <ScriptEditor />],

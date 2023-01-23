@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Message } from '../../props/message';
-import Combobox from './Combobox';
-import { ComboboxItem } from '../../props/combobox';
+import Combobox, { ComboboxItem } from './Combobox';
 import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../../../context';
 
 describe('Combobox', () => {
@@ -11,7 +10,7 @@ describe('Combobox', () => {
     value: string,
     options: {
       itemFilter?: (item: ComboboxItem, input?: string) => boolean;
-      comboboxItem?: (item: ComboboxItem) => JSX.Element;
+      comboboxItem?: (item: ComboboxItem) => ReactNode;
       onChange?: (change: string) => void;
       message?: Message;
     } = {}
