@@ -1,14 +1,16 @@
 import './PrioritySelect.css';
 import { useMemo } from 'react';
-import { PriorityLevel } from '@axonivy/inscription-protocol';
+import { Priority, PriorityLevel } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
-import { usePriorityData } from './usePriorityData';
 
 const DEFAULT_PRIORITY: SelectItem = { label: PriorityLevel.NORMAL, value: 'NORMAL' };
 
-const PrioritySelect = (props: { expiry?: boolean }) => {
-  const { priority, updateLevel, updateScript } = usePriorityData(props.expiry);
+export interface PriorityUpdater {
+  updateLevel: (level: PriorityLevel) => void;
+  updateScript: (script: string) => void;
+}
 
+const PrioritySelect = (props: { priority?: Priority; updatePriority: PriorityUpdater }) => {
   const priorityItems = useMemo<SelectItem[]>(
     () =>
       Object.entries(PriorityLevel).map(entry => {
@@ -18,14 +20,23 @@ const PrioritySelect = (props: { expiry?: boolean }) => {
   );
 
   const selectedItem =
-    useMemo(() => priorityItems.find(e => e.value === priority?.level), [priority?.level, priorityItems]) ?? DEFAULT_PRIORITY;
+    useMemo(() => priorityItems.find(e => e.value === props.priority?.level), [props.priority?.level, priorityItems]) ?? DEFAULT_PRIORITY;
 
   return (
     <div className='priority-select'>
-      <Select label='Priority' value={selectedItem} onChange={item => updateLevel(item.value as PriorityLevel)} items={priorityItems}>
+      <Select
+        label='Priority'
+        value={selectedItem}
+        onChange={item => props.updatePriority.updateLevel(item.value as PriorityLevel)}
+        items={priorityItems}
+      >
         <>
           {selectedItem?.label === PriorityLevel.SCRIPT && (
-            <input className='input' value={priority?.script ?? ''} onChange={e => updateScript(e.target.value)} />
+            <input
+              className='input'
+              value={props.priority?.script ?? ''}
+              onChange={e => props.updatePriority.updateScript(e.target.value)}
+            />
           )}
         </>
       </Select>

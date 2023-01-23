@@ -1,12 +1,12 @@
-import { CollapsiblePart, LabelInput } from '../../../components/widgets';
-import { useReadonly } from '../../../context';
-import ErrorSelect from './error/ErrorSelect';
-import PrioritySelect from './priority/PrioritySelect';
-import ResponsibleSelect from './responsible/ResponsibleSelect';
+import { CollapsiblePart, LabelInput } from '../../../../components/widgets';
+import { useReadonly } from '../../../../context';
+import ErrorSelect from './../error/ErrorSelect';
+import PrioritySelect from './../priority/PrioritySelect';
+import ResponsibleSelect from './../responsible/ResponsibleSelect';
 import { useExpiryData } from './useExpiryData';
 
 const ExpiryPart = () => {
-  const { task, updateTimeout } = useExpiryData();
+  const { task, updateTimeout, updateResponsible, updatePriority } = useExpiryData();
   const isTimeout = task.expiry?.timeout !== undefined && task.expiry.timeout.length > 0;
   const readonly = useReadonly();
 
@@ -25,8 +25,8 @@ const ExpiryPart = () => {
         {isTimeout && (
           <>
             <ErrorSelect />
-            <ResponsibleSelect expiry={true} />
-            <PrioritySelect expiry={true} />
+            <ResponsibleSelect responsible={task.expiry?.responsible} updateResponsible={updateResponsible} />
+            <PrioritySelect priority={task.priority} updatePriority={updatePriority} />
           </>
         )}
       </>

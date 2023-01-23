@@ -1,7 +1,9 @@
-import { CustomField, Task } from '@axonivy/inscription-protocol';
+import { CustomField, PriorityLevel, ResponsibleType, Task } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { useTaskDataContext } from '../../../context';
+import { PriorityUpdater } from './priority/PrioritySelect';
+import { ResponsibleUpdater } from './responsible/ResponsibleSelect';
 
 export function useTaskData(): {
   task: Task;
@@ -10,6 +12,8 @@ export function useTaskData(): {
   updateCategory: (category: string) => void;
   updateCustomFields: (customFields: CustomField[]) => void;
   updateCode: (code: string) => void;
+  updateResponsible: ResponsibleUpdater;
+  updatePriority: PriorityUpdater;
 } {
   const { task, setTask } = useTaskDataContext();
 
@@ -68,5 +72,79 @@ export function useTaskData(): {
     [setTask]
   );
 
-  return { task, updateName, updateDescription, updateCategory, updateCustomFields, updateCode };
+  const updateType = useCallback(
+    (type: ResponsibleType) => {
+      setTask(
+        produce((draft: Task) => {
+          if (!draft.responsible) {
+            draft.responsible = {};
+          }
+          draft.responsible.type = type;
+        })
+      );
+    },
+    [setTask]
+  );
+
+  const updateActivator = useCallback(
+    (activator: string) => {
+      setTask(
+        produce((draft: Task) => {
+          if (!draft.responsible) {
+            draft.responsible = {};
+          }
+          draft.responsible.activator = activator;
+        })
+      );
+    },
+    [setTask]
+  );
+
+  const updateLevel = useCallback(
+    (level: PriorityLevel) => {
+      setTask(
+        produce((draft: Task) => {
+          if (!draft.expiry) {
+            draft.expiry = {};
+          }
+          if (!draft.expiry.priority) {
+            draft.expiry.priority = {};
+          }
+          draft.expiry.priority.level = level;
+        })
+      );
+    },
+    [setTask]
+  );
+
+  const updateScript = useCallback(
+    (script: string) => {
+      setTask(
+        produce((draft: Task) => {
+          if (!draft.expiry) {
+            draft.expiry = {};
+          }
+          if (!draft.expiry.priority) {
+            draft.expiry.priority = {};
+          }
+          draft.expiry.priority.script = script;
+        })
+      );
+    },
+    [setTask]
+  );
+
+  return {
+    task,
+    updateName,
+    updateDescription,
+    updateCategory,
+    updateCustomFields,
+    updateCode,
+    updateResponsible: {
+      updateType,
+      updateActivator
+    },
+    updatePriority: { updateLevel, updateScript }
+  };
 }
