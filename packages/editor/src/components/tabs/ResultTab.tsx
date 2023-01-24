@@ -1,7 +1,7 @@
-import { TabProps, TabState } from '../props';
+import { TabProps } from '../props';
 
 export function useResultTab(): TabProps {
-  return { name: 'Result', state: TabState.CONFIGURED, content: <ResultTab /> };
+  return { name: 'Result', content: <ResultTab /> };
 }
 
 const ResultTab = () => <>Content of Result</>;

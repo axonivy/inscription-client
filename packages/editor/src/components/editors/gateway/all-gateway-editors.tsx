@@ -1,14 +1,13 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { GatewayEditorType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
-import { TabState } from '../../../components/props';
 import { useCaseTab, useEndPageTab, useNameTab, useOutputTab, useTasksTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
 
 const AlternativeEditor = memo(() => {
   const nameTab = useNameTab();
-  const conditionTab = { name: 'Condition', content: <h1>Condition</h1>, state: TabState.EMPTY };
+  const conditionTab = { name: 'Condition', content: <h1>Condition</h1> };
   return <InscriptionEditor icon={IvyIcons.Alternative} tabs={[nameTab, conditionTab]} />;
 });
 

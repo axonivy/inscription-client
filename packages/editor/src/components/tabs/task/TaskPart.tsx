@@ -7,7 +7,6 @@ import { CodeEditor, CollapsiblePart, LabelInput } from '../../widgets';
 import TaskListPart from './options/TaskListPart';
 import ResponsibleSelect from './responsible/ResponsibleSelect';
 import { useTaskData } from './useTaskData';
-import { ResponsibleType } from '@axonivy/inscription-protocol';
 
 const TaskPart = (props: { showPersist?: boolean }) => {
   const { task, updateName, updateDescription, updateCategory, updateCustomFields, updateCode, updateResponsible, updatePriority } =
@@ -39,11 +38,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
         />
       </LabelInput>
       {!props.showPersist && (
-        <ResponsibleSelect
-          responsible={task.responsible}
-          updateResponsible={updateResponsible}
-          optionFilter={[ResponsibleType.DELETE_TASK]}
-        />
+        <ResponsibleSelect responsible={task.responsible} updateResponsible={updateResponsible} optionFilter={['DELETE_TASK']} />
       )}
       <PrioritySelect priority={task.priority} updatePriority={updatePriority} />
       {props.showPersist ? <PersistPart /> : <TaskListPart />}

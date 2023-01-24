@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomField, CustomFieldType } from '@axonivy/inscription-protocol';
+import { CustomField } from '@axonivy/inscription-protocol';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CustomFieldTable from './CustomFieldTable';
@@ -14,8 +14,8 @@ import {
 
 describe('CustomFieldTable', () => {
   const customFields: CustomField[] = [
-    { name: 'field1', type: CustomFieldType.STRING, value: 'this is a string' },
-    { name: 'number', type: CustomFieldType.NUMBER, value: '1' }
+    { name: 'field1', type: 'String', value: 'this is a string' },
+    { name: 'number', type: 'Number', value: '1' }
   ];
   function renderTable(): {
     data: () => CustomField[];
@@ -76,8 +76,8 @@ describe('CustomFieldTable', () => {
     await userEvent.keyboard('[ArrowDown][Enter]');
 
     expect(view.data()).toEqual([
-      { name: 'Hello', type: CustomFieldType.STRING, value: 'this is a string' },
-      { name: 'number', type: CustomFieldType.STRING, value: '1' }
+      { name: 'Hello', type: 'String', value: 'this is a string' },
+      { name: 'number', type: 'String', value: '1' }
     ]);
   });
 
