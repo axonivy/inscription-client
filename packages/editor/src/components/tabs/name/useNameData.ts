@@ -2,57 +2,54 @@ import { useDataContext } from '../../../context';
 import { NameData, Document } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
+import { Consumer } from '../../../types/lambda';
 
 export function useNameData(): {
   data: NameData;
-  updateName: (name: string) => void;
-  updateDescription: (name: string) => void;
-  updateDocs: (docs: Document[]) => void;
-  updateTags: (tags: string[]) => void;
+  updateName: Consumer<string>;
+  updateDescription: Consumer<string>;
+  updateDocs: Consumer<Document[]>;
+  updateTags: Consumer<string[]>;
 } {
   const { data, setData } = useDataContext();
 
-  const updateName = useCallback(
-    (name: string) => {
+  const updateName = useCallback<Consumer<string>>(
+    name =>
       setData(
-        produce((draft: NameData) => {
+        produce<NameData>(draft => {
           draft.name = name;
         })
-      );
-    },
+      ),
     [setData]
   );
 
-  const updateDescription = useCallback(
-    (description: string) => {
+  const updateDescription = useCallback<Consumer<string>>(
+    description =>
       setData(
-        produce((draft: NameData) => {
+        produce<NameData>(draft => {
           draft.description = description;
         })
-      );
-    },
+      ),
     [setData]
   );
 
-  const updateDocs = useCallback(
-    (docs: Document[]) => {
+  const updateDocs = useCallback<Consumer<Document[]>>(
+    docs =>
       setData(
-        produce((draft: NameData) => {
+        produce<NameData>(draft => {
           draft.docs = docs;
         })
-      );
-    },
+      ),
     [setData]
   );
 
-  const updateTags = useCallback(
-    (tags: string[]) => {
+  const updateTags = useCallback<Consumer<string[]>>(
+    tags =>
       setData(
-        produce((draft: NameData) => {
+        produce<NameData>(draft => {
           draft.tags = tags;
         })
-      );
-    },
+      ),
     [setData]
   );
 
