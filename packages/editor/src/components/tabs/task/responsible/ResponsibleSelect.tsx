@@ -3,12 +3,13 @@ import { useEffect, useMemo, useState } from 'react';
 import { Responsible, ResponsibleType } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
 import { useClient, useEditorContext } from '../../../../context';
+import { Consumer } from '../../../../types/lambda';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' };
 
 export interface ResponsibleUpdater {
-  updateType: (type: ResponsibleType) => void;
-  updateActivator: (activator: string) => void;
+  updateType: Consumer<ResponsibleType>;
+  updateActivator: Consumer<string>;
 }
 
 const ResponsibleSelect = (props: { responsible?: Responsible; updateResponsible: ResponsibleUpdater; optionFilter?: string[] }) => {

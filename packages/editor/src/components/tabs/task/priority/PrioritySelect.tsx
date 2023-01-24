@@ -2,12 +2,13 @@ import './PrioritySelect.css';
 import { useMemo } from 'react';
 import { Priority, PriorityLevel } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
+import { Consumer } from '../../../../types/lambda';
 
 const DEFAULT_PRIORITY: SelectItem = { label: PriorityLevel.NORMAL, value: 'NORMAL' };
 
 export interface PriorityUpdater {
-  updateLevel: (level: PriorityLevel) => void;
-  updateScript: (script: string) => void;
+  updateLevel: Consumer<PriorityLevel>;
+  updateScript: Consumer<string>;
 }
 
 const PrioritySelect = (props: { priority?: Priority; updatePriority: PriorityUpdater }) => {
