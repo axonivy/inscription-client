@@ -1,4 +1,4 @@
-import { CallData, NameData, TaskData } from '@axonivy/inscription-protocol';
+import { CallData, NameData, OutputData, TaskData } from '@axonivy/inscription-protocol';
 
 export namespace DataMock {
   export const NAME: NameData = {
@@ -17,7 +17,7 @@ export namespace DataMock {
     tags: ['bla', 'zag']
   };
 
-  export const USER_TASK: NameData | CallData | TaskData = {
+  export const USER_TASK: NameData | CallData | TaskData | OutputData = {
     ...NAME,
     config: {
       dialog: '',
@@ -27,6 +27,12 @@ export namespace DataMock {
       },
       task: {
         name: 'user task'
+      },
+      output: {
+        map: [
+          { key: 'out.amount', value: '123' },
+          { key: 'out.accepted', value: 'true' }
+        ]
       }
     }
   };

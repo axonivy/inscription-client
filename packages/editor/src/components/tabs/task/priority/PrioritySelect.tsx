@@ -26,8 +26,10 @@ const PriorityScript = (props: { priority?: Priority; updatePriority: PriorityUp
 
 const PrioritySelect = (props: { priority?: Priority; updatePriority: PriorityUpdater }) => {
   const priorityItems = useMemo<SelectItem[]>(() => Object.entries(PRIORITY_LEVEL).map(([value, label]) => ({ label, value })), []);
-  const selectedLevel =
-    useMemo(() => priorityItems.find(e => e.value === props.priority?.level), [props.priority?.level, priorityItems]) ?? DEFAULT_PRIORITY;
+  const selectedLevel = useMemo<SelectItem>(
+    () => priorityItems.find(e => e.value === props.priority?.level) ?? DEFAULT_PRIORITY,
+    [props.priority?.level, priorityItems]
+  );
 
   return (
     <div className='priority-select'>

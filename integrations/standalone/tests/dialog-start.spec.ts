@@ -7,9 +7,9 @@ test.describe('Dialog Starts', () => {
     await page.getByRole('tab', { name: 'Call' }).click();
 
     await selectDialog(page, 'AcceptRequest');
-    await expect(page.getByRole('row')).toHaveCount(3);
+    await expect(page.getByRole('row')).toHaveCount(12);
 
     await selectDialog(page, 'test1');
-    await expect(page.getByRole('row')).toHaveCount(1);
+    await expect(page.getByRole('row')).toHaveCount(4);
   });
 });

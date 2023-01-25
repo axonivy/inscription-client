@@ -1,12 +1,4 @@
-export type MappingData = {
-  map?: Mapping[];
-  code?: string;
-};
-
-export interface Mapping {
-  key: string;
-  value: string;
-}
+import { MappingData } from './common';
 
 export interface CallData {
   config: {

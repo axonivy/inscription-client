@@ -20,7 +20,7 @@ const ErrorSelect = () => {
     );
   }, [client, editorContext.pid]);
 
-  const selectedError = useMemo(() => errorItems.find(e => e.value === task.expiry?.error), [task, errorItems]);
+  const selectedError = useMemo<SelectItem | undefined>(() => errorItems.find(e => e.value === task.expiry?.error), [task, errorItems]);
 
   return (
     <div className='error-select'>

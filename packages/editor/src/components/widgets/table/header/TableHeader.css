@@ -9,3 +9,10 @@
 .table .table-column-header .sortable-column:focus {
   box-shadow: var(--focus-shadow);
 }
+
+.table .table-column-header .column-expand-button {
+  cursor: pointer;
+}
+.table-column-header .column-expand-button:focus {
+  box-shadow: var(--focus-shadow);
+}

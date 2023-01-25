@@ -1,5 +1,5 @@
 import './TableHeader.css';
-import { flexRender, Header } from '@tanstack/react-table';
+import { flexRender, Header, HeaderContext } from '@tanstack/react-table';
 import { ReactNode } from 'react';
 
 export const TableHeader = (props: { colSpan: number; children?: ReactNode }) => (
@@ -26,6 +26,22 @@ export function TableHeaderSorted<TData>(props: { header: Header<TData, unknown>
           }[header.column.getIsSorted() as string] ?? null}
         </button>
       )}
+    </>
+  );
+}
+
+export function ExpandableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string }) {
+  const table = props.header.table;
+  return (
+    <>
+      <button
+        className='column-expand-button'
+        aria-label={table.getIsAllRowsExpanded() ? 'Collapse tree' : 'Expand tree'}
+        {...{ onClick: table.getToggleAllRowsExpandedHandler() }}
+      >
+        {table.getIsAllRowsExpanded() ? '🔽' : '▶️'}
+      </button>{' '}
+      <span>{props.name}</span>
     </>
   );
 }
