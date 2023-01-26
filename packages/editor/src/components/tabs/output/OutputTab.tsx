@@ -21,9 +21,7 @@ const OutputTab = (props: { showCode?: boolean }) => {
 
   return (
     <>
-      <LabelInput label='Mapping' htmlFor='mapping'>
-        <MappingTree data={data.config.output?.map ?? []} mappingInfo={mappingInfo} onChange={updateMap} />
-      </LabelInput>
+      <MappingTree data={data.config.output?.map ?? []} mappingInfo={mappingInfo} onChange={updateMap} />
       {props.showCode && (
         <LabelInput label='Code' htmlFor='code'>
           <CodeEditor code={data.config.output?.code ?? ''} onChange={code => updateCode(code ?? '')} location='call.code' />
