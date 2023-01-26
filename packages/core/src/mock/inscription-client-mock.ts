@@ -7,8 +7,8 @@ import {
   InscriptionSaveData,
   InscriptionType,
   InscriptionValidation,
-  Role,
-  Variable
+  MappingInfo,
+  Role
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { DataMock } from './data';
@@ -50,7 +50,7 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(ValidationMock.validateData(args));
   }
 
-  dialogStarts(): Promise<DialogStart[]> {
+  dialogStarts(pid: string): Promise<DialogStart[]> {
     return Promise.resolve(MetaMock.DIALOG_STARTS);
   }
 
@@ -62,7 +62,7 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(MetaMock.EXPIRY_ERRORS);
   }
 
-  outMapping(): Promise<Variable[]> {
-    return Promise.resolve([]);
+  outMapping(pid: string): Promise<MappingInfo> {
+    return Promise.resolve(MetaMock.OUT_MAP_INFO);
   }
 }

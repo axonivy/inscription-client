@@ -7,3 +7,13 @@ export interface CustomField {
   type: CustomFieldType;
   value: string;
 }
+
+export type MappingData = {
+  map?: Mapping[];
+  code?: string;
+};
+
+export interface Mapping {
+  key: string;
+  value: string;
+}

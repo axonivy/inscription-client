@@ -1,34 +1,86 @@
-import { Mapping, Variable } from '@axonivy/inscription-protocol';
+import { Mapping, MappingInfo, Variable } from '@axonivy/inscription-protocol';
 
 export interface MappingTreeData extends Variable, Omit<Mapping, 'key'> {
   children: MappingTreeData[];
+  isLoaded: boolean;
 }
 
 export namespace MappingTreeData {
-  export function of(tree?: Variable[]): MappingTreeData[] {
-    if (!tree) {
-      return [];
-    }
-    const treeData = tree?.map(node => {
-      return { ...node, value: '', children: of(node.children) };
-    });
-    return treeData;
+  export function of(paramInfo: MappingInfo): MappingTreeData[] {
+    return paramInfo.variables.map(param => ({
+      ...param,
+      value: '',
+      children: typesOfParam(paramInfo, param.type),
+      isLoaded: true
+    }));
   }
 
-  export function update(tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
-    if (tree.length === 0) {
-      return;
+  export function loadChildrenFor(paramInfo: MappingInfo, paramType: string, tree: MappingTreeData[]): MappingTreeData[] {
+    return tree.map(node => {
+      if (node.isLoaded === false && node.type === paramType) {
+        node.children = typesOfParam(paramInfo, paramType);
+        node.isLoaded = true;
+      } else {
+        loadChildrenFor(paramInfo, paramType, node.children);
+      }
+      return node;
+    });
+  }
+
+  function typesOfParam(paramInfo: MappingInfo, paramType: string): MappingTreeData[] {
+    return (
+      paramInfo.types[paramType]?.map(type => ({
+        ...type,
+        value: '',
+        children: [],
+        isLoaded: paramInfo.types[type.type] === undefined
+      })) ?? []
+    );
+  }
+
+  export function update(paramInfo: MappingInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
+    if (mappingPath.length >= 2 && mappingPath[0] === 'param') {
+      mappingPath.shift();
+      mappingPath[0] = 'param.' + mappingPath[0];
     }
-    tree.forEach(node => {
+    updateValue(paramInfo, tree, mappingPath, mappingValue);
+  }
+
+  function updateValue(paramInfo: MappingInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
+    for (const node of tree) {
       if (node.attribute === mappingPath[0]) {
         mappingPath.shift();
         if (mappingPath.length === 0) {
           node.value = mappingValue;
         } else {
-          update(node.children, mappingPath, mappingValue);
+          if (node.isLoaded === false) {
+            loadChildrenFor(paramInfo, node.type, tree);
+          }
+          return updateValue(paramInfo, node.children, mappingPath, mappingValue);
         }
       }
-    });
+    }
+    addUnknownValue(tree, mappingPath, mappingValue);
+  }
+
+  function addUnknownValue(tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
+    const attribute = mappingPath.shift();
+    if (attribute) {
+      if (mappingPath.length === 0) {
+        tree.push({ attribute: attribute, type: '', simpleType: '', value: mappingValue, children: [], isLoaded: true });
+      } else {
+        const children: MappingTreeData[] = [];
+        tree.push({
+          attribute: attribute,
+          type: '',
+          simpleType: '',
+          value: '',
+          children: children,
+          isLoaded: true
+        });
+        addUnknownValue(children, mappingPath, mappingValue);
+      }
+    }
   }
 
   export function updateDeep(data: MappingTreeData[], rows: number[], columnId: string, value: unknown): MappingTreeData[] {

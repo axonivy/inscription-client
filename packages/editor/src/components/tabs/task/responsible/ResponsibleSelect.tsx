@@ -25,8 +25,10 @@ const RoleSelect = (props: { responsible?: Responsible; updateResponsible: Respo
       )
     );
   }, [client, editorContext.pid]);
-  const selectedRole =
-    useMemo(() => roleItems.find(e => e.value === props.responsible?.activator), [props.responsible?.activator, roleItems]) ?? DEFAULT_ROLE;
+  const selectedRole = useMemo<SelectItem>(
+    () => roleItems.find(e => e.value === props.responsible?.activator) ?? DEFAULT_ROLE,
+    [props.responsible?.activator, roleItems]
+  );
 
   return (
     <Select label='Role' items={roleItems} value={selectedRole} onChange={item => props.updateResponsible.updateActivator(item.value)} />
@@ -68,7 +70,10 @@ const ResponsibleSelect = (props: {
         .map(([value, label]) => ({ label, value })),
     [props.optionFilter]
   );
-  const selectedType = useMemo(() => typeItems.find(e => e.value === props.responsible?.type), [props.responsible?.type, typeItems]);
+  const selectedType = useMemo<SelectItem | undefined>(
+    () => typeItems.find(e => e.value === props.responsible?.type),
+    [props.responsible?.type, typeItems]
+  );
 
   return (
     <div className='responsible-select'>

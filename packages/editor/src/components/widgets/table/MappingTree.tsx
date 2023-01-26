@@ -1,6 +1,6 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 
-import { Mapping, Variable } from '@axonivy/inscription-protocol';
+import { Mapping, MappingInfo } from '@axonivy/inscription-protocol';
 import {
   ColumnDef,
   ExpandedState,
@@ -12,18 +12,28 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { EditableCell } from './cell/EditableCell';
-import { ExpandableCell, ExpandableHeader } from './cell/ExpandableCell';
+import { ExpandableCell } from './cell/ExpandableCell';
 import { Table } from './table/Table';
 import { MappingTreeData } from './mapping-tree-data';
-import { TableHeader } from './header/TableHeader';
+import { ExpandableHeader, TableHeader } from './header/TableHeader';
 import { TableCell } from './cell/TableCell';
 
-const MappingTree = (props: { data: Mapping[]; mappingTree?: Variable[]; onChange: (change: Mapping[]) => void }) => {
-  const data: MappingTreeData[] = useMemo(() => {
-    const treeData = MappingTreeData.of(props.mappingTree);
-    props.data?.forEach(mapping => MappingTreeData.update(treeData, mapping.key.split('.'), mapping.value));
-    return treeData;
-  }, [props.data, props.mappingTree]);
+const MappingTree = (props: { data: Mapping[]; mappingInfo: MappingInfo; onChange: (change: Mapping[]) => void }) => {
+  const [tree, setTree] = useState<MappingTreeData[]>([]);
+
+  useEffect(() => {
+    const treeData = MappingTreeData.of(props.mappingInfo);
+    props.data?.forEach(mapping => MappingTreeData.update(props.mappingInfo, treeData, mapping.key.split('.'), mapping.value));
+    setTree(treeData);
+  }, [props.data, props.mappingInfo]);
+
+  const loadChildren = useCallback(
+    (row: MappingTreeData) => {
+      console.log(row.type);
+      setTree(tree => MappingTreeData.loadChildrenFor(props.mappingInfo, row.type, tree));
+    },
+    [props.mappingInfo, setTree]
+  );
 
   const columns = React.useMemo<ColumnDef<MappingTreeData>[]>(
     () => [
@@ -31,7 +41,14 @@ const MappingTree = (props: { data: Mapping[]; mappingTree?: Variable[]; onChang
         accessorFn: row => row.attribute,
         id: 'attribute',
         header: header => <ExpandableHeader header={header} name='Attribute' />,
-        cell: cell => <ExpandableCell cell={cell} />,
+        cell: cell => (
+          <ExpandableCell
+            cell={cell}
+            isLoaded={cell.row.original.isLoaded}
+            loadChildren={() => loadChildren(cell.row.original)}
+            isUnknown={cell.row.original.type.length === 0}
+          />
+        ),
         footer: props => props.column.id,
         enableSorting: false
       },
@@ -51,14 +68,14 @@ const MappingTree = (props: { data: Mapping[]; mappingTree?: Variable[]; onChang
         footer: props => props.column.id
       }
     ],
-    []
+    [loadChildren]
   );
 
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [expanded, setExpanded] = React.useState<ExpandedState>({ 0: true });
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [expanded, setExpanded] = useState<ExpandedState>(true);
 
   const table = useReactTable({
-    data: data,
+    data: tree,
     columns,
     state: {
       sorting,
@@ -73,7 +90,7 @@ const MappingTree = (props: { data: Mapping[]; mappingTree?: Variable[]; onChang
     meta: {
       updateData: (rowId: string, columnId: string, value: unknown) => {
         const rowIndex = rowId.split('.').map(parseFloat);
-        props.onChange(MappingTreeData.to(MappingTreeData.updateDeep(data, rowIndex, columnId, value)));
+        props.onChange(MappingTreeData.to(MappingTreeData.updateDeep(tree, rowIndex, columnId, value)));
       }
     }
   });

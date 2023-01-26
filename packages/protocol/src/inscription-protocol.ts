@@ -1,5 +1,5 @@
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
-import { DialogStart, ExpiryError, Role, Variable } from './meta/inscription-meta';
+import { DialogStart, ExpiryError, MappingInfo, Role } from './meta/inscription-meta';
 import { InscriptionValidation } from './validation/inscription-validation';
 
 export declare module InscriptionProtocol {
@@ -12,7 +12,7 @@ export declare module InscriptionProtocol {
   export type InscriptionSaveDataArgs = InscriptionSaveData;
   export type InscriptionSaveDataRes = InscriptionValidation[];
 
-  export type DialogStartsArgs = {};
+  export type DialogStartsArgs = { pid: string };
   export type DialogStartsRes = DialogStart[];
 
   export type RolesArgs = { pid: string };
@@ -21,8 +21,8 @@ export declare module InscriptionProtocol {
   export type ExpiryErrorsArgs = { pid: string };
   export type ExpiryErrorsRes = ExpiryError[];
 
-  export type OutMappingArgs = {};
-  export type OutMappingRes = Variable[];
+  export type OutMappingArgs = { pid: string };
+  export type OutMappingRes = MappingInfo;
 }
 
 export interface InscriptionRequestTypes {

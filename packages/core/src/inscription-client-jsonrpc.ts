@@ -7,8 +7,8 @@ import {
   InscriptionRequestTypes,
   InscriptionSaveData,
   InscriptionValidation,
-  Role,
-  Variable
+  MappingInfo,
+  Role
 } from '@axonivy/inscription-protocol';
 import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
 import { Disposable } from 'vscode-ws-jsonrpc';
@@ -41,8 +41,8 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('saveData', { ...args });
   }
 
-  dialogStarts(): Promise<DialogStart[]> {
-    return this.sendRequest('meta/dialog/starts', {});
+  dialogStarts(pid: string): Promise<DialogStart[]> {
+    return this.sendRequest('meta/dialog/starts', { pid });
   }
 
   roles(pid: string): Promise<Role[]> {
@@ -53,8 +53,8 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('meta/workflow/expiryErrors', { pid });
   }
 
-  outMapping(): Promise<Variable[]> {
-    return this.sendRequest('meta/out/map', {});
+  outMapping(pid: string): Promise<MappingInfo> {
+    return this.sendRequest('meta/out/map', { pid });
   }
 
   sendRequest<K extends keyof InscriptionRequestTypes>(

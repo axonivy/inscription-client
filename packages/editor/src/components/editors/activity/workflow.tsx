@@ -23,7 +23,7 @@ const UserTaskEditor = memo(() => {
 
 const ScriptEditor = memo(() => {
   const nameTab = useNameTab();
-  const outputTab = useOutputTab();
+  const outputTab = useOutputTab({ hideCode: true });
   const codeTab = useCodeTab();
   return <InscriptionEditor icon={IvyIcons.Script} tabs={[nameTab, outputTab, codeTab]} />;
 });

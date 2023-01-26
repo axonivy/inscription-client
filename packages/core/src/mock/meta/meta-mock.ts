@@ -1,35 +1,108 @@
-import { DialogStart, ExpiryError, Role, Variable } from '@axonivy/inscription-protocol';
+import { DialogStart, ExpiryError, MappingInfo, Role } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
-  const USER_DIALOG_MAPPING: Variable[] = [
-    {
-      attribute: 'param',
-      type: '<workflow.humantask.ProcurementRequest procurementRequest>',
-      simpleType: '<ProcurementRequest>',
-      children: [
-        {
-          attribute: 'procurementRequest',
-          type: 'workflow.humantask.ProcurementRequest',
-          simpleType: 'ProcurementRequest',
-          children: [
-            { attribute: 'accepted', type: 'java.lang.Boolean', simpleType: 'Boolean', children: [] },
-            { attribute: 'amount', type: 'java.lang.Number', simpleType: 'Number', children: [] }
-          ]
-        }
-      ]
-    }
-  ];
+  const MAP_INFO_TYPES = {
+    'workflow.humantask.ProcurementRequest': [
+      {
+        attribute: 'accepted',
+        type: 'Boolean',
+        simpleType: 'Boolean'
+      },
+      {
+        attribute: 'activityLog',
+        type: 'List<workflow.humantask.LogEntry>',
+        simpleType: 'List<LogEntry>'
+      },
+      {
+        attribute: 'amount',
+        type: 'Number',
+        simpleType: 'Number'
+      },
+      {
+        attribute: 'dataOkManager',
+        type: 'Boolean',
+        simpleType: 'Boolean'
+      },
+      {
+        attribute: 'dataOkTeamLeader',
+        type: 'Boolean',
+        simpleType: 'Boolean'
+      },
+      {
+        attribute: 'description',
+        type: 'String',
+        simpleType: 'String'
+      },
+      {
+        attribute: 'notes',
+        type: 'String',
+        simpleType: 'String'
+      },
+      {
+        attribute: 'pricePerUnit',
+        type: 'Number',
+        simpleType: 'Number'
+      },
+      {
+        attribute: 'requester',
+        type: 'workflow.humantask.User',
+        simpleType: 'User'
+      },
+      {
+        attribute: 'totalPrice',
+        type: 'Number',
+        simpleType: 'Number'
+      }
+    ],
+    'workflow.humantask.User': [
+      {
+        attribute: 'email',
+        type: 'String',
+        simpleType: 'String'
+      },
+      {
+        attribute: 'fullName',
+        type: 'String',
+        simpleType: 'String'
+      },
+      {
+        attribute: 'role',
+        type: 'String',
+        simpleType: 'String'
+      }
+    ]
+  };
+
+  export const OUT_MAP_INFO: MappingInfo = {
+    variables: [
+      {
+        attribute: 'out',
+        type: 'workflow.humantask.ProcurementRequest',
+        simpleType: 'ProcurementRequest'
+      }
+    ],
+    types: MAP_INFO_TYPES
+  };
 
   export const DIALOG_STARTS: DialogStart[] = [
     {
-      id: 'workflow.humantask.AcceptRequest:start()',
-      dialog: 'workflow.humantask.AcceptRequest:start()',
+      id: 'workflow.humantask.AcceptRequest:start(workflow.humantask.ProcurementRequest)',
       dialogName: 'AcceptRequest',
-      startName: 'start():ProcurementRequest,LogEntry',
-      description: '',
       packageName: 'workflow.humantask',
+      description: '',
+      dialog: 'workflow.humantask.AcceptRequest:start(workflow.humantask.ProcurementRequest)',
+      startName: 'start(workflow.humantask.ProcurementRequest)',
       project: 'workflow-demos',
-      callParameter: USER_DIALOG_MAPPING
+      callParameter: {
+        variables: [
+          {
+            attribute: 'param.procurementRequest',
+            type: 'workflow.humantask.ProcurementRequest',
+            simpleType: 'ProcurementRequest'
+          }
+        ],
+        types: MAP_INFO_TYPES
+      }
     },
     {
       id: 'workflow.humantask.AcceptRequest:start2()',
@@ -39,7 +112,10 @@ export namespace MetaMock {
       description: '',
       packageName: 'workflow.humantask',
       project: 'workflow-demos',
-      callParameter: []
+      callParameter: {
+        variables: [],
+        types: {}
+      }
     },
     {
       id: 'demo.test1:start()',
@@ -49,7 +125,24 @@ export namespace MetaMock {
       description: '',
       packageName: 'demo',
       project: 'demo',
-      callParameter: []
+      callParameter: {
+        variables: [
+          {
+            attribute: 'param.Endless',
+            type: 'demo.Endless',
+            simpleType: 'Endless'
+          }
+        ],
+        types: {
+          'demo.Endless': [
+            {
+              attribute: 'endless',
+              type: 'demo.Endless',
+              simpleType: 'Endless'
+            }
+          ]
+        }
+      }
     }
   ];
 

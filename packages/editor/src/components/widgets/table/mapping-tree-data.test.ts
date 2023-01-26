@@ -1,47 +1,85 @@
-import { Mapping } from '@axonivy/inscription-protocol';
-import { Variable } from '@axonivy/inscription-protocol';
+import { Mapping, MappingInfo } from '@axonivy/inscription-protocol';
 import { MappingTreeData } from './mapping-tree-data';
 
 describe('MappingTreeData', () => {
-  const treeData: Variable[] = [
-    {
-      attribute: 'param',
-      type: '<workflow.humantask.ProcurementRequest procurementRequest>',
-      simpleType: '<ProcurementRequest>',
-      children: [
+  const mappingInfo: MappingInfo = {
+    variables: [
+      {
+        attribute: 'param.procurementRequest',
+        type: 'workflow.humantask.ProcurementRequest',
+        simpleType: 'ProcurementRequest'
+      }
+    ],
+    types: {
+      'workflow.humantask.ProcurementRequest': [
         {
-          attribute: 'procurementRequest',
-          type: 'workflow.humantask.ProcurementRequest',
-          simpleType: 'ProcurementRequest',
-          children: [
-            { attribute: 'accepted', type: 'java.lang.Boolean', simpleType: 'Boolean', children: [] },
-            { attribute: 'amount', type: 'java.lang.Number', simpleType: 'Number', children: [] }
-          ]
+          attribute: 'accepted',
+          type: 'Boolean',
+          simpleType: 'Boolean'
+        },
+        {
+          attribute: 'amount',
+          type: 'Number',
+          simpleType: 'Number'
+        },
+        {
+          attribute: 'requester',
+          type: 'workflow.humantask.User',
+          simpleType: 'User'
+        }
+      ],
+      'workflow.humantask.User': [
+        {
+          attribute: 'email',
+          type: 'String',
+          simpleType: 'String'
         }
       ]
     }
-  ];
+  };
+
+  const endlessParamInfo: MappingInfo = {
+    variables: [
+      {
+        attribute: 'param.Endless',
+        type: 'demo.Endless',
+        simpleType: 'Endless'
+      }
+    ],
+    types: {
+      'demo.Endless': [
+        {
+          attribute: 'endless',
+          type: 'demo.Endless',
+          simpleType: 'Endless'
+        }
+      ]
+    }
+  };
 
   const tree: MappingTreeData[] = [
     {
-      attribute: 'param',
+      attribute: 'param.procurementRequest',
       children: [
-        {
-          attribute: 'procurementRequest',
-          children: [
-            { attribute: 'accepted', children: [], value: '', type: 'java.lang.Boolean', simpleType: 'Boolean' },
-            { attribute: 'amount', children: [], value: '', type: 'java.lang.Number', simpleType: 'Number' }
-          ],
-          value: '',
-          type: 'workflow.humantask.ProcurementRequest',
-          simpleType: 'ProcurementRequest'
-        }
+        { attribute: 'accepted', children: [], value: '', type: 'Boolean', simpleType: 'Boolean', isLoaded: true },
+        { attribute: 'amount', children: [], value: '', type: 'Number', simpleType: 'Number', isLoaded: true },
+        { attribute: 'requester', children: [], value: '', type: 'workflow.humantask.User', simpleType: 'User', isLoaded: false }
       ],
       value: '',
-      type: '<workflow.humantask.ProcurementRequest procurementRequest>',
-      simpleType: '<ProcurementRequest>'
+      type: 'workflow.humantask.ProcurementRequest',
+      simpleType: 'ProcurementRequest',
+      isLoaded: true
     }
   ];
+
+  const email_node: MappingTreeData = {
+    attribute: 'email',
+    children: [],
+    isLoaded: true,
+    simpleType: 'String',
+    type: 'String',
+    value: ''
+  };
 
   function mappingTreeMultiRootData(): MappingTreeData[] {
     return JSON.parse(
@@ -58,33 +96,114 @@ describe('MappingTreeData', () => {
   }
 
   test('of', () => {
-    expect(MappingTreeData.of(treeData)).toEqual(tree);
+    expect(MappingTreeData.of(mappingInfo)).toEqual(tree);
+  });
+
+  test('of with lazy loading', () => {
+    const treeData = MappingTreeData.of(mappingInfo);
+    MappingTreeData.loadChildrenFor(mappingInfo, 'workflow.humantask.User', treeData);
+
+    const expectTree = JSON.parse(JSON.stringify(tree));
+
+    expectTree[0].children[2].isLoaded = true;
+    expectTree[0].children[2].children = [email_node];
+
+    expect(treeData).toEqual(expectTree);
+  });
+
+  test('of endless', () => {
+    let treeData = MappingTreeData.of(endlessParamInfo);
+    const endlessNode = {
+      attribute: 'endless',
+      children: [] as MappingTreeData[],
+      isLoaded: false,
+      simpleType: 'Endless',
+      type: 'demo.Endless',
+      value: ''
+    };
+    let expectTree = [
+      {
+        attribute: 'param.Endless',
+        children: [{ ...endlessNode }],
+        isLoaded: true,
+        simpleType: 'Endless',
+        type: 'demo.Endless',
+        value: ''
+      }
+    ];
+    expect(treeData).toEqual(expectTree);
+
+    MappingTreeData.loadChildrenFor(endlessParamInfo, 'demo.Endless', treeData);
+    expectTree[0].children[0].isLoaded = true;
+    expectTree[0].children[0].children = [{ ...endlessNode }];
+    expect(treeData).toEqual(expectTree);
+
+    MappingTreeData.loadChildrenFor(endlessParamInfo, 'demo.Endless', treeData);
+    expectTree[0].children[0].children[0].isLoaded = true;
+    expectTree[0].children[0].children[0].children = [{ ...endlessNode }];
+    expect(treeData).toEqual(expectTree);
+
+    MappingTreeData.loadChildrenFor(endlessParamInfo, 'demo.Endless', treeData);
+    expectTree[0].children[0].children[0].children[0].isLoaded = true;
+    expectTree[0].children[0].children[0].children[0].children = [{ ...endlessNode }];
+    expect(treeData).toEqual(expectTree);
   });
 
   test('update', () => {
     const resultTree = mappingTreeMultiRootData();
     const tree = JSON.parse(JSON.stringify(resultTree));
-    MappingTreeData.update(tree, ['param', 'procurementRequest'], 'in');
-    MappingTreeData.update(tree, ['param', 'procurementRequest', 'amount'], '12');
-    MappingTreeData.update(tree, ['dummy'], 'dummy');
+    MappingTreeData.update(mappingInfo, tree, ['param', 'procurementRequest'], 'in');
+    MappingTreeData.update(mappingInfo, tree, ['param', 'procurementRequest', 'amount'], '12');
+    MappingTreeData.update(mappingInfo, tree, ['dummy'], 'dummy');
 
     expect(tree).not.toEqual(resultTree);
-    resultTree[0].children[0].value = 'in';
-    resultTree[0].children[0].children[1].value = '12';
+    resultTree[0].value = 'in';
+    resultTree[0].children[1].value = '12';
     resultTree[1].value = 'dummy';
     expect(tree).toEqual(resultTree);
+  });
+
+  test('update should load lazy node', () => {
+    const treeData = MappingTreeData.of(mappingInfo);
+    MappingTreeData.update(mappingInfo, treeData, ['param', 'procurementRequest', 'requester', 'email'], 'luke@skywalker.com');
+
+    const expectTree = JSON.parse(JSON.stringify(tree));
+    expectTree[0].children[2].isLoaded = true;
+    expectTree[0].children[2].children = [{ ...email_node, value: 'luke@skywalker.com' }];
+
+    expect(treeData).toEqual(expectTree);
+  });
+
+  test('update unknown mapping', () => {
+    const treeData = MappingTreeData.of(mappingInfo);
+    MappingTreeData.update(mappingInfo, treeData, ['dummy'], 'dummy');
+    MappingTreeData.update(mappingInfo, treeData, ['param', 'unknown'], 'unknown value');
+    MappingTreeData.update(mappingInfo, treeData, ['param', 'unknown', 'deep'], 'unknown deep value');
+
+    const expectTree = JSON.parse(JSON.stringify(tree));
+    expectTree[1] = { attribute: 'dummy', children: [], value: 'dummy', type: '', simpleType: '', isLoaded: true };
+    expectTree[2] = {
+      attribute: 'param.unknown',
+      children: [{ attribute: 'deep', children: [], value: 'unknown deep value', type: '', simpleType: '', isLoaded: true }],
+      value: 'unknown value',
+      type: '',
+      simpleType: '',
+      isLoaded: true
+    };
+
+    expect(treeData).toEqual(expectTree);
   });
 
   test('update deep', () => {
     const resultTree = mappingTreeMultiRootData();
     let tree = JSON.parse(JSON.stringify(resultTree));
     tree = MappingTreeData.updateDeep(tree, [0], 'value', 'root');
-    tree = MappingTreeData.updateDeep(tree, [0, 0, 1], 'value', '12');
+    tree = MappingTreeData.updateDeep(tree, [0, 1], 'value', '12');
     tree = MappingTreeData.updateDeep(tree, [1], 'value', 'dummy');
 
     expect(tree).not.toEqual(resultTree);
     resultTree[0].value = 'root';
-    resultTree[0].children[0].children[1].value = '12';
+    resultTree[0].children[1].value = '12';
     resultTree[1].value = 'dummy';
     expect(tree).toEqual(resultTree);
   });
@@ -94,10 +213,10 @@ describe('MappingTreeData', () => {
     expect(MappingTreeData.to(tree)).toEqual([]);
 
     tree[0].value = 'root';
-    tree[0].children[0].children[1].value = '12';
+    tree[0].children[1].value = '12';
     tree[1].value = 'dummy';
     const mapping = MappingTreeData.to(tree);
-    assertDataMapping(mapping[0], { key: 'param', value: 'root' });
+    assertDataMapping(mapping[0], { key: 'param.procurementRequest', value: 'root' });
     assertDataMapping(mapping[1], { key: 'param.procurementRequest.amount', value: '12' });
     assertDataMapping(mapping[2], { key: 'dummy', value: 'dummy' });
   });

@@ -1,24 +1,19 @@
 import './ExpandableCell.css';
-import { CellContext, HeaderContext } from '@tanstack/react-table';
+import { CellContext } from '@tanstack/react-table';
 
-export function ExpandableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string }) {
-  const table = props.header.table;
-  return (
-    <>
-      <button
-        className='column-expand-button'
-        aria-label={table.getIsAllRowsExpanded() ? 'Collapse tree' : 'Expand tree'}
-        {...{ onClick: table.getToggleAllRowsExpandedHandler() }}
-      >
-        {table.getIsAllRowsExpanded() ? '🔽' : '▶️'}
-      </button>{' '}
-      <span>{props.name}</span>
-    </>
-  );
-}
-
-export function ExpandableCell<TData>(props: { cell: CellContext<TData, unknown> }) {
+export function ExpandableCell<TData>(props: {
+  cell: CellContext<TData, unknown>;
+  isLoaded?: boolean;
+  loadChildren?: () => void;
+  isUnknown?: boolean;
+}) {
   const row = props.cell.row;
+  const onClick = () => {
+    if (props.isLoaded === false && props.loadChildren) {
+      props.loadChildren();
+    }
+    row.toggleExpanded(true);
+  };
   return (
     <div style={{ paddingLeft: `${row.depth}rem` }}>
       {row.getCanExpand() ? (
@@ -29,6 +24,12 @@ export function ExpandableCell<TData>(props: { cell: CellContext<TData, unknown>
         >
           {row.getIsExpanded() ? '🔽' : '▶️'}
         </button>
+      ) : props.isLoaded === false ? (
+        <button className='row-expand-button' aria-label='Expand row' onClick={onClick}>
+          ▶️
+        </button>
+      ) : props.isUnknown === true ? (
+        '⛔'
       ) : (
         '🔵'
       )}{' '}

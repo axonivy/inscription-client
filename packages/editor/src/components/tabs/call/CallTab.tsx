@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useClient, useValidation } from '../../../context';
+import { useClient, useEditorContext, useValidation } from '../../../context';
 import SelectDialogPart, { DialogStartItem } from './SelectDialogPart';
 import { TabProps, useTabState } from '../../props';
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import { InscriptionValidation, MappingInfo } from '@axonivy/inscription-protocol';
 import { CollapsiblePart } from '../../../components/widgets';
 import MappingTreeWithCode from './MappingTreeWithCode';
 import { useCallData } from './useCallData';
@@ -23,20 +23,22 @@ const CallTab = () => {
   const [dialogStartItems, setDialogStartItems] = useState<DialogStartItem[]>([]);
   const [dialogValidation] = useCallTabValidation();
 
+  const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.dialogStarts().then(dialogStarts =>
+    client.dialogStarts(editorContext.pid).then(dialogStarts =>
       setDialogStartItems(
         dialogStarts.map(dialogStart => {
           return { ...dialogStart, value: dialogStart.id };
         })
       )
     );
-  }, [client]);
+  }, [client, editorContext.pid]);
 
-  const mappingTree = useMemo(() => {
-    return dialogStartItems.find(ds => ds.id === data.config.dialog)?.callParameter;
-  }, [data.config.dialog, dialogStartItems]);
+  const mappingInfo = useMemo<MappingInfo>(
+    () => dialogStartItems.find(ds => ds.id === data.config.dialog)?.callParameter ?? { variables: [], types: {} },
+    [data.config.dialog, dialogStartItems]
+  );
 
   return (
     <>
@@ -47,7 +49,7 @@ const CallTab = () => {
         message={dialogValidation}
       />
       <CollapsiblePart collapsibleLabel='Mapping of process to dialog data' defaultOpen={true}>
-        <MappingTreeWithCode mappingTree={mappingTree} />
+        <MappingTreeWithCode mappingInfo={mappingInfo} />
       </CollapsiblePart>
     </>
   );
