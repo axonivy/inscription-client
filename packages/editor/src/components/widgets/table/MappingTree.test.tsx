@@ -11,6 +11,7 @@ describe('MappingTree', () => {
   const EXP_ATTRIBUTES = /🔽 Attribute/;
   const COL_PARAMS = /▶️ param.procurementRequest/;
   const EXP_PARAMS = /🔽 param.procurementRequest/;
+  const NODE_PARAMS = /🔵 param.procurementRequest/;
   const NODE_BOOLEAN = /🔵 accepted Boolean/;
   const NODE_NUMBER = /🔵 amount Number/;
   const COL_USER = /▶️ requester workflow.humantask.User/;
@@ -123,6 +124,40 @@ describe('MappingTree', () => {
     expect(inputs[2]).toHaveValue('123');
     assertDataMapping(view.data()[0], { key: 'param.procurementRequest', value: 'in' });
     assertDataMapping(view.data()[1], { key: 'param.procurementRequest.amount', value: '123' });
+  });
+
+  test('tree will filter', async () => {
+    renderTree();
+    expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
+    const toggleFilter = screen.getByRole('button', { name: 'Toggle Search' });
+    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+
+    await userEvent.click(toggleFilter);
+    const searchInput = screen.getByPlaceholderText('Search');
+    expect(searchInput).toHaveValue('');
+
+    await userEvent.type(searchInput, 'amo');
+    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_NUMBER]);
+
+    await userEvent.click(toggleFilter);
+    expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
+    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+
+    await userEvent.click(toggleFilter);
+    expect(screen.getByPlaceholderText('Search')).toHaveValue('');
+  });
+
+  test('tree will show only inscribed values', async () => {
+    renderTree();
+    expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
+    const toggleInscribed = screen.getByRole('button', { name: 'Toggle Inscribed' });
+    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+
+    await userEvent.click(toggleInscribed);
+    assertTableRows([EXP_ATTRIBUTES, NODE_PARAMS]);
+
+    await userEvent.click(toggleInscribed);
+    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
   });
 
   test('tree support readonly mode', async () => {
