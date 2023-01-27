@@ -59,7 +59,7 @@ describe('MappingTree', () => {
   } {
     userEvent.setup();
     let data: Mapping[] = initData ?? [{ key: 'param.procurementRequest', value: 'in' }];
-    render(<MappingTree data={data} mappingInfo={mappingInfo} onChange={(change: Mapping[]) => (data = change)} />);
+    render(<MappingTree data={data} mappingInfo={mappingInfo} onChange={(change: Mapping[]) => (data = change)} location='test' />);
     return {
       data: () => data
     };
@@ -90,6 +90,7 @@ describe('MappingTree', () => {
   test('tree will render unknown values', () => {
     renderTree([{ key: 'bla', value: 'unknown value' }]);
     assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER, /⛔ bla unknown value/]);
+    expect(screen.getByDisplayValue('unknown value')).toBeDisabled();
   });
 
   test('tree can expand / collapse', async () => {
@@ -118,10 +119,15 @@ describe('MappingTree', () => {
     const inputs = screen.getAllByRole('textbox');
     expect(inputs).toHaveLength(5);
 
-    await userEvent.type(inputs[2], '123');
+    await userEvent.click(inputs[2]);
+    const mockInput = screen.getByTestId('code-editor');
+    expect(mockInput).toHaveValue('');
+    await userEvent.type(mockInput, '123');
     await userEvent.tab();
+    expect(screen.queryByTestId('code-editor')).not.toBeInTheDocument();
+
     expect(inputs[0]).toHaveValue('in');
-    expect(inputs[2]).toHaveValue('123');
+    expect(screen.getAllByRole('textbox')[2]).toHaveValue('123');
     assertDataMapping(view.data()[0], { key: 'param.procurementRequest', value: 'in' });
     assertDataMapping(view.data()[1], { key: 'param.procurementRequest.amount', value: '123' });
   });
@@ -163,7 +169,7 @@ describe('MappingTree', () => {
   test('tree support readonly mode', async () => {
     render(
       <EditorContextInstance.Provider value={{ ...DEFAULT_EDITOR_CONTEXT, readonly: true }}>
-        <MappingTree data={[]} mappingInfo={mappingInfo} onChange={() => {}} />
+        <MappingTree data={[]} mappingInfo={mappingInfo} onChange={() => {}} location='' />
       </EditorContextInstance.Provider>
     );
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();

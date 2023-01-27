@@ -16,7 +16,6 @@ export async function start(): Promise<void> {
   MonacoUtil.initStandalone();
   const root = ReactDOM.createRoot(document.getElementById('root')!);
 
-  console.log('Use Inscription client mock');
   const inscriptionClient = new InscriptionClientMock(readonly, type);
 
   root.render(

@@ -25,12 +25,7 @@ const CodeTab = () => {
   return (
     <>
       <LabelInput label='Code' htmlFor='code'>
-        <CodeEditor
-          code={data.config.output?.code ?? ''}
-          onChange={code => updateCode(code ?? '')}
-          location='output.code'
-          resizable={true}
-        />
+        <CodeEditor code={data.config.output?.code ?? ''} onChange={updateCode} location='output.code' resizable={true} />
       </LabelInput>
       <Checkbox
         label='Disable Permission Checks (Execute this Script Step as SYSTEM)'

@@ -19,13 +19,13 @@ describe('LabelInput', () => {
   });
 
   test('label input will render message', () => {
-    renderLabelInput({ field: 'input', message: 'this is a error', severity: 'error' });
+    renderLabelInput({ message: 'this is a error', severity: 'error' });
     expect(screen.getByText('this is a error')).toHaveClass('input-message', 'input-error');
 
-    renderLabelInput({ field: 'input', message: 'this is a warning', severity: 'warning' });
+    renderLabelInput({ message: 'this is a warning', severity: 'warning' });
     expect(screen.getByText('this is a warning')).toHaveClass('input-message', 'input-warning');
 
-    renderLabelInput({ field: 'input', message: 'this is a info', severity: 'info' });
+    renderLabelInput({ message: 'this is a info', severity: 'info' });
     expect(screen.getByText('this is a info')).toHaveClass('input-message', 'input-info');
   });
 });

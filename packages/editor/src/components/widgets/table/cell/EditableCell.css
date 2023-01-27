@@ -4,8 +4,9 @@
 .table-cell .input {
   background-color: var(--table-row-bg);
   padding: 5px;
+  width: calc(100% - 10px);
 }
-.table-cell .input:hover,
-.table-cell .input:focus {
+.table-cell .input:where(:hover, :focus),
+.table-cell .code-editor .input {
   background-color: var(--input-bg);
 }

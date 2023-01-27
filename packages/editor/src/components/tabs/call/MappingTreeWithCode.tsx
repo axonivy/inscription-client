@@ -8,9 +8,9 @@ const MappingTreeWithCode = (props: { mappingInfo: MappingInfo }) => {
 
   return (
     <>
-      <MappingTree data={data.config.call?.map ?? []} mappingInfo={props.mappingInfo} onChange={updateMap} />
+      <MappingTree data={data.config.call?.map ?? []} mappingInfo={props.mappingInfo} onChange={updateMap} location='call.code' />
       <LabelInput label='Code' htmlFor='code'>
-        <CodeEditor code={data.config.call?.code ?? ''} onChange={code => updateCode(code ?? '')} location='call.code' />
+        <CodeEditor code={data.config.call?.code ?? ''} onChange={updateCode} location='call.code' />
       </LabelInput>
     </>
   );
