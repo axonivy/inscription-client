@@ -18,7 +18,6 @@ export async function start(): Promise<void> {
   try {
     await IvyScriptLanguage.startWebSocketClient(`ws://${server}/ivy-script-lsp`);
     const client = await InscriptionClientJsonRpc.startWebSocketClient(`ws://${server}/ivy-inscription-lsp`);
-    console.log(`Inscription client initialized: ${await client.initialize()}`);
 
     root.render(
       <React.StrictMode>

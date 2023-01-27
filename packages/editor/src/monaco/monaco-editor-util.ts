@@ -20,6 +20,30 @@ export const MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions 
   renderWhitespace: 'all'
 };
 
+export const SINGLE_LINE_MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
+  ...MONACO_OPTIONS,
+  overviewRulerLanes: 0,
+  overviewRulerBorder: false,
+  hideCursorInOverviewRuler: true,
+  scrollBeyondLastColumn: 0,
+  scrollbar: {
+    horizontal: 'hidden',
+    vertical: 'hidden',
+    alwaysConsumeMouseWheel: false
+  },
+  find: {
+    addExtraSpaceOnTop: false,
+    autoFindInSelection: 'never',
+    seedSearchStringFromSelection: 'never'
+  },
+  // wordBasedSuggestions: false,
+  links: false,
+  renderLineHighlight: 'none',
+  contextmenu: false,
+  // roundedSelection: false,
+  fixedOverflowWidgets: true
+};
+
 export namespace MonacoEditorUtil {
   export function initMonaco(monaco: Monaco, theme: ThemeContext) {
     loader.config({ monaco });

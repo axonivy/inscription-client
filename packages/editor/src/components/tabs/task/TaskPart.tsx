@@ -45,7 +45,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
       <ExpiryPart />
       <CustomFieldPart customFields={task.customFields} updateCustomFields={updateCustomFields} />
       <CollapsiblePart collapsibleLabel='Code' defaultOpen={false}>
-        <CodeEditor code={task.code ?? ''} onChange={code => updateCode(code ?? '')} location='task.code' />
+        <CodeEditor code={task.code ?? ''} onChange={updateCode} location='task.code' />
       </CollapsiblePart>
     </>
   );

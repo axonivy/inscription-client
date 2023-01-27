@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Mapping, MappingInfo } from '@axonivy/inscription-protocol';
 import {
   ColumnDef,
@@ -12,7 +12,6 @@ import {
   SortingState,
   useReactTable
 } from '@tanstack/react-table';
-import { EditableCell } from './cell/EditableCell';
 import { ExpandableCell } from './cell/ExpandableCell';
 import { Table } from './table/Table';
 import { MappingTreeData } from './mapping-tree-data';
@@ -21,8 +20,9 @@ import { TableCell } from './cell/TableCell';
 import Input from '../input/Input';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { LabelWithControls, Control } from '../label';
+import { CodeEditorCell } from './cell/CodeEditorCell';
 
-const MappingTree = (props: { data: Mapping[]; mappingInfo: MappingInfo; onChange: (change: Mapping[]) => void }) => {
+const MappingTree = (props: { data: Mapping[]; mappingInfo: MappingInfo; onChange: (change: Mapping[]) => void; location: string }) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
   const [showGlobalFilter, setShowGlobalFilter] = useState(false);
   const [showOnlyInscribed, setShowOnlyInscribed] = useState(false);
@@ -33,15 +33,12 @@ const MappingTree = (props: { data: Mapping[]; mappingInfo: MappingInfo; onChang
     setTree(treeData);
   }, [props.data, props.mappingInfo]);
 
-  const loadChildren = useCallback(
-    (row: MappingTreeData) => {
-      console.log(row.type);
-      setTree(tree => MappingTreeData.loadChildrenFor(props.mappingInfo, row.type, tree));
-    },
+  const loadChildren = useCallback<(row: MappingTreeData) => void>(
+    row => setTree(tree => MappingTreeData.loadChildrenFor(props.mappingInfo, row.type, tree)),
     [props.mappingInfo, setTree]
   );
 
-  const columns = React.useMemo<ColumnDef<MappingTreeData>[]>(
+  const columns = useMemo<ColumnDef<MappingTreeData>[]>(
     () => [
       {
         accessorFn: row => row.attribute,
@@ -70,18 +67,18 @@ const MappingTree = (props: { data: Mapping[]; mappingInfo: MappingInfo; onChang
         accessorFn: row => row.value,
         id: 'value',
         header: () => <span>Expression</span>,
-        cell: cell => <EditableCell cell={cell} />,
+        cell: cell => <CodeEditorCell cell={cell} type={cell.row.original.type} location={props.location} />,
         footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
       }
     ],
-    [loadChildren]
+    [loadChildren, props.location]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [expanded, setExpanded] = useState<ExpandedState>(true);
   const [globalFilter, setGlobalFilter] = useState('');
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const tableControls: Control[] = [
     {

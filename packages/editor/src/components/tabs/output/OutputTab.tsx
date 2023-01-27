@@ -21,10 +21,10 @@ const OutputTab = (props: { showCode?: boolean }) => {
 
   return (
     <>
-      <MappingTree data={data.config.output?.map ?? []} mappingInfo={mappingInfo} onChange={updateMap} />
+      <MappingTree data={data.config.output?.map ?? []} mappingInfo={mappingInfo} onChange={updateMap} location='output.code' />
       {props.showCode && (
         <LabelInput label='Code' htmlFor='code'>
-          <CodeEditor code={data.config.output?.code ?? ''} onChange={code => updateCode(code ?? '')} location='call.code' />
+          <CodeEditor code={data.config.output?.code ?? ''} onChange={updateCode} location='output.code' />
         </LabelInput>
       )}
     </>
