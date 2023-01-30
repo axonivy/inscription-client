@@ -42,7 +42,7 @@ export function CodeEditorCell<TData>(props: { cell: CellContext<TData, unknown>
           value={value as string}
           onChange={e => setValue(e.target.value)}
           onClick={() => setIsActive(true)}
-          disabled={readonly || props.type.length === 0}
+          disabled={readonly}
         />
       )}
     </>
