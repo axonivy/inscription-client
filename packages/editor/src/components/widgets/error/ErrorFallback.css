@@ -1,0 +1,13 @@
+.error-fallback {
+  display: flex;
+  flex-direction: column;
+}
+.error-fallback p {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.error-fallback p:not(:first-child) {
+  font-size: 14px;
+}

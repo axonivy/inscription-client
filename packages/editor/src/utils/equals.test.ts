@@ -10,6 +10,9 @@ describe('equals', () => {
     expect(deepEqual({ a: [] }, { a: [] })).toBeTruthy();
     expect(deepEqual({ a: ['a', 'b'] }, { a: ['a', 'b'] })).toBeTruthy();
 
+    expect(deepEqual(['a', 'b'], ['a', 'b'])).toBeTruthy();
+    expect(deepEqual(['a', [true, false]], ['a', [true, false]])).toBeTruthy();
+
     expect(deepEqual({ a: { b: [{ c: 'c' }] } }, { a: { b: [{ c: 'c' }] } })).toBeTruthy();
   });
 
@@ -20,5 +23,10 @@ describe('equals', () => {
     expect(deepEqual({ a: { b: [{ c: 'c' }] } }, { a: { b: [] } })).toBeFalsy();
     expect(deepEqual({ a: { b: [{ c: 'c' }] } }, { a: { b: [{ c: 'c' }, { d: 'd' }] } })).toBeFalsy();
     expect(deepEqual({ a: { b: [{ c: 'c' }] } }, { a: { b: [{ d: 'd' }] } })).toBeFalsy();
+
+    expect(deepEqual(['a'], ['a', 'b'])).toBeFalsy();
+    expect(deepEqual(['a', 'b'], ['a,b'])).toBeFalsy();
+    expect(deepEqual(['a', [true, false]], ['a', [true, true]])).toBeFalsy();
+    expect(deepEqual(['a', [true, false]], ['a', [true, [false]]])).toBeFalsy();
   });
 });

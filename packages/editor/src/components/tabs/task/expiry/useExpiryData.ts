@@ -9,6 +9,7 @@ import { ResponsibleUpdater } from '../responsible/ResponsibleSelect';
 export function useExpiryData(): {
   task: Task;
   updateTimeout: Consumer<string>;
+  updateError: Consumer<string>;
   updateResponsible: ResponsibleUpdater;
   updatePriority: PriorityUpdater;
 } {
@@ -17,11 +18,18 @@ export function useExpiryData(): {
   const updateTimeout = useCallback<Consumer<string>>(
     timeout =>
       setTask(
-        produce<Task>(draft => {
-          if (!draft.expiry) {
-            draft.expiry = {};
-          }
+        produce(draft => {
           draft.expiry.timeout = timeout;
+        })
+      ),
+    [setTask]
+  );
+
+  const updateError = useCallback<Consumer<string>>(
+    error =>
+      setTask(
+        produce(draft => {
+          draft.expiry.error = error;
         })
       ),
     [setTask]
@@ -30,13 +38,7 @@ export function useExpiryData(): {
   const updateType = useCallback<Consumer<ResponsibleType>>(
     type =>
       setTask(
-        produce<Task>(draft => {
-          if (!draft.expiry) {
-            draft.expiry = {};
-          }
-          if (!draft.expiry.responsible) {
-            draft.expiry.responsible = {};
-          }
+        produce(draft => {
           draft.expiry.responsible.type = type;
         })
       ),
@@ -46,13 +48,7 @@ export function useExpiryData(): {
   const updateActivator = useCallback<Consumer<string>>(
     activator =>
       setTask(
-        produce<Task>(draft => {
-          if (!draft.expiry) {
-            draft.expiry = {};
-          }
-          if (!draft.expiry.responsible) {
-            draft.expiry.responsible = {};
-          }
+        produce(draft => {
           draft.expiry.responsible.activator = activator;
         })
       ),
@@ -62,13 +58,7 @@ export function useExpiryData(): {
   const updateLevel = useCallback<Consumer<PriorityLevel>>(
     level =>
       setTask(
-        produce<Task>(draft => {
-          if (!draft.expiry) {
-            draft.expiry = {};
-          }
-          if (!draft.expiry.priority) {
-            draft.expiry.priority = {};
-          }
+        produce(draft => {
           draft.expiry.priority.level = level;
         })
       ),
@@ -78,18 +68,18 @@ export function useExpiryData(): {
   const updateScript = useCallback<Consumer<string>>(
     script =>
       setTask(
-        produce<Task>(draft => {
-          if (!draft.expiry) {
-            draft.expiry = {};
-          }
-          if (!draft.expiry.priority) {
-            draft.expiry.priority = {};
-          }
+        produce(draft => {
           draft.expiry.priority.script = script;
         })
       ),
     [setTask]
   );
 
-  return { task, updateTimeout, updateResponsible: { updateType, updateActivator }, updatePriority: { updateLevel, updateScript } };
+  return {
+    task,
+    updateTimeout,
+    updateError,
+    updateResponsible: { updateType, updateActivator },
+    updatePriority: { updateLevel, updateScript }
+  };
 }

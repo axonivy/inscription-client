@@ -10,7 +10,7 @@ export interface TabProps {
   state?: TabState;
 }
 
-export function useTabState(initData: any, data: any, messages: Message[]): TabState {
+export function useTabState(defaultData: any, data: any, messages: Message[]): TabState {
   return useMemo<TabState>(() => {
     if (messages.find(message => message?.severity === 'error')) {
       return 'error';
@@ -18,6 +18,6 @@ export function useTabState(initData: any, data: any, messages: Message[]): TabS
     if (messages.find(message => message?.severity === 'warning')) {
       return 'warning';
     }
-    return deepEqual(data, initData) ? 'empty' : 'dirty';
-  }, [messages, data, initData]);
+    return deepEqual(data, defaultData) ? 'empty' : 'configured';
+  }, [messages, data, defaultData]);
 }

@@ -16,14 +16,14 @@ const TaskPart = (props: { showPersist?: boolean }) => {
   return (
     <>
       <LabelInput label='Name' htmlFor='name'>
-        <input className='input' id='name' value={task.name ?? ''} onChange={event => updateName(event.target.value)} disabled={readonly} />
+        <input className='input' id='name' value={task.name} onChange={event => updateName(event.target.value)} disabled={readonly} />
       </LabelInput>
       <LabelInput label='Description' htmlFor='description'>
         <textarea
           rows={2}
           className='input'
           id='description'
-          value={task.description ?? ''}
+          value={task.description}
           onChange={event => updateDescription(event.target.value)}
           disabled={readonly}
         />
@@ -32,7 +32,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
         <input
           className='input'
           id='category'
-          value={task.category ?? ''}
+          value={task.category}
           onChange={event => updateCategory(event.target.value)}
           disabled={readonly}
         />
@@ -45,7 +45,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
       <ExpiryPart />
       <CustomFieldPart customFields={task.customFields} updateCustomFields={updateCustomFields} />
       <CollapsiblePart collapsibleLabel='Code' defaultOpen={false}>
-        <CodeEditor code={task.code ?? ''} onChange={updateCode} location='task.code' />
+        <CodeEditor code={task.code} onChange={updateCode} location='task.code' />
       </CollapsiblePart>
     </>
   );

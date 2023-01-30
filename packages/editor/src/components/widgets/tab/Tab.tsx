@@ -12,10 +12,10 @@ export const Tab = (props: { tabs: TabProps[] }) => {
   );
 };
 
-export const TabRoot = (props: { tabs: TabProps[]; children: ReactNode }) => {
+export const TabRoot = (props: { tabs: TabProps[]; value?: string; onValueChange?: (value: string) => void; children: ReactNode }) => {
   const defaultTab = props.tabs.length > 0 ? props.tabs[0].name : '';
   return (
-    <Tabs className='tabs-root' defaultValue={defaultTab}>
+    <Tabs className='tabs-root' defaultValue={defaultTab} value={props.value} onValueChange={props.onValueChange}>
       {props.children}
     </Tabs>
   );

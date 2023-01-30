@@ -1,34 +1,33 @@
-import { PersistTaskData, Task } from '@axonivy/inscription-protocol';
+import { Task, TaskData } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
-import { useDataContext, useTaskDataContext } from '../../../../context';
+import { Consumer } from '../../../../types/lambda';
+import { useConfigDataContext, useTaskDataContext } from '../../../../context';
 
 export function useTaskOptionsData(): {
   task: Task;
-  updateSkipTasklist: (skip: boolean) => void;
-  updateDelay: (delay: string) => void;
+  updateSkipTasklist: Consumer<boolean>;
+  updateDelay: Consumer<string>;
 } {
   const { task, setTask } = useTaskDataContext();
 
-  const updateSkipTasklist = useCallback(
-    (skip: boolean) => {
+  const updateSkipTasklist = useCallback<Consumer<boolean>>(
+    skip =>
       setTask(
-        produce((draft: Task) => {
+        produce(draft => {
           draft.skipTasklist = skip;
         })
-      );
-    },
+      ),
     [setTask]
   );
 
-  const updateDelay = useCallback(
-    (delay: string) => {
+  const updateDelay = useCallback<Consumer<string>>(
+    delay =>
       setTask(
-        produce((draft: Task) => {
+        produce(draft => {
           draft.delay = delay;
         })
-      );
-    },
+      ),
     [setTask]
   );
 
@@ -36,21 +35,20 @@ export function useTaskOptionsData(): {
 }
 
 export function useTaskPersistData(): {
-  data: PersistTaskData;
-  updatePersist: (persist: boolean) => void;
+  persistData: Pick<TaskData, 'persist'>;
+  updatePersist: Consumer<boolean>;
 } {
-  const { data, setData } = useDataContext();
+  const { config, setConfig } = useConfigDataContext();
 
-  const updatePersist = useCallback(
-    (persist: boolean) => {
-      setData(
-        produce((draft: PersistTaskData) => {
-          draft.config.persist = persist;
+  const updatePersist = useCallback<Consumer<boolean>>(
+    persist =>
+      setConfig(
+        produce(draft => {
+          draft.persist = persist;
         })
-      );
-    },
-    [setData]
+      ),
+    [setConfig]
   );
 
-  return { data, updatePersist };
+  return { persistData: config, updatePersist };
 }

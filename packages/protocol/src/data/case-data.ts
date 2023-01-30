@@ -1,14 +1,21 @@
 import { CustomField } from './common';
 
 export interface Case {
-  name?: string;
-  description?: string;
-  category?: string;
-  customFields?: CustomField[];
+  name: string;
+  description: string;
+  category: string;
+  customFields: CustomField[];
 }
 
 export interface CaseData {
-  config: {
-    case?: Case;
-  };
+  case: Case;
 }
+
+export const DEFAULT_CASE_DATA: CaseData = {
+  case: {
+    name: '',
+    description: '',
+    category: '',
+    customFields: [] as CustomField[]
+  }
+} as const;

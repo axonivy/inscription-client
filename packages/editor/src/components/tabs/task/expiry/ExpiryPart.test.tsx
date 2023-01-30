@@ -6,9 +6,9 @@ import userEvent from '@testing-library/user-event';
 
 describe('ExpiryPart', () => {
   function renderExpiryPart(options?: { timeout?: string }) {
-    // @ts-ignore
     const data: DataContext = {
-      data: { config: { task: { expiry: { timeout: options?.timeout } } } }
+      // @ts-ignore
+      data: { config: { task: { expiry: { timeout: options?.timeout ?? '' } } } }
     };
     const client: ClientContext = {
       // @ts-ignore

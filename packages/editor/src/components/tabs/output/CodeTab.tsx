@@ -1,37 +1,23 @@
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
-import { useValidation } from '../../../context';
+import { DEFAULT_OUTPUT_DATA } from '@axonivy/inscription-protocol';
 import { TabProps, useTabState } from '../../props';
 import { Checkbox, CodeEditor, LabelInput } from '../../widgets';
 import { useOutputData } from './useOutputData';
 
-function useCodeTabValidation(): InscriptionValidation[] {
-  const dialog = useValidation('config/output/code');
-  return [dialog];
-}
-
 export function useCodeTab(): TabProps {
-  const validation = useCodeTabValidation();
-  const tabState = useTabState({}, {}, validation);
-  return {
-    name: 'Code',
-    state: tabState,
-    content: <CodeTab />
-  };
+  const { outputData } = useOutputData();
+  const tabState = useTabState([DEFAULT_OUTPUT_DATA.output.code, DEFAULT_OUTPUT_DATA.sudo], [outputData.output.code, outputData.sudo], []);
+  return { name: 'Code', state: tabState, content: <CodeTab /> };
 }
 
 const CodeTab = () => {
-  const { data, updateCode, updateSudo } = useOutputData();
+  const { outputData, updateCode, updateSudo } = useOutputData();
 
   return (
     <>
       <LabelInput label='Code' htmlFor='code'>
-        <CodeEditor code={data.config.output?.code ?? ''} onChange={updateCode} location='output.code' resizable={true} />
+        <CodeEditor code={outputData.output.code} onChange={updateCode} location='output.code' resizable={true} />
       </LabelInput>
-      <Checkbox
-        label='Disable Permission Checks (Execute this Script Step as SYSTEM)'
-        value={data.config.sudo ?? false}
-        onChange={updateSudo}
-      />
+      <Checkbox label='Disable Permission Checks (Execute this Script Step as SYSTEM)' value={outputData.sudo} onChange={updateSudo} />
     </>
   );
 };

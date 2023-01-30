@@ -9,8 +9,8 @@ export interface CustomField {
 }
 
 export type MappingData = {
-  map?: Mapping[];
-  code?: string;
+  map: Mapping[];
+  code: string;
 };
 
 export interface Mapping {

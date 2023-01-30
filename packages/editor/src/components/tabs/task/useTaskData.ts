@@ -21,7 +21,7 @@ export function useTaskData(): {
   const updateName = useCallback<Consumer<string>>(
     name =>
       setTask(
-        produce<Task>(draft => {
+        produce(draft => {
           draft.name = name;
         })
       ),
@@ -31,7 +31,7 @@ export function useTaskData(): {
   const updateDescription = useCallback<Consumer<string>>(
     description =>
       setTask(
-        produce<Task>(draft => {
+        produce(draft => {
           draft.description = description;
         })
       ),
@@ -41,7 +41,7 @@ export function useTaskData(): {
   const updateCategory = useCallback<Consumer<string>>(
     category =>
       setTask(
-        produce<Task>(draft => {
+        produce(draft => {
           draft.category = category;
         })
       ),
@@ -51,7 +51,7 @@ export function useTaskData(): {
   const updateCustomFields = useCallback<Consumer<CustomField[]>>(
     customFields =>
       setTask(
-        produce<Task>(draft => {
+        produce(draft => {
           draft.customFields = customFields;
         })
       ),
@@ -61,7 +61,7 @@ export function useTaskData(): {
   const updateCode = useCallback<Consumer<string>>(
     code =>
       setTask(
-        produce<Task>(draft => {
+        produce(draft => {
           draft.code = code;
         })
       ),
@@ -71,10 +71,7 @@ export function useTaskData(): {
   const updateType = useCallback<Consumer<ResponsibleType>>(
     type =>
       setTask(
-        produce<Task>(draft => {
-          if (!draft.responsible) {
-            draft.responsible = {};
-          }
+        produce(draft => {
           draft.responsible.type = type;
         })
       ),
@@ -84,10 +81,7 @@ export function useTaskData(): {
   const updateActivator = useCallback<Consumer<string>>(
     activator =>
       setTask(
-        produce<Task>(draft => {
-          if (!draft.responsible) {
-            draft.responsible = {};
-          }
+        produce(draft => {
           draft.responsible.activator = activator;
         })
       ),
@@ -97,10 +91,7 @@ export function useTaskData(): {
   const updateLevel = useCallback<Consumer<PriorityLevel>>(
     level =>
       setTask(
-        produce<Task>(draft => {
-          if (!draft.priority) {
-            draft.priority = {};
-          }
+        produce(draft => {
           draft.priority.level = level;
         })
       ),
@@ -110,10 +101,7 @@ export function useTaskData(): {
   const updateScript = useCallback<Consumer<string>>(
     script =>
       setTask(
-        produce<Task>(draft => {
-          if (!draft.priority) {
-            draft.priority = {};
-          }
+        produce(draft => {
           draft.priority.script = script;
         })
       ),

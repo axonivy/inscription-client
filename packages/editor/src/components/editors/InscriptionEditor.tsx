@@ -1,5 +1,5 @@
 import { Separator } from '@radix-ui/react-separator';
-import { memo, ReactNode, useMemo } from 'react';
+import { memo, ReactNode, useMemo, useState } from 'react';
 import './InscriptionEditor.css';
 import { InscriptionEditorType } from '@axonivy/inscription-protocol';
 import NoEditor from './NoEditor';
@@ -11,6 +11,8 @@ import { IvyIcon, TabContent, TabList, TabRoot } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Message, TabProps } from '../props';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from '../widgets/error/ErrorFallback';
 
 const editors = new Map<InscriptionEditorType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
 
@@ -56,12 +58,15 @@ const Header = (props: EditorProps) => {
 };
 
 const InscriptionEditor = (props: EditorProps) => {
+  const [tab, setTab] = useState<string>();
   return (
     <div className='editor'>
-      <TabRoot {...props}>
+      <TabRoot {...props} value={tab} onValueChange={setTab}>
         <Header {...props} />
         <Separator className='separator-root' style={{ margin: '15px 0' }} />
-        <TabContent {...props} />
+        <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[tab]}>
+          <TabContent {...props} />
+        </ErrorBoundary>
       </TabRoot>
     </div>
   );

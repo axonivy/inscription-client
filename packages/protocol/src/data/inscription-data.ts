@@ -1,11 +1,13 @@
-import { CallData } from './call-data';
-import { CaseData } from './case-data';
+import { CallData, DEFAULT_CALL_DATA } from './call-data';
+import { CaseData, DEFAULT_CASE_DATA } from './case-data';
 import { InscriptionEditorType, InscriptionType } from './inscription-type';
-import { NameData } from './name-data';
-import { OutputData } from './output-data';
-import { PersistTaskData, TaskData } from './task-data';
+import { NameData, DEFAULT_NAME_DATA } from './name-data';
+import { DEFAULT_OUTPUT_DATA, OutputData } from './output-data';
+import { DEFAULT_TASK_DATA, TaskData } from './task-data';
 
-export type Data = NameData & CallData & OutputData & TaskData & PersistTaskData & CaseData;
+export type ConfigData = CallData & OutputData & TaskData & CaseData;
+
+export type Data = NameData & { config: ConfigData };
 
 export interface InscriptionData {
   pid: string;
@@ -19,3 +21,13 @@ export interface InscriptionSaveData {
   type: InscriptionEditorType;
   data: Data;
 }
+
+export const DEFAULT_DATA: Data = {
+  ...DEFAULT_NAME_DATA,
+  config: {
+    ...DEFAULT_CALL_DATA,
+    ...DEFAULT_OUTPUT_DATA,
+    ...DEFAULT_TASK_DATA,
+    ...DEFAULT_CASE_DATA
+  }
+} as const;
