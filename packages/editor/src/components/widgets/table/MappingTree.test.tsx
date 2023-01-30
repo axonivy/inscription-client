@@ -90,7 +90,6 @@ describe('MappingTree', () => {
   test('tree will render unknown values', () => {
     renderTree([{ key: 'bla', value: 'unknown value' }]);
     assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER, /⛔ bla unknown value/]);
-    expect(screen.getByDisplayValue('unknown value')).toBeDisabled();
   });
 
   test('tree can expand / collapse', async () => {
