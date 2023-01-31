@@ -3,12 +3,13 @@ import { render, screen } from '@testing-library/react';
 import { ClientContext, ClientContextInstance, DataContextInstance } from '../../../context';
 import TaskPart from './TaskPart';
 import userEvent from '@testing-library/user-event';
+import { DEFAULT_TASK } from '@axonivy/inscription-protocol';
 
 describe('TaskPart', () => {
   function renderTaskPart(showPersist?: boolean) {
     // @ts-ignore
     const data: DataContext = {
-      data: { config: { task: {} } }
+      data: { config: { task: DEFAULT_TASK } }
     };
     const client: ClientContext = {
       // @ts-ignore

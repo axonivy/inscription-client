@@ -2,68 +2,56 @@ import { CaseData, CustomField } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
-import { useDataContext } from '../../../context';
+import { useConfigDataContext } from '../../../context';
 
 export function useCaseData(): {
-  data: CaseData;
+  caseData: CaseData;
   updateName: Consumer<string>;
   updateDescription: Consumer<string>;
   updateCategory: Consumer<string>;
   updateCustomFields: Consumer<CustomField[]>;
 } {
-  const { data, setData } = useDataContext();
+  const { config, setConfig } = useConfigDataContext();
 
   const updateName = useCallback<Consumer<string>>(
     name =>
-      setData(
-        produce<CaseData>(draft => {
-          if (!draft.config.case) {
-            draft.config.case = {};
-          }
-          draft.config.case.name = name;
+      setConfig(
+        produce(draft => {
+          draft.case.name = name;
         })
       ),
-    [setData]
+    [setConfig]
   );
 
   const updateDescription = useCallback<Consumer<string>>(
     description =>
-      setData(
-        produce<CaseData>(draft => {
-          if (!draft.config.case) {
-            draft.config.case = {};
-          }
-          draft.config.case.description = description;
+      setConfig(
+        produce(draft => {
+          draft.case.description = description;
         })
       ),
-    [setData]
+    [setConfig]
   );
 
   const updateCategory = useCallback<Consumer<string>>(
     category =>
-      setData(
-        produce<CaseData>(draft => {
-          if (!draft.config.case) {
-            draft.config.case = {};
-          }
-          draft.config.case.category = category;
+      setConfig(
+        produce(draft => {
+          draft.case.category = category;
         })
       ),
-    [setData]
+    [setConfig]
   );
 
   const updateCustomFields = useCallback<Consumer<CustomField[]>>(
     customFields =>
-      setData(
-        produce<CaseData>(draft => {
-          if (!draft.config.case) {
-            draft.config.case = {};
-          }
-          draft.config.case.customFields = customFields;
+      setConfig(
+        produce(draft => {
+          draft.case.customFields = customFields;
         })
       ),
-    [setData]
+    [setConfig]
   );
 
-  return { data, updateName, updateDescription, updateCategory, updateCustomFields };
+  return { caseData: config, updateName, updateDescription, updateCategory, updateCustomFields };
 }

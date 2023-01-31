@@ -1,19 +1,21 @@
 import './App.css';
 import '@axonivy/editor-icons/dist/ivy-icons.css';
-import { Data, InscriptionData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import { Data, DEFAULT_DATA, InscriptionData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useCallback, useEffect, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
 import AppStateView from './AppStateView';
 import { AppState, errorState, successState, waitingState } from './app-state';
-import { deepEqual } from './utils/equals';
+import { deepmerge } from 'deepmerge-ts';
+import { UpdateConsumer } from './types/lambda';
 
 export interface AppProps {
   pid: string;
 }
 
 function App(props: AppProps) {
-  const [data, setData] = useState<Data>({ config: {} });
+  const [data, setData] = useState<Data>(DEFAULT_DATA);
+  const [shouldSave, setShouldSave] = useState(false);
   const [appState, setAppState] = useState<AppState>(waitingState());
   const [validation, setValidation] = useState<InscriptionValidation[]>([]);
   const client = useClient();
@@ -21,7 +23,12 @@ function App(props: AppProps) {
 
   const initData = useCallback((newData: InscriptionData) => {
     setAppState(successState(newData));
-    setData(newData.data);
+    setData(deepmerge(DEFAULT_DATA, newData.data));
+  }, []);
+
+  const updateData = useCallback<UpdateConsumer<Data>>(update => {
+    setData(update);
+    setShouldSave(true);
   }, []);
 
   useEffect(() => {
@@ -41,10 +48,11 @@ function App(props: AppProps) {
   }, [client, props.pid, initData]);
 
   useEffect(() => {
-    if (appState.state === 'success' && !deepEqual(data, appState.initialData.data)) {
+    if (appState.state === 'success' && shouldSave) {
       client.saveData({ data: data, pid: appState.initialData.pid, type: appState.initialData.type.id }).then(setValidation);
+      setShouldSave(false);
     }
-  }, [client, data, appState]);
+  }, [client, data, appState, shouldSave]);
 
   if (appState.state === 'success') {
     return (
@@ -56,9 +64,7 @@ function App(props: AppProps) {
             type: appState.initialData.type ?? DEFAULT_EDITOR_CONTEXT.type
           }}
         >
-          <DataContextInstance.Provider
-            value={{ data: data, initialData: appState.initialData.data, setData: setData, validation: validation }}
-          >
+          <DataContextInstance.Provider value={{ data: data, setData: updateData, validation: validation }}>
             {inscriptionEditor(appState.initialData.type.id)}
           </DataContextInstance.Provider>
         </EditorContextInstance.Provider>

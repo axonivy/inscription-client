@@ -16,7 +16,7 @@ export function useNameData(): {
   const updateName = useCallback<Consumer<string>>(
     name =>
       setData(
-        produce<NameData>(draft => {
+        produce(draft => {
           draft.name = name;
         })
       ),
@@ -26,7 +26,7 @@ export function useNameData(): {
   const updateDescription = useCallback<Consumer<string>>(
     description =>
       setData(
-        produce<NameData>(draft => {
+        produce(draft => {
           draft.description = description;
         })
       ),
@@ -36,7 +36,7 @@ export function useNameData(): {
   const updateDocs = useCallback<Consumer<Document[]>>(
     docs =>
       setData(
-        produce<NameData>(draft => {
+        produce(draft => {
           draft.docs = docs;
         })
       ),
@@ -46,7 +46,7 @@ export function useNameData(): {
   const updateTags = useCallback<Consumer<string[]>>(
     tags =>
       setData(
-        produce<NameData>(draft => {
+        produce(draft => {
           draft.tags = tags;
         })
       ),

@@ -8,15 +8,9 @@ const TaskListPart = () => {
 
   return (
     <CollapsiblePart collapsibleLabel='Options' defaultOpen={task.skipTasklist}>
-      <Checkbox label='Skip Tasklist' value={task.skipTasklist ?? false} onChange={updateSkipTasklist} />
+      <Checkbox label='Skip Tasklist' value={task.skipTasklist} onChange={updateSkipTasklist} />
       <LabelInput label='Delay' htmlFor='delay'>
-        <input
-          className='input'
-          id='delay'
-          value={task.delay ?? ''}
-          onChange={event => updateDelay(event.target.value)}
-          disabled={readonly}
-        />
+        <input className='input' id='delay' value={task.delay} onChange={event => updateDelay(event.target.value)} disabled={readonly} />
       </LabelInput>
     </CollapsiblePart>
   );

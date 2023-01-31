@@ -1,15 +1,11 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import ErrorSelect from './ErrorSelect';
-import { ClientContext, ClientContextInstance, DataContext, DataContextInstance } from '../../../../context';
+import { ClientContext, ClientContextInstance } from '../../../../context';
 import userEvent from '@testing-library/user-event';
 
 describe('ErrorSelect', () => {
   function renderSelect(options?: { error?: string }) {
-    // @ts-ignore
-    const data: DataContext = {
-      data: { config: { task: { expiry: { error: options?.error } } } }
-    };
     const client: ClientContext = {
       // @ts-ignore
       client: {
@@ -23,9 +19,7 @@ describe('ErrorSelect', () => {
     };
     render(
       <ClientContextInstance.Provider value={client}>
-        <DataContextInstance.Provider value={data}>
-          <ErrorSelect />
-        </DataContextInstance.Provider>
+        <ErrorSelect error={options?.error ?? ''} updateError={() => {}} />
       </ClientContextInstance.Provider>
     );
   }

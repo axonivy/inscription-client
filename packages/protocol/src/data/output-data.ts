@@ -1,8 +1,14 @@
-import { MappingData } from './common';
+import { Mapping, MappingData } from './common';
 
 export interface OutputData {
-  config: {
-    output?: MappingData;
-    sudo?: boolean;
-  };
+  output: MappingData;
+  sudo: boolean;
 }
+
+export const DEFAULT_OUTPUT_DATA: OutputData = {
+  output: {
+    map: [] as Mapping[],
+    code: ''
+  },
+  sudo: false
+} as const;

@@ -1,52 +1,46 @@
-import { useDataContext } from '../../../context';
+import { useConfigDataContext } from '../../../context';
 import { CallData, Mapping } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
 
 export function useCallData(): {
-  data: CallData;
+  callData: CallData;
   updateDialog: Consumer<string>;
   updateMap: Consumer<Mapping[]>;
   updateCode: Consumer<string>;
 } {
-  const { data, setData } = useDataContext();
+  const { config, setConfig } = useConfigDataContext();
 
   const updateDialog = useCallback<Consumer<string>>(
     dialog =>
-      setData(
-        produce<CallData>(draft => {
-          draft.config.dialog = dialog;
+      setConfig(
+        produce(draft => {
+          draft.dialog = dialog;
         })
       ),
-    [setData]
+    [setConfig]
   );
 
   const updateMap = useCallback<Consumer<Mapping[]>>(
     map =>
-      setData(
-        produce<CallData>(draft => {
-          if (!draft.config.call) {
-            draft.config.call = {};
-          }
-          draft.config.call.map = map;
+      setConfig(
+        produce(draft => {
+          draft.call.map = map;
         })
       ),
-    [setData]
+    [setConfig]
   );
 
   const updateCode = useCallback<Consumer<string>>(
     code =>
-      setData(
-        produce<CallData>(draft => {
-          if (!draft.config.call) {
-            draft.config.call = {};
-          }
-          draft.config.call.code = code;
+      setConfig(
+        produce(draft => {
+          draft.call.code = code;
         })
       ),
-    [setData]
+    [setConfig]
   );
 
-  return { data, updateDialog, updateMap, updateCode };
+  return { callData: config, updateDialog, updateMap, updateCode };
 }

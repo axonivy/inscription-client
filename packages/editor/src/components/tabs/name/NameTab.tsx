@@ -1,4 +1,4 @@
-import { useReadonly, useValidation } from '../../../context';
+import { useDataContext, useReadonly, useValidation } from '../../../context';
 import { TabProps, useTabState } from '../../props';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import DocumentTable from './document/DocumentTable';
@@ -13,7 +13,8 @@ function useNameTabValidation(): InscriptionValidation[] {
 
 export function useNameTab(): TabProps {
   const validation = useNameTabValidation();
-  const tabState = useTabState({}, {}, validation);
+  const { data } = useDataContext();
+  const tabState = useTabState(['', '', [], []], [data.name, data.description, data.docs, data.tags], validation);
   return { name: 'Name', state: tabState, content: <NameTab /> };
 }
 

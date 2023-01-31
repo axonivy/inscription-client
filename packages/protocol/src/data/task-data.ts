@@ -10,8 +10,8 @@ export const RESPONSIBLE_TYPE = {
 export type ResponsibleType = keyof typeof RESPONSIBLE_TYPE;
 
 export interface Responsible {
-  type?: ResponsibleType;
-  activator?: string;
+  type: ResponsibleType;
+  activator: string;
 }
 
 export const PRIORITY_LEVEL = {
@@ -25,40 +25,68 @@ export const PRIORITY_LEVEL = {
 export type PriorityLevel = keyof typeof PRIORITY_LEVEL;
 
 export interface Priority {
-  level?: PriorityLevel;
-  script?: string;
+  level: PriorityLevel;
+  script: string;
 }
 
 export interface Expiry {
-  timeout?: string;
-  error?: string;
-  responsible?: Responsible;
-  priority?: Priority;
+  timeout: string;
+  error: string;
+  responsible: Responsible;
+  priority: Priority;
 }
 
 export interface Task {
-  id?: string;
-  name?: string;
-  description?: string;
-  category?: string;
-  responsible?: Responsible;
-  priority?: Priority;
-  expiry?: Expiry;
-  customFields?: CustomField[];
-  code?: string;
-  skipTasklist?: boolean;
-  delay?: string;
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  responsible: Responsible;
+  priority: Priority;
+  expiry: Expiry;
+  customFields: CustomField[];
+  code: string;
+  skipTasklist: boolean;
+  delay: string;
 }
 
 export interface TaskData {
-  config: {
-    task?: Task;
-    tasks?: Task[];
-  };
+  task: Task;
+  tasks: Task[];
+  persist: boolean;
 }
 
-export interface PersistTaskData {
-  config: {
-    persist?: boolean;
-  };
-}
+const DEFAULT_RESPONSIBLE: Responsible = {
+  type: 'ROLE',
+  activator: 'Everybody'
+} as const;
+
+const DEFAULT_PRIORITY: Priority = {
+  level: 'NORMAL',
+  script: ''
+} as const;
+
+export const DEFAULT_TASK: Task = {
+  id: '',
+  name: '',
+  description: '',
+  category: '',
+  responsible: DEFAULT_RESPONSIBLE,
+  priority: DEFAULT_PRIORITY,
+  skipTasklist: false,
+  delay: '',
+  expiry: {
+    timeout: '',
+    error: '',
+    responsible: DEFAULT_RESPONSIBLE,
+    priority: DEFAULT_PRIORITY
+  },
+  customFields: [] as CustomField[],
+  code: ''
+} as const;
+
+export const DEFAULT_TASK_DATA: TaskData = {
+  task: DEFAULT_TASK,
+  tasks: [] as Task[],
+  persist: false
+} as const;

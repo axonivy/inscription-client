@@ -14,10 +14,12 @@
     "@radix-ui/react-tabs": "^1.0.2",
     "@tanstack/react-table": "^8.7.6",
     "@types/node": "^16.7.13",
+    "deepmerge-ts": "^4.2.2",
     "downshift": "^7.2.0",
     "immer": "^9.0.18",
     "react": "^18.2.0",
-    "react-aria": "^3.22.0"
+    "react-aria": "^3.22.0",
+    "react-error-boundary": "^3.1.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

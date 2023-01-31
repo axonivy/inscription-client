@@ -1,32 +1,30 @@
-import { InscriptionValidation, Task as TaskData } from '@axonivy/inscription-protocol';
-import { TaskDataContextInstance } from '../../../context/useTaskDataContext';
+import { DEFAULT_TASK, Task as TaskData } from '@axonivy/inscription-protocol';
+import { deepmerge } from 'deepmerge-ts';
+import produce from 'immer';
 import { Tab } from '../../../components/widgets';
-import { useDataContext, useValidation } from '../../../context';
+import { TaskDataContextInstance, useConfigDataContext } from '../../../context';
 import { TabProps, useTabState } from '../../props';
 import TaskPart from './TaskPart';
 
-function useTasksTabValidation(): InscriptionValidation[] {
-  const tasks = useValidation('config/tasks');
-  return [tasks];
-}
-
 export function useTasksTab(): TabProps {
-  const validation = useTasksTabValidation();
-  const tabState = useTabState({}, {}, validation);
-  return {
-    name: 'Tasks',
-    state: tabState,
-    content: <TasksTab />
-  };
+  const { config } = useConfigDataContext();
+  const defaultTasks = config.tasks.map(task =>
+    produce(DEFAULT_TASK, draft => {
+      draft.id = task.id;
+    })
+  );
+  const dataTasks = config.tasks.map(task => deepmerge(DEFAULT_TASK, task));
+  const tabState = useTabState(defaultTasks, dataTasks, []);
+  return { name: 'Tasks', state: tabState, content: <TasksTab /> };
 }
 
 const TasksTab = () => {
-  const { data } = useDataContext();
+  const { config } = useConfigDataContext();
 
   const tabs: TabProps[] =
-    data.config.tasks?.map((task: TaskData, index: any) => {
+    config.tasks?.map((task: TaskData, index: any) => {
       return {
-        name: task.id,
+        name: task.id ?? '',
         content: (
           <TaskDataContextInstance.Provider value={index}>
             <TaskPart />

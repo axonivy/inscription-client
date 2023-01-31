@@ -1,15 +1,18 @@
 import { LabelInput } from '../../widgets';
 import { useReadonly } from '../../../context';
-import { TabProps } from '../../props';
+import { TabProps, useTabState } from '../../props';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
+import { DEFAULT_CASE_DATA } from '@axonivy/inscription-protocol';
 
 export function useCaseTab(): TabProps {
-  return { name: 'Case', content: <CaseTab /> };
+  const { caseData } = useCaseData();
+  const tabState = useTabState(DEFAULT_CASE_DATA.case, caseData.case, []);
+  return { name: 'Case', state: tabState, content: <CaseTab /> };
 }
 
 const CaseTab = () => {
-  const { data, updateName, updateDescription, updateCategory, updateCustomFields } = useCaseData();
+  const { caseData, updateName, updateDescription, updateCategory, updateCustomFields } = useCaseData();
   const readonly = useReadonly();
 
   return (
@@ -18,7 +21,7 @@ const CaseTab = () => {
         <input
           className='input'
           id='name'
-          value={data.config.case?.name ?? ''}
+          value={caseData.case.name}
           onChange={event => updateName(event.target.value)}
           disabled={readonly}
         />
@@ -27,21 +30,21 @@ const CaseTab = () => {
         <input
           className='input'
           id='description'
-          value={data.config.case?.description ?? ''}
+          value={caseData.case.description}
           onChange={event => updateDescription(event.target.value)}
           disabled={readonly}
         />
       </LabelInput>
-      <LabelInput label='CAtegory' htmlFor='category'>
+      <LabelInput label='Category' htmlFor='category'>
         <input
           className='input'
           id='category'
-          value={data.config.case?.category ?? ''}
+          value={caseData.case.category}
           onChange={event => updateCategory(event.target.value)}
           disabled={readonly}
         />
       </LabelInput>
-      <CustomFieldPart customFields={data.config.case?.customFields} updateCustomFields={updateCustomFields} />
+      <CustomFieldPart customFields={caseData.case.customFields} updateCustomFields={updateCustomFields} />
     </>
   );
 };

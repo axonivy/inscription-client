@@ -6,7 +6,7 @@ test.describe('Tab states', () => {
     await page.goto('');
     const name = page.getByRole('tab', { name: 'Name' }).locator('.tab-state');
     const call = page.getByRole('tab', { name: 'Call' }).locator('.tab-state');
-    await assertTabState(name, 'empty');
+    await assertTabState(name, 'configured');
     await assertTabState(call, 'warning');
 
     await page.getByLabel('Display name').clear();
@@ -16,13 +16,13 @@ test.describe('Tab states', () => {
     await page.getByRole('tab', { name: 'Call' }).click();
     await selectDialog(page);
     await assertTabState(name, 'error');
-    await assertTabState(call, 'empty');
+    await assertTabState(call, 'configured');
   });
 
   test('error over warning', async ({ page }) => {
     await page.goto('');
     const name = page.getByRole('tab', { name: 'Name' }).locator('.tab-state');
-    await assertTabState(name, 'empty');
+    await assertTabState(name, 'configured');
 
     await page.getByLabel('Description').clear();
     await assertTabState(name, 'warning');

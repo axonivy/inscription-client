@@ -4,13 +4,13 @@ import { CodeEditor, LabelInput, MappingTree } from '../../../components/widgets
 import { useCallData } from './useCallData';
 
 const MappingTreeWithCode = (props: { mappingInfo: MappingInfo }) => {
-  const { data, updateMap, updateCode } = useCallData();
+  const { callData, updateMap, updateCode } = useCallData();
 
   return (
     <>
-      <MappingTree data={data.config.call?.map ?? []} mappingInfo={props.mappingInfo} onChange={updateMap} location='call.code' />
+      <MappingTree data={callData.call.map} mappingInfo={props.mappingInfo} onChange={updateMap} location='call.code' />
       <LabelInput label='Code' htmlFor='code'>
-        <CodeEditor code={data.config.call?.code ?? ''} onChange={updateCode} location='call.code' />
+        <CodeEditor code={callData.call.code} onChange={updateCode} location='call.code' />
       </LabelInput>
     </>
   );

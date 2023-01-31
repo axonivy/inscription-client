@@ -1,7 +1,7 @@
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useDataContext } from './useDataContext';
 
-export type ValidationAccess = 'name' | 'description' | 'config/dialog' | 'config/task' | 'config/tasks' | 'config/output/code';
+export type ValidationAccess = 'name' | 'description' | 'config/dialog';
 
 export function useValidation<K extends ValidationAccess>(path: K): InscriptionValidation;
 export function useValidation(path: string): InscriptionValidation {
