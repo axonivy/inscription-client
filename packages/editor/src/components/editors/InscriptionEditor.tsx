@@ -7,12 +7,11 @@ import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
 import { otherEditors } from './others/other-editors';
-import { IvyIcon, TabContent, TabList, TabRoot } from '../widgets';
+import { ErrorFallback, IvyIcon, TabContent, TabList, TabRoot } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Message, TabProps } from '../props';
 import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from '../widgets/error/ErrorFallback';
 
 const editors = new Map<InscriptionEditorType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
 
