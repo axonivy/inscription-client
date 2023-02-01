@@ -1,7 +1,7 @@
 import { DEFAULT_TASK, Task as TaskData } from '@axonivy/inscription-protocol';
 import { deepmerge } from 'deepmerge-ts';
 import produce from 'immer';
-import { Tab } from '../../../components/widgets';
+import { EmptyWidget, Tab } from '../../../components/widgets';
 import { TaskDataContextInstance, useConfigDataContext } from '../../../context';
 import { TabProps, useTabState } from '../../props';
 import TaskPart from './TaskPart';
@@ -33,5 +33,5 @@ const TasksTab = () => {
       } as TabProps;
     }) ?? [];
 
-  return <Tab tabs={tabs} />;
+  return <>{tabs.length > 0 ? <Tab tabs={tabs} /> : <EmptyWidget message='There is no (Task) output flow connected.' />}</>;
 };
