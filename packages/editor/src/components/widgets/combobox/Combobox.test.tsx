@@ -1,9 +1,7 @@
-import React, { ReactNode } from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { ReactNode } from 'react';
 import { Message } from '../../props/message';
 import Combobox, { ComboboxItem } from './Combobox';
-import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../../../context';
+import { render, screen, userEvent } from 'test-utils';
 
 describe('Combobox', () => {
   function renderCombobox(
@@ -127,15 +125,14 @@ describe('Combobox', () => {
 
   test('combobox support readonly mode', async () => {
     render(
-      <EditorContextInstance.Provider value={{ ...DEFAULT_EDITOR_CONTEXT, readonly: true }}>
-        <Combobox
-          label='Combobox'
-          items={[{ value: 'test' }]}
-          comboboxItem={item => <span>{item.value}</span>}
-          value={'test'}
-          onChange={() => {}}
-        />
-      </EditorContextInstance.Provider>
+      <Combobox
+        label='Combobox'
+        items={[{ value: 'test' }]}
+        comboboxItem={item => <span>{item.value}</span>}
+        value={'test'}
+        onChange={() => {}}
+      />,
+      { wrapperProps: { editor: { readonly: true } } }
     );
 
     expect(screen.getByRole('combobox', { name: 'Combobox' })).toBeDisabled();

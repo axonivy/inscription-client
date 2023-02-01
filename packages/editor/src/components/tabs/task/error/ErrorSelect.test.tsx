@@ -1,27 +1,13 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
 import ErrorSelect from './ErrorSelect';
-import { ClientContext, ClientContextInstance } from '../../../../context';
-import userEvent from '@testing-library/user-event';
+import { render, screen, userEvent, waitFor } from 'test-utils';
 
 describe('ErrorSelect', () => {
   function renderSelect(options?: { error?: string }) {
-    const client: ClientContext = {
-      // @ts-ignore
-      client: {
-        expiryErrors() {
-          return Promise.resolve([
-            { id: 'error1', label: 'this is error1' },
-            { id: 'bla', label: 'blablabla' }
-          ]);
-        }
-      }
-    };
-    render(
-      <ClientContextInstance.Provider value={client}>
-        <ErrorSelect error={options?.error ?? ''} updateError={() => {}} />
-      </ClientContextInstance.Provider>
-    );
+    const expiryErrors = [
+      { id: 'error1', label: 'this is error1' },
+      { id: 'bla', label: 'blablabla' }
+    ];
+    render(<ErrorSelect error={options?.error ?? ''} updateError={() => {}} />, { wrapperProps: { meta: { expiryErrors } } });
   }
 
   test('error select will render', async () => {

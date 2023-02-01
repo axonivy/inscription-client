@@ -1,8 +1,5 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import Tags from './Tags';
-import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../../../context';
+import { render, screen, userEvent, waitFor } from 'test-utils';
 
 describe('Tags', () => {
   function renderTags(): {
@@ -87,11 +84,7 @@ describe('Tags', () => {
   });
 
   test('tags support readonly mode', async () => {
-    render(
-      <EditorContextInstance.Provider value={{ ...DEFAULT_EDITOR_CONTEXT, readonly: true }}>
-        <Tags tags={['test']} onChange={() => {}} />
-      </EditorContextInstance.Provider>
-    );
+    render(<Tags tags={['test']} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
 
     expect(screen.getByRole('button', { name: /test/i })).toBeDisabled();
     expect(screen.getByRole('button', { name: /Add new tag/i })).toBeDisabled();

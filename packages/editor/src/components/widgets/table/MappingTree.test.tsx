@@ -1,10 +1,7 @@
-import React from 'react';
 import { MappingInfo } from '@axonivy/inscription-protocol';
 import { Mapping } from '@axonivy/inscription-protocol';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, userEvent } from 'test-utils';
 import MappingTree from './MappingTree';
-import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../../../context';
 
 describe('MappingTree', () => {
   const COL_ATTRIBUTES = /▶️ Attribute/;
@@ -166,11 +163,9 @@ describe('MappingTree', () => {
   });
 
   test('tree support readonly mode', async () => {
-    render(
-      <EditorContextInstance.Provider value={{ ...DEFAULT_EDITOR_CONTEXT, readonly: true }}>
-        <MappingTree data={[]} mappingInfo={mappingInfo} onChange={() => {}} location='' />
-      </EditorContextInstance.Provider>
-    );
+    render(<MappingTree data={[]} mappingInfo={mappingInfo} onChange={() => {}} location='' />, {
+      wrapperProps: { editor: { readonly: true } }
+    });
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();
   });
 

@@ -1,7 +1,6 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { Message } from '../../props/message';
 import LabelInput from './LabelInput';
+import { render, screen } from 'test-utils';
 
 describe('LabelInput', () => {
   function renderLabelInput(message?: Message) {

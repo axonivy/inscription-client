@@ -1,8 +1,5 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import Checkbox from './Checkbox';
-import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../../../context';
+import { render, screen, userEvent } from 'test-utils';
 
 describe('Checkbox', () => {
   function renderCheckbox(): {
@@ -63,11 +60,7 @@ describe('Checkbox', () => {
   });
 
   test('checkbox support readonly mode', () => {
-    render(
-      <EditorContextInstance.Provider value={{ ...DEFAULT_EDITOR_CONTEXT, readonly: true }}>
-        <Checkbox label='test checkbox' value={true} onChange={() => {}} />
-      </EditorContextInstance.Provider>
-    );
+    render(<Checkbox label='test checkbox' value={true} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
     expect(screen.getByRole('checkbox')).toBeDisabled();
   });
 });

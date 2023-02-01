@@ -1,7 +1,5 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import CollapsiblePart from './CollapsiblePart';
+import { render, screen, userEvent } from 'test-utils';
 
 describe('CollapsiblePart', () => {
   const COLLAPSE_DATA = /collapsible data/i;

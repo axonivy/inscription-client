@@ -1,9 +1,6 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import Select, { SelectItem } from './Select';
 import { Message } from '../../props';
-import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../../../context';
+import { render, screen, userEvent } from 'test-utils';
 
 describe('Select', () => {
   const items: SelectItem[] = [
@@ -102,11 +99,9 @@ describe('Select', () => {
   });
 
   test('select support readonly mode', () => {
-    render(
-      <EditorContextInstance.Provider value={{ ...DEFAULT_EDITOR_CONTEXT, readonly: true }}>
-        <Select label='readonly select' items={items} value={items[0]} onChange={() => {}} />
-      </EditorContextInstance.Provider>
-    );
+    render(<Select label='readonly select' items={items} value={items[0]} onChange={() => {}} />, {
+      wrapperProps: { editor: { readonly: true } }
+    });
     expect(screen.getByRole('combobox')).toBeDisabled();
   });
 });
