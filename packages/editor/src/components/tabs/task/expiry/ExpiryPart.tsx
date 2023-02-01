@@ -6,8 +6,8 @@ import ResponsibleSelect from './../responsible/ResponsibleSelect';
 import { useExpiryData } from './useExpiryData';
 
 const ExpiryPart = () => {
-  const { task, updateTimeout, updateError, updateResponsible, updatePriority } = useExpiryData();
-  const isTimeout = task.expiry.timeout.length > 0;
+  const { expiry, updateTimeout, updateError, updateResponsible, updatePriority } = useExpiryData();
+  const isTimeout = expiry.timeout.length > 0;
   const readonly = useReadonly();
 
   return (
@@ -16,7 +16,7 @@ const ExpiryPart = () => {
         <input
           className='input'
           id='timeout'
-          value={task.expiry.timeout}
+          value={expiry.timeout}
           onChange={event => updateTimeout(event.target.value)}
           disabled={readonly}
         />
@@ -24,9 +24,9 @@ const ExpiryPart = () => {
       <>
         {isTimeout && (
           <>
-            <ErrorSelect error={task.expiry.error} updateError={updateError} />
-            <ResponsibleSelect responsible={task.expiry.responsible} updateResponsible={updateResponsible} />
-            <PrioritySelect priority={task.priority} updatePriority={updatePriority} />
+            <ErrorSelect error={expiry.error} updateError={updateError} />
+            <ResponsibleSelect responsible={expiry.responsible} updateResponsible={updateResponsible} />
+            <PrioritySelect priority={expiry.priority} updatePriority={updatePriority} />
           </>
         )}
       </>

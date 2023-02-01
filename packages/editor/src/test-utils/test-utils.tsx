@@ -1,5 +1,6 @@
 import { Data, DEFAULT_DATA, DialogStart, ExpiryError, InscriptionValidation, MappingInfo, Role } from '@axonivy/inscription-protocol';
-import { render, RenderOptions } from '@testing-library/react';
+import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
+import { deepmerge } from 'deepmerge-ts';
 import { ReactElement, ReactNode } from 'react';
 import {
   ClientContext,
@@ -23,7 +24,7 @@ const ContextHelper = (
   }
 ) => {
   const data: DataContext = {
-    data: props.data ?? DEFAULT_DATA,
+    data: props.data ? deepmerge(DEFAULT_DATA, props.data) : DEFAULT_DATA,
     setData: () => {},
     validation: props.validation ?? []
   };
@@ -60,12 +61,23 @@ const ContextHelper = (
   );
 };
 
-type CustomRenderOptions = Omit<RenderOptions, 'wrapper'> & { wrapperProps: ContextHelperProps };
-
-const customRender = (ui: ReactElement, options?: CustomRenderOptions) =>
+const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'> & { wrapperProps: ContextHelperProps }) =>
   render(ui, { wrapper: props => <ContextHelper {...props} {...options?.wrapperProps} />, ...options });
+
+const customRenderHook = <
+  Result,
+  Props,
+  Q extends Queries = typeof queries,
+  Container extends Element | DocumentFragment = HTMLElement,
+  BaseElement extends Element | DocumentFragment = Container
+>(
+  render: (initialProps: Props) => Result,
+  options?: RenderHookOptions<Props, Q, Container, BaseElement> & { wrapperProps: ContextHelperProps }
+) => renderHook(render, { wrapper: props => <ContextHelper {...props} {...options?.wrapperProps} />, ...options });
 
 export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';
 export { customRender as render };
+export { customRenderHook as renderHook };
 export * from './table-utils';
+export * from './select-utils';

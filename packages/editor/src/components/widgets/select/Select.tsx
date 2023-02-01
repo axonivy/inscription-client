@@ -5,10 +5,10 @@ import LabelInput from '../label/LabelInput';
 import { useReadonly } from '../../../context';
 import { Message } from '../../../components/props';
 
-export interface SelectItem {
+export type SelectItem = {
   label: string;
   value: string;
-}
+};
 
 export const EMPTY_SELECT_ITEM: SelectItem = { label: '', value: '' };
 
@@ -34,7 +34,7 @@ const Select = (props: {
 
   return (
     <div className='select'>
-      <LabelInput label={props.label} htmlFor='input' message={props.message} {...getLabelProps()}>
+      <LabelInput label={props.label} {...getLabelProps()} message={props.message}>
         <div className='select-input'>
           <button aria-label='toggle menu' className='select-button' type='button' {...getToggleButtonProps()} disabled={readonly}>
             <span>{selectedItem ? selectedItem.label : ''}</span>

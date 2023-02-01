@@ -4,7 +4,7 @@ import produce from 'immer';
 import { EmptyWidget, Tab } from '../../../components/widgets';
 import { TaskDataContextInstance, useConfigDataContext } from '../../../context';
 import { TabProps, useTabState } from '../../props';
-import TaskPart from './TaskPart';
+import TaskPart from './general/TaskPart';
 
 export function useTasksTab(): TabProps {
   const { config } = useConfigDataContext();

@@ -4,9 +4,9 @@ import './LabelInput.css';
 import { Message } from '../../props/message';
 import IvyIcon from '../IvyIcon';
 
-const LabelInput = (props: { label: string; htmlFor: string; message?: Message; children: ReactNode }) => (
+const LabelInput = (props: { label: string; htmlFor: string; id?: string; message?: Message; children: ReactNode }) => (
   <div className='label-input-column'>
-    <Label className='label' htmlFor={props.htmlFor}>
+    <Label className='label' htmlFor={props.htmlFor} id={props.id}>
       {props.label}
     </Label>
     {props.children}

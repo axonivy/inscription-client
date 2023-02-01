@@ -1,12 +1,12 @@
-import { useReadonly } from '../../../context';
-import ExpiryPart from './expiry/ExpiryPart';
-import PersistPart from './options/PersistPart';
-import PrioritySelect from './priority/PrioritySelect';
-import CustomFieldPart from '../common/customfield/CustomFieldPart';
-import { CodeEditor, CollapsiblePart, LabelInput } from '../../widgets';
-import TaskListPart from './options/TaskListPart';
-import ResponsibleSelect from './responsible/ResponsibleSelect';
-import { useTaskData } from './useTaskData';
+import { useReadonly } from '../../../../context';
+import ExpiryPart from '../expiry/ExpiryPart';
+import PersistPart from '../options/PersistPart';
+import TaskListPart from '../options/TaskListPart';
+import PrioritySelect from '../priority/PrioritySelect';
+import CustomFieldPart from '../../common/customfield/CustomFieldPart';
+import { CodeEditor, CollapsiblePart, LabelInput } from '../../../widgets';
+import ResponsibleSelect from '../responsible/ResponsibleSelect';
+import { useTaskData } from '../useTaskData';
 
 const TaskPart = (props: { showPersist?: boolean }) => {
   const { task, updateName, updateDescription, updateCategory, updateCustomFields, updateCode, updateResponsible, updatePriority } =

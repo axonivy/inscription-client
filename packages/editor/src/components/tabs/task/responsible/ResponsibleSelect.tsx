@@ -58,6 +58,8 @@ const ResponsibleActivator = (props: {
   }
 };
 
+const DEFAULT_RESPONSIBLE_TYPE: SelectItem & { value: ResponsibleType } = { label: 'Role', value: 'ROLE' };
+
 const ResponsibleSelect = (props: {
   responsible?: Responsible;
   updateResponsible: ResponsibleUpdater;
@@ -70,8 +72,8 @@ const ResponsibleSelect = (props: {
         .map(([value, label]) => ({ label, value })),
     [props.optionFilter]
   );
-  const selectedType = useMemo<SelectItem | undefined>(
-    () => typeItems.find(e => e.value === props.responsible?.type),
+  const selectedType = useMemo<SelectItem>(
+    () => typeItems.find(e => e.value === props.responsible?.type) ?? DEFAULT_RESPONSIBLE_TYPE,
     [props.responsible?.type, typeItems]
   );
 

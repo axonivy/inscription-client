@@ -1,11 +1,11 @@
 import ExpiryPart from './ExpiryPart';
-import { render, screen, userEvent, waitFor } from 'test-utils';
+import { render, screen, SelectUtil, userEvent } from 'test-utils';
+import { Expiry } from '@axonivy/inscription-protocol';
 
 describe('ExpiryPart', () => {
-  function renderExpiryPart(options?: { timeout?: string }) {
+  function renderExpiryPart(data?: Expiry) {
     // @ts-ignore
-    const data: Data = { config: { task: { expiry: { timeout: options?.timeout ?? '' } } } };
-    render(<ExpiryPart />, { wrapperProps: { data } });
+    render(<ExpiryPart />, { wrapperProps: { data: data && { config: { task: { expiry: data } } } } });
   }
 
   test('expiry part only render empty timeout input', async () => {
@@ -13,15 +13,20 @@ describe('ExpiryPart', () => {
     const expiryCollapse = screen.getByRole('button', { name: /Expiry/ });
     await userEvent.click(expiryCollapse);
 
-    const timeoutInput = screen.getByLabelText('Timeout');
-    expect(timeoutInput).toHaveValue('');
+    expect(screen.getByLabelText('Timeout')).toHaveValue('');
     expect(screen.queryByText('Responsible')).not.toBeInTheDocument();
   });
 
   test('expiry part will render all', async () => {
-    renderExpiryPart({ timeout: 'timeout' });
-    const timeoutInput = screen.getByLabelText('Timeout');
-    await waitFor(() => expect(timeoutInput).toHaveValue('timeout'));
-    expect(screen.getByText('Responsible')).toBeInTheDocument();
+    renderExpiryPart({
+      timeout: 'timeout',
+      error: 'f0',
+      priority: { level: 'HIGH', script: '' },
+      responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: 'asdf' }
+    });
+    expect(screen.getByLabelText('Timeout')).toHaveValue('timeout');
+    await SelectUtil.assertEmpty('Error');
+    await SelectUtil.assertValue('Role from Attr.', 'Responsible');
+    await SelectUtil.assertValue('High', 'Priority');
   });
 });

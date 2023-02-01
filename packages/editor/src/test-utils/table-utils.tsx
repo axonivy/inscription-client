@@ -1,4 +1,4 @@
-import { screen, userEvent, waitFor } from 'test-utils';
+import { screen, userEvent, waitFor, within } from 'test-utils';
 
 export namespace TableUtil {
   export function assertHeaders(expectedHeaders: string[]) {
@@ -10,11 +10,16 @@ export namespace TableUtil {
   }
 
   export function assertRows(expectedRows: (RegExp | string)[]) {
-    const rows = screen.getAllByRole('row');
-    expect(rows).toHaveLength(expectedRows.length);
-    rows.forEach((row, index) => {
-      expect(row).toHaveAccessibleName(expectedRows[index]);
-    });
+    const tBody = screen.getAllByRole('rowgroup')[1];
+    if (expectedRows.length === 0) {
+      expect(within(tBody).queryAllByRole('row')).toHaveLength(0);
+    } else {
+      const rows = within(tBody).getAllByRole('row');
+      expect(rows).toHaveLength(expectedRows.length);
+      rows.forEach((row, index) => {
+        expect(row).toHaveAccessibleName(expectedRows[index]);
+      });
+    }
   }
 
   export function assertRowCount(expectedRows: number): Promise<void> {

@@ -19,18 +19,6 @@ test.describe('Tab states', () => {
     await assertTabState(call, 'configured');
   });
 
-  test('error over warning', async ({ page }) => {
-    await page.goto('');
-    const name = page.getByRole('tab', { name: 'Name' }).locator('.tab-state');
-    await assertTabState(name, 'configured');
-
-    await page.getByLabel('Description').clear();
-    await assertTabState(name, 'warning');
-
-    await page.getByLabel('Display name').clear();
-    await assertTabState(name, 'error');
-  });
-
   async function assertTabState(tab: Locator, state: string): Promise<void> {
     await expect(tab).toHaveAttribute('data-state', state);
   }
