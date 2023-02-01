@@ -1,16 +1,6 @@
-import React from 'react';
 import { Document } from '@axonivy/inscription-protocol';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import DocumentTable from './DocumentTable';
-import {
-  assertAddAndRemoveWithKeyboard,
-  assertAddRow,
-  assertRemoveRow,
-  assertTableHeaders,
-  assertTableRows,
-  renderReadonlyTable
-} from '../../../widgets/table/table.test-helper';
+import { render, screen, TableUtil, userEvent } from 'test-utils';
 
 describe('DocumentTable', () => {
   const documents: Document[] = [
@@ -32,35 +22,35 @@ describe('DocumentTable', () => {
 
   test('table will render', () => {
     renderTable();
-    assertTableHeaders(['Name', 'URL', 'Actions', '']);
-    assertTableRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '']);
+    TableUtil.assertHeaders(['Name', 'URL', 'Actions', '']);
+    TableUtil.assertRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '']);
   });
 
   test('table can sort columns', async () => {
     renderTable();
     const columnHeader = screen.getByRole('button', { name: 'Name' });
     await userEvent.click(columnHeader);
-    assertTableHeaders(['Name 🔼', 'URL', 'Actions', '']);
-    assertTableRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '']);
+    TableUtil.assertHeaders(['Name 🔼', 'URL', 'Actions', '']);
+    TableUtil.assertRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '']);
 
     await userEvent.click(columnHeader);
-    assertTableHeaders(['Name 🔽', 'URL', 'Actions', '']);
-    assertTableRows([/Name/, /ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/, '']);
+    TableUtil.assertHeaders(['Name 🔽', 'URL', 'Actions', '']);
+    TableUtil.assertRows([/Name/, /ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/, '']);
   });
 
   test('table can add new row', async () => {
     const view = renderTable();
-    await assertAddRow(view, 3);
+    await TableUtil.assertAddRow(view, 3);
   });
 
   test('table can remove a row', async () => {
     const view = renderTable();
-    await assertRemoveRow(view, 1);
+    await TableUtil.assertRemoveRow(view, 1);
   });
 
   test('table can add/remove rows by keyboard', async () => {
     const view = renderTable();
-    await assertAddAndRemoveWithKeyboard(view, 2);
+    await TableUtil.assertAddAndRemoveWithKeyboard(view, 2);
   });
 
   test('table can edit cells', async () => {
@@ -84,7 +74,8 @@ describe('DocumentTable', () => {
   });
 
   test('table support readonly mode', async () => {
-    await renderReadonlyTable(<DocumentTable data={documents} onChange={() => {}} />);
+    render(<DocumentTable data={documents} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
+    TableUtil.assertReadonly();
     expect(screen.getByDisplayValue(/Doc 1/)).toBeDisabled();
   });
 });

@@ -1,12 +1,10 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import PrioritySelect from './PrioritySelect';
-import userEvent from '@testing-library/user-event';
 import { Priority, PriorityLevel } from '@axonivy/inscription-protocol';
+import { render, screen, userEvent } from 'test-utils';
 
 describe('PrioritySelect', () => {
   function renderSelect(options?: { level?: string; script?: string; expiry?: boolean }) {
-    const priority: Priority = { level: options?.level as PriorityLevel, script: options?.script };
+    const priority: Priority = { level: options?.level as PriorityLevel, script: options?.script ?? '' };
     render(<PrioritySelect priority={priority} updatePriority={{ updateLevel: () => {}, updateScript: () => {} }} />);
   }
 

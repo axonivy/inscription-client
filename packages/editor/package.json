@@ -36,8 +36,8 @@
   },
   "main": "src/index.ts",
   "scripts": {
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "build": "tsc",
+    "clean": "rimraf lib *.tsbuildinfo",
+    "build": "tsc -p build.tsconfig.json",
     "build:clean": "yarn clean && yarn build",
     "type": "yarn tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",

@@ -4,6 +4,6 @@ module.exports = {
   ignorePatterns: ['**/{style,node_modules,lib}'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: 'dev.tsconfig.json'
+    project: 'tsconfig.json'
   }
 };

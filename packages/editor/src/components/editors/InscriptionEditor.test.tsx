@@ -1,37 +1,23 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import InscriptionEditor from './InscriptionEditor';
 import { TabProps } from '../props/tab';
-import { DataContext, DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../../context';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-
-const ErrorWidget = () => {
-  throw new Error('this is an exception');
-};
+import { render, screen, userEvent } from 'test-utils';
 
 describe('Editor', () => {
+  const ErrorWidget = () => {
+    throw new Error('this is an exception');
+  };
+
   function renderEditor(options: { headerState?: InscriptionValidation[] } = {}) {
     const tabs: TabProps[] = [
       { name: 'Name', content: <h1>Name</h1> },
       { name: 'Call', content: <h1>Call</h1> },
       { name: 'Result', content: <ErrorWidget /> }
     ];
-    // @ts-ignore
-    const data: DataContext = {
-      data: { config: {} },
-      validation: options.headerState ?? []
-    };
-    const editorContext = DEFAULT_EDITOR_CONTEXT;
-    editorContext.type.shortLabel = 'Test Editor';
-    render(
-      <EditorContextInstance.Provider value={editorContext}>
-        <DataContextInstance.Provider value={data}>
-          <InscriptionEditor icon={IvyIcons.Add} tabs={tabs} />
-        </DataContextInstance.Provider>
-      </EditorContextInstance.Provider>
-    );
+    render(<InscriptionEditor icon={IvyIcons.Add} tabs={tabs} />, {
+      wrapperProps: { validation: options.headerState, editor: { title: 'Test Editor' } }
+    });
   }
 
   test('editor will render', () => {
@@ -50,14 +36,27 @@ describe('Editor', () => {
     expect(screen.getByText(/this is an warning/i)).toHaveClass('header-status', 'message-warning');
   });
 
-  test('editor tab render error', async () => {
-    renderEditor();
-    expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
+  describe('Editor with errors', () => {
+    const original = console.error;
 
-    await userEvent.click(screen.getByRole('tab', { name: /Result/ }));
-    expect(screen.getByRole('alert')).toHaveTextContent('this is an exception');
+    beforeEach(() => {
+      console.error = jest.fn();
+    });
 
-    await userEvent.click(screen.getByRole('tab', { name: /Name/ }));
-    expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
+    afterEach(() => {
+      console.error = original;
+    });
+
+    test('editor tab render error', async () => {
+      renderEditor();
+      expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
+
+      await userEvent.click(screen.getByRole('tab', { name: /Result/ }));
+      expect(screen.getByRole('alert')).toHaveTextContent('this is an exception');
+      expect(console.error).toHaveBeenCalled();
+
+      await userEvent.click(screen.getByRole('tab', { name: /Name/ }));
+      expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
+    });
   });
 });

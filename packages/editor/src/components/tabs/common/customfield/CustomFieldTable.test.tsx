@@ -1,16 +1,6 @@
-import React from 'react';
 import { CustomField } from '@axonivy/inscription-protocol';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import CustomFieldTable from './CustomFieldTable';
-import {
-  assertAddAndRemoveWithKeyboard,
-  assertAddRow,
-  assertRemoveRow,
-  assertTableHeaders,
-  assertTableRows,
-  renderReadonlyTable
-} from '../../../widgets/table/table.test-helper';
+import { render, screen, userEvent, TableUtil } from 'test-utils';
 
 describe('CustomFieldTable', () => {
   const customFields: CustomField[] = [
@@ -32,8 +22,8 @@ describe('CustomFieldTable', () => {
 
   test('table will render', () => {
     renderTable();
-    assertTableHeaders(['Name', 'Type', 'Expression', 'Actions', '']);
-    assertTableRows([/Name/, /field1/, /number/, '']);
+    TableUtil.assertHeaders(['Name', 'Type', 'Expression', 'Actions', '']);
+    TableUtil.assertRows([/Name/, /field1/, /number/, '']);
   });
 
   test('table can sort columns', async () => {
@@ -42,26 +32,26 @@ describe('CustomFieldTable', () => {
     await userEvent.click(columnHeader);
     const firstHeader = screen.getAllByRole('columnheader')[0];
     expect(firstHeader).toHaveTextContent('Name 🔼');
-    assertTableRows([/Name/, /field1/, /number/, '']);
+    TableUtil.assertRows([/Name/, /field1/, /number/, '']);
 
     await userEvent.click(columnHeader);
     expect(firstHeader).toHaveTextContent('Name 🔽');
-    assertTableRows([/Name/, /number/, /field1/, '']);
+    TableUtil.assertRows([/Name/, /number/, /field1/, '']);
   });
 
   test('table can add new row', async () => {
     const view = renderTable();
-    await assertAddRow(view, 3);
+    await TableUtil.assertAddRow(view, 3);
   });
 
   test('table can remove a row', async () => {
     const view = renderTable();
-    await assertRemoveRow(view, 1);
+    await TableUtil.assertRemoveRow(view, 1);
   });
 
   test('table can add/remove rows by keyboard', async () => {
     const view = renderTable();
-    await assertAddAndRemoveWithKeyboard(view, 2);
+    await TableUtil.assertAddAndRemoveWithKeyboard(view, 2);
   });
 
   test('table can edit cells', async () => {
@@ -82,7 +72,8 @@ describe('CustomFieldTable', () => {
   });
 
   test('table support readonly mode', async () => {
-    await renderReadonlyTable(<CustomFieldTable data={customFields} onChange={() => {}} />);
+    render(<CustomFieldTable data={customFields} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
+    TableUtil.assertReadonly();
     expect(screen.getByDisplayValue(/field1/)).toBeDisabled();
     expect(screen.getAllByRole('combobox')[0]).toBeDisabled();
   });

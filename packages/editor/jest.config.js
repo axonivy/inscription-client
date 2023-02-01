@@ -8,8 +8,9 @@ module.exports = {
     '^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)': '<rootDir>/jest/emptyTransform.js'
   },
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$', '^.+\\.module\\.(css|sass|scss)$'],
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.tsx'],
+  setupFilesAfterEnv: ['<rootDir>/src/test-utils/setupTests.tsx'],
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
+  moduleDirectories: ['node_modules', 'test-utils'],
   reporters: [
     'default',
     [

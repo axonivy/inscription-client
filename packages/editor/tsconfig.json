@@ -1,4 +1,14 @@
 {
-  "extends": "./dev.tsconfig.json",
-  "exclude": ["**/*test.ts", "**/*test.tsx", "**/*test-helper.ts", "**/setupTests.tsx"]
+  "extends": "../../config/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "lib",
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "paths": {
+      "test-utils": ["./src/test-utils/test-utils"]
+    }
+  },
+  "include": ["src"]
 }

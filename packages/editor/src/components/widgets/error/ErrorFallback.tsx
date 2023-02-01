@@ -4,7 +4,7 @@ import { FallbackProps } from 'react-error-boundary';
 import { useDataContext } from '../../../context';
 import IvyIcon from '../IvyIcon';
 
-export const ErrorFallback = (props: FallbackProps) => {
+const ErrorFallback = (props: FallbackProps) => {
   const { data } = useDataContext();
   return (
     <div className='error-fallback' role='alert'>
@@ -21,3 +21,5 @@ export const ErrorFallback = (props: FallbackProps) => {
     </div>
   );
 };
+
+export default ErrorFallback;

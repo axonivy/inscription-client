@@ -1,33 +1,22 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
 import ResponsibleSelect from './ResponsibleSelect';
-import { ClientContext, ClientContextInstance } from '../../../../context';
-import userEvent from '@testing-library/user-event';
 import { Responsible, ResponsibleType } from '@axonivy/inscription-protocol';
+import { render, screen, userEvent, waitFor } from 'test-utils';
 
 describe('ResponsibleSelect', () => {
   function renderSelect(options?: { type?: ResponsibleType; activator?: string; optionsFilter?: ResponsibleType[] }) {
-    const responsible: Responsible = { type: options?.type as ResponsibleType, activator: options?.activator };
-    const client: ClientContext = {
-      // @ts-ignore
-      client: {
-        roles() {
-          return Promise.resolve([
-            { id: 'Everybody', label: 'In this role is everyone' },
-            { id: 'Employee', label: '' },
-            { id: 'Teamleader', label: '' }
-          ]);
-        }
-      }
-    };
+    const responsible: Responsible = { type: options?.type as ResponsibleType, activator: options?.activator ?? '' };
+    const roles = [
+      { id: 'Everybody', label: 'In this role is everyone' },
+      { id: 'Employee', label: '' },
+      { id: 'Teamleader', label: '' }
+    ];
     render(
-      <ClientContextInstance.Provider value={client}>
-        <ResponsibleSelect
-          responsible={responsible}
-          updateResponsible={{ updateType: () => {}, updateActivator: () => {} }}
-          optionFilter={options?.optionsFilter}
-        />
-      </ClientContextInstance.Provider>
+      <ResponsibleSelect
+        responsible={responsible}
+        updateResponsible={{ updateType: () => {}, updateActivator: () => {} }}
+        optionFilter={options?.optionsFilter}
+      />,
+      { wrapperProps: { meta: { roles } } }
     );
   }
 
