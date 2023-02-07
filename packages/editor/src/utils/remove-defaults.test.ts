@@ -1,3 +1,4 @@
+import { DEFAULT_DATA } from '@axonivy/inscription-protocol';
 import { removeDefaults } from './remove-defaults';
 
 describe('remove defaults', () => {
@@ -14,5 +15,86 @@ describe('remove defaults', () => {
 
     expect(removeDefaults({ a: [] }, { a: [] })).toEqual({});
     expect(removeDefaults({ a: ['hi'] }, { a: [] })).toEqual({ a: ['hi'] });
+  });
+
+  test('script data', () => {
+    expect(
+      removeDefaults(
+        {
+          name: 'script',
+          description: '',
+          docs: [],
+          tags: [],
+          config: {
+            dialog: '',
+            call: {
+              map: [],
+              code: ''
+            },
+            output: {
+              map: [
+                {
+                  key: 'out.test',
+                  value: '"test"'
+                }
+              ],
+              code: ''
+            },
+            sudo: false,
+            task: {
+              id: '',
+              name: '',
+              description: '',
+              category: '',
+              responsible: {
+                type: 'ROLE',
+                activator: 'Everybody'
+              },
+              priority: {
+                level: 'NORMAL',
+                script: ''
+              },
+              skipTasklist: false,
+              delay: '',
+              expiry: {
+                timeout: '',
+                error: '',
+                responsible: {
+                  type: 'ROLE',
+                  activator: 'Everybody'
+                },
+                priority: {
+                  level: 'NORMAL',
+                  script: ''
+                }
+              },
+              customFields: [],
+              code: ''
+            },
+            tasks: [],
+            persist: false,
+            case: {
+              name: '',
+              description: '',
+              category: '',
+              customFields: []
+            }
+          }
+        },
+        DEFAULT_DATA
+      )
+    ).toEqual({
+      name: 'script',
+      config: {
+        output: {
+          map: [
+            {
+              key: 'out.test',
+              value: '"test"'
+            }
+          ]
+        }
+      }
+    });
   });
 });
