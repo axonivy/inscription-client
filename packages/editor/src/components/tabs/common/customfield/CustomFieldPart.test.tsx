@@ -15,8 +15,8 @@ describe('CustomFieldPart', () => {
 
   test('part render full', async () => {
     renderTable([
-      { name: 'field1', type: 'String', value: 'this is a string' },
-      { name: 'number', type: 'Number', value: '1' }
+      { name: 'field1', type: 'STRING', value: 'this is a string' },
+      { name: 'number', type: 'NUMBER', value: '1' }
     ]);
     TableUtil.assertRowCount(2);
   });

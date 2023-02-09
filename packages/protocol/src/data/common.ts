@@ -1,6 +1,11 @@
-export const CUSTOM_FIELD_TYPE = ['String', 'Text', 'Number', 'Timestamp'] as const;
+export const CUSTOM_FIELD_TYPE = {
+  STRING: 'String',
+  TEXT: 'Text',
+  NUMBER: 'Number',
+  TIMESTAMP: 'Timestamp'
+} as const;
 
-export type CustomFieldType = typeof CUSTOM_FIELD_TYPE[number];
+export type CustomFieldType = keyof typeof CUSTOM_FIELD_TYPE;
 
 export interface CustomField {
   name: string;

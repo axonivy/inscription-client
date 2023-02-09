@@ -30,7 +30,7 @@ describe('TaskTab', () => {
     //@ts-ignore
     assertState('configured', { expiry: { timeout: 'asf' } });
 
-    assertState('configured', { customFields: [{ name: 'cf', type: 'Number', value: '123' }] });
+    assertState('configured', { customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }] });
     assertState('configured', { code: 'code' });
   });
 });

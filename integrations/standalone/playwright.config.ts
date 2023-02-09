@@ -8,8 +8,7 @@ const config: PlaywrightTestConfig = {
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['junit', { outputFile: 'report.xml' }]] : 'html',
   use: {
     actionTimeout: 0,

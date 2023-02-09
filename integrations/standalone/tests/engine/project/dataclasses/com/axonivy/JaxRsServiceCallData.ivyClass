@@ -1,0 +1,14 @@
+JaxRsServiceCallData #class
+com.axonivy #namespace
+name String #field
+name PERSISTENT #fieldModifier
+documentId Number #field
+documentId PERSISTENT #fieldModifier
+price BigDecimal #field
+price PERSISTENT #fieldModifier
+person ch.ivyteam.test.Person #field
+person PERSISTENT #fieldModifier
+lastUpdate Date #field
+lastUpdate PERSISTENT #fieldModifier
+generatedPassword String #field
+generatedPassword PERSISTENT #fieldModifier

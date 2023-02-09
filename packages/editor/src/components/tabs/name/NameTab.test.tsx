@@ -3,14 +3,14 @@ import { Data, NameData } from '@axonivy/inscription-protocol';
 import { useNameTab } from './NameTab';
 import { TabState } from '../../../components/props';
 
-const Tab = () => {
-  const tab = useNameTab();
+const Tab = (props: { hideTags?: boolean }) => {
+  const tab = useNameTab({ hideTags: props.hideTags });
   return <>{tab.content}</>;
 };
 
 describe('NameTab', () => {
-  function renderTab(data?: Data) {
-    render(<Tab />, { wrapperProps: { data } });
+  function renderTab(data?: Data, hideTags?: boolean) {
+    render(<Tab hideTags={hideTags} />, { wrapperProps: { data } });
   }
 
   async function assertMainPart(name: string, description: string, docs: string[]) {
@@ -23,6 +23,12 @@ describe('NameTab', () => {
     renderTab();
     await assertMainPart('', '', []);
     expect(await screen.findByText('► Tags')).toBeInTheDocument();
+  });
+
+  test('hide tags', async () => {
+    renderTab(undefined, true);
+    await assertMainPart('', '', []);
+    expect(screen.queryByText('► Tags')).not.toBeInTheDocument();
   });
 
   test('full data', async () => {

@@ -1,0 +1,6 @@
+Invoice #class
+screenshot.project #namespace
+customerId String #field
+customerId PERSISTENT #fieldModifier
+invoiceType String #field
+invoiceType PERSISTENT #fieldModifier
