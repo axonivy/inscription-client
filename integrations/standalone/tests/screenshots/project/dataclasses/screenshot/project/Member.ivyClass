@@ -1,0 +1,10 @@
+Member #class
+screenshot.project #namespace
+purchaseAmount Number #field
+purchaseAmount PERSISTENT #fieldModifier
+memberType Number #field
+memberType PERSISTENT #fieldModifier
+discount Number #field
+discount PERSISTENT #fieldModifier
+type String #field
+type PERSISTENT #fieldModifier

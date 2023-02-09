@@ -1,0 +1,53 @@
+pipeline {
+  agent any
+
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '5'))
+  }
+
+  triggers {
+    cron '@midnight'
+  }
+
+  parameters {
+    string(name: 'engineSource', defaultValue: 'https://product.ivyteam.io/', description: 'Engine page url')
+  }
+
+  stages {
+    stage('Screenshots') {
+      steps {
+        script {
+          docker.build('node-webtest', '-f build/Dockerfile .').inside {
+            sh 'yarn'
+            dir ('integrations/standalone/tests/screenshots/project') {
+              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
+            }
+          }
+          archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
+          archiveArtifacts artifacts: '**/standalone/**/target/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: '**/standalone/**/target/screenshots/*.png', allowEmptyArchive: true
+          withChecks('Screenshots') {
+            junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
+          }
+        }
+      }
+    }
+    stage('Deploy') {
+      when {
+        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
+      }
+      steps {
+        script {
+          docker.image('maven:3.8.6-eclipse-temurin-17').inside {
+            maven cmd: '-ntp -f integrations/standalone/tests/screenshots clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
+          }
+          archiveArtifacts 'integrations/standalone/**/target/inscription-view-screenshots-*.zip'
+        }
+      }
+    }
+  }
+}
+
+def isReleaseOrMasterBranch() {
+  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
+}

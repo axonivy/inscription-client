@@ -1,5 +1,4 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
-import { devices } from '@playwright/test';
+import { devices, PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
   testDir: './tests',
@@ -11,10 +10,10 @@ const config: PlaywrightTestConfig = {
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: process.env.CI ? 'junit' : 'html',
+  reporter: process.env.CI ? [['junit', { outputFile: 'report.xml' }]] : 'html',
   use: {
     actionTimeout: 0,
-    baseURL: 'http://localhost:3000/mock.html',
+    baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
     headless: process.env.CI ? true : false
   },

@@ -3,7 +3,7 @@ import { selectDialog } from './combobox-util';
 
 test.describe('Dialog Starts', () => {
   test('change will update mapping tree', async ({ page }) => {
-    await page.goto('');
+    await page.goto('mock.html');
     await page.getByRole('tab', { name: 'Call' }).click();
 
     await selectDialog(page, 'AcceptRequest');

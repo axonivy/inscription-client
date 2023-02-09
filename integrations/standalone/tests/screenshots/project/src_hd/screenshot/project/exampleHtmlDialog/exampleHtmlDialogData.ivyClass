@@ -1,0 +1,4 @@
+exampleHtmlDialogData #class
+screenshot.project.exampleHtmlDialog #namespace
+data screenshot.project.Data #field
+data PERSISTENT #fieldModifier

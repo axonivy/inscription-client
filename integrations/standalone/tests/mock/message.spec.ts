@@ -3,7 +3,7 @@ import { selectDialog } from './combobox-util';
 
 test.describe('Global Messages', () => {
   test('multiple errors', async ({ page }) => {
-    await page.goto('');
+    await page.goto('mock.html');
     const warning = page.locator('.header-status:text("Description is empty")');
     const error = page.locator('.header-status:text("Name must not be empty")');
     await expect(warning).toBeHidden();
@@ -19,7 +19,7 @@ test.describe('Global Messages', () => {
   });
 
   test('name if no messages', async ({ page }) => {
-    await page.goto('');
+    await page.goto('mock.html');
     const warning = page.locator('.header-status:text("No User Dialog specified")');
     const info = page.locator('.header-status:text("test name")');
     await expect(warning).toBeVisible();

@@ -48,6 +48,7 @@ const ResponsibleActivator = (props: {
       return (
         <input
           className='input'
+          aria-label='activator'
           value={props.responsible?.activator ?? ''}
           onChange={e => props.updateResponsible.updateActivator(e.target.value)}
         />

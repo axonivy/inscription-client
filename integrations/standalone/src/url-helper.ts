@@ -1,42 +1,48 @@
 import { ThemeContext } from '@axonivy/inscription-editor';
 
 export namespace URLParams {
-  export function getParameter(key: string): string | undefined {
+  export function parameter(key: string): string | undefined {
     const param = new URLSearchParams(window.location.search).get(key);
     return param !== null ? param : undefined;
   }
 
-  export function getPid(): string {
-    return getParameter('pid') ?? defaultPid();
+  export function pid(): string {
+    return parameter('pid') ?? defaultPid();
   }
 
-  export function getServer(): string {
-    return getParameter('server') ?? defaultServer();
+  export function webSocketBase(): string {
+    return `${isSecureConnection() ? 'wss' : 'ws'}://${server()}`;
   }
 
-  export function getThemeMode(): ThemeContext {
-    return (getParameter('theme') as ThemeContext) ?? defaultTheme();
+  export function themeMode(): ThemeContext {
+    return (parameter('theme') as ThemeContext) ?? defaultTheme();
+  }
+
+  function isSecureConnection(): boolean {
+    return window.location.protocol === 'https:' || parameter('secure') === 'true';
   }
 
   function defaultPid(): string {
-    if (isEclipseIntegration()) {
+    if (window.location.pathname.includes('designer')) {
       return '';
     }
     return '15254DC87A1B183B-f5';
   }
 
-  function defaultServer(): string {
-    if (isEclipseIntegration()) {
-      return `${window.location.host}/designer`;
+  function server(): string {
+    return parameter('server') ?? basePath();
+  }
+
+  function basePath(): string {
+    const protocol = window.location.protocol;
+    const href = window.location.href;
+    if (href.includes('/process-inscription')) {
+      return href.substring(protocol.length + 2, href.indexOf('/process-inscription'));
     }
     return 'localhost:8081/designer';
   }
 
   function defaultTheme(): ThemeContext {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-
-  function isEclipseIntegration() {
-    return window.location.pathname.startsWith('/designer/process-inscription');
   }
 }
