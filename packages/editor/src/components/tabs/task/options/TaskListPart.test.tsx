@@ -10,8 +10,7 @@ describe('TaskPart', () => {
 
   test('task option render empty', async () => {
     renderTaskPart();
-    const optionCollapse = screen.getByRole('button', { name: /Option/ });
-    await userEvent.click(optionCollapse);
+    await userEvent.click(screen.getByRole('button', { name: /Option/ }));
 
     expect(screen.getByLabelText('Skip Tasklist')).not.toBeChecked();
     expect(screen.getByLabelText('Delay')).toHaveValue('');

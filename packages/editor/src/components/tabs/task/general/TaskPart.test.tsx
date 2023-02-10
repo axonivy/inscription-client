@@ -8,12 +8,18 @@ describe('TaskPart', () => {
     render(<TaskPart showPersist={showPersist} />, { wrapperProps: { data: data && { config: { task: data } } } });
   }
 
-  async function assertMainPart(name: string, description: string, category: string, responsible: string, priority: string) {
+  async function assertMainPart(name: string, description: string, category: string, responsible: string, priority: string, code?: string) {
     expect(screen.getByLabelText('Name')).toHaveValue(name);
     expect(screen.getByLabelText('Description')).toHaveValue(description);
     expect(screen.getByLabelText('Category')).toHaveValue(category);
     await SelectUtil.assertValue(responsible, 'Responsible');
     await SelectUtil.assertValue(priority, 'Priority');
+
+    if (code) {
+      expect(await screen.findByTestId('code-editor')).toHaveValue(code);
+    } else {
+      expect(await screen.findByText('► Code')).toBeInTheDocument();
+    }
   }
 
   test('task part render empty', async () => {
@@ -52,8 +58,12 @@ describe('TaskPart', () => {
       description: 'desc',
       category: 'cat',
       responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: 'bla' },
-      priority: { level: 'EXCEPTION', script: '' }
+      priority: { level: 'EXCEPTION', script: '' },
+      skipTasklist: true,
+      delay: 'delay',
+      customFields: [{ name: 'cf', type: 'Number', value: '123' }],
+      code: 'code'
     });
-    await assertMainPart('task', 'desc', 'cat', 'Role from Attr.', 'Exception');
+    await assertMainPart('task', 'desc', 'cat', 'Role from Attr.', 'Exception', 'code');
   });
 });
