@@ -2,7 +2,7 @@ import { ReactNode, useMemo } from 'react';
 import { deepEqual } from '../../utils/equals';
 import { Message } from './message';
 
-export type TabState = 'empty' | 'configured' | 'dirty' | 'warning' | 'error';
+export type TabState = 'empty' | 'configured' | 'warning' | 'error';
 
 export interface TabProps {
   name: string;

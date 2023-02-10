@@ -1,4 +1,4 @@
-import { PriorityLevel, ResponsibleType, Task } from '@axonivy/inscription-protocol';
+import { Expiry, PriorityLevel, ResponsibleType } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../../types/lambda';
@@ -7,7 +7,7 @@ import { PriorityUpdater } from '../priority/PrioritySelect';
 import { ResponsibleUpdater } from '../responsible/ResponsibleSelect';
 
 export function useExpiryData(): {
-  task: Task;
+  expiry: Expiry;
   updateTimeout: Consumer<string>;
   updateError: Consumer<string>;
   updateResponsible: ResponsibleUpdater;
@@ -76,7 +76,7 @@ export function useExpiryData(): {
   );
 
   return {
-    task,
+    expiry: task.expiry,
     updateTimeout,
     updateError,
     updateResponsible: { updateType, updateActivator },

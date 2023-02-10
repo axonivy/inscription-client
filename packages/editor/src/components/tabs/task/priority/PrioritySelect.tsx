@@ -4,11 +4,7 @@ import { Priority, PriorityLevel, PRIORITY_LEVEL } from '@axonivy/inscription-pr
 import { Select, SelectItem } from '../../../../components/widgets';
 import { Consumer } from '../../../../types/lambda';
 
-interface PrioritySelectItem extends SelectItem {
-  value: PriorityLevel;
-}
-
-const DEFAULT_PRIORITY: PrioritySelectItem = { label: PRIORITY_LEVEL.NORMAL, value: 'NORMAL' };
+const DEFAULT_PRIORITY: SelectItem & { value: PriorityLevel } = { label: PRIORITY_LEVEL.NORMAL, value: 'NORMAL' };
 
 export interface PriorityUpdater {
   updateLevel: Consumer<PriorityLevel>;

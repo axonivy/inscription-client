@@ -23,7 +23,7 @@ describe('CustomFieldTable', () => {
   test('table will render', () => {
     renderTable();
     TableUtil.assertHeaders(['Name', 'Type', 'Expression', 'Actions', '']);
-    TableUtil.assertRows([/Name/, /field1/, /number/, '']);
+    TableUtil.assertRows([/field1/, /number/]);
   });
 
   test('table can sort columns', async () => {
@@ -32,11 +32,11 @@ describe('CustomFieldTable', () => {
     await userEvent.click(columnHeader);
     const firstHeader = screen.getAllByRole('columnheader')[0];
     expect(firstHeader).toHaveTextContent('Name 🔼');
-    TableUtil.assertRows([/Name/, /field1/, /number/, '']);
+    TableUtil.assertRows([/field1/, /number/]);
 
     await userEvent.click(columnHeader);
     expect(firstHeader).toHaveTextContent('Name 🔽');
-    TableUtil.assertRows([/Name/, /number/, /field1/, '']);
+    TableUtil.assertRows([/number/, /field1/]);
   });
 
   test('table can add new row', async () => {

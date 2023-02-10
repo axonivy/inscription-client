@@ -53,9 +53,6 @@
 .tabs-trigger .tab-state[data-state='configured'] {
   background-color: var(--info-color);
 }
-.tabs-trigger .tab-state[data-state='dirty'] {
-  background-color: var(--success-color);
-}
 .tabs-trigger .tab-state[data-state='warning'] {
   background-color: var(--warning-color);
 }

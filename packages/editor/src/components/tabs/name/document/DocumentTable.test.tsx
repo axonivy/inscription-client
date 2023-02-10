@@ -23,7 +23,7 @@ describe('DocumentTable', () => {
   test('table will render', () => {
     renderTable();
     TableUtil.assertHeaders(['Name', 'URL', 'Actions', '']);
-    TableUtil.assertRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '']);
+    TableUtil.assertRows([/Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/]);
   });
 
   test('table can sort columns', async () => {
@@ -31,11 +31,11 @@ describe('DocumentTable', () => {
     const columnHeader = screen.getByRole('button', { name: 'Name' });
     await userEvent.click(columnHeader);
     TableUtil.assertHeaders(['Name 🔼', 'URL', 'Actions', '']);
-    TableUtil.assertRows([/Name/, /Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/, '']);
+    TableUtil.assertRows([/Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/]);
 
     await userEvent.click(columnHeader);
     TableUtil.assertHeaders(['Name 🔽', 'URL', 'Actions', '']);
-    TableUtil.assertRows([/Name/, /ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/, '']);
+    TableUtil.assertRows([/ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/]);
   });
 
   test('table can add new row', async () => {
