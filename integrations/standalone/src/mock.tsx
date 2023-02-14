@@ -8,9 +8,9 @@ import { URLParams } from './url-helper';
 import { InscriptionEditorType } from '@axonivy/inscription-protocol';
 
 export async function start(): Promise<void> {
-  const theme = URLParams.getThemeMode();
-  const readonly = URLParams.getParameter('readonly') ? true : false;
-  const type = (URLParams.getParameter('type') as InscriptionEditorType) ?? undefined;
+  const theme = URLParams.themeMode();
+  const readonly = URLParams.parameter('readonly') ? true : false;
+  const type = (URLParams.parameter('type') as InscriptionEditorType) ?? undefined;
 
   MonacoEditorUtil.initMonaco(monaco, theme);
   MonacoUtil.initStandalone();

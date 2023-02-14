@@ -26,14 +26,14 @@ pipeline {
         }
       }
     }
-    stage('Integration Tests') {
+    stage('Mock Tests') {
       steps {
         script {
-          docker.image('mcr.microsoft.com/playwright:v1.29.2').inside {
-            sh 'yarn standalone webtest:ci'
+          docker.image('mcr.microsoft.com/playwright:v1.30.0').inside {
+            sh 'yarn standalone webtest:mock'
           }
           archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
-          withChecks('Integration Tests') {
+          withChecks('Mock Tests') {
             junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
           }
         }

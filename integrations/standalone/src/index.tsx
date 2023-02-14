@@ -7,17 +7,17 @@ import ReactDOM from 'react-dom/client';
 import { URLParams } from './url-helper';
 
 export async function start(): Promise<void> {
-  const server = URLParams.getServer();
-  const pid = URLParams.getPid();
-  const theme = URLParams.getThemeMode();
+  const server = URLParams.webSocketBase();
+  const pid = URLParams.pid();
+  const theme = URLParams.themeMode();
 
   MonacoEditorUtil.initMonaco(monaco, theme);
   MonacoUtil.initStandalone();
   const root = ReactDOM.createRoot(document.getElementById('root')!);
 
   try {
-    await IvyScriptLanguage.startWebSocketClient(`ws://${server}/ivy-script-lsp`);
-    const client = await InscriptionClientJsonRpc.startWebSocketClient(`ws://${server}/ivy-inscription-lsp`);
+    await IvyScriptLanguage.startWebSocketClient(`${server}/ivy-script-lsp`);
+    const client = await InscriptionClientJsonRpc.startWebSocketClient(`${server}/ivy-inscription-lsp`);
 
     root.render(
       <React.StrictMode>

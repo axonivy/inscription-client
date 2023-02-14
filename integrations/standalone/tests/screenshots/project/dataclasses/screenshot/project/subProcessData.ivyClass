@@ -1,0 +1,4 @@
+subProcessData #class
+screenshot.project #namespace
+data screenshot.project.Data #field
+data PERSISTENT #fieldModifier

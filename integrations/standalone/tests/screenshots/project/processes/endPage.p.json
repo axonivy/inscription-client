@@ -1,0 +1,60 @@
+{
+  "format" : "11.1.7",
+  "id" : "16BADA40155E7401",
+  "config" : {
+    "data" : "screenshot.project.Data"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "start.ivp",
+      "config" : {
+        "callSignature" : "start",
+        "outLink" : "start.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEndPage",
+      "name" : "end",
+      "config" : {
+        "template" : "endpage.xhtml"
+      },
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 },
+        "labelOffset" : { "x" : 20, "y" : 35 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "WebPage",
+      "name" : "page",
+      "config" : {
+        "template" : "endpage.xhtml",
+        "responsible" : "Support",
+        "outLinks" : [ "LinkA.ivp", "LinkB.ivp", "LinkFile.ivp" ]
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1", "condition" : "ivp==\"LinkA.ivp\"" },
+        { "id" : "f6", "to" : "f5", "condition" : "ivp==\"LinkB.ivp\"" },
+        { "id" : "f8", "to" : "f7", "condition" : "ivp==\"LinkFile.ivp\"" }
+      ]
+    }, {
+      "id" : "f5",
+      "type" : "Script",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 192 }
+      }
+    }, {
+      "id" : "f7",
+      "type" : "Database",
+      "visual" : {
+        "at" : { "x" : 368, "y" : 192 }
+      }
+    } ]
+}

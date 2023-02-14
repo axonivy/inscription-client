@@ -1,0 +1,39 @@
+{
+  "format" : "11.1.7",
+  "id" : "175083477C6BF05D",
+  "config" : {
+    "data" : "screenshot.project.RuleData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "start.ivp",
+      "config" : {
+        "callSignature" : "start",
+        "outLink" : "start.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : 12, "y" : 37 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "ThirdPartyProgramInterface",
+      "impl" : "RuleActivity",
+      "name" : "ruleActivity",
+      "config" : {
+        "beanConfig" : "{\"namespace\":\"rule.demo\",\"dataObject\":\"in.member\"}"
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}

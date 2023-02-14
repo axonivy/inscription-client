@@ -7,6 +7,7 @@
     "node": ">=14.18.0"
   },
   "scripts": {
+    "prepare": "yarn icons",
     "ci": "yarn install && yarn icons && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
     "clean": "lerna run clean",
     "build": "lerna run build",

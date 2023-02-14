@@ -1,0 +1,16 @@
+Person #class
+ch.ivyteam.test #namespace
+name String #field
+name PERSISTENT #fieldModifier
+lastname String #field
+lastname PERSISTENT #fieldModifier
+street String #field
+street PERSISTENT #fieldModifier
+zip Integer #field
+zip PERSISTENT #fieldModifier
+city String #field
+city PERSISTENT #fieldModifier
+country String #field
+country PERSISTENT #fieldModifier
+mail String #field
+mail PERSISTENT #fieldModifier

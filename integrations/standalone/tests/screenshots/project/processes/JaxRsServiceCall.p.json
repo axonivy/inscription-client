@@ -1,0 +1,308 @@
+{
+  "format" : "11.1.7",
+  "id" : "159FF3D428E42BB5",
+  "config" : {
+    "data" : "com.axonivy.JaxRsServiceCallData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "axonTimeline.ivp",
+      "config" : {
+        "callSignature" : "axonTimeline",
+        "outLink" : "axonTimeline.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f3", "to" : "f46" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f46",
+      "type" : "RestClientCall",
+      "name" : "Call twitter",
+      "config" : {
+        "path" : "statuses/user_timeline.json",
+        "headers" : {
+          "Accept" : "application/json"
+        },
+        "clientId" : "d6b7615f-1087-483d-9dbe-9b704bbe7f02",
+        "method" : "GET",
+        "queryParams" : {
+          "screen_name" : "\"AxonIvy\""
+        },
+        "clientCode" : [
+          "import com.fasterxml.jackson.databind.JsonNode;",
+          "",
+          "JsonNode node = client",
+          "  .path(\"statuses/user_timeline.json\")",
+          "  .request().get(JsonNode.class) as JsonNode;",
+          "in.name = node.get(\"user\").asText();"
+        ],
+        "responseMapping" : {
+          "out.name" : "result.get(\"user\").asText();"
+        },
+        "templateParams" : {
+          "api.version" : "\"1.1\""
+        },
+        "resultType" : "com.fasterxml.jackson.databind.JsonNode"
+      },
+      "visual" : {
+        "at" : { "x" : 223, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    }, {
+      "id" : "f38",
+      "type" : "RequestStart",
+      "name" : "addDocument.ivp",
+      "config" : {
+        "callSignature" : "addDocument",
+        "outLink" : "addDocument.ivp",
+        "input" : {
+          "params" : [
+            { "name" : "name", "type" : "String" }
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 97, "y" : 156 }
+      },
+      "connect" : { "id" : "f40", "to" : "f39" }
+    }, {
+      "id" : "f37",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 354, "y" : 156 }
+      }
+    }, {
+      "id" : "f39",
+      "type" : "RestClientCall",
+      "name" : [
+        "Update",
+        "document name"
+      ],
+      "config" : {
+        "bodyRaw" : [
+          "{",
+          "  \"id\" : 42,",
+          "  \"firstname\" : \"<%=in.name%>\"",
+          "}"
+        ],
+        "bodyObjectMapping" : {
+          "param" : "in.person"
+        },
+        "clientId" : "a320a922-175c-43c0-adc6-b6694ecae306",
+        "method" : "POST",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "bodyObjectType" : "ch.ivyteam.test.Person",
+        "bodyInputType" : "RAW",
+        "responseCode" : [
+          "if (response.hasLink(\"/\"+out.documentId)){",
+          "  ivy.log.info(response.getLink(\"/\"+out.documentId).getUri());",
+          "}"
+        ],
+        "bodyForm" : {
+          "title" : "\"I need a new car\"",
+          "description" : "\"really, I'm sick of my old Fiat Punto\""
+        },
+        "path" : "document",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "clientCode" : "out.name = client.request().get().readEntity(String.class) as String;",
+        "responseMapping" : {
+          "out.documentId" : "result.get(0).toNumber()"
+        },
+        "resultType" : "java.util.List<java.lang.Integer>"
+      },
+      "visual" : {
+        "at" : { "x" : 226, "y" : 156 },
+        "size" : { "width" : 128, "height" : 60 }
+      },
+      "connect" : { "id" : "f41", "to" : "f37" }
+    }, {
+      "id" : "f5",
+      "type" : "RequestStart",
+      "name" : [
+        "createApproval",
+        "viaREST.ivp"
+      ],
+      "config" : {
+        "callSignature" : "approve",
+        "case" : {
+          "attachToBusinessCase" : false
+        },
+        "outLink" : "approve.ivp",
+        "startName" : "3. Calls a BPM process from REST service"
+      },
+      "visual" : {
+        "at" : { "x" : 93, "y" : 240 },
+        "labelOffset" : { "x" : -32, "y" : 37 }
+      },
+      "connect" : { "id" : "f7", "to" : "f14" }
+    }, {
+      "id" : "f6",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 349, "y" : 240 }
+      }
+    }, {
+      "id" : "f14",
+      "type" : "RestClientCall",
+      "name" : [
+        "create",
+        "JAX-RS approval"
+      ],
+      "config" : {
+        "clientId" : "e61c6d1f-106e-46ea-8327-fe18e4c1d912",
+        "method" : "JAX_RS",
+        "clientCode" : [
+          "import javax.ws.rs.client.Entity;",
+          "import com.fasterxml.jackson.databind.JsonNode;",
+          "import javax.ws.rs.core.MultivaluedHashMap;",
+          "import javax.ws.rs.core.MultivaluedMap;",
+          "",
+          "MultivaluedMap map = new MultivaluedHashMap();",
+          "map.add(\"title\",\"I need a new car\");",
+          "map.add(\"description\", \"really, I'm sick of my old Fiat Punto\");",
+          "map.add(\"cost\", in.price.toString());",
+          "",
+          "JsonNode result = client.request()",
+          "  .put(Entity.form(map))",
+          "  .readEntity(JsonNode.class) as JsonNode;",
+          "  ",
+          "ivy.log.info(result);"
+        ]
+      },
+      "visual" : {
+        "at" : { "x" : 221, "y" : 240 },
+        "size" : { "width" : 128, "height" : 60 }
+      },
+      "connect" : { "id" : "f8", "to" : "f6" }
+    }, {
+      "id" : "f4",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 349, "y" : 327 }
+      }
+    }, {
+      "id" : "f9",
+      "type" : "RestClientCall",
+      "name" : "form approval",
+      "config" : {
+        "bodyForm" : {
+          "title" : "\"I need a new car\"",
+          "description" : "\"really, I'm sick of my old Fiat Punto\""
+        },
+        "clientId" : "e61c6d1f-106e-46ea-8327-fe18e4c1d912",
+        "method" : "PUT",
+        "resultType" : "com.fasterxml.jackson.databind.JsonNode",
+        "bodyInputType" : "FORM",
+        "responseCode" : "ivy.log.info(result);"
+      },
+      "visual" : {
+        "at" : { "x" : 221, "y" : 327 }
+      },
+      "connect" : { "id" : "f11", "to" : "f4" }
+    }, {
+      "id" : "f10",
+      "type" : "RequestStart",
+      "name" : "formInput.ivp",
+      "config" : {
+        "callSignature" : "formInput",
+        "case" : {
+          "attachToBusinessCase" : false
+        },
+        "outLink" : "formInput.ivp",
+        "startName" : "3. Calls a BPM process from REST service"
+      },
+      "visual" : {
+        "at" : { "x" : 93, "y" : 327 }
+      },
+      "connect" : { "id" : "f12", "to" : "f9" }
+    }, {
+      "id" : "f13",
+      "type" : "RequestStart",
+      "name" : "entityInput.ivp",
+      "config" : {
+        "callSignature" : "entityInput",
+        "case" : {
+          "attachToBusinessCase" : false
+        },
+        "outLink" : "entityInput.ivp",
+        "startName" : "3. Calls a BPM process from REST service"
+      },
+      "visual" : {
+        "at" : { "x" : 91, "y" : 406 }
+      },
+      "connect" : { "id" : "f18", "to" : "f16" }
+    }, {
+      "id" : "f15",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 347, "y" : 406 }
+      }
+    }, {
+      "id" : "f16",
+      "type" : "RestClientCall",
+      "name" : "entity CRM",
+      "config" : {
+        "bodyForm" : {
+          "title" : "\"I need a new car\"",
+          "description" : "\"really, I'm sick of my old Fiat Punto\""
+        },
+        "path" : "crm",
+        "bodyObjectMapping" : {
+          "param" : "in.person"
+        },
+        "clientId" : "a320a922-175c-43c0-adc6-b6694ecae306",
+        "method" : "PUT",
+        "bodyObjectType" : "ch.ivyteam.test.Person",
+        "resultType" : "com.fasterxml.jackson.databind.JsonNode",
+        "bodyInputType" : "ENTITY",
+        "responseCode" : "ivy.log.info(result);"
+      },
+      "visual" : {
+        "at" : { "x" : 219, "y" : 406 }
+      },
+      "connect" : { "id" : "f17", "to" : "f15" }
+    }, {
+      "id" : "f19",
+      "type" : "RequestStart",
+      "name" : "dynamicProperties.ivp",
+      "config" : {
+        "callSignature" : "dynamicProperties",
+        "outLink" : "dynamicProperties.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 480 }
+      },
+      "connect" : { "id" : "f22", "to" : "f21" }
+    }, {
+      "id" : "f20",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 480 }
+      }
+    }, {
+      "id" : "f21",
+      "type" : "RestClientCall",
+      "name" : "Check NEW docs",
+      "config" : {
+        "path" : "document",
+        "clientId" : "a320a922-175c-43c0-adc6-b6694ecae306",
+        "method" : "HEAD",
+        "properties" : {
+          "username" : "in.person.name",
+          "password" : "in.generatedPassword"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 480 }
+      },
+      "connect" : { "id" : "f23", "to" : "f20" }
+    } ]
+}
