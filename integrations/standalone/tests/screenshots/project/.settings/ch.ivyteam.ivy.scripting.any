@@ -1,5 +1,0 @@
-{
-  /imports {
-    "com.uipath.orchestrator.client.*"
-  }
-}
