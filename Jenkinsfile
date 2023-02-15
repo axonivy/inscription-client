@@ -14,7 +14,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.build('node').inside {
+            docker.image('node:16.19-bullseye').withRun('-e CI=true') {
               sh 'build/use-mirror-npm.sh'
               sh 'yarn ci'
             }
