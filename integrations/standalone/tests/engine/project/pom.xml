@@ -7,12 +7,11 @@
   <groupId>inscription.view.project</groupId>
   <artifactId>engine-integration</artifactId>
   <version>11.1.0-SNAPSHOT</version>
-  <packaging>iar-integration-test</packaging>
+  <packaging>iar</packaging>
 
   <properties>
     <engine.page.url>https://product.ivyteam.io/</engine.page.url>
     <project.build.plugin.version>11.1.0-SNAPSHOT</project.build.plugin.version>
-    <engine.test.app>glsp-test-project</engine.test.app>
   </properties>
 
   <build>
@@ -24,38 +23,8 @@
         <extensions>true</extensions>
         <configuration>
           <engineListPageUrl>${engine.page.url}</engineListPageUrl>
-          <deployToEngineApplication>${engine.test.app}</deployToEngineApplication>
+          <engineDirectory>${project.build.directory}/ivyEngine</engineDirectory>
         </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.0.0</version>
-        <executions>
-          <execution>
-            <phase>integration-test</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>yarn</executable>
-              <arguments>
-                <argument>--cwd</argument>
-                <argument>../../..</argument>
-                <argument>webtest:engine</argument>
-              </arguments>
-              <environmentVariables>
-                <BASE_URL>${test.engine.url}</BASE_URL>
-                <TEST_APP>${engine.test.app}</TEST_APP>
-              </environmentVariables>
-              <successCodes>
-                <successCode>0</successCode>
-                <successCode>1</successCode>
-              </successCodes>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

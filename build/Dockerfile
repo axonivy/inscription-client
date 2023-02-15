@@ -1,7 +1,3 @@
-FROM mcr.microsoft.com/playwright:v1.30.0-jammy
+FROM maven:3.8.6-eclipse-temurin-17
 
-RUN apt-get update &&\
-  apt-get install software-properties-common -y &&\
-  apt-add-repository universe -y &&\
-  apt-get update &&\
-  apt-get install openjdk-17-jdk maven -y
+RUN addgroup --gid 1000 build && adduser --uid 1000 --gid 1000 --disabled-password --gecos "" build

@@ -17,19 +17,10 @@ pipeline {
     stage('Screenshots') {
       steps {
         script {
-          docker.build('node-webtest', '-f build/Dockerfile .').inside {
-            sh 'build/use-mirror-npm.sh'
-            sh 'yarn'
-            dir ('integrations/standalone/tests/screenshots/project') {
-              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
-            }
-          }
-          archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: '**/standalone/**/target/**/ivy.log', allowEmptyArchive: true
+          def common = load 'build/common.groovy'
+          common.build('Screenshots', 'integrations/standalone/tests/screenshots/project', 'webtest:screenshot')
+
           archiveArtifacts artifacts: '**/standalone/**/target/screenshots/*.png', allowEmptyArchive: true
-          withChecks('Screenshots') {
-            junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
-          }
         }
       }
     }

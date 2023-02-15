@@ -17,18 +17,8 @@ pipeline {
     stage('Integration Test') {
       steps {
         script {
-          docker.build('node-webtest', '-f build/Dockerfile .').inside {
-            sh 'build/use-mirror-npm.sh'
-            sh 'yarn'
-            dir ('integrations/standalone/tests/engine/project') {
-              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
-            }
-          }
-          archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: '**/standalone/**/target/**/ivy.log', allowEmptyArchive: true
-          withChecks('Integration Test') {
-            junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
-          }
+          def common = load 'build/common.groovy'
+          common.build('Integration Test', 'integrations/standalone/tests/engine/project', 'webtest:engine')
         }
       }
     }
