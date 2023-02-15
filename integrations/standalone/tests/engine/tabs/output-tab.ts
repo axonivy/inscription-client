@@ -17,7 +17,6 @@ export class OutputTabTester implements TabTest {
   }
   async assertFill(page: Page) {
     //FIXME output map is not always send to view: await TableUtil.assertRow(page, 1, ['"bla"']);
-    // eslint-disable-next-line no-useless-escape
     if (this.hasCode) {
       await CodeEditorUtil.assertValue(page, 'ivy.log.info("hi");');
     }
@@ -30,9 +29,9 @@ export class OutputTabTester implements TabTest {
     }
   }
   async assertClear(page: Page) {
-    //FIXME output map is not always send to view: await TableUtil.assertRow(page, 1, ['']);
+    await TableUtil.assertRow(page, 1, ['']);
     if (this.hasCode) {
-      //FIXME cannot delete last char: await CodeEditorUtil.assertValue(page, '');
+      await CodeEditorUtil.assertValue(page, '');
     }
   }
 }

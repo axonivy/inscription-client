@@ -14,7 +14,6 @@ export const CallTabTest: TabTest = {
   assertFill: async (page: Page) => {
     await ComboboxUtil.assertSelect(page, 'ch.ivyteam.wf.PaymentRegistration:start(ch.ivyteam.test.Person)', 'Dialog');
     await TableUtil.assertRow(page, 2, ['"test"']);
-    // eslint-disable-next-line no-useless-escape
     await CodeEditorUtil.assertValue(page, 'ivy.log.info("hi");');
   },
   clear: async (page: Page) => {
