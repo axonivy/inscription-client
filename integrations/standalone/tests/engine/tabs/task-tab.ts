@@ -85,6 +85,6 @@ export const TaskTabTest: TabTest = {
     await CollapseUtil.assertClosed(page, 'Options');
     await CollapseUtil.assertClosed(page, 'Expiry');
     await CollapseUtil.assertClosed(page, 'Custom Fields');
-    //FIXME: await CollapseUtil.assertClosed(page, 'Code');
+    await CollapseUtil.assertClosed(page, 'Code');
   }
 };
