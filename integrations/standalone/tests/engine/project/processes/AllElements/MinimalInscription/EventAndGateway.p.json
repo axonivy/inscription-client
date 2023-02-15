@@ -1,0 +1,193 @@
+{
+  "format" : "11.1.7",
+  "id" : "169A4921D0EF0B91",
+  "config" : {
+    "data" : "ch.ivyteam.documentation.project.Data"
+  },
+  "elements" : [ {
+      "id" : "f2",
+      "type" : "ProgramStart",
+      "name" : "Program Start",
+      "config" : {
+        "outerBean" : "ch.ivyteam.ivy.process.eventstart.beans.FilePickupStartEventBean"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 432 },
+        "labelOffset" : { "x" : 17, "y" : 41 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "ErrorStartEvent",
+      "name" : "Error Start Event",
+      "visual" : {
+        "at" : { "x" : 96, "y" : 360 },
+        "labelOffset" : { "x" : 17, "y" : 41 }
+      }
+    }, {
+      "id" : "f4",
+      "type" : "SignalStartEvent",
+      "name" : "Signal Start Event",
+      "config" : {
+        "output" : {
+          "map" : {
+            "out" : "null"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 288 },
+        "labelOffset" : { "x" : 17, "y" : 41 }
+      }
+    }, {
+      "id" : "f5",
+      "type" : "Alternative",
+      "name" : "Alternative Gateway",
+      "visual" : {
+        "at" : { "x" : 96, "y" : 96 },
+        "labelOffset" : { "x" : 24, "y" : 40 }
+      },
+      "connect" : [
+        { "id" : "f18", "to" : "f6", "via" : [ { "x" : 160, "y" : 80 } ], "condition" : "false" },
+        { "id" : "f21", "to" : "f6", "via" : [ { "x" : 160, "y" : 112 } ] }
+      ]
+    }, {
+      "id" : "f6",
+      "type" : "Split",
+      "name" : "Split Gateway",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 96 },
+        "labelOffset" : { "x" : 16, "y" : 40 }
+      },
+      "connect" : [
+        { "id" : "f0", "to" : "f7", "via" : [ { "x" : 280, "y" : 112 } ], "var" : "in1", "outVar" : "out1" },
+        { "id" : "f22", "to" : "f7", "via" : [ { "x" : 280, "y" : 80 } ], "var" : "in2", "outVar" : "out2" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "Join",
+      "name" : "Join Gateway",
+      "visual" : {
+        "at" : { "x" : 336, "y" : 96 },
+        "labelOffset" : { "x" : 16, "y" : 40 }
+      },
+      "connect" : [
+        { "id" : "f1", "to" : "f8", "var" : "in1" }
+      ]
+    }, {
+      "id" : "f8",
+      "type" : "TaskSwitchGateway",
+      "name" : "Task Switch Gateway",
+      "config" : {
+        "template" : "layouts/basic.xhtml",
+        "outLinks" : [ "TaskA.ivp", "TaskB.ivp" ]
+      },
+      "visual" : {
+        "at" : { "x" : 448, "y" : 96 },
+        "labelOffset" : { "x" : 16, "y" : 40 }
+      },
+      "connect" : [
+        { "id" : "f23", "to" : "f5", "via" : [ { "x" : 448, "y" : 48 }, { "x" : 96, "y" : 48 } ], "condition" : "ivp==\"TaskA.ivp\"" },
+        { "id" : "f24", "to" : "f5", "via" : [ { "x" : 480, "y" : 96 }, { "x" : 480, "y" : 32 }, { "x" : 64, "y" : 32 }, { "x" : 64, "y" : 96 } ], "condition" : "ivp==\"TaskB.ivp\"" }
+      ]
+    }, {
+      "id" : "f9",
+      "type" : "TaskSwitchEvent",
+      "name" : "Task Switch Event",
+      "config" : {
+        "template" : "layouts/basic.xhtml"
+      },
+      "visual" : {
+        "at" : { "x" : 208, "y" : 200 },
+        "labelOffset" : { "x" : 17, "y" : 41 }
+      },
+      "connect" : { "id" : "f20", "to" : "f11" }
+    }, {
+      "id" : "f12",
+      "type" : "TaskEndPage",
+      "name" : "End Page",
+      "config" : {
+        "template" : "layouts/basic.xhtml"
+      },
+      "visual" : {
+        "at" : { "x" : 312, "y" : 288 },
+        "labelOffset" : { "x" : 17, "y" : 41 }
+      }
+    }, {
+      "id" : "f13",
+      "type" : "ErrorEnd",
+      "name" : "Error End Event",
+      "config" : {
+        "error" : {
+          "code" : "null"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 312, "y" : 360 },
+        "labelOffset" : { "x" : 17, "y" : 41 }
+      }
+    }, {
+      "id" : "f15",
+      "type" : "RequestStart",
+      "name" : [
+        "start.ivp",
+        "start()"
+      ],
+      "config" : {
+        "callSignature" : "start",
+        "outLink" : "start.ivp",
+        "triggerEnabled" : true
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 200 },
+        "labelOffset" : { "x" : 17, "y" : 41 }
+      },
+      "connect" : { "id" : "f19", "to" : "f9" }
+    }, {
+      "id" : "f10",
+      "type" : "WaitEvent",
+      "name" : "Wait Event",
+      "config" : {
+        "eventBeanClass" : "ch.ivyteam.ivy.process.intermediateevent.beans.FileIntermediateEventBean",
+        "eventIdConfig" : "in.test"
+      },
+      "visual" : {
+        "at" : { "x" : 208, "y" : 288 },
+        "labelOffset" : { "x" : 14, "y" : 34 }
+      }
+    }, {
+      "id" : "f11",
+      "type" : "TaskEnd",
+      "name" : "End Event",
+      "visual" : {
+        "at" : { "x" : 312, "y" : 200 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f14",
+      "type" : "UserTask",
+      "name" : "PersonEditor",
+      "config" : {
+        "dialog" : "com.acme.PersonEditor:start(ch.ivyteam.test.Person)"
+      },
+      "visual" : {
+        "at" : { "x" : 488, "y" : 240 }
+      },
+      "boundaries" : [ {
+          "id" : "f16",
+          "type" : "ErrorBoundaryEvent",
+          "name" : "Error Boundary Event",
+          "visual" : {
+            "at" : { "x" : 520, "y" : 208 },
+            "labelOffset" : { "x" : 9, "y" : -15 }
+          }
+        }, {
+          "id" : "f17",
+          "type" : "SignalBoundaryEvent",
+          "name" : "Signal Boundary Event",
+          "visual" : {
+            "at" : { "x" : 520, "y" : 272 },
+            "labelOffset" : { "x" : 17, "y" : 33 }
+          }
+        } ]
+    } ]
+}

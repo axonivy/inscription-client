@@ -61,7 +61,7 @@ describe('TaskPart', () => {
       priority: { level: 'EXCEPTION', script: '' },
       skipTasklist: true,
       delay: 'delay',
-      customFields: [{ name: 'cf', type: 'Number', value: '123' }],
+      customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }],
       code: 'code'
     });
     await assertMainPart('task', 'desc', 'cat', 'Role from Attr.', 'Exception', 'code');

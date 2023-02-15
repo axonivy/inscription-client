@@ -32,7 +32,7 @@ export const workflowActivityEditors = new Map<ActivityEditorType.General, React
   ['DialogCall', <DialogCallEditor />],
   ['UserTask', <UserTaskEditor />],
   ['Script', <ScriptEditor />],
-  ['EmbeddedProcessElement', <NameEditor icon={IvyIcons.Sub} />],
+  ['EmbeddedProcessElement', <NameEditor icon={IvyIcons.Sub} hideTags={true} />],
   ['SubProcessCall', <NameEditor icon={IvyIcons.Sub} />],
   ['TriggerCall', <NameEditor icon={IvyIcons.Trigger} />]
 ]);

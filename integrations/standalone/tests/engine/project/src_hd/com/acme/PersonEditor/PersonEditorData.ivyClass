@@ -1,0 +1,4 @@
+PersonEditorData #class
+com.acme.PersonEditor #namespace
+addPerson String #field
+addPerson PERSISTENT #fieldModifier

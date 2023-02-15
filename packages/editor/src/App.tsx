@@ -8,7 +8,6 @@ import AppStateView from './AppStateView';
 import { AppState, errorState, successState, waitingState } from './app-state';
 import { deepmerge } from 'deepmerge-ts';
 import { UpdateConsumer } from './types/lambda';
-import { removeDefaultValues } from './utils/remove-defaults';
 
 export interface AppProps {
   pid: string;
@@ -52,7 +51,7 @@ function App(props: AppProps) {
     if (appState.state === 'success' && shouldSave) {
       client
         .saveData({
-          data: removeDefaultValues(structuredClone(data), DEFAULT_DATA),
+          data,
           pid: appState.initialData.pid,
           type: appState.initialData.type.id
         })

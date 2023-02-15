@@ -11,14 +11,14 @@ function useNameTabValidation(): InscriptionValidation[] {
   return [name, description];
 }
 
-export function useNameTab(): TabProps {
+export function useNameTab(options?: { hideTags?: boolean }): TabProps {
   const validation = useNameTabValidation();
   const { data } = useDataContext();
   const tabState = useTabState(['', '', [], []], [data.name, data.description, data.docs, data.tags], validation);
-  return { name: 'Name', state: tabState, content: <NameTab /> };
+  return { name: 'Name', state: tabState, content: <NameTab hideTags={options?.hideTags} /> };
 }
 
-const NameTab = () => {
+const NameTab = (props: { hideTags?: boolean }) => {
   const { data, updateName, updateDescription, updateDocs, updateTags } = useNameData();
   const [nameValidation, descriptionValidation] = useNameTabValidation();
   const readonly = useReadonly();
@@ -48,9 +48,11 @@ const NameTab = () => {
       <LabelInput label='Means / Documents' htmlFor='documents'>
         <DocumentTable data={data.docs ?? []} onChange={updateDocs} />
       </LabelInput>
-      <CollapsiblePart collapsibleLabel='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>
-        <Tags tags={data.tags ?? []} onChange={updateTags} />
-      </CollapsiblePart>
+      {!props.hideTags && (
+        <CollapsiblePart collapsibleLabel='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>
+          <Tags tags={data.tags ?? []} onChange={updateTags} />
+        </CollapsiblePart>
+      )}
     </>
   );
 };

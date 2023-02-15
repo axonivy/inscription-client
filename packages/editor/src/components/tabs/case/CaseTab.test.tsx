@@ -32,7 +32,7 @@ describe('CaseTab', () => {
         name: 'name',
         description: 'description',
         category: 'category',
-        customFields: [{ name: 'field', type: 'String', value: '123' }]
+        customFields: [{ name: 'field', type: 'STRING', value: '123' }]
       }
     };
     renderTab(caseData);
@@ -52,6 +52,6 @@ describe('CaseTab', () => {
     assertState('configured', { name: 'name' });
     assertState('configured', { description: 'des' });
     assertState('configured', { category: 'category' });
-    assertState('configured', { customFields: [{ name: 'asfd', type: 'Number', value: '123' }] });
+    assertState('configured', { customFields: [{ name: 'asfd', type: 'NUMBER', value: '123' }] });
   });
 });

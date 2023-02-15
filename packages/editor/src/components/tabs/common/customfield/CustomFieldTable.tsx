@@ -16,7 +16,7 @@ import {
 } from '../../../../components/widgets';
 
 const CustomFieldTable = (props: { data: CustomField[]; onChange: (change: CustomField[]) => void }) => {
-  const items = useMemo<SelectItem[]>(() => CUSTOM_FIELD_TYPE.map(type => ({ label: type, value: type })), []);
+  const items = useMemo<SelectItem[]>(() => Object.entries(CUSTOM_FIELD_TYPE).map(([value, label]) => ({ label, value })), []);
 
   const columns = useMemo<ColumnDef<CustomField>[]>(
     () => [
@@ -46,7 +46,7 @@ const CustomFieldTable = (props: { data: CustomField[]; onChange: (change: Custo
 
   const addRow = () => {
     const newData = [...props.data];
-    newData.push({ name: '', type: 'String', value: '' });
+    newData.push({ name: '', type: 'STRING', value: '' });
     props.onChange(newData);
   };
 

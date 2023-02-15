@@ -4,8 +4,8 @@ import { render, screen, userEvent, TableUtil } from 'test-utils';
 
 describe('CustomFieldTable', () => {
   const customFields: CustomField[] = [
-    { name: 'field1', type: 'String', value: 'this is a string' },
-    { name: 'number', type: 'Number', value: '1' }
+    { name: 'field1', type: 'STRING', value: 'this is a string' },
+    { name: 'number', type: 'NUMBER', value: '1' }
   ];
   function renderTable(): {
     data: () => CustomField[];
@@ -66,8 +66,8 @@ describe('CustomFieldTable', () => {
     await userEvent.keyboard('[ArrowDown][Enter]');
 
     expect(view.data()).toEqual([
-      { name: 'Hello', type: 'String', value: 'this is a string' },
-      { name: 'number', type: 'String', value: '1' }
+      { name: 'Hello', type: 'STRING', value: 'this is a string' },
+      { name: 'number', type: 'STRING', value: '1' }
     ]);
   });
 
