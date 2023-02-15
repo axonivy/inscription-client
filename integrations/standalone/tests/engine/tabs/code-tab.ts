@@ -9,7 +9,6 @@ export const CodeTabTest: TabTest = {
     await page.getByRole('checkbox').check();
   },
   assertFill: async (page: Page) => {
-    // eslint-disable-next-line no-useless-escape
     await CodeEditorUtil.assertValue(page, 'ivy.log.info("hi");');
     await expect(page.getByRole('checkbox')).toBeChecked();
   },
@@ -19,7 +18,7 @@ export const CodeTabTest: TabTest = {
     await page.getByRole('checkbox').uncheck();
   },
   assertClear: async (page: Page) => {
-    // await CodeEditorUtil.assertValue(page, '');
+    await CodeEditorUtil.assertValue(page, '');
     await expect(page.getByRole('checkbox')).not.toBeChecked();
   }
 };
