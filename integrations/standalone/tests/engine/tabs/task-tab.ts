@@ -71,6 +71,7 @@ export const TaskTabTest: TabTest = {
 
     await TableUtil.removeRow(page, 0);
 
+    await CodeEditorUtil.focus(page);
     await CodeEditorUtil.clear(page);
   },
   assertClear: async (page: Page) => {
