@@ -71,6 +71,7 @@ export const TaskTabTest: TabTest = {
 
     await TableUtil.removeRow(page, 0);
 
+    await CodeEditorUtil.focus(page);
     await CodeEditorUtil.clear(page);
   },
   assertClear: async (page: Page) => {
@@ -85,6 +86,6 @@ export const TaskTabTest: TabTest = {
     await CollapseUtil.assertClosed(page, 'Options');
     await CollapseUtil.assertClosed(page, 'Expiry');
     await CollapseUtil.assertClosed(page, 'Custom Fields');
-    //FIXME: await CollapseUtil.assertClosed(page, 'Code');
+    await CollapseUtil.assertClosed(page, 'Code');
   }
 };

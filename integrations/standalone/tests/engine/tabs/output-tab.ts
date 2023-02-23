@@ -16,7 +16,7 @@ export class OutputTabTester implements TabTest {
     }
   }
   async assertFill(page: Page) {
-    //FIXME output map is not always send to view: await TableUtil.assertRow(page, 1, ['"bla"']);
+    await TableUtil.assertRow(page, 1, ['"bla"']);
     if (this.hasCode) {
       await CodeEditorUtil.assertValue(page, 'ivy.log.info("hi");');
     }
