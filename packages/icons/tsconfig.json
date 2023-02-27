@@ -1,0 +1,11 @@
+{
+  "extends": "../../config/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "rootDir": "src-gen",
+    "outDir": "lib",
+    "lib": ["DOM", "DOM.Iterable", "esnext"]
+  },
+  "include": ["src-gen"]
+}
