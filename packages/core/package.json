@@ -19,8 +19,9 @@
   "module": "src/index",
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "build": "tsc",
+    "build": "tsc && yarn build:copyfiles",
     "build:clean": "yarn clean && yarn build",
+    "build:copyfiles": "copyfiles -u 1 \"src/**/*.css\" lib",
     "type": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src"
