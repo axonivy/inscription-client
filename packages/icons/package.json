@@ -10,6 +10,7 @@
     "src-gen"
   ],
   "main": "lib/ivy-icons",
+  "types": "src-gen/ivy-icons",
   "module": "src-gen/ivy-icons",
   "devDependencies": {
     "fantasticon": "^2.0.0",
