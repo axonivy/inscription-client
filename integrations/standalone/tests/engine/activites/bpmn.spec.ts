@@ -1,13 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { inscriptionView } from '../../utils/engine-util';
-import { NameTabTester } from '../tabs/name-tab';
-import { fillReloadAndAssert } from '../tabs/tab-tester';
+import { fillReloadAndAssert, NameTabTestWithoutTags } from '../tabs';
 
 test.describe('BPMN Activities', () => {
   test('Generic', async ({ page }) => {
     await page.goto(inscriptionView('169A49F1790F4A32-G10'));
     await expect(page.getByText('Generic').first()).toBeVisible();
-    await fillReloadAndAssert(page, [new NameTabTester(false)]);
+    await fillReloadAndAssert(page, [NameTabTestWithoutTags]);
   });
 
   test('User', async ({ page }) => {

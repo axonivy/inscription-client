@@ -11,6 +11,12 @@ const AlternativeEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Alternative} tabs={[nameTab, conditionTab]} />;
 });
 
+const JoinEditor = memo(() => {
+  const nameTab = useNameTab();
+  const outputTab = useOutputTab();
+  return <InscriptionEditor icon={IvyIcons.Join} tabs={[nameTab, outputTab]} />;
+});
+
 const TaskSwitchGatewayEditor = memo(() => {
   const nameTab = useNameTab();
   const outputTab = useOutputTab();
@@ -22,7 +28,7 @@ const TaskSwitchGatewayEditor = memo(() => {
 
 export const gatewayEditors = new Map<GatewayEditorType, ReactNode>([
   ['Alternative', <AlternativeEditor />],
-  ['Join', <NameEditor icon={IvyIcons.Join} />],
+  ['Join', <JoinEditor />],
   ['Split', <NameEditor icon={IvyIcons.Split} />],
   ['TaskSwitchGateway', <TaskSwitchGatewayEditor />]
 ]);

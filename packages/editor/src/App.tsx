@@ -6,7 +6,6 @@ import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, use
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
 import AppStateView from './AppStateView';
 import { AppState, errorState, successState, waitingState } from './app-state';
-import { deepmerge } from 'deepmerge-ts';
 import { UpdateConsumer } from './types/lambda';
 
 export interface AppProps {
@@ -23,7 +22,7 @@ function App(props: AppProps) {
 
   const initData = useCallback((newData: InscriptionData) => {
     setAppState(successState(newData));
-    setData(deepmerge(DEFAULT_DATA, newData.data));
+    setData(newData.data);
   }, []);
 
   const updateData = useCallback<UpdateConsumer<Data>>(update => {

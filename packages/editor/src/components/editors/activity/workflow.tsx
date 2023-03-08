@@ -28,11 +28,23 @@ const ScriptEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Script} tabs={[nameTab, outputTab, codeTab]} />;
 });
 
+const SubProcessCallEditor = memo(() => {
+  const nameTab = useNameTab();
+  const outputTab = useOutputTab();
+  return <InscriptionEditor icon={IvyIcons.Sub} tabs={[nameTab, outputTab]} />;
+});
+
+const TriggerEditor = memo(() => {
+  const nameTab = useNameTab();
+  const outputTab = useOutputTab();
+  return <InscriptionEditor icon={IvyIcons.Trigger} tabs={[nameTab, outputTab]} />;
+});
+
 export const workflowActivityEditors = new Map<ActivityEditorType.General, ReactNode>([
   ['DialogCall', <DialogCallEditor />],
   ['UserTask', <UserTaskEditor />],
   ['Script', <ScriptEditor />],
   ['EmbeddedProcessElement', <NameEditor icon={IvyIcons.Sub} hideTags={true} />],
-  ['SubProcessCall', <NameEditor icon={IvyIcons.Sub} />],
-  ['TriggerCall', <NameEditor icon={IvyIcons.Trigger} />]
+  ['SubProcessCall', <SubProcessCallEditor />],
+  ['TriggerCall', <TriggerEditor />]
 ]);

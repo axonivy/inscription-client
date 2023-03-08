@@ -1,5 +1,4 @@
-import { ConfigData, Data, DEFAULT_TASK, InscriptionValidation, Task } from '@axonivy/inscription-protocol';
-import { deepmerge } from 'deepmerge-ts';
+import { ConfigData, Data, InscriptionValidation, Task } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { createContext, useCallback, useContext } from 'react';
 import { UpdateConsumer } from '../types/lambda';
@@ -49,7 +48,7 @@ export function useTaskDataContext(): {
 
   const getTask = useCallback(() => {
     if (taskNumber !== undefined) {
-      return deepmerge(DEFAULT_TASK, config.tasks[taskNumber]);
+      return config.tasks[taskNumber];
     } else {
       return config.task;
     }

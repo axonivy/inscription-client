@@ -1,15 +1,18 @@
 import { render, screen, renderHook, userEvent } from 'test-utils';
-import { TaskData } from '@axonivy/inscription-protocol';
+import { TaskData, DEFAULT_TASK } from '@axonivy/inscription-protocol';
 import { TabState } from '../../props';
 import { useTasksTab } from './TasksTab';
+import { deepmerge } from 'deepmerge-ts';
+import { DeepPartial } from '../../../types/types';
 
 const Tab = () => {
   const tab = useTasksTab();
   return <>{tab.content}</>;
 };
 
-describe('TaskTab', () => {
-  function renderTab(data?: Partial<TaskData>) {
+describe('TasksTab', () => {
+  function renderTab(data?: DeepPartial<TaskData>) {
+    data = addDefaultTaskData(data);
     //@ts-ignore
     render(<Tab />, { wrapperProps: { data: data && { config: data } } });
   }
@@ -22,9 +25,7 @@ describe('TaskTab', () => {
   test('full data', async () => {
     renderTab({
       tasks: [
-        //@ts-ignore
         { id: 'TaskA', name: 'task 1' },
-        //@ts-ignore
         { id: 'TaskB', name: 'task 2' }
       ]
     });
@@ -35,7 +36,8 @@ describe('TaskTab', () => {
     expect(screen.getByLabelText('Name')).toHaveValue('task 2');
   });
 
-  function assertState(expectedState: TabState, data?: Partial<TaskData>) {
+  function assertState(expectedState: TabState, data?: DeepPartial<TaskData>) {
+    data = addDefaultTaskData(data);
     //@ts-ignore
     const { result } = renderHook(() => useTasksTab(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
@@ -44,9 +46,14 @@ describe('TaskTab', () => {
   test('configured', async () => {
     assertState('empty');
     assertState('empty', { tasks: [] });
-    //@ts-ignore
     assertState('empty', { tasks: [{ id: 'TaskA' }] });
-    //@ts-ignore
     assertState('configured', { tasks: [{ id: 'TaskA', name: 'task1' }] });
   });
+
+  function addDefaultTaskData(data?: DeepPartial<TaskData>): DeepPartial<TaskData> | undefined {
+    if (data) {
+      data.tasks = data.tasks?.map(task => deepmerge(DEFAULT_TASK, task));
+    }
+    return data;
+  }
 });
