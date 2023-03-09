@@ -1,5 +1,6 @@
 import { EventEditorType } from '@axonivy/inscription-protocol';
 import { ReactNode } from 'react';
+import { boundaryEventEditors } from './boundary';
 import { callSubEventEditors } from './call-sub';
 import { embeddedEventEditors } from './embedded';
 import { endEventEditors } from './end';
@@ -12,6 +13,7 @@ export const eventEditors = new Map<EventEditorType.All, ReactNode>([
   ...startEventEditors,
   ...intermediateEventEditors,
   ...endEventEditors,
+  ...boundaryEventEditors,
   ...webServiceEventEditors,
   ...callSubEventEditors,
   ...embeddedEventEditors,

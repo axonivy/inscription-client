@@ -45,3 +45,4 @@ export class NameTabTester implements TabTest {
 }
 
 export const NameTabTest = new NameTabTester();
+export const NameTabTestWithoutTags = new NameTabTester(false);

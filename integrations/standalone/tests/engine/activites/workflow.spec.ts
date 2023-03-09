@@ -1,12 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { inscriptionView } from '../../utils/engine-util';
 import { CallTabTest } from '../tabs/call-tab';
-import { NameTabTest, NameTabTester } from '../tabs/name-tab';
-import { OutputTabTest, OutputTabTester } from '../tabs/output-tab';
-import { fillReloadAndAssert } from '../tabs/tab-tester';
-import { CodeTabTest } from '../tabs/code-tab';
-import { CaseTabTest } from '../tabs/case-tab';
-import { TaskTabTest } from '../tabs/task-tab';
+import { fillReloadAndAssert, NameTabTest, NameTabTestWithoutTags, OutputTabTest, OutputTabTester, CodeTabTest, CaseTabTest, TaskTabTest } from '../tabs';
 
 test.describe('Workflow Activities', () => {
   test('User Task', async ({ page }) => {
@@ -30,18 +25,18 @@ test.describe('Workflow Activities', () => {
   test('Embedded Sub', async ({ page }) => {
     await page.goto(inscriptionView('0169A49845D37011-S10'));
     await expect(page.getByText('Sub').first()).toBeVisible();
-    await fillReloadAndAssert(page, [new NameTabTester(false)]);
+    await fillReloadAndAssert(page, [NameTabTestWithoutTags]);
   });
 
   test('Call Sub', async ({ page }) => {
     await page.goto(inscriptionView('0169A49845D37011-f19'));
     await expect(page.getByText('Call').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTabTest]);
+    await fillReloadAndAssert(page, [NameTabTest, OutputTabTest]);
   });
 
   test('Trigger', async ({ page }) => {
     await page.goto(inscriptionView('0169A49845D37011-f21'));
     await expect(page.getByText('Trigger').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTabTest]);
+    await fillReloadAndAssert(page, [NameTabTest, OutputTabTest]);
   });
 });

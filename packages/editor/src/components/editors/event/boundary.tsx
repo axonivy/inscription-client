@@ -1,9 +1,22 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { EventEditorType } from '@axonivy/inscription-protocol';
-import { ReactNode } from 'react';
-import NameEditor from '../NameEditor';
+import { memo, ReactNode } from 'react';
+import { useNameTab, useOutputTab } from '../../../components/tabs';
+import InscriptionEditor from '../InscriptionEditor';
+
+const ErrorBoundaryEventEditor = memo(() => {
+  const nameTab = useNameTab();
+  const outputTab = useOutputTab();
+  return <InscriptionEditor icon={IvyIcons.ErrorEvent} tabs={[nameTab, outputTab]} />;
+});
+
+const SignalBoundaryEventEditor = memo(() => {
+  const nameTab = useNameTab();
+  const outputTab = useOutputTab();
+  return <InscriptionEditor icon={IvyIcons.Signal} tabs={[nameTab, outputTab]} />;
+});
 
 export const boundaryEventEditors = new Map<EventEditorType.Boundary, ReactNode>([
-  ['ErrorBoundaryEvent', <NameEditor icon={IvyIcons.ErrorEvent} />],
-  ['SignalBoundaryEvent', <NameEditor icon={IvyIcons.Signal} />]
+  ['ErrorBoundaryEvent', <ErrorBoundaryEventEditor />],
+  ['SignalBoundaryEvent', <SignalBoundaryEventEditor />]
 ]);

@@ -1,13 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { inscriptionView } from '../../utils/engine-util';
-import { NameTabTest } from '../tabs/name-tab';
-import { fillReloadAndAssert } from '../tabs/tab-tester';
+import { fillReloadAndAssert, NameTabTest, OutputTabTest } from '../tabs';
 
 test.describe('Interface Activities', () => {
   test('Database', async ({ page }) => {
     await page.goto(inscriptionView('0169A49845D37011-f6'));
     await expect(page.getByText('Database').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTabTest]);
+    await fillReloadAndAssert(page, [NameTabTest, OutputTabTest]);
   });
 
   test('WebService', async ({ page }) => {

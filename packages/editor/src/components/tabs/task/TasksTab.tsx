@@ -1,5 +1,4 @@
 import { DEFAULT_TASK, Task as TaskData } from '@axonivy/inscription-protocol';
-import { deepmerge } from 'deepmerge-ts';
 import produce from 'immer';
 import { EmptyWidget, Tab } from '../../../components/widgets';
 import { TaskDataContextInstance, useConfigDataContext } from '../../../context';
@@ -13,8 +12,7 @@ export function useTasksTab(): TabProps {
       draft.id = task.id;
     })
   );
-  const dataTasks = config.tasks.map(task => deepmerge(DEFAULT_TASK, task));
-  const tabState = useTabState(defaultTasks, dataTasks, []);
+  const tabState = useTabState(defaultTasks, config.tasks, []);
   return { name: 'Tasks', state: tabState, content: <TasksTab /> };
 }
 

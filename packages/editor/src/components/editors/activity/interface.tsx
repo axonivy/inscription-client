@@ -1,9 +1,15 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ActivityEditorType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
-import { useNameTab } from '../../../components/tabs';
+import { useNameTab, useOutputTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
+
+const DatabaseEditor = memo(() => {
+  const nameTab = useNameTab();
+  const outputTab = useOutputTab();
+  return <InscriptionEditor icon={IvyIcons.Database} tabs={[nameTab, outputTab]} />;
+});
 
 const EMailEditor = memo(() => {
   const nameTab = useNameTab();
@@ -14,7 +20,7 @@ const EMailEditor = memo(() => {
 });
 
 export const interfaceActivityEditors = new Map<ActivityEditorType.Interface, ReactNode>([
-  ['Database', <NameEditor icon={IvyIcons.Database} />],
+  ['Database', <DatabaseEditor />],
   ['WebServiceCall', <NameEditor icon={IvyIcons.WebService} />],
   ['RestClientCall', <NameEditor icon={IvyIcons.RestClient} />],
   ['EMail', <EMailEditor />],
