@@ -2,6 +2,10 @@
   "name": "@axonivy/inscription-editor",
   "version": "0.1.0",
   "private": true,
+  "files": [
+    "lib",
+    "src"
+  ],
   "dependencies": {
     "@axonivy/inscription-protocol": "0.1.0",
     "@axonivy/editor-icons": "0.1.0",
@@ -34,11 +38,14 @@
     "jest-resolve": "^29.3.1",
     "jest-watch-typeahead": "^2.2.1"
   },
-  "main": "src/index.ts",
+  "main": "lib/index",
+  "types": "src/index",
+  "module": "src/index",
   "scripts": {
     "clean": "rimraf lib *.tsbuildinfo",
-    "build": "tsc -p build.tsconfig.json",
+    "build": "tsc -p build.tsconfig.json && yarn build:copyfiles",
     "build:clean": "yarn clean && yarn build",
+    "build:copyfiles": "copyfiles -u 1 \"src/**/*.css\" lib",
     "type": "yarn tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",

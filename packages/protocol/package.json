@@ -2,7 +2,13 @@
   "name": "@axonivy/inscription-protocol",
   "version": "0.1.0",
   "private": true,
-  "main": "src/index.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "main": "lib/index",
+  "types": "src/index",
+  "module": "src/index",
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc",

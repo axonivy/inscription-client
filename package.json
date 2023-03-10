@@ -10,7 +10,7 @@
     "prepare": "yarn icons",
     "ci": "yarn install && yarn icons && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
     "clean": "lerna run clean",
-    "build": "lerna run build",
+    "build": "lerna run --ignore=@axonivy/inscription-standalone build",
     "build:clean": "lerna run build:clean",
     "type": "lerna run type",
     "lint": "lerna run lint --",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.7.13",
+    "copyfiles": "2.4.1",
     "eslint": "^8.32.0",
     "eslint-config-react-app": "^7.0.1",
     "lerna": "^6.1.0",

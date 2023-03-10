@@ -4,7 +4,7 @@ module.exports = {
   name: 'ivy-icons',
   prefix: 'ivy',
   inputDir: './src/icons',
-  outputDir: './dist',
+  outputDir: './src-gen',
   fontTypes: ['ttf'],
   normalize: true,
   assetTypes: ['ts', 'css', 'html'],

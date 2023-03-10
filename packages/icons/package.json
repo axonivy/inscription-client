@@ -4,14 +4,22 @@
   "fontVersion": "1.0",
   "description": "The icon font for the Axon Ivy Process Editor",
   "private": true,
-  "main": "dist/ivy-icons.ts",
+  "files": [
+    "lib",
+    "src",
+    "src-gen"
+  ],
+  "main": "lib/ivy-icons",
+  "types": "src-gen/ivy-icons",
+  "module": "src-gen/ivy-icons",
   "devDependencies": {
     "fantasticon": "^2.0.0",
     "rimraf": "^4.1.1"
   },
   "scripts": {
-    "clean": "rimraf dist/ivy-icons.*",
-    "build": "fantasticon",
-    "build:clean": "yarn clean && yarn build"
+    "clean": "rimraf src-gen/ivy-icons.*",
+    "build": "fantasticon && tsc && yarn build:copyfiles",
+    "build:clean": "yarn clean && yarn build",
+    "build:copyfiles": "copyfiles -u 1 \"src-gen/**/*.css\" \"src-gen/**/*.ttf\" lib"
   }
 }

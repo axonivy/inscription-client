@@ -1,5 +1,5 @@
 import './App.css';
-import '@axonivy/editor-icons/dist/ivy-icons.css';
+import '@axonivy/editor-icons/src-gen/ivy-icons.css';
 import { Data, DEFAULT_DATA, InscriptionData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useCallback, useEffect, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
