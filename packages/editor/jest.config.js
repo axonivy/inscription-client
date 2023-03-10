@@ -21,5 +21,6 @@ module.exports = {
         titleTemplate: '{classname} > {title}'
       }
     ]
-  ]
+  ],
+  resolver: '<rootDir>/resolver.js'
 };
