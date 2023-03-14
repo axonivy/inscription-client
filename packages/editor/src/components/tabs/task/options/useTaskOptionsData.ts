@@ -36,9 +36,10 @@ export function useTaskOptionsData(): {
 
 export function useTaskPersistData(): {
   persistData: Pick<TaskData, 'persist'>;
+  defaultData: Pick<TaskData, 'persist'>;
   updatePersist: Consumer<boolean>;
 } {
-  const { config, setConfig } = useConfigDataContext();
+  const { config, defaultData, setConfig } = useConfigDataContext();
 
   const updatePersist = useCallback<Consumer<boolean>>(
     persist =>
@@ -50,5 +51,5 @@ export function useTaskPersistData(): {
     [setConfig]
   );
 
-  return { persistData: config, updatePersist };
+  return { persistData: config, defaultData, updatePersist };
 }

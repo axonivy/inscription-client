@@ -1,11 +1,10 @@
-import { DEFAULT_OUTPUT_DATA } from '@axonivy/inscription-protocol';
 import { TabProps, useTabState } from '../../props';
 import { Checkbox, CodeEditor, LabelInput } from '../../widgets';
 import { useOutputData } from './useOutputData';
 
 export function useCodeTab(): TabProps {
-  const { outputData } = useOutputData();
-  const tabState = useTabState([DEFAULT_OUTPUT_DATA.output.code, DEFAULT_OUTPUT_DATA.sudo], [outputData.output.code, outputData.sudo], []);
+  const { outputData, defaultData } = useOutputData();
+  const tabState = useTabState([defaultData.output.code, defaultData.sudo], [outputData.output.code, outputData.sudo], []);
   return { name: 'Code', state: tabState, content: <CodeTab /> };
 }
 

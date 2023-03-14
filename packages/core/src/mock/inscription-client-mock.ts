@@ -1,4 +1,5 @@
 import {
+  DEFAULT_DATA,
   DialogStart,
   ExpiryError,
   InscriptionClient,
@@ -14,6 +15,7 @@ import { Emitter } from 'vscode-jsonrpc';
 import { DataMock } from './data';
 import { MetaMock } from './meta';
 import { ValidationMock } from './validation';
+import { deepmerge } from 'deepmerge-ts';
 
 export class InscriptionClientMock implements InscriptionClient {
   constructor(readonly readonly = false, readonly type: InscriptionEditorType = 'UserTask') {}
@@ -42,8 +44,14 @@ export class InscriptionClientMock implements InscriptionClient {
     if (this.type === 'TaskSwitchGateway') {
       data = DataMock.TASK_SWITCH_GATEWAY;
     }
-    this.onValidationEmitter.fire(ValidationMock.validateData({ data: data, pid: pid, type: inscriptionType.id }));
-    return Promise.resolve({ pid: pid, type: inscriptionType, readonly: this.readonly, data: data });
+    this.onValidationEmitter.fire(ValidationMock.validateData({ data, pid, type: inscriptionType.id }));
+    return Promise.resolve({
+      pid,
+      type: inscriptionType,
+      readonly: this.readonly,
+      data: deepmerge(DEFAULT_DATA, data),
+      defaults: DEFAULT_DATA.config
+    });
   }
 
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {

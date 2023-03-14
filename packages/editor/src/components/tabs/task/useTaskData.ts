@@ -8,6 +8,7 @@ import { ResponsibleUpdater } from './responsible/ResponsibleSelect';
 
 export function useTaskData(): {
   task: Task;
+  defaultTask: Task;
   updateName: Consumer<string>;
   updateDescription: Consumer<string>;
   updateCategory: Consumer<string>;
@@ -16,7 +17,7 @@ export function useTaskData(): {
   updateResponsible: ResponsibleUpdater;
   updatePriority: PriorityUpdater;
 } {
-  const { task, setTask } = useTaskDataContext();
+  const { task, defaultTask, setTask } = useTaskDataContext();
 
   const updateName = useCallback<Consumer<string>>(
     name =>
@@ -110,6 +111,7 @@ export function useTaskData(): {
 
   return {
     task,
+    defaultTask,
     updateName,
     updateDescription,
     updateCategory,

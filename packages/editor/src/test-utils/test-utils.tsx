@@ -1,4 +1,13 @@
-import { Data, DEFAULT_DATA, DialogStart, ExpiryError, InscriptionValidation, MappingInfo, Role } from '@axonivy/inscription-protocol';
+import {
+  ConfigData,
+  Data,
+  DEFAULT_DATA,
+  DialogStart,
+  ExpiryError,
+  InscriptionValidation,
+  MappingInfo,
+  Role
+} from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
 import { ReactElement, ReactNode } from 'react';
@@ -13,6 +22,7 @@ import {
 
 type ContextHelperProps = {
   data?: Data;
+  defaultData?: ConfigData;
   validation?: InscriptionValidation[];
   meta?: { roles?: Role[]; expiryErrors?: ExpiryError[]; dialogStarts?: DialogStart[]; outMapping?: MappingInfo };
   editor?: { title?: string; readonly?: boolean };
@@ -26,6 +36,7 @@ const ContextHelper = (
   const data: DataContext = {
     data: props.data ? deepmerge(DEFAULT_DATA, props.data) : DEFAULT_DATA,
     setData: () => {},
+    defaultData: props.defaultData ? deepmerge(DEFAULT_DATA.config, props.defaultData) : DEFAULT_DATA.config,
     validation: props.validation ?? []
   };
   const client: ClientContext = {

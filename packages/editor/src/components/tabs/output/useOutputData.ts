@@ -6,11 +6,12 @@ import { Consumer } from '../../../types/lambda';
 
 export function useOutputData(): {
   outputData: OutputData;
+  defaultData: OutputData;
   updateMap: Consumer<Mapping[]>;
   updateCode: Consumer<string>;
   updateSudo: Consumer<boolean>;
 } {
-  const { config, setConfig } = useConfigDataContext();
+  const { config, defaultData, setConfig } = useConfigDataContext();
 
   const updateMap = useCallback<Consumer<Mapping[]>>(
     map =>
@@ -42,5 +43,5 @@ export function useOutputData(): {
     [setConfig]
   );
 
-  return { outputData: config, updateMap, updateCode, updateSudo };
+  return { outputData: config, defaultData, updateMap, updateCode, updateSudo };
 }

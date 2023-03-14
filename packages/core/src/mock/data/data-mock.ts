@@ -1,4 +1,5 @@
-import { NameData } from '@axonivy/inscription-protocol';
+import { DEFAULT_TASK, NameData } from '@axonivy/inscription-protocol';
+import { deepmerge } from 'deepmerge-ts';
 
 export namespace DataMock {
   export const NAME: NameData = {
@@ -40,10 +41,7 @@ export namespace DataMock {
   export const TASK_SWITCH_GATEWAY = {
     ...NAME,
     config: {
-      tasks: [
-        { id: 'TaskA', name: 'TaskA' },
-        { id: 'TaskB', name: 'TaskB' }
-      ]
+      tasks: [deepmerge(DEFAULT_TASK, { id: 'TaskA', name: 'TaskA' }), deepmerge(DEFAULT_TASK, { id: 'TaskB', name: 'TaskB' })]
     }
   };
 }
