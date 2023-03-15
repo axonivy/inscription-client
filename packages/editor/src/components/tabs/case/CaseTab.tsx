@@ -3,11 +3,10 @@ import { useReadonly } from '../../../context';
 import { TabProps, useTabState } from '../../props';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
-import { DEFAULT_CASE_DATA } from '@axonivy/inscription-protocol';
 
 export function useCaseTab(): TabProps {
-  const { caseData } = useCaseData();
-  const tabState = useTabState(DEFAULT_CASE_DATA.case, caseData.case, []);
+  const { caseData, defaultData } = useCaseData();
+  const tabState = useTabState(defaultData.case, caseData.case, []);
   return { name: 'Case', state: tabState, content: <CaseTab /> };
 }
 

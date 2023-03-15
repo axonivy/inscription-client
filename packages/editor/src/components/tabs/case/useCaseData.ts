@@ -6,12 +6,13 @@ import { useConfigDataContext } from '../../../context';
 
 export function useCaseData(): {
   caseData: CaseData;
+  defaultData: CaseData;
   updateName: Consumer<string>;
   updateDescription: Consumer<string>;
   updateCategory: Consumer<string>;
   updateCustomFields: Consumer<CustomField[]>;
 } {
-  const { config, setConfig } = useConfigDataContext();
+  const { config, defaultData, setConfig } = useConfigDataContext();
 
   const updateName = useCallback<Consumer<string>>(
     name =>
@@ -53,5 +54,5 @@ export function useCaseData(): {
     [setConfig]
   );
 
-  return { caseData: config, updateName, updateDescription, updateCategory, updateCustomFields };
+  return { caseData: config, defaultData, updateName, updateDescription, updateCategory, updateCustomFields };
 }

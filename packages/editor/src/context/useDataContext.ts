@@ -6,6 +6,7 @@ import { UpdateConsumer } from '../types/lambda';
 export interface DataContext {
   data: Data;
   setData: UpdateConsumer<Data>;
+  defaultData: ConfigData;
   validation: InscriptionValidation[];
 }
 
@@ -16,9 +17,10 @@ export const useDataContext = (): DataContext => useContext(DataContextInstance)
 
 export function useConfigDataContext(): {
   config: ConfigData;
+  defaultData: ConfigData;
   setConfig: UpdateConsumer<ConfigData>;
 } {
-  const { data, setData } = useDataContext();
+  const { data, defaultData, setData } = useDataContext();
 
   const getConfig = useCallback(() => {
     return data.config;
@@ -34,24 +36,21 @@ export function useConfigDataContext(): {
     [getConfig, setData]
   );
 
-  return { config: getConfig(), setConfig };
+  return { config: getConfig(), defaultData, setConfig };
 }
 
 export const TaskDataContextInstance = createContext<number | undefined>(undefined);
 
 export function useTaskDataContext(): {
   task: Task;
+  defaultTask: Task;
   setTask: UpdateConsumer<Task>;
 } {
   const taskNumber = useContext(TaskDataContextInstance);
-  const { config, setConfig } = useConfigDataContext();
+  const { config, defaultData, setConfig } = useConfigDataContext();
 
   const getTask = useCallback(() => {
-    if (taskNumber !== undefined) {
-      return config.tasks[taskNumber];
-    } else {
-      return config.task;
-    }
+    return taskNumber !== undefined ? config.tasks[taskNumber] : config.task;
   }, [config, taskNumber]);
 
   const setTask = useCallback<UpdateConsumer<Task>>(
@@ -68,5 +67,7 @@ export function useTaskDataContext(): {
     [getTask, setConfig, taskNumber]
   );
 
-  return { task: getTask(), setTask };
+  const defaultTask = taskNumber !== undefined ? defaultData.tasks[taskNumber] : defaultData.task;
+
+  return { task: getTask(), defaultTask, setTask };
 }

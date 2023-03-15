@@ -6,11 +6,12 @@ import { Consumer } from '../../../types/lambda';
 
 export function useCallData(): {
   callData: CallData;
+  defaultData: CallData;
   updateDialog: Consumer<string>;
   updateMap: Consumer<Mapping[]>;
   updateCode: Consumer<string>;
 } {
-  const { config, setConfig } = useConfigDataContext();
+  const { config, defaultData, setConfig } = useConfigDataContext();
 
   const updateDialog = useCallback<Consumer<string>>(
     dialog =>
@@ -42,5 +43,5 @@ export function useCallData(): {
     [setConfig]
   );
 
-  return { callData: config, updateDialog, updateMap, updateCode };
+  return { callData: config, defaultData, updateDialog, updateMap, updateCode };
 }

@@ -1,18 +1,12 @@
-import { DEFAULT_TASK, Task as TaskData } from '@axonivy/inscription-protocol';
-import produce from 'immer';
+import { Task as TaskData } from '@axonivy/inscription-protocol';
 import { EmptyWidget, Tab } from '../../../components/widgets';
 import { TaskDataContextInstance, useConfigDataContext } from '../../../context';
 import { TabProps, useTabState } from '../../props';
 import TaskPart from './general/TaskPart';
 
 export function useTasksTab(): TabProps {
-  const { config } = useConfigDataContext();
-  const defaultTasks = config.tasks.map(task =>
-    produce(DEFAULT_TASK, draft => {
-      draft.id = task.id;
-    })
-  );
-  const tabState = useTabState(defaultTasks, config.tasks, []);
+  const { config, defaultData } = useConfigDataContext();
+  const tabState = useTabState(defaultData.tasks, config.tasks, []);
   return { name: 'Tasks', state: tabState, content: <TasksTab /> };
 }
 

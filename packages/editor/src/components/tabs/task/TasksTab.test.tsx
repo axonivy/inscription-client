@@ -1,5 +1,5 @@
 import { render, screen, renderHook, userEvent } from 'test-utils';
-import { TaskData, DEFAULT_TASK } from '@axonivy/inscription-protocol';
+import { TaskData, DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/inscription-protocol';
 import { TabState } from '../../props';
 import { useTasksTab } from './TasksTab';
 import { deepmerge } from 'deepmerge-ts';
@@ -13,8 +13,9 @@ const Tab = () => {
 describe('TasksTab', () => {
   function renderTab(data?: DeepPartial<TaskData>) {
     data = addDefaultTaskData(data);
+    const defaultData = createDefaultTaskData(data);
     //@ts-ignore
-    render(<Tab />, { wrapperProps: { data: data && { config: data } } });
+    render(<Tab />, { wrapperProps: { data: data && { config: data }, defaultData } });
   }
 
   test('empty data', async () => {
@@ -38,8 +39,9 @@ describe('TasksTab', () => {
 
   function assertState(expectedState: TabState, data?: DeepPartial<TaskData>) {
     data = addDefaultTaskData(data);
+    const defaultData = createDefaultTaskData(data);
     //@ts-ignore
-    const { result } = renderHook(() => useTasksTab(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = renderHook(() => useTasksTab(), { wrapperProps: { data: data && { config: data }, defaultData } });
     expect(result.current.state).toEqual(expectedState);
   }
 
@@ -55,5 +57,18 @@ describe('TasksTab', () => {
       data.tasks = data.tasks?.map(task => deepmerge(DEFAULT_TASK, task));
     }
     return data;
+  }
+
+  function createDefaultTaskData(data?: DeepPartial<TaskData>): DeepPartial<TaskData> {
+    if (data && data.tasks) {
+      return {
+        tasks: data.tasks.map(task => {
+          const dTask = DEFAULT_TASK;
+          dTask.id = task.id ?? '';
+          return dTask;
+        })
+      };
+    }
+    return DEFAULT_TASK_DATA;
   }
 });

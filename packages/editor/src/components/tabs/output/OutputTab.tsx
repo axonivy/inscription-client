@@ -1,4 +1,4 @@
-import { DEFAULT_OUTPUT_DATA, MappingInfo } from '@axonivy/inscription-protocol';
+import { MappingInfo } from '@axonivy/inscription-protocol';
 import { useEffect, useState } from 'react';
 import { CodeEditor, LabelInput, MappingTree } from '../../../components/widgets';
 import { useClient, useEditorContext } from '../../../context';
@@ -6,10 +6,10 @@ import { TabProps, useTabState } from '../../props';
 import { useOutputData } from './useOutputData';
 
 export function useOutputTab(options?: { hideCode?: boolean }): TabProps {
-  const { outputData } = useOutputData();
+  const { outputData, defaultData } = useOutputData();
 
   const tabState = useTabState(
-    [DEFAULT_OUTPUT_DATA.output.map, options?.hideCode ? '' : DEFAULT_OUTPUT_DATA.output.code],
+    [defaultData.output.map, options?.hideCode ? '' : defaultData.output.code],
     [outputData.output.map, options?.hideCode ? '' : outputData.output.code],
     []
   );

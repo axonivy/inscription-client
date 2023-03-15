@@ -1,14 +1,13 @@
-import { DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/inscription-protocol';
 import { TabProps, useTabState } from '../../props';
 import { useTaskPersistData } from './options/useTaskOptionsData';
 import TaskPart from './general/TaskPart';
 import { useTaskData } from './useTaskData';
 
 export function useTaskTab(options?: { showPersist?: boolean }): TabProps {
-  const { task } = useTaskData();
-  const { persistData } = useTaskPersistData();
+  const { task, defaultTask } = useTaskData();
+  const { persistData, defaultData } = useTaskPersistData();
   const tabState = useTabState(
-    [DEFAULT_TASK, options?.showPersist ? DEFAULT_TASK_DATA.persist : ''],
+    [defaultTask, options?.showPersist ? defaultData.persist : ''],
     [task, options?.showPersist ? persistData.persist : ''],
     []
   );

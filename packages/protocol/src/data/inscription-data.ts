@@ -14,6 +14,7 @@ export interface InscriptionData {
   type: InscriptionType;
   readonly: boolean;
   data: Data;
+  defaults: ConfigData;
 }
 
 export interface InscriptionSaveData {
