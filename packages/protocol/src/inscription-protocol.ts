@@ -1,5 +1,5 @@
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
-import { DialogStart, ExpiryError, MappingInfo, Role } from './meta/inscription-meta';
+import { CallableStart, ExpiryError, MappingInfo, Role } from './meta/inscription-meta';
 import { InscriptionValidation } from './validation/inscription-validation';
 
 export declare module InscriptionProtocol {
@@ -12,8 +12,8 @@ export declare module InscriptionProtocol {
   export type InscriptionSaveDataArgs = InscriptionSaveData;
   export type InscriptionSaveDataRes = InscriptionValidation[];
 
-  export type DialogStartsArgs = { pid: string };
-  export type DialogStartsRes = DialogStart[];
+  export type CallableStartsArgs = { pid: string };
+  export type CallableStartsRes = CallableStart[];
 
   export type RolesArgs = { pid: string };
   export type RolesRes = Role[];
@@ -30,7 +30,10 @@ export interface InscriptionRequestTypes {
   data: [InscriptionProtocol.InscriptionDataArgs, InscriptionProtocol.InscriptionDataRes];
   saveData: [InscriptionProtocol.InscriptionSaveDataArgs, InscriptionProtocol.InscriptionSaveDataRes];
 
-  'meta/dialog/starts': [InscriptionProtocol.DialogStartsArgs, InscriptionProtocol.DialogStartsRes];
+  'meta/start/dialogs': [InscriptionProtocol.CallableStartsArgs, InscriptionProtocol.CallableStartsRes];
+  'meta/start/triggers': [InscriptionProtocol.CallableStartsArgs, InscriptionProtocol.CallableStartsRes];
+  'meta/start/calls': [InscriptionProtocol.CallableStartsArgs, InscriptionProtocol.CallableStartsRes];
+
   'meta/workflow/roles': [InscriptionProtocol.RolesArgs, InscriptionProtocol.RolesRes];
   'meta/workflow/expiryErrors': [InscriptionProtocol.ExpiryErrorsArgs, InscriptionProtocol.ExpiryErrorsRes];
   'meta/out/map': [InscriptionProtocol.OutMappingArgs, InscriptionProtocol.OutMappingRes];

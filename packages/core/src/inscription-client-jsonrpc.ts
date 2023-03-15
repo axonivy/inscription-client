@@ -1,5 +1,5 @@
 import {
-  DialogStart,
+  CallableStart,
   ExpiryError,
   InscriptionClient,
   InscriptionData,
@@ -41,8 +41,16 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('saveData', { ...args });
   }
 
-  dialogStarts(pid: string): Promise<DialogStart[]> {
-    return this.sendRequest('meta/dialog/starts', { pid });
+  dialogStarts(pid: string): Promise<CallableStart[]> {
+    return this.sendRequest('meta/start/dialogs', { pid });
+  }
+
+  triggerStarts(pid: string): Promise<CallableStart[]> {
+    return this.sendRequest('meta/start/triggers', { pid });
+  }
+
+  callSubStarts(pid: string): Promise<CallableStart[]> {
+    return this.sendRequest('meta/start/calls', { pid });
   }
 
   roles(pid: string): Promise<Role[]> {

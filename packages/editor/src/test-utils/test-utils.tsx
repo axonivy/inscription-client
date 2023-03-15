@@ -1,8 +1,8 @@
 import {
-  ConfigData,
   Data,
+  ConfigData,
   DEFAULT_DATA,
-  DialogStart,
+  CallableStart,
   ExpiryError,
   InscriptionValidation,
   MappingInfo,
@@ -24,7 +24,14 @@ type ContextHelperProps = {
   data?: Data;
   defaultData?: ConfigData;
   validation?: InscriptionValidation[];
-  meta?: { roles?: Role[]; expiryErrors?: ExpiryError[]; dialogStarts?: DialogStart[]; outMapping?: MappingInfo };
+  meta?: {
+    roles?: Role[];
+    expiryErrors?: ExpiryError[];
+    dialogStarts?: CallableStart[];
+    triggerStarts?: CallableStart[];
+    callSubStarts?: CallableStart[];
+    outMapping?: MappingInfo;
+  };
   editor?: { title?: string; readonly?: boolean };
 };
 
@@ -50,6 +57,12 @@ const ContextHelper = (
       },
       dialogStarts() {
         return Promise.resolve(props.meta?.dialogStarts ?? []);
+      },
+      triggerStarts() {
+        return Promise.resolve(props.meta?.triggerStarts ?? []);
+      },
+      callSubStarts() {
+        return Promise.resolve(props.meta?.callSubStarts ?? []);
       },
       outMapping() {
         return Promise.resolve(props.meta?.outMapping ?? { types: {}, variables: [] });

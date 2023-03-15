@@ -1,4 +1,4 @@
-import { DialogStart, ExpiryError, MappingInfo, Role } from '@axonivy/inscription-protocol';
+import { CallableStart, ExpiryError, MappingInfo, Role } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
   const MAP_INFO_TYPES = {
@@ -84,13 +84,12 @@ export namespace MetaMock {
     types: MAP_INFO_TYPES
   };
 
-  export const DIALOG_STARTS: DialogStart[] = [
+  export const CALLABLE_STARTS: CallableStart[] = [
     {
       id: 'workflow.humantask.AcceptRequest:start(workflow.humantask.ProcurementRequest)',
-      dialogName: 'AcceptRequest',
+      process: 'AcceptRequest',
       packageName: 'workflow.humantask',
       description: '',
-      dialog: 'workflow.humantask.AcceptRequest:start(workflow.humantask.ProcurementRequest)',
       startName: 'start(workflow.humantask.ProcurementRequest)',
       project: 'workflow-demos',
       callParameter: {
@@ -106,8 +105,7 @@ export namespace MetaMock {
     },
     {
       id: 'workflow.humantask.AcceptRequest:start2()',
-      dialog: 'workflow.humantask.AcceptRequest:start2()',
-      dialogName: 'AcceptRequest',
+      process: 'AcceptRequest',
       startName: 'start2()',
       description: '',
       packageName: 'workflow.humantask',
@@ -119,8 +117,7 @@ export namespace MetaMock {
     },
     {
       id: 'demo.test1:start()',
-      dialog: 'demo.test1:start()',
-      dialogName: 'test1',
+      process: 'test1',
       startName: 'start()',
       description: '',
       packageName: 'demo',
