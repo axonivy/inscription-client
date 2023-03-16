@@ -10,7 +10,6 @@ const Tab = () => {
 
 describe('CaseTab', () => {
   function renderTab(data?: CaseData) {
-    //@ts-ignore
     render(<Tab />, { wrapperProps: { data: data && { config: data } } });
   }
 
@@ -42,7 +41,6 @@ describe('CaseTab', () => {
   });
 
   function assertState(expectedState: TabState, data?: Partial<Case>) {
-    //@ts-ignore
     const { result } = renderHook(() => useCaseTab(), { wrapperProps: { data: data && { config: { case: data } } } });
     expect(result.current.state).toEqual(expectedState);
   }

@@ -14,7 +14,6 @@ describe('TasksTab', () => {
   function renderTab(data?: DeepPartial<TaskData>) {
     data = addDefaultTaskData(data);
     const defaultData = createDefaultTaskData(data);
-    //@ts-ignore
     render(<Tab />, { wrapperProps: { data: data && { config: data }, defaultData } });
   }
 
@@ -40,7 +39,6 @@ describe('TasksTab', () => {
   function assertState(expectedState: TabState, data?: DeepPartial<TaskData>) {
     data = addDefaultTaskData(data);
     const defaultData = createDefaultTaskData(data);
-    //@ts-ignore
     const { result } = renderHook(() => useTasksTab(), { wrapperProps: { data: data && { config: data }, defaultData } });
     expect(result.current.state).toEqual(expectedState);
   }

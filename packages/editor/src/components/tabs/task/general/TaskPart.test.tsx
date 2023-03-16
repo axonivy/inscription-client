@@ -4,7 +4,6 @@ import { render, screen, SelectUtil, userEvent } from 'test-utils';
 
 describe('TaskPart', () => {
   function renderTaskPart(data?: Partial<Task>, showPersist?: boolean) {
-    // @ts-ignore
     render(<TaskPart showPersist={showPersist} />, { wrapperProps: { data: data && { config: { task: data } } } });
   }
 

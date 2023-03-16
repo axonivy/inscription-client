@@ -1,5 +1,5 @@
 import { render, renderHook, screen, TableUtil } from 'test-utils';
-import { Data, NameData } from '@axonivy/inscription-protocol';
+import { NameData } from '@axonivy/inscription-protocol';
 import { useNameTab } from './NameTab';
 import { TabState } from '../../../components/props';
 
@@ -9,7 +9,7 @@ const Tab = (props: { hideTags?: boolean }) => {
 };
 
 describe('NameTab', () => {
-  function renderTab(data?: Data, hideTags?: boolean) {
+  function renderTab(data?: NameData, hideTags?: boolean) {
     render(<Tab hideTags={hideTags} />, { wrapperProps: { data } });
   }
 
@@ -32,15 +32,12 @@ describe('NameTab', () => {
   });
 
   test('full data', async () => {
-    //@ts-ignore
-    const data: Data = { name: 'name', description: 'description', docs: [{ name: 'doc', url: 'url' }], tags: ['tag1'] };
-    renderTab(data);
+    renderTab({ name: 'name', description: 'description', docs: [{ name: 'doc', url: 'url' }], tags: ['tag1'] });
     await assertMainPart('name', 'description', ['doc url']);
     expect(await screen.findByText('▼ Tags')).toBeInTheDocument();
   });
 
   function assertState(expectedState: TabState, data?: Partial<NameData>) {
-    //@ts-ignore
     const { result } = renderHook(() => useNameTab(), { wrapperProps: { data } });
     expect(result.current.state).toEqual(expectedState);
   }

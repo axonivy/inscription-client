@@ -10,7 +10,6 @@ const Tab = () => {
 
 describe('CodeTab', () => {
   function renderTab(data?: OutputData) {
-    //@ts-ignore
     render(<Tab />, { wrapperProps: { data: data && { config: data } } });
   }
 
@@ -36,7 +35,6 @@ describe('CodeTab', () => {
   });
 
   function assertState(expectedState: TabState, data?: Partial<OutputData>) {
-    //@ts-ignore
     const { result } = renderHook(() => useCodeTab(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
   }
