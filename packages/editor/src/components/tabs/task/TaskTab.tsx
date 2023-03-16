@@ -2,6 +2,7 @@ import { TabProps, useTabState } from '../../props';
 import { useTaskPersistData } from './options/useTaskOptionsData';
 import TaskPart from './general/TaskPart';
 import { useTaskData } from './useTaskData';
+import { EmptyWidget } from '../../../components/widgets';
 
 export function useTaskTab(options?: { showPersist?: boolean }): TabProps {
   const { task, defaultTask } = useTaskData();
@@ -15,5 +16,9 @@ export function useTaskTab(options?: { showPersist?: boolean }): TabProps {
 }
 
 const TaskTab = (props: { showPersist?: boolean }) => {
-  return <TaskPart showPersist={props.showPersist} />;
+  const { defaultTask } = useTaskData();
+  if (defaultTask) {
+    return <TaskPart showPersist={props.showPersist} />;
+  }
+  return <EmptyWidget message='There is no (Task) output flow connected.' />;
 };
