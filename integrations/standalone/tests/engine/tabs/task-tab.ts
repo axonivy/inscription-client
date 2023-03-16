@@ -4,11 +4,62 @@ import { SelectUtil } from '../utils/select-util';
 import { CollapseUtil } from '../utils/collapse-util';
 import { CodeEditorUtil } from '../utils/code-editor-util';
 import { TableUtil } from '../utils/table-util';
+import { TabUtil } from '../../utils/tab-util';
 
-export const TaskTabTest: TabTest = {
-  tabName: () => 'Task',
-  fill: async (page: Page) => {
-    await page.getByRole('textbox', { name: 'Name' }).fill('test name');
+export class TasksTabTester implements TabTest {
+  private tasks: { tab: string; test: TabTest }[];
+  constructor(private readonly error: RegExp = /EventAndGateway/) {
+    this.tasks = [
+      { tab: 'TaskA', test: new TaskTabTester({ name: 'task1', error: this.error }) },
+      { tab: 'TaskB', test: new TaskTabTester({ name: 'task2', error: this.error }) }
+    ];
+  }
+  tabName() {
+    return 'Tasks';
+  }
+  async fill(page: Page) {
+    for (const task of this.tasks) {
+      await TabUtil.change(page, task.tab);
+      await task.test.fill(page);
+    }
+  }
+  async assertFill(page: Page) {
+    for (const task of this.tasks) {
+      await TabUtil.change(page, task.tab);
+      await task.test.assertFill(page);
+    }
+  }
+  async clear(page: Page) {
+    for (const task of this.tasks) {
+      await TabUtil.change(page, task.tab);
+      await task.test.clear(page);
+    }
+  }
+  async assertClear(page: Page) {
+    for (const task of this.tasks) {
+      await TabUtil.change(page, task.tab);
+      await task.test.assertClear(page);
+    }
+  }
+}
+
+export class TaskTabTester implements TabTest {
+  private name: string = 'test name';
+  private error: RegExp = /f8/;
+  constructor(options?: { name?: string; error?: RegExp }) {
+    if (options?.name) {
+      this.name = options.name;
+    }
+    if (options?.error) {
+      this.error = options.error;
+    }
+  }
+
+  tabName() {
+    return 'Task';
+  }
+  async fill(page: Page) {
+    await page.getByRole('textbox', { name: 'Name' }).fill(this.name);
     await page.getByLabel('Description').fill('test desc');
     await page.getByLabel('Category').fill('test cat');
 
@@ -23,7 +74,7 @@ export const TaskTabTest: TabTest = {
 
     await CollapseUtil.open(page, 'Expiry');
     await page.getByLabel('Timeout').fill('timeout');
-    await SelectUtil.select(page, 'f8', 2);
+    await SelectUtil.select(page, this.error, 2);
     await SelectUtil.select(page, 'Nobody & delete', 3);
     await SelectUtil.select(page, 'Low', 4);
 
@@ -33,9 +84,9 @@ export const TaskTabTest: TabTest = {
 
     await CollapseUtil.open(page, 'Code');
     await CodeEditorUtil.fill(page, 'code');
-  },
-  assertFill: async (page: Page) => {
-    await expect(page.getByRole('textbox', { name: 'Name' })).toHaveValue('test name');
+  }
+  async assertFill(page: Page) {
+    await expect(page.getByRole('textbox', { name: 'Name' })).toHaveValue(this.name);
     await expect(page.getByLabel('Description')).toHaveValue('test desc');
     await expect(page.getByLabel('Category')).toHaveValue('test cat');
 
@@ -48,15 +99,15 @@ export const TaskTabTest: TabTest = {
     await expect(page.getByLabel('Delay')).toHaveValue('delay');
 
     await page.getByLabel('Timeout').fill('timeout');
-    await SelectUtil.assertSelect(page, /f8/, 2);
+    await SelectUtil.assertSelect(page, this.error, 2);
     await SelectUtil.assertSelect(page, /Nobody/, 3);
     await SelectUtil.assertSelect(page, /Low/, 4);
 
     await TableUtil.assertRow(page, 0, ['cf', 'value']);
 
     await CodeEditorUtil.assertValue(page, 'code');
-  },
-  clear: async (page: Page) => {
+  }
+  async clear(page: Page) {
     await page.getByRole('textbox', { name: 'Name' }).clear();
     await page.getByLabel('Description').clear();
     await page.getByLabel('Category').clear();
@@ -73,8 +124,8 @@ export const TaskTabTest: TabTest = {
 
     await CodeEditorUtil.focus(page);
     await CodeEditorUtil.clear(page);
-  },
-  assertClear: async (page: Page) => {
+  }
+  async assertClear(page: Page) {
     await expect(page.getByRole('textbox', { name: 'Name' })).toBeEmpty();
     await expect(page.getByLabel('Description')).toBeEmpty();
     await expect(page.getByLabel('Category')).toBeEmpty();
@@ -88,4 +139,8 @@ export const TaskTabTest: TabTest = {
     await CollapseUtil.assertClosed(page, 'Custom Fields');
     await CollapseUtil.assertClosed(page, 'Code');
   }
-};
+}
+
+export const TaskTabTest = new TaskTabTester();
+
+export const TasksTabTest = new TasksTabTester();

@@ -1,7 +1,7 @@
 import { Page, expect } from '@playwright/test';
 
 export namespace SelectUtil {
-  export async function select(page: Page, value: string, index: number) {
+  export async function select(page: Page, value: string | RegExp, index: number) {
     await page.getByRole('combobox').nth(index).click();
     await page.getByRole('option', { name: value }).first().click();
   }
