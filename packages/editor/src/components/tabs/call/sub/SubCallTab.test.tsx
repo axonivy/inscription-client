@@ -10,7 +10,6 @@ const Tab = () => {
 
 describe('SubCallTab', () => {
   function renderTab(data?: CallData & ProcessCallData) {
-    //@ts-ignore
     render(<Tab />, { wrapperProps: { data: data && { config: data } } });
   }
 
@@ -31,7 +30,6 @@ describe('SubCallTab', () => {
   });
 
   function assertState(expectedState: TabState, data?: Partial<CallData & ProcessCallData>) {
-    //@ts-ignore
     const { result } = renderHook(() => useSubCallTab(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
   }

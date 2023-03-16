@@ -10,7 +10,6 @@ const Tab = (props: { hideCode?: boolean }) => {
 
 describe('OutputTab', () => {
   function renderTab(data?: Partial<OutputData>, hideCode?: boolean) {
-    //@ts-ignore
     render(<Tab hideCode={hideCode} />, { wrapperProps: { data: data && { config: data } } });
   }
 
@@ -36,7 +35,6 @@ describe('OutputTab', () => {
   });
 
   function assertState(expectedState: TabState, data?: Partial<OutputData>, hideCode?: boolean) {
-    //@ts-ignore
     const { result } = renderHook(() => useOutputTab({ hideCode }), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
   }

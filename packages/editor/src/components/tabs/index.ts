@@ -9,4 +9,4 @@ export * from './task/TasksTab';
 export * from './call/dialog/DialogCallTab';
 export * from './call/sub/SubCallTab';
 export * from './call/trigger/TriggerCallTab';
-export * from './EndPageTab';
+export * from './end-page/EndPageTab';

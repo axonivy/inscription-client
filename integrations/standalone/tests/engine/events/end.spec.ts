@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { inscriptionView } from '../../utils/engine-util';
 import { fillReloadAndAssert, NameTabTest, NameTabTestWithoutTags } from '../tabs';
+import { EndPageTabTest } from '../tabs/end-page-tab';
 
 test.describe('End Events', () => {
   test('End', async ({ page }) => {
@@ -12,7 +13,7 @@ test.describe('End Events', () => {
   test('End Page', async ({ page }) => {
     await page.goto(inscriptionView('169A4921D0EF0B91-f12'));
     await expect(page.getByText('End Page').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTabTest]);
+    await fillReloadAndAssert(page, [NameTabTest, EndPageTabTest]);
   });
 
   test('Error End', async ({ page }) => {

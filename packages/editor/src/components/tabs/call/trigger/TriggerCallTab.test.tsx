@@ -10,7 +10,6 @@ const Tab = () => {
 
 describe('TriggerCallTab', () => {
   function renderTab(data?: CallData & ProcessCallData) {
-    //@ts-ignore
     render(<Tab />, { wrapperProps: { data: data && { config: data } } });
   }
 
@@ -31,7 +30,6 @@ describe('TriggerCallTab', () => {
   });
 
   function assertState(expectedState: TabState, data?: Partial<CallData & ProcessCallData>) {
-    //@ts-ignore
     const { result } = renderHook(() => useTriggerCallTab(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
   }

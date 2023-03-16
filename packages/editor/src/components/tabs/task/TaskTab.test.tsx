@@ -1,7 +1,8 @@
 import { renderHook, screen, render } from 'test-utils';
-import { Data, Task, TaskData } from '@axonivy/inscription-protocol';
+import { Task, TaskData } from '@axonivy/inscription-protocol';
 import { useTaskTab } from './TaskTab';
 import { TabState } from '../../props';
+import { DeepPartial } from '../../../types/types';
 
 const Tab = () => {
   const tab = useTaskTab();
@@ -14,13 +15,8 @@ describe('TaskTab', () => {
     render(<Tab />, { wrapperProps: { defaultData: { task: undefined } } });
   }
 
-  function assertState(expectedState: TabState, task?: Partial<Task>, taskData?: Partial<TaskData>, showPersist?: boolean) {
-    //@ts-ignore
-    let data: Data = task ? { config: { task } } : undefined;
-    if (taskData) {
-      //@ts-ignore
-      data = { data: { task: taskData } };
-    }
+  function assertState(expectedState: TabState, task?: DeepPartial<Task>, taskData?: Partial<TaskData>, showPersist?: boolean) {
+    let data = taskData ? { config: taskData } : task ? { config: { task } } : undefined;
     const { result } = renderHook(() => useTaskTab({ showPersist }), { wrapperProps: { data } });
     expect(result.current.state).toEqual(expectedState);
   }
@@ -40,9 +36,8 @@ describe('TaskTab', () => {
 
     assertState('configured', { skipTasklist: true });
     assertState('configured', { delay: 'delay' });
-    assertState('empty', undefined, { persist: true }, true);
+    assertState('configured', undefined, { persist: true }, true);
 
-    //@ts-ignore
     assertState('configured', { expiry: { timeout: 'asf' } });
 
     assertState('configured', { customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }] });

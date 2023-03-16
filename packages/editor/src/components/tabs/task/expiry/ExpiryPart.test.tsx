@@ -4,7 +4,6 @@ import { Expiry } from '@axonivy/inscription-protocol';
 
 describe('ExpiryPart', () => {
   function renderExpiryPart(data?: Expiry) {
-    // @ts-ignore
     render(<ExpiryPart />, { wrapperProps: { data: data && { config: { task: { expiry: data } } } } });
   }
 

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { inscriptionView } from '../../utils/engine-util';
 import { fillReloadAndAssert, NameTabTest, CaseTabTest, OutputTabTest } from '../tabs';
+import { EndPageTabTest } from '../tabs/end-page-tab';
 
 test.describe('Gateways', () => {
   test('Alternative', async ({ page }) => {
@@ -21,9 +22,9 @@ test.describe('Gateways', () => {
     await fillReloadAndAssert(page, [NameTabTest]);
   });
 
-  test.skip('Tasks', async ({ page }) => {
+  test('Tasks', async ({ page }) => {
     await page.goto(inscriptionView('169A4921D0EF0B91-f8'));
     await expect(page.getByText('Tasks').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTabTest, OutputTabTest, CaseTabTest]);
+    await fillReloadAndAssert(page, [NameTabTest, OutputTabTest, CaseTabTest, EndPageTabTest]);
   });
 });

@@ -10,7 +10,6 @@ const Tab = () => {
 
 describe('DialogCallTab', () => {
   function renderTab(data?: CallData & DialogCallData) {
-    //@ts-ignore
     render(<Tab />, { wrapperProps: { data: data && { config: data } } });
   }
 
@@ -31,7 +30,6 @@ describe('DialogCallTab', () => {
   });
 
   function assertState(expectedState: TabState, data?: Partial<CallData & DialogCallData>) {
-    //@ts-ignore
     const { result } = renderHook(() => useDialogCallTab(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
   }

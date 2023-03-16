@@ -11,6 +11,7 @@ import {
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
 import { ReactElement, ReactNode } from 'react';
+import { DeepPartial } from '../types/types';
 import {
   ClientContext,
   ClientContextInstance,
@@ -21,8 +22,8 @@ import {
 } from '../context';
 
 type ContextHelperProps = {
-  data?: Data;
-  defaultData?: ConfigData;
+  data?: DeepPartial<Data>;
+  defaultData?: DeepPartial<ConfigData>;
   validation?: InscriptionValidation[];
   meta?: {
     roles?: Role[];
@@ -41,8 +42,10 @@ const ContextHelper = (
   }
 ) => {
   const data: DataContext = {
+    // @ts-ignore
     data: props.data ? deepmerge(DEFAULT_DATA, props.data) : DEFAULT_DATA,
     setData: () => {},
+    // @ts-ignore
     defaultData: props.defaultData ? deepmerge(DEFAULT_DATA.config, props.defaultData) : DEFAULT_DATA.config,
     validation: props.validation ?? []
   };
