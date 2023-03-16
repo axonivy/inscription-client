@@ -1,15 +1,15 @@
-import { useCallTab } from './CallTab';
+import { useDialogCallTab } from './DialogCallTab';
 import { render, screen, TableUtil, renderHook } from 'test-utils';
-import { CallData } from '@axonivy/inscription-protocol';
-import { TabState } from '../../../components/props';
+import { CallData, DialogCallData } from '@axonivy/inscription-protocol';
+import { TabState } from '../../../../components/props';
 
 const Tab = () => {
-  const tab = useCallTab();
+  const tab = useDialogCallTab();
   return <>{tab.content}</>;
 };
 
-describe('CallTab', () => {
-  function renderTab(data?: CallData) {
+describe('DialogCallTab', () => {
+  function renderTab(data?: CallData & DialogCallData) {
     //@ts-ignore
     render(<Tab />, { wrapperProps: { data: data && { config: data } } });
   }
@@ -26,14 +26,13 @@ describe('CallTab', () => {
   });
 
   test('full data', async () => {
-    const callData: CallData = { dialog: 'dialog', call: { code: 'code', map: [{ key: 'key', value: 'value' }] } };
-    renderTab(callData);
+    renderTab({ dialog: 'dialog', call: { code: 'code', map: [{ key: 'key', value: 'value' }] } });
     await assertMainPart('dialog', [/key value/], 'code');
   });
 
-  function assertState(expectedState: TabState, data?: Partial<CallData>) {
+  function assertState(expectedState: TabState, data?: Partial<CallData & DialogCallData>) {
     //@ts-ignore
-    const { result } = renderHook(() => useCallTab(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = renderHook(() => useDialogCallTab(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
   }
 

@@ -1,9 +1,9 @@
 import { MappingInfo } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
-import { CodeEditor, LabelInput, MappingTree } from '../../../components/widgets';
+import { CodeEditor, LabelInput, MappingTree } from '../../widgets';
 import { useCallData } from './useCallData';
 
-const MappingTreeWithCode = (props: { mappingInfo: MappingInfo }) => {
+const CallMapping = (props: { mappingInfo: MappingInfo }) => {
   const { callData, updateMap, updateCode } = useCallData();
 
   return (
@@ -16,4 +16,4 @@ const MappingTreeWithCode = (props: { mappingInfo: MappingInfo }) => {
   );
 };
 
-export default memo(MappingTreeWithCode);
+export default memo(CallMapping);

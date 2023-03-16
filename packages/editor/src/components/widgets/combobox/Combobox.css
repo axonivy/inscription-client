@@ -35,6 +35,14 @@
 .combobox-menu-entry:where(.hover, .selected) {
   background: var(--editor-bg);
 }
-.comboboy-menu-entry-additional {
+.combobox-menu-entry-additional {
   color: var(--seperator-color);
+}
+.combobox-menu-entry > div {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.combobox-menu-entry .ivy {
+  font-size: 1rem;
 }

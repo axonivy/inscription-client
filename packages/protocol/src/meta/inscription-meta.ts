@@ -8,10 +8,9 @@ export interface ExpiryError {
   label: string;
 }
 
-export interface DialogStart {
+export interface CallableStart {
   id: string;
-  dialog: string;
-  dialogName: string;
+  process: string;
   startName: string;
   description: string;
   packageName: string;

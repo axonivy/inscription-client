@@ -8,12 +8,12 @@ const config: PlaywrightTestConfig = {
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 1 : 0,
+  retries: 0, //Maybe after undo is implemented: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['junit', { outputFile: 'report.xml' }]] : 'html',
   use: {
     actionTimeout: 0,
     baseURL: 'http://localhost:3000',
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     headless: process.env.CI ? true : false
   },
 

@@ -1,6 +1,6 @@
 import {
   DEFAULT_DATA,
-  DialogStart,
+  CallableStart,
   ExpiryError,
   InscriptionClient,
   InscriptionData,
@@ -58,8 +58,16 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(ValidationMock.validateData(args));
   }
 
-  dialogStarts(pid: string): Promise<DialogStart[]> {
-    return Promise.resolve(MetaMock.DIALOG_STARTS);
+  dialogStarts(pid: string): Promise<CallableStart[]> {
+    return Promise.resolve(MetaMock.CALLABLE_STARTS);
+  }
+
+  triggerStarts(pid: string): Promise<CallableStart[]> {
+    return Promise.resolve(MetaMock.CALLABLE_STARTS);
+  }
+
+  callSubStarts(pid: string): Promise<CallableStart[]> {
+    return Promise.resolve(MetaMock.CALLABLE_STARTS);
   }
 
   roles(pid: string): Promise<Role[]> {
