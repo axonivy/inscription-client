@@ -1,5 +1,5 @@
 import { ConfigData, DataBeta, InscriptionValidation, WfTask } from '@axonivy/inscription-protocol';
-import produce from 'immer';
+import { produce } from 'immer';
 import { createContext, useCallback, useContext } from 'react';
 import { UpdateConsumer } from '../types/lambda';
 

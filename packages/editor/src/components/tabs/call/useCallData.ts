@@ -1,8 +1,8 @@
 import { useConfigDataContext } from '../../../context';
 import { CallData, DialogCallData, Mapping, ProcessCallData } from '@axonivy/inscription-protocol';
-import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
+import { produce } from 'immer';
 
 export function useCallData(): {
   callData: CallData;

@@ -1,6 +1,6 @@
 import { useDataContext } from '../../../context';
 import { NameData, Document } from '@axonivy/inscription-protocol';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
 

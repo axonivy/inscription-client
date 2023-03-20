@@ -1,5 +1,5 @@
 import { WfCustomField, WfLevel, WfActivatorType, WfTask } from '@axonivy/inscription-protocol';
-import produce from 'immer';
+import { produce } from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
 import { useTaskDataContext } from '../../../context';
