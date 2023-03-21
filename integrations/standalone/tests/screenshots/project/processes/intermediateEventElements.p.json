@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "16C70B87DCB65433",
   "config" : {
     "data" : "screenshot.project.Invoice"
@@ -29,7 +29,9 @@
         "at" : { "x" : 192, "y" : 64 },
         "labelOffset" : { "x" : 17, "y" : 36 }
       },
-      "connect" : { "id" : "f9", "to" : "f8" }
+      "connect" : [
+        { "id" : "f9", "to" : "f8" }
+      ]
     }, {
       "id" : "f2",
       "type" : "TaskEnd",
@@ -47,7 +49,9 @@
       "visual" : {
         "at" : { "x" : 64, "y" : 64 }
       },
-      "connect" : { "id" : "f5", "to" : "f0" }
+      "connect" : [
+        { "id" : "f5", "to" : "f0" }
+      ]
     }, {
       "id" : "f7",
       "type" : "TaskEnd",
@@ -78,7 +82,9 @@
         "labelOffset" : { "x" : 9, "y" : 38 },
         "description" : "file driven start to apply ERP updates"
       },
-      "connect" : { "id" : "f6", "to" : "f7" }
+      "connect" : [
+        { "id" : "f6", "to" : "f7" }
+      ]
     }, {
       "id" : "f8",
       "type" : "ProgramInterface",
@@ -91,7 +97,9 @@
       "visual" : {
         "at" : { "x" : 320, "y" : 64 }
       },
-      "connect" : { "id" : "f3", "to" : "f2" }
+      "connect" : [
+        { "id" : "f3", "to" : "f2" }
+      ]
     }, {
       "id" : "f11",
       "type" : "WaitEvent",
@@ -114,7 +122,9 @@
         "at" : { "x" : 192, "y" : 256 },
         "labelOffset" : { "x" : 9, "y" : 38 }
       },
-      "connect" : { "id" : "f14", "to" : "f13" }
+      "connect" : [
+        { "id" : "f14", "to" : "f13" }
+      ]
     }, {
       "id" : "f12",
       "type" : "RequestStart",
@@ -127,7 +137,9 @@
         "at" : { "x" : 64, "y" : 256 },
         "labelOffset" : { "x" : 16, "y" : 37 }
       },
-      "connect" : { "id" : "f15", "to" : "f11" }
+      "connect" : [
+        { "id" : "f15", "to" : "f11" }
+      ]
     }, {
       "id" : "f13",
       "type" : "TaskEnd",

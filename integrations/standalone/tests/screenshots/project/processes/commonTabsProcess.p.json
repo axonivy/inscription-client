@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "168F0C6DF682858E",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.AddContactData"
@@ -15,7 +15,9 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -64,7 +66,9 @@
           "While you hover the element, these markups will be rendered as nice HTML to the end-user."
         ]
       },
-      "connect" : { "id" : "f6", "to" : "f5" }
+      "connect" : [
+        { "id" : "f6", "to" : "f5" }
+      ]
     }, {
       "id" : "f5",
       "type" : "UserTask",
@@ -77,6 +81,10 @@
           },
           "code" : "param.person.country = ivy.session.getContentLocale().getCountry();"
         },
+        "task" : {
+          "name" : "Verify Request",
+          "category" : "Review/Procurement"
+        },
         "case" : {
           "name" : "Personal Case",
           "category" : "Personal"
@@ -88,15 +96,13 @@
             "out.organisation" : "\"Ford\""
           },
           "code" : "out.persons = com.axonivy.EmployeeLookup.getEmployees(\"Ford\");"
-        },
-        "task" : {
-          "name" : "Verify Request",
-          "category" : "Review/Procurement"
         }
       },
       "visual" : {
         "at" : { "x" : 416, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1", "condition" : "ivp==\"TaskA.ivp\"" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1", "condition" : "ivp==\"TaskA.ivp\"" }
+      ]
     } ]
 }

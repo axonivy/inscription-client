@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.6",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "16F1316F4E4478CA",
   "kind" : "CALLABLE_SUB",
   "config" : {
@@ -10,13 +10,13 @@
       "type" : "CallSubStart",
       "name" : "call(String,Integer,String,Double)",
       "config" : {
-        "callSignature" : "call",
+        "signature" : "call",
         "input" : {
           "params" : [
-            { "name" : "product", "type" : "String" },
-            { "name" : "quantity", "type" : "Integer" },
-            { "name" : "requester", "type" : "String" },
-            { "name" : "unitPrice", "type" : "Double" }
+            { "name" : "product", "type" : "String", "desc" : "" },
+            { "name" : "quantity", "type" : "Integer", "desc" : "" },
+            { "name" : "requester", "type" : "String", "desc" : "" },
+            { "name" : "unitPrice", "type" : "Double", "desc" : "" }
           ],
           "map" : {
             "out.product" : "param.product",
@@ -27,10 +27,10 @@
         },
         "result" : {
           "params" : [
-            { "name" : "product", "type" : "String" },
-            { "name" : "quantity", "type" : "Integer" },
-            { "name" : "requester", "type" : "String" },
-            { "name" : "unitPrice", "type" : "Double" }
+            { "name" : "product", "type" : "String", "desc" : "" },
+            { "name" : "quantity", "type" : "Integer", "desc" : "" },
+            { "name" : "requester", "type" : "String", "desc" : "" },
+            { "name" : "unitPrice", "type" : "Double", "desc" : "" }
           ],
           "map" : {
             "result.product" : "in.product",
@@ -43,7 +43,9 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f1",
       "type" : "CallSubEnd",

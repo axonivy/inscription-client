@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "169A4921D0EF0B91",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.Data"
@@ -78,8 +78,12 @@
       "type" : "TaskSwitchGateway",
       "name" : "Task Switch Gateway",
       "config" : {
-        "template" : "layouts/basic.xhtml",
-        "outLinks" : [ "TaskA.ivp", "TaskB.ivp" ]
+        "tasks" : [ {
+            "id" : "TaskA"
+          }, {
+            "id" : "TaskB"
+          } ],
+        "page" : "layouts/basic.xhtml"
       },
       "visual" : {
         "at" : { "x" : 448, "y" : 96 },
@@ -94,19 +98,21 @@
       "type" : "TaskSwitchEvent",
       "name" : "Task Switch Event",
       "config" : {
-        "template" : "layouts/basic.xhtml"
+        "page" : "layouts/basic.xhtml"
       },
       "visual" : {
         "at" : { "x" : 208, "y" : 200 },
         "labelOffset" : { "x" : 17, "y" : 41 }
       },
-      "connect" : { "id" : "f20", "to" : "f11" }
+      "connect" : [
+        { "id" : "f20", "to" : "f11" }
+      ]
     }, {
       "id" : "f12",
       "type" : "TaskEndPage",
       "name" : "End Page",
       "config" : {
-        "template" : "layouts/basic.xhtml"
+        "page" : "layouts/basic.xhtml"
       },
       "visual" : {
         "at" : { "x" : 312, "y" : 288 },
@@ -141,7 +147,9 @@
         "at" : { "x" : 96, "y" : 200 },
         "labelOffset" : { "x" : 17, "y" : 41 }
       },
-      "connect" : { "id" : "f19", "to" : "f9" }
+      "connect" : [
+        { "id" : "f19", "to" : "f9" }
+      ]
     }, {
       "id" : "f10",
       "type" : "WaitEvent",

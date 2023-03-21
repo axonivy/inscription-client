@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "18141E75C9CEDD35",
   "config" : {
     "data" : "screenshot.project.Data"
@@ -15,7 +15,9 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -28,14 +30,16 @@
       "name" : "read user",
       "config" : {
         "query" : {
-          "kind" : "read",
-          "table" : "IWA_USER",
-          "select" : [
-            "NAME",
-            "FULLNAME",
-            "EMAILADDRESS"
-          ],
-          "condition" : "<%=in.user.userKey%> = USERID"
+          "dbName" : "IvySystemDatabase",
+          "sql" : {
+            "table" : "IWA_USER",
+            "condition" : "<%=in.user.userKey%> = USERID",
+            "select" : [
+              "NAME",
+              "FULLNAME",
+              "EMAILADDRESS"
+            ]
+          }
         },
         "output" : {
           "map" : {
@@ -43,12 +47,13 @@
             "out.city" : "record.getField(\"NAME\") as String"
           },
           "code" : "ivy.log.info(\"read userinfo from \"+record.getField(\"EMAILADDRESS\") as String);"
-        },
-        "dbUrl" : "IvySystemDatabase"
+        }
       },
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     } ]
 }

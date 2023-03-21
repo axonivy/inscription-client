@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "180D20366E0D3C6D",
   "config" : {
     "data" : "screenshot.project.Mailer"
@@ -15,7 +15,9 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -31,25 +33,27 @@
       ],
       "config" : {
         "headers" : {
-          "emailSubject" : "Registration failed for <%=in.user.name%>",
-          "emailFrom" : "no-reply@axonivy.com",
-          "emailTo" : "<%=in.user.mail%>"
+          "subject" : "Registration failed for <%=in.user.name%>",
+          "from" : "no-reply@axonivy.com",
+          "to" : "<%=in.user.mail%>"
         },
-        "message" : [
-          "<html>",
-          "Hi <%=in.user.name%>",
-          "",
-          "Unfortunately your registration failed. ",
-          "The system responded with <%=in.error%>.",
-          "",
-          "Best regards,",
-          "ivyTeam",
-          "",
-          "<%=ivy.cms.co(\"/images/axon_ivy_logo\")%>",
-          "",
-          "</html>"
-        ],
-        "contentType" : "text/html",
+        "message" : {
+          "body" : [
+            "<html>",
+            "Hi <%=in.user.name%>",
+            "",
+            "Unfortunately your registration failed. ",
+            "The system responded with <%=in.error%>.",
+            "",
+            "Best regards,",
+            "ivyTeam",
+            "",
+            "<%=ivy.cms.co(\"/images/axon_ivy_logo\")%>",
+            "",
+            "</html>"
+          ],
+          "contentType" : "text/html"
+        },
         "attachments" : [
           "in.documents",
           "ivy.cm.findObject(\"/images/404\")"
@@ -58,6 +62,8 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     } ]
 }

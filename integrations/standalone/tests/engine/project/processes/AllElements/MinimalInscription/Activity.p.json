@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "0169A49845D37011",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.Data"
@@ -34,7 +34,9 @@
       "visual" : {
         "at" : { "x" : 112, "y" : 72 }
       },
-      "connect" : { "id" : "f1", "to" : "f2" }
+      "connect" : [
+        { "id" : "f1", "to" : "f2" }
+      ]
     }, {
       "id" : "f5",
       "type" : "Script",
@@ -76,7 +78,9 @@
           "visual" : {
             "at" : { "x" : 576, "y" : 256 }
           },
-          "connect" : { "id" : "S10-f0", "to" : "S10-g1" }
+          "connect" : [
+            { "id" : "S10-f0", "to" : "S10-g1" }
+          ]
         }, {
           "id" : "S10-g1",
           "type" : "EmbeddedEnd",
@@ -125,13 +129,17 @@
         "at" : { "x" : 112, "y" : 448 },
         "size" : { "width" : 64, "height" : 30 }
       },
-      "connect" : { "id" : "f0", "to" : "f16" }
+      "connect" : [
+        { "id" : "f0", "to" : "f16" }
+      ]
     }, {
       "id" : "f6",
       "type" : "Database",
       "name" : "Db Activity",
       "config" : {
-        "dbUrl" : "IvySystemDatabase"
+        "query" : {
+          "dbName" : "IvySystemDatabase"
+        }
       },
       "visual" : {
         "at" : { "x" : 112, "y" : 280 }
