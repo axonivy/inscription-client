@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "16A7DD0A1D330578",
   "kind" : "CALLABLE_SUB",
   "config" : {
@@ -10,11 +10,11 @@
       "type" : "CallSubStart",
       "name" : "call(Data,String)",
       "config" : {
-        "callSignature" : "call",
+        "signature" : "call",
         "input" : {
           "params" : [
-            { "name" : "data", "type" : "screenshot.project.Data" },
-            { "name" : "newCity", "type" : "String" }
+            { "name" : "data", "type" : "screenshot.project.Data", "desc" : "" },
+            { "name" : "newCity", "type" : "String", "desc" : "" }
           ],
           "map" : {
             "out.data" : "param.data"
@@ -22,16 +22,16 @@
           "code" : "out.data.city = param.newCity;"
         },
         "result" : {
+          "params" : [
+            { "name" : "data", "type" : "screenshot.project.Data", "desc" : "" },
+            { "name" : "oldCity", "type" : "String", "desc" : "" }
+          ],
           "map" : {
             "result.data" : "in.data"
           },
           "code" : [
             "result.oldCity = ivy.task.customFields()",
             "                        .stringField(\"oldCity\").getOrDefault(\"undefined\");"
-          ],
-          "params" : [
-            { "name" : "data", "type" : "screenshot.project.Data" },
-            { "name" : "oldCity", "type" : "String" }
           ]
         }
       },
@@ -39,7 +39,9 @@
         "at" : { "x" : 96, "y" : 64 },
         "labelOffset" : { "x" : 59, "y" : 35 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f1",
       "type" : "CallSubEnd",

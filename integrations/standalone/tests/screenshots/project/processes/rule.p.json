@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "175083477C6BF05D",
   "config" : {
     "data" : "screenshot.project.RuleData"
@@ -16,7 +16,9 @@
         "at" : { "x" : 96, "y" : 64 },
         "labelOffset" : { "x" : 12, "y" : 37 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -34,6 +36,8 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     } ]
 }

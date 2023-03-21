@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "16B5634C8976FEF1",
   "kind" : "HTML_DIALOG",
   "config" : {
@@ -10,10 +10,10 @@
       "type" : "HtmlDialogStart",
       "name" : "start(String)",
       "config" : {
-        "callSignature" : "start",
+        "signature" : "start",
         "input" : {
           "params" : [
-            { "name" : "person", "type" : "ch.ivyteam.test.Person" }
+            { "name" : "person", "type" : "ch.ivyteam.test.Person", "desc" : "" }
           ],
           "map" : {
             "out.addPerson" : "param.person.lastname"
@@ -24,7 +24,9 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f1",
       "type" : "HtmlDialogEnd",
@@ -42,7 +44,9 @@
         "at" : { "x" : 96, "y" : 160 },
         "labelOffset" : { "x" : 8, "y" : 32 }
       },
-      "connect" : { "id" : "f5", "to" : "f4" }
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
     }, {
       "id" : "f4",
       "type" : "HtmlDialogExit",

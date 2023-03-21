@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.6",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "16C51F1EE34D5EF5",
   "config" : {
     "data" : "screenshot.project.Order"
@@ -76,7 +76,9 @@
         "at" : { "x" : 96, "y" : 64 },
         "description" : "Place new order"
       },
-      "connect" : { "id" : "f6", "to" : "f5" }
+      "connect" : [
+        { "id" : "f6", "to" : "f5" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -135,7 +137,9 @@
       "visual" : {
         "at" : { "x" : 352, "y" : 160 }
       },
-      "connect" : { "id" : "f23", "to" : "f18" }
+      "connect" : [
+        { "id" : "f23", "to" : "f18" }
+      ]
     }, {
       "id" : "f15",
       "type" : "DialogCall",
@@ -148,7 +152,9 @@
         "size" : { "width" : 160, "height" : 60 },
         "description" : "Verify that customer exists and that order is real."
       },
-      "connect" : { "id" : "f17", "to" : "f10", "var" : "in1" }
+      "connect" : [
+        { "id" : "f17", "to" : "f10", "var" : "in1" }
+      ]
     }, {
       "id" : "f19",
       "type" : "Script",
@@ -168,13 +174,15 @@
         "size" : { "width" : 128, "height" : 60 },
         "description" : "Discount is calculated on basis of unit price and quantity"
       },
-      "connect" : { "id" : "f22", "to" : "f20" }
+      "connect" : [
+        { "id" : "f22", "to" : "f20" }
+      ]
     }, {
       "id" : "f20",
       "type" : "TaskEndPage",
       "name" : "Manual discount check",
       "config" : {
-        "template" : "endpage.xhtml"
+        "page" : "endpage.xhtml"
       },
       "visual" : {
         "at" : { "x" : 936, "y" : 424 },
@@ -189,7 +197,9 @@
         "size" : { "width" : 208, "height" : 30 },
         "description" : "Discount is calculated on basis of unit price and quantity"
       },
-      "connect" : { "id" : "f26", "to" : "f19" }
+      "connect" : [
+        { "id" : "f26", "to" : "f19" }
+      ]
     }, {
       "id" : "f3",
       "type" : "SubProcessCall",
@@ -235,7 +245,9 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f7", "to" : "f11" }
+      "connect" : [
+        { "id" : "f7", "to" : "f11" }
+      ]
     }, {
       "id" : "f18",
       "type" : "RestClientCall",
@@ -264,6 +276,8 @@
       "visual" : {
         "at" : { "x" : 544, "y" : 160 }
       },
-      "connect" : { "id" : "f13", "to" : "f10", "via" : [ { "x" : 744, "y" : 160 } ], "var" : "in2" }
+      "connect" : [
+        { "id" : "f13", "to" : "f10", "via" : [ { "x" : 744, "y" : 160 } ], "var" : "in2" }
+      ]
     } ]
 }

@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.6",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "169A4A2A4DC8B908",
   "kind" : "CALLABLE_SUB",
   "config" : {
@@ -10,13 +10,15 @@
       "type" : "CallSubStart",
       "name" : "call()",
       "config" : {
-        "callSignature" : "call"
+        "signature" : "call"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
         "labelOffset" : { "x" : 23, "y" : 35 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f1",
       "type" : "CallSubEnd",

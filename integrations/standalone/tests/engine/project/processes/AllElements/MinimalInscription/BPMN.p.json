@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.7",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
   "id" : "169A49F1790F4A32",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.Data"
@@ -14,7 +14,9 @@
           "visual" : {
             "at" : { "x" : 64, "y" : 256 }
           },
-          "connect" : { "id" : "G10-f0", "to" : "G10-g1" }
+          "connect" : [
+            { "id" : "G10-f0", "to" : "G10-g1" }
+          ]
         }, {
           "id" : "G10-g1",
           "type" : "EmbeddedEnd",
@@ -35,7 +37,9 @@
           "visual" : {
             "at" : { "x" : 64, "y" : 256 }
           },
-          "connect" : { "id" : "U20-f0", "to" : "U20-g1" }
+          "connect" : [
+            { "id" : "U20-f0", "to" : "U20-g1" }
+          ]
         }, {
           "id" : "U20-g1",
           "type" : "EmbeddedEnd",
@@ -56,7 +60,9 @@
           "visual" : {
             "at" : { "x" : 64, "y" : 256 }
           },
-          "connect" : { "id" : "M30-f0", "to" : "M30-g1" }
+          "connect" : [
+            { "id" : "M30-f0", "to" : "M30-g1" }
+          ]
         }, {
           "id" : "M30-g1",
           "type" : "EmbeddedEnd",
@@ -77,7 +83,9 @@
           "visual" : {
             "at" : { "x" : 64, "y" : 256 }
           },
-          "connect" : { "id" : "R40-f0", "to" : "R40-g1" }
+          "connect" : [
+            { "id" : "R40-f0", "to" : "R40-g1" }
+          ]
         }, {
           "id" : "R40-g1",
           "type" : "EmbeddedEnd",
@@ -98,7 +106,9 @@
           "visual" : {
             "at" : { "x" : 64, "y" : 256 }
           },
-          "connect" : { "id" : "R50-f0", "to" : "R50-g1" }
+          "connect" : [
+            { "id" : "R50-f0", "to" : "R50-g1" }
+          ]
         }, {
           "id" : "R50-g1",
           "type" : "EmbeddedEnd",
@@ -119,7 +129,9 @@
           "visual" : {
             "at" : { "x" : 320, "y" : 64 }
           },
-          "connect" : { "id" : "S60-f0", "to" : "S60-g1" }
+          "connect" : [
+            { "id" : "S60-f0", "to" : "S60-g1" }
+          ]
         }, {
           "id" : "S60-g1",
           "type" : "EmbeddedEnd",
@@ -140,7 +152,9 @@
           "visual" : {
             "at" : { "x" : 576, "y" : 256 }
           },
-          "connect" : { "id" : "S70-f0", "to" : "S70-g1" }
+          "connect" : [
+            { "id" : "S70-f0", "to" : "S70-g1" }
+          ]
         }, {
           "id" : "S70-g1",
           "type" : "EmbeddedEnd",
