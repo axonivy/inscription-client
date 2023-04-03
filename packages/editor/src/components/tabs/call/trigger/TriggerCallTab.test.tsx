@@ -25,7 +25,7 @@ describe('TriggerCallTab', () => {
   });
 
   test('full data', async () => {
-    renderTab({ processCall: 'trigger', call: { code: 'code', map: [{ key: 'key', value: 'value' }] } });
+    renderTab({ processCall: 'trigger', call: { code: 'code', map: { key: 'value' } } });
     await assertMainPart('trigger', [/key value/], 'code');
   });
 
@@ -37,7 +37,7 @@ describe('TriggerCallTab', () => {
   test('configured', async () => {
     assertState('empty');
     assertState('configured', { processCall: 'trigger' });
-    assertState('configured', { call: { code: 'code', map: [] } });
-    assertState('configured', { call: { code: '', map: [{ key: 'key', value: 'value' }] } });
+    assertState('configured', { call: { code: 'code', map: {} } });
+    assertState('configured', { call: { code: '', map: { key: 'value' } } });
   });
 });

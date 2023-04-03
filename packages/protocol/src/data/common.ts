@@ -14,11 +14,8 @@ export interface CustomField {
 }
 
 export type MappingData = {
-  map: Mapping[];
+  map: Mapping;
   code: string;
 };
 
-export interface Mapping {
-  key: string;
-  value: string;
-}
+export type Mapping = Record<string, string>;

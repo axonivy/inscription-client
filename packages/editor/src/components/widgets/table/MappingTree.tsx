@@ -22,14 +22,14 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { LabelWithControls, Control } from '../label';
 import { CodeEditorCell } from './cell/CodeEditorCell';
 
-const MappingTree = (props: { data: Mapping[]; mappingInfo: MappingInfo; onChange: (change: Mapping[]) => void; location: string }) => {
+const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange: (change: Mapping) => void; location: string }) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
   const [showGlobalFilter, setShowGlobalFilter] = useState(false);
   const [showOnlyInscribed, setShowOnlyInscribed] = useState(false);
 
   useEffect(() => {
     const treeData = MappingTreeData.of(props.mappingInfo);
-    props.data?.forEach(mapping => MappingTreeData.update(props.mappingInfo, treeData, mapping.key.split('.'), mapping.value));
+    Object.entries(props.data).forEach(mapping => MappingTreeData.update(props.mappingInfo, treeData, mapping[0].split('.'), mapping[1]));
     setTree(treeData);
   }, [props.data, props.mappingInfo]);
 

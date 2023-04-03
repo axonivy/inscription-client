@@ -29,7 +29,7 @@ describe('CodeTab', () => {
   });
 
   test('full data', async () => {
-    const data: OutputData = { output: { code: 'code', map: [] }, sudo: true };
+    const data: OutputData = { output: { code: 'code', map: {} }, sudo: true };
     renderTab(data);
     await assertMainPart('code', true);
   });
@@ -42,7 +42,7 @@ describe('CodeTab', () => {
   test('configured', async () => {
     assertState('empty');
     assertState('configured', { sudo: true });
-    assertState('configured', { output: { code: 'code', map: [] } });
-    assertState('empty', { output: { code: '', map: [{ key: 'key', value: 'value' }] } });
+    assertState('configured', { output: { code: 'code', map: {} } });
+    assertState('empty', { output: { code: '', map: { key: 'value' } } });
   });
 });
