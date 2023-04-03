@@ -1,4 +1,4 @@
-import { Mapping, MappingData } from './common';
+import { MappingData } from './common';
 
 export interface OutputData {
   output: MappingData;
@@ -7,7 +7,7 @@ export interface OutputData {
 
 export const DEFAULT_OUTPUT_DATA: OutputData = {
   output: {
-    map: [] as Mapping[],
+    map: {},
     code: ''
   },
   sudo: false

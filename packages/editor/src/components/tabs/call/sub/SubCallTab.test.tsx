@@ -25,7 +25,7 @@ describe('SubCallTab', () => {
   });
 
   test('full data', async () => {
-    renderTab({ processCall: 'process', call: { code: 'code', map: [{ key: 'key', value: 'value' }] } });
+    renderTab({ processCall: 'process', call: { code: 'code', map: { key: 'value' } } });
     await assertMainPart('process', [/key value/], 'code');
   });
 
@@ -37,7 +37,7 @@ describe('SubCallTab', () => {
   test('configured', async () => {
     assertState('empty');
     assertState('configured', { processCall: 'dialog' });
-    assertState('configured', { call: { code: 'code', map: [] } });
-    assertState('configured', { call: { code: '', map: [{ key: 'key', value: 'value' }] } });
+    assertState('configured', { call: { code: 'code', map: {} } });
+    assertState('configured', { call: { code: '', map: { key: 'value' } } });
   });
 });

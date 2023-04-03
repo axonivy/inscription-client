@@ -24,7 +24,7 @@ describe('OutputTab', () => {
   });
 
   test('full data', async () => {
-    const data: Partial<OutputData> = { output: { map: [{ key: 'key', value: 'value' }], code: 'code' } };
+    const data: Partial<OutputData> = { output: { map: { key: 'value' }, code: 'code' } };
     renderTab(data);
     await assertMainPart([/key value/], 'code');
   });
@@ -42,8 +42,8 @@ describe('OutputTab', () => {
   test('configured', async () => {
     assertState('empty');
     assertState('empty', { sudo: true });
-    assertState('empty', { output: { code: 'code', map: [] } }, true);
-    assertState('configured', { output: { code: 'code', map: [] } });
-    assertState('configured', { output: { code: '', map: [{ key: 'key', value: 'value' }] } });
+    assertState('empty', { output: { code: 'code', map: {} } }, true);
+    assertState('configured', { output: { code: 'code', map: {} } });
+    assertState('configured', { output: { code: '', map: { key: 'value' } } });
   });
 });

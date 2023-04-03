@@ -1,4 +1,4 @@
-import { Mapping, MappingData } from './common';
+import { MappingData } from './common';
 
 export type ProcessCallData = {
   processCall: string;
@@ -16,7 +16,7 @@ export const DEFAULT_CALL_DATA: CallData & DialogCallData & ProcessCallData = {
   dialog: '',
   processCall: '',
   call: {
-    map: [] as Mapping[],
+    map: {},
     code: ''
   }
 } as const;

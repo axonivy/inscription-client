@@ -1,4 +1,4 @@
-import { Mapping, MappingInfo } from '@axonivy/inscription-protocol';
+import { MappingInfo } from '@axonivy/inscription-protocol';
 import { MappingTreeData } from './mapping-tree-data';
 
 describe('MappingTreeData', () => {
@@ -210,19 +210,12 @@ describe('MappingTreeData', () => {
 
   test('to', () => {
     const tree = mappingTreeMultiRootData();
-    expect(MappingTreeData.to(tree)).toEqual([]);
+    expect(MappingTreeData.to(tree)).toEqual({});
 
     tree[0].value = 'root';
     tree[0].children[1].value = '12';
     tree[1].value = 'dummy';
     const mapping = MappingTreeData.to(tree);
-    assertDataMapping(mapping[0], { key: 'param.procurementRequest', value: 'root' });
-    assertDataMapping(mapping[1], { key: 'param.procurementRequest.amount', value: '12' });
-    assertDataMapping(mapping[2], { key: 'dummy', value: 'dummy' });
+    expect(mapping).toEqual({ 'param.procurementRequest': 'root', 'param.procurementRequest.amount': '12', dummy: 'dummy' });
   });
-
-  function assertDataMapping(mapping: Mapping, expectedMapping: Mapping) {
-    expect(mapping.key).toEqual(expectedMapping.key);
-    expect(mapping.value).toEqual(expectedMapping.value);
-  }
 });

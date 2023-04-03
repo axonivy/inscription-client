@@ -51,12 +51,12 @@ describe('MappingTree', () => {
     }
   };
 
-  function renderTree(initData?: Mapping[]): {
-    data: () => Mapping[];
+  function renderTree(initData?: Mapping): {
+    data: () => Mapping;
   } {
     userEvent.setup();
-    let data: Mapping[] = initData ?? [{ key: 'param.procurementRequest', value: 'in' }];
-    render(<MappingTree data={data} mappingInfo={mappingInfo} onChange={(change: Mapping[]) => (data = change)} location='test' />);
+    let data: Mapping = initData ?? { 'param.procurementRequest': 'in' };
+    render(<MappingTree data={data} mappingInfo={mappingInfo} onChange={(change: Mapping) => (data = change)} location='test' />);
     return {
       data: () => data
     };
@@ -85,7 +85,7 @@ describe('MappingTree', () => {
   });
 
   test('tree will render unknown values', () => {
-    renderTree([{ key: 'bla', value: 'unknown value' }]);
+    renderTree({ bla: 'unknown value' });
     assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER, /⛔ bla unknown value/]);
   });
 
@@ -124,8 +124,7 @@ describe('MappingTree', () => {
 
     expect(inputs[0]).toHaveValue('in');
     expect(screen.getAllByRole('textbox')[2]).toHaveValue('123');
-    assertDataMapping(view.data()[0], { key: 'param.procurementRequest', value: 'in' });
-    assertDataMapping(view.data()[1], { key: 'param.procurementRequest.amount', value: '123' });
+    expect(view.data()).toEqual({ 'param.procurementRequest': 'in', 'param.procurementRequest.amount': '123' });
   });
 
   test('tree will filter', async () => {
@@ -163,14 +162,9 @@ describe('MappingTree', () => {
   });
 
   test('tree support readonly mode', async () => {
-    render(<MappingTree data={[]} mappingInfo={mappingInfo} onChange={() => {}} location='' />, {
+    render(<MappingTree data={{}} mappingInfo={mappingInfo} onChange={() => {}} location='' />, {
       wrapperProps: { editor: { readonly: true } }
     });
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();
   });
-
-  function assertDataMapping(mapping: Mapping, expectedMapping: Mapping) {
-    expect(mapping.key).toEqual(expectedMapping.key);
-    expect(mapping.value).toEqual(expectedMapping.value);
-  }
 });

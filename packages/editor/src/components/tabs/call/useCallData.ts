@@ -7,12 +7,12 @@ import { Consumer } from '../../../types/lambda';
 export function useCallData(): {
   callData: CallData;
   defaultData: CallData;
-  updateMap: Consumer<Mapping[]>;
+  updateMap: Consumer<Mapping>;
   updateCode: Consumer<string>;
 } {
   const { config, defaultData, setConfig } = useConfigDataContext();
 
-  const updateMap = useCallback<Consumer<Mapping[]>>(
+  const updateMap = useCallback<Consumer<Mapping>>(
     map =>
       setConfig(
         produce(draft => {

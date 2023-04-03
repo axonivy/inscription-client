@@ -25,7 +25,7 @@ describe('DialogCallTab', () => {
   });
 
   test('full data', async () => {
-    renderTab({ dialog: 'dialog', call: { code: 'code', map: [{ key: 'key', value: 'value' }] } });
+    renderTab({ dialog: 'dialog', call: { code: 'code', map: { key: 'value' } } });
     await assertMainPart('dialog', [/key value/], 'code');
   });
 
@@ -37,7 +37,7 @@ describe('DialogCallTab', () => {
   test('configured', async () => {
     assertState('empty');
     assertState('configured', { dialog: 'dialog' });
-    assertState('configured', { call: { code: 'code', map: [] } });
-    assertState('configured', { call: { code: '', map: [{ key: 'key', value: 'value' }] } });
+    assertState('configured', { call: { code: 'code', map: {} } });
+    assertState('configured', { call: { code: '', map: { key: 'value' } } });
   });
 });

@@ -23,17 +23,17 @@ export namespace DataMock {
     config: {
       dialog: '',
       call: {
-        map: [{ key: 'param.procurementRequest', value: 'in' }],
+        map: { 'param.procurementRequest': 'in' },
         code: 'ivy.log.info("Hello World")'
       },
       task: {
         name: 'user task'
       },
       output: {
-        map: [
-          { key: 'out.amount', value: '123' },
-          { key: 'out.accepted', value: 'true' }
-        ]
+        map: {
+          'out.amount': '123',
+          'out.accepted': 'true'
+        }
       }
     }
   };
