@@ -3,23 +3,22 @@
   "name": "parent",
   "version": "0.1.0",
   "engines": {
-    "yarn": ">=1.7.0 <2.x.x",
-    "node": ">=14.18.0"
+    "node": ">=16.15.1"
   },
   "scripts": {
-    "prepare": "yarn icons",
-    "ci": "yarn install && yarn icons && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
+    "prepare": "npm run icons",
+    "ci": "npm install && npm run icons && npm run type && npm run lint:ci && npm run test:ci && npm run standalone build:production",
     "clean": "lerna run clean",
     "build": "lerna run --ignore=@axonivy/inscription-standalone build",
     "build:clean": "lerna run build:clean",
     "type": "lerna run type",
     "lint": "lerna run lint --",
-    "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
+    "lint:ci": "npm run lint -o eslint.xml -f checkstyle",
     "lint:fix": "lerna run lint:fix --",
-    "standalone": "yarn -s --cwd integrations/standalone",
-    "icons": "yarn --cwd packages/icons build",
-    "dev": "yarn standalone start:mock",
-    "test": "yarn --cwd packages/editor test",
+    "icons": "npm run --prefix packages/icons build",
+    "dev": "npm run --prefix integrations/standalone start:mock",
+    "start": "npm run --prefix integrations/standalone start",
+    "test": "npm run --prefix packages/editor test",
     "test:ci": "lerna run test:ci"
   },
   "devDependencies": {

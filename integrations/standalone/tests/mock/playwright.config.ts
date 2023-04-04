@@ -5,7 +5,7 @@ const config: PlaywrightTestConfig = defaultConfig;
 config.testDir = './';
 config.use!.baseURL = 'http://localhost:3000/mock.html';
 config.webServer = {
-  command: 'yarn start:mock',
+  command: 'npm run  start:mock',
   url: 'http://localhost:3000/mock.html',
   reuseExistingServer: !process.env.CI
 };

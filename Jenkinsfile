@@ -15,8 +15,7 @@ pipeline {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
             docker.build('node').inside {
-              sh 'build/use-mirror-npm.sh'
-              sh 'yarn ci'
+              sh 'npm run ci'
             }
           }
           archiveArtifacts artifacts: '**/integrations/standalone/build/**', allowEmptyArchive: true
@@ -31,7 +30,9 @@ pipeline {
       steps {
         script {
           docker.image('mcr.microsoft.com/playwright:v1.30.0-jammy').inside {
-            sh 'yarn standalone webtest:mock'
+            dir ('integrations/standalone') {
+              sh 'npm run webtest:mock'
+            }
           }
           archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
           withChecks('Mock Tests') {

@@ -36,7 +36,7 @@
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "jest.jestCommandLine": "yarn test",
+  "jest.jestCommandLine": "npm run test",
   "jest.autoRun": {
     "watch": false,
     "onSave": "test-file"

@@ -39,9 +39,10 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>yarn</executable>
+              <executable>npm</executable>
               <arguments>
-                <argument>--cwd</argument>
+                <argument>run</argument>
+                <argument>--prefix</argument>
                 <argument>../../..</argument>
                 <argument>webtest:engine</argument>
               </arguments>

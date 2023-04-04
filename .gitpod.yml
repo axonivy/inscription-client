@@ -1,8 +1,8 @@
-workspaceLocation: "./next-gen-inscription/client/inscription-editor.code-workspace"
+workspaceLocation: './next-gen-inscription/client/inscription-editor.code-workspace'
 tasks:
   - name: Vite Dev Server
-    init: yarn --cwd client
-    command: yarn --cwd client standalone start:mock
+    init: npm run --prefix client
+    command: npm run --prefix client standalone start:mock
   - command: gp ports await 3000 && gp preview $(gp url 3000)/mock.html
     openMode: split-right
 ports:

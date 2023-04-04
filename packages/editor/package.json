@@ -43,13 +43,13 @@
   "module": "src/index",
   "scripts": {
     "clean": "rimraf lib *.tsbuildinfo",
-    "build": "tsc -p build.tsconfig.json && yarn build:copyfiles",
-    "build:clean": "yarn clean && yarn build",
+    "build": "tsc -p build.tsconfig.json && npm run build:copyfiles",
+    "build:clean": "npm run clean && npm run build",
     "build:copyfiles": "copyfiles -u 1 \"src/**/*.css\" lib",
-    "type": "yarn tsc --noEmit",
+    "type": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "test": "jest --watchAll",
-    "test:ci": "yarn test --watchAll=false"
+    "test:ci": "npm run test --watchAll=false"
   }
 }

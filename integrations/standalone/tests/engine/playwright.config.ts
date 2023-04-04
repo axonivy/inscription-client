@@ -12,7 +12,7 @@ config.projects = [
   }
 ];
 config.webServer = {
-  command: 'yarn start',
+  command: 'npm start',
   url: 'http://localhost:3000',
   reuseExistingServer: !process.env.CI
 };

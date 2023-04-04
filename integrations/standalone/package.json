@@ -20,7 +20,7 @@
   "scripts": {
     "clean": "rimraf build",
     "build": "vite build --mode development",
-    "build:clean": "yarn clean && yarn build",
+    "build:clean": "npm run clean && npm run build",
     "build:production": "vite build",
     "type": "tsc --noEmit",
     "start": "vite",
@@ -28,10 +28,10 @@
     "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
-    "webtest": "yarn playwright test",
-    "webtest:mock": "yarn webtest -c ./tests/mock",
-    "webtest:engine": "yarn webtest -c ./tests/engine",
-    "webtest:screenshot": "yarn webtest -c ./tests/screenshots"
+    "webtest": "playwright test",
+    "webtest:mock": "npm run webtest -c ./tests/mock",
+    "webtest:engine": "npm run webtest -c ./tests/engine",
+    "webtest:screenshot": "npm run webtest -c ./tests/screenshots"
   },
   "browserslist": {
     "production": [

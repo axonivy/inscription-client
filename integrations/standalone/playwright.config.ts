@@ -42,7 +42,7 @@ const config: PlaywrightTestConfig = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'yarn start:mock',
+    command: 'npm run start:mock',
     url: 'http://localhost:3000/mock.html',
     reuseExistingServer: !process.env.CI
   }
