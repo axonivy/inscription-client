@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
   "id" : "0169A49845D37011",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.Data"
@@ -48,9 +48,6 @@
       "id" : "f12",
       "type" : "WebServiceCall",
       "name" : "WS Call",
-      "config" : {
-        "timeout" : "0"
-      },
       "visual" : {
         "at" : { "x" : 272, "y" : 280 }
       }

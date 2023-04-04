@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
   "id" : "1562D1CBAC49CCF8",
   "config" : {
     "data" : "com.axonivy.CreditDossier"
@@ -9,19 +9,28 @@
       "type" : "RequestStart",
       "name" : "start.ivp",
       "config" : {
-        "callSignature" : "start",
-        "responsible" : "Secretary",
-        "case" : {
-          "name" : "Personal Case",
-          "category" : "Personal"
+        "signature" : "start",
+        "input" : {
+          "params" : [
+            { "name" : "city", "type" : "String", "desc" : "" }
+          ],
+          "map" : { },
+          "code" : "ivy.log.debug(\"City added: \" + param.city);"
         },
-        "roleExceptionId" : ">>",
-        "startDescription" : "Region: City",
+        "request" : {
+          "name" : "Create new invoice",
+          "description" : "Region: City"
+        },
+        "permission" : {
+          "anonymous" : false,
+          "role" : "Secretary",
+          "error" : ">> Ignore Exception"
+        },
+        "triggerable" : true,
         "task" : {
           "name" : "Call Manager",
           "category" : "Personal/Tasks",
           "responsible" : {
-            "type" : "ROLE",
             "activator" : "FacilityManager"
           },
           "priority" : {
@@ -36,19 +45,13 @@
             }
           },
           "customFields" : [
-            { "name" : "CustomDecimalField1", "type" : "Number", "value" : "0416666666" }
+            { "name" : "CustomDecimalField1", "type" : "NUMBER", "value" : "0416666666" }
           ]
         },
-        "outLink" : "start.ivp",
-        "input" : {
-          "params" : [
-            { "name" : "city", "type" : "String" }
-          ],
-          "code" : "ivy.log.debug(\"City added: \" + param.city);"
-        },
-        "triggerEnabled" : true,
-        "wfuser" : "1",
-        "startName" : "Create new invoice"
+        "case" : {
+          "name" : "Personal Case",
+          "category" : "Personal"
+        }
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },

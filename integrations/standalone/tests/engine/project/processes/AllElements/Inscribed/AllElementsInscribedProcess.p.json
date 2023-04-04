@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
   "id" : "16C51F1EE34D5EF5",
   "config" : {
     "data" : "screenshot.project.Order"
@@ -9,16 +9,16 @@
       "type" : "RequestStart",
       "name" : "start.ivp",
       "config" : {
-        "callSignature" : "start",
+        "signature" : "start",
         "input" : {
           "params" : [
-            { "name" : "requester", "type" : "String" },
-            { "name" : "product", "type" : "String" },
-            { "name" : "quantity", "type" : "Number" },
-            { "name" : "unitPrice", "type" : "Number" },
-            { "name" : "street", "type" : "String" },
-            { "name" : "housenumber", "type" : "Number" },
-            { "name" : "city", "type" : "String" }
+            { "name" : "requester", "type" : "String", "desc" : "" },
+            { "name" : "product", "type" : "String", "desc" : "" },
+            { "name" : "quantity", "type" : "Number", "desc" : "" },
+            { "name" : "unitPrice", "type" : "Number", "desc" : "" },
+            { "name" : "street", "type" : "String", "desc" : "" },
+            { "name" : "housenumber", "type" : "Number", "desc" : "" },
+            { "name" : "city", "type" : "String", "desc" : "" }
           ],
           "map" : {
             "out.product" : "param.product",
@@ -27,19 +27,16 @@
             "out.unitPrice" : "param.unitPrice"
           }
         },
-        "case" : {
-          "name" : "Order <%=param.requester%>",
-          "category" : "<%=param.product%>",
-          "customFields" : [
-            { "name" : "city", "type" : "String", "value" : "param.city" },
-            { "name" : "price", "type" : "Number", "value" : "param.unitPrice" },
-            { "name" : "product", "type" : "String", "value" : "param.product" },
-            { "name" : "quantity", "type" : "Number", "value" : "\tparam.quantity" },
-            { "name" : "requester", "type" : "String", "value" : "\tparam.requester" }
-          ]
+        "request" : {
+          "name" : "New order",
+          "description" : "Place new order"
         },
-        "roleExceptionId" : ">>",
-        "startDescription" : "Place new order",
+        "permission" : {
+          "anonymous" : false,
+          "error" : ">> Ignore Exception"
+        },
+        "triggerable" : true,
+        "persistOnStart" : true,
         "task" : {
           "name" : "New Order",
           "description" : "For: <%=param.requester%>",
@@ -51,7 +48,6 @@
           "expiry" : {
             "timeout" : "ivy.cal.getWorkDayIn(5).getDurationFromNow()",
             "responsible" : {
-              "type" : "ROLE",
               "activator" : "CREATOR"
             },
             "priority" : {
@@ -59,18 +55,24 @@
             }
           },
           "customFields" : [
-            { "name" : "city", "type" : "String", "value" : "param.city" },
-            { "name" : "price", "type" : "Number", "value" : "param.quantity * param.unitPrice" },
-            { "name" : "product", "type" : "String", "value" : "param.product" },
-            { "name" : "quantity", "type" : "Number", "value" : "param.quantity" },
-            { "name" : "requester", "type" : "String", "value" : "param.requester" }
+            { "name" : "city", "type" : "STRING", "value" : "param.city" },
+            { "name" : "price", "type" : "NUMBER", "value" : "param.quantity * param.unitPrice" },
+            { "name" : "product", "type" : "STRING", "value" : "param.product" },
+            { "name" : "quantity", "type" : "NUMBER", "value" : "param.quantity" },
+            { "name" : "requester", "type" : "STRING", "value" : "param.requester" }
           ]
         },
-        "outLink" : "start.ivp",
-        "triggerEnabled" : true,
-        "persist" : true,
-        "wfuser" : "1",
-        "startName" : "New order"
+        "case" : {
+          "name" : "Order <%=param.requester%>",
+          "category" : "<%=param.product%>",
+          "customFields" : [
+            { "name" : "city", "type" : "STRING", "value" : "param.city" },
+            { "name" : "price", "type" : "NUMBER", "value" : "param.unitPrice" },
+            { "name" : "product", "type" : "STRING", "value" : "param.product" },
+            { "name" : "quantity", "type" : "NUMBER", "value" : "\tparam.quantity" },
+            { "name" : "requester", "type" : "STRING", "value" : "\tparam.requester" }
+          ]
+        }
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
@@ -215,23 +217,11 @@
       "type" : "WebServiceCall",
       "name" : "Check IP",
       "config" : {
-        "cache" : {
-          "mode" : "CACHE",
-          "scope" : "APPLICATION",
-          "group" : {
-            "name" : "\"ip-group\"",
-            "invalidation" : "NONE",
-            "time" : ""
-          },
-          "entry" : {
-            "name" : "\"ip-entry\"",
-            "invalidation" : "NONE",
-            "time" : ""
-          }
-        },
         "clientId" : "160DF5320F0D7ACD",
-        "port" : "GeoIPServiceSoap",
-        "operation" : "GetGeoIP",
+        "operation" : {
+          "name" : "GetGeoIP",
+          "port" : "GeoIPServiceSoap"
+        },
         "properties" : {
           "proxy.auth.username" : "\"proxy-admin\"",
           "proxy.auth.password" : "\"proxy-password\"",
@@ -240,6 +230,15 @@
           "policy.disabled" : "true",
           "proxy.port" : "1234",
           "schema-validation-enabled" : "false"
+        },
+        "cache" : {
+          "mode" : "CACHE",
+          "group" : {
+            "name" : "\"ip-group\""
+          },
+          "entry" : {
+            "name" : "\"ip-entry\""
+          }
         }
       },
       "visual" : {
@@ -253,24 +252,25 @@
       "type" : "RestClientCall",
       "name" : "Update stock",
       "config" : {
-        "headers" : {
-          "Accept" : "*/*",
-          "X-Requested-By" : "\"ivy\"",
-          "Retry-After" : "\"30s\"",
-          "Expires" : "\"1d\"",
-          "Date" : "new Date()",
-          "Accept-Language" : "\"en\""
-        },
-        "clientId" : "539ed1ab-1274-4716-b6d0-85d682e0acd7",
         "method" : "POST",
-        "templateParams" : {
-          "request.kind" : "\"approve\"",
-          "product.quantity" : "in.quantity",
-          "product.number" : "in.product"
-        },
-        "properties" : {
-          "username" : "\"admin\"",
-          "password" : "\"password\""
+        "target" : {
+          "clientId" : "539ed1ab-1274-4716-b6d0-85d682e0acd7",
+          "templateParams" : {
+            "request.kind" : "\"approve\"",
+            "product.quantity" : "in.quantity",
+            "product.number" : "in.product"
+          },
+          "headers" : {
+            "X-Requested-By" : "\"ivy\"",
+            "Retry-After" : "\"30s\"",
+            "Expires" : "\"1d\"",
+            "Date" : "new Date()",
+            "Accept-Language" : "\"en\""
+          },
+          "properties" : {
+            "username" : "\"admin\"",
+            "password" : "\"password\""
+          }
         }
       },
       "visual" : {

@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
   "id" : "169A4921D0EF0B91",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.Data"
@@ -139,9 +139,8 @@
         "start()"
       ],
       "config" : {
-        "callSignature" : "start",
-        "outLink" : "start.ivp",
-        "triggerEnabled" : true
+        "signature" : "start",
+        "triggerable" : true
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 200 },

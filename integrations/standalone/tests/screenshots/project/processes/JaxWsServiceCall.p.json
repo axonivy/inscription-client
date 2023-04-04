@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
   "id" : "160DF556A2226E66",
   "config" : {
     "data" : "com.axonivy.JaxWsServiceCallData"
@@ -9,8 +9,7 @@
       "type" : "RequestStart",
       "name" : "geoIpCache.ivp",
       "config" : {
-        "callSignature" : "geoIpCached",
-        "outLink" : "geoIpCached.ivp"
+        "signature" : "geoIpCached"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
@@ -29,23 +28,21 @@
       "type" : "WebServiceCall",
       "name" : "get GEO IP cached",
       "config" : {
+        "clientId" : "160DF5320F0D7ACD",
+        "operation" : {
+          "name" : "GetGeoIPContext",
+          "port" : "GeoIPServiceSoap"
+        },
         "cache" : {
           "mode" : "CACHE",
           "scope" : "SESSION",
           "group" : {
-            "name" : "\"geoip\"",
-            "invalidation" : "NONE",
-            "time" : ""
+            "name" : "\"geoip\""
           },
           "entry" : {
-            "name" : "\"address\"",
-            "invalidation" : "NONE",
-            "time" : ""
+            "name" : "\"address\""
           }
-        },
-        "clientId" : "160DF5320F0D7ACD",
-        "port" : "GeoIPServiceSoap",
-        "operation" : "GetGeoIPContext"
+        }
       },
       "visual" : {
         "at" : { "x" : 224, "y" : 64 },
@@ -66,9 +63,12 @@
       "name" : "get GEO IP",
       "config" : {
         "clientId" : "160DF5320F0D7ACD",
-        "port" : "GeoIPServiceSoap",
-        "inputParams" : {
-          "parameters.iPAddress" : "\"172.217.19.163\""
+        "operation" : {
+          "name" : "GetGeoIP",
+          "port" : "GeoIPServiceSoap",
+          "parameters" : {
+            "parameters.iPAddress" : "\"172.217.19.163\""
+          }
         },
         "output" : {
           "map" : {
@@ -76,8 +76,7 @@
             "out.user.country" : "wsResponse.countryCode"
           },
           "code" : "ivy.log.info(wsResponse.returnCode);"
-        },
-        "operation" : "GetGeoIP"
+        }
       },
       "visual" : {
         "at" : { "x" : 226, "y" : 167 }
@@ -90,8 +89,7 @@
       "type" : "RequestStart",
       "name" : "geoIp.ivp",
       "config" : {
-        "callSignature" : "geoIp",
-        "outLink" : "geoIp.ivp"
+        "signature" : "geoIp"
       },
       "visual" : {
         "at" : { "x" : 98, "y" : 167 }
