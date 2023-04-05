@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
   "id" : "1690A66F13A54F43",
   "config" : {
     "data" : "com.axonivy.CreditDossier"
@@ -9,8 +9,7 @@
       "type" : "RequestStart",
       "name" : "start.ivp",
       "config" : {
-        "callSignature" : "start",
-        "outLink" : "start.ivp"
+        "signature" : "start"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }

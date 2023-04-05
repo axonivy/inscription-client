@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
   "id" : "167C7307A5664620",
   "config" : {
     "data" : "screenshot.project.Data"
@@ -9,8 +9,7 @@
       "type" : "RequestStart",
       "name" : "start.ivp",
       "config" : {
-        "callSignature" : "axonTimeline",
-        "outLink" : "axonTimeline.ivp"
+        "signature" : "axonTimeline"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
@@ -76,8 +75,7 @@
       "type" : "RequestStart",
       "name" : "startVerification.ivp",
       "config" : {
-        "callSignature" : "axonTimeline2",
-        "outLink" : "axonTimeline2.ivp"
+        "signature" : "axonTimeline2"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 160 },
@@ -135,8 +133,7 @@
       "type" : "RequestStart",
       "name" : "startImplementation.ivp",
       "config" : {
-        "callSignature" : "axonTimeline22",
-        "outLink" : "axonTimeline22.ivp"
+        "signature" : "axonTimeline22"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 256 },
@@ -150,8 +147,7 @@
       "type" : "RequestStart",
       "name" : "startEscalation.ivp",
       "config" : {
-        "callSignature" : "start",
-        "outLink" : "start.ivp"
+        "signature" : "start"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 448 },
@@ -201,8 +197,7 @@
       "type" : "RequestStart",
       "name" : "checkBudget.ivp",
       "config" : {
-        "callSignature" : "start2",
-        "outLink" : "start2.ivp"
+        "signature" : "start2"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 352 },

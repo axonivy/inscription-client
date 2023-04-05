@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
   "id" : "16C70B87DCB65433",
   "config" : {
     "data" : "screenshot.project.Invoice"
@@ -43,8 +43,7 @@
       "type" : "RequestStart",
       "name" : "start.ivp",
       "config" : {
-        "callSignature" : "start",
-        "outLink" : "start.ivp"
+        "signature" : "start"
       },
       "visual" : {
         "at" : { "x" : 64, "y" : 64 }
@@ -130,8 +129,7 @@
       "type" : "RequestStart",
       "name" : "printERP.ivp",
       "config" : {
-        "callSignature" : "printERP",
-        "outLink" : "printERP.ivp"
+        "signature" : "printERP"
       },
       "visual" : {
         "at" : { "x" : 64, "y" : 256 },

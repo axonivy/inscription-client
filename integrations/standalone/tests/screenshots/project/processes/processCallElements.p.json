@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
   "id" : "16BD5F7B1D71F926",
   "config" : {
     "data" : "screenshot.project.Data"
@@ -9,17 +9,16 @@
       "type" : "RequestStart",
       "name" : "start.ivp",
       "config" : {
-        "callSignature" : "start",
+        "signature" : "start",
         "input" : {
           "params" : [
-            { "name" : "city", "type" : "String" }
+            { "name" : "city", "type" : "String", "desc" : "" }
           ],
           "map" : {
             "out.city" : "param.city"
           }
         },
-        "outLink" : "start.ivp",
-        "triggerEnabled" : true
+        "triggerable" : true
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
@@ -38,8 +37,7 @@
       "type" : "RequestStart",
       "name" : "start2.ivp",
       "config" : {
-        "callSignature" : "start2",
-        "outLink" : "start2.ivp"
+        "signature" : "start2"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 224 }
