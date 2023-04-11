@@ -1,11 +1,7 @@
-import { MappingData } from './common';
+import { ElementScript } from './inscription';
 
-export interface OutputData {
-  output: MappingData;
-  sudo: boolean;
-}
 
-export const DEFAULT_OUTPUT_DATA: OutputData = {
+export const DEFAULT_OUTPUT_DATA: ElementScript = {
   output: {
     map: {},
     code: ''
