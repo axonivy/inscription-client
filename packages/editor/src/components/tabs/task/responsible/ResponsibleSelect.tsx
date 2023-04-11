@@ -1,6 +1,6 @@
 import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
-import { Responsible, ResponsibleType, RESPONSIBLE_TYPE } from '@axonivy/inscription-protocol';
+import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE } from '@axonivy/inscription-protocol';
 import { Select, SelectItem } from '../../../../components/widgets';
 import { useClient, useEditorContext } from '../../../../context';
 import { Consumer } from '../../../../types/lambda';
@@ -8,11 +8,11 @@ import { Consumer } from '../../../../types/lambda';
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
 
 export interface ResponsibleUpdater {
-  updateType: Consumer<ResponsibleType>;
+  updateType: Consumer<WfActivatorType>;
   updateActivator: Consumer<string>;
 }
 
-const RoleSelect = (props: { responsible?: Responsible; updateResponsible: ResponsibleUpdater }) => {
+const RoleSelect = (props: { responsible?: WfActivator; updateResponsible: ResponsibleUpdater }) => {
   const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
   const editorContext = useEditorContext();
   const client = useClient();
@@ -36,9 +36,9 @@ const RoleSelect = (props: { responsible?: Responsible; updateResponsible: Respo
 };
 
 const ResponsibleActivator = (props: {
-  responsible?: Responsible;
+  responsible?: WfActivator;
   updateResponsible: ResponsibleUpdater;
-  selectedType?: ResponsibleType;
+  selectedType?: WfActivatorType;
 }) => {
   switch (props.selectedType) {
     case 'ROLE':
@@ -59,17 +59,17 @@ const ResponsibleActivator = (props: {
   }
 };
 
-const DEFAULT_RESPONSIBLE_TYPE: SelectItem & { value: ResponsibleType } = { label: 'Role', value: 'ROLE' };
+const DEFAULT_RESPONSIBLE_TYPE: SelectItem & { value: WfActivatorType } = { label: 'Role', value: 'ROLE' };
 
 const ResponsibleSelect = (props: {
-  responsible?: Responsible;
+  responsible?: WfActivator;
   updateResponsible: ResponsibleUpdater;
-  optionFilter?: ResponsibleType[];
+  optionFilter?: WfActivatorType[];
 }) => {
   const typeItems = useMemo<SelectItem[]>(
     () =>
       Object.entries(RESPONSIBLE_TYPE)
-        .filter(([value]) => !(props.optionFilter && props.optionFilter.includes(value as ResponsibleType)))
+        .filter(([value]) => !(props.optionFilter && props.optionFilter.includes(value as WfActivatorType)))
         .map(([value, label]) => ({ label, value })),
     [props.optionFilter]
   );
@@ -84,9 +84,9 @@ const ResponsibleSelect = (props: {
         label='Responsible'
         items={typeItems}
         value={selectedType}
-        onChange={item => props.updateResponsible.updateType(item.value as ResponsibleType)}
+        onChange={item => props.updateResponsible.updateType(item.value as WfActivatorType)}
       >
-        <ResponsibleActivator {...props} selectedType={selectedType?.value as ResponsibleType} />
+        <ResponsibleActivator {...props} selectedType={selectedType?.value as WfActivatorType} />
       </Select>
     </div>
   );

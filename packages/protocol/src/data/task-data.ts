@@ -1,5 +1,5 @@
 import { CustomField } from './common';
-import { WfTask } from './inscription';
+import { WfActivator, WfPriority, WfTask } from './inscription';
 
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
@@ -7,13 +7,6 @@ export const RESPONSIBLE_TYPE = {
   USER_FROM_ATTRIBUTE: 'User from Attr.',
   DELETE_TASK: 'Nobody & delete'
 } as const;
-
-export type ResponsibleType = keyof typeof RESPONSIBLE_TYPE;
-
-export interface Responsible {
-  type: ResponsibleType;
-  activator: string;
-}
 
 export const PRIORITY_LEVEL = {
   LOW: 'Low',
@@ -23,19 +16,6 @@ export const PRIORITY_LEVEL = {
   SCRIPT: 'Script'
 } as const;
 
-export type PriorityLevel = keyof typeof PRIORITY_LEVEL;
-
-export interface Priority {
-  level: PriorityLevel;
-  script: string;
-}
-
-export interface Expiry {
-  timeout: string;
-  error: string;
-  responsible: Responsible;
-  priority: Priority;
-}
 
 export interface TaskData {
   task: WfTask;
@@ -43,12 +23,12 @@ export interface TaskData {
   persist: boolean;
 }
 
-const DEFAULT_RESPONSIBLE: Responsible = {
+const DEFAULT_RESPONSIBLE: WfActivator = {
   type: 'ROLE',
   activator: 'Everybody'
 } as const;
 
-const DEFAULT_PRIORITY: Priority = {
+const DEFAULT_PRIORITY: WfPriority = {
   level: 'NORMAL',
   script: ''
 } as const;

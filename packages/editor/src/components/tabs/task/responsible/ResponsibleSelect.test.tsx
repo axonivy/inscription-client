@@ -1,10 +1,10 @@
 import ResponsibleSelect from './ResponsibleSelect';
-import { Responsible, ResponsibleType } from '@axonivy/inscription-protocol';
+import { WfActivator, WfActivatorType } from '@axonivy/inscription-protocol';
 import { render, screen, SelectUtil } from 'test-utils';
 
 describe('ResponsibleSelect', () => {
-  function renderSelect(options?: { type?: ResponsibleType; activator?: string; optionsFilter?: ResponsibleType[] }) {
-    const responsible: Responsible = { type: options?.type as ResponsibleType, activator: options?.activator ?? '' };
+  function renderSelect(options?: { type?: WfActivatorType; activator?: string; optionsFilter?: WfActivatorType[] }) {
+    const responsible: WfActivator = { type: options?.type as WfActivatorType, activator: options?.activator ?? '' };
     const roles = [
       { id: 'Everybody', label: 'In this role is everyone' },
       { id: 'Employee', label: '' },

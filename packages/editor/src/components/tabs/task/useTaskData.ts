@@ -1,4 +1,4 @@
-import { CustomField, PriorityLevel, ResponsibleType, WfTask } from '@axonivy/inscription-protocol';
+import { CustomField, WfLevel, WfActivatorType, WfTask } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
@@ -69,7 +69,7 @@ export function useTaskData(): {
     [setTask]
   );
 
-  const updateType = useCallback<Consumer<ResponsibleType>>(
+  const updateType = useCallback<Consumer<WfActivatorType>>(
     type =>
       setTask(
         produce(draft => {
@@ -89,7 +89,7 @@ export function useTaskData(): {
     [setTask]
   );
 
-  const updateLevel = useCallback<Consumer<PriorityLevel>>(
+  const updateLevel = useCallback<Consumer<WfLevel>>(
     level =>
       setTask(
         produce(draft => {

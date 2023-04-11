@@ -1,10 +1,10 @@
 import PrioritySelect from './PrioritySelect';
-import { Priority, PriorityLevel } from '@axonivy/inscription-protocol';
+import { WfPriority, WfLevel } from '@axonivy/inscription-protocol';
 import { render, screen, SelectUtil } from 'test-utils';
 
 describe('PrioritySelect', () => {
   function renderSelect(options?: { level?: string; script?: string }) {
-    const priority: Priority = { level: options?.level as PriorityLevel, script: options?.script ?? '' };
+    const priority: WfPriority = { level: options?.level as WfLevel, script: options?.script ?? '' };
     render(<PrioritySelect priority={priority} updatePriority={{ updateLevel: () => {}, updateScript: () => {} }} />);
   }
 
