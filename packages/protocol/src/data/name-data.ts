@@ -1,7 +1,4 @@
-export type Document = {
-  name: string;
-  url: string;
-};
+import { Document } from "./inscription";
 
 export interface NameData {
   name: string;
