@@ -11,6 +11,7 @@ generate() {
     curl -o inscription.json ${uri}
   fi
   yarn json2ts inscription.json ${tsOut}
+  sed -i -e 's|?:|:|g' ${tsOut}
 }
 
 clean() {
