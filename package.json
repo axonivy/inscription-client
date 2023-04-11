@@ -9,9 +9,9 @@
   "scripts": {
     "prepare": "yarn icons",
     "ci": "yarn install && yarn icons && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
-    "clean": "lerna run clean",
+    "clean": "lerna run clean && $PWD/schemaCodegen.sh clean",
     "build": "lerna run --ignore=@axonivy/inscription-standalone build",
-    "build:clean": "lerna run build:clean",
+    "build:clean": "$PWD/schemaCodegen.sh && lerna run build:clean",
     "type": "lerna run type",
     "lint": "lerna run lint --",
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
@@ -21,7 +21,7 @@
     "dev": "yarn standalone start:mock",
     "test": "yarn --cwd packages/editor test",
     "test:ci": "lerna run test:ci",
-    "generate": "if ! [ -f inscription.json ]; then curl -o inscription.json https://json-schema.axonivy.com/process/11.1.20/schema.json; fi && yarn json2ts inscription.json packages/protocol/src/data/inscription.d.ts"
+    "generate": "$PWD/schemaCodegen.sh"
   },
   "devDependencies": {
     "@types/node": "^16.7.13",
