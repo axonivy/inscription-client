@@ -5,12 +5,12 @@ import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { URLParams } from './url-helper';
-import { InscriptionEditorType } from '@axonivy/inscription-protocol';
+import { ElementType } from '@axonivy/inscription-protocol';
 
 export async function start(): Promise<void> {
   const theme = URLParams.themeMode();
   const readonly = URLParams.parameter('readonly') ? true : false;
-  const type = (URLParams.parameter('type') as InscriptionEditorType) ?? undefined;
+  const type = (URLParams.parameter('type') as ElementType) ?? undefined;
 
   MonacoEditorUtil.initMonaco(monaco, theme);
   MonacoUtil.initStandalone();

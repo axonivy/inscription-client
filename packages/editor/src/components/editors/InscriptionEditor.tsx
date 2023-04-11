@@ -1,21 +1,20 @@
 import { Separator } from '@radix-ui/react-separator';
 import { memo, ReactNode, useMemo, useState } from 'react';
 import './InscriptionEditor.css';
-import { InscriptionEditorType } from '@axonivy/inscription-protocol';
+import { ElementType } from '@axonivy/inscription-protocol';
 import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { otherEditors } from './others/other-editors';
 import { ErrorFallback, IvyIcon, TabContent, TabList, TabRoot } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Message, TabProps } from '../props';
 import { ErrorBoundary } from 'react-error-boundary';
 
-const editors = new Map<InscriptionEditorType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
+const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors]);
 
-export const inscriptionEditor = (type?: InscriptionEditorType): ReactNode => {
+export const inscriptionEditor = (type?: ElementType): ReactNode => {
   if (type) {
     return editors.get(type) ?? <NoEditor type={type} />;
   }

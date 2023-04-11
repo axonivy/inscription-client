@@ -4,9 +4,8 @@ import {
   ExpiryError,
   InscriptionClient,
   InscriptionDataBeta,
-  InscriptionEditorType,
   InscriptionSaveData,
-  InscriptionTypeBeta,
+  InscriptionType,
   InscriptionValidation,
   MappingInfo,
   Role
@@ -18,7 +17,7 @@ import { ValidationMock } from './validation';
 import { deepmerge } from 'deepmerge-ts';
 
 export class InscriptionClientMock implements InscriptionClient {
-  constructor(readonly readonly = false, readonly type: InscriptionEditorType = 'UserTask') {}
+  constructor(readonly readonly = false, readonly type: InscriptionType["id"] = 'UserTask') {}
 
   protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
   onValidation = this.onValidationEmitter.event;
@@ -30,7 +29,7 @@ export class InscriptionClientMock implements InscriptionClient {
   }
 
   data(pid: string): Promise<InscriptionDataBeta> {
-    const inscriptionType: InscriptionTypeBeta = {
+    const inscriptionType: InscriptionType = {
       id: this.type,
       label: this.type,
       shortLabel: this.type,
