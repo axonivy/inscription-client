@@ -42,8 +42,9 @@
   "types": "src/index",
   "module": "src/index",
   "scripts": {
+    "prepare": "yarn build:generate",
     "clean": "rimraf lib *.tsbuildinfo",
-    "build": "tsc -p build.tsconfig.json && yarn build:copyfiles && yarn build:generate",
+    "build": "tsc -p build.tsconfig.json && yarn build:copyfiles",
     "build:clean": "yarn clean && yarn build",
     "build:copyfiles": "copyfiles -u 1 \"src/**/*.css\" lib",
     "build:generate": "yarn --cwd ../../packages/protocol",
@@ -51,6 +52,6 @@
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "test": "jest --watchAll",
-    "test:ci": "yarn build:generate && yarn test --watchAll=false"
+    "test:ci": "yarn test --watchAll=false"
   }
 }
