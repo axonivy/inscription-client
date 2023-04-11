@@ -1,14 +1,7 @@
-import { CustomField } from './common';
-
-export interface Case {
-  name: string;
-  description: string;
-  category: string;
-  customFields: CustomField[];
-}
+import { WfCase, WfCustomField } from './inscription';
 
 export interface CaseData {
-  case: Case;
+  case: WfCase;
 }
 
 export const DEFAULT_CASE_DATA: CaseData = {
@@ -16,6 +9,7 @@ export const DEFAULT_CASE_DATA: CaseData = {
     name: '',
     description: '',
     category: '',
-    customFields: [] as CustomField[]
+    customFields: [] as WfCustomField[],
+    attachToBusinessCase: false
   }
 } as const;

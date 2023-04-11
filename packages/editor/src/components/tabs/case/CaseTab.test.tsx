@@ -1,5 +1,5 @@
 import { render, screen, TableUtil, renderHook } from 'test-utils';
-import { Case, CaseData } from '@axonivy/inscription-protocol';
+import { WfCase, CaseData } from '@axonivy/inscription-protocol';
 import { useCaseTab } from './CaseTab';
 import { TabState } from '../../../components/props';
 
@@ -31,7 +31,8 @@ describe('CaseTab', () => {
         name: 'name',
         description: 'description',
         category: 'category',
-        customFields: [{ name: 'field', type: 'STRING', value: '123' }]
+        customFields: [{ name: 'field', type: 'STRING', value: '123' }],
+        attachToBusinessCase: true
       }
     };
     renderTab(caseData);
@@ -40,7 +41,7 @@ describe('CaseTab', () => {
     TableUtil.assertRows(['field 123']);
   });
 
-  function assertState(expectedState: TabState, data?: Partial<Case>) {
+  function assertState(expectedState: TabState, data?: Partial<WfCase>) {
     const { result } = renderHook(() => useCaseTab(), { wrapperProps: { data: data && { config: { case: data } } } });
     expect(result.current.state).toEqual(expectedState);
   }
