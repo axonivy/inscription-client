@@ -37,4 +37,4 @@ playwright-report
 
 # generated
 inscription.json
-packages/protocol/src/data/inscription.d.ts
+packages/protocol/src/data/inscription.ts

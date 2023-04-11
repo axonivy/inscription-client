@@ -1,9 +1,9 @@
 #!/bin/bash
 
-tsOut=packages/protocol/src/data/inscription.d.ts
+tsOut=packages/protocol/src/data/inscription.ts
 
 generate() {
-  uri=https://json-schema.axonivy.com/process/11.1.20/schema.json
+  uri=https://json-schema.axonivy.com/process/11.1.20/inscription.json
   if ! [ -z "$1" ]; then
     uri="$1"
   fi 

@@ -7,8 +7,8 @@
     "node": ">=14.18.0"
   },
   "scripts": {
-    "prepare": "yarn icons",
-    "ci": "yarn install && yarn icons && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
+    "prepare": "yarn icons && $PWD/schemaCodegen.sh",
+    "ci": "yarn install && yarn icons && $PWD/schemaCodegen.sh && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
     "clean": "lerna run clean && $PWD/schemaCodegen.sh clean",
     "build": "lerna run --ignore=@axonivy/inscription-standalone build",
     "build:clean": "$PWD/schemaCodegen.sh && lerna run build:clean",
@@ -20,7 +20,7 @@
     "icons": "yarn --cwd packages/icons build",
     "dev": "yarn standalone start:mock",
     "test": "yarn --cwd packages/editor test",
-    "test:ci": "lerna run test:ci",
+    "test:ci": "$PWD/schemaCodegen.sh && lerna run test:ci",
     "generate": "$PWD/schemaCodegen.sh"
   },
   "devDependencies": {
