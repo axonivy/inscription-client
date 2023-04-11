@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/inscription-protocol",
-  "version": "0.1.0",
+  "version": "11.1.0-next",
   "private": true,
   "files": [
     "lib",
