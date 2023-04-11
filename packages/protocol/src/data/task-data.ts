@@ -1,5 +1,4 @@
-import { CustomField } from './common';
-import { WfActivator, WfPriority, WfTask } from './inscription';
+import { WfActivator, WfPriority, WfTask, WfCustomField } from './inscription';
 
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
@@ -48,7 +47,7 @@ export const DEFAULT_TASK: WfTask = {
     responsible: DEFAULT_RESPONSIBLE,
     priority: DEFAULT_PRIORITY
   },
-  customFields: [] as CustomField[],
+  customFields: [] as WfCustomField[],
   code: ''
 } as const;
 

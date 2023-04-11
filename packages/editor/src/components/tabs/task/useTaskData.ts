@@ -1,4 +1,4 @@
-import { CustomField, WfLevel, WfActivatorType, WfTask } from '@axonivy/inscription-protocol';
+import { WfCustomField, WfLevel, WfActivatorType, WfTask } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
@@ -12,7 +12,7 @@ export function useTaskData(): {
   updateName: Consumer<string>;
   updateDescription: Consumer<string>;
   updateCategory: Consumer<string>;
-  updateCustomFields: Consumer<CustomField[]>;
+  updateCustomFields: Consumer<WfCustomField[]>;
   updateCode: Consumer<string>;
   updateResponsible: ResponsibleUpdater;
   updatePriority: PriorityUpdater;
@@ -25,15 +25,15 @@ export function useTaskData(): {
         produce(draft => {
           draft.name = name;
         })
-      ),
-    [setTask]
-  );
-
-  const updateDescription = useCallback<Consumer<string>>(
-    description =>
-      setTask(
-        produce(draft => {
-          draft.description = description;
+        ),
+        [setTask]
+      );
+    
+      const updateDescription = useCallback<Consumer<string>>(
+        description =>
+          setTask(
+            produce(draft => {
+              draft.description = description;
         })
       ),
     [setTask]
@@ -49,7 +49,7 @@ export function useTaskData(): {
     [setTask]
   );
 
-  const updateCustomFields = useCallback<Consumer<CustomField[]>>(
+  const updateCustomFields = useCallback<Consumer<WfCustomField[]>>(
     customFields =>
       setTask(
         produce(draft => {

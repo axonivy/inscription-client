@@ -1,4 +1,4 @@
-import { CustomField, CUSTOM_FIELD_TYPE } from '@axonivy/inscription-protocol';
+import { WfCustomField, CUSTOM_FIELD_TYPE } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
@@ -15,10 +15,10 @@ import {
   TableAddRow
 } from '../../../../components/widgets';
 
-const CustomFieldTable = (props: { data: CustomField[]; onChange: (change: CustomField[]) => void }) => {
+const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfCustomField[]) => void }) => {
   const items = useMemo<SelectItem[]>(() => Object.entries(CUSTOM_FIELD_TYPE).map(([value, label]) => ({ label, value })), []);
 
-  const columns = useMemo<ColumnDef<CustomField>[]>(
+  const columns = useMemo<ColumnDef<WfCustomField>[]>(
     () => [
       {
         accessorKey: 'name',
