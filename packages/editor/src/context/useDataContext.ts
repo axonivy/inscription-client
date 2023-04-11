@@ -1,11 +1,11 @@
-import { ConfigData, Data, InscriptionValidation, Task } from '@axonivy/inscription-protocol';
+import { ConfigData, DataBeta, InscriptionValidation, WfTask } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { createContext, useCallback, useContext } from 'react';
 import { UpdateConsumer } from '../types/lambda';
 
 export interface DataContext {
-  data: Data;
-  setData: UpdateConsumer<Data>;
+  data: DataBeta;
+  setData: UpdateConsumer<DataBeta>;
   defaultData: ConfigData;
   validation: InscriptionValidation[];
 }
@@ -42,9 +42,9 @@ export function useConfigDataContext(): {
 export const TaskDataContextInstance = createContext<number | undefined>(undefined);
 
 export function useTaskDataContext(): {
-  task: Task;
-  defaultTask: Task;
-  setTask: UpdateConsumer<Task>;
+  task: WfTask;
+  defaultTask: WfTask;
+  setTask: UpdateConsumer<WfTask>;
 } {
   const taskNumber = useContext(TaskDataContextInstance);
   const { config, defaultData, setConfig } = useConfigDataContext();
@@ -53,7 +53,7 @@ export function useTaskDataContext(): {
     return taskNumber !== undefined ? config.tasks[taskNumber] : config.task;
   }, [config, taskNumber]);
 
-  const setTask = useCallback<UpdateConsumer<Task>>(
+  const setTask = useCallback<UpdateConsumer<WfTask>>(
     update =>
       setConfig(
         produce(draft => {

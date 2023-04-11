@@ -1,11 +1,11 @@
-import { Task, TaskData } from '@axonivy/inscription-protocol';
+import { WfTask, TaskData } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../../types/lambda';
 import { useConfigDataContext, useTaskDataContext } from '../../../../context';
 
 export function useTaskOptionsData(): {
-  task: Task;
+  task: WfTask;
   updateSkipTasklist: Consumer<boolean>;
   updateDelay: Consumer<string>;
 } {

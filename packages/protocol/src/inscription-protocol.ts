@@ -1,4 +1,4 @@
-import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
+import { InscriptionDataBeta, InscriptionSaveData } from './data/inscription-data';
 import { CallableStart, ExpiryError, MappingInfo, Role } from './meta/inscription-meta';
 import { InscriptionValidation } from './validation/inscription-validation';
 
@@ -7,7 +7,7 @@ export declare module InscriptionProtocol {
   export type InitializeRes = boolean;
 
   export type InscriptionDataArgs = { pid: string };
-  export type InscriptionDataRes = InscriptionData;
+  export type InscriptionDataRes = InscriptionDataBeta;
 
   export type InscriptionSaveDataArgs = InscriptionSaveData;
   export type InscriptionSaveDataRes = InscriptionValidation[];
@@ -40,6 +40,6 @@ export interface InscriptionRequestTypes {
 }
 
 export interface InscriptionNotificationTypes {
-  dataChanged: InscriptionData;
+  dataChanged: InscriptionDataBeta;
   validation: InscriptionValidation[];
 }

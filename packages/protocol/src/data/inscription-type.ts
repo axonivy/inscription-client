@@ -26,7 +26,7 @@ export type OtherEditorType = 'ProcessAnnotation' | 'Unknown';
 
 export type InscriptionEditorType = EventEditorType.All | GatewayEditorType | ActivityEditorType.All | OtherEditorType;
 
-export interface InscriptionType {
+export interface InscriptionTypeBeta {
   id: InscriptionEditorType;
   label: string;
   shortLabel: string;

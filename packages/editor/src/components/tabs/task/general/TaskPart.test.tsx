@@ -1,9 +1,9 @@
 import TaskPart from './TaskPart';
-import { Task } from '@axonivy/inscription-protocol';
+import { WfTask } from '@axonivy/inscription-protocol';
 import { render, screen, SelectUtil, userEvent } from 'test-utils';
 
 describe('TaskPart', () => {
-  function renderTaskPart(data?: Partial<Task>, showPersist?: boolean) {
+  function renderTaskPart(data?: Partial<WfTask>, showPersist?: boolean) {
     render(<TaskPart showPersist={showPersist} />, { wrapperProps: { data: data && { config: { task: data } } } });
   }
 

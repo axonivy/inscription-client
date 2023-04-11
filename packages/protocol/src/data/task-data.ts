@@ -1,4 +1,5 @@
 import { CustomField } from './common';
+import { WfTask } from './inscription';
 
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
@@ -36,23 +37,9 @@ export interface Expiry {
   priority: Priority;
 }
 
-export interface Task {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  responsible: Responsible;
-  priority: Priority;
-  expiry: Expiry;
-  customFields: CustomField[];
-  code: string;
-  skipTasklist: boolean;
-  delay: string;
-}
-
 export interface TaskData {
-  task: Task;
-  tasks: Task[];
+  task: WfTask;
+  tasks: WfTask[];
   persist: boolean;
 }
 
@@ -66,7 +53,7 @@ const DEFAULT_PRIORITY: Priority = {
   script: ''
 } as const;
 
-export const DEFAULT_TASK: Task = {
+export const DEFAULT_TASK: WfTask = {
   id: '',
   name: '',
   description: '',
@@ -87,6 +74,6 @@ export const DEFAULT_TASK: Task = {
 
 export const DEFAULT_TASK_DATA: TaskData = {
   task: DEFAULT_TASK,
-  tasks: [] as Task[],
+  tasks: [] as WfTask[],
   persist: false
 } as const;

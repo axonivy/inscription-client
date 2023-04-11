@@ -1,4 +1,4 @@
-import { Data, InscriptionSaveData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import { Data, DataBeta, InscriptionSaveData, InscriptionValidation } from '@axonivy/inscription-protocol';
 
 export namespace ValidationMock {
   export function validateData(data: InscriptionSaveData): InscriptionValidation[] {
@@ -29,7 +29,7 @@ export namespace ValidationMock {
     return msgs;
   }
 
-  function validateCallData(data: Data): InscriptionValidation[] {
+  function validateCallData(data: DataBeta): InscriptionValidation[] {
     const msgs: InscriptionValidation[] = [];
     if (data.config.dialog === undefined || data.config.dialog.length === 0) {
       msgs.push({ path: 'config/dialog', severity: 'warning', message: 'No User Dialog specified, auto dialog will be shown.' });

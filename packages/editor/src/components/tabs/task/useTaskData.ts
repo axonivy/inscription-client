@@ -1,4 +1,4 @@
-import { CustomField, PriorityLevel, ResponsibleType, Task } from '@axonivy/inscription-protocol';
+import { CustomField, PriorityLevel, ResponsibleType, WfTask } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
@@ -7,8 +7,8 @@ import { PriorityUpdater } from './priority/PrioritySelect';
 import { ResponsibleUpdater } from './responsible/ResponsibleSelect';
 
 export function useTaskData(): {
-  task: Task;
-  defaultTask: Task;
+  task: WfTask;
+  defaultTask: WfTask;
   updateName: Consumer<string>;
   updateDescription: Consumer<string>;
   updateCategory: Consumer<string>;

@@ -1,9 +1,9 @@
 import TaskListPart from './TaskListPart';
-import { Task } from '@axonivy/inscription-protocol';
+import { WfTask } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('TaskPart', () => {
-  function renderTaskPart(data?: Partial<Task>) {
+  function renderTaskPart(data?: Partial<WfTask>) {
     render(<TaskListPart />, { wrapperProps: { data: data && { config: { task: data } } } });
   }
 

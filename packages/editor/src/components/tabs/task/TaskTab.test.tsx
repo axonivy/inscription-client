@@ -1,5 +1,5 @@
 import { renderHook, screen, render } from 'test-utils';
-import { Task, TaskData } from '@axonivy/inscription-protocol';
+import { WfTask, TaskData } from '@axonivy/inscription-protocol';
 import { useTaskTab } from './TaskTab';
 import { TabState } from '../../props';
 import { DeepPartial } from '../../../types/types';
@@ -15,7 +15,7 @@ describe('TaskTab', () => {
     render(<Tab />, { wrapperProps: { defaultData: { task: undefined } } });
   }
 
-  function assertState(expectedState: TabState, task?: DeepPartial<Task>, taskData?: Partial<TaskData>, showPersist?: boolean) {
+  function assertState(expectedState: TabState, task?: DeepPartial<WfTask>, taskData?: Partial<TaskData>, showPersist?: boolean) {
     let data = taskData ? { config: taskData } : task ? { config: { task } } : undefined;
     const { result } = renderHook(() => useTaskTab({ showPersist }), { wrapperProps: { data } });
     expect(result.current.state).toEqual(expectedState);
