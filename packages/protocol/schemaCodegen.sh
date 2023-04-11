@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tsOut=packages/protocol/src/data/inscription.ts
+tsOut=src/data/inscription.ts
 
 generate() {
   uri=https://json-schema.axonivy.com/process/11.1.20/inscription.json
