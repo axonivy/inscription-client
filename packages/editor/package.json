@@ -1,7 +1,7 @@
 {
   "name": "@axonivy/inscription-editor",
   "version": "11.1.0-next",
-  "private": true,
+  "private": false,
   "files": [
     "lib",
     "src"

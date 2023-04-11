@@ -3,7 +3,7 @@
   "version": "11.1.0-next",
   "fontVersion": "1.0",
   "description": "The icon font for the Axon Ivy Process Editor",
-  "private": true,
+  "private": false,
   "files": [
     "lib",
     "src",
