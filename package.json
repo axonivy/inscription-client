@@ -11,7 +11,7 @@
     "ci": "yarn && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
     "clean": "lerna run clean",
     "build": "lerna run --ignore=@axonivy/inscription-standalone build",
-    "build:clean": "yarn && lerna run build:clean",
+    "build:clean": "lerna run build:clean",
     "type": "lerna run type",
     "lint": "lerna run lint --",
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
@@ -20,7 +20,7 @@
     "icons": "yarn --cwd packages/icons build",
     "dev": "yarn standalone start:mock",
     "test": "yarn --cwd packages/editor test",
-    "test:ci": "yarn && lerna run test:ci",
+    "test:ci": "lerna run test:ci",
     "postinstall": "yarn --cwd packages/protocol"
   },
   "devDependencies": {
