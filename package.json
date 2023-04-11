@@ -20,7 +20,8 @@
     "icons": "yarn --cwd packages/icons build",
     "dev": "yarn standalone start:mock",
     "test": "yarn --cwd packages/editor test",
-    "test:ci": "lerna run test:ci"
+    "test:ci": "lerna run test:ci",
+    "generate": "if ! [ -f inscription.json ]; then curl -o inscription.json https://json-schema.axonivy.com/process/11.1.20/schema.json; fi && yarn json2ts inscription.json packages/protocol/src/data/inscription.d.ts"
   },
   "devDependencies": {
     "@types/node": "^16.7.13",

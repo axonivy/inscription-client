@@ -34,3 +34,7 @@ test-results
 playwright-report
 
 *tsconfig.tsbuildinfo
+
+# generated
+inscription.json
+packages/protocol/src/data/inscription.d.ts
