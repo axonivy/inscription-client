@@ -3,7 +3,7 @@
 tsOut=src/data/inscription.ts
 
 generate() {
-  uri=https://json-schema.axonivy.com/process/11.1.20/inscription.json
+  uri=https://json-schema.axonivy.com/process/11.1.22/inscription.json
   if ! [ -z "$1" ]; then
     uri="$1"
   fi 

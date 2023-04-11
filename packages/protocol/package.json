@@ -11,7 +11,7 @@
   "module": "src/index",
   "scripts": {
     "prepare": "yarn generate",
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "clean": "rimraf lib tsconfig.tsbuildinfo && yarn generate clean",
     "build": "tsc",
     "build:clean": "yarn clean && yarn build",
     "type": "tsc --noEmit",

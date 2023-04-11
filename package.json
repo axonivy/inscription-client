@@ -9,7 +9,7 @@
   "scripts": {
     "prepare": "yarn icons",
     "ci": "yarn && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
-    "clean": "lerna run clean && cd packages/protocol && yarn generate clean",
+    "clean": "lerna run clean",
     "build": "lerna run --ignore=@axonivy/inscription-standalone build",
     "build:clean": "yarn && lerna run build:clean",
     "type": "lerna run type",
@@ -21,7 +21,7 @@
     "dev": "yarn standalone start:mock",
     "test": "yarn --cwd packages/editor test",
     "test:ci": "yarn && lerna run test:ci",
-    "postinstall": "cd packages/protocol && yarn"
+    "postinstall": "yarn --cwd packages/protocol"
   },
   "devDependencies": {
     "@types/node": "^16.7.13",
