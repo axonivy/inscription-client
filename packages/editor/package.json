@@ -42,7 +42,6 @@
   "types": "src/index",
   "module": "src/index",
   "scripts": {
-    "prepare": "yarn build:generate",
     "clean": "rimraf lib *.tsbuildinfo",
     "build": "tsc -p build.tsconfig.json && yarn build:copyfiles",
     "build:clean": "yarn clean && yarn build",
