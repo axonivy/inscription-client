@@ -47,7 +47,6 @@
     "build": "tsc -p build.tsconfig.json && yarn build:copyfiles",
     "build:clean": "yarn clean && yarn build",
     "build:copyfiles": "copyfiles -u 1 \"src/**/*.css\" lib",
-    "build:generate": "yarn --cwd ../../packages/protocol",
     "type": "yarn tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",

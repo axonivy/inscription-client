@@ -15,8 +15,7 @@ generate() {
 }
 
 clean() {
-  rm -v inscription.json
-  rm -v ${tsOut}
+  yarn rimraf inscription.json ${tsOut}
 }
 
 if [[ "$1" == "clean" ]]; then
