@@ -1,8 +1,9 @@
 {
+  "extensions": { "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "orta.vscode-jest", "ms-playwright.playwright"] },
   "folders": [
     {
       "name": "root",
-      "path": ".",
+      "path": "."
     },
     {
       "name": "package/core",
@@ -28,16 +29,10 @@
   "settings": {
     "task.autoDetect": "off",
     "typescript.tsdk": "node_modules/typescript/lib",
-    "jest.disabledWorkspaceFolders": [
-      "root",
-      "package/core",
-      "package/protocol",
-      "package/icons",
-      "integrations/standalone"
-    ],
+    "jest.disabledWorkspaceFolders": ["root", "package/core", "package/protocol", "package/icons", "integrations/standalone"],
     "jest.autoRun": {
       "watch": false,
-      "onSave": "test-file",
+      "onSave": "test-file"
     },
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {

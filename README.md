@@ -40,10 +40,3 @@ Simply start the `Chrome` launch config to get debug and breakpoint support.
 #### Run tests
 
 To run tests you can ether start a script above or start Playwright or Jest with the recommended workspace extensions.
-
-#### Extensions
-
-Install the `prettier` extension for consistent formatting of the sources.
-
-- CTRL+P
-- `ext install esbenp.prettier-vscode`
