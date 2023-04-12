@@ -1,9 +1,9 @@
 import ExpiryPart from './ExpiryPart';
 import { render, screen, SelectUtil, userEvent } from 'test-utils';
-import { Expiry } from '@axonivy/inscription-protocol';
+import { WfExpiry } from '@axonivy/inscription-protocol';
 
 describe('ExpiryPart', () => {
-  function renderExpiryPart(data?: Expiry) {
+  function renderExpiryPart(data?: WfExpiry) {
     render(<ExpiryPart />, { wrapperProps: { data: data && { config: { task: { expiry: data } } } } });
   }
 

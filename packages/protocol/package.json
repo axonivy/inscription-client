@@ -10,11 +10,17 @@
   "types": "src/index",
   "module": "src/index",
   "scripts": {
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "prepare": "yarn generate",
+    "clean": "rimraf lib tsconfig.tsbuildinfo && yarn generate clean",
     "build": "tsc",
     "build:clean": "yarn clean && yarn build",
     "type": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src"
+    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
+    "generate": "./schemaCodegen.sh"
+  },
+  "devDependencies": {
+    "json-schema-to-typescript": "^12.0.0",
+    "json2ts": "^0.0.7"
   }
 }

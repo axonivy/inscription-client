@@ -1,4 +1,4 @@
-import { CaseData, CustomField } from '@axonivy/inscription-protocol';
+import { CaseData, WfCustomField } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
@@ -10,7 +10,7 @@ export function useCaseData(): {
   updateName: Consumer<string>;
   updateDescription: Consumer<string>;
   updateCategory: Consumer<string>;
-  updateCustomFields: Consumer<CustomField[]>;
+  updateCustomFields: Consumer<WfCustomField[]>;
 } {
   const { config, defaultData, setConfig } = useConfigDataContext();
 
@@ -44,7 +44,7 @@ export function useCaseData(): {
     [setConfig]
   );
 
-  const updateCustomFields = useCallback<Consumer<CustomField[]>>(
+  const updateCustomFields = useCallback<Consumer<WfCustomField[]>>(
     customFields =>
       setConfig(
         produce(draft => {

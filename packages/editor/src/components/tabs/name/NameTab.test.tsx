@@ -32,7 +32,7 @@ describe('NameTab', () => {
   });
 
   test('full data', async () => {
-    renderTab({ name: 'name', description: 'description', docs: [{ name: 'doc', url: 'url' }], tags: ['tag1'] });
+    renderTab({ name: 'name', description: 'description', config: {}, docs: [{ name: 'doc', url: 'url' }], tags: ['tag1'] });
     await assertMainPart('name', 'description', ['doc url']);
     expect(await screen.findByText('▼ Tags')).toBeInTheDocument();
   });

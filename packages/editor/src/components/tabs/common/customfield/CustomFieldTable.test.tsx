@@ -1,17 +1,17 @@
-import { CustomField } from '@axonivy/inscription-protocol';
+import { WfCustomField } from '@axonivy/inscription-protocol';
 import CustomFieldTable from './CustomFieldTable';
 import { render, screen, userEvent, TableUtil } from 'test-utils';
 
 describe('CustomFieldTable', () => {
-  const customFields: CustomField[] = [
+  const customFields: WfCustomField[] = [
     { name: 'field1', type: 'STRING', value: 'this is a string' },
     { name: 'number', type: 'NUMBER', value: '1' }
   ];
   function renderTable(): {
-    data: () => CustomField[];
+    data: () => WfCustomField[];
     rerender: () => void;
   } {
-    let data: CustomField[] = customFields;
+    let data: WfCustomField[] = customFields;
     const view = render(<CustomFieldTable data={data} onChange={change => (data = change)} />);
     return {
       data: () => data,

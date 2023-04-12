@@ -1,10 +1,10 @@
-import { InscriptionType } from '@axonivy/inscription-protocol';
+import { InscriptionTypeBeta } from '@axonivy/inscription-protocol';
 import React, { useContext } from 'react';
 
 export interface EditorContext {
   pid: string;
   readonly: boolean;
-  type: InscriptionType;
+  type: InscriptionTypeBeta;
 }
 
 export const DEFAULT_EDITOR_CONTEXT: EditorContext = {

@@ -9,3 +9,4 @@ export * from './case-data';
 export * from './end-page-data';
 
 export * from './common';
+export * from './inscription';

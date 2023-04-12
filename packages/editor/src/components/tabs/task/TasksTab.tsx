@@ -1,4 +1,4 @@
-import { Task as TaskData } from '@axonivy/inscription-protocol';
+import { WfTask as TaskData } from '@axonivy/inscription-protocol';
 import { EmptyWidget, Tab } from '../../../components/widgets';
 import { TaskDataContextInstance, useConfigDataContext } from '../../../context';
 import { TabProps, useTabState } from '../../props';

@@ -1,9 +1,9 @@
-import { CustomField } from '@axonivy/inscription-protocol';
+import { WfCustomField } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent, TableUtil } from 'test-utils';
 import CustomFieldPart from './CustomFieldPart';
 
 describe('CustomFieldPart', () => {
-  function renderTable(customFields?: CustomField[]) {
+  function renderTable(customFields?: WfCustomField[]) {
     render(<CustomFieldPart customFields={customFields ?? []} updateCustomFields={() => {}} />);
   }
 

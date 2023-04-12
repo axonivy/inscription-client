@@ -1,5 +1,5 @@
 import { render, screen, TableUtil, renderHook, waitFor } from 'test-utils';
-import { OutputData } from '@axonivy/inscription-protocol';
+import { ElementScript } from '@axonivy/inscription-protocol';
 import { useOutputTab } from './OutputTab';
 import { TabState } from '../../../components/props';
 
@@ -9,7 +9,7 @@ const Tab = (props: { hideCode?: boolean }) => {
 };
 
 describe('OutputTab', () => {
-  function renderTab(data?: Partial<OutputData>, hideCode?: boolean) {
+  function renderTab(data?: Partial<ElementScript>, hideCode?: boolean) {
     render(<Tab hideCode={hideCode} />, { wrapperProps: { data: data && { config: data } } });
   }
 
@@ -24,7 +24,7 @@ describe('OutputTab', () => {
   });
 
   test('full data', async () => {
-    const data: Partial<OutputData> = { output: { map: { key: 'value' }, code: 'code' } };
+    const data: Partial<ElementScript> = { output: { map: { key: 'value' }, code: 'code' } };
     renderTab(data);
     await assertMainPart([/key value/], 'code');
   });
@@ -34,7 +34,7 @@ describe('OutputTab', () => {
     await waitFor(() => expect(screen.queryByTestId('code-editor')).not.toBeInTheDocument());
   });
 
-  function assertState(expectedState: TabState, data?: Partial<OutputData>, hideCode?: boolean) {
+  function assertState(expectedState: TabState, data?: Partial<ElementScript>, hideCode?: boolean) {
     const { result } = renderHook(() => useOutputTab({ hideCode }), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
   }

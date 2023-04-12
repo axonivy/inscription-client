@@ -7,8 +7,8 @@
     "node": ">=14.18.0"
   },
   "scripts": {
-    "prepare": "yarn icons",
-    "ci": "yarn install && yarn icons && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
+    "prepare": "lerna run prepare",
+    "ci": "yarn && yarn type && yarn lint:ci && yarn test:ci && yarn standalone build:production",
     "clean": "lerna run clean",
     "build": "lerna run --ignore=@axonivy/inscription-standalone build",
     "build:clean": "lerna run build:clean",
@@ -20,7 +20,8 @@
     "icons": "yarn --cwd packages/icons build",
     "dev": "yarn standalone start:mock",
     "test": "yarn --cwd packages/editor test",
-    "test:ci": "lerna run test:ci"
+    "test:ci": "lerna run test:ci",
+    "codegen": "yarn --cwd packages/protocol"
   },
   "devDependencies": {
     "@types/node": "^16.7.13",

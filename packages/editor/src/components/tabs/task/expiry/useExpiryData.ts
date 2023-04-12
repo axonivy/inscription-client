@@ -1,4 +1,4 @@
-import { Expiry, PriorityLevel, ResponsibleType } from '@axonivy/inscription-protocol';
+import { WfExpiry, WfLevel, WfActivatorType } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../../types/lambda';
@@ -7,7 +7,7 @@ import { PriorityUpdater } from '../priority/PrioritySelect';
 import { ResponsibleUpdater } from '../responsible/ResponsibleSelect';
 
 export function useExpiryData(): {
-  expiry: Expiry;
+  expiry: WfExpiry;
   updateTimeout: Consumer<string>;
   updateError: Consumer<string>;
   updateResponsible: ResponsibleUpdater;
@@ -35,7 +35,7 @@ export function useExpiryData(): {
     [setTask]
   );
 
-  const updateType = useCallback<Consumer<ResponsibleType>>(
+  const updateType = useCallback<Consumer<WfActivatorType>>(
     type =>
       setTask(
         produce(draft => {
@@ -55,7 +55,7 @@ export function useExpiryData(): {
     [setTask]
   );
 
-  const updateLevel = useCallback<Consumer<PriorityLevel>>(
+  const updateLevel = useCallback<Consumer<WfLevel>>(
     level =>
       setTask(
         produce(draft => {

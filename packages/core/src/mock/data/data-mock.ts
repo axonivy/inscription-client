@@ -5,6 +5,7 @@ export namespace DataMock {
   export const NAME: NameData = {
     name: 'test name',
     description: 'test desc',
+    config: {},
     docs: [
       {
         name: 'Doc 1',

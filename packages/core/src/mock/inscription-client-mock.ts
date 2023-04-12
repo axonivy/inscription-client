@@ -3,10 +3,10 @@ import {
   CallableStart,
   ExpiryError,
   InscriptionClient,
-  InscriptionData,
+  InscriptionDataBeta,
   InscriptionEditorType,
   InscriptionSaveData,
-  InscriptionType,
+  InscriptionTypeBeta,
   InscriptionValidation,
   MappingInfo,
   Role
@@ -22,15 +22,15 @@ export class InscriptionClientMock implements InscriptionClient {
 
   protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
   onValidation = this.onValidationEmitter.event;
-  protected onDataChangedEmitter = new Emitter<InscriptionData>();
+  protected onDataChangedEmitter = new Emitter<InscriptionDataBeta>();
   onDataChanged = this.onDataChangedEmitter.event;
 
   initialize(): Promise<boolean> {
     return Promise.resolve(true);
   }
 
-  data(pid: string): Promise<InscriptionData> {
-    const inscriptionType: InscriptionType = {
+  data(pid: string): Promise<InscriptionDataBeta> {
+    const inscriptionType: InscriptionTypeBeta = {
       id: this.type,
       label: this.type,
       shortLabel: this.type,

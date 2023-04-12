@@ -17,6 +17,7 @@
     "rimraf": "^4.1.1"
   },
   "scripts": {
+    "prepare": "yarn build",
     "clean": "rimraf src-gen/ivy-icons.*",
     "build": "fantasticon && tsc && yarn build:copyfiles",
     "build:clean": "yarn clean && yarn build",
