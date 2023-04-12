@@ -20,7 +20,6 @@
     "generate": "./schemaCodegen.js"
   },
   "devDependencies": {
-    "json-schema-to-typescript": "^12.0.0",
-    "json2ts": "^0.0.7"
+    "json-schema-to-typescript": "^12.0.0"
   }
 }

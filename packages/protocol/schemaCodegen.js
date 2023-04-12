@@ -27,28 +27,18 @@ function fetchSchema() {
     file.on('finish', () => {
       file.close();
       console.log('Downloaded ' + schema);
+      codegen();
     });
   });
 }
 
 function codegen() {
-  const { exec } = require('child_process');
-  exec('yarn json2ts ' + schemaFile + ' ' + tsOut, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`error: ${error}`);
-      return;
-    }
-    console.log(`${stdout}`);
-    patchNull();
+  const tsGen = require('json-schema-to-typescript');
+  tsGen.compileFromFile(schemaFile).then(ts => {
+    const nonNullTs = ts.replace(/\?:/g, ':');
+    fs.writeFileSync(tsOut, nonNullTs);
+    console.log(`generated ${tsOut}`);
   });
 }
 
-function patchNull() {
-  const contents = fs.readFileSync(tsOut);
-  const search = new RegExp('\\?:', 'g');
-  const result = contents.toString().replace(search, ':');
-  fs.writeFileSync(tsOut, result);
-}
-
 fetchSchema();
-codegen();
