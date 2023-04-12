@@ -31,7 +31,7 @@ This prototype is build with React and Headless Components.
 > It correctly bundles React in production mode and optimizes the build for the best performance.
 > The build is minified and the filenames include the hashes.
 
-### VsCode integration
+### VsCode dev environment
 
 #### Debug
 
@@ -40,3 +40,10 @@ Simply start the `Chrome` launch config to get debug and breakpoint support.
 #### Run tests
 
 To run tests you can ether start a script above or start Playwright or Jest with the recommended workspace extensions.
+
+#### Extensions
+
+Install the `prettier` extension for consistent formatting of the sources.
+
+- CTRL+P
+- `ext install esbenp.prettier-vscode`

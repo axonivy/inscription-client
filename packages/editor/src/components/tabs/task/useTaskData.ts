@@ -25,15 +25,15 @@ export function useTaskData(): {
         produce(draft => {
           draft.name = name;
         })
-        ),
-        [setTask]
-      );
-    
-      const updateDescription = useCallback<Consumer<string>>(
-        description =>
-          setTask(
-            produce(draft => {
-              draft.description = description;
+      ),
+    [setTask]
+  );
+
+  const updateDescription = useCallback<Consumer<string>>(
+    description =>
+      setTask(
+        produce(draft => {
+          draft.description = description;
         })
       ),
     [setTask]
