@@ -1,3 +1,5 @@
+import { InscriptionType } from './inscription';
+
 // prettier-ignore
 export namespace EventEditorType {
   export type Start = 'RequestStart' | 'SignalStartEvent' | 'ProgramStart' | 'ErrorStartEvent';
@@ -22,14 +24,4 @@ export namespace ActivityEditorType {
   export type All = General | Interface | Bpmn;
 }
 
-export type OtherEditorType = 'ProcessAnnotation' | 'Unknown';
-
-export type InscriptionEditorType = EventEditorType.All | GatewayEditorType | ActivityEditorType.All | OtherEditorType;
-
-export interface InscriptionTypeBeta {
-  id: InscriptionEditorType;
-  label: string;
-  shortLabel: string;
-  description: string;
-  iconId: string;
-}
+export type ElementType = InscriptionType['id'];
