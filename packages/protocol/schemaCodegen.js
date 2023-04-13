@@ -2,6 +2,7 @@
 
 const { exit } = require('process');
 const fs = require('fs');
+const tsGen = require('json-schema-to-typescript');
 
 const tsOut = './src/data/inscription.ts';
 var schemaUri = 'https://json-schema.axonivy.com/process/11.1.22/inscription.json';
@@ -37,13 +38,16 @@ function loadJson(uri) {
   return download;
 }
 
-function codegen(schema) {
-  const tsGen = require('json-schema-to-typescript');
-  tsGen.compile(schema, 'inscription').then(ts => {
-    const nonNullTs = ts.replace(/\?:/g, ':');
-    fs.writeFileSync(tsOut, nonNullTs);
-    console.log(`generated ${tsOut}`);
-  });
+function writeSrc(ts) {
+  const nonNullTs = ts.replace(/\?:/g, ':');
+  fs.writeFileSync(tsOut, nonNullTs);
+  console.log(`generated ${tsOut}`);
 }
 
-loadJson(schemaUri).then(schema => codegen(schema));
+if (schemaUri.startsWith('http')) {
+  loadJson(schemaUri)
+    .then(schema => tsGen.compile(schema, 'inscription'))
+    .then(ts => writeSrc(ts));
+} else {
+  tsGen.compileFromFile(schemaUri).then(ts => writeSrc(ts));
+}
