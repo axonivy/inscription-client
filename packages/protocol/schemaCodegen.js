@@ -18,19 +18,23 @@ if (args.length > 0) {
   schemaUri = args[0];
 }
 
-async function fetchSchema() {
+function loadJson(uri) {
   const http = require('https');
-  http.get(schemaUri, res => {
-    res.setEncoding('utf8');
-    let body = '';
-    res.on('data', data => {
-      body += data;
-    });
-    res.on('end', () => {
-      body = JSON.parse(body);
-      codegen(body);
-    });
-  });
+  console.log(`loading ${uri}`);
+  const download = new Promise(result =>
+    http.get(uri, res => {
+      res.setEncoding('utf8');
+      let body = '';
+      res.on('data', data => {
+        body += data;
+      });
+      res.on('end', () => {
+        body = JSON.parse(body);
+        result(body);
+      });
+    })
+  );
+  return download;
 }
 
 function codegen(schema) {
@@ -42,4 +46,4 @@ function codegen(schema) {
   });
 }
 
-fetchSchema();
+loadJson(schemaUri).then(schema => codegen(schema));
