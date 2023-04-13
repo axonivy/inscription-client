@@ -3,12 +3,13 @@ import {
   CallableStart,
   ExpiryError,
   InscriptionClient,
-  InscriptionDataBeta,
+  InscriptionData,
   InscriptionSaveData,
   InscriptionType,
   InscriptionValidation,
   MappingInfo,
-  Role
+  Role,
+  ElementType
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { DataMock } from './data';
@@ -17,18 +18,18 @@ import { ValidationMock } from './validation';
 import { deepmerge } from 'deepmerge-ts';
 
 export class InscriptionClientMock implements InscriptionClient {
-  constructor(readonly readonly = false, readonly type: InscriptionType["id"] = 'UserTask') {}
+  constructor(readonly readonly = false, readonly type: ElementType = 'UserTask') {}
 
   protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
   onValidation = this.onValidationEmitter.event;
-  protected onDataChangedEmitter = new Emitter<InscriptionDataBeta>();
+  protected onDataChangedEmitter = new Emitter<InscriptionData>();
   onDataChanged = this.onDataChangedEmitter.event;
 
   initialize(): Promise<boolean> {
     return Promise.resolve(true);
   }
 
-  data(pid: string): Promise<InscriptionDataBeta> {
+  data(pid: string): Promise<InscriptionData> {
     const inscriptionType: InscriptionType = {
       id: this.type,
       label: this.type,

@@ -1,6 +1,6 @@
 import './App.css';
 import '@axonivy/editor-icons/src-gen/ivy-icons.css';
-import { DataBeta, InscriptionDataBeta, InscriptionValidation } from '@axonivy/inscription-protocol';
+import { DataBeta, InscriptionData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useCallback, useEffect, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
@@ -20,7 +20,7 @@ function App(props: AppProps) {
   const client = useClient();
   const theme = useTheme();
 
-  const initData = useCallback((newData: InscriptionDataBeta) => {
+  const initData = useCallback((newData: InscriptionData) => {
     setAppState(successState(newData));
     setData(newData.data);
   }, []);
