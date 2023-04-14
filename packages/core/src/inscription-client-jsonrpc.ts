@@ -2,7 +2,7 @@ import {
   CallableStart,
   ExpiryError,
   InscriptionClient,
-  InscriptionDataBeta,
+  InscriptionData,
   InscriptionNotificationTypes,
   InscriptionRequestTypes,
   InscriptionSaveData,
@@ -16,7 +16,7 @@ import { ConnectionUtil } from './connection-util';
 import { BaseRcpClient } from './rcp-client';
 
 export class InscriptionClientJsonRpc extends BaseRcpClient implements InscriptionClient {
-  protected onDataChangedEmitter = new Emitter<InscriptionDataBeta>();
+  protected onDataChangedEmitter = new Emitter<InscriptionData>();
   onDataChanged = this.onDataChangedEmitter.event;
   protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
   onValidation = this.onValidationEmitter.event;
@@ -33,7 +33,7 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('initialize', undefined);
   }
 
-  data(pid: string): Promise<InscriptionDataBeta> {
+  data(pid: string): Promise<InscriptionData> {
     return this.sendRequest('data', { pid });
   }
 

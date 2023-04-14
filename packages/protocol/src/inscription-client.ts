@@ -1,4 +1,4 @@
-import { InscriptionDataBeta, InscriptionSaveData } from './data';
+import { InscriptionData, InscriptionSaveData } from './data';
 import { CallableStart, ExpiryError, MappingInfo, Role } from './meta';
 import { InscriptionValidation } from './validation';
 
@@ -12,7 +12,7 @@ export interface Disposable {
 
 export interface InscriptionClient {
   initialize(): Promise<boolean>;
-  data(pid: string): Promise<InscriptionDataBeta>;
+  data(pid: string): Promise<InscriptionData>;
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]>;
 
   dialogStarts(pid: string): Promise<CallableStart[]>;
@@ -23,6 +23,6 @@ export interface InscriptionClient {
   expiryErrors(pid: string): Promise<ExpiryError[]>;
   outMapping(pid: string): Promise<MappingInfo>;
 
-  onDataChanged: Event<InscriptionDataBeta>;
+  onDataChanged: Event<InscriptionData>;
   onValidation: Event<InscriptionValidation[]>;
 }

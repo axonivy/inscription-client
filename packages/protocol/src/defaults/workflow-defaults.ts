@@ -1,26 +1,4 @@
-import { WfActivator, WfPriority, WfTask, WfCustomField } from './inscription';
-
-export const RESPONSIBLE_TYPE = {
-  ROLE: 'Role',
-  ROLE_FROM_ATTRIBUTE: 'Role from Attr.',
-  USER_FROM_ATTRIBUTE: 'User from Attr.',
-  DELETE_TASK: 'Nobody & delete'
-} as const;
-
-export const PRIORITY_LEVEL = {
-  LOW: 'Low',
-  NORMAL: 'Normal',
-  HIGH: 'High',
-  EXCEPTION: 'Exception',
-  SCRIPT: 'Script'
-} as const;
-
-
-export interface TaskData {
-  task: WfTask;
-  tasks: WfTask[];
-  persist: boolean;
-}
+import { WfActivator, WfPriority, WfTask, WfCustomField, TaskData, CaseData } from '../data';
 
 const DEFAULT_RESPONSIBLE: WfActivator = {
   type: 'ROLE',
@@ -55,4 +33,14 @@ export const DEFAULT_TASK_DATA: TaskData = {
   task: DEFAULT_TASK,
   tasks: [] as WfTask[],
   persist: false
+} as const;
+
+export const DEFAULT_CASE_DATA: CaseData = {
+  case: {
+    name: '',
+    description: '',
+    category: '',
+    customFields: [] as WfCustomField[],
+    attachToBusinessCase: false
+  }
 } as const;
