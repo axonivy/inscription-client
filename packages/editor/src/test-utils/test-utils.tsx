@@ -3,10 +3,10 @@ import {
   ConfigData,
   DEFAULT_DATA,
   CallableStart,
-  ExpiryError,
+  ErrorMeta,
   InscriptionValidation,
   MappingInfo,
-  Role
+  RoleMeta
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
@@ -26,8 +26,8 @@ type ContextHelperProps = {
   defaultData?: DeepPartial<ConfigData>;
   validation?: InscriptionValidation[];
   meta?: {
-    roles?: Role[];
-    expiryErrors?: ExpiryError[];
+    roles?: RoleMeta[];
+    expiryErrors?: ErrorMeta[];
     dialogStarts?: CallableStart[];
     triggerStarts?: CallableStart[];
     callSubStarts?: CallableStart[];

@@ -1,5 +1,5 @@
+import { CallableStart, ErrorMeta, MappingInfo, RoleMeta } from './data/inscription';
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
-import { CallableStart, ExpiryError, MappingInfo, Role } from './meta/inscription-meta';
 import { InscriptionValidation } from './validation/inscription-validation';
 
 export declare module InscriptionProtocol {
@@ -16,10 +16,10 @@ export declare module InscriptionProtocol {
   export type CallableStartsRes = CallableStart[];
 
   export type RolesArgs = { pid: string };
-  export type RolesRes = Role[];
+  export type RolesRes = RoleMeta[];
 
   export type ExpiryErrorsArgs = { pid: string };
-  export type ExpiryErrorsRes = ExpiryError[];
+  export type ExpiryErrorsRes = ErrorMeta[];
 
   export type OutMappingArgs = { pid: string };
   export type OutMappingRes = MappingInfo;

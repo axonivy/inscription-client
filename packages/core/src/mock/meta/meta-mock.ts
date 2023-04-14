@@ -1,4 +1,4 @@
-import { CallableStart, ExpiryError, MappingInfo, Role } from '@axonivy/inscription-protocol';
+import { CallableStart, ErrorMeta, MappingInfo, RoleMeta } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
   const MAP_INFO_TYPES = {
@@ -143,13 +143,13 @@ export namespace MetaMock {
     }
   ];
 
-  export const ROLES: Role[] = [
+  export const ROLES: RoleMeta[] = [
     { id: 'Everybody', label: 'In this role is everyone' },
     { id: 'Employee', label: '' },
     { id: 'Teamleader', label: '' }
   ];
 
-  export const EXPIRY_ERRORS: ExpiryError[] = [
+  export const EXPIRY_ERRORS: ErrorMeta[] = [
     { label: 'ProcurementRequestParallel -> error:task', id: 'f29' },
     { label: 'ProcurementRequestParallel -> error:task:bla', id: 'f31' }
   ];

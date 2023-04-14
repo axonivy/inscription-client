@@ -16,6 +16,10 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | 
 export type InputType = "ENTITY" | "FORM" | "RAW";
 
 export interface Inscription {
+  data: InscriptionRequest;
+  meta: Metas;
+}
+export interface InscriptionRequest {
   data: Data;
   defaults: unknown;
   pid: string;
@@ -294,7 +298,7 @@ export interface ElementSignalBoundaryEvent {
 export interface ElementEMail {
   headers: MailHeaders;
   failIfMissingAttachments: boolean;
-  attachments: unknown[];
+  attachments: string[];
   message: MailMessage;
   exceptionHandler: string;
 }
@@ -352,7 +356,7 @@ export interface RestBody {
   type: InputType;
 }
 export interface RestMultiValuedMap {
-  [k: string]: string;
+  [k: string]: string[];
 }
 export interface RestTarget {
   clientId: string;
@@ -425,4 +429,38 @@ export interface InscriptionType {
     | "SignalStartEvent";
   label: string;
   shortLabel: string;
+}
+export interface Metas {
+  error: ErrorMeta;
+  role: RoleMeta;
+  start: CallableStart;
+}
+export interface ErrorMeta {
+  id: string;
+  label: string;
+}
+export interface RoleMeta {
+  id: string;
+  label: string;
+}
+export interface CallableStart {
+  callParameter: MappingInfo;
+  description: string;
+  id: string;
+  packageName: string;
+  process: string;
+  project: string;
+  startName: string;
+}
+export interface MappingInfo {
+  types: MapStringListVariable;
+  variables: Variable[];
+}
+export interface MapStringListVariable {
+  [k: string]: Variable[];
+}
+export interface Variable {
+  attribute: string;
+  simpleType: string;
+  type: string;
 }

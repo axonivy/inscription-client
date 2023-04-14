@@ -1,5 +1,4 @@
-import { InscriptionData, InscriptionSaveData } from './data';
-import { CallableStart, ExpiryError, MappingInfo, Role } from './meta';
+import { CallableStart, ErrorMeta, InscriptionData, InscriptionSaveData, MappingInfo, RoleMeta } from './data';
 import { InscriptionValidation } from './validation';
 
 export interface Event<T> {
@@ -19,8 +18,8 @@ export interface InscriptionClient {
   triggerStarts(pid: string): Promise<CallableStart[]>;
   callSubStarts(pid: string): Promise<CallableStart[]>;
 
-  roles(pid: string): Promise<Role[]>;
-  expiryErrors(pid: string): Promise<ExpiryError[]>;
+  roles(pid: string): Promise<RoleMeta[]>;
+  expiryErrors(pid: string): Promise<ErrorMeta[]>;
   outMapping(pid: string): Promise<MappingInfo>;
 
   onDataChanged: Event<InscriptionData>;

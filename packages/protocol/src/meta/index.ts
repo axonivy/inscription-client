@@ -1,1 +1,0 @@
-export * from './inscription-meta';
