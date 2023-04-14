@@ -1,14 +1,14 @@
 import {
   DEFAULT_DATA,
   CallableStart,
-  ExpiryError,
+  ErrorMeta,
   InscriptionClient,
   InscriptionData,
   InscriptionSaveData,
   InscriptionType,
   InscriptionValidation,
   MappingInfo,
-  Role,
+  RoleMeta,
   ElementType
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
@@ -70,11 +70,11 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(MetaMock.CALLABLE_STARTS);
   }
 
-  roles(pid: string): Promise<Role[]> {
+  roles(pid: string): Promise<RoleMeta[]> {
     return Promise.resolve(MetaMock.ROLES);
   }
 
-  expiryErrors(pid: string): Promise<ExpiryError[]> {
+  expiryErrors(pid: string): Promise<ErrorMeta[]> {
     return Promise.resolve(MetaMock.EXPIRY_ERRORS);
   }
 

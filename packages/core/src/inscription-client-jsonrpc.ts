@@ -1,6 +1,6 @@
 import {
   CallableStart,
-  ExpiryError,
+  ErrorMeta,
   InscriptionClient,
   InscriptionData,
   InscriptionNotificationTypes,
@@ -8,7 +8,7 @@ import {
   InscriptionSaveData,
   InscriptionValidation,
   MappingInfo,
-  Role
+  RoleMeta
 } from '@axonivy/inscription-protocol';
 import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
 import { Disposable } from 'vscode-ws-jsonrpc';
@@ -53,11 +53,11 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('meta/start/calls', { pid });
   }
 
-  roles(pid: string): Promise<Role[]> {
+  roles(pid: string): Promise<RoleMeta[]> {
     return this.sendRequest('meta/workflow/roles', { pid });
   }
 
-  expiryErrors(pid: string): Promise<ExpiryError[]> {
+  expiryErrors(pid: string): Promise<ErrorMeta[]> {
     return this.sendRequest('meta/workflow/expiryErrors', { pid });
   }
 
