@@ -12,10 +12,10 @@ import {
   ElementType
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
-import { DataMock } from './data';
-import { MetaMock } from './meta';
-import { ValidationMock } from './validation';
 import { deepmerge } from 'deepmerge-ts';
+import { DataMock } from './data-mock';
+import { ValidationMock } from './validation-mock';
+import { MetaMock } from './meta-mock';
 
 export class InscriptionClientMock implements InscriptionClient {
   constructor(readonly readonly = false, readonly type: ElementType = 'UserTask') {}
