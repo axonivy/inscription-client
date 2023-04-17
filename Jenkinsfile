@@ -9,6 +9,10 @@ pipeline {
     cron '@midnight'
   }
 
+  environment {
+    NPM_TOKEN = credentials('npm-registry.ivyteam.io-publish-token')
+  }
+
   stages {
     stage('Client') {
       steps {
@@ -66,6 +70,23 @@ pipeline {
         }
       }
     }
+
+    stage('Publish next') {
+      when {
+        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
+      }
+      steps {
+        script {
+          docker.build('node').inside {
+            sh 'git checkout yarn.lock'
+            sh 'yarn build'
+            sh "echo //npm-registry.ivyteam.io/repository/private/:_authToken=${env.NPM_TOKEN} > .npmrc"
+            sh 'yarn publish:next'
+          }
+        }
+      }
+    }
+
     stage('Deploy') {
       when {
         expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }

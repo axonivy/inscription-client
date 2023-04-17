@@ -1,10 +1,10 @@
 {
   "name": "@axonivy/inscription-standalone",
-  "version": "0.1.0",
+  "version": "11.1.0-next",
   "private": true,
   "dependencies": {
-    "@axonivy/inscription-core": "0.1.0",
-    "@axonivy/inscription-editor": "0.1.0",
+    "@axonivy/inscription-core": "11.1.0-next",
+    "@axonivy/inscription-editor": "11.1.0-next",
     "path-browserify": "^1.0.1"
   },
   "devDependencies": {
