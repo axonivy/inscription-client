@@ -2,6 +2,12 @@
   "name": "@axonivy/inscription-standalone",
   "version": "11.1.0-next",
   "private": true,
+  "author": "Axon Ivy AG",
+  "homepage": "https://developer.axonivy.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axonivy/next-gen-inscription"
+  },
   "dependencies": {
     "@axonivy/inscription-core": "11.1.0-next",
     "@axonivy/inscription-editor": "11.1.0-next",
