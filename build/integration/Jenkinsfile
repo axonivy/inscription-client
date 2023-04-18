@@ -14,35 +14,47 @@ pipeline {
   }
 
   stages {
-    stage('Screenshots') {
+    stage('Integration Test') {
       steps {
         script {
           docker.build('node-webtest', '-f build/Dockerfile .').inside {
             sh 'build/use-mirror-npm.sh'
             sh 'yarn ci:prepare'
-            dir ('integrations/standalone/tests/screenshots/project') {
+            dir ('integrations/standalone/tests/integration/project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
             }
           }
           archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
           archiveArtifacts artifacts: '**/standalone/**/target/**/ivy.log', allowEmptyArchive: true
-          archiveArtifacts artifacts: '**/standalone/**/target/screenshots/*.png', allowEmptyArchive: true
-          withChecks('Screenshots') {
+          withChecks('Integration Test') {
             junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
           }
         }
       }
     }
-    stage('Deploy') {
+    stage('Protocol') {
       when {
-        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
+        expression { isReleaseOrMasterBranch() }
       }
       steps {
         script {
-          docker.image('maven:3.8.6-eclipse-temurin-17').inside {
-            maven cmd: '-ntp -f integrations/standalone/tests/screenshots clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
+          catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+            docker.build('node').inside {
+              sh '''
+                build/use-mirror-npm.sh
+                yarn
+                yarn protocol clean
+
+                devSchema="https://jenkins.ivyteam.io/job/core_json-schema/job/'''+env.BRANCH_NAME+'''/lastSuccessfulBuild/artifact/workspace/ch.ivyteam.ivy.lsp.inscription/target/schema/process/*/inscription.json/*zip*/process.zip"
+                curl -o process.zip ${devSchema}
+                unzip -j process.zip
+                yarn protocol generate $PWD/inscription.json
+
+                yarn type
+              '''
+            }
           }
-          archiveArtifacts 'integrations/standalone/**/target/inscription-view-screenshots-*.zip'
+          recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(id: 'latest', pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
         }
       }
     }

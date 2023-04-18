@@ -37,7 +37,7 @@
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "webtest": "yarn playwright test",
     "webtest:mock": "yarn webtest -c ./tests/mock",
-    "webtest:engine": "yarn webtest -c ./tests/engine",
+    "webtest:engine": "yarn webtest -c ./tests/integration",
     "webtest:screenshot": "yarn webtest -c ./tests/screenshots"
   },
   "browserslist": {
