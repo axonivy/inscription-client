@@ -2,6 +2,12 @@
   "name": "@axonivy/inscription-core",
   "version": "11.1.0-next",
   "private": false,
+  "author": "Axon Ivy AG",
+  "homepage": "https://developer.axonivy.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axonivy/next-gen-inscription"
+  },
   "files": [
     "lib",
     "src"
