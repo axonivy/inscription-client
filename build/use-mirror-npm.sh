@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sed -i -e "s#https://registry.yarnpkg.com/#https://npm-registry.ivyteam.io/repository/npm/#g" yarn.lock
+sed -i -e "s#https://registry.yarnpkg.com/#https://npmjs-registry.ivyteam.io/#g" yarn.lock

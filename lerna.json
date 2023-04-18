@@ -10,7 +10,7 @@
     "publish": {
       "forcePublish": true,
       "skipGit": true,
-      "registry": "https://npm-registry.ivyteam.io/repository/private/"
+      "registry": "https://npmjs-registry.ivyteam.io/"
     }
   }
 }
