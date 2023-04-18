@@ -69,7 +69,7 @@ pipeline {
 
     stage('Publish next') {
       when {
-        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
+        expression { isReleaseOrMasterBranch() && currentBuild.changeSets.size() > 0 }
       }
       steps {
         script {
@@ -86,7 +86,7 @@ pipeline {
 
     stage('Deploy') {
       when {
-        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
+        expression { isReleaseOrMasterBranch() && currentBuild.changeSets.size() > 0 }
       }
       steps {
         script {
