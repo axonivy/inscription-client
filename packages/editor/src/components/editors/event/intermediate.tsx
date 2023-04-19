@@ -1,5 +1,5 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import { EventEditorType } from '@axonivy/inscription-protocol';
+import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import { useCaseTab, useEndPageTab, useNameTab, useOutputTab, useTaskTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
@@ -19,7 +19,7 @@ const WaitEventEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Wait} tabs={[nameTab, outputTab]} />;
 });
 
-export const intermediateEventEditors = new Map<EventEditorType.Intermediate, ReactNode>([
+export const intermediateEventEditors = new Map<ElementType, ReactNode>([
   ['TaskSwitchEvent', <TaskSwitchEventEditor />],
   ['WaitEvent', <WaitEventEditor />]
 ]);
