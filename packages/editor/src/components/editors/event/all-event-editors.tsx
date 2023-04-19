@@ -1,4 +1,4 @@
-import { EventEditorType } from '@axonivy/inscription-protocol';
+import { ElementType } from '@axonivy/inscription-protocol';
 import { ReactNode } from 'react';
 import { boundaryEventEditors } from './boundary';
 import { callSubEventEditors } from './call-sub';
@@ -9,7 +9,7 @@ import { intermediateEventEditors } from './intermediate';
 import { startEventEditors } from './start';
 import { webServiceEventEditors } from './webservice';
 
-export const eventEditors = new Map<EventEditorType.All, ReactNode>([
+export const eventEditors = new Map<ElementType, ReactNode>([
   ...startEventEditors,
   ...intermediateEventEditors,
   ...endEventEditors,

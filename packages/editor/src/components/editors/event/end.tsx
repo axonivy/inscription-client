@@ -1,5 +1,5 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import { EventEditorType } from '@axonivy/inscription-protocol';
+import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import { useEndPageTab, useNameTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
@@ -11,7 +11,7 @@ const TaskEndPageEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.EndPage} tabs={[nameTab, endPageTab]} />;
 });
 
-export const endEventEditors = new Map<EventEditorType.End, ReactNode>([
+export const endEventEditors = new Map<ElementType, ReactNode>([
   ['TaskEnd', <NameEditor icon={IvyIcons.End} />],
   ['TaskEndPage', <TaskEndPageEditor />],
   ['ErrorEnd', <NameEditor icon={IvyIcons.ErrorEvent} />]

@@ -1,9 +1,9 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import { EventEditorType } from '@axonivy/inscription-protocol';
 import { ReactNode } from 'react';
 import NameEditor from '../NameEditor';
+import { ElementType } from '@axonivy/inscription-protocol';
 
-export const callSubEventEditors = new Map<EventEditorType.CallSub, ReactNode>([
+export const callSubEventEditors = new Map<ElementType, ReactNode>([
   ['CallSubStart', <NameEditor icon={IvyIcons.SubStart} />],
   ['CallSubEnd', <NameEditor icon={IvyIcons.SubEnd} />]
 ]);

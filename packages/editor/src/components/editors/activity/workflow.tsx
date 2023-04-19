@@ -10,7 +10,7 @@ import {
   useTriggerCallTab
 } from '../../tabs';
 import InscriptionEditor from '../InscriptionEditor';
-import { ActivityEditorType } from '@axonivy/inscription-protocol';
+import { ElementType } from '@axonivy/inscription-protocol';
 import NameEditor from '../NameEditor';
 import { IvyIcons } from '@axonivy/editor-icons';
 
@@ -51,7 +51,7 @@ const TriggerEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Trigger} tabs={[nameTab, callTab, outputTab]} />;
 });
 
-export const workflowActivityEditors = new Map<ActivityEditorType.General, ReactNode>([
+export const workflowActivityEditors = new Map<ElementType, ReactNode>([
   ['DialogCall', <DialogCallEditor />],
   ['UserTask', <UserTaskEditor />],
   ['Script', <ScriptEditor />],

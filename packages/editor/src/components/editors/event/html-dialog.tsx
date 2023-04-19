@@ -1,5 +1,5 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import { EventEditorType } from '@axonivy/inscription-protocol';
+import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import { useNameTab, useOutputTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
@@ -11,7 +11,7 @@ const HtmlDialogEventStartEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.EventStart} tabs={[nameTab, outputTab]} />;
 });
 
-export const htmlDialogEventEditors = new Map<EventEditorType.HtmlDialog, ReactNode>([
+export const htmlDialogEventEditors = new Map<ElementType, ReactNode>([
   ['HtmlDialogStart', <NameEditor icon={IvyIcons.InitStart} />],
   ['HtmlDialogMethodStart', <NameEditor icon={IvyIcons.MethodStart} />],
   ['HtmlDialogEventStart', <HtmlDialogEventStartEditor />],
