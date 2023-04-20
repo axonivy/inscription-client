@@ -19,7 +19,7 @@
     "dev": "yarn standalone start:mock",
     "generate": "lerna run generate",
     "icons:generate": "yarn --cwd packages/icons generate",
-    "protocol:generate": "yarn --cwd packages/protocol generate",
+    "protocol": "yarn --cwd packages/protocol",
     "test": "yarn --cwd packages/editor test",
     "test:ci": "lerna run test:ci",
     "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
