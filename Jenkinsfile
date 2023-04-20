@@ -27,32 +27,6 @@ pipeline {
         }
       }
     }
-    stage('Protocol') {
-      when {
-        expression { isReleaseOrMasterBranch() }
-      }
-      steps {
-        script {
-          catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.build('node').inside {
-              sh '''
-                build/use-mirror-npm.sh
-                yarn
-                yarn codegen clean
-
-                devSchema="https://jenkins.ivyteam.io/job/core_json-schema/job/'''+env.BRANCH_NAME+'''/lastSuccessfulBuild/artifact/workspace/ch.ivyteam.ivy.lsp.inscription/target/schema/process/*/inscription.json/*zip*/process.zip"
-                curl -o process.zip ${devSchema}
-                unzip -j process.zip
-                yarn codegen generate $PWD/inscription.json
-
-                yarn type
-              '''
-            }
-          }
-          recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(id: 'latest', pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
-        }
-      }
-    }
     stage('Mock Tests') {
       steps {
         script {

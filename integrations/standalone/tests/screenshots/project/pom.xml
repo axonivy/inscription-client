@@ -12,7 +12,7 @@
   <properties>
     <engine.page.url>https://product.ivyteam.io/</engine.page.url>
     <project.build.plugin.version>11.1.0-SNAPSHOT</project.build.plugin.version>
-    <engine.test.app>glsp-test-project</engine.test.app>
+    <engine.test.app>inscription-test</engine.test.app>
   </properties>
 
   <build>
