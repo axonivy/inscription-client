@@ -12,6 +12,7 @@ export type CacheInvalidation = "NONE" | "FIXED_TIME" | "LIFETIME";
 export type CacheMode = "DO_NOT_CACHE" | "CACHE" | "INVALIDATE_CACHE";
 export type CacheScope = "SESSION" | "APPLICATION";
 export type QueryKind = "READ" | "WRITE" | "UPDATE" | "DELETE" | "ANY";
+export type IntermediateEventTimeoutAction = "NOTHING" | "DESTROY_TASK" | "CONTINUE_WITHOUT_EVENT";
 export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | "OPTIONS" | "JAX_RS";
 export type InputType = "ENTITY" | "FORM" | "RAW";
 
@@ -48,14 +49,17 @@ export interface Data {
     | ElementErrorStartEvent
     | ElementRequestStart
     | ElementWebserviceStart
+    | ElementThirdPartyWaitEvent
     | ElementUserTask
     | ElementJoin
     | ElementSignalBoundaryEvent
     | ElementEMail
     | ElementTaskSwitchEvent
     | ElementHtmlDialogMethodStart
+    | ElementThirdPartyProgramInterface
     | ElementWaitEvent
     | ElementRestClientCall
+    | ElementThirdPartyProgramStart
     | ElementSignalStartEvent;
   description: string;
   docs: Document[];
@@ -177,6 +181,12 @@ export interface ElementScript {
 export interface ElementProgramInterface {
   javaClass: string;
   userConfig: string;
+  exceptionHandler: string;
+  timeout: JavaTimeout;
+}
+export interface JavaTimeout {
+  error: string;
+  seconds: string;
 }
 export interface ElementHtmlDialogStart {
   result: ScriptParameterizedMapCode;
@@ -281,6 +291,19 @@ export interface SoapWsProcessException {
   enabled: boolean;
   message: string;
 }
+export interface ElementThirdPartyWaitEvent {
+  output: ScriptMapCode;
+  eventId: string;
+  task: WfTask;
+  javaClass: string;
+  userConfig: string;
+  timeout: JavaEventTimeout;
+}
+export interface JavaEventTimeout {
+  action: IntermediateEventTimeoutAction;
+  duration: string;
+  error: string;
+}
 export interface ElementUserTask {
   call: ScriptMapCode;
   output: ScriptMapCode;
@@ -326,10 +349,19 @@ export interface ElementHtmlDialogMethodStart {
   signature: string;
   guid: string;
 }
-export interface ElementWaitEvent {
-  output: ScriptMapCode;
+export interface ElementThirdPartyProgramInterface {
   javaClass: string;
   userConfig: string;
+  exceptionHandler: string;
+  timeout: JavaTimeout;
+}
+export interface ElementWaitEvent {
+  output: ScriptMapCode;
+  eventId: string;
+  task: WfTask;
+  javaClass: string;
+  userConfig: string;
+  timeout: JavaEventTimeout;
 }
 export interface ElementRestClientCall {
   code: string;
@@ -365,6 +397,12 @@ export interface RestTarget {
   properties: ScriptMappings;
   queryParams: ScriptMappings;
   templateParams: ScriptMappings;
+}
+export interface ElementThirdPartyProgramStart {
+  javaClass: string;
+  link: string;
+  permission: StartPermission;
+  userConfig: string;
 }
 export interface ElementSignalStartEvent {
   output: ScriptMapCode;
@@ -415,6 +453,7 @@ export interface InscriptionType {
     | "TaskEnd"
     | "RequestStart"
     | "WebserviceStart"
+    | "ThirdPartyWaitEvent"
     | "UserTask"
     | "Join"
     | "SignalBoundaryEvent"
@@ -425,8 +464,10 @@ export interface InscriptionType {
     | "WaitEvent"
     | "RestClientCall"
     | "ManualBpmnElement"
+    | "ThirdPartyProgramStart"
     | "HtmlDialogEnd"
     | "SignalStartEvent";
+  impl: string | null;
   label: string;
   shortLabel: string;
 }
