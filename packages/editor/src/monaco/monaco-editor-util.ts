@@ -45,10 +45,11 @@ export const SINGLE_LINE_MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstruc
 };
 
 export namespace MonacoEditorUtil {
-  export function initMonaco(monaco: Monaco, theme: ThemeContext) {
+  export const DEFAULT_THEME_NAME = 'axon-input';
+  export async function initMonaco(monaco: Monaco, theme: ThemeContext): Promise<Monaco> {
     loader.config({ monaco });
 
-    loader.init().then(monaco => {
+    return loader.init().then(monaco => {
       monaco.languages.register({
         id: 'ivyScript',
         extensions: ['.ivyScript', '.ivyScript'],
@@ -57,7 +58,8 @@ export namespace MonacoEditorUtil {
       monaco.languages.setLanguageConfiguration('ivyScript', ivyScriptConf);
       monaco.languages.setMonarchTokensProvider('ivyScript', ivyScriptLang);
 
-      monaco.editor.defineTheme('axon-input', themeData(theme));
+      monaco.editor.defineTheme(DEFAULT_THEME_NAME, themeData(theme));
+      return monaco;
     });
   }
 

@@ -2,7 +2,7 @@ import './CodeEditor.css';
 import Editor from '@monaco-editor/react';
 import { useCallback, useState } from 'react';
 import { useEditorContext } from '../../../context';
-import { MONACO_OPTIONS, SINGLE_LINE_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
+import { MONACO_OPTIONS, MonacoEditorUtil, SINGLE_LINE_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
 import { useMove } from 'react-aria';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
@@ -92,7 +92,7 @@ const CodeEditor = (props: {
         height={`${height}px`}
         defaultPath={`ivyScript/${editorContext.pid}?location=${props.location ?? ''}`}
         options={monacoOptions}
-        theme='axon-input'
+        theme={MonacoEditorUtil.DEFAULT_THEME_NAME}
         onChange={code => onCodeChange(code ?? '')}
         onMount={handleEditorDidMount}
       />
