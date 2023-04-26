@@ -26,7 +26,7 @@ pipeline {
           }
           archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
           archiveArtifacts artifacts: '**/standalone/**/target/**/ivy.log', allowEmptyArchive: true
-          withChecks('Integration Test') {
+          withChecks('Integration WebTest') {
             junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
           }
         }
@@ -39,7 +39,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.build('node').inside {
+            docker.build('node', '-f build/Dockerfile .').inside {
               sh '''
                 build/use-mirror-npm.sh
                 yarn
@@ -54,7 +54,9 @@ pipeline {
               '''
             }
           }
-          recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(id: 'latest', pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+          withChecks('Integration Protocol ESLint') {
+            recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(id: 'latest', pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+          }
         }
       }
     }
