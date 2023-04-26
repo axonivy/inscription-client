@@ -17,7 +17,7 @@ pipeline {
     stage('Integration Test') {
       steps {
         script {
-          docker.build('node-webtest', '-f build/Dockerfile .').inside {
+          docker.build('node-webtest', '-f build/playwright/Dockerfile .').inside {
             sh 'build/use-mirror-npm.sh'
             sh 'yarn ci:prepare'
             dir ('integrations/standalone/tests/integration/project') {
