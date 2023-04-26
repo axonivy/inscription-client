@@ -14,7 +14,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.build('node').inside {
+            docker.build('node', '-f build/Dockerfile .').inside {
               sh 'build/use-mirror-npm.sh'
               sh 'yarn ci'
             }
@@ -47,7 +47,7 @@ pipeline {
       }
       steps {
         script {
-          docker.build('node').inside {
+          docker.build('node', '-f build/Dockerfile .').inside {
             sh 'git checkout yarn.lock'
             sh 'yarn build'
             withNPM(npmrcConfig:'npmjs-registry.ivyteam.io') {

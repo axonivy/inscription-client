@@ -1,7 +1,7 @@
-FROM mcr.microsoft.com/playwright:v1.30.0-jammy
+FROM node:16.19-bullseye
 
-RUN apt-get update &&\
-  apt-get install software-properties-common -y &&\
-  apt-add-repository universe -y &&\
-  apt-get update &&\
-  apt-get install openjdk-17-jdk maven -y
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
+ENV CI=true
+
+USER node
