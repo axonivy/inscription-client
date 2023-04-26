@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
   "id" : "168F0C6DF682858E",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.AddContactData"

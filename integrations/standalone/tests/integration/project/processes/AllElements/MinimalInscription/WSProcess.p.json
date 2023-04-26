@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
   "id" : "169A4A3BFDC7DFFE",
   "kind" : "WEB_SERVICE",
   "config" : {
@@ -11,7 +11,7 @@
       "type" : "WebserviceStart",
       "name" : "call()",
       "config" : {
-        "callSignature" : "call"
+        "signature" : "call"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
