@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
   "id" : "16C70B87DCB65433",
   "config" : {
     "data" : "screenshot.project.Invoice"
@@ -9,21 +9,21 @@
       "type" : "WaitEvent",
       "name" : "read address",
       "config" : {
-        "timeoutConfig" : {
+        "javaClass" : "ch.ivyteam.ivy.process.intermediateevent.beans.FileIntermediateEventBean",
+        "userConfig" : [
+          "/shared/company/addresses",
+          "customerId"
+        ],
+        "eventId" : "in.customerId",
+        "timeout" : {
           "duration" : "'2H30M'",
-          "action" : "destroyTask"
+          "action" : "DESTROY_TASK"
         },
         "task" : {
           "name" : "<%=ivy.cms.co(\"/Task/Approval\")%>",
           "description" : "<%=ivy.cms.co(\"/Task/Approval/Desc\")%>",
           "category" : "Finance/Invoices/<%=in.invoiceType%>"
-        },
-        "eventBeanClass" : "ch.ivyteam.ivy.process.intermediateevent.beans.FileIntermediateEventBean",
-        "eventBeanConfig" : [
-          "/shared/company/addresses",
-          "customerId"
-        ],
-        "eventIdConfig" : "in.customerId"
+        }
       },
       "visual" : {
         "at" : { "x" : 192, "y" : 64 },
@@ -70,11 +70,12 @@
       "type" : "ProgramStart",
       "name" : "erpUpdate",
       "config" : {
-        "beanConfig" : [
+        "javaClass" : "com.axonivy.wf.custom.ErpInvoice",
+        "userConfig" : [
           "interval=30",
           "path=/tmp/myErp"
         ],
-        "outerBean" : "com.axonivy.wf.custom.ErpInvoice"
+        "link" : "eventLink.ivp"
       },
       "visual" : {
         "at" : { "x" : 64, "y" : 192 },
@@ -89,9 +90,11 @@
       "type" : "ProgramInterface",
       "name" : "load ERP",
       "config" : {
-        "beanConfig" : "path=in.creditStats",
-        "outerBean" : "com.axonivy.wf.custom.ErpLoader",
-        "timeout" : "10"
+        "javaClass" : "com.axonivy.wf.custom.ErpLoader",
+        "userConfig" : "path=in.creditStats",
+        "timeout" : {
+          "seconds" : "10"
+        }
       },
       "visual" : {
         "at" : { "x" : 320, "y" : 64 }
@@ -104,18 +107,18 @@
       "type" : "WaitEvent",
       "name" : "ERP print",
       "config" : {
-        "eventBeanClass" : "com.axonivy.wf.custom.ErpPrintJob",
+        "javaClass" : "com.axonivy.wf.custom.ErpPrintJob",
+        "userConfig" : [
+          "interval=5",
+          "path=/tmp/spooler/userReports"
+        ],
+        "eventId" : "\"erp-print\"+ivy.case.getId()",
         "output" : {
           "map" : {
             "out" : "in",
             "out.report" : "result as File"
           }
-        },
-        "eventBeanConfig" : [
-          "interval=5",
-          "path=/tmp/spooler/userReports"
-        ],
-        "eventIdConfig" : "\"erp-print\"+ivy.case.getId()"
+        }
       },
       "visual" : {
         "at" : { "x" : 192, "y" : 256 },

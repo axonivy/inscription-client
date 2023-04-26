@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
   "id" : "169A4921D0EF0B91",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.Data"
@@ -9,7 +9,8 @@
       "type" : "ProgramStart",
       "name" : "Program Start",
       "config" : {
-        "outerBean" : "ch.ivyteam.ivy.process.eventstart.beans.FilePickupStartEventBean"
+        "javaClass" : "ch.ivyteam.ivy.process.eventstart.beans.FilePickupStartEventBean",
+        "link" : "eventLink.ivp"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 432 },
@@ -123,8 +124,8 @@
       "type" : "ErrorEnd",
       "name" : "Error End Event",
       "config" : {
-        "error" : {
-          "code" : "null"
+        "throws" : {
+          "error" : "null"
         }
       },
       "visual" : {
@@ -154,8 +155,8 @@
       "type" : "WaitEvent",
       "name" : "Wait Event",
       "config" : {
-        "eventBeanClass" : "ch.ivyteam.ivy.process.intermediateevent.beans.FileIntermediateEventBean",
-        "eventIdConfig" : "in.test"
+        "javaClass" : "ch.ivyteam.ivy.process.intermediateevent.beans.FileIntermediateEventBean",
+        "eventId" : "in.test"
       },
       "visual" : {
         "at" : { "x" : 208, "y" : 288 },

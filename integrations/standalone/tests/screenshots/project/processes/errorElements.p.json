@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
   "id" : "16BBC1007C5F8F69",
   "config" : {
     "data" : "screenshot.project.Data"
@@ -38,8 +38,8 @@
       "type" : "ErrorEnd",
       "name" : "mybank:account:closed:no511",
       "config" : {
-        "error" : {
-          "code" : "mybank:account:closed:no511"
+        "throws" : {
+          "error" : "mybank:account:closed:no511"
         }
       },
       "visual" : {

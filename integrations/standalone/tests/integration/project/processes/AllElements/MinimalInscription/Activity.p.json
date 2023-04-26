@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.19/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
   "id" : "0169A49845D37011",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.Data"
@@ -113,7 +113,7 @@
       "type" : "ProgramInterface",
       "name" : "Pi Step",
       "config" : {
-        "outerBean" : "ch.ivyteam.ivy.process.extension.beans.Wait"
+        "javaClass" : "ch.ivyteam.ivy.process.extension.beans.Wait"
       },
       "visual" : {
         "at" : { "x" : 432, "y" : 368 }
