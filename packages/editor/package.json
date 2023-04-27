@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/inscription-editor",
-  "version": "11.1.0-next",
+  "version": "11.2.0-next",
   "private": false,
   "author": "Axon Ivy AG",
   "homepage": "https://developer.axonivy.com/",
@@ -13,8 +13,8 @@
     "src"
   ],
   "dependencies": {
-    "@axonivy/editor-icons": "11.1.0-next",
-    "@axonivy/inscription-protocol": "11.1.0-next",
+    "@axonivy/editor-icons": "11.2.0-next",
+    "@axonivy/inscription-protocol": "11.2.0-next",
     "@monaco-editor/react": "^4.4.6",
     "@radix-ui/react-checkbox": "^1.0.1",
     "@radix-ui/react-collapsible": "^1.0.1",
