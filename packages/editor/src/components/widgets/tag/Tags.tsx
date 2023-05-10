@@ -2,10 +2,10 @@ import * as Popover from '@radix-ui/react-popover';
 import { memo, useState } from 'react';
 import { useKeyboard } from 'react-aria';
 import './Tags.css';
-import LabelInput from '../label/LabelInput';
 import { useReadonly } from '../../../context';
 import IvyIcon from '../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { Fieldset } from '../fieldset';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
   const [newTag, setNewTag] = useState('');
@@ -54,18 +54,18 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
       ))}
       <Popover.Root open={isOpen} onOpenChange={handleAddPopoverChange}>
         <Popover.Trigger asChild>
-          <button className='tag-add' aria-label='Add new tag' disabled={readonly}>
+          <button className='tag tag-add' aria-label='Add new tag' disabled={readonly}>
             <IvyIcon icon={IvyIcons.Add} />
             <span>Add</span>
           </button>
         </Popover.Trigger>
-        <Popover.Portal>
+        <Popover.Portal container={(document.querySelector('.editor-root') as HTMLElement) ?? document.querySelector('body')}>
           <Popover.Content className='popover-content' sideOffset={5}>
-            <LabelInput label='New Tag' htmlFor='tag-input'>
+            <Fieldset label='New Tag' htmlFor='tag-input'>
               <input className='input' id='tag-input' value={newTag} onChange={e => setNewTag(e.target.value)} {...keyboardProps} />
-            </LabelInput>
+            </Fieldset>
             <Popover.Close className='popover-close' aria-label='Close'>
-              X
+              <IvyIcon icon={IvyIcons.Add} rotate={45} />
             </Popover.Close>
             <Popover.Arrow className='popover-arrow' />
           </Popover.Content>

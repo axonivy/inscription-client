@@ -9,9 +9,10 @@ button {
 
 .checkbox-root {
   background-color: var(--input-bg);
-  width: 25px;
-  height: 25px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--editor-bg);
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;

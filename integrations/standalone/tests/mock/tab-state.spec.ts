@@ -4,16 +4,17 @@ import { selectDialog } from './combobox-util';
 test.describe('Tab states', () => {
   test('different states on different tabs', async ({ page }) => {
     await page.goto('mock.html');
-    const name = page.getByRole('tab', { name: 'Name' }).locator('.tab-state');
-    const call = page.getByRole('tab', { name: 'Call' }).locator('.tab-state');
+    const name = page.getByRole('button', { name: 'Name' }).locator('.tab-state');
+    const call = page.getByRole('button', { name: 'Call' }).locator('.tab-state');
     await assertTabState(name, 'configured');
     await assertTabState(call, 'warning');
 
+    await page.getByRole('button', { name: 'Name' }).click();
     await page.getByLabel('Display name').clear();
     await assertTabState(name, 'error');
     await assertTabState(call, 'warning');
 
-    await page.getByRole('tab', { name: 'Call' }).click();
+    await page.getByRole('button', { name: 'Call' }).click();
     await selectDialog(page);
     await assertTabState(name, 'error');
     await assertTabState(call, 'configured');

@@ -1,6 +1,6 @@
 import { MappingInfo } from '@axonivy/inscription-protocol';
 import { useEffect, useState } from 'react';
-import { CodeEditor, LabelInput, MappingTree } from '../../../components/widgets';
+import { CodeEditor, Fieldset, MappingTree } from '../../../components/widgets';
 import { useClient, useEditorContext } from '../../../context';
 import { TabProps, useTabState } from '../../props';
 import { useOutputData } from './useOutputData';
@@ -30,9 +30,9 @@ const OutputTab = (props: { showCode?: boolean }) => {
     <>
       <MappingTree data={outputData.output.map} mappingInfo={mappingInfo} onChange={updateMap} location='output.code' />
       {props.showCode && (
-        <LabelInput label='Code' htmlFor='code'>
+        <Fieldset label='Code' htmlFor='code'>
           <CodeEditor code={outputData.output.code} onChange={updateCode} location='output.code' />
-        </LabelInput>
+        </Fieldset>
       )}
     </>
   );

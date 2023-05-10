@@ -1,4 +1,4 @@
-import { render, renderHook, screen, TableUtil } from 'test-utils';
+import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
 import { NameData } from '@axonivy/inscription-protocol';
 import { useNameTab } from './NameTab';
 import { TabState } from '../../../components/props';
@@ -22,19 +22,19 @@ describe('NameTab', () => {
   test('empty data', async () => {
     renderTab();
     await assertMainPart('', '', []);
-    expect(await screen.findByText('► Tags')).toBeInTheDocument();
+    await CollapsableUtil.assertClosed('Tags');
   });
 
   test('hide tags', async () => {
     renderTab(undefined, true);
     await assertMainPart('', '', []);
-    expect(screen.queryByText('► Tags')).not.toBeInTheDocument();
+    expect(screen.queryByText('Tags')).not.toBeInTheDocument();
   });
 
   test('full data', async () => {
     renderTab({ name: 'name', description: 'description', docs: [{ name: 'doc', url: 'url' }], tags: ['tag1'] });
     await assertMainPart('name', 'description', ['doc url']);
-    expect(await screen.findByText('▼ Tags')).toBeInTheDocument();
+    await CollapsableUtil.assertOpen('Tags');
   });
 
   function assertState(expectedState: TabState, data?: Partial<NameData>) {

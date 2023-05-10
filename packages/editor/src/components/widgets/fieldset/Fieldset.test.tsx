@@ -1,30 +1,30 @@
 import { Message } from '../../props/message';
-import LabelInput from './LabelInput';
+import Fieldset from './Fieldset';
 import { render, screen } from 'test-utils';
 
-describe('LabelInput', () => {
+describe('Fieldset', () => {
   function renderLabelInput(message?: Message) {
     render(
-      <LabelInput label='Test Label' htmlFor='input' message={message}>
+      <Fieldset label='Test Label' htmlFor='input' message={message}>
         <input id='input' />
-      </LabelInput>
+      </Fieldset>
     );
   }
 
-  test('label input will render', () => {
+  test('fieldset will render', () => {
     renderLabelInput();
     const input = screen.getByLabelText('Test Label');
     expect(input).toBeInTheDocument();
   });
 
-  test('label input will render message', () => {
+  test('fieldset will render message', () => {
     renderLabelInput({ message: 'this is a error', severity: 'error' });
-    expect(screen.getByText('this is a error')).toHaveClass('input-message', 'input-error');
+    expect(screen.getByText('this is a error')).toHaveClass('fieldset-message', 'fieldset-error');
 
     renderLabelInput({ message: 'this is a warning', severity: 'warning' });
-    expect(screen.getByText('this is a warning')).toHaveClass('input-message', 'input-warning');
+    expect(screen.getByText('this is a warning')).toHaveClass('fieldset-message', 'fieldset-warning');
 
     renderLabelInput({ message: 'this is a info', severity: 'info' });
-    expect(screen.getByText('this is a info')).toHaveClass('input-message', 'input-info');
+    expect(screen.getByText('this is a info')).toHaveClass('fieldset-message', 'fieldset-info');
   });
 });

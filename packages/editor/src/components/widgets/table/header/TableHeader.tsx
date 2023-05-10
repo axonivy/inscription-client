@@ -1,6 +1,8 @@
 import './TableHeader.css';
-import { flexRender, Header, HeaderContext } from '@tanstack/react-table';
+import { HeaderContext } from '@tanstack/react-table';
 import { ReactNode } from 'react';
+import Button from '../../button/Button';
+import { IvyIcons } from '@axonivy/editor-icons';
 
 export const TableHeader = (props: { colSpan: number; children?: ReactNode }) => (
   <th className='table-column-header' colSpan={props.colSpan}>
@@ -8,40 +10,34 @@ export const TableHeader = (props: { colSpan: number; children?: ReactNode }) =>
   </th>
 );
 
-export function TableHeaderSorted<TData>(props: { header: Header<TData, unknown> }) {
+export function SortableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string }) {
   const header = props.header;
   return (
-    <>
-      {header.isPlaceholder ? undefined : (
-        <button
-          {...{
-            className: header.column.getCanSort() ? 'sortable-column' : '',
-            onClick: header.column.getToggleSortingHandler()
-          }}
-        >
-          {flexRender(header.column.columnDef.header, header.getContext())}
-          {{
-            asc: ' 🔼',
-            desc: ' 🔽'
-          }[header.column.getIsSorted() as string] ?? null}
-        </button>
-      )}
-    </>
+    <div className='column-sort'>
+      <span className='column-sort-label'>{props.name}</span>
+      <Button
+        className={header.column.getCanSort() ? 'column-sort-button' : ''}
+        aria-label={`Sort by ${props.name}`}
+        onClick={header.column.getToggleSortingHandler()}
+        data-state={header.column.getIsSorted() || 'unsorted'}
+        icon={header.column.getIsSorted() ? IvyIcons.AngleDown : IvyIcons.Straighten}
+      />
+    </div>
   );
 }
 
 export function ExpandableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string }) {
   const table = props.header.table;
   return (
-    <>
-      <button
+    <div className='column-expand'>
+      <Button
+        icon={IvyIcons.AngleDown}
         className='column-expand-button'
         aria-label={table.getIsAllRowsExpanded() ? 'Collapse tree' : 'Expand tree'}
+        data-state={table.getIsAllRowsExpanded() ? 'expanded' : 'collapsed'}
         {...{ onClick: table.getToggleAllRowsExpandedHandler() }}
-      >
-        {table.getIsAllRowsExpanded() ? '🔽' : '▶️'}
-      </button>{' '}
-      <span>{props.name}</span>
-    </>
+      />
+      <span className='column-expand-label'>{props.name}</span>
+    </div>
   );
 }

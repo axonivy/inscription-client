@@ -9,6 +9,7 @@ test.describe('Global Messages', () => {
     await expect(warning).toBeHidden();
     await expect(error).toBeHidden();
 
+    await page.getByRole('button', { name: 'Name' }).click();
     await page.getByLabel('Display name').clear();
     await expect(warning).toBeHidden();
     await expect(error).toBeVisible();
@@ -21,13 +22,13 @@ test.describe('Global Messages', () => {
   test('name if no messages', async ({ page }) => {
     await page.goto('mock.html');
     const warning = page.locator('.header-status:text("No User Dialog specified")');
-    const info = page.locator('.header-status:text("test name")');
+    const msgs = page.locator('.header-messages');
     await expect(warning).toBeVisible();
-    await expect(info).toBeHidden();
+    await expect(msgs).toBeVisible();
 
-    await page.getByRole('tab', { name: 'Call' }).click();
+    await page.getByRole('button', { name: 'Call' }).click();
     await selectDialog(page);
     await expect(warning).toBeHidden();
-    await expect(info).toBeVisible();
+    await expect(msgs).toBeHidden();
   });
 });

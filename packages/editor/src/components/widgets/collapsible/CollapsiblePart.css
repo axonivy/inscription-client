@@ -1,17 +1,55 @@
-.collapsible-content {
+.collapsible-root .collapsible-trigger {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: var(--size-1);
+  padding-inline: var(--size-1);
+  width: unset;
+}
+.collapsible-root .collapsible-trigger .ivy-angle-down {
+  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+.collapsible-root .collapsible-trigger[data-state='closed'] .ivy-angle-down {
+  transform: rotate(-90deg);
+}
+
+.collapsible-root .collapsible-content {
+  overflow: hidden;
+  padding: 1px;
+}
+.collapsible-root .collapsible-content .collapsible-content-data {
+  margin-top: var(--size-3);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--size-4);
 }
-.collapsible-trigger {
-  font-size: 12px;
+.collapsible-root .collapsible-content[data-state='open'] {
+  animation: collapsableSlideDown 200ms cubic-bezier(0.87, 0, 0.13, 1);
 }
-.collapsible-trigger[data-state='open'] {
-  margin-bottom: 1rem;
+.collapsible-root .collapsible-content[data-state='closed'] {
+  animation: collapsableSlideUp 200ms cubic-bezier(0.87, 0, 0.13, 1);
 }
-.collapsible-trigger:hover {
-  cursor: pointer;
+
+@media (prefers-reduced-motion) {
+  .collapsible-root .collapsible-content {
+    animation: none !important;
+  }
 }
-.collapsible-trigger:focus {
-  box-shadow: var(--focus-shadow);
+
+@keyframes collapsableSlideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+  }
+}
+
+@keyframes collapsableSlideUp {
+  from {
+    height: var(--radix-collapsible-content-height);
+  }
+  to {
+    height: 0;
+  }
 }

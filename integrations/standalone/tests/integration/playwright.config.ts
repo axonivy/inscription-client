@@ -7,7 +7,8 @@ config.projects = [
   {
     name: 'chromium',
     use: {
-      ...devices['Desktop Chrome']
+      ...devices['Desktop Chrome'],
+      contextOptions: { reducedMotion: 'reduce' }
     }
   }
 ];

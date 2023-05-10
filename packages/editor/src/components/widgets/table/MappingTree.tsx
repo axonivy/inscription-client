@@ -17,10 +17,10 @@ import { Table } from './table/Table';
 import { MappingTreeData } from './mapping-tree-data';
 import { ExpandableHeader, TableHeader } from './header/TableHeader';
 import { TableCell } from './cell/TableCell';
-import Input from '../input/Input';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { LabelWithControls, Control } from '../label';
 import { CodeEditorCell } from './cell/CodeEditorCell';
+import { Fieldset, FieldsetControl } from '../fieldset';
+import IconInput from '../input/IconInput';
 
 const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange: (change: Mapping) => void; location: string }) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
@@ -80,7 +80,7 @@ const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange:
   const [globalFilter, setGlobalFilter] = useState('');
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const tableControls: Control[] = [
+  const tableControls: FieldsetControl[] = [
     {
       label: 'Toggle Search',
       icon: IvyIcons.Search,
@@ -129,8 +129,8 @@ const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange:
   });
 
   return (
-    <LabelWithControls label='Mapping' htmlFor='mapping' controls={tableControls}>
-      {showGlobalFilter && <Input value={globalFilter} onChange={setGlobalFilter} icon={IvyIcons.Search} placeholder='Search' />}
+    <Fieldset label='Mapping' htmlFor='mapping' controls={tableControls}>
+      {showGlobalFilter && <IconInput value={globalFilter} onChange={setGlobalFilter} icon={IvyIcons.Search} placeholder='Search' />}
       <Table>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
@@ -153,7 +153,7 @@ const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange:
           ))}
         </tbody>
       </Table>
-    </LabelWithControls>
+    </Fieldset>
   );
 };
 

@@ -1,5 +1,5 @@
 import { Page } from '@playwright/test';
-import { TabUtil } from '../../utils/tab-util';
+import { AccordionUtil } from '../../utils/accordion-util';
 
 export interface TabTest {
   tabName: () => string;
@@ -11,21 +11,25 @@ export interface TabTest {
 
 export async function fillReloadAndAssert(page: Page, tests: TabTest[]) {
   for (const test of tests) {
-    await TabUtil.change(page, test.tabName());
+    await AccordionUtil.toggle(page, test.tabName());
     await test.fill(page);
+    await AccordionUtil.toggle(page, test.tabName());
   }
   await page.reload();
   for (const test of tests) {
-    await TabUtil.change(page, test.tabName());
+    await AccordionUtil.toggle(page, test.tabName());
     await test.assertFill(page);
+    await AccordionUtil.toggle(page, test.tabName());
   }
   for (const test of tests) {
-    await TabUtil.change(page, test.tabName());
+    await AccordionUtil.toggle(page, test.tabName());
     await test.clear(page);
+    await AccordionUtil.toggle(page, test.tabName());
   }
   await page.reload();
   for (const test of tests) {
-    await TabUtil.change(page, test.tabName());
+    await AccordionUtil.toggle(page, test.tabName());
     await test.assertClear(page);
+    await AccordionUtil.toggle(page, test.tabName());
   }
 }

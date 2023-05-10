@@ -1,10 +1,22 @@
 .table-root {
   background: var(--table-bg);
   border-radius: var(--border-radius);
-  width: calc(100% - 1rem);
-  padding: 0 0.5rem;
 }
 .table {
   width: 100%;
-  border-spacing: 0 0.5rem;
+  border-spacing: 0 var(--size-1);
+}
+.table tr :where(th, td) {
+  border-top: 1px solid var(--editor-bg);
+  border-bottom: 1px solid var(--editor-bg);
+}
+.table tr :where(th, td):first-child {
+  border-left: 1px solid var(--editor-bg);
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+.table tr :where(th, td):last-child {
+  border-right: 1px solid var(--editor-bg);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }

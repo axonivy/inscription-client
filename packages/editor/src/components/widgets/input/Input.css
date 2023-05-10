@@ -11,3 +11,25 @@
   padding-left: calc(10px + 1rem);
   width: calc(100% - 20px - 1rem);
 }
+
+.input {
+  all: unset;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--editor-bg);
+  background: var(--input-bg);
+  font-size: 12px;
+  line-height: 1;
+  color: var(--input-color);
+  text-align: start;
+  padding: 10px;
+}
+.input:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+.input:focus {
+  box-shadow: var(--focus-shadow);
+}
+textarea.input {
+  resize: vertical;
+}

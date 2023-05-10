@@ -8,11 +8,11 @@ import {
   SelectCell,
   Table,
   TableHeader,
-  TableHeaderSorted,
   TableCell,
   ActionCell,
   TableFooter,
-  TableAddRow
+  TableAddRow,
+  SortableHeader
 } from '../../../../components/widgets';
 
 const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfCustomField[]) => void }) => {
@@ -22,19 +22,19 @@ const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfC
     () => [
       {
         accessorKey: 'name',
-        header: () => <span>Name</span>,
+        header: header => <SortableHeader header={header} name='Name' />,
         cell: cell => <EditableCell cell={cell} />,
         footer: props => props.column.id
       },
       {
         accessorKey: 'type',
-        header: () => <span>Type</span>,
+        header: header => <SortableHeader header={header} name='Type' />,
         cell: cell => <SelectCell cell={cell} items={items} />,
         footer: props => props.column.id
       },
       {
         accessorKey: 'value',
-        header: () => <span>Expression</span>,
+        header: header => <SortableHeader header={header} name='Expression' />,
         cell: cell => <EditableCell cell={cell} />,
         footer: props => props.column.id
       }
@@ -88,7 +88,7 @@ const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfC
           <tr key={headerGroup.id}>
             {headerGroup.headers.map(header => (
               <TableHeader key={header.id} colSpan={header.colSpan}>
-                <TableHeaderSorted header={header} />
+                {flexRender(header.column.columnDef.header, header.getContext())}
               </TableHeader>
             ))}
             <TableHeader colSpan={1}>Actions</TableHeader>

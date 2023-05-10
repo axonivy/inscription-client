@@ -1,5 +1,4 @@
-import { LabelInput } from '../../widgets';
-import { useReadonly } from '../../../context';
+import { Fieldset, Input } from '../../widgets';
 import { TabProps, useTabState } from '../../props';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
@@ -12,37 +11,18 @@ export function useCaseTab(): TabProps {
 
 const CaseTab = () => {
   const { caseData, updateName, updateDescription, updateCategory, updateCustomFields } = useCaseData();
-  const readonly = useReadonly();
 
   return (
     <>
-      <LabelInput label='Name' htmlFor='name'>
-        <input
-          className='input'
-          id='name'
-          value={caseData.case.name}
-          onChange={event => updateName(event.target.value)}
-          disabled={readonly}
-        />
-      </LabelInput>
-      <LabelInput label='Description' htmlFor='description'>
-        <input
-          className='input'
-          id='description'
-          value={caseData.case.description}
-          onChange={event => updateDescription(event.target.value)}
-          disabled={readonly}
-        />
-      </LabelInput>
-      <LabelInput label='Category' htmlFor='category'>
-        <input
-          className='input'
-          id='category'
-          value={caseData.case.category}
-          onChange={event => updateCategory(event.target.value)}
-          disabled={readonly}
-        />
-      </LabelInput>
+      <Fieldset label='Name' htmlFor='caseName'>
+        <Input id='caseName' value={caseData.case.name} onChange={change => updateName(change)} />
+      </Fieldset>
+      <Fieldset label='Description' htmlFor='caseDescription'>
+        <Input id='caseDescription' value={caseData.case.description} onChange={change => updateDescription(change)} />
+      </Fieldset>
+      <Fieldset label='Category' htmlFor='caseCategory'>
+        <Input id='caseCategory' value={caseData.case.category} onChange={change => updateCategory(change)} />
+      </Fieldset>
       <CustomFieldPart customFields={caseData.case.customFields} updateCustomFields={updateCustomFields} />
     </>
   );

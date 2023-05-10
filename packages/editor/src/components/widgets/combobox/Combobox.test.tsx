@@ -47,7 +47,7 @@ describe('Combobox', () => {
     expect(combobox).toHaveValue('test');
     expect(combobox).toHaveAttribute('placeholder', 'Select Combobox');
     const button = screen.getByRole('button', { name: 'toggle menu' });
-    expect(button).toHaveTextContent('↓');
+    expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 
   test('combobox will open on button click', async () => {
@@ -120,7 +120,7 @@ describe('Combobox', () => {
 
   test('combobox will render message', async () => {
     renderCombobox('test', { message: { message: 'this is a message', severity: 'error' } });
-    expect(screen.getByText('this is a message')).toHaveClass('input-message', 'input-error');
+    expect(screen.getByText('this is a message')).toHaveClass('fieldset-message', 'fieldset-error');
   });
 
   test('combobox support readonly mode', async () => {

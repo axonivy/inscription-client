@@ -1,16 +1,15 @@
-import { Separator } from '@radix-ui/react-separator';
-import { memo, ReactNode, useMemo, useState } from 'react';
+import { memo, ReactNode } from 'react';
 import './InscriptionEditor.css';
 import { ElementType } from '@axonivy/inscription-protocol';
 import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { ErrorFallback, IvyIcon, TabContent, TabList, TabRoot } from '../widgets';
+import { IvyIcon, TabAccordion } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { Message, TabProps } from '../props';
-import { ErrorBoundary } from 'react-error-boundary';
+import { TabProps } from '../props';
+import Button from '../widgets/button/Button';
 
 const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors]);
 
@@ -27,45 +26,44 @@ export interface EditorProps {
 }
 
 const Header = (props: EditorProps) => {
-  const { data, validation } = useDataContext();
-  const headerState = useMemo<Message[]>(() => {
-    if (validation.length > 0) {
-      return validation;
-    }
-    return [{ severity: 'info', message: data.name ?? '' }];
-  }, [data.name, validation]);
-
+  const { validation } = useDataContext();
   const editorContext = useEditorContext();
   return (
     <>
       <div className='header'>
-        <div className='header-title'>
-          <div className='header-editor'>{editorContext.type.shortLabel}</div>
+        <div className='header-left'>
+          <IvyIcon icon={props.icon} />
+          <div className='header-title'>{editorContext.type.shortLabel}</div>
         </div>
-        <TabList {...props} />
-        <IvyIcon icon={props.icon} />
+        <div className='header-right'>
+          <div className='header-search'>
+            <IvyIcon icon={IvyIcons.Search} />
+            <span>Search</span>
+          </div>
+          <Button icon={IvyIcons.AllElements} />
+        </div>
       </div>
-      {headerState.map((state, index) => (
-        <div key={index} className={`header-status message-${state.severity}`}>
-          <IvyIcon icon={state.severity} />
-          {state.message}
+      {validation.length > 0 && (
+        <div className='header-messages'>
+          {validation.map((state, index) => (
+            <div key={index} className={`header-status message-${state.severity}`}>
+              <IvyIcon icon={state.severity} />
+              {state.message}
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </>
   );
 };
 
 const InscriptionEditor = (props: EditorProps) => {
-  const [tab, setTab] = useState<string>();
   return (
     <div className='editor'>
-      <TabRoot {...props} value={tab} onValueChange={setTab}>
-        <Header {...props} />
-        <Separator className='separator-root' style={{ margin: '15px 0' }} />
-        <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[tab]}>
-          <TabContent {...props} />
-        </ErrorBoundary>
-      </TabRoot>
+      <Header {...props} />
+      <div className='content'>
+        <TabAccordion {...props} />
+      </div>
     </div>
   );
 };

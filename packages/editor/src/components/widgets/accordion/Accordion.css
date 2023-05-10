@@ -1,0 +1,102 @@
+.accordion-root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+}
+.accordion-header {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  background-color: var(--accordion-header-bg);
+  border-radius: var(--border-radius);
+}
+.accordion-header .accordion-header-group {
+  display: flex;
+  align-items: center;
+  gap: var(--size-1);
+  padding: var(--size-3);
+}
+.accordion-header .ivy-angle-down {
+  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+.accordion-header[data-state='open'] {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid var(--editor-bg);
+}
+.accordion-header[data-state='open'] .ivy-angle-down {
+  transform: rotate(180deg);
+}
+.accordion-trigger {
+  padding: var(--size-3);
+  height: 16px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--size-1);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+}
+.accordion-trigger:hover {
+  cursor: pointer;
+}
+.accordion-trigger:focus {
+  box-shadow: var(--focus-shadow);
+}
+.accordion-trigger .tab-state {
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 0.5rem;
+  margin-right: 0.25rem;
+  background-color: var(--button-color);
+}
+.accordion-trigger .tab-state[data-state='configured'] {
+  background-color: var(--info-color);
+}
+.accordion-trigger .tab-state[data-state='warning'] {
+  background-color: var(--warning-color);
+}
+.accordion-trigger .tab-state[data-state='error'] {
+  background-color: var(--error-color);
+}
+.accordion-content {
+  overflow: hidden;
+  background-color: var(--accordion-bg);
+}
+.accordion-content[data-state='open'] {
+  animation: accordionSlideDown 200ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+.accordion-content[data-state='closed'] {
+  animation: accordionSlideUp 200ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+.accordion-content .accordion-content-data {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+  padding: var(--size-3) var(--size-2);
+}
+
+@media (prefers-reduced-motion) {
+  .accordion-content {
+    animation: none !important;
+  }
+}
+
+@keyframes accordionSlideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordionSlideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}

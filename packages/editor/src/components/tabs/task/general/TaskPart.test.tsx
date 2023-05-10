@@ -1,6 +1,6 @@
 import TaskPart from './TaskPart';
 import { WfTask } from '@axonivy/inscription-protocol';
-import { render, screen, SelectUtil, userEvent } from 'test-utils';
+import { CollapsableUtil, render, screen, SelectUtil, userEvent } from 'test-utils';
 
 describe('TaskPart', () => {
   function renderTaskPart(data?: Partial<WfTask>, showPersist?: boolean) {
@@ -15,9 +15,10 @@ describe('TaskPart', () => {
     await SelectUtil.assertValue(priority, 'Priority');
 
     if (code) {
+      await CollapsableUtil.assertOpen('Code');
       expect(await screen.findByTestId('code-editor')).toHaveValue(code);
     } else {
-      expect(await screen.findByText('► Code')).toBeInTheDocument();
+      await CollapsableUtil.assertClosed('Code');
     }
   }
 

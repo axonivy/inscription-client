@@ -5,12 +5,12 @@ import React, { memo, useState } from 'react';
 import {
   ActionCell,
   EditableCell,
+  SortableHeader,
   Table,
   TableAddRow,
   TableCell,
   TableFooter,
-  TableHeader,
-  TableHeaderSorted
+  TableHeader
 } from '../../../../components/widgets';
 
 const DocumentTable = (props: { data: Document[]; onChange: (change: Document[]) => void }) => {
@@ -18,14 +18,14 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
     () => [
       {
         accessorKey: 'name',
-        header: () => <span>Name</span>,
+        header: header => <SortableHeader header={header} name='Name' />,
         cell: cell => <EditableCell cell={cell} />,
         footer: props => props.column.id
       },
       {
         accessorFn: row => row.url,
         id: 'url',
-        header: () => <span>URL</span>,
+        header: header => <SortableHeader header={header} name='URL' />,
         cell: cell => <EditableCell cell={cell} />,
         footer: props => props.column.id
       }
@@ -79,7 +79,7 @@ const DocumentTable = (props: { data: Document[]; onChange: (change: Document[])
           <tr key={headerGroup.id}>
             {headerGroup.headers.map(header => (
               <TableHeader key={header.id} colSpan={header.colSpan}>
-                <TableHeaderSorted header={header} />
+                {flexRender(header.column.columnDef.header, header.getContext())}
               </TableHeader>
             ))}
             <TableHeader colSpan={2}>Actions</TableHeader>

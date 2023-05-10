@@ -1,6 +1,11 @@
-.table-cell .row-expand-button {
-  cursor: pointer;
+.table-cell .row-expand {
+  display: flex;
+  align-items: center;
+  gap: var(--size-1);
 }
-.table-cell .row-expand-button:focus {
-  box-shadow: var(--focus-shadow);
+.table-cell .row-expand-button .ivy-angle-down {
+  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+.table-cell .row-expand-button[data-state='collapsed'] .ivy-angle-down {
+  transform: rotate(-90deg);
 }

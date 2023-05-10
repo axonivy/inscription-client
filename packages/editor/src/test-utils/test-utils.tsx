@@ -108,3 +108,4 @@ export { customRender as render };
 export { customRenderHook as renderHook };
 export * from './table-utils';
 export * from './select-utils';
+export * from './collapsible-util';

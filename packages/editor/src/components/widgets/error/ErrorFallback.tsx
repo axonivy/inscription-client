@@ -8,16 +8,20 @@ const ErrorFallback = (props: FallbackProps) => {
   const { data } = useDataContext();
   return (
     <div className='error-fallback' role='alert'>
-      <p>
-        <IvyIcon icon={IvyIcons.Error} />
-        Something went wrong:
-      </p>
-      <pre>{props.error.message}</pre>
-      <p>
-        <IvyIcon icon={IvyIcons.Information} />
-        Data:
-      </p>
-      <pre>{JSON.stringify(data)}</pre>
+      <div className='error-fallback-msg'>
+        <h3>
+          <IvyIcon icon={IvyIcons.Error} />
+          Something went wrong:
+        </h3>
+        <pre>{props.error.message}</pre>
+      </div>
+      <div className='error-fallback-data'>
+        <h5>
+          <IvyIcon icon={IvyIcons.Information} />
+          Data:
+        </h5>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
     </div>
   );
 };

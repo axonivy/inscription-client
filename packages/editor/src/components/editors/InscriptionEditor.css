@@ -1,57 +1,63 @@
-/* Input fields*/
 button {
   all: unset;
 }
-.input {
-  all: unset;
-  border-radius: var(--border-radius);
-  background: var(--input-bg);
-  width: calc(100% - 20px);
-  font-size: 12px;
-  line-height: 1;
-  color: var(--input-color);
-  text-align: start;
-  padding: 10px;
-}
-button:disabled,
-.input:disabled {
+button:disabled {
   opacity: 0.6 !important;
   cursor: not-allowed !important;
 }
-textarea.input {
-  resize: vertical;
-}
-.input:focus {
-  box-shadow: var(--focus-shadow);
-}
 
 .editor {
-  padding: 1rem;
   color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+  padding-bottom: var(--size-3);
 }
 
 /* Header */
 .header {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
+  line-height: 24px;
+  background-color: var(--editor-header-bg);
+  padding: var(--size-3) var(--size-4);
 }
-.header-title {
+.header-left {
+  display: flex;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-size: 14px;
+}
+.header-left .ivy {
+  font-size: 1.5rem;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 12px;
+}
+.header-right .header-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.header-right .header-search .ivy {
+  font-size: 14px;
+}
+
+.header-messages {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-}
-.header-editor {
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 24px;
+  padding: 0 var(--size-4);
 }
 .header-status {
-  padding-top: 0.5rem;
+  padding: var(--size-1);
   font-weight: 400;
   font-size: 12px;
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: var(--size-1);
 }
 .header-status.message-error {
   color: var(--error-color);
@@ -59,15 +65,7 @@ textarea.input {
 .header-status.message-warning {
   color: var(--warning-color);
 }
-.header .ivy {
-  font-size: 1.5rem;
-}
 
-/* Separator */
-.separator-root {
-  background-color: var(--seperator-color);
-}
-.separator-root[data-orientation='horizontal'] {
-  height: 1px;
-  width: 100%;
+.content {
+  padding: 0 var(--size-3);
 }
