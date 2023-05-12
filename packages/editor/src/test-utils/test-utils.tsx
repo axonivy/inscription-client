@@ -47,6 +47,8 @@ const ContextHelper = (
     setData: () => {},
     // @ts-ignore
     defaultData: props.defaultData ? deepmerge(DEFAULT_DATA.config, props.defaultData) : DEFAULT_DATA.config,
+    // @ts-ignore
+    initData: props.data ? deepmerge(DEFAULT_DATA, props.data) : DEFAULT_DATA,
     validation: props.validation ?? []
   };
   const client: ClientContext = {

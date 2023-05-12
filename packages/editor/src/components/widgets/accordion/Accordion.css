@@ -15,6 +15,7 @@
   align-items: center;
   gap: var(--size-1);
   padding: var(--size-3);
+  height: 20px;
 }
 .accordion-header .ivy-angle-down {
   transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
@@ -53,6 +54,9 @@
 }
 .accordion-trigger .tab-state[data-state='configured'] {
   background-color: var(--info-color);
+}
+.accordion-trigger .tab-state[data-state='configured'][data-dirty='true'] {
+  background-color: var(--success-color);
 }
 .accordion-trigger .tab-state[data-state='warning'] {
   background-color: var(--warning-color);

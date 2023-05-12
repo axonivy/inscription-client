@@ -69,7 +69,15 @@ function App(props: AppProps) {
             type: appState.initialData.type ?? DEFAULT_EDITOR_CONTEXT.type
           }}
         >
-          <DataContextInstance.Provider value={{ data, setData: updateData, defaultData: appState.initialData.defaults, validation }}>
+          <DataContextInstance.Provider
+            value={{
+              data,
+              setData: updateData,
+              defaultData: appState.initialData.defaults,
+              initData: appState.initialData.data,
+              validation
+            }}
+          >
             {inscriptionEditor(appState.initialData.type.id)}
           </DataContextInstance.Provider>
         </EditorContextInstance.Provider>

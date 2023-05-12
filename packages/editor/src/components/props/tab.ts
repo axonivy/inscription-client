@@ -8,6 +8,7 @@ export interface TabProps {
   name: string;
   content: ReactNode;
   state?: TabState;
+  reset?: { dirty: boolean; action: () => void };
 }
 
 export function useTabState(defaultData: any, data: any, messages: Message[]): TabState {
@@ -20,4 +21,10 @@ export function useTabState(defaultData: any, data: any, messages: Message[]): T
     }
     return deepEqual(data, defaultData) ? 'empty' : 'configured';
   }, [messages, data, defaultData]);
+}
+
+export function useTabDirty(initData: any, data: any): boolean {
+  return useMemo<boolean>(() => {
+    return !deepEqual(data, initData);
+  }, [data, initData]);
 }

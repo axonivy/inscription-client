@@ -6,11 +6,12 @@ import Button from '../button/Button';
 import IvyIcon from '../IvyIcon';
 import { Message } from '../../../components/props';
 import { LabelProps } from '@radix-ui/react-label';
+import { deepEqual } from '../../../utils/equals';
 
 export interface FieldsetControl {
   label: string;
   icon: IvyIcons;
-  active: boolean;
+  active?: boolean;
   action: () => void;
 }
 
@@ -21,8 +22,15 @@ export const ResetControl: FieldsetControl = {
   action: () => {}
 };
 
+export type FieldsetReset = {
+  data: any;
+  initData: any;
+  resetData: () => void;
+};
+
 export type FieldsetProps = LabelProps & {
   label: string;
+  reset?: FieldsetReset;
   controls?: FieldsetControl[];
   message?: Message;
 };
@@ -45,6 +53,9 @@ const Fieldset = (props: FieldsetProps) => {
               data-state={control.active ? 'active' : 'inactive'}
             />
           ))}
+          {props.reset && !deepEqual(props.reset.data, props.reset.initData) && (
+            <Button icon={IvyIcons.Undo} aria-label='Reset' className='fieldset-control-button' onClick={props.reset.resetData} />
+          )}
         </div>
       </div>
       {props.children}

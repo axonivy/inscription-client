@@ -7,18 +7,18 @@ import Button from '../button/Button';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../error/ErrorFallback';
 
-export const TabAccordion = (props: { tabs: TabProps[] }) => {
+export const Accordion = (props: { tabs: TabProps[] }) => {
   return (
     <Root type='multiple' className='accordion-root'>
       {props.tabs.map((tab, index) => (
         <Item key={`${index}-${tab.name}`} value={tab.name} className='accordion-item'>
           <Header className='accordion-header'>
             <Trigger className='accordion-trigger'>
-              <span className='tab-state' data-state={tab.state} aria-label={tab.state} />
+              <span className='tab-state' data-state={tab.state} data-dirty={tab.reset?.dirty ?? 'false'} />
               {tab.name}
             </Trigger>
             <div className='accordion-header-group'>
-              {tab.state === 'configured' && <Button icon={IvyIcons.Undo} />}
+              {tab.reset?.dirty && <Button icon={IvyIcons.Undo} onClick={tab.reset.action} aria-label={`Reset ${tab.name}`} />}
               <IvyIcon icon={IvyIcons.AngleDown} />
             </div>
           </Header>

@@ -17,6 +17,6 @@
 .responsible-select .select-input .fieldset-column {
   gap: 0;
 }
-.responsible-select .select-input .fieldset-column .label {
+.responsible-select .select-input .fieldset-column .fieldset-label {
   display: none;
 }
