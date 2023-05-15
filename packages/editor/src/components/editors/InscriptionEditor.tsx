@@ -8,7 +8,7 @@ import { gatewayEditors } from './gateway/all-gateway-editors';
 import { IvyIcon, Accordion } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { TabProps } from '../props';
+import { PartProps } from '../props';
 import Button from '../widgets/button/Button';
 
 const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors]);
@@ -22,7 +22,7 @@ export const inscriptionEditor = (type?: ElementType): ReactNode => {
 
 export interface EditorProps {
   icon: IvyIcons;
-  tabs: TabProps[];
+  parts: PartProps[];
 }
 
 const Header = (props: EditorProps) => {

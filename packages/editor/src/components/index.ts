@@ -1,3 +1,3 @@
 export * from './props';
-export * from './tabs';
+export * from './parts';
 export * from './widgets';

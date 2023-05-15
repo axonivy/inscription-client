@@ -45,23 +45,23 @@
 .accordion-trigger:focus {
   box-shadow: var(--focus-shadow);
 }
-.accordion-trigger .tab-state {
+.accordion-trigger .accordion-state {
   height: 0.5rem;
   width: 0.5rem;
   border-radius: 0.5rem;
   margin-right: 0.25rem;
   background-color: var(--button-color);
 }
-.accordion-trigger .tab-state[data-state='configured'] {
+.accordion-trigger .accordion-state[data-state='configured'] {
   background-color: var(--info-color);
 }
-.accordion-trigger .tab-state[data-state='configured'][data-dirty='true'] {
+.accordion-trigger .accordion-state[data-state='configured'][data-dirty='true'] {
   background-color: var(--success-color);
 }
-.accordion-trigger .tab-state[data-state='warning'] {
+.accordion-trigger .accordion-state[data-state='warning'] {
   background-color: var(--warning-color);
 }
-.accordion-trigger .tab-state[data-state='error'] {
+.accordion-trigger .accordion-state[data-state='error'] {
   background-color: var(--error-color);
 }
 .accordion-content {

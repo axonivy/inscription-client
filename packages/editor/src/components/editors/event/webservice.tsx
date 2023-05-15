@@ -1,14 +1,14 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
-import { useCaseTab, useNameTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
+import { useCasePart, useNamePart } from '../../../components/parts';
 
 const WebserviceStartEditor = memo(() => {
-  const nameTab = useNameTab();
-  const caseTab = useCaseTab();
-  return <InscriptionEditor icon={IvyIcons.WebService} tabs={[nameTab, caseTab]} />;
+  const namePart = useNamePart();
+  const casePart = useCasePart();
+  return <InscriptionEditor icon={IvyIcons.WebService} parts={[namePart, casePart]} />;
 });
 
 export const webServiceEventEditors = new Map<ElementType, ReactNode>([

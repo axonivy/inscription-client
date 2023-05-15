@@ -1,9 +1,9 @@
-import { TabProps, TabState } from '../../props';
+import { PartProps, PartState } from '../../props';
 import { render, screen, userEvent } from 'test-utils';
 import { Accordion } from './Accordion';
 
 describe('Accoridon', () => {
-  function tabProps(reset?: { dirty: boolean; action: () => void }): TabProps[] {
+  function partProps(reset?: { dirty: boolean; action: () => void }): PartProps[] {
     return [
       { name: 'Name', state: 'empty', content: <h1>Name</h1> },
       { name: 'Call', state: 'warning', content: <h1>Call</h1>, reset },
@@ -14,12 +14,12 @@ describe('Accoridon', () => {
   function renderAccordions(): {
     rerender: () => void;
   } {
-    let tabs: TabProps[];
-    const action = () => (tabs = tabProps());
-    tabs = tabProps({ dirty: true, action });
-    const view = render(<Accordion tabs={tabs} />);
+    let parts: PartProps[];
+    const action = () => (parts = partProps());
+    parts = partProps({ dirty: true, action });
+    const view = render(<Accordion parts={parts} />);
     return {
-      rerender: () => view.rerender(<Accordion tabs={tabs} />)
+      rerender: () => view.rerender(<Accordion parts={parts} />)
     };
   }
 
@@ -32,9 +32,9 @@ describe('Accoridon', () => {
 
   test('accordion show state', () => {
     renderAccordions();
-    assertTabState('Name', 'empty');
-    assertTabState('Call', 'warning');
-    assertTabState('Result', 'error');
+    assertPartState('Name', 'empty');
+    assertPartState('Call', 'warning');
+    assertPartState('Result', 'error');
   });
 
   test('accordion reset data', async () => {
@@ -93,7 +93,7 @@ describe('Accoridon', () => {
     expect(screen.getByRole('button', { name: accordionName })).toHaveAttribute('aria-expanded', `${expanded}`);
   }
 
-  function assertTabState(accordionName: string, state: TabState) {
+  function assertPartState(accordionName: string, state: PartState) {
     expect(screen.getByRole('button', { name: accordionName }).children[0]).toHaveAttribute('data-state', state);
   }
 

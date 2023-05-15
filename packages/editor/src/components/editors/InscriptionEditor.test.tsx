@@ -1,5 +1,5 @@
 import InscriptionEditor from './InscriptionEditor';
-import { TabProps } from '../props/tab';
+import { PartProps } from '../props/part';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { render, screen, userEvent } from 'test-utils';
@@ -10,12 +10,12 @@ describe('Editor', () => {
   };
 
   function renderEditor(options: { headerState?: InscriptionValidation[] } = {}) {
-    const tabs: TabProps[] = [
+    const parts: PartProps[] = [
       { name: 'Name', content: <h1>Name</h1> },
       { name: 'Call', content: <h1>Call</h1> },
       { name: 'Result', content: <ErrorWidget /> }
     ];
-    render(<InscriptionEditor icon={IvyIcons.Add} tabs={tabs} />, {
+    render(<InscriptionEditor icon={IvyIcons.Add} parts={parts} />, {
       wrapperProps: { validation: options.headerState, editor: { title: 'Test Editor' } }
     });
   }
@@ -47,7 +47,7 @@ describe('Editor', () => {
       console.error = original;
     });
 
-    test('editor tab render error', async () => {
+    test('editor part render error', async () => {
       renderEditor();
       await userEvent.click(screen.getByRole('button', { name: /Result/ }));
       expect(screen.getByRole('alert')).toHaveTextContent('this is an exception');

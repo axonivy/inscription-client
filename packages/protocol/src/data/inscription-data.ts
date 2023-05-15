@@ -1,4 +1,4 @@
-import { CallData, DialogCallData, EndPageData, NameData, OutputData, ProcessCallData } from './tab-data';
+import { CallData, DialogCallData, EndPageData, NameData, OutputData, ProcessCallData } from './part-data';
 import { InscriptionType } from './inscription';
 import { CaseData, TaskData } from './workflow-data';
 

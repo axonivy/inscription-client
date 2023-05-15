@@ -1,54 +1,54 @@
 import { memo, ReactNode } from 'react';
-import {
-  useCaseTab,
-  useCodeTab,
-  useDialogCallTab,
-  useNameTab,
-  useOutputTab,
-  useSubCallTab,
-  useTaskTab,
-  useTriggerCallTab
-} from '../../tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import { ElementType } from '@axonivy/inscription-protocol';
 import NameEditor from '../NameEditor';
 import { IvyIcons } from '@axonivy/editor-icons';
+import {
+  useCasePart,
+  useCodePart,
+  useDialogCallPart,
+  useNamePart,
+  useOutputPart,
+  useSingleTaskPart,
+  useSubCallPart,
+  useTriggerCallPart
+} from '../../../components/parts';
 
 const DialogCallEditor = memo(() => {
-  const nameTab = useNameTab();
-  const callTab = useDialogCallTab();
-  const outputTab = useOutputTab();
-  return <InscriptionEditor icon={IvyIcons.UserDialog} tabs={[nameTab, callTab, outputTab]} />;
+  const name = useNamePart();
+  const call = useDialogCallPart();
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.UserDialog} parts={[name, call, output]} />;
 });
 
 const UserTaskEditor = memo(() => {
-  const nameTab = useNameTab();
-  const callTab = useDialogCallTab();
-  const taskTab = useTaskTab();
-  const caseTab = useCaseTab();
-  const outputTab = useOutputTab();
-  return <InscriptionEditor icon={IvyIcons.UserTask} tabs={[nameTab, taskTab, caseTab, callTab, outputTab]} />;
+  const name = useNamePart();
+  const call = useDialogCallPart();
+  const singleTask = useSingleTaskPart();
+  const casePart = useCasePart();
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.UserTask} parts={[name, singleTask, casePart, call, output]} />;
 });
 
 const ScriptEditor = memo(() => {
-  const nameTab = useNameTab();
-  const outputTab = useOutputTab({ hideCode: true });
-  const codeTab = useCodeTab();
-  return <InscriptionEditor icon={IvyIcons.Script} tabs={[nameTab, outputTab, codeTab]} />;
+  const name = useNamePart();
+  const output = useOutputPart({ hideCode: true });
+  const code = useCodePart();
+  return <InscriptionEditor icon={IvyIcons.Script} parts={[name, output, code]} />;
 });
 
 const SubProcessCallEditor = memo(() => {
-  const nameTab = useNameTab();
-  const callTab = useSubCallTab();
-  const outputTab = useOutputTab();
-  return <InscriptionEditor icon={IvyIcons.Sub} tabs={[nameTab, callTab, outputTab]} />;
+  const name = useNamePart();
+  const call = useSubCallPart();
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.Sub} parts={[name, call, output]} />;
 });
 
 const TriggerEditor = memo(() => {
-  const nameTab = useNameTab();
-  const callTab = useTriggerCallTab();
-  const outputTab = useOutputTab();
-  return <InscriptionEditor icon={IvyIcons.Trigger} tabs={[nameTab, callTab, outputTab]} />;
+  const name = useNamePart();
+  const call = useTriggerCallPart();
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.Trigger} parts={[name, call, output]} />;
 });
 
 export const workflowActivityEditors = new Map<ElementType, ReactNode>([
