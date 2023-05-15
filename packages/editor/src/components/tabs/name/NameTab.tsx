@@ -29,30 +29,20 @@ const NameTab = (props: { hideTags?: boolean }) => {
   const { data, initData, updateName, updateDescription, updateDocs, updateTags } = useNameData();
   const [nameValidation, descriptionValidation] = useNameTabValidation();
 
+  const nameData = { data: data.name, initData: initData.name, updateData: updateName };
+  const descriptionData = { data: data.description, initData: initData.description, updateData: updateDescription };
+  const docsData = { data: data.docs, initData: initData.docs, updateData: updateDocs };
+
   return (
     <>
-      <Fieldset
-        label='Display name'
-        htmlFor='displayName'
-        reset={{ data: data.name, initData: initData.name, resetData: () => updateName(initData.name) }}
-        message={nameValidation}
-      >
-        <Textarea rows={1} id='displayName' value={data.name} onChange={change => updateName(change)} />
+      <Fieldset label='Display name' htmlFor='displayName' data={nameData} message={nameValidation}>
+        <Textarea rows={1} id='displayName' data={nameData} />
       </Fieldset>
-      <Fieldset
-        label='Description'
-        htmlFor='description'
-        reset={{ data: data.description, initData: initData.description, resetData: () => updateDescription(initData.description) }}
-        message={descriptionValidation}
-      >
-        <Textarea rows={2} id='description' value={data.description} onChange={change => updateDescription(change)} />
+      <Fieldset label='Description' htmlFor='description' data={descriptionData} message={descriptionValidation}>
+        <Textarea rows={2} id='description' data={descriptionData} />
       </Fieldset>
-      <Fieldset
-        label='Means / Documents'
-        htmlFor='documents'
-        reset={{ data: data.docs, initData: initData.docs, resetData: () => updateDocs(initData.docs) }}
-      >
-        <DocumentTable data={data.docs ?? []} onChange={updateDocs} />
+      <Fieldset label='Means / Documents' data={docsData}>
+        <DocumentTable data={docsData} />
       </Fieldset>
       {!props.hideTags && (
         <CollapsiblePart collapsibleLabel='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>

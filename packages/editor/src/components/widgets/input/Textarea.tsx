@@ -1,10 +1,10 @@
 import './Input.css';
 import { ComponentProps } from 'react';
 import { useReadonly } from '../../../context';
+import { FieldsetData } from '../fieldset';
 
 export type TextareaProps = Omit<ComponentProps<'textarea'>, 'value' | 'onChange'> & {
-  value?: string;
-  onChange: (change: string) => void;
+  data: FieldsetData<string>;
 };
 
 const Textarea = (props: TextareaProps) => {
@@ -14,8 +14,8 @@ const Textarea = (props: TextareaProps) => {
     <textarea
       {...props}
       className={`input ${props.className ?? ''}`}
-      value={props.value ?? ''}
-      onChange={event => props.onChange(event.target.value)}
+      value={props.data.data ?? ''}
+      onChange={event => props.data.updateData(event.target.value)}
       disabled={readonly}
     />
   );

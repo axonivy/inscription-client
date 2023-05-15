@@ -12,11 +12,11 @@ describe('DocumentTable', () => {
     rerender: () => void;
   } {
     let data: Document[] = [];
-    const view = render(<DocumentTable data={documents} onChange={change => (data = change)} />);
+    const view = render(<DocumentTable data={{ data: documents, initData: [], updateData: change => (data = change) }} />);
     return {
       data: () => data,
       // eslint-disable-next-line testing-library/no-unnecessary-act
-      rerender: () => view.rerender(<DocumentTable data={data} onChange={change => (data = change)} />)
+      rerender: () => view.rerender(<DocumentTable data={{ data: data, initData: [], updateData: change => (data = change) }} />)
     };
   }
 
@@ -72,7 +72,9 @@ describe('DocumentTable', () => {
   });
 
   test('table support readonly mode', async () => {
-    render(<DocumentTable data={documents} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
+    render(<DocumentTable data={{ data: documents, initData: [], updateData: () => {} }} />, {
+      wrapperProps: { editor: { readonly: true } }
+    });
     TableUtil.assertReadonly();
     expect(screen.getByDisplayValue(/Doc 1/)).toBeDisabled();
   });
