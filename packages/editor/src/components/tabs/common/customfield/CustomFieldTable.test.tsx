@@ -28,14 +28,11 @@ describe('CustomFieldTable', () => {
 
   test('table can sort columns', async () => {
     renderTable();
-    const columnHeader = screen.getByRole('button', { name: 'Name' });
+    const columnHeader = screen.getByRole('button', { name: 'Sort by Name' });
     await userEvent.click(columnHeader);
-    const firstHeader = screen.getAllByRole('columnheader')[0];
-    expect(firstHeader).toHaveTextContent('Name 🔼');
     TableUtil.assertRows([/field1/, /number/]);
 
     await userEvent.click(columnHeader);
-    expect(firstHeader).toHaveTextContent('Name 🔽');
     TableUtil.assertRows([/number/, /field1/]);
   });
 

@@ -28,13 +28,11 @@ describe('DocumentTable', () => {
 
   test('table can sort columns', async () => {
     renderTable();
-    const columnHeader = screen.getByRole('button', { name: 'Name' });
+    const columnHeader = screen.getByRole('button', { name: 'Sort by Name' });
     await userEvent.click(columnHeader);
-    TableUtil.assertHeaders(['Name 🔼', 'URL', 'Actions', '']);
     TableUtil.assertRows([/Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/]);
 
     await userEvent.click(columnHeader);
-    TableUtil.assertHeaders(['Name 🔽', 'URL', 'Actions', '']);
     TableUtil.assertRows([/ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/]);
   });
 

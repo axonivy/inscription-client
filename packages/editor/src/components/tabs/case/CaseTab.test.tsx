@@ -1,4 +1,4 @@
-import { render, screen, TableUtil, renderHook } from 'test-utils';
+import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
 import { WfCase, CaseData } from '@axonivy/inscription-protocol';
 import { useCaseTab } from './CaseTab';
 import { TabState } from '../../../components/props';
@@ -22,7 +22,7 @@ describe('CaseTab', () => {
   test('empty data', async () => {
     renderTab();
     await assertMainPart('', '', '');
-    expect(await screen.findByText('► Custom Fields')).toBeInTheDocument();
+    await CollapsableUtil.assertClosed('Custom Fields');
   });
 
   test('full data', async () => {
@@ -37,7 +37,7 @@ describe('CaseTab', () => {
     };
     renderTab(caseData);
     await assertMainPart('name', 'description', 'category');
-    expect(await screen.findByText('▼ Custom Fields')).toBeInTheDocument();
+    await CollapsableUtil.assertOpen('Custom Fields');
     TableUtil.assertRows(['field 123']);
   });
 

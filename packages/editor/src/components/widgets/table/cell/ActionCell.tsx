@@ -1,8 +1,8 @@
 import './ActionCell.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useReadonly } from '../../../../context';
-import IvyIcon from '../../IvyIcon';
 import { TableCell } from './TableCell';
+import Button from '../../button/Button';
 
 interface Action {
   label: string;
@@ -16,9 +16,7 @@ export const ActionCell = (props: { actions: Action[] }) => {
     <TableCell>
       <span className='action-buttons'>
         {props.actions.map((action, index) => (
-          <button key={index} onClick={action.action} disabled={readonly} aria-label={action.label}>
-            <IvyIcon icon={action.icon} />
-          </button>
+          <Button key={index} onClick={action.action} disabled={readonly} aria-label={action.label} icon={action.icon} />
         ))}
       </span>
     </TableCell>

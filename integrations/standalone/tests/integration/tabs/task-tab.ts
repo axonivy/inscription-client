@@ -4,7 +4,7 @@ import { SelectUtil } from '../utils/select-util';
 import { CollapseUtil } from '../utils/collapse-util';
 import { CodeEditorUtil } from '../utils/code-editor-util';
 import { TableUtil } from '../utils/table-util';
-import { TabUtil } from '../../utils/tab-util';
+import { TabUtil } from '../utils/tab-util';
 
 export class TasksTabTester implements TabTest {
   private tasks: { tab: string; test: TabTest }[];

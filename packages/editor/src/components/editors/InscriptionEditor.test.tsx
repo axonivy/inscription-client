@@ -23,7 +23,7 @@ describe('Editor', () => {
   test('editor will render', () => {
     renderEditor();
     expect(screen.getByText(/Test Editor/i)).toBeInTheDocument();
-    expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
+    expect(screen.getByRole('button', { name: 'Name' })).toHaveAttribute('data-state', 'closed');
   });
 
   test('editor show state', () => {
@@ -49,14 +49,9 @@ describe('Editor', () => {
 
     test('editor tab render error', async () => {
       renderEditor();
-      expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
-
-      await userEvent.click(screen.getByRole('tab', { name: /Result/ }));
+      await userEvent.click(screen.getByRole('button', { name: /Result/ }));
       expect(screen.getByRole('alert')).toHaveTextContent('this is an exception');
       expect(console.error).toHaveBeenCalled();
-
-      await userEvent.click(screen.getByRole('tab', { name: /Name/ }));
-      expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
     });
   });
 });

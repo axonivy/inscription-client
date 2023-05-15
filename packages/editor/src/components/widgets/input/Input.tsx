@@ -1,19 +1,23 @@
+import { useReadonly } from '../../../context';
 import './Input.css';
-import { IvyIcons } from '@axonivy/editor-icons';
-import IvyIcon from '../IvyIcon';
+import { ComponentProps } from 'react';
 
-const Input = (props: { value: string; onChange: (value: string) => void; icon?: IvyIcons; placeholder?: string }) => {
+export type InputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange'> & {
+  value?: string;
+  onChange: (change: string) => void;
+};
+
+const Input = (props: InputProps) => {
+  const readonly = useReadonly();
+
   return (
-    <>
-      {props.icon ? (
-        <div className='icon-input'>
-          <IvyIcon icon={props.icon} />
-          <input className='input' value={props.value} onChange={e => props.onChange(e.target.value)} placeholder={props.placeholder} />
-        </div>
-      ) : (
-        <input className='input' value={props.value} onChange={e => props.onChange(e.target.value)} placeholder={props.placeholder} />
-      )}
-    </>
+    <input
+      {...props}
+      className={`input ${props.className ?? ''}`}
+      value={props.value ?? ''}
+      onChange={event => props.onChange(event.target.value)}
+      disabled={readonly}
+    />
   );
 };
 

@@ -1,5 +1,5 @@
 import { TabProps, useTabState } from '../../props';
-import { Checkbox, CodeEditor, LabelInput } from '../../widgets';
+import { Checkbox, CodeEditor, Fieldset } from '../../widgets';
 import { useOutputData } from './useOutputData';
 
 export function useCodeTab(): TabProps {
@@ -13,9 +13,9 @@ const CodeTab = () => {
 
   return (
     <>
-      <LabelInput label='Code' htmlFor='code'>
+      <Fieldset label='Code' htmlFor='code'>
         <CodeEditor code={outputData.output.code} onChange={updateCode} location='output.code' resizable={true} />
-      </LabelInput>
+      </Fieldset>
       <Checkbox label='Disable Permission Checks (Execute this Script Step as SYSTEM)' value={outputData.sudo} onChange={updateSudo} />
     </>
   );

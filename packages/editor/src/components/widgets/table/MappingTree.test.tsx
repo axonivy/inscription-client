@@ -4,15 +4,12 @@ import { render, screen, userEvent } from 'test-utils';
 import MappingTree from './MappingTree';
 
 describe('MappingTree', () => {
-  const COL_ATTRIBUTES = /▶️ Attribute/;
-  const EXP_ATTRIBUTES = /🔽 Attribute/;
-  const COL_PARAMS = /▶️ param.procurementRequest/;
-  const EXP_PARAMS = /🔽 param.procurementRequest/;
+  const ATTRIBUTES = /Attribute/;
+  const PARAMS = /param.procurementRequest/;
   const NODE_PARAMS = /🔵 param.procurementRequest/;
   const NODE_BOOLEAN = /🔵 accepted Boolean/;
   const NODE_NUMBER = /🔵 amount Number/;
-  const COL_USER = /▶️ requester workflow.humantask.User/;
-  const EXP_USER = /🔽 requester workflow.humantask.User/;
+  const USER = /requester workflow.humantask.User/;
   const NODE_STRING = /🔵 email String/;
 
   const mappingInfo: MappingInfo = {
@@ -80,32 +77,32 @@ describe('MappingTree', () => {
 
   test('tree will render', () => {
     renderTree();
-    assertTableHeaders(['🔽 Attribute', 'Type', 'Expression']);
-    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+    assertTableHeaders(['Attribute', 'Type', 'Expression']);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
   });
 
   test('tree will render unknown values', () => {
     renderTree({ bla: 'unknown value' });
-    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER, /⛔ bla unknown value/]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, /⛔ bla unknown value/]);
   });
 
   test('tree can expand / collapse', async () => {
     renderTree();
     const treeExpander = screen.getByRole('button', { name: 'Collapse tree' });
     await userEvent.click(treeExpander);
-    assertTableRows([COL_ATTRIBUTES, COL_PARAMS]);
+    assertTableRows([ATTRIBUTES, PARAMS]);
 
     await userEvent.click(treeExpander);
-    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
   });
 
   test('tree row can expand / collapse', async () => {
     renderTree();
     const rowExpander = screen.getByRole('button', { name: 'Expand row' });
     await userEvent.click(rowExpander);
-    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, EXP_USER, NODE_STRING]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
     await userEvent.click(rowExpander);
-    assertTableRows([COL_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
   });
 
   test('tree can edit expression', async () => {
@@ -131,18 +128,18 @@ describe('MappingTree', () => {
     renderTree();
     expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
     const toggleFilter = screen.getByRole('button', { name: 'Toggle Search' });
-    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
 
     await userEvent.click(toggleFilter);
     const searchInput = screen.getByPlaceholderText('Search');
     expect(searchInput).toHaveValue('');
 
     await userEvent.type(searchInput, 'amo');
-    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_NUMBER]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_NUMBER]);
 
     await userEvent.click(toggleFilter);
     expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
-    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
 
     await userEvent.click(toggleFilter);
     expect(screen.getByPlaceholderText('Search')).toHaveValue('');
@@ -152,13 +149,13 @@ describe('MappingTree', () => {
     renderTree();
     expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
     const toggleInscribed = screen.getByRole('button', { name: 'Toggle Inscribed' });
-    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
 
     await userEvent.click(toggleInscribed);
-    assertTableRows([EXP_ATTRIBUTES, NODE_PARAMS]);
+    assertTableRows([ATTRIBUTES, NODE_PARAMS]);
 
     await userEvent.click(toggleInscribed);
-    assertTableRows([EXP_ATTRIBUTES, EXP_PARAMS, NODE_BOOLEAN, NODE_NUMBER, COL_USER]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
   });
 
   test('tree support readonly mode', async () => {

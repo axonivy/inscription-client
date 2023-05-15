@@ -30,18 +30,18 @@ describe('Select', () => {
     renderSelect();
     const select = screen.getByRole('combobox');
     const selectMenu = screen.getByRole('listbox');
-    expect(select).toHaveTextContent('label↓');
+    expect(select).toHaveTextContent('label');
     expect(selectMenu).toBeEmptyDOMElement();
 
     await userEvent.click(select);
-    expect(select).toHaveTextContent('label↑');
+    expect(select).toHaveTextContent('label');
     expect(selectMenu).not.toBeEmptyDOMElement();
     expect(screen.getAllByRole('option')).toHaveLength(2);
     expect(screen.getByRole('option', { name: 'label' })).toHaveClass('hover', 'selected');
     expect(screen.getByRole('option', { name: 'test' })).not.toHaveClass('hover', 'selected');
 
     await userEvent.click(select);
-    expect(select).toHaveTextContent('label↓');
+    expect(select).toHaveTextContent('label');
     expect(selectMenu).toBeEmptyDOMElement();
   });
 
@@ -63,7 +63,7 @@ describe('Select', () => {
 
   test('select will render message', async () => {
     renderSelect({ message: 'this is a test message', severity: 'error' });
-    expect(screen.getByText('this is a test message')).toHaveClass('input-error');
+    expect(screen.getByText('this is a test message')).toHaveClass('fieldset-error');
   });
 
   test('select can be handled with keyboard', async () => {

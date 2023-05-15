@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.0/process.json",
   "id" : "0169A49845D37011",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.Data"
@@ -13,16 +13,6 @@
       },
       "visual" : {
         "at" : { "x" : 272, "y" : 72 }
-      }
-    }, {
-      "id" : "f3",
-      "type" : "WebPage",
-      "name" : "Web Page",
-      "config" : {
-        "template" : "layouts/basic.xhtml"
-      },
-      "visual" : {
-        "at" : { "x" : 624, "y" : 72 }
       }
     }, {
       "id" : "f4",

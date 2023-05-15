@@ -3,17 +3,23 @@
 }
 .combobox-input {
   display: flex;
-  width: 100%;
 }
-.combobox-button {
+.combobox-input .input {
+  flex: 1 1 auto;
+}
+.combobox-input .combobox-button {
   font-size: 20px;
-  width: 2rem;
-  text-align: center;
-  cursor: pointer;
+  height: unset;
+}
+.combobox-input .combobox-button .ivy-angle-down {
+  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+.combobox-input .combobox-button[aria-expanded='true'] .ivy-angle-down {
+  transform: rotate(180deg);
 }
 .combobox-menu {
   overflow: auto;
-  width: calc(100% - 2rem);
+  width: calc(100% - 24px);
   max-height: 20rem;
   position: absolute;
   list-style: none;

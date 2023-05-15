@@ -2,8 +2,10 @@ import { useCombobox } from 'downshift';
 import { memo, ReactNode, useEffect, useState } from 'react';
 import './Combobox.css';
 import { Message } from '../../props/message';
-import LabelInput from '../label/LabelInput';
 import { useReadonly } from '../../../context';
+import { IvyIcons } from '@axonivy/editor-icons';
+import IvyIcon from '../IvyIcon';
+import { Fieldset } from '../fieldset';
 
 export interface ComboboxItem {
   value: string;
@@ -52,14 +54,14 @@ const Combobox = (props: {
 
   return (
     <div className='combobox'>
-      <LabelInput label={props.label} {...getLabelProps()} message={props.message}>
+      <Fieldset label={props.label} {...getLabelProps()} message={props.message}>
         <div className='combobox-input'>
           <input id='input' placeholder={`Select ${props.label}`} className='input' {...getInputProps()} disabled={readonly} />
-          <button aria-label='toggle menu' className='combobox-button' type='button' {...getToggleButtonProps()} disabled={readonly}>
-            {isOpen ? <>&#8593;</> : <>&#8595;</>}
+          <button aria-label='toggle menu' className='combobox-button button' {...getToggleButtonProps()} disabled={readonly}>
+            <IvyIcon icon={IvyIcons.AngleDown} />
           </button>
         </div>
-      </LabelInput>
+      </Fieldset>
       <ul {...getMenuProps()} className='combobox-menu'>
         {isOpen &&
           items.map((item, index) => (

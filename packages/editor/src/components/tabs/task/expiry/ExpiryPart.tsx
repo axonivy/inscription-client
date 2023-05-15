@@ -1,5 +1,4 @@
-import { CollapsiblePart, LabelInput } from '../../../../components/widgets';
-import { useReadonly } from '../../../../context';
+import { CollapsiblePart, Fieldset, Input } from '../../../../components/widgets';
 import ErrorSelect from './../error/ErrorSelect';
 import PrioritySelect from './../priority/PrioritySelect';
 import ResponsibleSelect from './../responsible/ResponsibleSelect';
@@ -8,19 +7,12 @@ import { useExpiryData } from './useExpiryData';
 const ExpiryPart = () => {
   const { expiry, updateTimeout, updateError, updateResponsible, updatePriority } = useExpiryData();
   const isTimeout = expiry.timeout.length > 0;
-  const readonly = useReadonly();
 
   return (
     <CollapsiblePart collapsibleLabel='Expiry' defaultOpen={isTimeout}>
-      <LabelInput label='Timeout' htmlFor='timeout'>
-        <input
-          className='input'
-          id='timeout'
-          value={expiry.timeout}
-          onChange={event => updateTimeout(event.target.value)}
-          disabled={readonly}
-        />
-      </LabelInput>
+      <Fieldset label='Timeout' htmlFor='expiryTimeout'>
+        <Input id='expiryTimeout' value={expiry.timeout} onChange={change => updateTimeout(change)} />
+      </Fieldset>
       <>
         {isTimeout && (
           <>

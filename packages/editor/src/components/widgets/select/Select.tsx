@@ -1,9 +1,11 @@
 import './Select.css';
 import { useSelect } from 'downshift';
 import { memo, ReactNode, useEffect, useState } from 'react';
-import LabelInput from '../label/LabelInput';
 import { useReadonly } from '../../../context';
 import { Message } from '../../../components/props';
+import { Fieldset } from '../fieldset';
+import { IvyIcons } from '@axonivy/editor-icons';
+import IvyIcon from '../IvyIcon';
 
 export type SelectItem = {
   label: string;
@@ -34,15 +36,15 @@ const Select = (props: {
 
   return (
     <div className='select'>
-      <LabelInput label={props.label} {...getLabelProps()} message={props.message}>
+      <Fieldset label={props.label} {...getLabelProps()} message={props.message}>
         <div className='select-input'>
           <button aria-label='toggle menu' className='select-button' type='button' {...getToggleButtonProps()} disabled={readonly}>
             <span>{selectedItem ? selectedItem.label : ''}</span>
-            <span>{isOpen ? <>&#8593;</> : <>&#8595;</>}</span>
+            <IvyIcon icon={IvyIcons.AngleDown} />
           </button>
           {props.children}
         </div>
-      </LabelInput>
+      </Fieldset>
       <ul {...getMenuProps()} className='select-menu'>
         {isOpen &&
           props.items.map((item, index) => (

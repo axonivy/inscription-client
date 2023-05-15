@@ -1,5 +1,4 @@
-import { LabelInput } from '../../../components/widgets';
-import { useReadonly } from '../../../context';
+import { Fieldset, Input } from '../../../components/widgets';
 import { TabProps, useTabState } from '../../props';
 import { useEndPageData } from './useEndPageData';
 
@@ -11,18 +10,11 @@ export function useEndPageTab(): TabProps {
 
 const EndPageTab = () => {
   const { data, updatePage } = useEndPageData();
-  const readonly = useReadonly();
   return (
     <>
-      <LabelInput label='Display the following page' htmlFor='endPageInput'>
-        <input
-          id='endPageInput'
-          className='input'
-          value={data.page}
-          onChange={event => updatePage(event.target.value)}
-          disabled={readonly}
-        />
-      </LabelInput>
+      <Fieldset label='Display the following page' htmlFor='endPageInput'>
+        <Input id='endPageInput' value={data.page} onChange={change => updatePage(change)} />
+      </Fieldset>
     </>
   );
 };

@@ -1,0 +1,16 @@
+.button {
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  line-height: 24px;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+}
+.button:hover {
+  cursor: pointer;
+  background-color: var(--button-bg);
+}
+.button:focus {
+  background-color: var(--button-bg);
+  box-shadow: var(--focus-shadow);
+}

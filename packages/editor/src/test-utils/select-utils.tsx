@@ -10,7 +10,7 @@ export namespace SelectUtil {
   }
 
   export async function assertEmpty(label?: string) {
-    await assertValue('↓', label);
+    await assertValue('', label);
   }
 
   export async function assertValue(value: string, label?: string) {

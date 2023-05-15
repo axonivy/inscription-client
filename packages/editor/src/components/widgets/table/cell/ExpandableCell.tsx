@@ -1,3 +1,5 @@
+import { IvyIcons } from '@axonivy/editor-icons';
+import Button from '../../button/Button';
 import './ExpandableCell.css';
 import { CellContext } from '@tanstack/react-table';
 
@@ -15,25 +17,23 @@ export function ExpandableCell<TData>(props: {
     row.toggleExpanded(true);
   };
   return (
-    <div style={{ paddingLeft: `${row.depth}rem` }}>
+    <div className='row-expand' style={{ paddingLeft: `${row.depth}rem` }}>
       {row.getCanExpand() ? (
-        <button
+        <Button
+          icon={IvyIcons.AngleDown}
           className='row-expand-button'
           aria-label={row.getIsExpanded() ? 'Collapse row' : 'Expand row'}
+          data-state={row.getIsExpanded() ? 'expanded' : 'collapsed'}
           {...{ onClick: row.getToggleExpandedHandler() }}
-        >
-          {row.getIsExpanded() ? '🔽' : '▶️'}
-        </button>
+        />
       ) : props.isLoaded === false ? (
-        <button className='row-expand-button' aria-label='Expand row' onClick={onClick}>
-          ▶️
-        </button>
+        <Button icon={IvyIcons.AngleDown} className='row-expand-button' aria-label='Expand row' onClick={onClick} data-state='collapsed' />
       ) : props.isUnknown === true ? (
         '⛔'
       ) : (
         '🔵'
       )}{' '}
-      <span>{props.cell.getValue() as string}</span>
+      <span className='row-expand-label'>{props.cell.getValue() as string}</span>
     </div>
   );
 }

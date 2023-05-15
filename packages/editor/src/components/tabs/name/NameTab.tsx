@@ -1,8 +1,8 @@
-import { useDataContext, useReadonly, useValidation } from '../../../context';
+import { useDataContext, useValidation } from '../../../context';
 import { TabProps, useTabState } from '../../props';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import DocumentTable from './document/DocumentTable';
-import { CollapsiblePart, LabelInput, Tags } from '../../../components/widgets';
+import { CollapsiblePart, Fieldset, ResetControl, Tags, Textarea } from '../../../components/widgets';
 import { useNameData } from './useNameData';
 
 function useNameTabValidation(): InscriptionValidation[] {
@@ -21,33 +21,18 @@ export function useNameTab(options?: { hideTags?: boolean }): TabProps {
 const NameTab = (props: { hideTags?: boolean }) => {
   const { data, updateName, updateDescription, updateDocs, updateTags } = useNameData();
   const [nameValidation, descriptionValidation] = useNameTabValidation();
-  const readonly = useReadonly();
 
   return (
     <>
-      <LabelInput label='Display name' htmlFor='displayName' message={nameValidation}>
-        <textarea
-          rows={1}
-          className='input'
-          id='displayName'
-          value={data.name ?? ''}
-          onChange={event => updateName(event.target.value)}
-          disabled={readonly}
-        />
-      </LabelInput>
-      <LabelInput label='Description' htmlFor='description' message={descriptionValidation}>
-        <textarea
-          rows={2}
-          className='input'
-          id='description'
-          value={data.description ?? ''}
-          onChange={event => updateDescription(event.target.value)}
-          disabled={readonly}
-        />
-      </LabelInput>
-      <LabelInput label='Means / Documents' htmlFor='documents'>
+      <Fieldset label='Display name' htmlFor='displayName' controls={[ResetControl]} message={nameValidation}>
+        <Textarea rows={1} id='displayName' value={data.name} onChange={change => updateName(change)} />
+      </Fieldset>
+      <Fieldset label='Description' htmlFor='description' message={descriptionValidation}>
+        <Textarea rows={2} id='description' value={data.description} onChange={change => updateDescription(change)} />
+      </Fieldset>
+      <Fieldset label='Means / Documents' htmlFor='documents'>
         <DocumentTable data={data.docs ?? []} onChange={updateDocs} />
-      </LabelInput>
+      </Fieldset>
       {!props.hideTags && (
         <CollapsiblePart collapsibleLabel='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>
           <Tags tags={data.tags ?? []} onChange={updateTags} />
