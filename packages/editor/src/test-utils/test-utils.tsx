@@ -1,5 +1,5 @@
 import {
-  DataBeta,
+  ElementData,
   ConfigData,
   DEFAULT_DATA,
   CallableStart,
@@ -22,7 +22,7 @@ import {
 } from '../context';
 
 type ContextHelperProps = {
-  data?: DeepPartial<DataBeta>;
+  data?: DeepPartial<ElementData>;
   defaultData?: DeepPartial<ConfigData>;
   validation?: InscriptionValidation[];
   meta?: {

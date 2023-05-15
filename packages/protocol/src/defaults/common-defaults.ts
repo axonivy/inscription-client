@@ -1,4 +1,4 @@
-import { CallData, DataBeta, DialogCallData, Document, ElementScript, EndPageData, NameData, ProcessCallData } from '../data';
+import { CallData, ElementData, DialogCallData, Document, ElementScript, EndPageData, NameData, ProcessCallData } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
 export const DEFAULT_NAME_DATA: NameData = {
@@ -29,7 +29,7 @@ export const DEFAULT_END_PAGE_DATA: EndPageData = {
   page: ''
 };
 
-export const DEFAULT_DATA: DataBeta = {
+export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
     ...DEFAULT_CALL_DATA,
