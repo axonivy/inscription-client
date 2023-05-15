@@ -1,13 +1,13 @@
 import { Message } from '../../props/message';
-import Fieldset, { FieldsetReset } from './Fieldset';
+import Fieldset, { FieldsetData } from './Fieldset';
 import { render, screen, userEvent } from 'test-utils';
 import { FieldsetControl } from './Fieldset';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 describe('Fieldset', () => {
-  function renderFieldset(options?: { controls?: FieldsetControl[]; reset?: FieldsetReset; message?: Message }) {
+  function renderFieldset(options?: { controls?: FieldsetControl[]; data?: FieldsetData<string>; message?: Message }) {
     render(
-      <Fieldset label='Test Label' htmlFor='input' controls={options?.controls} reset={options?.reset} message={options?.message}>
+      <Fieldset label='Test Label' htmlFor='input' controls={options?.controls} data={options?.data} message={options?.message}>
         <input id='input' />
       </Fieldset>
     );
@@ -33,10 +33,10 @@ describe('Fieldset', () => {
   test('fieldset reset button', async () => {
     let resetTrigger = false;
     const resetData = () => (resetTrigger = true);
-    renderFieldset({ reset: { data: 'value', initData: 'value', resetData } });
+    renderFieldset({ data: { data: 'value', initData: 'value', updateData: resetData } });
     expect(screen.queryByRole('button', { name: 'Reset' })).not.toBeInTheDocument();
 
-    renderFieldset({ reset: { data: 'value', initData: '', resetData } });
+    renderFieldset({ data: { data: 'value', initData: '', updateData: resetData } });
     const resetBtn = screen.getByRole('button', { name: 'Reset' });
     expect(resetBtn).toBeInTheDocument();
     await userEvent.click(resetBtn);
