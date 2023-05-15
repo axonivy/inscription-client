@@ -5,7 +5,7 @@ const fs = require('fs');
 const tsGen = require('json-schema-to-typescript');
 
 const tsOut = './src/data/inscription.ts';
-var schemaUri = 'https://json-schema.ivyteam.ch/process/11.1.26/inscription.json';
+var schemaUri = 'https://json-schema.ivyteam.ch/process/11.2.1/inscription.json';
 
 const args = process.argv.slice(2);
 if (args.length > 0) {
