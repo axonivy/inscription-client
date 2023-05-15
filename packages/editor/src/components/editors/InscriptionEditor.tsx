@@ -5,7 +5,7 @@ import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { IvyIcon, TabAccordion } from '../widgets';
+import { IvyIcon, Accordion } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { TabProps } from '../props';
@@ -62,7 +62,7 @@ const InscriptionEditor = (props: EditorProps) => {
     <div className='editor'>
       <Header {...props} />
       <div className='content'>
-        <TabAccordion {...props} />
+        <Accordion {...props} />
       </div>
     </div>
   );

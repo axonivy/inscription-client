@@ -7,6 +7,7 @@ export interface DataContext {
   data: DataBeta;
   setData: UpdateConsumer<DataBeta>;
   defaultData: ConfigData;
+  initData: DataBeta;
   validation: InscriptionValidation[];
 }
 

@@ -6,12 +6,14 @@ import { Consumer } from '../../../types/lambda';
 
 export function useNameData(): {
   data: NameData;
+  initData: NameData;
   updateName: Consumer<string>;
   updateDescription: Consumer<string>;
   updateDocs: Consumer<Document[]>;
   updateTags: Consumer<string[]>;
+  resetData: () => void;
 } {
-  const { data, setData } = useDataContext();
+  const { data, initData, setData } = useDataContext();
 
   const updateName = useCallback<Consumer<string>>(
     name =>
@@ -53,5 +55,18 @@ export function useNameData(): {
     [setData]
   );
 
-  return { data, updateName, updateDescription, updateDocs, updateTags };
+  const resetData = useCallback(
+    () =>
+      setData(
+        produce(draft => {
+          draft.name = initData.name;
+          draft.description = initData.description;
+          draft.docs = initData.docs;
+          draft.tags = initData.tags;
+        })
+      ),
+    [setData, initData]
+  );
+
+  return { data, initData, updateName, updateDescription, updateDocs, updateTags, resetData };
 }
