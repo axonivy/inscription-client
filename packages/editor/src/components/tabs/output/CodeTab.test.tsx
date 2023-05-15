@@ -1,7 +1,7 @@
 import { render, screen, renderHook } from 'test-utils';
-import { ElementScript } from '@axonivy/inscription-protocol';
 import { useCodeTab } from './CodeTab';
 import { TabState } from '../../../components/props';
+import { OutputData } from '@axonivy/inscription-protocol';
 
 const Tab = () => {
   const tab = useCodeTab();
@@ -9,7 +9,7 @@ const Tab = () => {
 };
 
 describe('CodeTab', () => {
-  function renderTab(data?: ElementScript) {
+  function renderTab(data?: OutputData) {
     render(<Tab />, { wrapperProps: { data: data && { config: data } } });
   }
 
@@ -29,12 +29,12 @@ describe('CodeTab', () => {
   });
 
   test('full data', async () => {
-    const data: ElementScript = { output: { code: 'code', map: {} }, sudo: true };
+    const data: OutputData = { output: { code: 'code', map: {} }, sudo: true };
     renderTab(data);
     await assertMainPart('code', true);
   });
 
-  function assertState(expectedState: TabState, data?: Partial<ElementScript>) {
+  function assertState(expectedState: TabState, data?: Partial<OutputData>) {
     const { result } = renderHook(() => useCodeTab(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
   }

@@ -1,12 +1,12 @@
 import { useConfigDataContext } from '../../../context';
-import { Mapping, ElementScript } from '@axonivy/inscription-protocol';
+import { Mapping, OutputData } from '@axonivy/inscription-protocol';
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
 
 export function useOutputData(): {
-  outputData: ElementScript;
-  defaultData: ElementScript;
+  outputData: OutputData;
+  defaultData: OutputData;
   updateMap: Consumer<Mapping>;
   updateCode: Consumer<string>;
   updateSudo: Consumer<boolean>;

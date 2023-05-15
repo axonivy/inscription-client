@@ -1,22 +1,23 @@
-import { CallData, DialogCallData, EndPageData, NameData, ProcessCallData } from './tab-data';
-import { ElementScript, InscriptionType } from './inscription';
-import { ElementType } from './inscription-type';
+import { CallData, DialogCallData, EndPageData, NameData, OutputData, ProcessCallData } from './tab-data';
+import { InscriptionType } from './inscription';
 import { CaseData, TaskData } from './workflow-data';
 
-export type ConfigData = CallData & DialogCallData & ProcessCallData & ElementScript & TaskData & CaseData & EndPageData;
+export type ConfigData = CallData & DialogCallData & ProcessCallData & OutputData & TaskData & CaseData & EndPageData;
 
-export type DataBeta = NameData & { config: ConfigData };
+export type ElementData = NameData & { config: ConfigData };
 
 export interface InscriptionData {
   pid: string;
   type: InscriptionType;
   readonly: boolean;
-  data: DataBeta;
+  data: ElementData;
   defaults: ConfigData;
 }
 
 export interface InscriptionSaveData {
   pid: string;
   type: ElementType;
-  data: DataBeta;
+  data: ElementData;
 }
+
+export type ElementType = InscriptionType['id'];
