@@ -35,10 +35,10 @@ export interface Data {
     | ElementDatabase
     | ElementCallSubStart
     | ElementScript
+    | ElementAlternative
     | ElementProgramInterface
     | ElementHtmlDialogStart
     | ElementSplit
-    | ElementWebPage
     | ElementErrorEnd
     | ElementErrorBoundaryEvent
     | ElementHtmlDialogEventStart
@@ -178,6 +178,12 @@ export interface ElementScript {
   output: ScriptMapCode;
   sudo: boolean;
 }
+export interface ElementAlternative {
+  conditions: AlternativeConditions;
+}
+export interface AlternativeConditions {
+  [k: string]: string;
+}
 export interface ElementProgramInterface {
   javaClass: string;
   userConfig: string;
@@ -196,9 +202,6 @@ export interface ElementHtmlDialogStart {
 }
 export interface ElementSplit {
   output: ScriptMapCode;
-}
-export interface ElementWebPage {
-  page: string;
 }
 export interface ElementErrorEnd {
   code: string;
@@ -417,8 +420,8 @@ export interface InscriptionType {
   description: string;
   iconId: string;
   id:
-    | "ServiceBpmnElement"
     | "TaskEndPage"
+    | "ServiceBpmnElement"
     | "TaskSwitchGateway"
     | "ReceiveBpmnElement"
     | "ProcessAnnotation"
@@ -434,10 +437,10 @@ export interface InscriptionType {
     | "HtmlDialogExit"
     | "ScriptBpmnElement"
     | "HtmlDialogStart"
+    | "GenericActivity"
     | "EmbeddedStart"
     | "Split"
     | "WebserviceEnd"
-    | "WebPage"
     | "ErrorEnd"
     | "UserBpmnElement"
     | "RuleBpmnElement"
