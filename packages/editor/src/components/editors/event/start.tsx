@@ -1,30 +1,30 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
-import { useCaseTab, useNameTab, useOutputTab, useStartTab, useTaskTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
+import { useCasePart, useNamePart, useOutputPart, useSingleTaskPart, useStartPart } from '../../../components/parts';
 
 const RequestStartEditor = memo(() => {
-  const nameTab = useNameTab();
-  const startTab = useStartTab();
-  const requestTab = { name: 'Request', content: <h1>Request</h1> };
-  const triggerTab = { name: 'Trigger', content: <h1>Trigger</h1> };
-  const taskTab = useTaskTab({ showPersist: true });
-  const caseTab = useCaseTab();
-  return <InscriptionEditor icon={IvyIcons.Start} tabs={[nameTab, startTab, requestTab, triggerTab, taskTab, caseTab]} />;
+  const name = useNamePart();
+  const start = useStartPart();
+  const request = { name: 'Request', content: <h1>Request</h1> };
+  const trigger = { name: 'Trigger', content: <h1>Trigger</h1> };
+  const singleTask = useSingleTaskPart({ showPersist: true });
+  const casePart = useCasePart();
+  return <InscriptionEditor icon={IvyIcons.Start} parts={[name, start, request, trigger, singleTask, casePart]} />;
 });
 
 const SignalStartEventEditor = memo(() => {
-  const nameTab = useNameTab();
-  const outputTab = useOutputTab();
-  return <InscriptionEditor icon={IvyIcons.Signal} tabs={[nameTab, outputTab]} />;
+  const name = useNamePart();
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.Signal} parts={[name, output]} />;
 });
 
 const ErrorStartEventEditor = memo(() => {
-  const nameTab = useNameTab();
-  const outputTab = useOutputTab();
-  return <InscriptionEditor icon={IvyIcons.ErrorEvent} tabs={[nameTab, outputTab]} />;
+  const name = useNamePart();
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.ErrorEvent} parts={[name, output]} />;
 });
 
 export const startEventEditors = new Map<ElementType, ReactNode>([

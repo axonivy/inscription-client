@@ -1,29 +1,29 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
-import { useCaseTab, useEndPageTab, useNameTab, useOutputTab, useTasksTab } from '../../../components/tabs';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
+import { useCasePart, useEndPagePart, useMultiTasksPart, useNamePart, useOutputPart } from '../../../components/parts';
 
 const AlternativeEditor = memo(() => {
-  const nameTab = useNameTab();
-  const conditionTab = { name: 'Condition', content: <h1>Condition</h1> };
-  return <InscriptionEditor icon={IvyIcons.Alternative} tabs={[nameTab, conditionTab]} />;
+  const name = useNamePart();
+  const condition = { name: 'Condition', content: <h1>Condition</h1> };
+  return <InscriptionEditor icon={IvyIcons.Alternative} parts={[name, condition]} />;
 });
 
 const JoinEditor = memo(() => {
-  const nameTab = useNameTab();
-  const outputTab = useOutputTab();
-  return <InscriptionEditor icon={IvyIcons.Join} tabs={[nameTab, outputTab]} />;
+  const name = useNamePart();
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.Join} parts={[name, output]} />;
 });
 
 const TaskSwitchGatewayEditor = memo(() => {
-  const nameTab = useNameTab();
-  const outputTab = useOutputTab();
-  const tasksTab = useTasksTab();
-  const caseTab = useCaseTab();
-  const endPageTab = useEndPageTab();
-  return <InscriptionEditor icon={IvyIcons.Tasks} tabs={[nameTab, outputTab, tasksTab, caseTab, endPageTab]} />;
+  const name = useNamePart();
+  const output = useOutputPart();
+  const multiTasks = useMultiTasksPart();
+  const casePart = useCasePart();
+  const endPage = useEndPagePart();
+  return <InscriptionEditor icon={IvyIcons.Tasks} parts={[name, output, multiTasks, casePart, endPage]} />;
 });
 
 export const gatewayEditors = new Map<ElementType, ReactNode>([

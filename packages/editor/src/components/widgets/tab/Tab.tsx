@@ -1,9 +1,9 @@
 import './Tab.css';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
-import { TabProps } from '../../../components/props';
+import { PartProps } from '../../../components/props';
 import { ReactNode } from 'react';
 
-export const Tab = (props: { tabs: TabProps[] }) => {
+export const Tab = (props: { tabs: PartProps[] }) => {
   return (
     <TabRoot {...props}>
       <TabList {...props} />
@@ -12,7 +12,7 @@ export const Tab = (props: { tabs: TabProps[] }) => {
   );
 };
 
-export const TabRoot = (props: { tabs: TabProps[]; value?: string; onValueChange?: (value: string) => void; children: ReactNode }) => {
+export const TabRoot = (props: { tabs: PartProps[]; value?: string; onValueChange?: (value: string) => void; children: ReactNode }) => {
   const defaultTab = props.tabs.length > 0 ? props.tabs[0].name : '';
   return (
     <Tabs className='tabs-root' defaultValue={defaultTab} value={props.value} onValueChange={props.onValueChange}>
@@ -21,7 +21,7 @@ export const TabRoot = (props: { tabs: TabProps[]; value?: string; onValueChange
   );
 };
 
-export const TabList = (props: { tabs: TabProps[] }) => {
+export const TabList = (props: { tabs: PartProps[] }) => {
   return (
     <TabsList className='tabs-list'>
       {props.tabs.map((tab, index) => (
@@ -34,7 +34,7 @@ export const TabList = (props: { tabs: TabProps[] }) => {
   );
 };
 
-export const TabContent = (props: { tabs: TabProps[] }) => {
+export const TabContent = (props: { tabs: PartProps[] }) => {
   return (
     <>
       {props.tabs.map((tab, index) => (
