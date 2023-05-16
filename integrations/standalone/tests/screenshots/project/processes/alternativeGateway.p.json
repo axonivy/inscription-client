@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.1/process.json",
   "id" : "16B9DA1B2A591E8C",
   "config" : {
     "data" : "screenshot.project.Order"
@@ -26,12 +26,19 @@
     }, {
       "id" : "f2",
       "type" : "Alternative",
+      "config" : {
+        "conditions" : {
+          "f6" : "in.quantity >= 100",
+          "f7" : "in.quantity >= 50",
+          "f8" : ""
+        }
+      },
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
       "connect" : [
-        { "id" : "f6", "to" : "f4", "condition" : "in.quantity >= 100" },
-        { "id" : "f7", "to" : "f5", "condition" : "in.quantity >= 50" },
+        { "id" : "f6", "to" : "f4" },
+        { "id" : "f7", "to" : "f5" },
         { "id" : "f8", "to" : "f1", "label" : {
             "name" : "Ship immediately",
             "segment" : 0.49
