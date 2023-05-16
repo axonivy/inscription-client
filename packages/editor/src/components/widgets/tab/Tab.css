@@ -39,7 +39,7 @@
 .tabs-trigger[data-state='active'] {
   border: 1px solid #202020;
 }
-.tabs-trigger:focus {
+.tabs-trigger:focus-visible {
   position: relative;
   box-shadow: var(--focus-shadow);
 }

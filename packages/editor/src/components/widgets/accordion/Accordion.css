@@ -42,7 +42,7 @@
 .accordion-trigger:hover {
   cursor: pointer;
 }
-.accordion-trigger:focus {
+.accordion-trigger:focus-visible {
   box-shadow: var(--focus-shadow);
 }
 .accordion-trigger .accordion-state {

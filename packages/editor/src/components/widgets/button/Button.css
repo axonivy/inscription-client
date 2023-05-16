@@ -10,7 +10,7 @@
   cursor: pointer;
   background-color: var(--button-bg);
 }
-.button:focus {
+.button:focus-visible {
   background-color: var(--button-bg);
   box-shadow: var(--focus-shadow);
 }
