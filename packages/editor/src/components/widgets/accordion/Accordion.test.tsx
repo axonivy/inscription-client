@@ -3,98 +3,98 @@ import { render, screen, userEvent } from 'test-utils';
 import { Accordion } from './Accordion';
 
 describe('Accoridon', () => {
-  function partProps(reset?: { dirty: boolean; action: () => void }): PartProps[] {
-    return [
-      { name: 'Name', state: 'empty', content: <h1>Name</h1> },
-      { name: 'Call', state: 'warning', content: <h1>Call</h1>, reset },
-      { name: 'Result', state: 'error', content: <h1>Result</h1> }
-    ];
-  }
+  const namePart: PartProps = { name: 'Name', state: 'empty', content: <h1>Name</h1> };
+  const callPart: PartProps = { name: 'Call', state: 'warning', content: <h1>Call</h1>, reset: { dirty: true, action: () => {} } };
+  const resultPart: PartProps = { name: 'Result', state: 'error', content: <h1>Result</h1>, summary: <span>summary</span> };
 
-  function renderAccordions(): {
+  function renderAccordion(partProps: PartProps): {
+    data: () => PartProps;
     rerender: () => void;
   } {
-    let parts: PartProps[];
-    const action = () => (parts = partProps());
-    parts = partProps({ dirty: true, action });
-    const view = render(<Accordion parts={parts} />);
+    const part = partProps;
+    const view = render(<Accordion part={part} />);
     return {
-      rerender: () => view.rerender(<Accordion parts={parts} />)
+      data: () => part,
+      rerender: () => view.rerender(<Accordion part={part} />)
     };
   }
 
   test('accordion will render', () => {
-    renderAccordions();
+    renderAccordion(namePart);
     assertExpanded('Name', false);
-    assertExpanded('Call', false);
-    assertExpanded('Result', false);
   });
 
   test('accordion show state', () => {
-    renderAccordions();
-    assertPartState('Name', 'empty');
-    assertPartState('Call', 'warning');
-    assertPartState('Result', 'error');
+    renderAccordion(namePart);
+    assertPartState('Name', 'empty', false);
+    renderAccordion(callPart);
+    assertPartState('Call', 'warning', true);
+    renderAccordion(resultPart);
+    assertPartState('Result', 'error', false);
   });
 
   test('accordion reset data', async () => {
-    const view = renderAccordions();
+    let dirty = true;
+    const action = () => (dirty = false);
+    renderAccordion({ ...callPart, reset: { dirty, action } });
     assertDirtyState('Call', true);
 
     await userEvent.click(screen.getByRole('button', { name: 'Reset Call' }));
-    view.rerender();
-    assertDirtyState('Call', false);
+    expect(dirty).toBeFalsy();
   });
 
   test('accordion open section', async () => {
-    renderAccordions();
-    const nameBtn = screen.getByRole('button', { name: 'Name' });
-    const callBtn = screen.getByRole('button', { name: 'Call' });
+    renderAccordion(namePart);
+    const trigger = screen.getByRole('button', { name: 'Name' });
     assertExpanded('Name', false);
-    await userEvent.click(nameBtn);
+    await userEvent.click(trigger);
     assertExpanded('Name', true);
-
-    assertExpanded('Call', false);
-    await userEvent.click(callBtn);
-    assertExpanded('Call', true);
-
-    assertExpanded('Name', true);
-    await userEvent.click(nameBtn);
+    await userEvent.click(trigger);
     assertExpanded('Name', false);
   });
 
-  test('accordion open section by keyboard', async () => {
-    renderAccordions();
+  test('accordion summary section', async () => {
+    renderAccordion(resultPart);
+    const summary = screen.getByRole('region');
+    expect(summary).toHaveAttribute('data-state', 'open');
+    expect(summary).toHaveTextContent('summary');
 
-    const nameBtn = screen.getByRole('button', { name: 'Name' });
-    const callBtn = screen.getByRole('button', { name: 'Call' });
-    const callResetBtn = screen.getByRole('button', { name: 'Reset Call' });
+    await userEvent.click(summary);
+    expect(summary).toHaveAttribute('data-state', 'closed');
+    expect(summary).toBeEmptyDOMElement();
+    const content = screen.getByRole('region');
+    expect(content).toHaveAttribute('data-state', 'open');
+    expect(content).toHaveTextContent('Result');
+  });
+
+  test('accordion open section by keyboard', async () => {
+    renderAccordion(callPart);
+
+    const trigger = screen.getByRole('button', { name: 'Call' });
+    const reset = screen.getByRole('button', { name: 'Reset Call' });
 
     await userEvent.tab();
-    expect(nameBtn).toHaveFocus();
-    assertExpanded('Name', false);
+    expect(trigger).toHaveFocus();
+    assertExpanded('Call', false);
 
     await userEvent.keyboard('[Enter]');
-    assertExpanded('Name', true);
-
-    await userEvent.keyboard('[ArrowDown]');
-    expect(callBtn).toHaveFocus();
+    assertExpanded('Call', true);
 
     await userEvent.tab();
-    expect(callResetBtn).toHaveFocus();
+    expect(reset).toHaveFocus();
 
     await userEvent.tab({ shift: true });
-    await userEvent.keyboard('[ArrowUp]');
     await userEvent.keyboard('[Space]');
-    assertExpanded('Name', false);
+    assertExpanded('Call', false);
   });
 
   function assertExpanded(accordionName: string, expanded: boolean) {
     expect(screen.getByRole('button', { name: accordionName })).toHaveAttribute('aria-expanded', `${expanded}`);
   }
 
-  function assertPartState(accordionName: string, state: PartState) {
+  function assertPartState(accordionName: string, state: PartState, dirty: boolean) {
     expect(screen.getByRole('button', { name: accordionName }).children[0]).toHaveAttribute('data-state', state);
+    assertDirtyState(accordionName, dirty);
   }
 
   function assertDirtyState(accordionName: string, dirty: boolean) {

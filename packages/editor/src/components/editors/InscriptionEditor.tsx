@@ -62,7 +62,9 @@ const InscriptionEditor = (props: EditorProps) => {
     <div className='editor'>
       <Header {...props} />
       <div className='content'>
-        <Accordion {...props} />
+        {props.parts.map((part, index) => (
+          <Accordion key={`${index}-${part.name}`} part={part} />
+        ))}
       </div>
     </div>
   );
