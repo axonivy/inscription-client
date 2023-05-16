@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.1/process.json",
   "id" : "169A4921D0EF0B91",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.Data"
@@ -43,12 +43,18 @@
       "id" : "f5",
       "type" : "Alternative",
       "name" : "Alternative Gateway",
+      "config" : {
+        "conditions" : {
+          "f18" : "false",
+          "f21" : ""
+        }
+      },
       "visual" : {
         "at" : { "x" : 96, "y" : 96 },
         "labelOffset" : { "x" : 24, "y" : 40 }
       },
       "connect" : [
-        { "id" : "f18", "to" : "f6", "via" : [ { "x" : 160, "y" : 80 } ], "condition" : "false" },
+        { "id" : "f18", "to" : "f6", "via" : [ { "x" : 160, "y" : 80 } ] },
         { "id" : "f21", "to" : "f6", "via" : [ { "x" : 160, "y" : 112 } ] }
       ]
     }, {
