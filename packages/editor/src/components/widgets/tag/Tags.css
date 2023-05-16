@@ -32,8 +32,8 @@
 .tag-add:hover {
   cursor: pointer;
 }
-.tag-remove:focus,
-.tag-add:focus {
+.tag-remove:focus-visible,
+.tag-add:focus-visible {
   box-shadow: var(--focus-shadow);
 }
 
@@ -86,7 +86,7 @@
   cursor: pointer;
   background-color: var(--input-bg);
 }
-.popover-close:focus {
+.popover-close:focus-visible {
   box-shadow: var(--focus-shadow);
 }
 

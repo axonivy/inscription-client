@@ -20,7 +20,7 @@ button {
 .checkbox-root:hover {
   cursor: pointer;
 }
-.checkbox-root:focus {
+.checkbox-root:focus-visible {
   box-shadow: var(--focus-shadow);
 }
 

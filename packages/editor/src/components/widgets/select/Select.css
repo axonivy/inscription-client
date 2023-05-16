@@ -18,7 +18,7 @@
   gap: var(--size-1);
   width: 100%;
 }
-.select-button:focus {
+.select-button:focus-visible {
   box-shadow: var(--focus-shadow);
 }
 .select-button .ivy-angle-down {
@@ -38,7 +38,7 @@
   text-align: start;
   background-color: var(--input-bg);
   padding: 0;
-  margin-block: 2px;
+  margin: 10px 0 0 0;
   z-index: 10;
   box-shadow: var(--editor-shadow);
   top: calc(1em + var(--size-2) + 30px);
