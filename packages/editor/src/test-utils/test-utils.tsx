@@ -111,3 +111,4 @@ export { customRenderHook as renderHook };
 export * from './table-utils';
 export * from './select-utils';
 export * from './collapsible-util';
+export * from './object-util';

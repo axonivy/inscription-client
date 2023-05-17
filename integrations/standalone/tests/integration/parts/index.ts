@@ -7,3 +7,4 @@ export * from './name';
 export * from './output';
 export * from './task';
 export * from './end-page';
+export * from './condition';

@@ -1,4 +1,4 @@
-import { DEFAULT_TASK, NameData } from '@axonivy/inscription-protocol';
+import { DEFAULT_TASK, ElementType, NameData } from '@axonivy/inscription-protocol';
 import { deepmerge } from 'deepmerge-ts';
 
 export namespace DataMock {
@@ -44,4 +44,28 @@ export namespace DataMock {
       tasks: [deepmerge(DEFAULT_TASK, { id: 'TaskA', name: 'TaskA' }), deepmerge(DEFAULT_TASK, { id: 'TaskB', name: 'TaskB' })]
     }
   };
+
+  export const ALTERNATIVE = {
+    ...NAME,
+    config: {
+      conditions: {
+        f1: 'false',
+        f6: ''
+      }
+    }
+  };
+
+  export function mockForType(type: ElementType) {
+    switch (type) {
+      case 'UserTask':
+      case 'DialogCall':
+        return DataMock.USER_TASK;
+      case 'TaskSwitchGateway':
+        return DataMock.TASK_SWITCH_GATEWAY;
+      case 'Alternative':
+        return DataMock.ALTERNATIVE;
+      default:
+        return DataMock.NAME;
+    }
+  }
 }

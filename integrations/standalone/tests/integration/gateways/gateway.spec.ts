@@ -6,7 +6,7 @@ test.describe('Gateways', () => {
   test('Alternative', async ({ page }) => {
     await page.goto(inscriptionView('169A4921D0EF0B91-f5'));
     await expect(page.getByText('Alternative').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest]);
+    await fillReloadAndAssert(page, [NameTest /*, ConditionTest*/]);
   });
 
   test('Join', async ({ page }) => {

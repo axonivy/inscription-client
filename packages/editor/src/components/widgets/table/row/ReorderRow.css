@@ -1,0 +1,11 @@
+.dnd-row.target,
+.dnd-row.target .table-cell {
+  box-shadow: 0px -4px 0px 0px var(--seperator-color);
+}
+.dnd-row-handle {
+  cursor: grab;
+  width: 20px;
+}
+.dnd-row-handle i {
+  display: flex;
+}
