@@ -1,0 +1,10 @@
+.summary-fieldset {
+  display: inline-flex;
+  gap: var(--size-1);
+  font-size: 12px;
+}
+.summary-fieldset-data {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

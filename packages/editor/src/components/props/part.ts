@@ -7,6 +7,7 @@ export type PartState = 'empty' | 'configured' | 'warning' | 'error';
 export interface PartProps {
   name: string;
   content: ReactNode;
+  summary?: ReactNode;
   state?: PartState;
   reset?: { dirty: boolean; action: () => void };
 }

@@ -2,7 +2,7 @@ import { useValidation } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import DocumentTable from './document/DocumentTable';
-import { CollapsiblePart, Fieldset, Tags, Textarea } from '../../widgets';
+import { CollapsiblePart, Fieldset, SummaryFieldset, SummaryTags, Tags, Textarea } from '../../widgets';
 import { useNameData } from './useNameData';
 
 function useNamePartValidation(): InscriptionValidation[] {
@@ -21,7 +21,8 @@ export function useNamePart(options?: { hideTags?: boolean }): PartProps {
     name: 'Name',
     state,
     reset: { dirty, action: () => resetData() },
-    content: <NamePart hideTags={options?.hideTags} />
+    content: <NamePart hideTags={options?.hideTags} />,
+    summary: <NameSummary hideTags={options?.hideTags} />
   };
 }
 
@@ -49,6 +50,17 @@ const NamePart = (props: { hideTags?: boolean }) => {
           <Tags tags={data.tags ?? []} onChange={updateTags} />
         </CollapsiblePart>
       )}
+    </>
+  );
+};
+
+const NameSummary = (props: { hideTags?: boolean }) => {
+  const { data } = useNameData();
+  return (
+    <>
+      <SummaryFieldset data={data.name} weight='bold' />
+      <SummaryFieldset data={data.description} />
+      {!props.hideTags && <SummaryTags tags={data.tags ?? []} />}
     </>
   );
 };

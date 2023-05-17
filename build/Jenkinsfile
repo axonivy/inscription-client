@@ -32,8 +32,10 @@ pipeline {
     stage('Mock Tests') {
       steps {
         script {
-          docker.image('mcr.microsoft.com/playwright:v1.30.0-jammy').inside {
-            sh 'yarn standalone webtest:mock'
+          catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+            docker.image('mcr.microsoft.com/playwright:v1.30.0-jammy').inside {
+              sh 'yarn standalone webtest:mock'
+            }
           }
           archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
           withChecks('Mock WebTest') {
