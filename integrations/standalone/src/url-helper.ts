@@ -1,4 +1,4 @@
-import { ThemeContext } from '@axonivy/inscription-editor';
+import { ThemeMode } from '@axonivy/inscription-editor';
 
 export namespace URLParams {
   export function parameter(key: string): string | undefined {
@@ -14,8 +14,8 @@ export namespace URLParams {
     return `${isSecureConnection() ? 'wss' : 'ws'}://${server()}`;
   }
 
-  export function themeMode(): ThemeContext {
-    return (parameter('theme') as ThemeContext) ?? defaultTheme();
+  export function themeMode(): ThemeMode {
+    return (parameter('theme') as ThemeMode) ?? defaultTheme();
   }
 
   function isSecureConnection(): boolean {
@@ -42,7 +42,7 @@ export namespace URLParams {
     return 'localhost:8081/designer';
   }
 
-  function defaultTheme(): ThemeContext {
+  function defaultTheme(): ThemeMode {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 }

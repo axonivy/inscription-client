@@ -18,7 +18,7 @@ function App(props: AppProps) {
   const [appState, setAppState] = useState<AppState>(waitingState());
   const [validation, setValidation] = useState<InscriptionValidation[]>([]);
   const client = useClient();
-  const theme = useTheme();
+  const { mode: theme } = useTheme();
 
   const initData = useCallback((newData: InscriptionData) => {
     setAppState(successState(newData));
