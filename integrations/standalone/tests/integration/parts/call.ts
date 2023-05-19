@@ -1,10 +1,10 @@
 import { Page } from '@playwright/test';
-import { TabTest } from './tab-tester';
+import { PartTest } from './part-tester';
 import { TableUtil } from '../utils/table-util';
 import { ComboboxUtil } from '../utils/combobox-util';
 import { CodeEditorUtil } from '../utils/code-editor-util';
 
-export class CallTabTester implements TabTest {
+export class CallTester implements PartTest {
   constructor(
     private readonly tabLabel: string,
     private readonly selectLabel: string,
@@ -12,7 +12,7 @@ export class CallTabTester implements TabTest {
     private readonly assertSelectValue: string
   ) {}
 
-  tabName() {
+  partName() {
     return this.tabLabel;
   }
   async fill(page: Page) {
@@ -38,19 +38,19 @@ export class CallTabTester implements TabTest {
   }
 }
 
-export const DialogCallTabTest = new CallTabTester(
+export const DialogCallTest = new CallTester(
   'Call',
   'Dialog',
   'PaymentRegistration',
   'ch.ivyteam.wf.PaymentRegistration:start(ch.ivyteam.test.Person)'
 );
-export const SubCallTabTest = new CallTabTester(
+export const SubCallTest = new CallTester(
   'Process call',
   'Process start',
   'AllElementsInscribedSubProcess',
   'AllElements/Inscribed/AllElementsInscribedSubProcess:call(String,Integer,String,Double)'
 );
-export const TriggerCallTabTest = new CallTabTester(
+export const TriggerCallTest = new CallTester(
   'Trigger',
   'Process start',
   'AllElementsInscribedProcess',

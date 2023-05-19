@@ -1,9 +1,9 @@
 import { expect, Page } from '@playwright/test';
-import { TabTest } from './tab-tester';
+import { PartTest } from './part-tester';
 import { CodeEditorUtil } from '../utils/code-editor-util';
 
-export const CodeTabTest: TabTest = {
-  tabName: () => 'Code',
+export const CodeTest: PartTest = {
+  partName: () => 'Code',
   fill: async (page: Page) => {
     await CodeEditorUtil.fill(page, 'ivy.log.info("hi");');
     await page.getByRole('checkbox').check();

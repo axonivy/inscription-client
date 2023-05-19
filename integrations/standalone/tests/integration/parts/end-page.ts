@@ -1,8 +1,8 @@
 import { Page, expect } from '@playwright/test';
-import { TabTest } from './tab-tester';
+import { PartTest } from './part-tester';
 
-export class EndPageTabTester implements TabTest {
-  tabName() {
+export class EndPageTester implements PartTest {
+  partName() {
     return 'End Page';
   }
   async fill(page: Page) {
@@ -19,4 +19,4 @@ export class EndPageTabTester implements TabTest {
   }
 }
 
-export const EndPageTabTest = new EndPageTabTester();
+export const EndPageTest = new EndPageTester();
