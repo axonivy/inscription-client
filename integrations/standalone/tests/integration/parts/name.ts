@@ -1,12 +1,12 @@
 import { Page, expect } from '@playwright/test';
-import { TabTest } from './tab-tester';
+import { PartTest } from './part-tester';
 import { TagUtil } from '../utils/tag-util';
 import { TableUtil } from '../utils/table-util';
 
-export class NameTabTester implements TabTest {
+export class NameTester implements PartTest {
   constructor(private readonly hasTags: boolean = true) {}
 
-  tabName() {
+  partName() {
     return 'Name';
   }
   async fill(page: Page) {
@@ -44,5 +44,5 @@ export class NameTabTester implements TabTest {
   }
 }
 
-export const NameTabTest = new NameTabTester();
-export const NameTabTestWithoutTags = new NameTabTester(false);
+export const NameTest = new NameTester();
+export const NameTestWithoutTags = new NameTester(false);

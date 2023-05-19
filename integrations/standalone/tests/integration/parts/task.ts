@@ -1,20 +1,20 @@
 import { Page, expect } from '@playwright/test';
-import { TabTest } from './tab-tester';
+import { PartTest } from './part-tester';
 import { SelectUtil } from '../utils/select-util';
 import { CollapseUtil } from '../utils/collapse-util';
 import { CodeEditorUtil } from '../utils/code-editor-util';
 import { TableUtil } from '../utils/table-util';
 import { TabUtil } from '../utils/tab-util';
 
-export class TasksTabTester implements TabTest {
-  private tasks: { tab: string; test: TabTest }[];
+export class TasksTester implements PartTest {
+  private tasks: { tab: string; test: PartTest }[];
   constructor(private readonly error: RegExp = /EventAndGateway/) {
     this.tasks = [
-      { tab: 'TaskA', test: new TaskTabTester({ name: 'task1', error: this.error }) },
-      { tab: 'TaskB', test: new TaskTabTester({ name: 'task2', error: this.error }) }
+      { tab: 'TaskA', test: new TaskTester({ name: 'task1', error: this.error }) },
+      { tab: 'TaskB', test: new TaskTester({ name: 'task2', error: this.error }) }
     ];
   }
-  tabName() {
+  partName() {
     return 'Tasks';
   }
   async fill(page: Page) {
@@ -43,7 +43,7 @@ export class TasksTabTester implements TabTest {
   }
 }
 
-export class TaskTabTester implements TabTest {
+export class TaskTester implements PartTest {
   private name: string = 'test name';
   private error: RegExp = /f8/;
   constructor(options?: { name?: string; error?: RegExp }) {
@@ -55,7 +55,7 @@ export class TaskTabTester implements TabTest {
     }
   }
 
-  tabName() {
+  partName() {
     return 'Task';
   }
   async fill(page: Page) {
@@ -141,6 +141,6 @@ export class TaskTabTester implements TabTest {
   }
 }
 
-export const TaskTabTest = new TaskTabTester();
+export const TaskTest = new TaskTester();
 
-export const TasksTabTest = new TasksTabTester();
+export const TasksTest = new TasksTester();

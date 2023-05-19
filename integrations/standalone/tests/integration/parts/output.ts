@@ -1,12 +1,12 @@
 import { Page } from '@playwright/test';
-import { TabTest } from './tab-tester';
+import { PartTest } from './part-tester';
 import { TableUtil } from '../utils/table-util';
 import { CodeEditorUtil } from '../utils/code-editor-util';
 
-export class OutputTabTester implements TabTest {
+export class OutputTester implements PartTest {
   constructor(private readonly hasCode: boolean = true) {}
 
-  tabName() {
+  partName() {
     return 'Output';
   }
   async fill(page: Page) {
@@ -36,4 +36,4 @@ export class OutputTabTester implements TabTest {
   }
 }
 
-export const OutputTabTest = new OutputTabTester();
+export const OutputTest = new OutputTester();
