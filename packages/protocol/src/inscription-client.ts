@@ -1,5 +1,4 @@
-import { CallableStart, ErrorMeta, InscriptionData, InscriptionSaveData, MappingInfo, RoleMeta } from './data';
-import { InscriptionValidation } from './validation';
+import { CallableStart, ErrorMeta, InscriptionData, InscriptionSaveData, InscriptionValidation, MappingInfo, RoleMeta } from './data';
 
 export interface Event<T> {
   (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;

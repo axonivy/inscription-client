@@ -28,8 +28,8 @@ describe('Editor', () => {
 
   test('editor show state', () => {
     const headerState: InscriptionValidation[] = [
-      { path: '', message: 'this is an error', severity: 'error' },
-      { path: '', message: 'this is an warning', severity: 'warning' }
+      { path: '', message: 'this is an error', severity: 'ERROR' },
+      { path: '', message: 'this is an warning', severity: 'WARNING' }
     ];
     renderEditor({ headerState: headerState });
     expect(screen.getByText(/this is an error/i)).toHaveClass('header-status', 'message-error');

@@ -119,7 +119,7 @@ describe('Combobox', () => {
   });
 
   test('combobox will render message', async () => {
-    renderCombobox('test', { message: { message: 'this is a message', severity: 'error' } });
+    renderCombobox('test', { message: { message: 'this is a message', severity: 'ERROR' } });
     expect(screen.getByText('this is a message')).toHaveClass('fieldset-message', 'fieldset-error');
   });
 

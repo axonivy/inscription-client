@@ -1,6 +1,6 @@
-export type MessageSeverity = 'error' | 'warning' | 'info';
+import { Severity } from '@axonivy/inscription-protocol';
 
 export interface Message {
-  severity: MessageSeverity;
+  severity: Severity;
   message: string;
 }

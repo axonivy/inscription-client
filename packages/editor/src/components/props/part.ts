@@ -14,10 +14,10 @@ export interface PartProps {
 
 export function usePartState(defaultData: any, data: any, messages: Message[]): PartState {
   return useMemo<PartState>(() => {
-    if (messages.find(message => message?.severity === 'error')) {
+    if (messages.find(message => message?.severity === 'ERROR')) {
       return 'error';
     }
-    if (messages.find(message => message?.severity === 'warning')) {
+    if (messages.find(message => message?.severity === 'WARNING')) {
       return 'warning';
     }
     return deepEqual(data, defaultData) ? 'empty' : 'configured';

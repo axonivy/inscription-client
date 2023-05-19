@@ -15,6 +15,7 @@ export type QueryKind = "READ" | "WRITE" | "UPDATE" | "DELETE" | "ANY";
 export type IntermediateEventTimeoutAction = "NOTHING" | "DESTROY_TASK" | "CONTINUE_WITHOUT_EVENT";
 export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | "OPTIONS" | "JAX_RS";
 export type InputType = "ENTITY" | "FORM" | "RAW";
+export type Severity = "INFO" | "WARNING" | "ERROR";
 
 export interface Inscription {
   inscriptionDataArgs: InscriptionDataArgs;
@@ -493,7 +494,7 @@ export interface InscriptionSaveRequest {
 export interface InscriptionValidation {
   message: string;
   path: string;
-  severity: string;
+  severity: Severity;
 }
 export interface CallableStart {
   callParameter: MappingInfo;

@@ -20,13 +20,13 @@ describe('Fieldset', () => {
   });
 
   test('fieldset will render message', () => {
-    renderFieldset({ message: { message: 'this is a error', severity: 'error' } });
+    renderFieldset({ message: { message: 'this is a error', severity: 'ERROR' } });
     expect(screen.getByText('this is a error')).toHaveClass('fieldset-message', 'fieldset-error');
 
-    renderFieldset({ message: { message: 'this is a warning', severity: 'warning' } });
+    renderFieldset({ message: { message: 'this is a warning', severity: 'WARNING' } });
     expect(screen.getByText('this is a warning')).toHaveClass('fieldset-message', 'fieldset-warning');
 
-    renderFieldset({ message: { message: 'this is a info', severity: 'info' } });
+    renderFieldset({ message: { message: 'this is a info', severity: 'INFO' } });
     expect(screen.getByText('this is a info')).toHaveClass('fieldset-message', 'fieldset-info');
   });
 
