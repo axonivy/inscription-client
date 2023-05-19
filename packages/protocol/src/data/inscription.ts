@@ -17,8 +17,20 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | 
 export type InputType = "ENTITY" | "FORM" | "RAW";
 
 export interface Inscription {
-  data: InscriptionRequest;
-  meta: Metas;
+  inscriptionDataArgs: InscriptionDataArgs;
+  inscriptionRequest: InscriptionRequest;
+  boolean: boolean;
+  inscriptionSaveRequest: InscriptionSaveRequest;
+  inscriptionValidation: InscriptionValidation[];
+  callableStart: CallableStart[];
+  mappingInfo: MappingInfo;
+  errorMeta: ErrorMeta[];
+  roleMeta: RoleMeta[];
+  connectorRef: ConnectorRef;
+  [k: string]: unknown;
+}
+export interface InscriptionDataArgs {
+  pid: string;
 }
 export interface InscriptionRequest {
   data: Data;
@@ -474,18 +486,14 @@ export interface InscriptionType {
   label: string;
   shortLabel: string;
 }
-export interface Metas {
-  error: ErrorMeta;
-  role: RoleMeta;
-  start: CallableStart;
+export interface InscriptionSaveRequest {
+  data: Data;
+  pid: string;
 }
-export interface ErrorMeta {
-  id: string;
-  label: string;
-}
-export interface RoleMeta {
-  id: string;
-  label: string;
+export interface InscriptionValidation {
+  message: string;
+  path: string;
+  severity: string;
 }
 export interface CallableStart {
   callParameter: MappingInfo;
@@ -507,4 +515,23 @@ export interface Variable {
   attribute: string;
   simpleType: string;
   type: string;
+}
+export interface ErrorMeta {
+  id: string;
+  label: string;
+}
+export interface RoleMeta {
+  id: string;
+  label: string;
+}
+export interface ConnectorRef {
+  name: string;
+  pid: string;
+  source: NodeRef;
+  target: NodeRef;
+}
+export interface NodeRef {
+  name: string;
+  pid: string;
+  type: InscriptionType;
 }
