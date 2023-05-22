@@ -1,5 +1,5 @@
 import { EditableCell, ReorderRow, Table, TableCell, TableHeader } from '../../widgets';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Condition } from './condition';
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 
@@ -11,9 +11,12 @@ const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
 };
 
 const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (change: Condition[]) => void }) => {
-  const updateOrder = (moveId: string, targetId: string) => {
-    onChange(Condition.move(data, moveId, targetId));
-  };
+  const updateOrder = useCallback(
+    (moveId: string, targetId: string) => {
+      onChange(Condition.move(data, moveId, targetId));
+    },
+    [data, onChange]
+  );
 
   const columns = useMemo<ColumnDef<Condition>[]>(
     () => [

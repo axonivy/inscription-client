@@ -14,11 +14,12 @@ export function useConditionPart(): PartProps {
 
 const ConditionPart = () => {
   const { conditionData, updateCondition } = useConditionData();
-  const [conditions, setConditions] = useState(Condition.of(conditionData.conditions));
+  const [conditions, setConditions] = useState<Condition[]>([]);
 
   const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
+    setConditions(Condition.of(conditionData.conditions));
     Object.keys(conditionData.conditions).forEach(fid => {
       const pid = PID.createChild(PID.processId(editorContext.pid), fid);
       client.connectorOf(pid).then(data => setConditions(conds => Condition.replace(conds, fid, data)));

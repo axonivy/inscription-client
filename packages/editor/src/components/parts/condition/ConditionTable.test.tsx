@@ -29,9 +29,12 @@ describe('ConditionTable', () => {
     expect(screen.getByDisplayValue('in.accepted == false')).toHaveFocus();
     await userEvent.keyboard('true');
     await userEvent.tab();
+    await userEvent.keyboard('test');
+    await userEvent.tab();
 
     const expectConditions = [...conditions];
     expectConditions[0].expression = 'true';
+    expectConditions[1].expression = 'test';
     expect(view.data()).toEqual(expectConditions);
   });
 });
