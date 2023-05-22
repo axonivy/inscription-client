@@ -12,15 +12,19 @@ import {
   SortingState,
   useReactTable
 } from '@tanstack/react-table';
-import { ExpandableCell } from './cell/ExpandableCell';
-import { Table } from './table/Table';
 import { MappingTreeData } from './mapping-tree-data';
-import { ExpandableHeader, TableHeader } from './header/TableHeader';
-import { TableCell } from './cell/TableCell';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { CodeEditorCell } from './cell/CodeEditorCell';
-import { Fieldset, FieldsetControl } from '../fieldset';
-import IconInput from '../input/IconInput';
+import {
+  CodeEditorCell,
+  ExpandableCell,
+  ExpandableHeader,
+  Fieldset,
+  FieldsetControl,
+  IconInput,
+  Table,
+  TableCell,
+  TableHeader
+} from '../../../../components/widgets';
 
 const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange: (change: Mapping) => void; location: string }) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);

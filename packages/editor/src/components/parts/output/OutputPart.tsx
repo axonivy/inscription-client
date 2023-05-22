@@ -1,9 +1,10 @@
 import { MappingInfo } from '@axonivy/inscription-protocol';
 import { useEffect, useState } from 'react';
-import { CodeEditor, Fieldset, MappingTree } from '../../widgets';
+import { CodeEditor, Fieldset } from '../../widgets';
 import { useClient, useEditorContext } from '../../../context';
 import { PartProps, usePartState } from '../../props';
 import { useOutputData } from './useOutputData';
+import MappingTree from '../common/mapping-tree/MappingTree';
 
 export function useOutputPart(options?: { hideCode?: boolean }): PartProps {
   const { outputData, defaultData } = useOutputData();
