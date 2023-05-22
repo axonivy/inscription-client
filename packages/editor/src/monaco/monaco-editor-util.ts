@@ -17,7 +17,8 @@ export const MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions 
     "'Droid Sans Mono', 'monospace', monospace, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: 12,
   tabSize: 2,
-  renderWhitespace: 'all'
+  renderWhitespace: 'all',
+  fixedOverflowWidgets: true
 };
 
 export const SINGLE_LINE_MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
