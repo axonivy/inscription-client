@@ -46,7 +46,7 @@ const Header = (props: EditorProps) => {
       {validation.length > 0 && (
         <div className='header-messages'>
           {validation.map((state, index) => (
-            <div key={index} className={`header-status message-${state.severity}`}>
+            <div key={index} className={`header-status message-${state.severity.toLowerCase()}`}>
               <IvyIcon icon={state.severity} />
               {state.message}
             </div>
