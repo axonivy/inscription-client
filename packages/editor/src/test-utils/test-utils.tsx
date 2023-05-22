@@ -6,12 +6,13 @@ import {
   ErrorMeta,
   InscriptionValidation,
   MappingInfo,
-  RoleMeta
+  RoleMeta,
+  ConnectorRef
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
 import { ReactElement, ReactNode } from 'react';
-import { DeepPartial } from '../types/types';
+import { DeepPartial } from './type-util';
 import {
   ClientContext,
   ClientContextInstance,
@@ -20,6 +21,7 @@ import {
   DEFAULT_EDITOR_CONTEXT,
   EditorContextInstance
 } from '../context';
+import { PID } from '../utils/pid';
 
 type ContextHelperProps = {
   data?: DeepPartial<ElementData>;
@@ -32,6 +34,7 @@ type ContextHelperProps = {
     triggerStarts?: CallableStart[];
     callSubStarts?: CallableStart[];
     outMapping?: MappingInfo;
+    connectorOf?: Record<string, DeepPartial<ConnectorRef>>;
   };
   editor?: { title?: string; readonly?: boolean };
 };
@@ -71,6 +74,11 @@ const ContextHelper = (
       },
       outMapping() {
         return Promise.resolve(props.meta?.outMapping ?? { types: {}, variables: [] });
+      },
+      // @ts-ignore
+      connectorOf(pid: string) {
+        const connectorPid = PID.fieldId(pid);
+        return Promise.resolve(props.meta?.connectorOf ? props.meta.connectorOf[connectorPid] : undefined);
       }
     }
   };
@@ -112,3 +120,4 @@ export * from './table-utils';
 export * from './select-utils';
 export * from './collapsible-util';
 export * from './object-util';
+export * from './type-util';

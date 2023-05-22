@@ -1,4 +1,4 @@
-import { CallableStart, ErrorMeta, MappingInfo, RoleMeta } from '@axonivy/inscription-protocol';
+import { CallableStart, ConnectorRef, ErrorMeta, MappingInfo, NodeRef, RoleMeta } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
   const MAP_INFO_TYPES = {
@@ -153,4 +153,24 @@ export namespace MetaMock {
     { label: 'ProcurementRequestParallel -> error:task', id: 'f29' },
     { label: 'ProcurementRequestParallel -> error:task:bla', id: 'f31' }
   ];
+
+  const NODE_OF: NodeRef = {
+    pid: 'some-pid',
+    name: 'Mock Element',
+    type: {
+      id: 'GenericActivity',
+      label: 'Mock Element',
+      shortLabel: 'Element',
+      description: 'This is a mock element',
+      iconId: 'mock icon',
+      impl: ''
+    }
+  };
+
+  export const CONNECTOR_OF: ConnectorRef = {
+    pid: '169A4921D0EF0B91-f21',
+    name: '',
+    source: NODE_OF,
+    target: NODE_OF
+  };
 }
