@@ -11,6 +11,19 @@ export function createWebviewOptions(extensionUri: vscode.Uri): vscode.WebviewOp
   };
 }
 
+export function vsCodeColorThemeToInscriptionMonacoTheme(theme: vscode.ColorTheme): string {
+  switch (theme.kind) {
+    case vscode.ColorThemeKind.Light:
+      return 'vs';
+    case vscode.ColorThemeKind.Dark:
+      return 'axon-input'; // use our custom theme instead of 'vs-dark'
+    case vscode.ColorThemeKind.HighContrastLight:
+      return 'hc-light';
+    case vscode.ColorThemeKind.HighContrast:
+      return 'axon-input'; // use our custom theme instead of 'hc-dark'
+  }
+}
+
 export class InscriptionEditorPanel {
   public static readonly VIEW_TYPE = 'inscriptionEditor';
   public static readonly TITLE = 'Inscription Editor';
@@ -31,6 +44,16 @@ export class InscriptionEditorPanel {
       });
     });
     this.updateWebview();
+
+    this.sendMessageToWebview({
+      command: 'theme',
+      args: { theme: vsCodeColorThemeToInscriptionMonacoTheme(vscode.window.activeColorTheme) }
+    });
+    this.toDispose.push(
+      vscode.window.onDidChangeActiveColorTheme(theme =>
+        this.sendMessageToWebview({ command: 'theme', args: { theme: vsCodeColorThemeToInscriptionMonacoTheme(theme) } })
+      )
+    );
   }
 
   get webview(): vscode.Webview {

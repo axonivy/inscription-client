@@ -15,11 +15,15 @@ interface PidMessage extends Message {
   args: { pid?: string };
 }
 
+interface SetMonacoThemeMessage extends Message {
+  args: { theme: string };
+}
+
 export async function start(): Promise<void> {
-  MonacoEditorUtil.initMonaco();
   // for the demonstration we do not load web workers as their support is not great in web extensions
   // potential work arounds can be found here: https://github.com/microsoft/vscode/issues/87282
   MonacoUtil.initStandalone(false);
+  const reactMonaco = MonacoEditorUtil.initMonaco();
   FormLanguage.startWebSocketClient('ws://localhost:5013');
 
   const root = ReactDOM.createRoot(document.getElementById('root')!);
@@ -29,7 +33,12 @@ export async function start(): Promise<void> {
     const message = event.data;
     switch (message?.command) {
       case 'pid':
-        root.render(render(inscriptionClient, (message as PidMessage).args.pid));
+        const pidMessage = message as PidMessage;
+        root.render(render(inscriptionClient, pidMessage.args.pid));
+        break;
+      case 'theme':
+        const themeMessage = message as SetMonacoThemeMessage;
+        reactMonaco.editor.setTheme(themeMessage.args.theme);
         break;
     }
   });
