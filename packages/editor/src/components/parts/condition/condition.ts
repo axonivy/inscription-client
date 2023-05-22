@@ -1,22 +1,9 @@
-import { AlternativeConditions, InscriptionType } from '@axonivy/inscription-protocol';
-
-export type Element = {
-  pid: string;
-  name: string;
-  type: InscriptionType;
-};
-
-export type FlowData = {
-  pid: string;
-  name: string;
-  source: Element;
-  target: Element;
-};
+import { AlternativeConditions, ConnectorRef, NodeRef } from '@axonivy/inscription-protocol';
 
 export interface Condition {
   fid: string;
   expression: string;
-  target?: Element;
+  target?: NodeRef;
 }
 
 export namespace Condition {
@@ -26,10 +13,13 @@ export namespace Condition {
     });
   }
 
-  export function replace(conditions: Condition[], fid: string, flow: FlowData): Condition[] {
+  export function replace(conditions: Condition[], fid: string, connectorRef: ConnectorRef): Condition[] {
+    if (connectorRef === undefined) {
+      return conditions;
+    }
     return conditions.map(cond => {
       if (cond.fid === fid) {
-        cond.target = flow.target;
+        cond.target = connectorRef.target;
       }
       return cond;
     });

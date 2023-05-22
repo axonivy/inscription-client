@@ -2,7 +2,8 @@ import { PartProps, usePartState } from '../../props';
 import { useConditionData } from './useConditionData';
 import { useClient, useEditorContext } from '../../../context';
 import { useEffect, useState } from 'react';
-import { Condition, Element } from './condition';
+import { Condition } from './condition';
+import { PID } from '../../../utils/pid';
 import ConditionTable from './ConditionTable';
 
 export function useConditionPart(): PartProps {
@@ -19,18 +20,8 @@ const ConditionPart = () => {
   const client = useClient();
   useEffect(() => {
     Object.keys(conditionData.conditions).forEach(fid => {
-      const source: Element = {
-        name: `source ${fid}`,
-        pid: 'source pid',
-        type: { id: 'TaskEnd', impl: 'impl', label: 'label', shortLabel: 'shortlabel', description: 'description', iconId: 'iconid' }
-      };
-      const target: Element = {
-        name: `target ${fid}`,
-        pid: 'target pid',
-        type: { id: 'TaskEnd', impl: 'impl', label: 'label', shortLabel: 'shortlabel', description: 'description', iconId: 'iconid' }
-      };
-      setConditions(conds => Condition.replace(conds, fid, { name: 'name', pid: fid, source, target }));
-      // client.data(pid).then(data => setConditions(conds => Condition.replace(conds, fid, data)));
+      const pid = PID.createChild(PID.processId(editorContext.pid), fid);
+      client.connectorOf(pid).then(data => setConditions(conds => Condition.replace(conds, fid, data)));
     });
   }, [client, conditionData.conditions, editorContext.pid]);
 

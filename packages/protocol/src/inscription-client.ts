@@ -1,4 +1,13 @@
-import { CallableStart, ErrorMeta, InscriptionData, InscriptionSaveData, InscriptionValidation, MappingInfo, RoleMeta } from './data';
+import {
+  CallableStart,
+  ConnectorRef,
+  ErrorMeta,
+  InscriptionData,
+  InscriptionSaveData,
+  InscriptionValidation,
+  MappingInfo,
+  RoleMeta
+} from './data';
 
 export interface Event<T> {
   (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
@@ -20,6 +29,8 @@ export interface InscriptionClient {
   roles(pid: string): Promise<RoleMeta[]>;
   expiryErrors(pid: string): Promise<ErrorMeta[]>;
   outMapping(pid: string): Promise<MappingInfo>;
+
+  connectorOf(pid: string): Promise<ConnectorRef>;
 
   onDataChanged: Event<InscriptionData>;
   onValidation: Event<InscriptionValidation[]>;

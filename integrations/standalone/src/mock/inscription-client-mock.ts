@@ -10,7 +10,8 @@ import {
   MappingInfo,
   RoleMeta,
   ElementType,
-  ElementData
+  ElementData,
+  ConnectorRef
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
@@ -76,5 +77,13 @@ export class InscriptionClientMock implements InscriptionClient {
 
   outMapping(pid: string): Promise<MappingInfo> {
     return Promise.resolve(MetaMock.OUT_MAP_INFO);
+  }
+
+  connectorOf(pid: string): Promise<ConnectorRef> {
+    if (pid.includes('f1')) {
+      return Promise.resolve(MetaMock.CONNECTOR_OF);
+    }
+    //@ts-ignore
+    return Promise.resolve({});
   }
 }

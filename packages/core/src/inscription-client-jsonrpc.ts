@@ -1,5 +1,6 @@
 import {
   CallableStart,
+  ConnectorRef,
   ErrorMeta,
   InscriptionClient,
   InscriptionData,
@@ -63,6 +64,10 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
 
   outMapping(pid: string): Promise<MappingInfo> {
     return this.sendRequest('meta/out/map', { pid });
+  }
+
+  connectorOf(pid: string): Promise<ConnectorRef> {
+    return this.sendRequest('meta/connector/of', { pid });
   }
 
   sendRequest<K extends keyof InscriptionRequestTypes>(

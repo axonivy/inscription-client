@@ -1,5 +1,5 @@
-import { render, TableUtil, renderHook } from 'test-utils';
-import { ConditionData } from '@axonivy/inscription-protocol';
+import { render, TableUtil, renderHook, screen, DeepPartial } from 'test-utils';
+import { ConditionData, ConnectorRef } from '@axonivy/inscription-protocol';
 import { PartState } from '../../props';
 import { useConditionPart } from './ConditionPart';
 
@@ -10,7 +10,11 @@ const Part = () => {
 
 describe('ConditionPart', () => {
   function renderPart(data?: ConditionData) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+    const connectorOf: Record<string, DeepPartial<ConnectorRef>> = {};
+    connectorOf['f1'] = { pid: 'f1', target: { name: 'db', type: { id: 'Database' } } };
+    connectorOf['f6'] = { pid: 'f6', target: { name: 'script', type: { id: 'Script' } } };
+    connectorOf['f8'] = { pid: 'f8', target: { name: 'end', type: { id: 'TaskEnd' } } };
+    render(<Part />, { wrapperProps: { data: data && { config: data }, meta: { connectorOf } } });
   }
 
   async function assertMainPart(map: RegExp[]) {
@@ -31,7 +35,8 @@ describe('ConditionPart', () => {
       }
     };
     renderPart(conditions);
-    await assertMainPart([/f1: TaskEnd in.accepted == false/, /f6: TaskEnd false/, /f8: TaskEnd/]);
+    expect(await screen.findByText(/db: Database/)).toBeInTheDocument();
+    await assertMainPart([/db: Database in.accepted == false/, /script: Script false/, /end: TaskEnd/]);
   });
 
   function assertState(expectedState: PartState, data?: Partial<ConditionData>) {

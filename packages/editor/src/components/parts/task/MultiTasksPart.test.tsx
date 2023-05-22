@@ -1,9 +1,8 @@
-import { render, screen, renderHook, userEvent } from 'test-utils';
+import { render, screen, renderHook, userEvent, DeepPartial } from 'test-utils';
 import { TaskData, DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/inscription-protocol';
 import { PartState } from '../../props';
 import { useMultiTasksPart } from './MultiTasksPart';
 import { deepmerge } from 'deepmerge-ts';
-import { DeepPartial } from '../../../types/types';
 
 const Part = () => {
   const part = useMultiTasksPart();

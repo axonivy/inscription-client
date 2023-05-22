@@ -1,5 +1,5 @@
-import { AlternativeConditions, InscriptionType } from '@axonivy/inscription-protocol';
-import { Condition, FlowData } from './condition';
+import { AlternativeConditions, ConnectorRef, InscriptionType } from '@axonivy/inscription-protocol';
+import { Condition } from './condition';
 import { cloneObject } from 'test-utils';
 
 describe('Condition', () => {
@@ -29,15 +29,21 @@ describe('Condition', () => {
   });
 
   test('replace', () => {
-    const flow: FlowData = {
+    const ref: ConnectorRef = {
       name: 'flow',
       pid: 'f6',
       source: { name: 'alternative', pid: 'f5', type: altType },
       target: { name: 'end', pid: 'f7', type: altType }
     };
     const expected = cloneObject(conditions);
-    expected[1].target = flow.target;
-    expect(Condition.replace(cloneObject(conditions), 'f6', flow)).toEqual(expected);
+    expected[1].target = ref.target;
+    expect(Condition.replace(cloneObject(conditions), 'f6', ref)).toEqual(expected);
+  });
+
+  test('replace - undefined', () => {
+    //@ts-ignore
+    const ref: ConnectorRef = {};
+    expect(Condition.replace(cloneObject(conditions), 'f6', ref)).toEqual(conditions);
   });
 
   test('move', () => {

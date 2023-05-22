@@ -1,8 +1,7 @@
-import { renderHook, screen, render } from 'test-utils';
+import { renderHook, screen, render, DeepPartial } from 'test-utils';
 import { WfTask, TaskData } from '@axonivy/inscription-protocol';
 import { useSingleTaskPart } from './SingleTaskPart';
 import { PartState } from '../../props';
-import { DeepPartial } from '../../../types/types';
 
 const Part = () => {
   const part = useSingleTaskPart();
