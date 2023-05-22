@@ -3,11 +3,11 @@ import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useCasePart, useEndPagePart, useMultiTasksPart, useNamePart, useOutputPart } from '../../../components/parts';
+import { useCasePart, useConditionPart, useEndPagePart, useMultiTasksPart, useNamePart, useOutputPart } from '../../../components/parts';
 
 const AlternativeEditor = memo(() => {
   const name = useNamePart();
-  const condition = { name: 'Condition', content: <h1>Condition</h1> };
+  const condition = useConditionPart();
   return <InscriptionEditor icon={IvyIcons.Alternative} parts={[name, condition]} />;
 });
 

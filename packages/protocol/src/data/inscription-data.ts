@@ -1,8 +1,8 @@
-import { CallData, DialogCallData, EndPageData, NameData, OutputData, ProcessCallData } from './part-data';
+import { CallData, ConditionData, DialogCallData, EndPageData, NameData, OutputData, ProcessCallData } from './part-data';
 import { InscriptionType } from './inscription';
 import { CaseData, TaskData } from './workflow-data';
 
-export type ConfigData = CallData & DialogCallData & ProcessCallData & OutputData & TaskData & CaseData & EndPageData;
+export type ConfigData = CallData & DialogCallData & ProcessCallData & OutputData & TaskData & CaseData & EndPageData & ConditionData;
 
 export type ElementData = NameData & { config: ConfigData };
 

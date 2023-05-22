@@ -5,6 +5,7 @@
 .table {
   width: 100%;
   border-spacing: 0 var(--size-1);
+  margin-block: calc(-1 * var(--size-1));
 }
 .table tr :where(th, td) {
   border-top: 1px solid var(--editor-bg);

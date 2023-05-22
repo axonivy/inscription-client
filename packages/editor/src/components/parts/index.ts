@@ -10,3 +10,4 @@ export * from './call/dialog/DialogCallPart';
 export * from './call/sub/SubCallPart';
 export * from './call/trigger/TriggerCallPart';
 export * from './end-page/EndPagePart';
+export * from './condition/ConditionPart';

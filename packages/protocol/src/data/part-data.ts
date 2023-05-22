@@ -1,4 +1,4 @@
-import { Data, ElementScript, ScriptMapCode } from './inscription';
+import { Data, ElementAlternative, ElementScript, ScriptMapCode } from './inscription';
 
 export type NameData = Omit<Data, 'config'>;
 
@@ -22,3 +22,5 @@ export interface EndPageData {
 }
 
 export type OutputData = ElementScript;
+
+export type ConditionData = ElementAlternative;

@@ -1,5 +1,6 @@
 import { MappingInfo } from '@axonivy/inscription-protocol';
 import { MappingTreeData } from './mapping-tree-data';
+import { cloneObject } from 'test-utils';
 
 describe('MappingTreeData', () => {
   const mappingInfo: MappingInfo = {
@@ -82,17 +83,16 @@ describe('MappingTreeData', () => {
   };
 
   function mappingTreeMultiRootData(): MappingTreeData[] {
-    return JSON.parse(
-      JSON.stringify([
-        ...tree,
-        {
-          attribute: 'dummy',
-          children: [],
-          value: '',
-          type: 'dummyType'
-        }
-      ])
-    );
+    const multiRoot = cloneObject(tree);
+    multiRoot.push({
+      attribute: 'dummy',
+      children: [],
+      isLoaded: true,
+      simpleType: 'dummy',
+      value: '',
+      type: 'dummyType'
+    });
+    return multiRoot;
   }
 
   test('of', () => {
@@ -103,7 +103,7 @@ describe('MappingTreeData', () => {
     const treeData = MappingTreeData.of(mappingInfo);
     MappingTreeData.loadChildrenFor(mappingInfo, 'workflow.humantask.User', treeData);
 
-    const expectTree = JSON.parse(JSON.stringify(tree));
+    const expectTree = cloneObject(tree);
 
     expectTree[0].children[2].isLoaded = true;
     expectTree[0].children[2].children = [email_node];
@@ -151,7 +151,7 @@ describe('MappingTreeData', () => {
 
   test('update', () => {
     const resultTree = mappingTreeMultiRootData();
-    const tree = JSON.parse(JSON.stringify(resultTree));
+    const tree = cloneObject(resultTree);
     MappingTreeData.update(mappingInfo, tree, ['param', 'procurementRequest'], 'in');
     MappingTreeData.update(mappingInfo, tree, ['param', 'procurementRequest', 'amount'], '12');
     MappingTreeData.update(mappingInfo, tree, ['dummy'], 'dummy');
@@ -167,7 +167,7 @@ describe('MappingTreeData', () => {
     const treeData = MappingTreeData.of(mappingInfo);
     MappingTreeData.update(mappingInfo, treeData, ['param', 'procurementRequest', 'requester', 'email'], 'luke@skywalker.com');
 
-    const expectTree = JSON.parse(JSON.stringify(tree));
+    const expectTree = cloneObject(tree);
     expectTree[0].children[2].isLoaded = true;
     expectTree[0].children[2].children = [{ ...email_node, value: 'luke@skywalker.com' }];
 
@@ -180,7 +180,7 @@ describe('MappingTreeData', () => {
     MappingTreeData.update(mappingInfo, treeData, ['param', 'unknown'], 'unknown value');
     MappingTreeData.update(mappingInfo, treeData, ['param', 'unknown', 'deep'], 'unknown deep value');
 
-    const expectTree = JSON.parse(JSON.stringify(tree));
+    const expectTree = cloneObject(tree);
     expectTree[1] = { attribute: 'dummy', children: [], value: 'dummy', type: '', simpleType: '', isLoaded: true };
     expectTree[2] = {
       attribute: 'param.unknown',
@@ -196,7 +196,7 @@ describe('MappingTreeData', () => {
 
   test('update deep', () => {
     const resultTree = mappingTreeMultiRootData();
-    let tree = JSON.parse(JSON.stringify(resultTree));
+    let tree = cloneObject(resultTree);
     tree = MappingTreeData.updateDeep(tree, [0], 'value', 'root');
     tree = MappingTreeData.updateDeep(tree, [0, 1], 'value', '12');
     tree = MappingTreeData.updateDeep(tree, [1], 'value', 'dummy');

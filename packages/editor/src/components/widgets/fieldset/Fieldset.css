@@ -4,9 +4,6 @@
   gap: var(--size-1);
   font-size: 12px;
 }
-.fieldset-column:has(.table) {
-  gap: var(--size-1);
-}
 .fieldset-label {
   display: inline-flex;
   justify-content: space-between;

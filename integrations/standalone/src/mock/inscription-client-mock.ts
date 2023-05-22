@@ -9,7 +9,8 @@ import {
   InscriptionValidation,
   MappingInfo,
   RoleMeta,
-  ElementType
+  ElementType,
+  ElementData
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
@@ -38,13 +39,7 @@ export class InscriptionClientMock implements InscriptionClient {
       description: this.type,
       iconId: this.type
     };
-    let data: any = DataMock.NAME;
-    if (this.type === 'UserTask' || this.type === 'DialogCall') {
-      data = DataMock.USER_TASK;
-    }
-    if (this.type === 'TaskSwitchGateway') {
-      data = DataMock.TASK_SWITCH_GATEWAY;
-    }
+    let data = DataMock.mockForType(this.type) as ElementData;
     this.onValidationEmitter.fire(ValidationMock.validateData({ data, pid, type: inscriptionType.id }));
     return Promise.resolve({
       pid,
