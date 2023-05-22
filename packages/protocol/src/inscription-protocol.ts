@@ -1,6 +1,5 @@
-import { CallableStart, ErrorMeta, MappingInfo, RoleMeta } from './data/inscription';
+import { CallableStart, ErrorMeta, InscriptionValidation, MappingInfo, RoleMeta } from './data/inscription';
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
-import { InscriptionValidation } from './validation/inscription-validation';
 
 export declare module InscriptionProtocol {
   export type InitializeArgs = void;

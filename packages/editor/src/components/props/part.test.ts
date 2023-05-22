@@ -11,15 +11,15 @@ describe('PartState', () => {
   test('states', async () => {
     assertState('empty');
     assertState('configured', { something: 'else' });
-    assertState('configured', { something: 'else' }, [{ severity: 'info', message: '' }]);
+    assertState('configured', { something: 'else' }, [{ severity: 'INFO', message: '' }]);
     assertState('warning', { something: 'else' }, [
-      { severity: 'info', message: '' },
-      { severity: 'warning', message: '' }
+      { severity: 'INFO', message: '' },
+      { severity: 'WARNING', message: '' }
     ]);
     assertState('error', { something: 'else' }, [
-      { severity: 'info', message: '' },
-      { severity: 'warning', message: '' },
-      { severity: 'error', message: '' }
+      { severity: 'INFO', message: '' },
+      { severity: 'WARNING', message: '' },
+      { severity: 'ERROR', message: '' }
     ]);
   });
 });

@@ -66,7 +66,7 @@ const Fieldset = <T,>(props: FieldsetProps<T>) => {
       </div>
       {props.children}
       {props.message && (
-        <div className={`fieldset-message fieldset-${props.message.severity}`}>
+        <div className={`fieldset-message fieldset-${props.message.severity.toLowerCase()}`}>
           <IvyIcon icon={props.message.severity} />
           {props.message.message}
         </div>

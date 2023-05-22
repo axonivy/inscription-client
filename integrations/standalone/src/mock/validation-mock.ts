@@ -21,10 +21,10 @@ export namespace ValidationMock {
   function validateNameData(data: ElementData): InscriptionValidation[] {
     const msgs: InscriptionValidation[] = [];
     if (data.name === undefined || data.name.length === 0) {
-      msgs.push({ path: 'name', severity: 'error', message: 'Display name must not be empty' });
+      msgs.push({ path: 'name', severity: 'ERROR', message: 'Display name must not be empty' });
     }
     if (data.description === undefined || data.description.length === 0) {
-      msgs.push({ path: 'description', severity: 'warning', message: 'Description is empty' });
+      msgs.push({ path: 'description', severity: 'WARNING', message: 'Description is empty' });
     }
     return msgs;
   }
@@ -32,7 +32,7 @@ export namespace ValidationMock {
   function validateCallData(data: ElementData): InscriptionValidation[] {
     const msgs: InscriptionValidation[] = [];
     if (data.config.dialog === undefined || data.config.dialog.length === 0) {
-      msgs.push({ path: 'config/dialog', severity: 'warning', message: 'No User Dialog specified, auto dialog will be shown.' });
+      msgs.push({ path: 'config/dialog', severity: 'WARNING', message: 'No User Dialog specified, auto dialog will be shown.' });
     }
     return msgs;
   }

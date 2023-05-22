@@ -62,7 +62,7 @@ describe('Select', () => {
   });
 
   test('select will render message', async () => {
-    renderSelect({ message: 'this is a test message', severity: 'error' });
+    renderSelect({ message: 'this is a test message', severity: 'ERROR' });
     expect(screen.getByText('this is a test message')).toHaveClass('fieldset-error');
   });
 
