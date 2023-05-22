@@ -155,7 +155,7 @@ export namespace MetaMock {
   ];
 
   const NODE_OF: NodeRef = {
-    pid: 'some-pid',
+    pid: '1',
     name: 'Mock Element',
     type: {
       id: 'GenericActivity',

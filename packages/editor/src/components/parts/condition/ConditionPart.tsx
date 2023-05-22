@@ -20,9 +20,9 @@ const ConditionPart = () => {
   const client = useClient();
   useEffect(() => {
     setConditions(Condition.of(conditionData.conditions));
-    Object.keys(conditionData.conditions).forEach(fid => {
-      const pid = PID.createChild(PID.processId(editorContext.pid), fid);
-      client.connectorOf(pid).then(data => setConditions(conds => Condition.replace(conds, fid, data)));
+    Object.keys(conditionData.conditions).forEach(conditionId => {
+      const pid = PID.createChild(PID.processId(editorContext.pid), conditionId);
+      client.connectorOf(pid).then(data => setConditions(conds => Condition.replace(conds, conditionId, data, editorContext.pid)));
     });
   }, [client, conditionData.conditions, editorContext.pid]);
 

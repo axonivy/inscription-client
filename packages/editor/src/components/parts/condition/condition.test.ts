@@ -37,13 +37,29 @@ describe('Condition', () => {
     };
     const expected = cloneObject(conditions);
     expected[1].target = ref.target;
-    expect(Condition.replace(cloneObject(conditions), 'f6', ref)).toEqual(expected);
+    expect(Condition.replace(cloneObject(conditions), 'f6', ref, 'f5')).toEqual(expected);
   });
 
   test('replace - undefined', () => {
     //@ts-ignore
-    const ref: ConnectorRef = {};
-    expect(Condition.replace(cloneObject(conditions), 'f6', ref)).toEqual(conditions);
+    const ref: ConnectorRef = undefined;
+    expect(Condition.replace(cloneObject(conditions), 'f6', ref, 'f5')).toEqual(conditions);
+  });
+
+  test('replace - null', () => {
+    //@ts-ignore
+    const ref: ConnectorRef = null;
+    expect(Condition.replace(cloneObject(conditions), 'f6', ref, 'f5')).toEqual(conditions);
+  });
+
+  test('replace - unknown', () => {
+    const ref: ConnectorRef = {
+      name: 'flow',
+      pid: 'f6',
+      source: { name: 'alternative', pid: 'f5', type: altType },
+      target: { name: 'end', pid: 'f7', type: altType }
+    };
+    expect(Condition.replace(cloneObject(conditions), 'f6', ref, 'f2')).toEqual(conditions);
   });
 
   test('move', () => {

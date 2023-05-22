@@ -7,7 +7,7 @@ const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {
     return <span>{`${condition.target.name}: ${condition.target.type.id}`}</span>;
   }
-  return <span>{condition.fid}</span>;
+  return <span>⛔ {condition.fid}</span>;
 };
 
 const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (change: Condition[]) => void }) => {

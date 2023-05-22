@@ -84,6 +84,6 @@ export class InscriptionClientMock implements InscriptionClient {
       return Promise.resolve(MetaMock.CONNECTOR_OF);
     }
     //@ts-ignore
-    return Promise.resolve({});
+    return Promise.resolve(undefined);
   }
 }

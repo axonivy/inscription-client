@@ -13,12 +13,12 @@ export namespace Condition {
     });
   }
 
-  export function replace(conditions: Condition[], fid: string, connectorRef: ConnectorRef): Condition[] {
-    if (connectorRef === undefined) {
+  export function replace(conditions: Condition[], conditionId: string, connectorRef: ConnectorRef, sourcePid: string): Condition[] {
+    if (connectorRef === undefined || connectorRef === null || connectorRef.source.pid !== sourcePid) {
       return conditions;
     }
     return conditions.map(cond => {
-      if (cond.fid === fid) {
+      if (cond.fid === conditionId) {
         cond.target = connectorRef.target;
       }
       return cond;
