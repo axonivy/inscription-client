@@ -1,7 +1,8 @@
 import { MappingInfo } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
-import { CodeEditor, Fieldset, MappingTree } from '../../widgets';
+import { CodeEditor, Fieldset } from '../../widgets';
 import { useCallData } from './useCallData';
+import MappingTree from '../common/mapping-tree/MappingTree';
 
 const CallMapping = (props: { mappingInfo: MappingInfo }) => {
   const { callData, updateMap, updateCode } = useCallData();
