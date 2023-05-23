@@ -71,7 +71,7 @@ const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange:
         accessorFn: row => row.value,
         id: 'value',
         header: () => <span>Expression</span>,
-        cell: cell => <CodeEditorCell cell={cell} type={cell.row.original.type} location={props.location} />,
+        cell: cell => <CodeEditorCell cell={cell} context={{ type: cell.row.original.type, location: props.location }} />,
         footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
       }
