@@ -1,4 +1,4 @@
-import { EditableCell, ReorderRow, Table, TableCell, TableHeader } from '../../widgets';
+import { CodeEditorCell, ReorderRow, Table, TableCell, TableHeader } from '../../widgets';
 import { useCallback, useMemo } from 'react';
 import { Condition } from './condition';
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
@@ -29,7 +29,7 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
       {
         accessorKey: 'expression',
         header: () => <span>Expression</span>,
-        cell: cell => <EditableCell cell={cell} />,
+        cell: cell => <CodeEditorCell cell={cell} />,
         footer: props => props.column.id
       }
     ],

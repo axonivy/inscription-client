@@ -11,13 +11,19 @@ declare module '@tanstack/react-table' {
   }
 }
 
-export function CodeEditorCell<TData>(props: { cell: CellContext<TData, unknown>; type: string; location: string }) {
-  const initialValue = props.cell.getValue();
+export function CodeEditorCell<TData>({
+  cell,
+  context
+}: {
+  cell: CellContext<TData, unknown>;
+  context?: { type: string; location: string };
+}) {
+  const initialValue = cell.getValue();
   const [value, setValue] = useState(initialValue);
   const [isActive, setIsActive] = useState(false);
   const onBlur = () => {
     setIsActive(false);
-    props.cell.table.options.meta?.updateData(props.cell.row.id, props.cell.column.id, value);
+    cell.table.options.meta?.updateData(cell.row.id, cell.column.id, value);
   };
   useEffect(() => {
     setValue(initialValue);
@@ -31,7 +37,7 @@ export function CodeEditorCell<TData>(props: { cell: CellContext<TData, unknown>
           <CodeEditor
             code={value as string}
             onChange={setValue}
-            location={`${props.location}&type=${props.type}`}
+            location={context ? `${context.location}&type=${context.type}` : undefined}
             initFocus={true}
             singleLine={true}
           />
