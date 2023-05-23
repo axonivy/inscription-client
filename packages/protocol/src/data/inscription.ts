@@ -5,6 +5,10 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+/**
+ * process-element-id
+ */
+export type PID = string;
 export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
 export type WfLevel = "EXCEPTION" | "HIGH" | "NORMAL" | "LOW" | "SCRIPT";
 export type WfActivatorType = "ROLE" | "ROLE_FROM_ATTRIBUTE" | "USER_FROM_ATTRIBUTE" | "DELETE_TASK";
@@ -31,12 +35,12 @@ export interface Inscription {
   [k: string]: unknown;
 }
 export interface InscriptionDataArgs {
-  pid: string;
+  pid: PID;
 }
 export interface InscriptionRequest {
   data: Data;
   defaults: unknown;
-  pid: string;
+  pid: PID;
   readonly: boolean;
   type: InscriptionType;
 }
@@ -489,7 +493,7 @@ export interface InscriptionType {
 }
 export interface InscriptionSaveRequest {
   data: Data;
-  pid: string;
+  pid: PID;
 }
 export interface InscriptionValidation {
   message: string;
@@ -527,12 +531,12 @@ export interface RoleMeta {
 }
 export interface ConnectorRef {
   name: string;
-  pid: string;
+  pid: PID;
   source: NodeRef;
   target: NodeRef;
 }
 export interface NodeRef {
   name: string;
-  pid: string;
+  pid: PID;
   type: InscriptionType;
 }
