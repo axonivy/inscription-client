@@ -34,7 +34,6 @@ export class InscriptionClientMock implements InscriptionClient {
   data(pid: string): Promise<InscriptionData> {
     const inscriptionType: InscriptionType = {
       id: this.type,
-      impl: null,
       label: this.type,
       shortLabel: this.type,
       description: this.type,

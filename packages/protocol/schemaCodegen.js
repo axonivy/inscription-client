@@ -39,7 +39,8 @@ function loadJson(uri) {
 }
 
 function writeSrc(ts) {
-  const nonNullTs = ts.replace(/\?:/g, ':');
+  let nonNullTs = ts.replace(/\?:/g, ':');
+  nonNullTs = nonNullTs.replace(/:(.*) \| null/g, '?:$1');
   fs.writeFileSync(tsOut, nonNullTs);
   console.log(`generated ${tsOut}`);
 }

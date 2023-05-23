@@ -487,7 +487,7 @@ export interface InscriptionType {
     | "ThirdPartyProgramStart"
     | "HtmlDialogEnd"
     | "SignalStartEvent";
-  impl: string | null;
+  impl?: string;
   label: string;
   shortLabel: string;
 }
