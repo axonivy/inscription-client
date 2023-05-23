@@ -12,7 +12,6 @@ export const DEFAULT_EDITOR_CONTEXT: EditorContext = {
   readonly: false,
   type: {
     id: 'Script',
-    impl: null,
     label: 'Unknown Inscription Editor',
     shortLabel: 'Unknown',
     description: 'This is an Inscription Editor for an unknown element type',
