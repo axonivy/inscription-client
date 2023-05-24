@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { Message } from '../../props/message';
 import Combobox, { ComboboxItem } from './Combobox';
 import { render, screen, userEvent } from 'test-utils';
 
@@ -10,19 +9,16 @@ describe('Combobox', () => {
       itemFilter?: (item: ComboboxItem, input?: string) => boolean;
       comboboxItem?: (item: ComboboxItem) => ReactNode;
       onChange?: (change: string) => void;
-      message?: Message;
     } = {}
   ) {
     const items: ComboboxItem[] = [{ value: 'test' }, { value: 'bla' }];
     render(
       <Combobox
-        label='Combobox'
         items={items}
         itemFilter={options.itemFilter}
         comboboxItem={options.comboboxItem ? options.comboboxItem : item => <span>{item.value}</span>}
         value={value}
         onChange={options.onChange ? options.onChange : () => {}}
-        message={options.message}
       />
     );
   }
@@ -43,9 +39,8 @@ describe('Combobox', () => {
 
   test('combobox will render', async () => {
     renderCombobox('test');
-    const combobox = screen.getByRole('combobox', { name: 'Combobox' });
+    const combobox = screen.getByRole('combobox');
     expect(combobox).toHaveValue('test');
-    expect(combobox).toHaveAttribute('placeholder', 'Select Combobox');
     const button = screen.getByRole('button', { name: 'toggle menu' });
     expect(button).toHaveAttribute('aria-expanded', 'false');
   });
@@ -74,7 +69,7 @@ describe('Combobox', () => {
     const item = screen.getByRole('option', { name: 'bla' });
     await userEvent.click(item);
     assertMenuContent();
-    const combobox = screen.getByRole('combobox', { name: 'Combobox' });
+    const combobox = screen.getByRole('combobox');
     expect(combobox).toHaveValue('bla');
     expect(data).toEqual('bla');
   });
@@ -82,7 +77,7 @@ describe('Combobox', () => {
   test('combobox will not update on invalid input', async () => {
     let data = 'test';
     renderCombobox(data, { onChange: (change: string) => (data = change) });
-    const combobox = screen.getByRole('combobox', { name: 'Combobox' });
+    const combobox = screen.getByRole('combobox');
     await userEvent.type(combobox, '123');
     expect(combobox).toHaveValue('test123');
     expect(data).toEqual('test');
@@ -91,7 +86,7 @@ describe('Combobox', () => {
   test('combobox will update on input change', async () => {
     let data = 'test';
     renderCombobox(data, { onChange: (change: string) => (data = change) });
-    const combobox = screen.getByRole('combobox', { name: 'Combobox' });
+    const combobox = screen.getByRole('combobox');
     await userEvent.clear(combobox);
     await userEvent.type(combobox, 'la');
     await userEvent.keyboard('[ArrowDown]');
@@ -109,7 +104,7 @@ describe('Combobox', () => {
       return item.value.startsWith(input);
     };
     renderCombobox('test', { itemFilter: itemFilter });
-    const combobox = screen.getByRole('combobox', { name: 'Combobox' });
+    const combobox = screen.getByRole('combobox');
     await userEvent.clear(combobox);
     await userEvent.type(combobox, 'la');
     assertMenuContent();
@@ -118,24 +113,12 @@ describe('Combobox', () => {
     assertMenuContent(['bla']);
   });
 
-  test('combobox will render message', async () => {
-    renderCombobox('test', { message: { message: 'this is a message', severity: 'ERROR' } });
-    expect(screen.getByText('this is a message')).toHaveClass('fieldset-message', 'fieldset-error');
-  });
-
   test('combobox support readonly mode', async () => {
-    render(
-      <Combobox
-        label='Combobox'
-        items={[{ value: 'test' }]}
-        comboboxItem={item => <span>{item.value}</span>}
-        value={'test'}
-        onChange={() => {}}
-      />,
-      { wrapperProps: { editor: { readonly: true } } }
-    );
+    render(<Combobox items={[{ value: 'test' }]} comboboxItem={item => <span>{item.value}</span>} value={'test'} onChange={() => {}} />, {
+      wrapperProps: { editor: { readonly: true } }
+    });
 
-    expect(screen.getByRole('combobox', { name: 'Combobox' })).toBeDisabled();
+    expect(screen.getByRole('combobox')).toBeDisabled();
     expect(screen.getByRole('button', { name: 'toggle menu' })).toBeDisabled();
   });
 });

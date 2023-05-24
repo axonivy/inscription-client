@@ -2,8 +2,8 @@ import './EditableCell.css';
 import './CodeEditorCell.css';
 import { CellContext, RowData } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
-import { useReadonly } from '../../../../context';
 import { CodeEditor } from '../../code-editor';
+import { Input } from '../../input';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -29,7 +29,6 @@ export function CodeEditorCell<TData>({
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
-  const readonly = useReadonly();
 
   return (
     <>
@@ -44,13 +43,7 @@ export function CodeEditorCell<TData>({
           />
         </div>
       ) : (
-        <input
-          className='input'
-          value={value as string}
-          onChange={e => setValue(e.target.value)}
-          onClick={() => setIsActive(true)}
-          disabled={readonly}
-        />
+        <Input value={value as string} onChange={change => setValue(change)} onClick={() => setIsActive(true)} />
       )}
     </>
   );

@@ -1,6 +1,3 @@
-.combobox {
-  position: relative;
-}
 .combobox-input {
   display: flex;
 }
@@ -19,7 +16,6 @@
 }
 .combobox-menu {
   overflow: auto;
-  width: calc(100% - 24px);
   max-height: 20rem;
   position: absolute;
   list-style: none;
@@ -27,10 +23,9 @@
   text-align: start;
   background-color: var(--input-bg);
   padding: 0;
-  margin: 2px;
+  margin: 0px;
   z-index: 10;
   box-shadow: var(--editor-shadow);
-  top: calc(1em + 0.5rem + 30px);
 }
 .combobox-menu-entry {
   padding: 0.5rem;

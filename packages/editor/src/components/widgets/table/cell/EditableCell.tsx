@@ -1,7 +1,7 @@
 import './EditableCell.css';
 import { CellContext, RowData } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
-import { useReadonly } from '../../../../context';
+import { Input } from '../../input';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -19,7 +19,6 @@ export function EditableCell<TData>(props: { cell: CellContext<TData, unknown> }
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
-  const readonly = useReadonly();
 
-  return <input className='input' value={value as string} onChange={e => setValue(e.target.value)} onBlur={onBlur} disabled={readonly} />;
+  return <Input value={value as string} onChange={change => setValue(change)} onBlur={onBlur} />;
 }

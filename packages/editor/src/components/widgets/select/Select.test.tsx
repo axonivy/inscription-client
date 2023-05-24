@@ -14,15 +14,10 @@ describe('Select', () => {
   } {
     let value = items[0];
     userEvent.setup();
-    const view = render(
-      <Select label='test select' items={items} value={items[0]} onChange={(change: SelectItem) => (value = change)} message={message} />
-    );
+    const view = render(<Select items={items} value={items[0]} onChange={(change: SelectItem) => (value = change)} />);
     return {
       data: () => value,
-      rerender: () =>
-        view.rerender(
-          <Select label='test select' items={items} value={value} onChange={(change: SelectItem) => (value = change)} message={message} />
-        )
+      rerender: () => view.rerender(<Select items={items} value={value} onChange={(change: SelectItem) => (value = change)} />)
     };
   }
 
@@ -61,11 +56,6 @@ describe('Select', () => {
     expect(view.data().value).toEqual('bla');
   });
 
-  test('select will render message', async () => {
-    renderSelect({ message: 'this is a test message', severity: 'ERROR' });
-    expect(screen.getByText('this is a test message')).toHaveClass('fieldset-error');
-  });
-
   test('select can be handled with keyboard', async () => {
     const view = renderSelect();
     const select = screen.getByRole('combobox');
@@ -99,7 +89,7 @@ describe('Select', () => {
   });
 
   test('select support readonly mode', () => {
-    render(<Select label='readonly select' items={items} value={items[0]} onChange={() => {}} />, {
+    render(<Select items={items} value={items[0]} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
     expect(screen.getByRole('combobox')).toBeDisabled();

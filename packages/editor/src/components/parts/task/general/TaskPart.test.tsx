@@ -11,8 +11,8 @@ describe('TaskPart', () => {
     expect(screen.getByLabelText('Name')).toHaveValue(name);
     expect(screen.getByLabelText('Description')).toHaveValue(description);
     expect(screen.getByLabelText('Category')).toHaveValue(category);
-    await SelectUtil.assertValue(responsible, 'Responsible');
-    await SelectUtil.assertValue(priority, 'Priority');
+    await SelectUtil.assertValue(responsible, { label: 'Responsible' });
+    await SelectUtil.assertValue(priority, { label: 'Priority' });
 
     if (code) {
       await CollapsableUtil.assertOpen('Code');
@@ -25,12 +25,12 @@ describe('TaskPart', () => {
   test('task part render empty', async () => {
     renderTaskPart();
     await assertMainPart('', '', '', 'Role', 'Normal');
-    await SelectUtil.assertValue('Everybody', 'Role');
+    await SelectUtil.assertValue('Everybody', { index: 1 });
   });
 
   test('task part render skip task list option', async () => {
     renderTaskPart(undefined);
-    expect(SelectUtil.combobox('Responsible')).toBeInTheDocument();
+    expect(SelectUtil.select({ label: 'Responsible' })).toBeInTheDocument();
 
     const optionCollapse = screen.getByRole('button', { name: /Option/ });
     await userEvent.click(optionCollapse);

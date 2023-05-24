@@ -2,7 +2,7 @@ import { useValidation } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import DocumentTable from './document/DocumentTable';
-import { CollapsiblePart, Fieldset, SummaryFieldset, SummaryTags, Tags, Textarea } from '../../widgets';
+import { CollapsiblePart, Fieldset, SummaryFieldset, SummaryTags, Tags, Textarea, useFieldset } from '../../widgets';
 import { useNameData } from './useNameData';
 
 function useNamePartValidation(): InscriptionValidation[] {
@@ -34,13 +34,16 @@ const NamePart = (props: { hideTags?: boolean }) => {
   const descriptionData = { data: data.description, initData: initData.description, updateData: updateDescription };
   const docsData = { data: data.docs, initData: initData.docs, updateData: updateDocs };
 
+  const nameField = useFieldset();
+  const descriptionField = useFieldset();
+
   return (
     <>
-      <Fieldset label='Display name' htmlFor='displayName' data={nameData} message={nameValidation}>
-        <Textarea rows={1} id='displayName' data={nameData} />
+      <Fieldset label='Display name' data={nameData} message={nameValidation} {...nameField.labelProps}>
+        <Textarea rows={1} data={nameData} {...nameField.inputProps} />
       </Fieldset>
-      <Fieldset label='Description' htmlFor='description' data={descriptionData} message={descriptionValidation}>
-        <Textarea rows={2} id='description' data={descriptionData} />
+      <Fieldset label='Description' data={descriptionData} message={descriptionValidation} {...descriptionField.labelProps}>
+        <Textarea rows={2} data={descriptionData} {...descriptionField.inputProps} />
       </Fieldset>
       <Fieldset label='Means / Documents' data={docsData}>
         <DocumentTable data={docsData} />

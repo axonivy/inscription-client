@@ -1,9 +1,7 @@
 import './Select.css';
 import { useSelect } from 'downshift';
-import { memo, ReactNode, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useReadonly } from '../../../context';
-import { Message } from '../../../components/props';
-import { Fieldset } from '../fieldset';
 import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
 
@@ -14,20 +12,22 @@ export type SelectItem = {
 
 export const EMPTY_SELECT_ITEM: SelectItem = { label: '', value: '' };
 
-const Select = (props: {
-  label: string;
+export type SelectInputProps = { id: string; 'aria-labelledby': string };
+
+export type SelectProps = {
   value?: SelectItem;
   onChange: (value: SelectItem) => void;
   items: SelectItem[];
-  message?: Message;
-  children?: ReactNode;
-}) => {
+  inputProps?: SelectInputProps;
+};
+
+const Select = (props: SelectProps) => {
   const [items, setItems] = useState(props.items);
   useEffect(() => setItems(props.items), [props.items]);
   const [selectedItem, setSelectedItem] = useState(props.value ?? EMPTY_SELECT_ITEM);
   useEffect(() => setSelectedItem(props.value ?? EMPTY_SELECT_ITEM), [props.value]);
 
-  const { isOpen, getToggleButtonProps, getLabelProps, getMenuProps, highlightedIndex, getItemProps } = useSelect<SelectItem>({
+  const { isOpen, getToggleButtonProps, getMenuProps, highlightedIndex, getItemProps } = useSelect<SelectItem>({
     selectedItem: selectedItem,
     items: items,
     onSelectedItemChange: change => change.selectedItem && props.onChange(change.selectedItem)
@@ -36,15 +36,19 @@ const Select = (props: {
 
   return (
     <div className='select'>
-      <Fieldset label={props.label} {...getLabelProps()} message={props.message}>
-        <div className='select-input'>
-          <button aria-label='toggle menu' className='select-button' type='button' {...getToggleButtonProps()} disabled={readonly}>
-            <span>{selectedItem ? selectedItem.label : ''}</span>
-            <IvyIcon icon={IvyIcons.AngleDown} />
-          </button>
-          {props.children}
-        </div>
-      </Fieldset>
+      <div className='select-input'>
+        <button
+          aria-label='toggle menu'
+          className='select-button'
+          type='button'
+          {...getToggleButtonProps()}
+          {...props.inputProps}
+          disabled={readonly}
+        >
+          <span>{selectedItem ? selectedItem.label : ''}</span>
+          <IvyIcon icon={IvyIcons.AngleDown} />
+        </button>
+      </div>
       <ul {...getMenuProps()} className='select-menu'>
         {isOpen &&
           props.items.map((item, index) => (

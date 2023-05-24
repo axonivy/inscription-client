@@ -14,5 +14,5 @@ export function SelectCell<TData>(props: { cell: CellContext<TData, unknown>; it
   const setValue = (item: SelectItem) => {
     props.cell.table.options.meta?.updateData(props.cell.row.id, props.cell.column.id, item.value);
   };
-  return <Select label='' items={props.items} value={{ label: value, value: value }} onChange={setValue} />;
+  return <Select items={props.items} value={{ label: value, value: value }} onChange={setValue} />;
 }

@@ -1,6 +1,3 @@
-.table-cell .label {
-  display: none;
-}
 .table-cell .select-button {
   background-color: var(--table-row-bg);
   padding: 5px;

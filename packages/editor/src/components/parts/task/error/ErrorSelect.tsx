@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { EMPTY_SELECT_ITEM, Select, SelectItem } from '../../../widgets';
+import { EMPTY_SELECT_ITEM, Fieldset, Select, SelectItem, useFieldset } from '../../../widgets';
 import { useClient, useEditorContext } from '../../../../context';
 import { Consumer } from '../../../../types/lambda';
 
@@ -20,9 +20,18 @@ const ErrorSelect = (props: { error: string; updateError: Consumer<string> }) =>
 
   const selectedError = useMemo<SelectItem | undefined>(() => errorItems.find(e => e.value === props.error), [props.error, errorItems]);
 
+  const selectFieldset = useFieldset();
+
   return (
     <div className='error-select'>
-      <Select label='Error' items={errorItems} value={selectedError} onChange={item => props.updateError(item.value)} />
+      <Fieldset label='Error' {...selectFieldset.labelProps}>
+        <Select
+          items={errorItems}
+          value={selectedError}
+          onChange={item => props.updateError(item.value)}
+          inputProps={selectFieldset.inputProps}
+        />
+      </Fieldset>
     </div>
   );
 };

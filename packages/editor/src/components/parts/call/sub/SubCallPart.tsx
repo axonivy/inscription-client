@@ -6,6 +6,7 @@ import CallMapping from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect, { CallableStartItem } from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { Fieldset, useFieldset } from '../../../../components/widgets';
 
 export function useSubCallPart(): PartProps {
   const { callData, defaultData } = useCallData();
@@ -29,16 +30,20 @@ const SubCallPart = () => {
     [processCallData.processCall, startItems]
   );
 
+  const callField = useFieldset();
+
   return (
     <>
-      <CallSelect
-        start={processCallData.processCall}
-        onChange={updateProcessCall}
-        starts={startItems}
-        label='Process start'
-        startIcon={IvyIcons.SubStart}
-        processIcon={IvyIcons.Sub}
-      />
+      <Fieldset label='Process start' {...callField.labelProps}>
+        <CallSelect
+          start={processCallData.processCall}
+          onChange={updateProcessCall}
+          starts={startItems}
+          startIcon={IvyIcons.SubStart}
+          processIcon={IvyIcons.Sub}
+          comboboxInputProps={callField.inputProps}
+        />
+      </Fieldset>
       <CallMapping mappingInfo={mappingInfo} />
     </>
   );
