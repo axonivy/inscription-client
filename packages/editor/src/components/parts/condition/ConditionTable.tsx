@@ -1,7 +1,8 @@
-import { CodeEditorCell, ReorderRow, Table, TableCell, TableHeader } from '../../widgets';
+import { Button, CodeEditorCell, EditableCell, ReorderRow, Table, TableCell, TableHeader } from '../../widgets';
 import { useCallback, useMemo } from 'react';
 import { Condition } from './condition';
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { CellContext, ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { IvyIcons } from '@axonivy/editor-icons';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {
@@ -10,10 +11,29 @@ const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   return <span>⛔ {condition.fid}</span>;
 };
 
+const ConditionExpressionCell = ({ cell, removeCell }: { cell: CellContext<Condition, unknown>; removeCell: (id: string) => void }) => {
+  if (cell.row.original.target) {
+    return <CodeEditorCell cell={cell} />;
+  }
+  return (
+    <span style={{ display: 'flex' }}>
+      <EditableCell cell={cell} />
+      <Button aria-label='Remove unknown condition' icon={IvyIcons.Delete} onClick={() => removeCell(cell.row.original.fid)} />
+    </span>
+  );
+};
+
 const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (change: Condition[]) => void }) => {
   const updateOrder = useCallback(
     (moveId: string, targetId: string) => {
       onChange(Condition.move(data, moveId, targetId));
+    },
+    [data, onChange]
+  );
+
+  const removeCell = useCallback(
+    (id: string) => {
+      onChange(Condition.remove(data, id));
     },
     [data, onChange]
   );
@@ -29,11 +49,11 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
       {
         accessorKey: 'expression',
         header: () => <span>Expression</span>,
-        cell: cell => <CodeEditorCell cell={cell} />,
+        cell: cell => <ConditionExpressionCell cell={cell} removeCell={removeCell} />,
         footer: props => props.column.id
       }
     ],
-    []
+    [removeCell]
   );
 
   const table = useReactTable({

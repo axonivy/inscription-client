@@ -37,6 +37,12 @@ export namespace Condition {
     });
   }
 
+  export function remove(conditions: Condition[], id: string): Condition[] {
+    const index = indexOf(conditions, id);
+    conditions.splice(index, 1);
+    return conditions;
+  }
+
   export function move(conditions: Condition[], moveId: string, targetId: string): Condition[] {
     const fromIndex = indexOf(conditions, moveId);
     const toIndex = indexOf(conditions, targetId);

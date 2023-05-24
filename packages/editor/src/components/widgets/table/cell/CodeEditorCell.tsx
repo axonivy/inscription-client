@@ -1,4 +1,5 @@
 import './EditableCell.css';
+import './CodeEditorCell.css';
 import { CellContext, RowData } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { useReadonly } from '../../../../context';

@@ -9,7 +9,7 @@ import { IvyIcon, Accordion } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { PartProps } from '../props';
-import Button from '../widgets/button/Button';
+import { Button } from '../widgets';
 
 const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors]);
 
