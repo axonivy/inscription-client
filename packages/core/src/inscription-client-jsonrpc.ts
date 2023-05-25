@@ -1,4 +1,5 @@
 import {
+  Action,
   CallableStart,
   ConnectorRef,
   ErrorMeta,
@@ -68,6 +69,14 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
 
   connectorOf(pid: string): Promise<ConnectorRef> {
     return this.sendRequest('meta/connector/of', { pid });
+  }
+
+  action(action: Action): void {
+    this.sendNotification('action', action);
+  }
+
+  sendNotification<K extends keyof InscriptionRequestTypes>(command: K, args: InscriptionRequestTypes[K][0]): void {
+    args === undefined ? this.connection.sendNotification(command) : this.connection.sendNotification(command, args);
   }
 
   sendRequest<K extends keyof InscriptionRequestTypes>(
