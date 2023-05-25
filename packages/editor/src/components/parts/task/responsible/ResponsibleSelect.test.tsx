@@ -22,44 +22,44 @@ describe('ResponsibleSelect', () => {
 
   test('responsible select will render all options', async () => {
     renderSelect();
-    await SelectUtil.assertValue('Role', 'Responsible');
-    await SelectUtil.assertOptionsCount(4, 'Responsible');
+    await SelectUtil.assertValue('Role', { label: 'Responsible' });
+    await SelectUtil.assertOptionsCount(4, { label: 'Responsible' });
   });
 
   test('responsible select will render no delete option', async () => {
     renderSelect({ optionsFilter: ['DELETE_TASK'] });
-    await SelectUtil.assertOptionsCount(3, 'Responsible');
+    await SelectUtil.assertOptionsCount(3, { label: 'Responsible' });
   });
 
   test('responsible select will render select for role with default option', async () => {
     renderSelect({ type: 'ROLE' });
-    await SelectUtil.assertValue('Role', 'Responsible');
-    await SelectUtil.assertValue('Everybody', 'Role');
+    await SelectUtil.assertValue('Role', { label: 'Responsible' });
+    await SelectUtil.assertValue('Everybody', { index: 1 });
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 
   test('responsible select will render select for role', async () => {
     renderSelect({ type: 'ROLE', activator: 'Teamleader' });
-    await SelectUtil.assertValue('Role', 'Responsible');
-    await SelectUtil.assertValue('Teamleader', 'Role');
+    await SelectUtil.assertValue('Role', { label: 'Responsible' });
+    await SelectUtil.assertValue('Teamleader', { index: 1 });
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 
   test('responsible select will render input for role attr option', async () => {
     renderSelect({ type: 'ROLE_FROM_ATTRIBUTE', activator: 'role activator' });
-    await SelectUtil.assertValue('Role from Attr', 'Responsible');
+    await SelectUtil.assertValue('Role from Attr', { label: 'Responsible' });
     expect(screen.getByRole('textbox')).toHaveValue('role activator');
   });
 
   test('responsible select will render input for user attr option', async () => {
     renderSelect({ type: 'USER_FROM_ATTRIBUTE', activator: 'user activator' });
-    await SelectUtil.assertValue('User from Attr', 'Responsible');
+    await SelectUtil.assertValue('User from Attr', { label: 'Responsible' });
     expect(screen.getByRole('textbox')).toHaveValue('user activator');
   });
 
   test('responsible select will render nothing for delete option', async () => {
     renderSelect({ type: 'DELETE_TASK' });
-    await SelectUtil.assertValue('Nobody & delete', 'Responsible');
+    await SelectUtil.assertValue('Nobody & delete', { label: 'Responsible' });
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 });

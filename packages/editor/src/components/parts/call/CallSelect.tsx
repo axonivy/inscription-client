@@ -1,5 +1,4 @@
-import { Combobox, ComboboxItem, IvyIcon } from '../../widgets';
-import { Message } from '../../props/message';
+import { Combobox, ComboboxInputProps, ComboboxItem, IvyIcon } from '../../widgets';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { CallableStart } from '@axonivy/inscription-protocol';
 
@@ -36,10 +35,9 @@ const CallSelect = (props: {
   start: string;
   onChange: (change: string) => void;
   starts: CallableStartItem[];
-  label: string;
   startIcon: IvyIcons;
   processIcon: IvyIcons;
-  message?: Message;
+  comboboxInputProps: ComboboxInputProps;
 }) => {
   const comboboxItem = (item: ComboboxItem) => {
     if (!CallableStartItem.is(item)) {
@@ -64,13 +62,12 @@ const CallSelect = (props: {
 
   return (
     <Combobox
-      label={props.label}
       items={props.starts}
       comboboxItem={comboboxItem}
       itemFilter={CallableStartItem.itemFilter}
       value={props.start}
       onChange={props.onChange}
-      message={props.message}
+      inputProps={props.comboboxInputProps}
     />
   );
 };

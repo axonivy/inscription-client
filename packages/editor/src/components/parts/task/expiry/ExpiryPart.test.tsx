@@ -24,8 +24,8 @@ describe('ExpiryPart', () => {
       responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: 'asdf' }
     });
     expect(screen.getByLabelText('Timeout')).toHaveValue('timeout');
-    await SelectUtil.assertEmpty('Error');
-    await SelectUtil.assertValue('Role from Attr.', 'Responsible');
-    await SelectUtil.assertValue('High', 'Priority');
+    await SelectUtil.assertEmpty({ label: 'Error' });
+    await SelectUtil.assertValue('Role from Attr.', { label: 'Responsible' });
+    await SelectUtil.assertValue('High', { label: 'Priority' });
   });
 });

@@ -6,6 +6,7 @@ import CallMapping from '../CallMapping';
 import { useCallData, useDialogCallData } from '../useCallData';
 import CallSelect, { CallableStartItem } from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { Fieldset, useFieldset } from '../../../../components/widgets';
 
 function useCallPartValidation(): InscriptionValidation[] {
   const dialog = useValidation('config/dialog');
@@ -36,17 +37,20 @@ const DialogCallPart = () => {
     [dialogCallData.dialog, startItems]
   );
 
+  const callField = useFieldset();
+
   return (
     <>
-      <CallSelect
-        start={dialogCallData.dialog}
-        onChange={updateDialog}
-        starts={startItems}
-        label='Dialog'
-        startIcon={IvyIcons.InitStart}
-        processIcon={IvyIcons.Dialogs}
-        message={dialogValidation}
-      />
+      <Fieldset label='Dialog' message={dialogValidation} {...callField.labelProps}>
+        <CallSelect
+          start={dialogCallData.dialog}
+          onChange={updateDialog}
+          starts={startItems}
+          startIcon={IvyIcons.InitStart}
+          processIcon={IvyIcons.Dialogs}
+          comboboxInputProps={callField.inputProps}
+        />
+      </Fieldset>
       <CallMapping mappingInfo={mappingInfo} />
     </>
   );

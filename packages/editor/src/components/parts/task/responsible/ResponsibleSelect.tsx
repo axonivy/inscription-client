@@ -1,7 +1,7 @@
 import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
 import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE } from '@axonivy/inscription-protocol';
-import { Select, SelectItem } from '../../../../components/widgets';
+import { Fieldset, Input, Select, SelectItem, useFieldset } from '../../../../components/widgets';
 import { useClient, useEditorContext } from '../../../../context';
 import { Consumer } from '../../../../types/lambda';
 
@@ -12,7 +12,10 @@ export interface ResponsibleUpdater {
   updateActivator: Consumer<string>;
 }
 
-const RoleSelect = (props: { responsible?: WfActivator; updateResponsible: ResponsibleUpdater }) => {
+type ResponsibleProps = { responsible?: WfActivator; updateResponsible: ResponsibleUpdater };
+type ActivatorProps = ResponsibleProps & { selectedType?: WfActivatorType };
+
+const RoleSelect = ({ responsible, updateResponsible }: ResponsibleProps) => {
   const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
   const editorContext = useEditorContext();
   const client = useClient();
@@ -26,31 +29,24 @@ const RoleSelect = (props: { responsible?: WfActivator; updateResponsible: Respo
     );
   }, [client, editorContext.pid]);
   const selectedRole = useMemo<SelectItem>(
-    () => roleItems.find(e => e.value === props.responsible?.activator) ?? DEFAULT_ROLE,
-    [props.responsible?.activator, roleItems]
+    () => roleItems.find(e => e.value === responsible?.activator) ?? DEFAULT_ROLE,
+    [responsible?.activator, roleItems]
   );
 
-  return (
-    <Select label='Role' items={roleItems} value={selectedRole} onChange={item => props.updateResponsible.updateActivator(item.value)} />
-  );
+  return <Select items={roleItems} value={selectedRole} onChange={item => updateResponsible.updateActivator(item.value)} />;
 };
 
-const ResponsibleActivator = (props: {
-  responsible?: WfActivator;
-  updateResponsible: ResponsibleUpdater;
-  selectedType?: WfActivatorType;
-}) => {
-  switch (props.selectedType) {
+const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
+  switch (selectedType) {
     case 'ROLE':
       return <RoleSelect {...props} />;
     case 'ROLE_FROM_ATTRIBUTE':
     case 'USER_FROM_ATTRIBUTE':
       return (
-        <input
-          className='input'
+        <Input
           aria-label='activator'
-          value={props.responsible?.activator ?? ''}
-          onChange={e => props.updateResponsible.updateActivator(e.target.value)}
+          value={props.responsible?.activator}
+          onChange={change => props.updateResponsible.updateActivator(change)}
         />
       );
     case 'DELETE_TASK':
@@ -78,17 +74,20 @@ const ResponsibleSelect = (props: {
     [props.responsible?.type, typeItems]
   );
 
+  const selectFieldset = useFieldset();
+
   return (
-    <div className='responsible-select'>
-      <Select
-        label='Responsible'
-        items={typeItems}
-        value={selectedType}
-        onChange={item => props.updateResponsible.updateType(item.value as WfActivatorType)}
-      >
+    <Fieldset label='Responsible' {...selectFieldset.labelProps}>
+      <div className='responsible-select'>
+        <Select
+          items={typeItems}
+          value={selectedType}
+          onChange={item => props.updateResponsible.updateType(item.value as WfActivatorType)}
+          inputProps={selectFieldset.inputProps}
+        />
         <ResponsibleActivator {...props} selectedType={selectedType?.value as WfActivatorType} />
-      </Select>
-    </div>
+      </div>
+    </Fieldset>
   );
 };
 

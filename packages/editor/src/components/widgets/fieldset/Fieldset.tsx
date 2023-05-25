@@ -1,6 +1,6 @@
 import './Fieldset.css';
 import { Label } from '@radix-ui/react-label';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { IvyIcons } from '@axonivy/editor-icons';
 import Button from '../button/Button';
 import IvyIcon from '../IvyIcon';
@@ -8,6 +8,7 @@ import { Message } from '../../../components/props';
 import { LabelProps } from '@radix-ui/react-label';
 import { deepEqual } from '../../../utils/equals';
 import { Consumer } from '../../../types/lambda';
+import { generateId } from '../../../utils/utils';
 
 export interface FieldsetControl {
   label: string;
@@ -36,15 +37,27 @@ export type FieldsetProps<T> = LabelProps & {
   message?: Message;
 };
 
-const Fieldset = <T,>(props: FieldsetProps<T>) => {
+type UseFieldsetReturnValue = {
+  labelProps: { id: string; htmlFor: string };
+  inputProps: { id: string; 'aria-labelledby': string };
+};
+
+export function useFieldset(): UseFieldsetReturnValue {
+  const id = useMemo(() => `fieldset-${generateId()}`, []);
+  const labelId = `${id}-label`;
+  const inputId = `${id}-input`;
+  return { labelProps: { id: labelId, htmlFor: inputId }, inputProps: { id: inputId, 'aria-labelledby': labelId } };
+}
+
+const Fieldset = <T,>({ label, data, controls, message, children, ...labelProps }: FieldsetProps<T>) => {
   return (
     <div className='fieldset-column'>
       <div className='fieldset-label'>
-        <Label {...props} className={`label ${props.className}`}>
-          {props.label}
+        <Label {...labelProps} className={`label ${labelProps.className}`}>
+          {label}
         </Label>
         <div className='fieldset-controls'>
-          {props.controls?.map((control, index) => (
+          {controls?.map((control, index) => (
             <Button
               icon={control.icon}
               key={index}
@@ -54,21 +67,21 @@ const Fieldset = <T,>(props: FieldsetProps<T>) => {
               data-state={control.active ? 'active' : 'inactive'}
             />
           ))}
-          {props.data && !deepEqual(props.data.data, props.data.initData) && (
+          {data && !deepEqual(data.data, data.initData) && (
             <Button
               icon={IvyIcons.Undo}
               aria-label='Reset'
               className='fieldset-control-button'
-              onClick={() => props.data!.updateData(props.data!.initData)}
+              onClick={() => data!.updateData(data!.initData)}
             />
           )}
         </div>
       </div>
-      {props.children}
-      {props.message && (
-        <div className={`fieldset-message fieldset-${props.message.severity.toString().toLowerCase()}`}>
-          <IvyIcon icon={props.message.severity} />
-          {props.message.message}
+      {children}
+      {message && (
+        <div className={`fieldset-message fieldset-${message.severity.toString().toLowerCase()}`}>
+          <IvyIcon icon={message.severity} />
+          {message.message}
         </div>
       )}
     </div>

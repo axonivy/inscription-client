@@ -6,6 +6,7 @@ import CallMapping from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect, { CallableStartItem } from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { Fieldset, useFieldset } from '../../../../components/widgets';
 
 export function useTriggerCallPart(): PartProps {
   const { callData, defaultData } = useCallData();
@@ -29,16 +30,20 @@ const TriggerCallPart = () => {
     [processCallData.processCall, startItems]
   );
 
+  const callField = useFieldset();
+
   return (
     <>
-      <CallSelect
-        start={processCallData.processCall}
-        onChange={updateProcessCall}
-        starts={startItems}
-        label='Process start'
-        startIcon={IvyIcons.Start}
-        processIcon={IvyIcons.Trigger}
-      />
+      <Fieldset label='Process start' {...callField.labelProps}>
+        <CallSelect
+          start={processCallData.processCall}
+          onChange={updateProcessCall}
+          starts={startItems}
+          startIcon={IvyIcons.Start}
+          processIcon={IvyIcons.Trigger}
+          comboboxInputProps={callField.inputProps}
+        />
+      </Fieldset>
       <CallMapping mappingInfo={mappingInfo} />
     </>
   );

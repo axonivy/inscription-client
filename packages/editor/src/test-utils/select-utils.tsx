@@ -1,25 +1,31 @@
 import { screen, userEvent, waitFor } from 'test-utils';
 
+type SelectUtilOptions = {
+  label?: string;
+  index?: number;
+};
+
 export namespace SelectUtil {
-  export function combobox(label?: string) {
-    if (label) {
-      return screen.getByRole('combobox', { name: label });
-    } else {
-      return screen.getByRole('combobox');
+  export function select(options?: SelectUtilOptions) {
+    if (options?.label) {
+      return screen.getByRole('combobox', { name: options.label });
     }
+    if (options?.index) {
+      return screen.getAllByRole('combobox')[options.index];
+    }
+    return screen.getByRole('combobox');
   }
 
-  export async function assertEmpty(label?: string) {
-    await assertValue('', label);
+  export async function assertEmpty(options?: SelectUtilOptions) {
+    await assertValue('', options);
   }
 
-  export async function assertValue(value: string, label?: string) {
-    await waitFor(() => expect(combobox(label)).toHaveTextContent(value));
+  export async function assertValue(value: string, options?: SelectUtilOptions) {
+    await waitFor(() => expect(select(options)).toHaveTextContent(value));
   }
 
-  export async function assertOptionsCount(count: number, label?: string) {
-    const select = combobox(label);
-    await userEvent.click(select);
+  export async function assertOptionsCount(count: number, options?: SelectUtilOptions) {
+    await userEvent.click(select(options));
     expect(screen.getAllByRole('option')).toHaveLength(count);
   }
 }

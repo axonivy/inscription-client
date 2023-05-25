@@ -6,6 +6,7 @@ import { useReadonly } from '../../../context';
 import IvyIcon from '../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Fieldset } from '../fieldset';
+import { Input } from '../input';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
   const [newTag, setNewTag] = useState('');
@@ -62,7 +63,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
         <Popover.Portal container={(document.querySelector('.editor-root') as HTMLElement) ?? document.querySelector('body')}>
           <Popover.Content className='popover-content' sideOffset={5}>
             <Fieldset label='New Tag' htmlFor='tag-input'>
-              <input className='input' id='tag-input' value={newTag} onChange={e => setNewTag(e.target.value)} {...keyboardProps} />
+              <Input id='tag-input' value={newTag} {...keyboardProps} onChange={change => setNewTag(change)} />
             </Fieldset>
             <Popover.Close className='popover-close' aria-label='Close'>
               <IvyIcon icon={IvyIcons.Add} rotate={45} />

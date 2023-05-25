@@ -1,10 +1,8 @@
 .select {
-  position: relative;
   width: 100%;
 }
 .select-input {
   display: flex;
-  /* width: 100%; */
 }
 .select-button {
   cursor: pointer;
@@ -15,6 +13,7 @@
   background: var(--input-bg);
   display: inline-flex;
   justify-content: space-between;
+  align-items: center;
   gap: var(--size-1);
   width: 100%;
 }
@@ -30,7 +29,6 @@
 }
 .select-menu {
   overflow: auto;
-  width: 100%;
   max-height: 20rem;
   position: absolute;
   list-style: none;
@@ -38,10 +36,9 @@
   text-align: start;
   background-color: var(--input-bg);
   padding: 0;
-  margin: 10px 0 0 0;
+  margin: 0;
   z-index: 10;
   box-shadow: var(--editor-shadow);
-  top: calc(1em + var(--size-2) + 30px);
 }
 .select-menu-entry {
   padding: var(--size-2);

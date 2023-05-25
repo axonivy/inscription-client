@@ -1,6 +1,6 @@
 import { Message } from '../../props/message';
-import Fieldset, { FieldsetData } from './Fieldset';
-import { render, screen, userEvent } from 'test-utils';
+import Fieldset, { FieldsetData, useFieldset } from './Fieldset';
+import { render, renderHook, screen, userEvent } from 'test-utils';
 import { FieldsetControl } from './Fieldset';
 import { IvyIcons } from '@axonivy/editor-icons';
 
@@ -57,4 +57,25 @@ describe('Fieldset', () => {
     const btn2 = screen.getByRole('button', { name: 'Btn2' });
     expect(btn2).toHaveAttribute('data-state', 'active');
   });
+
+  test('useFieldset hook', () => {
+    const { result: fieldset1 } = renderHook(() => useFieldset());
+    const { result: fieldset2 } = renderHook(() => useFieldset());
+    expect(fieldset1).not.toEqual(fieldset2);
+    expect(fieldset1.current).toEqual(fieldsetHookReturnValue(0));
+    expect(fieldset2.current).toEqual(fieldsetHookReturnValue(1));
+  });
+
+  function fieldsetHookReturnValue(index: number) {
+    return {
+      inputProps: {
+        'aria-labelledby': `fieldset-${index}-label`,
+        id: `fieldset-${index}-input`
+      },
+      labelProps: {
+        htmlFor: `fieldset-${index}-input`,
+        id: `fieldset-${index}-label`
+      }
+    };
+  }
 });

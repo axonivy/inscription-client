@@ -7,15 +7,15 @@ export type TextareaProps = Omit<ComponentProps<'textarea'>, 'value' | 'onChange
   data: FieldsetData<string>;
 };
 
-const Textarea = (props: TextareaProps) => {
+const Textarea = ({ data, ...textareaProps }: TextareaProps) => {
   const readonly = useReadonly();
 
   return (
     <textarea
-      {...props}
-      className={`input ${props.className ?? ''}`}
-      value={props.data.data ?? ''}
-      onChange={event => props.data.updateData(event.target.value)}
+      {...textareaProps}
+      className={`input ${textareaProps.className ?? ''}`}
+      value={data.data ?? ''}
+      onChange={event => data.updateData(event.target.value)}
       disabled={readonly}
     />
   );
