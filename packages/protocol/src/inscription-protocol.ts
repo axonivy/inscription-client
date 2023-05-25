@@ -25,7 +25,7 @@ export interface InscriptionRequestTypes {
 
   'meta/connector/of': [InscriptionDataArgs, ConnectorRef];
 
-  action: [Action, boolean];
+  action: [Action, void];
 }
 
 export interface InscriptionNotificationTypes {

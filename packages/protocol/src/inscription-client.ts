@@ -33,7 +33,7 @@ export interface InscriptionClient {
 
   connectorOf(pid: string): Promise<ConnectorRef>;
 
-  action(action: Action): Promise<boolean>;
+  action(action: Action): void;
 
   onDataChanged: Event<InscriptionData>;
   onValidation: Event<InscriptionValidation[]>;

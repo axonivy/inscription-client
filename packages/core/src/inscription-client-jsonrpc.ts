@@ -71,8 +71,12 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('meta/connector/of', { pid });
   }
 
-  action(action: Action): Promise<boolean> {
-    return this.sendRequest('action', action);
+  action(action: Action): void {
+    this.sendNotification('action', action);
+  }
+
+  sendNotification<K extends keyof InscriptionRequestTypes>(command: K, args: InscriptionRequestTypes[K][0]): void {
+    args === undefined ? this.connection.sendNotification(command) : this.connection.sendNotification(command, args);
   }
 
   sendRequest<K extends keyof InscriptionRequestTypes>(
