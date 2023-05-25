@@ -6,7 +6,8 @@ import CallMapping from '../CallMapping';
 import { useCallData, useDialogCallData } from '../useCallData';
 import CallSelect, { CallableStartItem } from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { Fieldset, useFieldset } from '../../../../components/widgets';
+import { Fieldset, FieldsetControl, useFieldset } from '../../../../components/widgets';
+import { NewHtmlDialogAction } from './new-html-dialog-action';
 
 function useCallPartValidation(): InscriptionValidation[] {
   const dialog = useValidation('config/dialog');
@@ -39,9 +40,13 @@ const DialogCallPart = () => {
 
   const callField = useFieldset();
 
+  const fieldsetControls: FieldsetControl[] = [
+    { label: 'Create new Html Dialog', icon: IvyIcons.Add, action: () => client.action(NewHtmlDialogAction.create(editorContext.pid)) }
+  ];
+
   return (
     <>
-      <Fieldset label='Dialog' message={dialogValidation} {...callField.labelProps}>
+      <Fieldset label='Dialog' message={dialogValidation} {...callField.labelProps} controls={fieldsetControls}>
         <CallSelect
           start={dialogCallData.dialog}
           onChange={updateDialog}

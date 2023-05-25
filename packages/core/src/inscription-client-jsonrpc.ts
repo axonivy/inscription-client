@@ -1,4 +1,5 @@
 import {
+  Action,
   CallableStart,
   ConnectorRef,
   ErrorMeta,
@@ -68,6 +69,10 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
 
   connectorOf(pid: string): Promise<ConnectorRef> {
     return this.sendRequest('meta/connector/of', { pid });
+  }
+
+  action(action: Action): Promise<boolean> {
+    return this.sendRequest('action', action);
   }
 
   sendRequest<K extends keyof InscriptionRequestTypes>(
