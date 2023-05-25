@@ -62,6 +62,12 @@ describe('Condition', () => {
     expect(Condition.replace(cloneObject(conditions), 'f6', ref, 'f2')).toEqual(conditions);
   });
 
+  test('remove', () => {
+    const expected = [];
+    expected.push(conditions[0], conditions[2]);
+    expect(Condition.remove(cloneObject(conditions), 'f6')).toEqual(expected);
+  });
+
   test('move', () => {
     const expected = [];
     expected.push(conditions[1], conditions[0], conditions[2]);

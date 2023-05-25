@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from 'test-utils';
+import { cloneObject, render, screen, userEvent } from 'test-utils';
 import { Condition } from './condition';
 import ConditionTable from './ConditionTable';
 import { InscriptionType } from '@axonivy/inscription-protocol';
@@ -12,29 +12,33 @@ describe('ConditionTable', () => {
   ];
   function renderTable(): {
     data: () => Condition[];
-    rerender: () => void;
   } {
-    let data: Condition[] = conditions;
-    const view = render(<ConditionTable data={data} onChange={change => (data = change)} />);
+    let data: Condition[] = cloneObject(conditions);
+    render(<ConditionTable data={data} onChange={change => (data = change)} />);
     return {
-      data: () => data,
-      // eslint-disable-next-line testing-library/no-unnecessary-act
-      rerender: () => view.rerender(<ConditionTable data={data} onChange={change => (data = change)} />)
+      data: () => data
     };
   }
 
-  test('table can edit cells', async () => {
+  test('can edit cells', async () => {
     const view = renderTable();
     await userEvent.tab();
     expect(screen.getByDisplayValue('in.accepted == false')).toHaveFocus();
     await userEvent.keyboard('true');
     await userEvent.tab();
-    await userEvent.keyboard('test');
-    await userEvent.tab();
 
-    const expectConditions = [...conditions];
+    const expectConditions = cloneObject(conditions);
     expectConditions[0].expression = 'true';
-    expectConditions[1].expression = 'test';
+    expect(view.data()).toEqual(expectConditions);
+  });
+
+  test('can remove unknown conditions', async () => {
+    const view = renderTable();
+    const removeBtns = screen.getAllByRole('button', { name: 'Remove unknown condition' });
+    expect(removeBtns).toHaveLength(2);
+    await userEvent.click(removeBtns[0]);
+    const expectConditions = [];
+    expectConditions.push(conditions[1], conditions[2]);
     expect(view.data()).toEqual(expectConditions);
   });
 });
