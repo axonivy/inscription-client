@@ -13,7 +13,7 @@ const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
 
 const ConditionExpressionCell = ({ cell, removeCell }: { cell: CellContext<Condition, unknown>; removeCell: (id: string) => void }) => {
   if (cell.row.original.target) {
-    return <CodeEditorCell cell={cell} />;
+    return <CodeEditorCell cell={cell} context={{ location: 'conditions', type: '' }} />;
   }
   return (
     <span style={{ display: 'flex' }}>
