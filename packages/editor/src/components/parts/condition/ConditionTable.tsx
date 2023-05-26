@@ -3,10 +3,14 @@ import { useCallback, useMemo } from 'react';
 import { Condition } from './condition';
 import { CellContext, ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { useClient } from '../../../context';
+import { HighlightConnectorAction } from './highlight-connector-action';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
+  const client = useClient();
   if (condition.target) {
-    return <span>{`${condition.target.name}: ${condition.target.type.id}`}</span>;
+    const highlightConnector = (pid: string) => client.action(HighlightConnectorAction.create(pid));
+    return <span onClick={() => highlightConnector(condition.target!.pid)}>{`${condition.target.name}: ${condition.target.type.id}`}</span>;
   }
   return <span>⛔ {condition.fid}</span>;
 };
