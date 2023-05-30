@@ -21,6 +21,19 @@
         }
       ],
       "isBackground": true
+    },
+    {
+      "type": "shell",
+      "command": "yarn build",
+      "options": {
+        "cwd": "${workspaceFolder}/integrations/vscode/yaml-editor-webview-toolkit"
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "label": "yarn: build"
     }
   ]
 }

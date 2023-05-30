@@ -1,0 +1,15 @@
+# Ignore extension configs
+.vscode/**
+
+# Ignore test files
+.vscode-test/**
+out/test/**
+
+# Ignore source code
+src/**
+
+# Ignore all webview-ui files except the build directory
+webview-react-ui/src/**
+webview-react-ui/package.json
+webview-react-ui/package-lock.json
+webview-react-ui/node_modules/**

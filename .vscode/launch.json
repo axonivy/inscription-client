@@ -13,6 +13,19 @@
         "webpack:///src/*": "${webRoot}/*"
       },
       "preLaunchTask": "Start Dev Server"
+    },
+    {
+      "name": "Run YAML Editor Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "${workspaceFolder}/integrations/vscode/yaml-workspace",
+        "--extensionDevelopmentPath=${workspaceFolder}/integrations/vscode/yaml-editor-webview-toolkit"
+      ],
+      "outFiles": ["${workspaceRoot}/integrations/vscode/yaml-editor-webview-toolkit/out/**/*.js"],
+      "sourceMaps": true,
+      "preLaunchTask": "yarn: build"
     }
   ]
 }

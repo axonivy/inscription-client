@@ -1,0 +1,73 @@
+{
+  "name": "axonivy-yaml-table-editor",
+  "description": "A sample extension that showcases a sample VS Code extension for a custom YAML editor using the Webview UI Toolkit",
+  "version": "0.0.1",
+  "publisher": "AxonIvy",
+  "repository": {
+    "url": "https://github.com/axonivy/next-gen-inscription.git"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "activationEvents": [
+    "onLanguage:yaml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "yaml-table-editor",
+        "displayName": "YAML Variable Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.yaml"
+          },
+          {
+            "filenamePattern": "*.yml"
+          }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "yaml-table-editor.new",
+        "title": "Create a new YAML file",
+        "category": "YAML",
+        "icon": "$(add)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "yaml-table-editor.new",
+          "group": "navigation@1"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "install:all": "yarn install && cd webview-react-ui && yarn install",
+    "compile": "tsc -p ./",
+    "build": "yarn compile && yarn build:webview",
+    "build:webview": "cd webview-react-ui && yarn build",
+    "watch": "tsc -watch -p ./",
+    "prepackage": "yarn build",
+    "package": "vsce package",
+    "lint": "eslint src --ext ts,tsx"
+  },
+  "dependencies": {
+    "@vscode/vsce": "^2.19.0"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "^8.32.0",
+    "glob": "^8.0.3",
+    "prettier": "^2.8.1",
+    "typescript": "~4.9.4",
+    "yaml": "^2.3.1"
+  }
+}

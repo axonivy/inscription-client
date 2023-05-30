@@ -1,0 +1,29 @@
+#webview-body {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 1024px) {
+    #webview-body {
+        padding: 0 8rem;
+        margin: 0 auto;
+    }
+}
+
+vscode-data-grid-row {
+    column-gap: 2px;
+}
+
+vscode-data-grid-cell {
+    /* override default padding to match text fields */
+    padding: calc(var(--design-unit) * 1px) calc(var(--design-unit) * 1px);
+}
+
+vscode-checkbox {
+    /* override default margin to match text fields */
+    margin: calc(var(--design-unit) * 1px) calc(var(--design-unit) * 1px);
+}
+
+section.edit-button-container {
+    display: flex;
+}

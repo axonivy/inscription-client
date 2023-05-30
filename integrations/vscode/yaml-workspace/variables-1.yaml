@@ -1,0 +1,6 @@
+title: title of the YAML editor
+description: some descriptive text
+pi: 3.1415
+version: 1
+id: 123
+yaml: true
