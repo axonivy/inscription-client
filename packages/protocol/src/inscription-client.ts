@@ -8,6 +8,7 @@ import {
   MappingInfo,
   RoleMeta
 } from './data';
+import { Action } from './data/action';
 
 export interface Event<T> {
   (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
@@ -31,6 +32,8 @@ export interface InscriptionClient {
   outMapping(pid: string): Promise<MappingInfo>;
 
   connectorOf(pid: string): Promise<ConnectorRef>;
+
+  action(action: Action): void;
 
   onDataChanged: Event<InscriptionData>;
   onValidation: Event<InscriptionValidation[]>;

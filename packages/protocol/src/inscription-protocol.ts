@@ -1,3 +1,4 @@
+import { Action } from './data/action';
 import {
   CallableStart,
   ConnectorRef,
@@ -23,6 +24,8 @@ export interface InscriptionRequestTypes {
   'meta/out/map': [InscriptionDataArgs, MappingInfo];
 
   'meta/connector/of': [InscriptionDataArgs, ConnectorRef];
+
+  action: [Action, void];
 }
 
 export interface InscriptionNotificationTypes {

@@ -11,7 +11,8 @@ import {
   RoleMeta,
   ElementType,
   ElementData,
-  ConnectorRef
+  ConnectorRef,
+  Action
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
@@ -84,5 +85,9 @@ export class InscriptionClientMock implements InscriptionClient {
     }
     //@ts-ignore
     return Promise.resolve(undefined);
+  }
+
+  action(action: Action): void {
+    alert(`action: [kind: ${action.kind}, pid: ${action.pid}, payload: ${action.payload}]`);
   }
 }
