@@ -17,11 +17,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
         <Input id='taskName' value={task.name} onChange={change => updateName(change)} />{' '}
       </Fieldset>
       <Fieldset label='Description' htmlFor='taskDescription'>
-        <Textarea
-          rows={2}
-          id='taskDescription'
-          data={{ data: task.description, initData: '', updateData: change => updateDescription(change) }}
-        />
+        <Textarea rows={2} id='taskDescription' value={task.description} onChange={change => updateDescription(change)} />
       </Fieldset>
       <Fieldset label='Category' htmlFor='taskCategory'>
         <Input id='taskCategory' value={task.category} onChange={change => updateCategory(change)} />
