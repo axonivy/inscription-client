@@ -1,13 +1,13 @@
 import { Message } from '../../props/message';
-import Fieldset, { FieldsetData, useFieldset } from './Fieldset';
+import Fieldset, { useFieldset } from './Fieldset';
 import { render, renderHook, screen, userEvent } from 'test-utils';
 import { FieldsetControl } from './Fieldset';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 describe('Fieldset', () => {
-  function renderFieldset(options?: { controls?: FieldsetControl[]; data?: FieldsetData<string>; message?: Message }) {
+  function renderFieldset(options?: { controls?: FieldsetControl[]; message?: Message }) {
     render(
-      <Fieldset label='Test Label' htmlFor='input' controls={options?.controls} data={options?.data} message={options?.message}>
+      <Fieldset label='Test Label' htmlFor='input' controls={options?.controls} message={options?.message}>
         <input id='input' />
       </Fieldset>
     );
@@ -28,19 +28,6 @@ describe('Fieldset', () => {
 
     renderFieldset({ message: { message: 'this is a info', severity: 'INFO' } });
     expect(screen.getByText('this is a info')).toHaveClass('fieldset-message', 'fieldset-info');
-  });
-
-  test('fieldset reset button', async () => {
-    let resetTrigger = false;
-    const resetData = () => (resetTrigger = true);
-    renderFieldset({ data: { data: 'value', initData: 'value', updateData: resetData } });
-    expect(screen.queryByRole('button', { name: 'Reset' })).not.toBeInTheDocument();
-
-    renderFieldset({ data: { data: 'value', initData: '', updateData: resetData } });
-    const resetBtn = screen.getByRole('button', { name: 'Reset' });
-    expect(resetBtn).toBeInTheDocument();
-    await userEvent.click(resetBtn);
-    expect(resetTrigger).toBeTruthy();
   });
 
   test('fieldset control buttons', async () => {

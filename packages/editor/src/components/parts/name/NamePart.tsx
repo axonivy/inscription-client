@@ -27,26 +27,22 @@ export function useNamePart(options?: { hideTags?: boolean }): PartProps {
 }
 
 const NamePart = (props: { hideTags?: boolean }) => {
-  const { data, initData, updateName, updateDescription, updateDocs, updateTags } = useNameData();
+  const { data, updateName, updateDescription, updateDocs, updateTags } = useNameData();
   const [nameValidation, descriptionValidation] = useNamePartValidation();
-
-  const nameData = { data: data.name, initData: initData.name, updateData: updateName };
-  const descriptionData = { data: data.description, initData: initData.description, updateData: updateDescription };
-  const docsData = { data: data.docs, initData: initData.docs, updateData: updateDocs };
 
   const nameField = useFieldset();
   const descriptionField = useFieldset();
 
   return (
     <>
-      <Fieldset label='Display name' data={nameData} message={nameValidation} {...nameField.labelProps}>
-        <Textarea rows={1} data={nameData} {...nameField.inputProps} />
+      <Fieldset label='Display name' message={nameValidation} {...nameField.labelProps}>
+        <Textarea rows={1} value={data.name} onChange={change => updateName(change)} {...nameField.inputProps} />
       </Fieldset>
-      <Fieldset label='Description' data={descriptionData} message={descriptionValidation} {...descriptionField.labelProps}>
-        <Textarea rows={2} data={descriptionData} {...descriptionField.inputProps} />
+      <Fieldset label='Description' message={descriptionValidation} {...descriptionField.labelProps}>
+        <Textarea rows={2} value={data.description} onChange={change => updateDescription(change)} {...descriptionField.inputProps} />
       </Fieldset>
-      <Fieldset label='Means / Documents' data={docsData}>
-        <DocumentTable data={docsData} />
+      <Fieldset label='Means / Documents'>
+        <DocumentTable data={data.docs} onChange={change => updateDocs(change)} />
       </Fieldset>
       {!props.hideTags && (
         <CollapsiblePart collapsibleLabel='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>

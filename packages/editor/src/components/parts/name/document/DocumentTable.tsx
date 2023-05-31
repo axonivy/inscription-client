@@ -5,7 +5,6 @@ import React, { memo, useState } from 'react';
 import {
   ActionCell,
   EditableCell,
-  FieldsetData,
   SortableHeader,
   Table,
   TableAddRow,
@@ -14,7 +13,7 @@ import {
   TableHeader
 } from '../../../../components/widgets';
 
-const DocumentTable = ({ data }: { data: FieldsetData<Document[]> }) => {
+const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change: Document[]) => void }) => {
   const columns = React.useMemo<ColumnDef<Document>[]>(
     () => [
       {
@@ -37,19 +36,19 @@ const DocumentTable = ({ data }: { data: FieldsetData<Document[]> }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const addRow = () => {
-    const newData = [...data.data];
+    const newData = [...data];
     newData.push({ name: '', url: '' });
-    data.updateData(newData);
+    onChange(newData);
   };
 
   const removeTableRow = (index: number) => {
-    const newData = [...data.data];
+    const newData = [...data];
     newData.splice(index, 1);
-    data.updateData(newData);
+    onChange(newData);
   };
 
   const table = useReactTable({
-    data: data.data,
+    data: data,
     columns,
     state: { sorting },
     onSortingChange: setSorting,
@@ -58,11 +57,11 @@ const DocumentTable = ({ data }: { data: FieldsetData<Document[]> }) => {
     meta: {
       updateData: (rowId: string, columnId: string, value: unknown) => {
         const rowIndex = parseInt(rowId);
-        data.updateData(
-          data.data.map((row, index) => {
+        onChange(
+          data.map((row, index) => {
             if (index === rowIndex) {
               return {
-                ...data.data[rowIndex]!,
+                ...data[rowIndex]!,
                 [columnId]: value
               };
             }

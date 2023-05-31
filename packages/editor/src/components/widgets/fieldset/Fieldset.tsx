@@ -6,8 +6,6 @@ import Button from '../button/Button';
 import IvyIcon from '../IvyIcon';
 import { Message } from '../../../components/props';
 import { LabelProps } from '@radix-ui/react-label';
-import { deepEqual } from '../../../utils/equals';
-import { Consumer } from '../../../types/lambda';
 import { generateId } from '../../../utils/utils';
 
 export interface FieldsetControl {
@@ -24,15 +22,8 @@ export const ResetControl: FieldsetControl = {
   action: () => {}
 };
 
-export type FieldsetData<T> = {
-  data: T;
-  initData: T;
-  updateData: Consumer<T>;
-};
-
-export type FieldsetProps<T> = LabelProps & {
+export type FieldsetProps = LabelProps & {
   label: string;
-  data?: FieldsetData<T>;
   controls?: FieldsetControl[];
   message?: Message;
 };
@@ -49,7 +40,7 @@ export function useFieldset(): UseFieldsetReturnValue {
   return { labelProps: { id: labelId, htmlFor: inputId }, inputProps: { id: inputId, 'aria-labelledby': labelId } };
 }
 
-const Fieldset = <T,>({ label, data, controls, message, children, ...labelProps }: FieldsetProps<T>) => {
+const Fieldset = ({ label, controls, message, children, ...labelProps }: FieldsetProps) => {
   return (
     <div className='fieldset-column'>
       <div className='fieldset-label'>
@@ -67,14 +58,6 @@ const Fieldset = <T,>({ label, data, controls, message, children, ...labelProps 
               data-state={control.active ? 'active' : 'inactive'}
             />
           ))}
-          {data && !deepEqual(data.data, data.initData) && (
-            <Button
-              icon={IvyIcons.Undo}
-              aria-label='Reset'
-              className='fieldset-control-button'
-              onClick={() => data!.updateData(data!.initData)}
-            />
-          )}
         </div>
       </div>
       {children}
@@ -88,4 +71,4 @@ const Fieldset = <T,>({ label, data, controls, message, children, ...labelProps 
   );
 };
 
-export default memo(Fieldset) as typeof Fieldset;
+export default memo(Fieldset);
