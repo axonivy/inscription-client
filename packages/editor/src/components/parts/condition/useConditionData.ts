@@ -7,9 +7,10 @@ import { useConfigDataContext } from '../../../context';
 export function useConditionData(): {
   conditionData: ConditionData;
   defaultData: ConditionData;
+  initData: ConditionData;
   updateCondition: Consumer<Record<string, string>>;
 } {
-  const { config, defaultData, setConfig } = useConfigDataContext();
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
   const updateCondition = useCallback<Consumer<Record<string, string>>>(
     conditions =>
@@ -21,5 +22,5 @@ export function useConditionData(): {
     [setConfig]
   );
 
-  return { conditionData: config, defaultData, updateCondition: updateCondition };
+  return { conditionData: config, defaultData: defaultConfig, initData: initConfig, updateCondition: updateCondition };
 }

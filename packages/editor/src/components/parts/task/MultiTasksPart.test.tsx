@@ -49,6 +49,27 @@ describe('MultiTasksPart', () => {
     assertState('configured', { tasks: [{ id: 'TaskA', name: 'task1' }] });
   });
 
+  test('reset', () => {
+    const taskData = addDefaultTaskData({
+      tasks: [
+        { id: 'TaskA', name: 'task1' },
+        { id: 'TaskB', name: 'task2' }
+      ]
+    });
+    let data: any = { config: taskData };
+    const initTaskData = {
+      tasks: [DEFAULT_TASK, DEFAULT_TASK]
+    };
+    const view = renderHook(() => useMultiTasksPart(), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: initTaskData } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    expect(data.config?.tasks?.at(0)?.name).toEqual('');
+    expect(data.config?.tasks?.at(1)?.name).toEqual('');
+  });
+
   function addDefaultTaskData(data?: DeepPartial<TaskData>): DeepPartial<TaskData> | undefined {
     if (data) {
       data.tasks = data.tasks?.map(task => deepmerge(DEFAULT_TASK, task));

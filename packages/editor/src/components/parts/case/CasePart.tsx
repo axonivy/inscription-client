@@ -1,12 +1,13 @@
 import { Fieldset, Input } from '../../widgets';
-import { PartProps, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../props';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
 
 export function useCasePart(): PartProps {
-  const { caseData, defaultData } = useCaseData();
+  const { caseData, defaultData, initData, resetData } = useCaseData();
   const state = usePartState(defaultData.case, caseData.case, []);
-  return { name: 'Case', state: state, content: <CasePart /> };
+  const dirty = usePartDirty(initData.case, caseData.case);
+  return { name: 'Case', state: state, reset: { dirty, action: () => resetData() }, content: <CasePart /> };
 }
 
 const CasePart = () => {

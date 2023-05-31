@@ -53,4 +53,28 @@ describe('CasePart', () => {
     assertState('configured', { category: 'category' });
     assertState('configured', { customFields: [{ name: 'asfd', type: 'NUMBER', value: '123' }] });
   });
+
+  test('reset', () => {
+    let data: any = {
+      config: {
+        case: {
+          name: 'name',
+          description: 'description',
+          category: 'category',
+          customFields: [{ name: 'field', type: 'STRING', value: '123' }],
+          attachToBusinessCase: true
+        }
+      }
+    };
+    const view = renderHook(() => useCasePart(), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { case: { name: 'init' } } } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    expect(data.config.case.name).toEqual('init');
+    expect(data.config.case.description).toEqual('');
+    expect(data.config.case.category).toEqual('');
+    expect(data.config.case.customFields).toEqual([]);
+  });
 });

@@ -2,19 +2,21 @@ import { MappingInfo } from '@axonivy/inscription-protocol';
 import { useEffect, useState } from 'react';
 import { CodeEditor, Fieldset } from '../../widgets';
 import { useClient, useEditorContext } from '../../../context';
-import { PartProps, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useOutputData } from './useOutputData';
 import MappingTree from '../common/mapping-tree/MappingTree';
 
 export function useOutputPart(options?: { hideCode?: boolean }): PartProps {
-  const { outputData, defaultData } = useOutputData();
-
-  const state = usePartState(
-    [defaultData.output.map, options?.hideCode ? '' : defaultData.output.code],
-    [outputData.output.map, options?.hideCode ? '' : outputData.output.code],
-    []
-  );
-  return { name: 'Output', state, content: <OutputPart showCode={!options?.hideCode} /> };
+  const { outputData, defaultData, initData, resetOutput } = useOutputData();
+  const currentData = [outputData.output.map, options?.hideCode ? '' : outputData.output.code];
+  const state = usePartState([defaultData.output.map, options?.hideCode ? '' : defaultData.output.code], currentData, []);
+  const dirty = usePartDirty([initData.output.map, options?.hideCode ? '' : initData.output.code], currentData);
+  return {
+    name: 'Output',
+    state,
+    reset: { dirty, action: () => resetOutput(!options?.hideCode) },
+    content: <OutputPart showCode={!options?.hideCode} />
+  };
 }
 
 const OutputPart = (props: { showCode?: boolean }) => {

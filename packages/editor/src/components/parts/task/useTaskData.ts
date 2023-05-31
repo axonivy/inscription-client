@@ -2,13 +2,14 @@ import { WfCustomField, WfLevel, WfActivatorType, WfTask } from '@axonivy/inscri
 import produce from 'immer';
 import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
-import { useTaskDataContext } from '../../../context';
+import { useConfigDataContext, useTaskDataContext } from '../../../context';
 import { PriorityUpdater } from './priority/PrioritySelect';
 import { ResponsibleUpdater } from './responsible/ResponsibleSelect';
 
 export function useTaskData(): {
   task: WfTask;
   defaultTask: WfTask;
+  initTask: WfTask;
   updateName: Consumer<string>;
   updateDescription: Consumer<string>;
   updateCategory: Consumer<string>;
@@ -16,8 +17,9 @@ export function useTaskData(): {
   updateCode: Consumer<string>;
   updateResponsible: ResponsibleUpdater;
   updatePriority: PriorityUpdater;
+  resetTask: () => void;
 } {
-  const { task, defaultTask, setTask } = useTaskDataContext();
+  const { task, defaultTask, initTask, setTask, resetTask } = useTaskDataContext();
 
   const updateName = useCallback<Consumer<string>>(
     name =>
@@ -112,6 +114,7 @@ export function useTaskData(): {
   return {
     task,
     defaultTask,
+    initTask,
     updateName,
     updateDescription,
     updateCategory,
@@ -121,6 +124,33 @@ export function useTaskData(): {
       updateType,
       updateActivator
     },
-    updatePriority: { updateLevel, updateScript }
+    updatePriority: { updateLevel, updateScript },
+    resetTask
+  };
+}
+
+export function useMutliTaskData(): {
+  tasks: WfTask[];
+  defaultTasks: WfTask[];
+  initTasks: WfTask[];
+  resetTasks: () => void;
+} {
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+
+  const resetTasks = useCallback<() => void>(
+    () =>
+      setConfig(
+        produce(draft => {
+          draft.tasks = initConfig.tasks;
+        })
+      ),
+    [initConfig.tasks, setConfig]
+  );
+
+  return {
+    tasks: config.tasks,
+    defaultTasks: defaultConfig.tasks,
+    initTasks: initConfig.tasks,
+    resetTasks
   };
 }

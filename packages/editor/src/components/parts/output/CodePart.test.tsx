@@ -45,4 +45,19 @@ describe('CodePart', () => {
     assertState('configured', { output: { code: 'code', map: {} } });
     assertState('empty', { output: { code: '', map: { key: 'value' } } });
   });
+
+  test('reset', () => {
+    let data: any = {
+      config: { output: { code: 'code', map: {} }, sudo: true }
+    };
+    const view = renderHook(() => useCodePart(), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { output: { code: 'init' } } } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    expect(data.config.output.code).toEqual('init');
+    expect(data.config.output.map).toEqual({});
+    expect(data.config.sudo).toEqual(false);
+  });
 });

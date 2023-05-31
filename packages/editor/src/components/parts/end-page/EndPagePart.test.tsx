@@ -36,4 +36,15 @@ describe('EndPagePart', () => {
     assertState('empty');
     assertState('configured', { page: 'bla' });
   });
+
+  test('reset', () => {
+    let data = { config: { page: 'bla' } };
+    const view = renderHook(() => useEndPagePart(), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { page: 'init' } } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    expect(data.config.page).toEqual('init');
+  });
 });

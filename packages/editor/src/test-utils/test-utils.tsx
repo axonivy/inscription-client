@@ -25,7 +25,9 @@ import { PID } from '../utils/pid';
 
 type ContextHelperProps = {
   data?: DeepPartial<ElementData>;
+  setData?: (data: ElementData) => void;
   defaultData?: DeepPartial<ConfigData>;
+  initData?: DeepPartial<ElementData>;
   validation?: InscriptionValidation[];
   meta?: {
     roles?: RoleMeta[];
@@ -44,14 +46,16 @@ const ContextHelper = (
     children: ReactNode;
   }
 ) => {
+  const d = props.data ? deepmerge(DEFAULT_DATA, props.data) : DEFAULT_DATA;
   const data: DataContext = {
     // @ts-ignore
     data: props.data ? deepmerge(DEFAULT_DATA, props.data) : DEFAULT_DATA,
-    setData: () => {},
+    //@ts-ignore
+    setData: props.setData ? getData => props.setData(getData(d)) : () => {},
     // @ts-ignore
     defaultData: props.defaultData ? deepmerge(DEFAULT_DATA.config, props.defaultData) : DEFAULT_DATA.config,
     // @ts-ignore
-    initData: props.data ? deepmerge(DEFAULT_DATA, props.data) : DEFAULT_DATA,
+    initData: props.initData ? deepmerge(DEFAULT_DATA, props.initData) : DEFAULT_DATA,
     validation: props.validation ?? []
   };
   const client: ClientContext = {

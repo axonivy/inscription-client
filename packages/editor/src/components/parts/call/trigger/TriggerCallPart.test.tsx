@@ -40,4 +40,19 @@ describe('TriggerCallPart', () => {
     assertState('configured', { call: { code: 'code', map: {} } });
     assertState('configured', { call: { code: '', map: { key: 'value' } } });
   });
+
+  test('reset', () => {
+    let data: any = {
+      config: { processCall: 'process', call: { code: 'code', map: { key: 'value' } } }
+    };
+    const view = renderHook(() => useTriggerCallPart(), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { processCall: 'init' } } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    expect(data.config.processCall).toEqual('init');
+    expect(data.config.call.code).toEqual('');
+    expect(data.config.call.map).toEqual({});
+  });
 });

@@ -7,12 +7,14 @@ import { useConfigDataContext } from '../../../context';
 export function useCaseData(): {
   caseData: CaseData;
   defaultData: CaseData;
+  initData: CaseData;
   updateName: Consumer<string>;
   updateDescription: Consumer<string>;
   updateCategory: Consumer<string>;
   updateCustomFields: Consumer<WfCustomField[]>;
+  resetData: () => void;
 } {
-  const { config, defaultData, setConfig } = useConfigDataContext();
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
   const updateName = useCallback<Consumer<string>>(
     name =>
@@ -54,5 +56,24 @@ export function useCaseData(): {
     [setConfig]
   );
 
-  return { caseData: config, defaultData, updateName, updateDescription, updateCategory, updateCustomFields };
+  const resetData = useCallback<() => void>(
+    () =>
+      setConfig(
+        produce(draft => {
+          draft.case = initConfig.case;
+        })
+      ),
+    [initConfig.case, setConfig]
+  );
+
+  return {
+    caseData: config,
+    defaultData: defaultConfig,
+    initData: initConfig,
+    updateName,
+    updateDescription,
+    updateCategory,
+    updateCustomFields,
+    resetData
+  };
 }

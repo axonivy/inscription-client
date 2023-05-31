@@ -1,4 +1,4 @@
-import { PartProps, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useConditionData } from './useConditionData';
 import { useClient, useEditorContext } from '../../../context';
 import { useEffect, useState } from 'react';
@@ -7,9 +7,15 @@ import { PID } from '../../../utils/pid';
 import ConditionTable from './ConditionTable';
 
 export function useConditionPart(): PartProps {
-  const { conditionData, defaultData } = useConditionData();
+  const { conditionData, initData, defaultData, updateCondition } = useConditionData();
   const state = usePartState(defaultData.conditions, conditionData.conditions, []);
-  return { name: 'Condition', state: state, content: <ConditionPart /> };
+  const dirty = usePartDirty(initData.conditions, conditionData.conditions);
+  return {
+    name: 'Condition',
+    state: state,
+    reset: { dirty, action: () => updateCondition(initData.conditions) },
+    content: <ConditionPart />
+  };
 }
 
 const ConditionPart = () => {
