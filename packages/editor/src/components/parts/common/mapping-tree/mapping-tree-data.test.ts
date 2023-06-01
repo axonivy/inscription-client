@@ -8,7 +8,8 @@ describe('MappingTreeData', () => {
       {
         attribute: 'param.procurementRequest',
         type: 'workflow.humantask.ProcurementRequest',
-        simpleType: 'ProcurementRequest'
+        simpleType: 'ProcurementRequest',
+        description: ''
       }
     ],
     types: {
@@ -16,24 +17,28 @@ describe('MappingTreeData', () => {
         {
           attribute: 'accepted',
           type: 'Boolean',
-          simpleType: 'Boolean'
+          simpleType: 'Boolean',
+          description: ''
         },
         {
           attribute: 'amount',
           type: 'Number',
-          simpleType: 'Number'
+          simpleType: 'Number',
+          description: ''
         },
         {
           attribute: 'requester',
           type: 'workflow.humantask.User',
-          simpleType: 'User'
+          simpleType: 'User',
+          description: ''
         }
       ],
       'workflow.humantask.User': [
         {
           attribute: 'email',
           type: 'String',
-          simpleType: 'String'
+          simpleType: 'String',
+          description: ''
         }
       ]
     }
@@ -44,7 +49,8 @@ describe('MappingTreeData', () => {
       {
         attribute: 'param.Endless',
         type: 'demo.Endless',
-        simpleType: 'Endless'
+        simpleType: 'Endless',
+        description: ''
       }
     ],
     types: {
@@ -52,7 +58,8 @@ describe('MappingTreeData', () => {
         {
           attribute: 'endless',
           type: 'demo.Endless',
-          simpleType: 'Endless'
+          simpleType: 'Endless',
+          description: ''
         }
       ]
     }
@@ -62,14 +69,23 @@ describe('MappingTreeData', () => {
     {
       attribute: 'param.procurementRequest',
       children: [
-        { attribute: 'accepted', children: [], value: '', type: 'Boolean', simpleType: 'Boolean', isLoaded: true },
-        { attribute: 'amount', children: [], value: '', type: 'Number', simpleType: 'Number', isLoaded: true },
-        { attribute: 'requester', children: [], value: '', type: 'workflow.humantask.User', simpleType: 'User', isLoaded: false }
+        { attribute: 'accepted', children: [], value: '', type: 'Boolean', simpleType: 'Boolean', isLoaded: true, description: '' },
+        { attribute: 'amount', children: [], value: '', type: 'Number', simpleType: 'Number', isLoaded: true, description: '' },
+        {
+          attribute: 'requester',
+          children: [],
+          value: '',
+          type: 'workflow.humantask.User',
+          simpleType: 'User',
+          isLoaded: false,
+          description: ''
+        }
       ],
       value: '',
       type: 'workflow.humantask.ProcurementRequest',
       simpleType: 'ProcurementRequest',
-      isLoaded: true
+      isLoaded: true,
+      description: ''
     }
   ];
 
@@ -79,7 +95,8 @@ describe('MappingTreeData', () => {
     isLoaded: true,
     simpleType: 'String',
     type: 'String',
-    value: ''
+    value: '',
+    description: ''
   };
 
   function mappingTreeMultiRootData(): MappingTreeData[] {
@@ -90,7 +107,8 @@ describe('MappingTreeData', () => {
       isLoaded: true,
       simpleType: 'dummy',
       value: '',
-      type: 'dummyType'
+      type: 'dummyType',
+      description: ''
     });
     return multiRoot;
   }
@@ -119,7 +137,8 @@ describe('MappingTreeData', () => {
       isLoaded: false,
       simpleType: 'Endless',
       type: 'demo.Endless',
-      value: ''
+      value: '',
+      description: ''
     };
     let expectTree = [
       {
@@ -128,7 +147,8 @@ describe('MappingTreeData', () => {
         isLoaded: true,
         simpleType: 'Endless',
         type: 'demo.Endless',
-        value: ''
+        value: '',
+        description: ''
       }
     ];
     expect(treeData).toEqual(expectTree);
@@ -181,14 +201,17 @@ describe('MappingTreeData', () => {
     MappingTreeData.update(mappingInfo, treeData, ['param', 'unknown', 'deep'], 'unknown deep value');
 
     const expectTree = cloneObject(tree);
-    expectTree[1] = { attribute: 'dummy', children: [], value: 'dummy', type: '', simpleType: '', isLoaded: true };
+    expectTree[1] = { attribute: 'dummy', children: [], value: 'dummy', type: '', simpleType: '', isLoaded: true, description: '' };
     expectTree[2] = {
       attribute: 'param.unknown',
-      children: [{ attribute: 'deep', children: [], value: 'unknown deep value', type: '', simpleType: '', isLoaded: true }],
+      children: [
+        { attribute: 'deep', children: [], value: 'unknown deep value', type: '', simpleType: '', isLoaded: true, description: '' }
+      ],
       value: 'unknown value',
       type: '',
       simpleType: '',
-      isLoaded: true
+      isLoaded: true,
+      description: ''
     };
 
     expect(treeData).toEqual(expectTree);

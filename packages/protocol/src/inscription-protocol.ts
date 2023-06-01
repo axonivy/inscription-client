@@ -1,8 +1,8 @@
-import { Action } from './data/action';
 import {
   CallableStart,
   ConnectorRef,
   ErrorMeta,
+  InscriptionAction,
   InscriptionDataArgs,
   InscriptionValidation,
   MappingInfo,
@@ -25,7 +25,7 @@ export interface InscriptionRequestTypes {
 
   'meta/connector/of': [InscriptionDataArgs, ConnectorRef];
 
-  action: [Action, void];
+  action: [InscriptionAction, void];
 }
 
 export interface InscriptionNotificationTypes {

@@ -7,17 +7,18 @@ describe('MappingTree', () => {
   const ATTRIBUTES = /Attribute/;
   const PARAMS = /param.procurementRequest/;
   const NODE_PARAMS = /🔵 param.procurementRequest/;
-  const NODE_BOOLEAN = /🔵 accepted Boolean/;
-  const NODE_NUMBER = /🔵 amount Number/;
-  const USER = /requester workflow.humantask.User/;
-  const NODE_STRING = /🔵 email String/;
+  const NODE_BOOLEAN = /🔵 acceptedBoolean/;
+  const NODE_NUMBER = /🔵 amountNumber/;
+  const USER = /requesterUser/;
+  const NODE_STRING = /🔵 emailString/;
 
   const mappingInfo: MappingInfo = {
     variables: [
       {
         attribute: 'param.procurementRequest',
         type: 'workflow.humantask.ProcurementRequest',
-        simpleType: 'ProcurementRequest'
+        simpleType: 'ProcurementRequest',
+        description: 'this is a description'
       }
     ],
     types: {
@@ -25,24 +26,28 @@ describe('MappingTree', () => {
         {
           attribute: 'accepted',
           type: 'Boolean',
-          simpleType: 'Boolean'
+          simpleType: 'Boolean',
+          description: ''
         },
         {
           attribute: 'amount',
           type: 'Number',
-          simpleType: 'Number'
+          simpleType: 'Number',
+          description: ''
         },
         {
           attribute: 'requester',
           type: 'workflow.humantask.User',
-          simpleType: 'User'
+          simpleType: 'User',
+          description: ''
         }
       ],
       'workflow.humantask.User': [
         {
           attribute: 'email',
           type: 'String',
-          simpleType: 'String'
+          simpleType: 'String',
+          description: ''
         }
       ]
     }
@@ -71,7 +76,7 @@ describe('MappingTree', () => {
     const rows = screen.getAllByRole('row');
     expect(rows).toHaveLength(expectedRows.length);
     rows.forEach((row, index) => {
-      expect(row).toHaveAccessibleName(expectedRows[index]);
+      expect(row).toHaveTextContent(expectedRows[index]);
     });
   }
 
@@ -83,7 +88,13 @@ describe('MappingTree', () => {
 
   test('tree will render unknown values', () => {
     renderTree({ bla: 'unknown value' });
-    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, /⛔ bla unknown value/]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, /⛔ bla/]);
+  });
+
+  test('tree will render description title', () => {
+    renderTree({ 'workflow.humantask.Description': 'value' });
+    expect(screen.getAllByRole('row')[1]).toHaveTextContent('param.procurementRequestProcurementRequest');
+    expect(screen.getAllByRole('row')[1]).toHaveAccessibleName('this is a description workflow.humantask.ProcurementRequest');
   });
 
   test('tree can expand / collapse', async () => {

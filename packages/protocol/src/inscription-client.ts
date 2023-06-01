@@ -2,13 +2,14 @@ import {
   CallableStart,
   ConnectorRef,
   ErrorMeta,
+  InscriptionAction,
   InscriptionData,
   InscriptionSaveData,
   InscriptionValidation,
   MappingInfo,
+  PID,
   RoleMeta
 } from './data';
-import { Action } from './data/action';
 
 export interface Event<T> {
   (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
@@ -20,20 +21,20 @@ export interface Disposable {
 
 export interface InscriptionClient {
   initialize(): Promise<boolean>;
-  data(pid: string): Promise<InscriptionData>;
+  data(pid: PID): Promise<InscriptionData>;
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]>;
 
-  dialogStarts(pid: string): Promise<CallableStart[]>;
-  triggerStarts(pid: string): Promise<CallableStart[]>;
-  callSubStarts(pid: string): Promise<CallableStart[]>;
+  dialogStarts(pid: PID): Promise<CallableStart[]>;
+  triggerStarts(pid: PID): Promise<CallableStart[]>;
+  callSubStarts(pid: PID): Promise<CallableStart[]>;
 
-  roles(pid: string): Promise<RoleMeta[]>;
-  expiryErrors(pid: string): Promise<ErrorMeta[]>;
-  outMapping(pid: string): Promise<MappingInfo>;
+  roles(pid: PID): Promise<RoleMeta[]>;
+  expiryErrors(pid: PID): Promise<ErrorMeta[]>;
+  outMapping(pid: PID): Promise<MappingInfo>;
 
-  connectorOf(pid: string): Promise<ConnectorRef>;
+  connectorOf(pid: PID): Promise<ConnectorRef>;
 
-  action(action: Action): void;
+  action(action: InscriptionAction): void;
 
   onDataChanged: Event<InscriptionData>;
   onValidation: Event<InscriptionValidation[]>;

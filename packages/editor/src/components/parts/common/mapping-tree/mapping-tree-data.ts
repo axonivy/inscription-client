@@ -68,7 +68,7 @@ export namespace MappingTreeData {
     const attribute = mappingPath.shift();
     if (attribute) {
       if (mappingPath.length === 0) {
-        tree.push({ attribute: attribute, type: '', simpleType: '', value: mappingValue, children: [], isLoaded: true });
+        tree.push({ attribute: attribute, type: '', simpleType: '', value: mappingValue, children: [], isLoaded: true, description: '' });
       } else {
         const children: MappingTreeData[] = [];
         tree.push({
@@ -77,7 +77,8 @@ export namespace MappingTreeData {
           simpleType: '',
           value: '',
           children: children,
-          isLoaded: true
+          isLoaded: true,
+          description: ''
         });
         addUnknownValue(children, mappingPath, mappingValue);
       }

@@ -1,8 +1,8 @@
 import {
-  Action,
   CallableStart,
   ConnectorRef,
   ErrorMeta,
+  InscriptionAction,
   InscriptionClient,
   InscriptionData,
   InscriptionNotificationTypes,
@@ -10,6 +10,7 @@ import {
   InscriptionSaveData,
   InscriptionValidation,
   MappingInfo,
+  PID,
   RoleMeta
 } from '@axonivy/inscription-protocol';
 import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
@@ -35,7 +36,7 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('initialize', undefined);
   }
 
-  data(pid: string): Promise<InscriptionData> {
+  data(pid: PID): Promise<InscriptionData> {
     return this.sendRequest('data', { pid });
   }
 
@@ -43,35 +44,35 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('saveData', { ...args });
   }
 
-  dialogStarts(pid: string): Promise<CallableStart[]> {
+  dialogStarts(pid: PID): Promise<CallableStart[]> {
     return this.sendRequest('meta/start/dialogs', { pid });
   }
 
-  triggerStarts(pid: string): Promise<CallableStart[]> {
+  triggerStarts(pid: PID): Promise<CallableStart[]> {
     return this.sendRequest('meta/start/triggers', { pid });
   }
 
-  callSubStarts(pid: string): Promise<CallableStart[]> {
+  callSubStarts(pid: PID): Promise<CallableStart[]> {
     return this.sendRequest('meta/start/calls', { pid });
   }
 
-  roles(pid: string): Promise<RoleMeta[]> {
+  roles(pid: PID): Promise<RoleMeta[]> {
     return this.sendRequest('meta/workflow/roles', { pid });
   }
 
-  expiryErrors(pid: string): Promise<ErrorMeta[]> {
+  expiryErrors(pid: PID): Promise<ErrorMeta[]> {
     return this.sendRequest('meta/workflow/expiryErrors', { pid });
   }
 
-  outMapping(pid: string): Promise<MappingInfo> {
+  outMapping(pid: PID): Promise<MappingInfo> {
     return this.sendRequest('meta/out/map', { pid });
   }
 
-  connectorOf(pid: string): Promise<ConnectorRef> {
+  connectorOf(pid: PID): Promise<ConnectorRef> {
     return this.sendRequest('meta/connector/of', { pid });
   }
 
-  action(action: Action): void {
+  action(action: InscriptionAction): void {
     this.sendNotification('action', action);
   }
 
