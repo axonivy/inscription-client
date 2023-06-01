@@ -6,10 +6,11 @@ import { useConfigDataContext, useTaskDataContext } from '../../../../context';
 
 export function useTaskOptionsData(): {
   task: WfTask;
+  initTask: WfTask;
   updateSkipTasklist: Consumer<boolean>;
   updateDelay: Consumer<string>;
 } {
-  const { task, setTask } = useTaskDataContext();
+  const { task, initTask, setTask } = useTaskDataContext();
 
   const updateSkipTasklist = useCallback<Consumer<boolean>>(
     skip =>
@@ -31,15 +32,18 @@ export function useTaskOptionsData(): {
     [setTask]
   );
 
-  return { task, updateSkipTasklist: updateSkipTasklist, updateDelay };
+  return { task, initTask, updateSkipTasklist, updateDelay };
 }
 
+type TaskPersistData = Pick<TaskData, 'persist'>;
+
 export function useTaskPersistData(): {
-  persistData: Pick<TaskData, 'persist'>;
-  defaultData: Pick<TaskData, 'persist'>;
+  persistData: TaskPersistData;
+  defaultData: TaskPersistData;
+  initData: TaskPersistData;
   updatePersist: Consumer<boolean>;
 } {
-  const { config, defaultData, setConfig } = useConfigDataContext();
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
   const updatePersist = useCallback<Consumer<boolean>>(
     persist =>
@@ -51,5 +55,5 @@ export function useTaskPersistData(): {
     [setConfig]
   );
 
-  return { persistData: config, defaultData, updatePersist };
+  return { persistData: config, defaultData: defaultConfig, initData: initConfig, updatePersist };
 }

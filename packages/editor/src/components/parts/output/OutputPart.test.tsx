@@ -46,4 +46,32 @@ describe('OutputPart', () => {
     assertState('configured', { output: { code: 'code', map: {} } });
     assertState('configured', { output: { code: '', map: { key: 'value' } } });
   });
+
+  test('reset', () => {
+    let data: any = {
+      config: { output: { map: { key: 'value' }, code: 'code' } }
+    };
+    const view = renderHook(() => useOutputPart(), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { output: { code: 'init' } } } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    expect(data.config.output.code).toEqual('init');
+    expect(data.config.output.map).toEqual({});
+  });
+
+  test('reset - hide code', () => {
+    let data: any = {
+      config: { output: { map: { key: 'value' }, code: 'code' } }
+    };
+    const view = renderHook(() => useOutputPart({ hideCode: true }), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { output: { code: 'init' } } } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    expect(data.config.output.code).toEqual('code');
+    expect(data.config.output.map).toEqual({});
+  });
 });

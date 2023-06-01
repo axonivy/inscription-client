@@ -1,5 +1,5 @@
-import { renderHook, screen, render, DeepPartial } from 'test-utils';
-import { WfTask, TaskData } from '@axonivy/inscription-protocol';
+import { renderHook, screen, render, DeepPartial, cloneObject } from 'test-utils';
+import { WfTask, TaskData, DEFAULT_TASK } from '@axonivy/inscription-protocol';
 import { useSingleTaskPart } from './SingleTaskPart';
 import { PartState } from '../../props';
 
@@ -41,5 +41,34 @@ describe('SingleTaskPart', () => {
 
     assertState('configured', { customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }] });
     assertState('configured', { code: 'code' });
+  });
+
+  test('reset', () => {
+    let data: any = {
+      config: {
+        task: {
+          name: 'name',
+          description: 'desc',
+          category: 'cat',
+          responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: '' },
+          priority: { level: 'LOW', script: '' },
+          skipTasklist: true,
+          delay: 'delay',
+          persist: true,
+          expiry: { timeout: 'asf' },
+          customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }],
+          code: 'code'
+        }
+      }
+    };
+    const view = renderHook(() => useSingleTaskPart(), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { task: { name: 'init' } } } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    const expectedTask = cloneObject(DEFAULT_TASK);
+    expectedTask.name = 'init';
+    expect(data.config.task).toEqual(expectedTask);
   });
 });

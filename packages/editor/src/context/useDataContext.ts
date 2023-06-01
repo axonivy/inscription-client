@@ -18,26 +18,23 @@ export const useDataContext = (): DataContext => useContext(DataContextInstance)
 
 export function useConfigDataContext(): {
   config: ConfigData;
-  defaultData: ConfigData;
+  defaultConfig: ConfigData;
+  initConfig: ConfigData;
   setConfig: UpdateConsumer<ConfigData>;
 } {
-  const { data, defaultData, setData } = useDataContext();
-
-  const getConfig = useCallback(() => {
-    return data.config;
-  }, [data.config]);
+  const { data, initData, defaultData, setData } = useDataContext();
 
   const setConfig = useCallback<UpdateConsumer<ConfigData>>(
     update =>
       setData(
         produce(draft => {
-          draft.config = update(getConfig());
+          draft.config = update(draft.config);
         })
       ),
-    [getConfig, setData]
+    [setData]
   );
 
-  return { config: getConfig(), defaultData, setConfig };
+  return { config: data.config, initConfig: initData.config, defaultConfig: defaultData, setConfig };
 }
 
 export const TaskDataContextInstance = createContext<number | undefined>(undefined);
@@ -45,30 +42,43 @@ export const TaskDataContextInstance = createContext<number | undefined>(undefin
 export function useTaskDataContext(): {
   task: WfTask;
   defaultTask: WfTask;
+  initTask: WfTask;
   setTask: UpdateConsumer<WfTask>;
+  resetTask: () => void;
 } {
   const taskNumber = useContext(TaskDataContextInstance);
-  const { config, defaultData, setConfig } = useConfigDataContext();
-
-  const getTask = useCallback(() => {
-    return taskNumber !== undefined ? config.tasks[taskNumber] : config.task;
-  }, [config, taskNumber]);
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
   const setTask = useCallback<UpdateConsumer<WfTask>>(
     update =>
       setConfig(
         produce(draft => {
           if (taskNumber !== undefined) {
-            draft.tasks[taskNumber] = update(getTask());
+            draft.tasks[taskNumber] = update(draft.tasks[taskNumber]);
           } else {
-            draft.task = update(getTask());
+            draft.task = update(draft.task);
           }
         })
       ),
-    [getTask, setConfig, taskNumber]
+    [setConfig, taskNumber]
   );
 
-  const defaultTask = taskNumber !== undefined ? defaultData.tasks[taskNumber] : defaultData.task;
+  const resetTask = useCallback<() => void>(
+    () =>
+      setConfig(
+        produce(draft => {
+          if (taskNumber !== undefined) {
+            draft.tasks[taskNumber] = initConfig.tasks[taskNumber];
+          } else {
+            draft.task = initConfig.task;
+          }
+        })
+      ),
+    [initConfig.task, initConfig.tasks, setConfig, taskNumber]
+  );
 
-  return { task: getTask(), defaultTask, setTask };
+  const task = taskNumber !== undefined ? config.tasks[taskNumber] : config.task;
+  const defaultTask = taskNumber !== undefined ? defaultConfig.tasks[taskNumber] : defaultConfig.task;
+  const initTask = taskNumber !== undefined ? initConfig.tasks[taskNumber] : initConfig.task;
+  return { task, defaultTask, initTask, setTask, resetTask };
 }

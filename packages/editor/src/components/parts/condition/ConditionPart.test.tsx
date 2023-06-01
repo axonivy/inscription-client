@@ -47,4 +47,15 @@ describe('ConditionPart', () => {
     assertState('empty');
     assertState('configured', { conditions: { f1: 'false' } });
   });
+
+  test('reset', () => {
+    let data: any = { config: { conditions: { f1: 'test' } } };
+    const view = renderHook(() => useConditionPart(), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { conditions: { f1: 'init' } } } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    expect(data.config.conditions.f1).toEqual('init');
+  });
 });

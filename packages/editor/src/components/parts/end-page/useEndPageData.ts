@@ -6,10 +6,11 @@ import { Consumer } from '../../../types/lambda';
 
 export function useEndPageData(): {
   data: EndPageData;
+  initData: EndPageData;
   defaultData: EndPageData;
   updatePage: Consumer<string>;
 } {
-  const { config, defaultData, setConfig } = useConfigDataContext();
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
   const updatePage = useCallback<Consumer<string>>(
     page =>
@@ -21,5 +22,5 @@ export function useEndPageData(): {
     [setConfig]
   );
 
-  return { data: config, defaultData, updatePage };
+  return { data: config, initData: initConfig, defaultData: defaultConfig, updatePage };
 }

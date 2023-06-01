@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useClient, useEditorContext } from '../../../../context';
-import { PartProps, usePartState } from '../../../props';
+import { PartProps, usePartDirty, usePartState } from '../../../props';
 import { MappingInfo } from '@axonivy/inscription-protocol';
 import CallMapping from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
@@ -9,10 +9,12 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { Fieldset, useFieldset } from '../../../../components/widgets';
 
 export function useTriggerCallPart(): PartProps {
-  const { callData, defaultData } = useCallData();
-  const { processCallData, defaultProcessData } = useProcessCallData();
-  const state = usePartState([defaultData.call, defaultProcessData.processCall], [callData.call, processCallData.processCall], []);
-  return { name: 'Trigger', state, content: <TriggerCallPart /> };
+  const { callData, defaultData, initData } = useCallData();
+  const { processCallData, defaultProcessData, initProcessData, resetData } = useProcessCallData();
+  const currentData = [callData.call, processCallData.processCall];
+  const state = usePartState([defaultData.call, defaultProcessData.processCall], currentData, []);
+  const dirty = usePartDirty([initData.call, initProcessData.processCall], currentData);
+  return { name: 'Trigger', state, reset: { dirty, action: () => resetData() }, content: <TriggerCallPart /> };
 }
 
 const TriggerCallPart = () => {

@@ -7,10 +7,11 @@ import { Consumer } from '../../../types/lambda';
 export function useCallData(): {
   callData: CallData;
   defaultData: CallData;
+  initData: CallData;
   updateMap: Consumer<Mapping>;
   updateCode: Consumer<string>;
 } {
-  const { config, defaultData, setConfig } = useConfigDataContext();
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
   const updateMap = useCallback<Consumer<Mapping>>(
     map =>
@@ -32,15 +33,17 @@ export function useCallData(): {
     [setConfig]
   );
 
-  return { callData: config, defaultData, updateMap, updateCode };
+  return { callData: config, initData: initConfig, defaultData: defaultConfig, updateMap, updateCode };
 }
 
 export function useDialogCallData(): {
   dialogCallData: DialogCallData;
   defaultDialogData: DialogCallData;
+  initDialogData: DialogCallData;
   updateDialog: Consumer<string>;
+  resetData: () => void;
 } {
-  const { config, defaultData, setConfig } = useConfigDataContext();
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
   const updateDialog = useCallback<Consumer<string>>(
     dialog =>
@@ -52,15 +55,28 @@ export function useDialogCallData(): {
     [setConfig]
   );
 
-  return { dialogCallData: config, defaultDialogData: defaultData, updateDialog };
+  const resetData = useCallback<() => void>(
+    () =>
+      setConfig(
+        produce(draft => {
+          draft.dialog = initConfig.dialog;
+          draft.call = initConfig.call;
+        })
+      ),
+    [initConfig.call, initConfig.dialog, setConfig]
+  );
+
+  return { dialogCallData: config, initDialogData: initConfig, defaultDialogData: defaultConfig, updateDialog, resetData };
 }
 
 export function useProcessCallData(): {
   processCallData: ProcessCallData;
   defaultProcessData: ProcessCallData;
+  initProcessData: ProcessCallData;
   updateProcessCall: Consumer<string>;
+  resetData: () => void;
 } {
-  const { config, defaultData, setConfig } = useConfigDataContext();
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
   const updateProcessCall = useCallback<Consumer<string>>(
     processCall =>
@@ -72,5 +88,16 @@ export function useProcessCallData(): {
     [setConfig]
   );
 
-  return { processCallData: config, defaultProcessData: defaultData, updateProcessCall };
+  const resetData = useCallback<() => void>(
+    () =>
+      setConfig(
+        produce(draft => {
+          draft.processCall = initConfig.processCall;
+          draft.call = initConfig.call;
+        })
+      ),
+    [initConfig.call, initConfig.processCall, setConfig]
+  );
+
+  return { processCallData: config, initProcessData: initConfig, defaultProcessData: defaultConfig, updateProcessCall, resetData };
 }

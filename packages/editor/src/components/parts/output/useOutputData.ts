@@ -7,11 +7,14 @@ import { Consumer } from '../../../types/lambda';
 export function useOutputData(): {
   outputData: OutputData;
   defaultData: OutputData;
+  initData: OutputData;
   updateMap: Consumer<Mapping>;
   updateCode: Consumer<string>;
   updateSudo: Consumer<boolean>;
+  resetCode: () => void;
+  resetOutput: Consumer<boolean | undefined>;
 } {
-  const { config, defaultData, setConfig } = useConfigDataContext();
+  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
   const updateMap = useCallback<Consumer<Mapping>>(
     map =>
@@ -43,5 +46,38 @@ export function useOutputData(): {
     [setConfig]
   );
 
-  return { outputData: config, defaultData, updateMap, updateCode, updateSudo };
+  const resetCode = useCallback<() => void>(
+    () =>
+      setConfig(
+        produce(draft => {
+          draft.output.code = initConfig.output.code;
+          draft.sudo = initConfig.sudo;
+        })
+      ),
+    [initConfig.output.code, initConfig.sudo, setConfig]
+  );
+
+  const resetOutput = useCallback<Consumer<boolean | undefined>>(
+    resetCode =>
+      setConfig(
+        produce(draft => {
+          draft.output.map = initConfig.output.map;
+          if (resetCode) {
+            draft.output.code = initConfig.output.code;
+          }
+        })
+      ),
+    [initConfig.output.code, initConfig.output.map, setConfig]
+  );
+
+  return {
+    outputData: config,
+    defaultData: defaultConfig,
+    initData: initConfig,
+    updateMap,
+    updateCode,
+    updateSudo,
+    resetCode,
+    resetOutput
+  };
 }

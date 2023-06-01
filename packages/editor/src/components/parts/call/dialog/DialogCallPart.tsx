@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useClient, useEditorContext, useValidation } from '../../../../context';
-import { PartProps, usePartState } from '../../../props';
+import { PartProps, usePartDirty, usePartState } from '../../../props';
 import { InscriptionValidation, MappingInfo } from '@axonivy/inscription-protocol';
 import CallMapping from '../CallMapping';
 import { useCallData, useDialogCallData } from '../useCallData';
@@ -16,10 +16,12 @@ function useCallPartValidation(): InscriptionValidation[] {
 
 export function useDialogCallPart(): PartProps {
   const validation = useCallPartValidation();
-  const { callData, defaultData } = useCallData();
-  const { dialogCallData, defaultDialogData } = useDialogCallData();
-  const state = usePartState([defaultData.call, defaultDialogData.dialog], [callData.call, dialogCallData.dialog], validation);
-  return { name: 'Call', state, content: <DialogCallPart /> };
+  const { callData, defaultData, initData } = useCallData();
+  const { dialogCallData, defaultDialogData, initDialogData, resetData } = useDialogCallData();
+  const currentData = [callData.call, dialogCallData.dialog];
+  const state = usePartState([defaultData.call, defaultDialogData.dialog], currentData, validation);
+  const dirty = usePartDirty([initData.call, initDialogData.dialog], currentData);
+  return { name: 'Call', state, reset: { dirty, action: () => resetData() }, content: <DialogCallPart /> };
 }
 
 const DialogCallPart = () => {

@@ -49,4 +49,18 @@ describe('NamePart', () => {
     assertState('configured', { docs: [{ name: 'a', url: 'u' }] });
     assertState('configured', { tags: ['demo'] });
   });
+
+  test('reset', () => {
+    let data = { name: 'name', description: 'description', docs: [{ name: 'doc', url: 'url' }], tags: ['tag1'] };
+    const view = renderHook(() => useNamePart(), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { name: 'initName' } }
+    });
+    expect(view.result.current.reset?.dirty).toEqual(true);
+
+    view.result.current.reset?.action();
+    expect(data.name).toEqual('initName');
+    expect(data.description).toEqual('');
+    expect(data.docs).toEqual([]);
+    expect(data.tags).toEqual([]);
+  });
 });

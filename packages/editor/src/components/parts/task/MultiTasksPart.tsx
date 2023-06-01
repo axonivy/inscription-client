@@ -1,20 +1,22 @@
 import { WfTask as TaskData } from '@axonivy/inscription-protocol';
 import { EmptyWidget, Tab } from '../../widgets';
-import { TaskDataContextInstance, useConfigDataContext } from '../../../context';
-import { PartProps, usePartState } from '../../props';
+import { TaskDataContextInstance } from '../../../context';
+import { PartProps, usePartDirty, usePartState } from '../../props';
 import TaskPart from './general/TaskPart';
+import { useMutliTaskData } from './useTaskData';
 
 export function useMultiTasksPart(): PartProps {
-  const { config, defaultData } = useConfigDataContext();
-  const state = usePartState(defaultData.tasks, config.tasks, []);
-  return { name: 'Tasks', state, content: <MultiTasksPart /> };
+  const { tasks, defaultTasks, initTasks, resetTasks } = useMutliTaskData();
+  const state = usePartState(defaultTasks, tasks, []);
+  const dirty = usePartDirty(initTasks, tasks);
+  return { name: 'Tasks', state, reset: { dirty, action: () => resetTasks() }, content: <MultiTasksPart /> };
 }
 
 const MultiTasksPart = () => {
-  const { config } = useConfigDataContext();
+  const { tasks } = useMutliTaskData();
 
   const tabs: PartProps[] =
-    config.tasks?.map((task: TaskData, index: any) => {
+    tasks?.map((task: TaskData, index: any) => {
       return {
         name: task.id ?? '',
         content: (
