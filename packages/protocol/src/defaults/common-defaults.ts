@@ -7,7 +7,9 @@ import {
   EndPageData,
   NameData,
   ProcessCallData,
-  ConditionData
+  ConditionData,
+  StartData,
+  ScriptVariable
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -43,6 +45,15 @@ export const DEFAULT_CONDITION_DATA: ConditionData = {
   conditions: {}
 };
 
+export const DEFAULT_START_DATA: StartData = {
+  signature: '',
+  input: {
+    code: '',
+    map: {},
+    params: [] as ScriptVariable[]
+  }
+};
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -51,6 +62,7 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_TASK_DATA,
     ...DEFAULT_CASE_DATA,
     ...DEFAULT_END_PAGE_DATA,
-    ...DEFAULT_CONDITION_DATA
+    ...DEFAULT_CONDITION_DATA,
+    ...DEFAULT_START_DATA
   }
 } as const;

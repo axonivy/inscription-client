@@ -9,8 +9,8 @@ export namespace TableUtil {
     });
   }
 
-  export function assertRows(expectedRows: (RegExp | string)[]) {
-    const tBody = screen.getAllByRole('rowgroup')[1];
+  export function assertRows(expectedRows: (RegExp | string)[], index?: number) {
+    const tBody = screen.getAllByRole('rowgroup')[index ?? 1];
     if (expectedRows.length === 0) {
       expect(within(tBody).queryAllByRole('row')).toHaveLength(0);
     } else {

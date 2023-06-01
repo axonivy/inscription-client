@@ -3,7 +3,19 @@ import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useNamePart, useOutputPart } from '../../../components/parts';
+import { useNamePart, useOutputPart, useStartPart } from '../../../components/parts';
+
+const HtmlDialogStartEditor = memo(() => {
+  const name = useNamePart();
+  const start = useStartPart();
+  return <InscriptionEditor icon={IvyIcons.InitStart} parts={[name, start]} />;
+});
+
+const HtmlDialogMethodStartEditor = memo(() => {
+  const name = useNamePart();
+  const start = useStartPart({ hideParamDesc: true });
+  return <InscriptionEditor icon={IvyIcons.MethodStart} parts={[name, start]} />;
+});
 
 const HtmlDialogEventStartEditor = memo(() => {
   const name = useNamePart();
@@ -12,8 +24,8 @@ const HtmlDialogEventStartEditor = memo(() => {
 });
 
 export const htmlDialogEventEditors = new Map<ElementType, ReactNode>([
-  ['HtmlDialogStart', <NameEditor icon={IvyIcons.InitStart} />],
-  ['HtmlDialogMethodStart', <NameEditor icon={IvyIcons.MethodStart} />],
+  ['HtmlDialogStart', <HtmlDialogStartEditor />],
+  ['HtmlDialogMethodStart', <HtmlDialogMethodStartEditor />],
   ['HtmlDialogEventStart', <HtmlDialogEventStartEditor />],
   ['HtmlDialogExit', <NameEditor icon={IvyIcons.ExitEnd} />],
   ['HtmlDialogEnd', <NameEditor icon={IvyIcons.End} />]

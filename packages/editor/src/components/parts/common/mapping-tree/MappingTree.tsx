@@ -133,7 +133,7 @@ const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange:
   });
 
   return (
-    <Fieldset label='Mapping' htmlFor='mapping' controls={tableControls}>
+    <Fieldset label='Mapping' controls={tableControls}>
       {showGlobalFilter && <IconInput value={globalFilter} onChange={setGlobalFilter} icon={IvyIcons.Search} placeholder='Search' />}
       <Table>
         <thead>

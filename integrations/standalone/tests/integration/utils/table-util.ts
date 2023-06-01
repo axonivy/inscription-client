@@ -32,7 +32,11 @@ export namespace TableUtil {
     }
   }
 
-  export async function assertEmpty(page: Page) {
-    await expect(page.locator('tbody tr')).toHaveCount(0);
+  export async function assertEmpty(page: Page, nth?: number) {
+    let tbody = page.locator('tbody');
+    if (nth !== undefined) {
+      tbody = tbody.nth(nth);
+    }
+    await expect(tbody.locator(' tr')).toHaveCount(0);
   }
 }
