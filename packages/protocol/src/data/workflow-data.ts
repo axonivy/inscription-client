@@ -1,5 +1,3 @@
-import { WfCase, WfTask } from './inscription';
-
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
   ROLE_FROM_ATTRIBUTE: 'Role from Attr.',
@@ -21,13 +19,3 @@ export const CUSTOM_FIELD_TYPE = {
   NUMBER: 'Number',
   TIMESTAMP: 'Timestamp'
 } as const;
-
-export interface TaskData {
-  task: WfTask;
-  tasks: WfTask[];
-  persist: boolean;
-}
-
-export interface CaseData {
-  case: WfCase;
-}

@@ -1,4 +1,4 @@
-import { Data, ElementAlternative, ElementScript, ScriptMapCode } from './inscription';
+import { Data, ElementAlternative, ElementScript, ScriptMapCode, ScriptParameterizedMapCode, WfCase, WfTask } from './inscription';
 
 export type NameData = Omit<Data, 'config'>;
 
@@ -24,3 +24,18 @@ export interface EndPageData {
 export type OutputData = ElementScript;
 
 export type ConditionData = ElementAlternative;
+
+export interface TaskData {
+  task: WfTask;
+  tasks: WfTask[];
+  persist: boolean;
+}
+
+export interface CaseData {
+  case: WfCase;
+}
+
+export interface StartData {
+  input: ScriptParameterizedMapCode;
+  signature: string;
+}
