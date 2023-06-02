@@ -31,6 +31,7 @@ export interface InscriptionClient {
   roles(pid: PID): Promise<RoleMeta[]>;
   expiryErrors(pid: PID): Promise<ErrorMeta[]>;
   outMapping(pid: PID): Promise<MappingInfo>;
+  resultMapping(pid: PID): Promise<MappingInfo>;
 
   connectorOf(pid: PID): Promise<ConnectorRef>;
 

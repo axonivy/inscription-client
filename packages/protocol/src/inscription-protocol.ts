@@ -21,7 +21,8 @@ export interface InscriptionRequestTypes {
 
   'meta/workflow/roles': [InscriptionDataArgs, RoleMeta[]];
   'meta/workflow/expiryErrors': [InscriptionDataArgs, ErrorMeta[]];
-  'meta/out/map': [InscriptionDataArgs, MappingInfo];
+  'meta/map/out': [InscriptionDataArgs, MappingInfo];
+  'meta/map/result': [InscriptionDataArgs, MappingInfo];
 
   'meta/connector/of': [InscriptionDataArgs, ConnectorRef];
 

@@ -7,6 +7,7 @@ import {
   NameData,
   OutputData,
   ProcessCallData,
+  ResultData,
   StartData,
   TaskData
 } from './part-data';
@@ -20,7 +21,8 @@ export type ConfigData = CallData &
   CaseData &
   EndPageData &
   ConditionData &
-  StartData;
+  StartData &
+  ResultData;
 
 export type ElementData = NameData & { config: ConfigData };
 
