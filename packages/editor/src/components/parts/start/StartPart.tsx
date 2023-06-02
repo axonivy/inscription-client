@@ -6,8 +6,11 @@ import { useStartData } from './useStartData';
 import { MappingInfo } from '@axonivy/inscription-protocol';
 import { useClient, useEditorContext } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
+import { useNameSyncher } from './useNameSyncher';
 
-export function useStartPart(options?: { hideParamDesc?: boolean }): PartProps {
+type StartPartProps = { hideParamDesc?: boolean; signaturePostfix?: string };
+
+export function useStartPart(props?: StartPartProps): PartProps {
   const { data, defaultData, initData, resetData } = useStartData();
   const currentData = [data.signature, data.input];
   const state = usePartState([defaultData.signature, defaultData.input], currentData, []);
@@ -16,11 +19,11 @@ export function useStartPart(options?: { hideParamDesc?: boolean }): PartProps {
     name: 'Start',
     state,
     reset: { dirty, action: () => resetData() },
-    content: <StartPart hideParamDesc={options?.hideParamDesc} />
+    content: <StartPart {...props} />
   };
 }
 
-const StartPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
+const StartPart = ({ hideParamDesc, signaturePostfix }: StartPartProps) => {
   const { data, updateSignature, updateParams, updateMap, updateCode } = useStartData();
   const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
 
@@ -29,6 +32,8 @@ const StartPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   useEffect(() => {
     client.outMapping(editorContext.pid).then(mapping => setMappingInfo(mapping));
   }, [client, editorContext.pid]);
+
+  useNameSyncher(data, signaturePostfix);
 
   const signatureFieldset = useFieldset();
   return (
