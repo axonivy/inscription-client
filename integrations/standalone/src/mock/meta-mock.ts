@@ -6,69 +6,82 @@ export namespace MetaMock {
       {
         attribute: 'accepted',
         type: 'Boolean',
-        simpleType: 'Boolean'
+        simpleType: 'Boolean',
+        description: ''
       },
       {
         attribute: 'activityLog',
         type: 'List<workflow.humantask.LogEntry>',
-        simpleType: 'List<LogEntry>'
+        simpleType: 'List<LogEntry>',
+        description: ''
       },
       {
         attribute: 'amount',
         type: 'Number',
-        simpleType: 'Number'
+        simpleType: 'Number',
+        description: ''
       },
       {
         attribute: 'dataOkManager',
         type: 'Boolean',
-        simpleType: 'Boolean'
+        simpleType: 'Boolean',
+        description: ''
       },
       {
         attribute: 'dataOkTeamLeader',
         type: 'Boolean',
-        simpleType: 'Boolean'
+        simpleType: 'Boolean',
+        description: ''
       },
       {
         attribute: 'description',
         type: 'String',
-        simpleType: 'String'
+        simpleType: 'String',
+        description: ''
       },
       {
         attribute: 'notes',
         type: 'String',
-        simpleType: 'String'
+        simpleType: 'String',
+        description: ''
       },
       {
         attribute: 'pricePerUnit',
         type: 'Number',
-        simpleType: 'Number'
+        simpleType: 'Number',
+        description: ''
       },
       {
         attribute: 'requester',
         type: 'workflow.humantask.User',
-        simpleType: 'User'
+        simpleType: 'User',
+        description: ''
       },
       {
         attribute: 'totalPrice',
         type: 'Number',
-        simpleType: 'Number'
+        simpleType: 'Number',
+        description: ''
       }
     ],
     'workflow.humantask.User': [
       {
         attribute: 'email',
         type: 'String',
-        simpleType: 'String'
+        simpleType: 'String',
+        description: ''
       },
       {
         attribute: 'fullName',
         type: 'String',
-        simpleType: 'String'
+        simpleType: 'String',
+        description: ''
       },
       {
         attribute: 'role',
         type: 'String',
-        simpleType: 'String'
+        simpleType: 'String',
+        description: ''
       }
     ]
   };
@@ -78,7 +91,8 @@ export namespace MetaMock {
       {
         attribute: 'out',
         type: 'workflow.humantask.ProcurementRequest',
-        simpleType: 'ProcurementRequest'
+        simpleType: 'ProcurementRequest',
+        description: ''
       }
     ],
     types: MAP_INFO_TYPES
@@ -92,12 +106,14 @@ export namespace MetaMock {
       description: '',
       startName: 'start(workflow.humantask.ProcurementRequest)',
       project: 'workflow-demos',
+      deprecated: false,
       callParameter: {
         variables: [
           {
             attribute: 'param.procurementRequest',
             type: 'workflow.humantask.ProcurementRequest',
-            simpleType: 'ProcurementRequest'
+            simpleType: 'ProcurementRequest',
+            description: 'this is a description'
           }
         ],
         types: MAP_INFO_TYPES
@@ -110,6 +126,7 @@ export namespace MetaMock {
       description: '',
       packageName: 'workflow.humantask',
       project: 'workflow-demos',
+      deprecated: true,
       callParameter: {
         variables: [],
         types: {}
@@ -122,12 +139,14 @@ export namespace MetaMock {
       description: '',
       packageName: 'demo',
       project: 'demo',
+      deprecated: false,
       callParameter: {
         variables: [
           {
             attribute: 'param.Endless',
             type: 'demo.Endless',
-            simpleType: 'Endless'
+            simpleType: 'Endless',
+            description: ''
           }
         ],
         types: {
@@ -135,7 +154,8 @@ export namespace MetaMock {
             {
               attribute: 'endless',
               type: 'demo.Endless',
-              simpleType: 'Endless'
+              simpleType: 'Endless',
+              description: ''
             }
           ]
         }

@@ -12,7 +12,8 @@ import {
   ElementType,
   ElementData,
   ConnectorRef,
-  Action
+  InscriptionAction,
+  PID
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
@@ -32,7 +33,7 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(true);
   }
 
-  data(pid: string): Promise<InscriptionData> {
+  data(pid: PID): Promise<InscriptionData> {
     const inscriptionType: InscriptionType = {
       id: this.type,
       label: this.type,
@@ -55,31 +56,31 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(ValidationMock.validateData(args));
   }
 
-  dialogStarts(pid: string): Promise<CallableStart[]> {
+  dialogStarts(pid: PID): Promise<CallableStart[]> {
     return Promise.resolve(MetaMock.CALLABLE_STARTS);
   }
 
-  triggerStarts(pid: string): Promise<CallableStart[]> {
+  triggerStarts(pid: PID): Promise<CallableStart[]> {
     return Promise.resolve(MetaMock.CALLABLE_STARTS);
   }
 
-  callSubStarts(pid: string): Promise<CallableStart[]> {
+  callSubStarts(pid: PID): Promise<CallableStart[]> {
     return Promise.resolve(MetaMock.CALLABLE_STARTS);
   }
 
-  roles(pid: string): Promise<RoleMeta[]> {
+  roles(pid: PID): Promise<RoleMeta[]> {
     return Promise.resolve(MetaMock.ROLES);
   }
 
-  expiryErrors(pid: string): Promise<ErrorMeta[]> {
+  expiryErrors(pid: PID): Promise<ErrorMeta[]> {
     return Promise.resolve(MetaMock.EXPIRY_ERRORS);
   }
 
-  outMapping(pid: string): Promise<MappingInfo> {
+  outMapping(pid: PID): Promise<MappingInfo> {
     return Promise.resolve(MetaMock.OUT_MAP_INFO);
   }
 
-  connectorOf(pid: string): Promise<ConnectorRef> {
+  connectorOf(pid: PID): Promise<ConnectorRef> {
     if (pid.includes('f1')) {
       return Promise.resolve(MetaMock.CONNECTOR_OF);
     }
@@ -87,7 +88,7 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(undefined);
   }
 
-  action(action: Action): void {
+  action(action: InscriptionAction): void {
     alert(`action: [kind: ${action.kind}, pid: ${action.pid}, payload: ${action.payload}]`);
   }
 }

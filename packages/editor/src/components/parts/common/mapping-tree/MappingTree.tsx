@@ -54,6 +54,7 @@ const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange:
             isLoaded={cell.row.original.isLoaded}
             loadChildren={() => loadChildren(cell.row.original)}
             isUnknown={cell.row.original.type.length === 0}
+            title={cell.row.original.description}
           />
         ),
         footer: props => props.column.id,

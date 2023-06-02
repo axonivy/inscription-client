@@ -5,9 +5,6 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-/**
- * process-element-id
- */
 export type PID = string;
 export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
 export type WfLevel = "EXCEPTION" | "HIGH" | "NORMAL" | "LOW" | "SCRIPT";
@@ -25,6 +22,7 @@ export interface Inscription {
   inscriptionDataArgs: InscriptionDataArgs;
   inscriptionRequest: InscriptionRequest;
   boolean: boolean;
+  inscriptionAction: InscriptionAction;
   inscriptionSaveRequest: InscriptionSaveRequest;
   inscriptionValidation: InscriptionValidation[];
   callableStart: CallableStart[];
@@ -491,6 +489,11 @@ export interface InscriptionType {
   label: string;
   shortLabel: string;
 }
+export interface InscriptionAction {
+  kind: string;
+  payload: string;
+  pid: PID;
+}
 export interface InscriptionSaveRequest {
   data: Data;
   pid: PID;
@@ -502,6 +505,7 @@ export interface InscriptionValidation {
 }
 export interface CallableStart {
   callParameter: MappingInfo;
+  deprecated: boolean;
   description: string;
   id: string;
   packageName: string;
@@ -518,6 +522,7 @@ export interface MapStringListVariable {
 }
 export interface Variable {
   attribute: string;
+  description: string;
   simpleType: string;
   type: string;
 }

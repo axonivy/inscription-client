@@ -3,21 +3,24 @@ import Button from '../../button/Button';
 import './ExpandableCell.css';
 import { CellContext } from '@tanstack/react-table';
 
-export function ExpandableCell<TData>(props: {
+type ExpandableCellProps<TData> = {
   cell: CellContext<TData, unknown>;
   isLoaded?: boolean;
   loadChildren?: () => void;
   isUnknown?: boolean;
-}) {
-  const row = props.cell.row;
+  title?: string;
+};
+
+export function ExpandableCell<TData>({ cell, isLoaded, loadChildren, isUnknown, title }: ExpandableCellProps<TData>) {
+  const row = cell.row;
   const onClick = () => {
-    if (props.isLoaded === false && props.loadChildren) {
-      props.loadChildren();
+    if (isLoaded === false && loadChildren) {
+      loadChildren();
     }
     row.toggleExpanded(true);
   };
   return (
-    <div className='row-expand' style={{ paddingLeft: `${row.depth}rem` }}>
+    <div className='row-expand' style={{ paddingLeft: `${row.depth}rem` }} title={title}>
       {row.getCanExpand() ? (
         <Button
           icon={IvyIcons.AngleDown}
@@ -26,14 +29,14 @@ export function ExpandableCell<TData>(props: {
           data-state={row.getIsExpanded() ? 'expanded' : 'collapsed'}
           {...{ onClick: row.getToggleExpandedHandler() }}
         />
-      ) : props.isLoaded === false ? (
+      ) : isLoaded === false ? (
         <Button icon={IvyIcons.AngleDown} className='row-expand-button' aria-label='Expand row' onClick={onClick} data-state='collapsed' />
-      ) : props.isUnknown === true ? (
+      ) : isUnknown === true ? (
         '⛔'
       ) : (
         '🔵'
       )}{' '}
-      <span className='row-expand-label'>{props.cell.getValue() as string}</span>
+      <span className='row-expand-label'>{cell.getValue() as string}</span>
     </div>
   );
 }

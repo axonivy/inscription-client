@@ -28,9 +28,19 @@ export type FieldsetProps = LabelProps & {
   message?: Message;
 };
 
+export type FieldsetInputProps = {
+  id: string;
+  'aria-labelledby': string;
+};
+
+export type FieldsetLabelProps = {
+  id: string;
+  htmlFor: string;
+};
+
 type UseFieldsetReturnValue = {
-  labelProps: { id: string; htmlFor: string };
-  inputProps: { id: string; 'aria-labelledby': string };
+  labelProps: FieldsetLabelProps;
+  inputProps: FieldsetInputProps;
 };
 
 export function useFieldset(): UseFieldsetReturnValue {

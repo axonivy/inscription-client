@@ -56,7 +56,6 @@ describe('ParameterTable', () => {
     const field1 = screen.getByDisplayValue(/field1/);
     await userEvent.clear(field1);
     await userEvent.type(field1, 'Hello[Tab]');
-    view.rerender();
 
     expect(view.data()).toEqual([
       { name: 'Hello', type: 'String', desc: 'this is a string' },
