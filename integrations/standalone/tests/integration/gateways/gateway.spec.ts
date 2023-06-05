@@ -18,7 +18,7 @@ test.describe('Gateways', () => {
   test('Split', async ({ page }) => {
     await page.goto(inscriptionView('169A4921D0EF0B91-f6'));
     await expect(page.getByText('Split').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest]);
+    await fillReloadAndAssert(page, [NameTest, OutputTest]);
   });
 
   test('Tasks', async ({ page }) => {

@@ -39,3 +39,7 @@ export interface StartData {
   input: ScriptParameterizedMapCode;
   signature: string;
 }
+
+export interface ResultData {
+  result: ScriptParameterizedMapCode;
+}

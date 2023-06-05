@@ -65,7 +65,11 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
   }
 
   outMapping(pid: PID): Promise<MappingInfo> {
-    return this.sendRequest('meta/out/map', { pid });
+    return this.sendRequest('meta/map/out', { pid });
+  }
+
+  resultMapping(pid: PID): Promise<MappingInfo> {
+    return this.sendRequest('meta/map/result', { pid });
   }
 
   connectorOf(pid: PID): Promise<ConnectorRef> {

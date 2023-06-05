@@ -80,6 +80,10 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(MetaMock.OUT_MAP_INFO);
   }
 
+  resultMapping(pid: string): Promise<MappingInfo> {
+    return Promise.resolve(MetaMock.RESULT_MAP_INFO);
+  }
+
   connectorOf(pid: PID): Promise<ConnectorRef> {
     if (pid.includes('f1')) {
       return Promise.resolve(MetaMock.CONNECTOR_OF);

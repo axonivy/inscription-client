@@ -36,6 +36,7 @@ type ContextHelperProps = {
     triggerStarts?: CallableStart[];
     callSubStarts?: CallableStart[];
     outMapping?: MappingInfo;
+    resultMapping?: MappingInfo;
     connectorOf?: Record<string, DeepPartial<ConnectorRef>>;
   };
   editor?: { title?: string; readonly?: boolean };
@@ -78,6 +79,9 @@ const ContextHelper = (
       },
       outMapping() {
         return Promise.resolve(props.meta?.outMapping ?? { types: {}, variables: [] });
+      },
+      resultMapping() {
+        return Promise.resolve(props.meta?.resultMapping ?? { types: {}, variables: [] });
       },
       // @ts-ignore
       connectorOf(pid: string) {

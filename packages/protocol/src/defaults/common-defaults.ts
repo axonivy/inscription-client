@@ -9,7 +9,8 @@ import {
   ProcessCallData,
   ConditionData,
   StartData,
-  ScriptVariable
+  ScriptVariable,
+  ResultData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -54,6 +55,14 @@ export const DEFAULT_START_DATA: StartData = {
   }
 };
 
+export const DEFAULT_RESULT_DATA: ResultData = {
+  result: {
+    code: '',
+    map: {},
+    params: [] as ScriptVariable[]
+  }
+};
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -63,6 +72,7 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_CASE_DATA,
     ...DEFAULT_END_PAGE_DATA,
     ...DEFAULT_CONDITION_DATA,
-    ...DEFAULT_START_DATA
+    ...DEFAULT_START_DATA,
+    ...DEFAULT_RESULT_DATA
   }
 } as const;

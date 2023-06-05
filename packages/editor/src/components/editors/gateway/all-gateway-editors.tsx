@@ -2,7 +2,6 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
-import NameEditor from '../NameEditor';
 import { useCasePart, useConditionPart, useEndPagePart, useMultiTasksPart, useNamePart, useOutputPart } from '../../../components/parts';
 
 const AlternativeEditor = memo(() => {
@@ -17,6 +16,12 @@ const JoinEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Join} parts={[name, output]} />;
 });
 
+const SplitEditor = memo(() => {
+  const name = useNamePart();
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.Split} parts={[name, output]} />;
+});
+
 const TaskSwitchGatewayEditor = memo(() => {
   const name = useNamePart();
   const output = useOutputPart();
@@ -29,6 +34,6 @@ const TaskSwitchGatewayEditor = memo(() => {
 export const gatewayEditors = new Map<ElementType, ReactNode>([
   ['Alternative', <AlternativeEditor />],
   ['Join', <JoinEditor />],
-  ['Split', <NameEditor icon={IvyIcons.Split} />],
+  ['Split', <SplitEditor />],
   ['TaskSwitchGateway', <TaskSwitchGatewayEditor />]
 ]);

@@ -98,6 +98,18 @@ export namespace MetaMock {
     types: MAP_INFO_TYPES
   };
 
+  export const RESULT_MAP_INFO: MappingInfo = {
+    variables: [
+      {
+        attribute: 'result',
+        type: 'workflow.humantask.ProcurementRequest',
+        simpleType: 'ProcurementRequest',
+        description: ''
+      }
+    ],
+    types: MAP_INFO_TYPES
+  };
+
   export const CALLABLE_STARTS: CallableStart[] = [
     {
       id: 'workflow.humantask.AcceptRequest:start(workflow.humantask.ProcurementRequest)',
