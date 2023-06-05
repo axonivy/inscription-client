@@ -25,6 +25,6 @@
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src"
   },
   "devDependencies": {
-    "json-schema-to-typescript": "^12.0.0"
+    "json-schema-to-typescript": "^13.0.1"
   }
 }
