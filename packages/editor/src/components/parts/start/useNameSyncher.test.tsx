@@ -26,7 +26,7 @@ describe('useNameSyncher', () => {
 
     startData.input.params = [
       { name: 'test', type: 'String', desc: '' },
-      { name: 'list', type: 'List<Number>', desc: '' }
+      { name: 'list', type: 'java.util.List<Number>', desc: '' }
     ];
     view.rerender();
     expect(data().name).toEqual('test(String,List<Number>)');
