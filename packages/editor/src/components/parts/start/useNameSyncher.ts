@@ -11,7 +11,7 @@ export function useNameSyncher(startData: StartData, signaturePostfix?: string) 
       if (signaturePostfix) {
         return `${signature}${signaturePostfix}`;
       }
-      return `${signature}(${startData.input.params.map(param => param.type).join(',')})`;
+      return `${signature}(${startData.input.params.map(param => param.type.substring(param.type.lastIndexOf('.') + 1)).join(',')})`;
     },
     [startData.input.params, signaturePostfix]
   );
