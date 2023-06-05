@@ -1,6 +1,6 @@
-import { devices, PlaywrightTestConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
-const config: PlaywrightTestConfig = {
+const config = defineConfig({
   testDir: './tests',
   timeout: 60 * 1000,
   expect: {
@@ -9,7 +9,7 @@ const config: PlaywrightTestConfig = {
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0, //Maybe after undo is implemented: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? [['junit', { outputFile: 'report.xml' }]] : 'html',
+  reporter: process.env.CI ? [['../customReporter.ts'], ['junit', { outputFile: 'report.xml' }]] : 'html',
   use: {
     actionTimeout: 0,
     baseURL: 'http://localhost:3000',
@@ -47,6 +47,6 @@ const config: PlaywrightTestConfig = {
     url: 'http://localhost:3000/mock.html',
     reuseExistingServer: !process.env.CI
   }
-};
+});
 
 export default config;

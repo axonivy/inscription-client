@@ -33,13 +33,13 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.image('mcr.microsoft.com/playwright:v1.30.0-jammy').inside {
+            docker.image('mcr.microsoft.com/playwright:v1.34.3-jammy').inside {
               sh 'yarn standalone webtest:mock'
             }
           }
           archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
           withChecks('Mock WebTest') {
-            junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
           }
         }
       }

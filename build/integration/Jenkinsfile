@@ -27,7 +27,7 @@ pipeline {
           archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
           archiveArtifacts artifacts: '**/standalone/**/target/**/ivy.log', allowEmptyArchive: true
           withChecks('Integration WebTest') {
-            junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
           }
         }
       }
