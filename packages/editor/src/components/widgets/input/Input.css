@@ -18,7 +18,7 @@
   border: 1px solid var(--editor-bg);
   background: var(--input-bg);
   font-size: 12px;
-  line-height: 1;
+  line-height: 12px;
   color: var(--input-color);
   text-align: start;
   padding: 10px;
@@ -32,4 +32,6 @@
 }
 textarea.input {
   resize: vertical;
+  white-space: pre-wrap;
+  line-height: 14px;
 }

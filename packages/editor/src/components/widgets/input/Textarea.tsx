@@ -1,14 +1,22 @@
 import './Input.css';
-import { ComponentProps } from 'react';
+import { ComponentProps, useMemo } from 'react';
 import { useReadonly } from '../../../context';
 
 export type TextareaProps = Omit<ComponentProps<'textarea'>, 'value' | 'onChange'> & {
   value?: string;
   onChange: (change: string) => void;
+  maxRows?: number;
 };
 
-const Textarea = ({ value, onChange, ...textareaProps }: TextareaProps) => {
+const Textarea = ({ value, onChange, maxRows, ...textareaProps }: TextareaProps) => {
   const readonly = useReadonly();
+  const height = useMemo(() => {
+    let rows = value?.split(/\r\n|\r|\n/).length ?? 1;
+    if (maxRows && rows > maxRows) {
+      rows = maxRows;
+    }
+    return rows * 14;
+  }, [maxRows, value]);
 
   return (
     <textarea
@@ -17,6 +25,7 @@ const Textarea = ({ value, onChange, ...textareaProps }: TextareaProps) => {
       value={value ?? ''}
       onChange={event => onChange(event.target.value)}
       disabled={readonly}
+      style={{ height }}
     />
   );
 };

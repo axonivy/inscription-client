@@ -36,10 +36,10 @@ const NamePart = (props: { hideTags?: boolean }) => {
   return (
     <>
       <Fieldset label='Display name' message={nameValidation} {...nameField.labelProps}>
-        <Textarea rows={1} value={data.name} onChange={change => updateName(change)} {...nameField.inputProps} />
+        <Textarea maxRows={3} value={data.name} onChange={change => updateName(change)} {...nameField.inputProps} />
       </Fieldset>
       <Fieldset label='Description' message={descriptionValidation} {...descriptionField.labelProps}>
-        <Textarea rows={2} value={data.description} onChange={change => updateDescription(change)} {...descriptionField.inputProps} />
+        <Textarea maxRows={10} value={data.description} onChange={change => updateDescription(change)} {...descriptionField.inputProps} />
       </Fieldset>
       <Fieldset label='Means / Documents'>
         <DocumentTable data={data.docs} onChange={change => updateDocs(change)} />
