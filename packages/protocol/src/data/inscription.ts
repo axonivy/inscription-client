@@ -28,6 +28,7 @@ export interface Inscription {
   callableStart: CallableStart[];
   mappingInfo: MappingInfo;
   errorMeta: ErrorMeta[];
+  eventCodeMeta: EventCodeMeta[];
   roleMeta: RoleMeta[];
   connectorRef: ConnectorRef;
   [k: string]: unknown;
@@ -529,6 +530,12 @@ export interface Variable {
 export interface ErrorMeta {
   id: string;
   label: string;
+}
+export interface EventCodeMeta {
+  eventCode: string;
+  process: string;
+  project: string;
+  usage: number;
 }
 export interface RoleMeta {
   id: string;

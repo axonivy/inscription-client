@@ -4,10 +4,12 @@ import {
   ConditionData,
   DialogCallData,
   EndPageData,
+  ErrorCatchData,
   NameData,
   OutputData,
   ProcessCallData,
   ResultData,
+  SignalCatchData,
   StartData,
   TaskData
 } from './part-data';
@@ -22,7 +24,9 @@ export type ConfigData = CallData &
   EndPageData &
   ConditionData &
   StartData &
-  ResultData;
+  ResultData &
+  ErrorCatchData &
+  SignalCatchData;
 
 export type ElementData = NameData & { config: ConfigData };
 

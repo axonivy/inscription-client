@@ -2,6 +2,7 @@ import {
   CallableStart,
   ConnectorRef,
   ErrorMeta,
+  EventCodeMeta,
   InscriptionAction,
   InscriptionData,
   InscriptionSaveData,
@@ -30,6 +31,9 @@ export interface InscriptionClient {
 
   roles(pid: PID): Promise<RoleMeta[]>;
   expiryErrors(pid: PID): Promise<ErrorMeta[]>;
+  errorCodes(pid: PID): Promise<EventCodeMeta[]>;
+  signalCodes(pid: PID): Promise<EventCodeMeta[]>;
+
   outMapping(pid: PID): Promise<MappingInfo>;
   resultMapping(pid: PID): Promise<MappingInfo>;
 

@@ -43,3 +43,12 @@ export interface StartData {
 export interface ResultData {
   result: ScriptParameterizedMapCode;
 }
+
+export interface ErrorCatchData {
+  errorCode: string;
+}
+
+export interface SignalCatchData {
+  signalCode: string;
+  attachToBusinessCase: boolean;
+}

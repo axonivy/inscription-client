@@ -13,7 +13,8 @@ import {
   ElementData,
   ConnectorRef,
   InscriptionAction,
-  PID
+  PID,
+  EventCodeMeta
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
@@ -74,6 +75,14 @@ export class InscriptionClientMock implements InscriptionClient {
 
   expiryErrors(pid: PID): Promise<ErrorMeta[]> {
     return Promise.resolve(MetaMock.EXPIRY_ERRORS);
+  }
+
+  errorCodes(pid: string): Promise<EventCodeMeta[]> {
+    return Promise.resolve([]);
+  }
+
+  signalCodes(pid: string): Promise<EventCodeMeta[]> {
+    return Promise.resolve([]);
   }
 
   outMapping(pid: PID): Promise<MappingInfo> {

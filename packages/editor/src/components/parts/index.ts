@@ -11,3 +11,5 @@ export * from './call/sub/SubCallPart';
 export * from './call/trigger/TriggerCallPart';
 export * from './end-page/EndPagePart';
 export * from './condition/ConditionPart';
+export * from './error/ErrorCatchPart';
+export * from './signal/SignalCatchPart';

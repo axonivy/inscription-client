@@ -3,7 +3,15 @@ import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useCasePart, useNamePart, useOutputPart, useSingleTaskPart, useStartPart } from '../../../components/parts';
+import {
+  useCasePart,
+  useSignalCatchPart,
+  useNamePart,
+  useOutputPart,
+  useSingleTaskPart,
+  useStartPart,
+  useErrorCatchPart
+} from '../../../components/parts';
 
 const RequestStartEditor = memo(() => {
   const name = useNamePart();
@@ -17,14 +25,16 @@ const RequestStartEditor = memo(() => {
 
 const SignalStartEventEditor = memo(() => {
   const name = useNamePart();
+  const signal = useSignalCatchPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.Signal} parts={[name, output]} />;
+  return <InscriptionEditor icon={IvyIcons.Signal} parts={[name, signal, output]} />;
 });
 
 const ErrorStartEventEditor = memo(() => {
   const name = useNamePart();
+  const error = useErrorCatchPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.ErrorEvent} parts={[name, output]} />;
+  return <InscriptionEditor icon={IvyIcons.ErrorEvent} parts={[name, error, output]} />;
 });
 
 export const startEventEditors = new Map<ElementType, ReactNode>([

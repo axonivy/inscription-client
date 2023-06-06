@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import { inscriptionView } from '../../utils/engine-util';
 import { CaseTest, NameTest, NameTestWithoutTags, OutputTest, fillReloadAndAssert } from '../parts';
 import { StartTest, StartTester } from '../parts/start';
+import { ErrorCatchTest } from '../parts/error-catch';
+import { SignalCatchTest } from '../parts/signal-catch';
 
 test.describe('Start Events', () => {
   test('Start', async ({ page }) => {
@@ -13,13 +15,13 @@ test.describe('Start Events', () => {
   test('Signal Start', async ({ page }) => {
     await page.goto(inscriptionView('169A4921D0EF0B91-f4'));
     await expect(page.getByText('Signal Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, OutputTest]);
+    await fillReloadAndAssert(page, [NameTest, SignalCatchTest, OutputTest]);
   });
 
   test('Error Start', async ({ page }) => {
     await page.goto(inscriptionView('169A4921D0EF0B91-f3'));
     await expect(page.getByText('Error Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, OutputTest]);
+    await fillReloadAndAssert(page, [NameTest, ErrorCatchTest, OutputTest]);
   });
 
   test('Program Start', async ({ page }) => {

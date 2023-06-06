@@ -9,15 +9,15 @@ export interface ComboboxItem {
   value: string;
 }
 
-export type ComboboxProps = Omit<ComponentProps<'input'>, 'value' | 'onChange'> & {
-  items: ComboboxItem[];
-  itemFilter?: (item: ComboboxItem, input?: string) => boolean;
-  comboboxItem: (item: ComboboxItem) => ReactNode;
+export type ComboboxProps<T extends ComboboxItem> = Omit<ComponentProps<'input'>, 'value' | 'onChange'> & {
+  items: T[];
+  itemFilter?: (item: T, input?: string) => boolean;
+  comboboxItem: (item: T) => ReactNode;
   value: string;
   onChange: (change: string) => void;
 };
 
-const Combobox = ({ items, itemFilter, comboboxItem, value, onChange, ...inputProps }: ComboboxProps) => {
+const Combobox = <T extends ComboboxItem>({ items, itemFilter, comboboxItem, value, onChange, ...inputProps }: ComboboxProps<T>) => {
   const filter = itemFilter
     ? itemFilter
     : (item: ComboboxItem, input?: string) => {
@@ -30,22 +30,37 @@ const Combobox = ({ items, itemFilter, comboboxItem, value, onChange, ...inputPr
 
   const [filteredItems, setFilteredItems] = useState(items);
   useEffect(() => setFilteredItems(items), [items]);
-  const { isOpen, getToggleButtonProps, getMenuProps, getInputProps, highlightedIndex, getItemProps, selectedItem } = useCombobox({
-    onSelectedItemChange(change) {
-      setFilteredItems(items);
-      onChange(change.inputValue ?? '');
-    },
-    onInputValueChange(change) {
-      if (change.type !== '__item_click__') {
-        setFilteredItems(items.filter(item => filter(item, change.inputValue)));
-      }
-    },
-    items: filteredItems,
-    itemToString(item) {
-      return item?.value ?? '';
-    },
-    initialSelectedItem: { value }
-  });
+
+  const { isOpen, getToggleButtonProps, getMenuProps, getInputProps, highlightedIndex, getItemProps, selectedItem, selectItem } =
+    useCombobox({
+      onSelectedItemChange(change) {
+        setFilteredItems(items);
+        onChange(change.inputValue ?? '');
+      },
+      stateReducer(state, actionAndChanges) {
+        switch (actionAndChanges.type) {
+          case useCombobox.stateChangeTypes.InputBlur:
+          case useCombobox.stateChangeTypes.InputKeyDownEnter:
+            selectItem({ value: actionAndChanges.changes.inputValue ?? '' });
+        }
+        return actionAndChanges.changes;
+      },
+      onInputValueChange(change) {
+        if (change.type !== useCombobox.stateChangeTypes.FunctionSelectItem) {
+          setFilteredItems(items.filter(item => filter(item, change.inputValue)));
+        }
+      },
+      items: filteredItems,
+      itemToString(item) {
+        return item?.value ?? '';
+      },
+      initialSelectedItem: { value }
+    });
+
+  useEffect(() => {
+    selectItem({ value });
+    setFilteredItems(items);
+  }, [items, selectItem, value]);
 
   const readonly = useReadonly();
 
@@ -75,4 +90,4 @@ const Combobox = ({ items, itemFilter, comboboxItem, value, onChange, ...inputPr
   );
 };
 
-export default memo(Combobox);
+export default memo(Combobox) as typeof Combobox;
