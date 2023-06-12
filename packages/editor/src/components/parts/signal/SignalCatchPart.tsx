@@ -5,6 +5,7 @@ import EventCodeSelect, { EventCodeItem } from '../common/eventcode/EventCodeSel
 import { useSignalCatchData } from './useSignalCatchData';
 import { useEffect, useState } from 'react';
 import { useClient, useEditorContext } from '../../../context';
+import { useDefaultNameSyncher } from '../name/useNameSyncher';
 
 export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartProps {
   const { data, defaultData, initData, resetData } = useSignalCatchData();
@@ -34,6 +35,9 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
       ])
     );
   }, [client, editorContext.pid]);
+
+  useDefaultNameSyncher({ synchName: data.signalCode });
+
   const signalField = useFieldset();
 
   return (
