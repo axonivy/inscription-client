@@ -1,11 +1,11 @@
 import { DeepPartial, renderHook } from 'test-utils';
-import { useNameSyncher } from './useNameSyncher';
+import { useStartNameSyncher } from './useStartNameSyncher';
 import { ElementData, StartData } from '@axonivy/inscription-protocol';
 
-describe('useNameSyncher', () => {
+describe('useStartNameSyncher', () => {
   function renderNameSynchHook(startData: StartData, name?: string, signaturePostfix?: string) {
     let data: DeepPartial<ElementData> = { name: name ?? 'test()' };
-    const view = renderHook(() => useNameSyncher(startData, signaturePostfix), {
+    const view = renderHook(() => useStartNameSyncher(startData, signaturePostfix), {
       wrapperProps: { data, setData: newData => (data = newData) }
     });
     return { view, data: () => data };

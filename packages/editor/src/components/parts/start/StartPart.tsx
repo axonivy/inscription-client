@@ -6,7 +6,7 @@ import { useStartData } from './useStartData';
 import { MappingInfo } from '@axonivy/inscription-protocol';
 import { useClient, useEditorContext } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
-import { useNameSyncher } from './useNameSyncher';
+import { useStartNameSyncher } from './useStartNameSyncher';
 
 type StartPartProps = { hideParamDesc?: boolean; signaturePostfix?: string };
 
@@ -33,7 +33,7 @@ const StartPart = ({ hideParamDesc, signaturePostfix }: StartPartProps) => {
     client.outMapping(editorContext.pid).then(mapping => setMappingInfo(mapping));
   }, [client, editorContext.pid]);
 
-  useNameSyncher(data, signaturePostfix);
+  useStartNameSyncher(data, signaturePostfix);
 
   const signatureFieldset = useFieldset();
   return (

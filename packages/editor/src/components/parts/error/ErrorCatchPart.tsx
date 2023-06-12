@@ -5,6 +5,7 @@ import { useErrorCatchData } from './useErrorCatchData';
 import { useClient, useEditorContext } from '../../../context';
 import EventCodeSelect, { EventCodeItem } from '../common/eventcode/EventCodeSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { useDefaultNameSyncher } from '../name/useNameSyncher';
 
 export function useErrorCatchPart(): PartProps {
   const { data, defaultData, initData, resetData } = useErrorCatchData();
@@ -33,6 +34,9 @@ const ErrorCatchPart = () => {
       ])
     );
   }, [client, editorContext.pid]);
+
+  useDefaultNameSyncher({ synchName: data.errorCode });
+
   const errorField = useFieldset();
 
   return (
