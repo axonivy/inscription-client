@@ -2,6 +2,7 @@ import {
   CallableStart,
   ConnectorRef,
   ErrorMeta,
+  EventCodeMeta,
   InscriptionAction,
   InscriptionClient,
   InscriptionData,
@@ -62,6 +63,14 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
 
   expiryErrors(pid: PID): Promise<ErrorMeta[]> {
     return this.sendRequest('meta/workflow/expiryErrors', { pid });
+  }
+
+  errorCodes(pid: string): Promise<EventCodeMeta[]> {
+    return this.sendRequest('meta/workflow/errorCodes', { pid });
+  }
+
+  signalCodes(pid: string): Promise<EventCodeMeta[]> {
+    return this.sendRequest('meta/workflow/signalCodes', { pid });
   }
 
   outMapping(pid: PID): Promise<MappingInfo> {

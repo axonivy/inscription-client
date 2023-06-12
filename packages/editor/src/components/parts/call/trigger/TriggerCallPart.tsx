@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useClient, useEditorContext } from '../../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../../props';
-import { MappingInfo } from '@axonivy/inscription-protocol';
+import { CallableStart, MappingInfo } from '@axonivy/inscription-protocol';
 import CallMapping from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
-import CallSelect, { CallableStartItem } from '../CallSelect';
+import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Fieldset, useFieldset } from '../../../../components/widgets';
 
@@ -19,12 +19,12 @@ export function useTriggerCallPart(): PartProps {
 
 const TriggerCallPart = () => {
   const { processCallData, updateProcessCall } = useProcessCallData();
-  const [startItems, setStartItems] = useState<CallableStartItem[]>([]);
+  const [startItems, setStartItems] = useState<CallableStart[]>([]);
 
   const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.triggerStarts(editorContext.pid).then(starts => setStartItems(CallableStartItem.map(starts)));
+    client.triggerStarts(editorContext.pid).then(starts => setStartItems(starts));
   }, [client, editorContext.pid]);
 
   const mappingInfo = useMemo<MappingInfo>(
@@ -42,7 +42,6 @@ const TriggerCallPart = () => {
           onChange={updateProcessCall}
           starts={startItems}
           startIcon={IvyIcons.Start}
-          processIcon={IvyIcons.Trigger}
           comboboxInputProps={callField.inputProps}
         />
       </Fieldset>

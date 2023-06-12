@@ -10,7 +10,9 @@ import {
   ConditionData,
   StartData,
   ScriptVariable,
-  ResultData
+  ResultData,
+  ErrorCatchData,
+  SignalCatchData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -63,6 +65,15 @@ export const DEFAULT_RESULT_DATA: ResultData = {
   }
 };
 
+export const DEFAULT_ERROR_CATCH_DATA: ErrorCatchData = {
+  errorCode: ''
+};
+
+export const DEFAULT_SIGNAL_CATCH_DATA: SignalCatchData = {
+  signalCode: '',
+  attachToBusinessCase: true
+};
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -73,6 +84,8 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_END_PAGE_DATA,
     ...DEFAULT_CONDITION_DATA,
     ...DEFAULT_START_DATA,
-    ...DEFAULT_RESULT_DATA
+    ...DEFAULT_RESULT_DATA,
+    ...DEFAULT_ERROR_CATCH_DATA,
+    ...DEFAULT_SIGNAL_CATCH_DATA
   }
 } as const;

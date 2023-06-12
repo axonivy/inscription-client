@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useClient, useEditorContext, useValidation } from '../../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../../props';
-import { InscriptionValidation, MappingInfo } from '@axonivy/inscription-protocol';
+import { CallableStart, InscriptionValidation, MappingInfo } from '@axonivy/inscription-protocol';
 import CallMapping from '../CallMapping';
 import { useCallData, useDialogCallData } from '../useCallData';
-import CallSelect, { CallableStartItem } from '../CallSelect';
+import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Fieldset, FieldsetControl, useFieldset } from '../../../../components/widgets';
 import { NewHtmlDialogAction } from './new-html-dialog-action';
@@ -26,13 +26,13 @@ export function useDialogCallPart(): PartProps {
 
 const DialogCallPart = () => {
   const { dialogCallData, updateDialog } = useDialogCallData();
-  const [startItems, setStartItems] = useState<CallableStartItem[]>([]);
+  const [startItems, setStartItems] = useState<CallableStart[]>([]);
   const [dialogValidation] = useCallPartValidation();
 
   const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.dialogStarts(editorContext.pid).then(starts => setStartItems(CallableStartItem.map(starts)));
+    client.dialogStarts(editorContext.pid).then(starts => setStartItems(starts));
   }, [client, editorContext.pid]);
 
   const mappingInfo = useMemo<MappingInfo>(
@@ -54,7 +54,6 @@ const DialogCallPart = () => {
           onChange={updateDialog}
           starts={startItems}
           startIcon={IvyIcons.InitStart}
-          processIcon={IvyIcons.Dialogs}
           comboboxInputProps={callField.inputProps}
         />
       </Fieldset>

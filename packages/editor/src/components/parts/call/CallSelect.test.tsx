@@ -1,4 +1,4 @@
-import CallSelect, { CallableStartItem } from './CallSelect';
+import CallSelect from './CallSelect';
 import { render, screen, userEvent } from 'test-utils';
 import { CallableStart } from '@axonivy/inscription-protocol';
 
@@ -35,7 +35,7 @@ describe('CallSelect', () => {
       }
     ];
     //@ts-ignore
-    render(<CallSelect start={selected} starts={CallableStartItem.map(items)} onChange={() => {}} processIcon='' startIcon='' />);
+    render(<CallSelect start={selected} starts={items} onChange={() => {}} startIcon='' />);
   }
 
   test('deprecated option', async () => {

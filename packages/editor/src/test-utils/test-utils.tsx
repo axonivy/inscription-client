@@ -7,12 +7,13 @@ import {
   InscriptionValidation,
   MappingInfo,
   RoleMeta,
-  ConnectorRef
+  ConnectorRef,
+  EventCodeMeta
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
 import { ReactElement, ReactNode } from 'react';
-import { DeepPartial } from './type-util';
+import { DeepPartial } from './type-utils';
 import {
   ClientContext,
   ClientContextInstance,
@@ -35,6 +36,7 @@ type ContextHelperProps = {
     dialogStarts?: CallableStart[];
     triggerStarts?: CallableStart[];
     callSubStarts?: CallableStart[];
+    eventCodes?: EventCodeMeta[];
     outMapping?: MappingInfo;
     resultMapping?: MappingInfo;
     connectorOf?: Record<string, DeepPartial<ConnectorRef>>;
@@ -76,6 +78,12 @@ const ContextHelper = (
       },
       callSubStarts() {
         return Promise.resolve(props.meta?.callSubStarts ?? []);
+      },
+      errorCodes() {
+        return Promise.resolve(props.meta?.eventCodes ?? []);
+      },
+      signalCodes() {
+        return Promise.resolve(props.meta?.eventCodes ?? []);
       },
       outMapping() {
         return Promise.resolve(props.meta?.outMapping ?? { types: {}, variables: [] });
@@ -126,6 +134,7 @@ export { customRender as render };
 export { customRenderHook as renderHook };
 export * from './table-utils';
 export * from './select-utils';
-export * from './collapsible-util';
-export * from './object-util';
-export * from './type-util';
+export * from './combobox-utils';
+export * from './collapsible-utils';
+export * from './object-utils';
+export * from './type-utils';

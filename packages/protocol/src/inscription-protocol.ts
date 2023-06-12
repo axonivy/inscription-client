@@ -2,6 +2,7 @@ import {
   CallableStart,
   ConnectorRef,
   ErrorMeta,
+  EventCodeMeta,
   InscriptionAction,
   InscriptionDataArgs,
   InscriptionValidation,
@@ -21,6 +22,9 @@ export interface InscriptionRequestTypes {
 
   'meta/workflow/roles': [InscriptionDataArgs, RoleMeta[]];
   'meta/workflow/expiryErrors': [InscriptionDataArgs, ErrorMeta[]];
+  'meta/workflow/errorCodes': [InscriptionDataArgs, EventCodeMeta[]];
+  'meta/workflow/signalCodes': [InscriptionDataArgs, EventCodeMeta[]];
+
   'meta/map/out': [InscriptionDataArgs, MappingInfo];
   'meta/map/result': [InscriptionDataArgs, MappingInfo];
 
