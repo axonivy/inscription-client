@@ -91,7 +91,7 @@ const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfC
                 {flexRender(header.column.columnDef.header, header.getContext())}
               </TableHeader>
             ))}
-            <TableHeader colSpan={1}>Actions</TableHeader>
+            <TableHeader colSpan={1} />
           </tr>
         ))}
       </thead>

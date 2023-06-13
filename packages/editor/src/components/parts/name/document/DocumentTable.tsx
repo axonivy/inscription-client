@@ -82,7 +82,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
                 {flexRender(header.column.columnDef.header, header.getContext())}
               </TableHeader>
             ))}
-            <TableHeader colSpan={2}>Actions</TableHeader>
+            <TableHeader colSpan={1} />
           </tr>
         ))}
       </thead>

@@ -4,6 +4,7 @@ import { CaseTest, NameTest, NameTestWithoutTags, OutputTest, fillReloadAndAsser
 import { StartTest, StartTester } from '../parts/start';
 import { ErrorCatchTest } from '../parts/error-catch';
 import { SignalCatchTest } from '../parts/signal-catch';
+import { ResultTest, ResultTester } from '../parts/result';
 
 test.describe('Start Events', () => {
   test('Start', async ({ page }) => {
@@ -39,25 +40,25 @@ test.describe('Start Events', () => {
   test('Sub Start', async ({ page }) => {
     await page.goto(inscriptionView('169A4A2A4DC8B908-f0'));
     await expect(page.getByText('Sub Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, StartTest]);
+    await fillReloadAndAssert(page, [NameTest, StartTest, ResultTest]);
   });
 
   test('WS Start', async ({ page }) => {
     await page.goto(inscriptionView('169A4A3BFDC7DFFE-ws0'));
     await expect(page.getByText('WS Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, StartTest, CaseTest]);
+    await fillReloadAndAssert(page, [NameTest, StartTest, ResultTest, CaseTest]);
   });
 
   test('Init Start', async ({ page }) => {
     await page.goto(inscriptionView('167356B1245C7158-f0'));
     await expect(page.getByText('Init Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, StartTest]);
+    await fillReloadAndAssert(page, [NameTest, StartTest, ResultTest]);
   });
 
   test('Method Start', async ({ page }) => {
     await page.goto(inscriptionView('167356B1245C7158-f6'));
     await expect(page.getByText('Method Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, new StartTester(true)]);
+    await fillReloadAndAssert(page, [NameTest, new StartTester(true), new ResultTester(true)]);
   });
 
   test('Event Start', async ({ page }) => {

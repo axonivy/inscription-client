@@ -22,7 +22,7 @@ describe('DocumentTable', () => {
 
   test('table will render', () => {
     renderTable();
-    TableUtil.assertHeaders(['Name', 'URL', 'Actions', '']);
+    TableUtil.assertHeaders(['Name', 'URL', '', '']);
     TableUtil.assertRows([/Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/]);
   });
 
