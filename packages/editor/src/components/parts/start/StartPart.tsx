@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CodeEditor, Fieldset, Input, useFieldset } from '../../../components/widgets';
+import { CodeEditor, CollapsiblePart, Fieldset, Input, useFieldset } from '../../../components/widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useStartData } from './useStartData';
@@ -41,9 +41,9 @@ const StartPart = ({ hideParamDesc, signaturePostfix }: StartPartProps) => {
       <Fieldset label='Signature' {...signatureFieldset.labelProps}>
         <Input value={data.signature} onChange={change => updateSignature(change)} {...signatureFieldset.inputProps} />
       </Fieldset>
-      <Fieldset label='Input parameters'>
+      <CollapsiblePart collapsibleLabel='Input parameters'>
         <ParameterTable data={data.input.params} onChange={change => updateParams(change)} hideDesc={hideParamDesc} />
-      </Fieldset>
+      </CollapsiblePart>
       <MappingTree data={data.input.map} mappingInfo={mappingInfo} onChange={updateMap} location='input.code' />
       <Fieldset label='Code'>
         <CodeEditor code={data.input.code} onChange={updateCode} location='input.code' />

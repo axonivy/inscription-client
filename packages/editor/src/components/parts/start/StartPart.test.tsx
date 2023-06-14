@@ -1,4 +1,4 @@
-import { DeepPartial, render, renderHook, screen, TableUtil } from 'test-utils';
+import { CollapsableUtil, DeepPartial, render, renderHook, screen, TableUtil } from 'test-utils';
 import { StartData } from '@axonivy/inscription-protocol';
 import { useStartPart } from './StartPart';
 import { PartState } from '../../props';
@@ -15,8 +15,14 @@ describe('StartPart', () => {
 
   async function assertMainPart(signature: string, params: RegExp[], map: RegExp[], code: string) {
     expect(await screen.findByLabelText('Signature')).toHaveValue(signature);
-    TableUtil.assertRows(params, 1);
-    TableUtil.assertRows(map, 4);
+    await CollapsableUtil.assertClosed('Input parameters');
+    if (params.length === 0) {
+      TableUtil.assertRows(map);
+    } else {
+      await CollapsableUtil.toggle('Input parameters');
+      TableUtil.assertRows(params, 1);
+      TableUtil.assertRows(map, 4);
+    }
     expect(await screen.findByTestId('code-editor')).toHaveValue(code);
   }
 

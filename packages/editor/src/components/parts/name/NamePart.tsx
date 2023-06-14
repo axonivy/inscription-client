@@ -41,9 +41,9 @@ const NamePart = (props: { hideTags?: boolean }) => {
       <Fieldset label='Description' message={descriptionValidation} {...descriptionField.labelProps}>
         <Textarea maxRows={10} value={data.description} onChange={change => updateDescription(change)} {...descriptionField.inputProps} />
       </Fieldset>
-      <Fieldset label='Means / Documents'>
+      <CollapsiblePart collapsibleLabel='Means / Documents' defaultOpen={data.docs !== undefined && data.docs.length > 0}>
         <DocumentTable data={data.docs} onChange={change => updateDocs(change)} />
-      </Fieldset>
+      </CollapsiblePart>
       {!props.hideTags && (
         <CollapsiblePart collapsibleLabel='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>
           <Tags tags={data.tags ?? []} onChange={updateTags} />

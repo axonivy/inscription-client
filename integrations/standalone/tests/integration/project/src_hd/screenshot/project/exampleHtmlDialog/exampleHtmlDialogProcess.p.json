@@ -11,14 +11,6 @@
       "name" : "start()",
       "config" : {
         "signature" : "start",
-        "result" : {
-          "params" : [
-            { "name" : "data", "type" : "screenshot.project.Data", "desc" : "" }
-          ],
-          "map" : {
-            "result.data.city" : "in.data.city"
-          }
-        },
         "guid" : "167356B126437C3D"
       },
       "visual" : {
@@ -59,12 +51,6 @@
       "name" : "addNumber()",
       "config" : {
         "signature" : "addNumber",
-        "result" : {
-          "params" : [
-            { "name" : "summary", "type" : "Number", "desc" : "" }
-          ],
-          "map" : { }
-        },
         "guid" : "16B2C446B197B00C"
       },
       "visual" : {

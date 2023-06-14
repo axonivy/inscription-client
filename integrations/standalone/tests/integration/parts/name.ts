@@ -2,6 +2,7 @@ import { Page, expect } from '@playwright/test';
 import { PartTest } from './part-tester';
 import { TagUtil } from '../utils/tag-util';
 import { TableUtil } from '../utils/table-util';
+import { CollapseUtil } from '../utils/collapse-util';
 
 export class NameTester implements PartTest {
   constructor(private readonly hasTags: boolean = true) {}
@@ -12,6 +13,7 @@ export class NameTester implements PartTest {
   async fill(page: Page) {
     await page.getByLabel('Display name').fill('test name');
     await page.getByLabel('Description').fill('test desc');
+    await CollapseUtil.open(page, 'Means / Documents');
     await TableUtil.addRow(page);
     await TableUtil.fillRow(page, 0, ['test doc', 'test url']);
     if (this.hasTags) {
@@ -37,7 +39,7 @@ export class NameTester implements PartTest {
   async assertClear(page: Page) {
     await expect(page.getByLabel('Display name')).toBeEmpty();
     await expect(page.getByLabel('Description')).toBeEmpty();
-    await TableUtil.assertEmpty(page);
+    await CollapseUtil.assertClosed(page, 'Means / Documents');
     if (this.hasTags) {
       await TagUtil.assertEmpty(page);
     }

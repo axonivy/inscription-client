@@ -13,27 +13,28 @@ describe('NamePart', () => {
     render(<Part hideTags={hideTags} />, { wrapperProps: { data } });
   }
 
-  async function assertMainPart(name: string, description: string, docs: string[]) {
+  async function assertMainPart(name: string, description: string) {
     expect(await screen.findByLabelText('Display name')).toHaveValue(name);
     expect(await screen.findByLabelText('Description')).toHaveValue(description);
-    TableUtil.assertRows(docs);
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('', '', []);
+    await assertMainPart('', '');
+    await CollapsableUtil.assertClosed('Means / Documents');
     await CollapsableUtil.assertClosed('Tags');
   });
 
   test('hide tags', async () => {
     renderPart(undefined, true);
-    await assertMainPart('', '', []);
+    await assertMainPart('', '');
     expect(screen.queryByText('Tags')).not.toBeInTheDocument();
   });
 
   test('full data', async () => {
     renderPart({ name: 'name', description: 'description', docs: [{ name: 'doc', url: 'url' }], tags: ['tag1'] });
-    await assertMainPart('name', 'description', ['doc url']);
+    await assertMainPart('name', 'description');
+    TableUtil.assertRows(['doc url']);
     await CollapsableUtil.assertOpen('Tags');
   });
 

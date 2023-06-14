@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CodeEditor, Fieldset } from '../../widgets';
+import { CodeEditor, CollapsiblePart, Fieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useResultData } from './useResultData';
@@ -31,9 +31,9 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
 
   return (
     <>
-      <Fieldset label='Result parameters'>
+      <CollapsiblePart collapsibleLabel='Result parameters'>
         <ParameterTable data={data.result.params} onChange={change => updateParams(change)} hideDesc={hideParamDesc} />
-      </Fieldset>
+      </CollapsiblePart>
       <MappingTree data={data.result.map} mappingInfo={mappingInfo} onChange={updateMap} location='result.code' />
       <Fieldset label='Code'>
         <CodeEditor code={data.result.code} onChange={updateCode} location='result.code' />

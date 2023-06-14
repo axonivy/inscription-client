@@ -22,7 +22,7 @@ describe('CustomFieldTable', () => {
 
   test('table will render', () => {
     renderTable();
-    TableUtil.assertHeaders(['Name', 'Type', 'Expression', 'Actions', '']);
+    TableUtil.assertHeaders(['Name', 'Type', 'Expression', '', '']);
     TableUtil.assertRows([/field1/, /number/]);
   });
 
