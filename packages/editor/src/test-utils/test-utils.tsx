@@ -89,7 +89,9 @@ const ContextHelper = (
         return Promise.resolve(props.meta?.outMapping ?? { types: {}, variables: [] });
       },
       resultMapping() {
-        return Promise.resolve(props.meta?.resultMapping ?? { types: {}, variables: [] });
+        return Promise.resolve(
+          props.meta?.resultMapping ?? { types: {}, variables: [{ attribute: 'result', description: '', type: '<>', simpleType: '<>' }] }
+        );
       },
       // @ts-ignore
       connectorOf(pid: string) {

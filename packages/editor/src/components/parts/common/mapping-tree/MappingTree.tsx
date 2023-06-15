@@ -26,20 +26,22 @@ import {
   TableHeader
 } from '../../../../components/widgets';
 
-const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange: (change: Mapping) => void; location: string }) => {
+type MappingTreeProps = { data: Mapping; mappingInfo: MappingInfo; onChange: (change: Mapping) => void; location: string };
+
+const MappingTree = ({ data, mappingInfo, onChange, location }: MappingTreeProps) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
   const [showGlobalFilter, setShowGlobalFilter] = useState(false);
   const [showOnlyInscribed, setShowOnlyInscribed] = useState(false);
 
   useEffect(() => {
-    const treeData = MappingTreeData.of(props.mappingInfo);
-    Object.entries(props.data).forEach(mapping => MappingTreeData.update(props.mappingInfo, treeData, mapping[0].split('.'), mapping[1]));
+    const treeData = MappingTreeData.of(mappingInfo);
+    Object.entries(data).forEach(mapping => MappingTreeData.update(mappingInfo, treeData, mapping[0].split('.'), mapping[1]));
     setTree(treeData);
-  }, [props.data, props.mappingInfo]);
+  }, [data, mappingInfo]);
 
   const loadChildren = useCallback<(row: MappingTreeData) => void>(
-    row => setTree(tree => MappingTreeData.loadChildrenFor(props.mappingInfo, row.type, tree)),
-    [props.mappingInfo, setTree]
+    row => setTree(tree => MappingTreeData.loadChildrenFor(mappingInfo, row.type, tree)),
+    [mappingInfo, setTree]
   );
 
   const columns = useMemo<ColumnDef<MappingTreeData>[]>(
@@ -72,12 +74,12 @@ const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange:
         accessorFn: row => row.value,
         id: 'value',
         header: () => <span>Expression</span>,
-        cell: cell => <CodeEditorCell cell={cell} context={{ type: cell.row.original.type, location: props.location }} />,
+        cell: cell => <CodeEditorCell cell={cell} context={{ type: cell.row.original.type, location: location }} />,
         footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
       }
     ],
-    [loadChildren, props.location]
+    [loadChildren, location]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -128,7 +130,7 @@ const MappingTree = (props: { data: Mapping; mappingInfo: MappingInfo; onChange:
     meta: {
       updateData: (rowId: string, columnId: string, value: unknown) => {
         const rowIndex = rowId.split('.').map(parseFloat);
-        props.onChange(MappingTreeData.to(MappingTreeData.updateDeep(tree, rowIndex, columnId, value)));
+        onChange(MappingTreeData.to(MappingTreeData.updateDeep(tree, rowIndex, columnId, value)));
       }
     }
   });

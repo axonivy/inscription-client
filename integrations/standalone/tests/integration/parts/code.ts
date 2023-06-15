@@ -1,6 +1,6 @@
 import { expect, Page } from '@playwright/test';
 import { PartTest } from './part-tester';
-import { CodeEditorUtil } from '../utils/code-editor-util';
+import { CodeEditorUtil } from '../../utils/code-editor-util';
 
 export const CodeTest: PartTest = {
   partName: () => 'Code',

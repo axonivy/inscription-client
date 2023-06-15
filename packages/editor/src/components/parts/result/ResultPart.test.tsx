@@ -34,7 +34,7 @@ describe('ResultPart', () => {
     renderPart({
       result: { code: 'code', map: { key: 'value' }, params: [{ name: 'param', type: 'String', desc: 'desc' }] }
     });
-    await assertMainPart([/param String desc/], [/key value/], 'code');
+    await assertMainPart([/param String desc/], [/result <>/, /desc String/, /key value/], 'code');
   });
 
   function assertState(expectedState: PartState, data?: DeepPartial<ResultData>) {

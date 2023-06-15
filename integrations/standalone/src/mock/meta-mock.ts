@@ -102,12 +102,12 @@ export namespace MetaMock {
     variables: [
       {
         attribute: 'result',
-        type: 'workflow.humantask.ProcurementRequest',
-        simpleType: 'ProcurementRequest',
+        type: '<>',
+        simpleType: '<>',
         description: ''
       }
     ],
-    types: MAP_INFO_TYPES
+    types: {}
   };
 
   export const CALLABLE_STARTS: CallableStart[] = [

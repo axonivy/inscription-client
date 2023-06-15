@@ -1,8 +1,8 @@
 import { Page, expect } from '@playwright/test';
 import { PartTest } from './part-tester';
-import { TagUtil } from '../utils/tag-util';
-import { TableUtil } from '../utils/table-util';
-import { CollapseUtil } from '../utils/collapse-util';
+import { TagUtil } from '../../utils/tag-util';
+import { TableUtil } from '../../utils/table-util';
+import { CollapseUtil } from '../../utils/collapse-util';
 
 export class NameTester implements PartTest {
   constructor(private readonly hasTags: boolean = true) {}

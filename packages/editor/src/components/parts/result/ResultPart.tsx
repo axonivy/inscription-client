@@ -3,7 +3,7 @@ import { CodeEditor, CollapsiblePart, Fieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useResultData } from './useResultData';
-import { MappingInfo } from '@axonivy/inscription-protocol';
+import { MappingInfo, Variable } from '@axonivy/inscription-protocol';
 import { useClient, useEditorContext } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
 
@@ -26,8 +26,16 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.resultMapping(editorContext.pid).then(mapping => setMappingInfo(mapping));
-  }, [client, editorContext.pid]);
+    client.resultMapping(editorContext.pid).then(mapping => {
+      const resultType = mapping.variables[0].type;
+      if (mapping.types[resultType]?.length !== data.result.params.length) {
+        mapping.types[resultType] = data.result.params.map<Variable>(param => {
+          return { attribute: param.name, type: param.type, simpleType: param.type, description: param.desc };
+        });
+      }
+      setMappingInfo(mapping);
+    });
+  }, [client, editorContext.pid, data.result.params]);
 
   return (
     <>

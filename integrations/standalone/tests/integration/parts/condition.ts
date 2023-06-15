@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
 import { PartTest } from './part-tester';
-import { TableUtil } from '../utils/table-util';
+import { TableUtil } from '../../utils/table-util';
 
 export class ConditionTester implements PartTest {
   partName() {
