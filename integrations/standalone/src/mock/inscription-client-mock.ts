@@ -90,7 +90,7 @@ export class InscriptionClientMock implements InscriptionClient {
   }
 
   resultMapping(pid: string): Promise<MappingInfo> {
-    return Promise.resolve(MetaMock.RESULT_MAP_INFO);
+    return Promise.resolve(JSON.parse(JSON.stringify(MetaMock.RESULT_MAP_INFO)));
   }
 
   connectorOf(pid: PID): Promise<ConnectorRef> {

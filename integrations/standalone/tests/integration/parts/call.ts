@@ -1,8 +1,8 @@
 import { Page } from '@playwright/test';
 import { PartTest } from './part-tester';
-import { TableUtil } from '../utils/table-util';
+import { TableUtil } from '../../utils/table-util';
 import { ComboboxUtil } from '../utils/combobox-util';
-import { CodeEditorUtil } from '../utils/code-editor-util';
+import { CodeEditorUtil } from '../../utils/code-editor-util';
 
 export class CallTester implements PartTest {
   constructor(

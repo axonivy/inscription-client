@@ -1,7 +1,7 @@
 import { Page, expect } from '@playwright/test';
 import { PartTest } from './part-tester';
-import { TableUtil } from '../utils/table-util';
-import { CollapseUtil } from '../utils/collapse-util';
+import { TableUtil } from '../../utils/table-util';
+import { CollapseUtil } from '../../utils/collapse-util';
 
 export const CaseTest: PartTest = {
   partName: () => 'Case',

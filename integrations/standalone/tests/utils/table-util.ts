@@ -33,10 +33,14 @@ export namespace TableUtil {
   }
 
   export async function assertEmpty(page: Page, nth?: number) {
+    await assertRowCount(page, 0, nth);
+  }
+
+  export async function assertRowCount(page: Page, rowCount: number, nth?: number) {
     let tbody = page.locator('tbody');
     if (nth !== undefined) {
       tbody = tbody.nth(nth);
     }
-    await expect(tbody.locator(' tr')).toHaveCount(0);
+    await expect(tbody.locator(' tr')).toHaveCount(rowCount);
   }
 }

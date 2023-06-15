@@ -1,9 +1,9 @@
 import { Page, expect } from '@playwright/test';
 import { PartTest } from './part-tester';
 import { SelectUtil } from '../utils/select-util';
-import { CollapseUtil } from '../utils/collapse-util';
-import { CodeEditorUtil } from '../utils/code-editor-util';
-import { TableUtil } from '../utils/table-util';
+import { CollapseUtil } from '../../utils/collapse-util';
+import { CodeEditorUtil } from '../../utils/code-editor-util';
+import { TableUtil } from '../../utils/table-util';
 import { TabUtil } from '../utils/tab-util';
 
 export class TasksTester implements PartTest {

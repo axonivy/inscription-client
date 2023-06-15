@@ -1,8 +1,8 @@
 import { Page, expect } from '@playwright/test';
 import { PartTest } from './part-tester';
-import { TableUtil } from '../utils/table-util';
-import { CodeEditorUtil } from '../utils/code-editor-util';
-import { CollapseUtil } from '../utils/collapse-util';
+import { TableUtil } from '../../utils/table-util';
+import { CodeEditorUtil } from '../../utils/code-editor-util';
+import { CollapseUtil } from '../../utils/collapse-util';
 
 export class StartTester implements PartTest {
   constructor(private readonly hideParamDesc: boolean = false) {}
