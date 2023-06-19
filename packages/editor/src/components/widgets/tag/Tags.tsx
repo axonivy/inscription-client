@@ -2,7 +2,7 @@ import * as Popover from '@radix-ui/react-popover';
 import { memo, useState } from 'react';
 import { useKeyboard } from 'react-aria';
 import './Tags.css';
-import { useReadonly } from '../../../context';
+import { useEditorContext } from '../../../context';
 import IvyIcon from '../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Fieldset } from '../fieldset';
@@ -35,7 +35,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
     }
   });
 
-  const readonly = useReadonly();
+  const editorContext = useEditorContext();
 
   return (
     <div className='tags'>
@@ -46,7 +46,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
             onClick={() => handleRemoveTag(tag)}
             aria-label={`Remove Tag ${tag}`}
             {...keyboardProps}
-            disabled={readonly}
+            disabled={editorContext.readonly}
           >
             <IvyIcon icon={IvyIcons.Add} rotate={45} />
           </button>
@@ -55,12 +55,12 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
       ))}
       <Popover.Root open={isOpen} onOpenChange={handleAddPopoverChange}>
         <Popover.Trigger asChild>
-          <button className='tag tag-add' aria-label='Add new tag' disabled={readonly}>
+          <button className='tag tag-add' aria-label='Add new tag' disabled={editorContext.readonly}>
             <IvyIcon icon={IvyIcons.Add} />
             <span>Add</span>
           </button>
         </Popover.Trigger>
-        <Popover.Portal container={(document.querySelector('.editor-root') as HTMLElement) ?? document.querySelector('body')}>
+        <Popover.Portal container={editorContext.editorRef.current}>
           <Popover.Content className='popover-content' sideOffset={5}>
             <Fieldset label='New Tag' htmlFor='tag-input'>
               <Input id='tag-input' value={newTag} {...keyboardProps} onChange={change => setNewTag(change)} />

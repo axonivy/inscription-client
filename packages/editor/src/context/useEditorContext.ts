@@ -4,12 +4,14 @@ import React, { useContext } from 'react';
 export interface EditorContext {
   pid: string;
   readonly: boolean;
+  editorRef: React.MutableRefObject<null>;
   type: InscriptionType;
 }
 
 export const DEFAULT_EDITOR_CONTEXT: EditorContext = {
   pid: '',
   readonly: false,
+  editorRef: { current: null },
   type: {
     id: 'Script',
     label: 'Unknown Inscription Editor',

@@ -1,7 +1,7 @@
 import './App.css';
 import '@axonivy/editor-icons/src-gen/ivy-icons.css';
 import { ElementData, InscriptionData, InscriptionValidation } from '@axonivy/inscription-protocol';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
 import AppStateView from './AppStateView';
@@ -59,13 +59,16 @@ function App(props: AppProps) {
     }
   }, [client, data, appState, shouldSave]);
 
+  const editorRef = useRef(null);
+
   if (appState.state === 'success') {
     return (
-      <div className='editor-root' data-theme={theme}>
+      <div ref={editorRef} className='editor-root' data-theme={theme}>
         <EditorContextInstance.Provider
           value={{
             pid: props.pid,
             readonly: appState.initialData.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
+            editorRef,
             type: appState.initialData.type ?? DEFAULT_EDITOR_CONTEXT.type
           }}
         >
