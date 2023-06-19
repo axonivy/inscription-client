@@ -12,7 +12,7 @@ import {
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useRef } from 'react';
 import { DeepPartial } from './type-utils';
 import {
   ClientContext,
@@ -107,12 +107,16 @@ const ContextHelper = (
   if (props.editor?.readonly) {
     editorContext.readonly = props.editor.readonly;
   }
+  const editorRef = useRef(null);
+  editorContext.editorRef = editorRef;
   return (
-    <EditorContextInstance.Provider value={editorContext}>
-      <ClientContextInstance.Provider value={client}>
-        <DataContextInstance.Provider value={data}>{props.children}</DataContextInstance.Provider>
-      </ClientContextInstance.Provider>
-    </EditorContextInstance.Provider>
+    <div ref={editorRef}>
+      <EditorContextInstance.Provider value={editorContext}>
+        <ClientContextInstance.Provider value={client}>
+          <DataContextInstance.Provider value={data}>{props.children}</DataContextInstance.Provider>
+        </ClientContextInstance.Provider>
+      </EditorContextInstance.Provider>
+    </div>
   );
 };
 
