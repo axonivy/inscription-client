@@ -3,7 +3,7 @@ import { ComponentProps, memo, ReactNode, useEffect, useState } from 'react';
 import './Combobox.css';
 import { useReadonly } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
-import IvyIcon from '../IvyIcon';
+import Button from '../button/Button';
 
 export interface ComboboxItem {
   value: string;
@@ -68,9 +68,13 @@ const Combobox = <T extends ComboboxItem>({ items, itemFilter, comboboxItem, val
     <div className='combobox'>
       <div className='combobox-input'>
         <input className='input' {...getInputProps()} {...inputProps} disabled={readonly} />
-        <button aria-label='toggle menu' className='combobox-button button' {...getToggleButtonProps()} disabled={readonly}>
-          <IvyIcon icon={IvyIcons.AngleDown} />
-        </button>
+        <Button
+          className='combobox-button'
+          icon={IvyIcons.AngleDown}
+          aria-label='toggle menu'
+          {...getToggleButtonProps()}
+          disabled={readonly}
+        />
       </div>
       <ul {...getMenuProps()} className='combobox-menu'>
         {isOpen &&

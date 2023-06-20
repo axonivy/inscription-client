@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 export interface EditorContext {
   pid: string;
   readonly: boolean;
-  editorRef: React.MutableRefObject<null>;
+  editorRef: React.MutableRefObject<HTMLElement | null>;
   type: InscriptionType;
 }
 

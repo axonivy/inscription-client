@@ -1,6 +1,6 @@
 import './index.css';
 import { MonacoUtil, IvyScriptLanguage, InscriptionClientJsonRpc } from '@axonivy/inscription-core';
-import { App, AppStateView, ClientContextInstance, errorState, MonacoEditorUtil, ThemeContextInstance } from '@axonivy/inscription-editor';
+import { App, AppStateView, ClientContextInstance, errorState, MonacoEditorUtil, ThemeContextProvider } from '@axonivy/inscription-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -21,11 +21,11 @@ export async function start(): Promise<void> {
 
     root.render(
       <React.StrictMode>
-        <ThemeContextInstance.Provider value={theme}>
+        <ThemeContextProvider theme={theme}>
           <ClientContextInstance.Provider value={{ client: client }}>
             <App pid={pid} />
           </ClientContextInstance.Provider>
-        </ThemeContextInstance.Provider>
+        </ThemeContextProvider>
       </React.StrictMode>
     );
   } catch (error) {

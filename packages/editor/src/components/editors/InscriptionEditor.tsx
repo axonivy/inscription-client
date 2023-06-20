@@ -9,7 +9,7 @@ import { IvyIcon, Accordion } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { PartProps } from '../props';
-import { Button } from '../widgets';
+import DropdownMenu from './menu/HeaderMenu';
 
 const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors]);
 
@@ -40,7 +40,7 @@ const Header = (props: EditorProps) => {
             <IvyIcon icon={IvyIcons.Search} />
             <span>Search</span>
           </div>
-          <Button icon={IvyIcons.AllElements} />
+          <DropdownMenu />
         </div>
       </div>
       {validation.length > 0 && (

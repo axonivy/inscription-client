@@ -3,7 +3,7 @@ import './App.css';
 import { useTheme } from './context/useTheme';
 
 function AppStateView(props: AppState) {
-  const theme = useTheme();
+  const { mode: theme } = useTheme();
   return (
     <div className='editor-root editor-state' data-theme={theme}>
       {visualizeState(props)}

@@ -1,6 +1,6 @@
 import { loader, Monaco } from '@monaco-editor/react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import { ThemeContext } from '../context/useTheme';
+import { ThemeMode } from '../context/useTheme';
 import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
 
 export const MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
@@ -47,7 +47,7 @@ export const SINGLE_LINE_MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstruc
 
 export namespace MonacoEditorUtil {
   export const DEFAULT_THEME_NAME = 'axon-input';
-  export async function initMonaco(monaco: Monaco, theme: ThemeContext): Promise<Monaco> {
+  export async function initMonaco(monaco: Monaco, theme: ThemeMode): Promise<Monaco> {
     loader.config({ monaco });
 
     return loader.init().then(monaco => {
@@ -64,7 +64,7 @@ export namespace MonacoEditorUtil {
     });
   }
 
-  function themeData(theme: ThemeContext): monaco.editor.IStandaloneThemeData {
+  function themeData(theme: ThemeMode): monaco.editor.IStandaloneThemeData {
     if (theme === 'dark') {
       return {
         base: 'vs-dark',
