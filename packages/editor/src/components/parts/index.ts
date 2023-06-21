@@ -2,6 +2,7 @@ export * from './name/NamePart';
 export * from './output/OutputPart';
 export * from './output/CodePart';
 export * from './start/StartPart';
+export * from './request/RequestPart';
 export * from './result/ResultPart';
 export * from './case/CasePart';
 export * from './task/SingleTaskPart';

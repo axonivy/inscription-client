@@ -7,6 +7,7 @@ import {
   useCasePart,
   useSignalCatchPart,
   useNamePart,
+  useRequestPart,
   useOutputPart,
   useSingleTaskPart,
   useStartPart,
@@ -16,7 +17,7 @@ import {
 const RequestStartEditor = memo(() => {
   const name = useNamePart();
   const start = useStartPart({ signaturePostfix: '.ivp' });
-  const request = { name: 'Request', content: <h1>Request</h1> };
+  const request = useRequestPart();
   const trigger = { name: 'Trigger', content: <h1>Trigger</h1> };
   const singleTask = useSingleTaskPart({ showPersist: true });
   const casePart = useCasePart();

@@ -1,4 +1,13 @@
-import { Data, ElementAlternative, ElementScript, ScriptMapCode, ScriptParameterizedMapCode, WfCase, WfTask } from './inscription';
+import {
+  Data,
+  ElementAlternative,
+  ElementScript,
+  ScriptMapCode,
+  ScriptParameterizedMapCode,
+  StartRequest,
+  WfCase,
+  WfTask
+} from './inscription';
 
 export type NameData = Omit<Data, 'config'>;
 
@@ -51,4 +60,8 @@ export interface ErrorCatchData {
 export interface SignalCatchData {
   signalCode: string;
   attachToBusinessCase: boolean;
+}
+
+export interface StartRequestData {
+  request: StartRequest;
 }

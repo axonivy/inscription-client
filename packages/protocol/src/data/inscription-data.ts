@@ -11,9 +11,10 @@ import {
   ResultData,
   SignalCatchData,
   StartData,
+  StartRequestData,
   TaskData
 } from './part-data';
-import { InscriptionType } from './inscription';
+import { InscriptionType, StartRequest } from './inscription';
 
 export type ConfigData = CallData &
   DialogCallData &
@@ -26,7 +27,8 @@ export type ConfigData = CallData &
   StartData &
   ResultData &
   ErrorCatchData &
-  SignalCatchData;
+  SignalCatchData &
+  StartRequestData;
 
 export type ElementData = NameData & { config: ConfigData };
 
