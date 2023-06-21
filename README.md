@@ -16,7 +16,7 @@ This prototype is build with React and Headless Components.
 
 `yarn`: Install all packages:
 
-`yarn icons`: Build the icon font
+`yarn icons:generate`: Build the icon font
 
 `yarn standalone start`: Start the editor
 
