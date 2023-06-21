@@ -5,6 +5,7 @@ import {
   DialogCallData,
   EndPageData,
   ErrorCatchData,
+  MailHeaderData,
   NameData,
   OutputData,
   ProcessCallData,
@@ -26,7 +27,8 @@ export type ConfigData = CallData &
   StartData &
   ResultData &
   ErrorCatchData &
-  SignalCatchData;
+  SignalCatchData &
+  MailHeaderData;
 
 export type ElementData = NameData & { config: ConfigData };
 

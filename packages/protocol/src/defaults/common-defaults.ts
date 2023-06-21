@@ -12,7 +12,8 @@ import {
   ScriptVariable,
   ResultData,
   ErrorCatchData,
-  SignalCatchData
+  SignalCatchData,
+  MailHeaderData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -74,6 +75,17 @@ export const DEFAULT_SIGNAL_CATCH_DATA: SignalCatchData = {
   attachToBusinessCase: true
 };
 
+export const DEFAULT_MAIL_HEADER_DATA: MailHeaderData = {
+  headers: {
+    subject: '',
+    from: '',
+    replyTo: '',
+    to: '',
+    cc: '',
+    bcc: ''
+  }
+};
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -86,6 +98,7 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_START_DATA,
     ...DEFAULT_RESULT_DATA,
     ...DEFAULT_ERROR_CATCH_DATA,
-    ...DEFAULT_SIGNAL_CATCH_DATA
+    ...DEFAULT_SIGNAL_CATCH_DATA,
+    ...DEFAULT_MAIL_HEADER_DATA
   }
 } as const;
