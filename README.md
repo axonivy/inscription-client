@@ -24,6 +24,9 @@ This prototype is build with React and Headless Components.
 > If you don't have an active LSP backend, you can test the frontend with a mocked backend. Open [http://localhost:3000/mock.html](http://localhost:3000/mock.html) to view mocked data.
 > The page will reload if you make edits.
 
+If you have started a Dev-Axon Ivy Designer (port 8081), you can browse any inscription by addressing it via the `pid` e.g. http://localhost:3000/?pid=01682CA38FC4E775-f3
+If your Axon Ivy Designer run on another port you can also specify the host http://localhost:3000/?host=localhost:8080/designer&pid=01682CA38FC4E775-f3
+
 `yarn test`: Launches the test runner in the interactive watch mode
 
 `yarn standalone build`: Builds the app for production to the `build` folder.
