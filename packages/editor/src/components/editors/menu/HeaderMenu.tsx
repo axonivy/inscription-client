@@ -27,7 +27,7 @@ const DropdownMenu = () => {
         <Content className='dropdown-menu-content' sideOffset={15}>
           <Item className='dropdown-menu-item' onSelect={() => setMode(mode === 'light' ? 'dark' : 'light')}>
             <IvyIcon icon={IvyIcons.Darkmode} />
-            {mode.charAt(0).toUpperCase() + mode.slice(1)} mode
+            Switch Theme
           </Item>
           <Item className='dropdown-menu-item' disabled>
             <IvyIcon icon={IvyIcons.JumpOut} />
