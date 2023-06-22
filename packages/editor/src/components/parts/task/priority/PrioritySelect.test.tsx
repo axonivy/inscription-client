@@ -5,7 +5,7 @@ import { render, screen, SelectUtil } from 'test-utils';
 describe('PrioritySelect', () => {
   function renderSelect(options?: { level?: string; script?: string }) {
     const priority: WfPriority = { level: options?.level as WfLevel, script: options?.script ?? '' };
-    render(<PrioritySelect priority={priority} updatePriority={{ updateLevel: () => {}, updateScript: () => {} }} />);
+    render(<PrioritySelect priority={priority} updatePriority={() => {}} />);
   }
 
   test('priority select will render with default option', async () => {
