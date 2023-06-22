@@ -2,17 +2,18 @@ import { useConfigDataContext } from '../../../context';
 import { MailHeaderData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { useCallback } from 'react';
+import { Updater } from 'src/types/lambda';
 
 export function useMailHeaderData(): {
   data: MailHeaderData;
   initData: MailHeaderData;
   defaultData: MailHeaderData;
-  updater: <TField extends keyof MailHeaderData['headers']>(field: TField, value: MailHeaderData['headers'][TField]) => void;
+  updater: Updater<MailHeaderData['headers']>;
   resetData: () => void;
 } {
   const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
-  const updater = <TField extends keyof MailHeaderData['headers']>(field: TField, value: MailHeaderData['headers'][TField]) => {
+  const updater: Updater<MailHeaderData['headers']> = (field, value) => {
     setConfig(
       produce(draft => {
         draft.headers[field] = value;

@@ -11,20 +11,19 @@ export function useCasePart(): PartProps {
 }
 
 const CasePart = () => {
-  const { caseData, updateName, updateDescription, updateCategory, updateCustomFields } = useCaseData();
-
+  const { caseData, updater } = useCaseData();
   return (
     <>
       <Fieldset label='Name' htmlFor='caseName'>
-        <Input id='caseName' value={caseData.case.name} onChange={change => updateName(change)} />
+        <Input id='caseName' value={caseData.case.name} onChange={change => updater('name', change)} />
       </Fieldset>
       <Fieldset label='Description' htmlFor='caseDescription'>
-        <Input id='caseDescription' value={caseData.case.description} onChange={change => updateDescription(change)} />
+        <Input id='caseDescription' value={caseData.case.description} onChange={change => updater('description', change)} />
       </Fieldset>
       <Fieldset label='Category' htmlFor='caseCategory'>
-        <Input id='caseCategory' value={caseData.case.category} onChange={change => updateCategory(change)} />
+        <Input id='caseCategory' value={caseData.case.category} onChange={change => updater('category', change)} />
       </Fieldset>
-      <CustomFieldPart customFields={caseData.case.customFields} updateCustomFields={updateCustomFields} />
+      <CustomFieldPart customFields={caseData.case.customFields} updateCustomFields={change => updater('customFields', change)} />
     </>
   );
 };
