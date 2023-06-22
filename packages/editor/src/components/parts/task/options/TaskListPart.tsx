@@ -1,8 +1,8 @@
 import { Checkbox, CollapsiblePart, Fieldset, Input } from '../../../widgets';
-import { useTaskOptionsData } from './useTaskOptionsData';
+import { useTaskData } from '../useTaskData';
 
 const TaskListPart = () => {
-  const { task, updater } = useTaskOptionsData();
+  const { task, updater } = useTaskData();
 
   return (
     <CollapsiblePart collapsibleLabel='Options' defaultOpen={task.skipTasklist}>
