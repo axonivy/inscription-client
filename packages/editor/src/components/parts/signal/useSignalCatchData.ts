@@ -2,37 +2,24 @@ import { useConfigDataContext } from '../../../context';
 import { SignalCatchData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { useCallback } from 'react';
-import { Consumer } from '../../../types/lambda';
+import { Updater } from '../../../types/lambda';
 
 export function useSignalCatchData(): {
   data: SignalCatchData;
   defaultData: SignalCatchData;
   initData: SignalCatchData;
-  updateSignalCode: Consumer<string>;
-  updateAttachToBusinessCase: Consumer<boolean>;
+  updater: Updater<SignalCatchData>;
   resetData: () => void;
 } {
   const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
-  const updateSignalCode = useCallback<Consumer<string>>(
-    signalCode =>
-      setConfig(
-        produce(draft => {
-          draft.signalCode = signalCode;
-        })
-      ),
-    [setConfig]
-  );
-
-  const updateAttachToBusinessCase = useCallback<Consumer<boolean>>(
-    attachToBusinessCase =>
-      setConfig(
-        produce(draft => {
-          draft.attachToBusinessCase = attachToBusinessCase;
-        })
-      ),
-    [setConfig]
-  );
+  const updater: Updater<SignalCatchData> = (field, value) => {
+    setConfig(
+      produce((draft: SignalCatchData) => {
+        draft[field] = value;
+      })
+    );
+  };
 
   const resetData = useCallback(
     () =>
@@ -45,5 +32,5 @@ export function useSignalCatchData(): {
     [setConfig, initConfig]
   );
 
-  return { data: config, defaultData: defaultConfig, initData: initConfig, updateSignalCode, updateAttachToBusinessCase, resetData };
+  return { data: config, defaultData: defaultConfig, initData: initConfig, updater, resetData };
 }

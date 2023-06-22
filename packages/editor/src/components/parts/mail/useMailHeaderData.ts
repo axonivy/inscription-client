@@ -2,7 +2,7 @@ import { useConfigDataContext } from '../../../context';
 import { MailHeaderData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { useCallback } from 'react';
-import { Updater } from 'src/types/lambda';
+import { Updater } from '../../../types/lambda';
 
 export function useMailHeaderData(): {
   data: MailHeaderData;

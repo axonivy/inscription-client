@@ -21,7 +21,7 @@ export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartPr
 }
 
 const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
-  const { data, updateSignalCode, updateAttachToBusinessCase } = useSignalCatchData();
+  const { data, updater } = useSignalCatchData();
   const [signalCodes, setSignalCodes] = useState<EventCodeItem[]>([]);
   const editorContext = useEditorContext();
   const client = useClient();
@@ -45,7 +45,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
       <Fieldset label='Signal Code' {...signalField.labelProps}>
         <EventCodeSelect
           eventCode={data.signalCode}
-          onChange={change => updateSignalCode(change)}
+          onChange={change => updater('signalCode', change)}
           eventCodes={signalCodes}
           eventIcon={IvyIcons.Signal}
           comboboxInputProps={signalField.inputProps}
@@ -55,7 +55,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
         <Checkbox
           label='Attach to Business Case that signaled this process'
           value={data.attachToBusinessCase}
-          onChange={change => updateAttachToBusinessCase(change)}
+          onChange={change => updater('attachToBusinessCase', change)}
         />
       )}
     </>

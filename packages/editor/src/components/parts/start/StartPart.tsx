@@ -24,7 +24,7 @@ export function useStartPart(props?: StartPartProps): PartProps {
 }
 
 const StartPart = ({ hideParamDesc, signaturePostfix }: StartPartProps) => {
-  const { data, updateSignature, updateParams, updateMap, updateCode } = useStartData();
+  const { data, updateSignature, updater } = useStartData();
   const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
 
   const editorContext = useEditorContext();
@@ -42,11 +42,11 @@ const StartPart = ({ hideParamDesc, signaturePostfix }: StartPartProps) => {
         <Input value={data.signature} onChange={change => updateSignature(change)} {...signatureFieldset.inputProps} />
       </Fieldset>
       <CollapsiblePart collapsibleLabel='Input parameters'>
-        <ParameterTable data={data.input.params} onChange={change => updateParams(change)} hideDesc={hideParamDesc} />
+        <ParameterTable data={data.input.params} onChange={change => updater('params', change)} hideDesc={hideParamDesc} />
       </CollapsiblePart>
-      <MappingTree data={data.input.map} mappingInfo={mappingInfo} onChange={updateMap} location='input.code' />
+      <MappingTree data={data.input.map} mappingInfo={mappingInfo} onChange={change => updater('map', change)} location='input.code' />
       <Fieldset label='Code'>
-        <CodeEditor code={data.input.code} onChange={updateCode} location='input.code' />
+        <CodeEditor code={data.input.code} onChange={change => updater('code', change)} location='input.code' />
       </Fieldset>
     </>
   );

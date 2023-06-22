@@ -1,49 +1,25 @@
 import { useConfigDataContext } from '../../../context';
-import { Mapping, ScriptVariable, ResultData } from '@axonivy/inscription-protocol';
+import { ResultData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { useCallback } from 'react';
-import { Consumer } from '../../../types/lambda';
+import { Updater } from '../../../types/lambda';
 
 export function useResultData(): {
   data: ResultData;
   defaultData: ResultData;
   initData: ResultData;
-  updateParams: Consumer<ScriptVariable[]>;
-  updateMap: Consumer<Mapping>;
-  updateCode: Consumer<string>;
+  updater: Updater<ResultData['result']>;
   resetData: () => void;
 } {
   const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
-  const updateParams = useCallback<Consumer<ScriptVariable[]>>(
-    params =>
-      setConfig(
-        produce(draft => {
-          draft.result.params = params;
-        })
-      ),
-    [setConfig]
-  );
-
-  const updateMap = useCallback<Consumer<Mapping>>(
-    map =>
-      setConfig(
-        produce(draft => {
-          draft.result.map = map;
-        })
-      ),
-    [setConfig]
-  );
-
-  const updateCode = useCallback<Consumer<string>>(
-    code =>
-      setConfig(
-        produce(draft => {
-          draft.result.code = code;
-        })
-      ),
-    [setConfig]
-  );
+  const updater: Updater<ResultData['result']> = (field, value) => {
+    setConfig(
+      produce(draft => {
+        draft.result[field] = value;
+      })
+    );
+  };
 
   const resetData = useCallback<() => void>(
     () =>
@@ -59,9 +35,7 @@ export function useResultData(): {
     data: config,
     defaultData: defaultConfig,
     initData: initConfig,
-    updateParams,
-    updateMap,
-    updateCode,
+    updater,
     resetData
   };
 }

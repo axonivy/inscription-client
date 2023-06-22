@@ -1,40 +1,27 @@
 import { useConfigDataContext } from '../../../context';
-import { Mapping, OutputData } from '@axonivy/inscription-protocol';
+import { OutputData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { useCallback } from 'react';
-import { Consumer } from '../../../types/lambda';
+import { Consumer, Updater } from '../../../types/lambda';
 
 export function useOutputData(): {
   outputData: OutputData;
   defaultData: OutputData;
   initData: OutputData;
-  updateMap: Consumer<Mapping>;
-  updateCode: Consumer<string>;
+  updater: Updater<OutputData['output']>;
   updateSudo: Consumer<boolean>;
   resetCode: () => void;
   resetOutput: Consumer<boolean | undefined>;
 } {
   const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
 
-  const updateMap = useCallback<Consumer<Mapping>>(
-    map =>
-      setConfig(
-        produce(draft => {
-          draft.output.map = map;
-        })
-      ),
-    [setConfig]
-  );
-
-  const updateCode = useCallback<Consumer<string>>(
-    code =>
-      setConfig(
-        produce(draft => {
-          draft.output.code = code;
-        })
-      ),
-    [setConfig]
-  );
+  const updater: Updater<OutputData['output']> = (field, value) => {
+    setConfig(
+      produce(draft => {
+        draft.output[field] = value;
+      })
+    );
+  };
 
   const updateSudo = useCallback<Consumer<boolean>>(
     sudo =>
@@ -74,8 +61,7 @@ export function useOutputData(): {
     outputData: config,
     defaultData: defaultConfig,
     initData: initConfig,
-    updateMap,
-    updateCode,
+    updater,
     updateSudo,
     resetCode,
     resetOutput

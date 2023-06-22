@@ -11,12 +11,12 @@ export function useCodePart(): PartProps {
 }
 
 const CodePart = () => {
-  const { outputData, updateCode, updateSudo } = useOutputData();
+  const { outputData, updater, updateSudo } = useOutputData();
 
   return (
     <>
       <Fieldset label='Code' htmlFor='code'>
-        <CodeEditor code={outputData.output.code} onChange={updateCode} location='output.code' resizable={true} />
+        <CodeEditor code={outputData.output.code} onChange={change => updater('code', change)} location='output.code' resizable={true} />
       </Fieldset>
       <Checkbox label='Disable Permission Checks (Execute this Script Step as SYSTEM)' value={outputData.sudo} onChange={updateSudo} />
     </>

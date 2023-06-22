@@ -20,7 +20,7 @@ export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
 }
 
 const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
-  const { data, updateParams, updateMap, updateCode } = useResultData();
+  const { data, updater } = useResultData();
   const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
 
   const editorContext = useEditorContext();
@@ -40,11 +40,11 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   return (
     <>
       <CollapsiblePart collapsibleLabel='Result parameters'>
-        <ParameterTable data={data.result.params} onChange={change => updateParams(change)} hideDesc={hideParamDesc} />
+        <ParameterTable data={data.result.params} onChange={change => updater('params', change)} hideDesc={hideParamDesc} />
       </CollapsiblePart>
-      <MappingTree data={data.result.map} mappingInfo={mappingInfo} onChange={updateMap} location='result.code' />
+      <MappingTree data={data.result.map} mappingInfo={mappingInfo} onChange={change => updater('map', change)} location='result.code' />
       <Fieldset label='Code'>
-        <CodeEditor code={data.result.code} onChange={updateCode} location='result.code' />
+        <CodeEditor code={data.result.code} onChange={change => updater('code', change)} location='result.code' />
       </Fieldset>
     </>
   );

@@ -20,7 +20,7 @@ export function useOutputPart(options?: { hideCode?: boolean }): PartProps {
 }
 
 const OutputPart = (props: { showCode?: boolean }) => {
-  const { outputData, updateMap, updateCode } = useOutputData();
+  const { outputData, updater } = useOutputData();
   const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
 
   const editorContext = useEditorContext();
@@ -31,10 +31,15 @@ const OutputPart = (props: { showCode?: boolean }) => {
 
   return (
     <>
-      <MappingTree data={outputData.output.map} mappingInfo={mappingInfo} onChange={updateMap} location='output.code' />
+      <MappingTree
+        data={outputData.output.map}
+        mappingInfo={mappingInfo}
+        onChange={change => updater('map', change)}
+        location='output.code'
+      />
       {props.showCode && (
         <Fieldset label='Code' htmlFor='code'>
-          <CodeEditor code={outputData.output.code} onChange={updateCode} location='output.code' />
+          <CodeEditor code={outputData.output.code} onChange={change => updater('code', change)} location='output.code' />
         </Fieldset>
       )}
     </>
