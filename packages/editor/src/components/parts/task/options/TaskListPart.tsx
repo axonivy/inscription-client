@@ -1,14 +1,14 @@
 import { Checkbox, CollapsiblePart, Fieldset, Input } from '../../../widgets';
-import { useTaskOptionsData } from './useTaskOptionsData';
+import { useTaskData } from '../useTaskData';
 
 const TaskListPart = () => {
-  const { task, updateSkipTasklist, updateDelay } = useTaskOptionsData();
+  const { task, update } = useTaskData();
 
   return (
     <CollapsiblePart collapsibleLabel='Options' defaultOpen={task.skipTasklist}>
-      <Checkbox label='Skip Tasklist' value={task.skipTasklist} onChange={updateSkipTasklist} />
+      <Checkbox label='Skip Tasklist' value={task.skipTasklist} onChange={change => update('skipTasklist', change)} />
       <Fieldset label='Delay' htmlFor='taskDelay'>
-        <Input id='taskDelay' value={task.delay} onChange={change => updateDelay(change)} />
+        <Input id='taskDelay' value={task.delay} onChange={change => update('delay', change)} />
       </Fieldset>
     </CollapsiblePart>
   );

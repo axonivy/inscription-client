@@ -1,85 +1,46 @@
-import { WfExpiry, WfLevel, WfActivatorType } from '@axonivy/inscription-protocol';
+import { WfExpiry } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
-import { Consumer } from '../../../../types/lambda';
+import { DataUpdater } from '../../../../types/lambda';
 import { useTaskDataContext } from '../../../../context';
 import { PriorityUpdater } from '../priority/PrioritySelect';
 import { ResponsibleUpdater } from '../responsible/ResponsibleSelect';
 
 export function useExpiryData(): {
   expiry: WfExpiry;
-  updateTimeout: Consumer<string>;
-  updateError: Consumer<string>;
+  update: DataUpdater<WfExpiry>;
   updateResponsible: ResponsibleUpdater;
   updatePriority: PriorityUpdater;
 } {
   const { task, setTask } = useTaskDataContext();
 
-  const updateTimeout = useCallback<Consumer<string>>(
-    timeout =>
-      setTask(
-        produce(draft => {
-          draft.expiry.timeout = timeout;
-        })
-      ),
-    [setTask]
-  );
+  const update: DataUpdater<WfExpiry> = (field, value) => {
+    setTask(
+      produce(draft => {
+        draft.expiry[field] = value;
+      })
+    );
+  };
 
-  const updateError = useCallback<Consumer<string>>(
-    error =>
-      setTask(
-        produce(draft => {
-          draft.expiry.error = error;
-        })
-      ),
-    [setTask]
-  );
+  const updateResponsible: ResponsibleUpdater = (field, value) => {
+    setTask(
+      produce(draft => {
+        draft.expiry.responsible[field] = value;
+      })
+    );
+  };
 
-  const updateType = useCallback<Consumer<WfActivatorType>>(
-    type =>
-      setTask(
-        produce(draft => {
-          draft.expiry.responsible.type = type;
-        })
-      ),
-    [setTask]
-  );
-
-  const updateActivator = useCallback<Consumer<string>>(
-    activator =>
-      setTask(
-        produce(draft => {
-          draft.expiry.responsible.activator = activator;
-        })
-      ),
-    [setTask]
-  );
-
-  const updateLevel = useCallback<Consumer<WfLevel>>(
-    level =>
-      setTask(
-        produce(draft => {
-          draft.expiry.priority.level = level;
-        })
-      ),
-    [setTask]
-  );
-
-  const updateScript = useCallback<Consumer<string>>(
-    script =>
-      setTask(
-        produce(draft => {
-          draft.expiry.priority.script = script;
-        })
-      ),
-    [setTask]
-  );
+  const updatePriority: PriorityUpdater = (field, value) => {
+    setTask(
+      produce(draft => {
+        draft.expiry.priority[field] = value;
+      })
+    );
+  };
 
   return {
     expiry: task.expiry,
-    updateTimeout,
-    updateError,
-    updateResponsible: { updateType, updateActivator },
-    updatePriority: { updateLevel, updateScript }
+    update,
+    updateResponsible,
+    updatePriority
   };
 }

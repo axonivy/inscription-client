@@ -7,14 +7,14 @@ export function useDefaultNameSyncher({ synchName }: { synchName: string }) {
 }
 
 export function useNameSyncher(syncher: () => string) {
-  const { data, updateName } = useNameData();
+  const { data, update } = useNameData();
   const [isInSynch, setInSynch] = useState<boolean>();
 
   useEffect(() => {
     if (isInSynch) {
-      updateName(syncher());
+      update('name', syncher());
     }
-  }, [isInSynch, updateName, syncher]);
+  }, [isInSynch, update, syncher]);
 
   useEffect(() => {
     setInSynch(data.name === syncher());

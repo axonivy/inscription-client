@@ -1,80 +1,42 @@
-import { useConfigDataContext } from '../../../context';
-import { Mapping, ScriptVariable, StartData } from '@axonivy/inscription-protocol';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
+import { StartData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
-import { Consumer } from '../../../types/lambda';
+import { Consumer, DataUpdater } from '../../../types/lambda';
 
-export function useStartData(): {
-  data: StartData;
-  defaultData: StartData;
-  initData: StartData;
+export function useStartData(): ConfigDataContext<StartData> & {
+  update: DataUpdater<StartData['input']>;
   updateSignature: Consumer<string>;
-  updateParams: Consumer<ScriptVariable[]>;
-  updateMap: Consumer<Mapping>;
-  updateCode: Consumer<string>;
   resetData: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
-  const updateSignature = useCallback<Consumer<string>>(
-    signature =>
-      setConfig(
-        produce(draft => {
-          draft.signature = signature;
-        })
-      ),
-    [setConfig]
-  );
+  const update: DataUpdater<StartData['input']> = (field, value) => {
+    setConfig(
+      produce(draft => {
+        draft.input[field] = value;
+      })
+    );
+  };
 
-  const updateParams = useCallback<Consumer<ScriptVariable[]>>(
-    params =>
-      setConfig(
-        produce(draft => {
-          draft.input.params = params;
-        })
-      ),
-    [setConfig]
-  );
+  const updateSignature = (signature: string) =>
+    setConfig(
+      produce(draft => {
+        draft.signature = signature;
+      })
+    );
 
-  const updateMap = useCallback<Consumer<Mapping>>(
-    map =>
-      setConfig(
-        produce(draft => {
-          draft.input.map = map;
-        })
-      ),
-    [setConfig]
-  );
-
-  const updateCode = useCallback<Consumer<string>>(
-    code =>
-      setConfig(
-        produce(draft => {
-          draft.input.code = code;
-        })
-      ),
-    [setConfig]
-  );
-
-  const resetData = useCallback<() => void>(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.signature = initConfig.signature;
-          draft.input = initConfig.input;
-        })
-      ),
-    [initConfig.input, initConfig.signature, setConfig]
-  );
+  const resetData = () =>
+    setConfig(
+      produce(draft => {
+        draft.signature = config.initConfig.signature;
+        draft.input = config.initConfig.input;
+      })
+    );
 
   return {
-    data: config,
-    defaultData: defaultConfig,
-    initData: initConfig,
+    ...config,
+    update,
     updateSignature,
-    updateParams,
-    updateMap,
-    updateCode,
     resetData
   };
 }

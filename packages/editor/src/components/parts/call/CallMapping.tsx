@@ -5,13 +5,13 @@ import { useCallData } from './useCallData';
 import MappingTree from '../common/mapping-tree/MappingTree';
 
 const CallMapping = (props: { mappingInfo: MappingInfo }) => {
-  const { callData, updateMap, updateCode } = useCallData();
+  const { config, update } = useCallData();
 
   return (
     <>
-      <MappingTree data={callData.call.map} mappingInfo={props.mappingInfo} onChange={updateMap} location='call.code' />
+      <MappingTree data={config.call.map} mappingInfo={props.mappingInfo} onChange={change => update('map', change)} location='call.code' />
       <Fieldset label='Code' htmlFor='code'>
-        <CodeEditor code={callData.call.code} onChange={updateCode} location='call.code' />
+        <CodeEditor code={config.call.code} onChange={change => update('code', change)} location='call.code' />
       </Fieldset>
     </>
   );

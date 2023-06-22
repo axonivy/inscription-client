@@ -3,14 +3,15 @@ import { CodeEditor, CollapsiblePart, Fieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useResultData } from './useResultData';
-import { MappingInfo, Variable } from '@axonivy/inscription-protocol';
+import { MappingInfo, ResultData, Variable } from '@axonivy/inscription-protocol';
 import { useClient, useEditorContext } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
-  const { data, defaultData, initData, resetData } = useResultData();
-  const state = usePartState(defaultData.result, data.result, []);
-  const dirty = usePartDirty(initData.result, data.result);
+  const { config, defaultConfig, initConfig, resetData } = useResultData();
+  const compareData = (data: ResultData) => [data.result];
+  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
     name: 'Result',
     state,
@@ -20,7 +21,7 @@ export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
 }
 
 const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
-  const { data, updateParams, updateMap, updateCode } = useResultData();
+  const { config, update } = useResultData();
   const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
 
   const editorContext = useEditorContext();
@@ -28,23 +29,23 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   useEffect(() => {
     client.resultMapping(editorContext.pid).then(mapping => {
       const resultType = mapping.variables[0].type;
-      if (mapping.types[resultType]?.length !== data.result.params.length) {
-        mapping.types[resultType] = data.result.params.map<Variable>(param => {
+      if (mapping.types[resultType]?.length !== config.result.params.length) {
+        mapping.types[resultType] = config.result.params.map<Variable>(param => {
           return { attribute: param.name, type: param.type, simpleType: param.type, description: param.desc };
         });
       }
       setMappingInfo(mapping);
     });
-  }, [client, editorContext.pid, data.result.params]);
+  }, [client, editorContext.pid, config.result.params]);
 
   return (
     <>
       <CollapsiblePart collapsibleLabel='Result parameters'>
-        <ParameterTable data={data.result.params} onChange={change => updateParams(change)} hideDesc={hideParamDesc} />
+        <ParameterTable data={config.result.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
       </CollapsiblePart>
-      <MappingTree data={data.result.map} mappingInfo={mappingInfo} onChange={updateMap} location='result.code' />
+      <MappingTree data={config.result.map} mappingInfo={mappingInfo} onChange={change => update('map', change)} location='result.code' />
       <Fieldset label='Code'>
-        <CodeEditor code={data.result.code} onChange={updateCode} location='result.code' />
+        <CodeEditor code={config.result.code} onChange={change => update('code', change)} location='result.code' />
       </Fieldset>
     </>
   );

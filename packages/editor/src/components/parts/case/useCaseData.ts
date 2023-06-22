@@ -1,79 +1,32 @@
-import { CaseData, WfCustomField } from '@axonivy/inscription-protocol';
+import { CaseData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
-import { Consumer } from '../../../types/lambda';
-import { useConfigDataContext } from '../../../context';
+import { DataUpdater } from '../../../types/lambda';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
 
-export function useCaseData(): {
-  caseData: CaseData;
-  defaultData: CaseData;
-  initData: CaseData;
-  updateName: Consumer<string>;
-  updateDescription: Consumer<string>;
-  updateCategory: Consumer<string>;
-  updateCustomFields: Consumer<WfCustomField[]>;
+export function useCaseData(): ConfigDataContext<CaseData> & {
+  update: DataUpdater<CaseData['case']>;
   resetData: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
-  const updateName = useCallback<Consumer<string>>(
-    name =>
-      setConfig(
-        produce(draft => {
-          draft.case.name = name;
-        })
-      ),
-    [setConfig]
-  );
+  const update: DataUpdater<CaseData['case']> = (field, value) => {
+    setConfig(
+      produce(draft => {
+        draft.case[field] = value;
+      })
+    );
+  };
 
-  const updateDescription = useCallback<Consumer<string>>(
-    description =>
-      setConfig(
-        produce(draft => {
-          draft.case.description = description;
-        })
-      ),
-    [setConfig]
-  );
-
-  const updateCategory = useCallback<Consumer<string>>(
-    category =>
-      setConfig(
-        produce(draft => {
-          draft.case.category = category;
-        })
-      ),
-    [setConfig]
-  );
-
-  const updateCustomFields = useCallback<Consumer<WfCustomField[]>>(
-    customFields =>
-      setConfig(
-        produce(draft => {
-          draft.case.customFields = customFields;
-        })
-      ),
-    [setConfig]
-  );
-
-  const resetData = useCallback<() => void>(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.case = initConfig.case;
-        })
-      ),
-    [initConfig.case, setConfig]
-  );
+  const resetData = () =>
+    setConfig(
+      produce(draft => {
+        draft.case = config.initConfig.case;
+      })
+    );
 
   return {
-    caseData: config,
-    defaultData: defaultConfig,
-    initData: initConfig,
-    updateName,
-    updateDescription,
-    updateCategory,
-    updateCustomFields,
+    ...config,
+    update,
     resetData
   };
 }

@@ -1,19 +1,20 @@
 import { PartProps, usePartDirty, usePartState } from '../../props';
-import { useTaskPersistData } from './options/useTaskOptionsData';
-import TaskPart from './general/TaskPart';
+import { TaskPersistData, useTaskPersistData } from './options/useTaskOptionsData';
+import TaskPart from './task/TaskPart';
 import { useTaskData } from './useTaskData';
 import { EmptyWidget } from '../../widgets';
+import { WfTask } from '@axonivy/inscription-protocol';
 
 export function useSingleTaskPart(options?: { showPersist?: boolean }): PartProps {
   const { task, defaultTask, initTask, resetTask } = useTaskData();
-  const { persistData, defaultData, initData, updatePersist } = useTaskPersistData();
-  const currentData = [task, options?.showPersist ? persistData.persist : ''];
-  const state = usePartState([defaultTask, options?.showPersist ? defaultData.persist : ''], currentData, []);
-  const dirty = usePartDirty([initTask, options?.showPersist ? initData.persist : ''], currentData);
+  const { config, defaultConfig, initConfig, updatePersist } = useTaskPersistData();
+  const compareData = (task: WfTask, persist: TaskPersistData) => [task, options?.showPersist ? persist.persist : ''];
+  const state = usePartState(compareData(defaultTask, defaultConfig), compareData(task, config), []);
+  const dirty = usePartDirty(compareData(initTask, initConfig), compareData(task, config));
   const resetData = () => {
     resetTask();
     if (options?.showPersist) {
-      updatePersist(initData.persist);
+      updatePersist(initConfig.persist);
     }
   };
   return {

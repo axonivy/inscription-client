@@ -1,4 +1,4 @@
-# Next Gen Inscription Editor (Prototype)
+# Inscription View (Alpha)
 
 This repo contains the prototype of the web-based next gen inscription editors.
 
@@ -43,3 +43,10 @@ Simply start the `Chrome` launch config to get debug and breakpoint support.
 #### Run tests
 
 To run tests you can ether start a script above or start Playwright or Jest with the recommended workspace extensions.
+
+## Windows
+
+Windows has some known issues we need to fix:
+
+- fix icons generate
+- fix mock vite start

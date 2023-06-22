@@ -27,7 +27,7 @@ export function useNamePart(options?: { hideTags?: boolean }): PartProps {
 }
 
 const NamePart = (props: { hideTags?: boolean }) => {
-  const { data, updateName, updateDescription, updateDocs, updateTags } = useNameData();
+  const { data, update } = useNameData();
   const [nameValidation, descriptionValidation] = useNamePartValidation();
 
   const nameField = useFieldset();
@@ -36,17 +36,22 @@ const NamePart = (props: { hideTags?: boolean }) => {
   return (
     <>
       <Fieldset label='Display name' message={nameValidation} {...nameField.labelProps}>
-        <Textarea maxRows={3} value={data.name} onChange={change => updateName(change)} {...nameField.inputProps} />
+        <Textarea maxRows={3} value={data.name} onChange={change => update('name', change)} {...nameField.inputProps} />
       </Fieldset>
       <Fieldset label='Description' message={descriptionValidation} {...descriptionField.labelProps}>
-        <Textarea maxRows={10} value={data.description} onChange={change => updateDescription(change)} {...descriptionField.inputProps} />
+        <Textarea
+          maxRows={10}
+          value={data.description}
+          onChange={change => update('description', change)}
+          {...descriptionField.inputProps}
+        />
       </Fieldset>
       <CollapsiblePart collapsibleLabel='Means / Documents' defaultOpen={data.docs !== undefined && data.docs.length > 0}>
-        <DocumentTable data={data.docs} onChange={change => updateDocs(change)} />
+        <DocumentTable data={data.docs} onChange={change => update('docs', change)} />
       </CollapsiblePart>
       {!props.hideTags && (
         <CollapsiblePart collapsibleLabel='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>
-          <Tags tags={data.tags ?? []} onChange={updateTags} />
+          <Tags tags={data.tags ?? []} onChange={change => update('tags', change)} />
         </CollapsiblePart>
       )}
     </>
