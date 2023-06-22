@@ -1,6 +1,6 @@
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useTaskPersistData } from './options/useTaskOptionsData';
-import TaskPart from './general/TaskPart';
+import TaskPart from './task/TaskPart';
 import { useTaskData } from './useTaskData';
 import { EmptyWidget } from '../../widgets';
 

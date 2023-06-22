@@ -2,7 +2,7 @@ import { WfTask as TaskData } from '@axonivy/inscription-protocol';
 import { EmptyWidget, Tab } from '../../widgets';
 import { TaskDataContextInstance } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
-import TaskPart from './general/TaskPart';
+import TaskPart from './task/TaskPart';
 import { useMutliTaskData } from './useTaskData';
 
 export function useMultiTasksPart(): PartProps {

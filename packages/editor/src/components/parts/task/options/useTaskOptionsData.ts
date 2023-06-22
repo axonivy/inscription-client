@@ -1,38 +1,25 @@
 import { WfTask, TaskData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { useCallback } from 'react';
-import { Consumer } from '../../../../types/lambda';
+import { Consumer, Updater } from '../../../../types/lambda';
 import { useConfigDataContext, useTaskDataContext } from '../../../../context';
 
 export function useTaskOptionsData(): {
   task: WfTask;
   initTask: WfTask;
-  updateSkipTasklist: Consumer<boolean>;
-  updateDelay: Consumer<string>;
+  updater: Updater<WfTask>;
 } {
   const { task, initTask, setTask } = useTaskDataContext();
 
-  const updateSkipTasklist = useCallback<Consumer<boolean>>(
-    skip =>
-      setTask(
-        produce(draft => {
-          draft.skipTasklist = skip;
-        })
-      ),
-    [setTask]
-  );
+  const updater: Updater<WfTask> = (field, value) => {
+    setTask(
+      produce(draft => {
+        draft[field] = value;
+      })
+    );
+  };
 
-  const updateDelay = useCallback<Consumer<string>>(
-    delay =>
-      setTask(
-        produce(draft => {
-          draft.delay = delay;
-        })
-      ),
-    [setTask]
-  );
-
-  return { task, initTask, updateSkipTasklist, updateDelay };
+  return { task, initTask, updater };
 }
 
 type TaskPersistData = Pick<TaskData, 'persist'>;

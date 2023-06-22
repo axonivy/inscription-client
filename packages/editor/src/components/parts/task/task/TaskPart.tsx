@@ -8,19 +8,18 @@ import ResponsibleSelect from '../responsible/ResponsibleSelect';
 import { useTaskData } from '../useTaskData';
 
 const TaskPart = (props: { showPersist?: boolean }) => {
-  const { task, updateName, updateDescription, updateCategory, updateCustomFields, updateCode, updateResponsible, updatePriority } =
-    useTaskData();
+  const { task, updater, updateResponsible, updatePriority } = useTaskData();
 
   return (
     <>
       <Fieldset label='Name' htmlFor='taskName'>
-        <Input id='taskName' value={task.name} onChange={change => updateName(change)} />{' '}
+        <Input id='taskName' value={task.name} onChange={change => updater('name', change)} />{' '}
       </Fieldset>
       <Fieldset label='Description' htmlFor='taskDescription'>
-        <Textarea maxRows={10} id='taskDescription' value={task.description} onChange={change => updateDescription(change)} />
+        <Textarea maxRows={10} id='taskDescription' value={task.description} onChange={change => updater('description', change)} />
       </Fieldset>
       <Fieldset label='Category' htmlFor='taskCategory'>
-        <Input id='taskCategory' value={task.category} onChange={change => updateCategory(change)} />
+        <Input id='taskCategory' value={task.category} onChange={change => updater('category', change)} />
       </Fieldset>
       {!props.showPersist && (
         <ResponsibleSelect responsible={task.responsible} updateResponsible={updateResponsible} optionFilter={['DELETE_TASK']} />
@@ -28,9 +27,9 @@ const TaskPart = (props: { showPersist?: boolean }) => {
       <PrioritySelect priority={task.priority} updatePriority={updatePriority} />
       {props.showPersist ? <PersistPart /> : <TaskListPart />}
       <ExpiryPart />
-      <CustomFieldPart customFields={task.customFields} updateCustomFields={updateCustomFields} />
+      <CustomFieldPart customFields={task.customFields} updateCustomFields={change => updater('customFields', change)} />
       <CollapsiblePart collapsibleLabel='Code' defaultOpen={task.code.length > 0}>
-        <CodeEditor code={task.code} onChange={updateCode} location='task.code' />
+        <CodeEditor code={task.code} onChange={change => updater('code', change)} location='task.code' />
       </CollapsiblePart>
     </>
   );
