@@ -1,156 +1,63 @@
-import { WfCustomField, WfLevel, WfActivatorType, WfTask } from '@axonivy/inscription-protocol';
+import { TaskData, WfTask } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
-import { Consumer } from '../../../types/lambda';
-import { useConfigDataContext, useTaskDataContext } from '../../../context';
-import { PriorityUpdater } from './priority/PrioritySelect';
+import { DataUpdater } from '../../../types/lambda';
+import { ConfigDataContext, TaskDataContext, useConfigDataContext, useTaskDataContext } from '../../../context';
 import { ResponsibleUpdater } from './responsible/ResponsibleSelect';
+import { PriorityUpdater } from './priority/PrioritySelect';
 
-export function useTaskData(): {
-  task: WfTask;
-  defaultTask: WfTask;
-  initTask: WfTask;
-  updateName: Consumer<string>;
-  updateDescription: Consumer<string>;
-  updateCategory: Consumer<string>;
-  updateCustomFields: Consumer<WfCustomField[]>;
-  updateCode: Consumer<string>;
+export function useTaskData(): TaskDataContext & {
+  update: DataUpdater<WfTask>;
   updateResponsible: ResponsibleUpdater;
   updatePriority: PriorityUpdater;
-  resetTask: () => void;
 } {
-  const { task, defaultTask, initTask, setTask, resetTask } = useTaskDataContext();
+  const { setTask, ...task } = useTaskDataContext();
 
-  const updateName = useCallback<Consumer<string>>(
-    name =>
-      setTask(
-        produce(draft => {
-          draft.name = name;
-        })
-      ),
-    [setTask]
-  );
+  const update: DataUpdater<WfTask> = (field, value) => {
+    setTask(
+      produce(draft => {
+        draft[field] = value;
+      })
+    );
+  };
 
-  const updateDescription = useCallback<Consumer<string>>(
-    description =>
-      setTask(
-        produce(draft => {
-          draft.description = description;
-        })
-      ),
-    [setTask]
-  );
+  const updateResponsible: ResponsibleUpdater = (field, value) => {
+    setTask(
+      produce(draft => {
+        draft.responsible[field] = value;
+      })
+    );
+  };
 
-  const updateCategory = useCallback<Consumer<string>>(
-    category =>
-      setTask(
-        produce(draft => {
-          draft.category = category;
-        })
-      ),
-    [setTask]
-  );
-
-  const updateCustomFields = useCallback<Consumer<WfCustomField[]>>(
-    customFields =>
-      setTask(
-        produce(draft => {
-          draft.customFields = customFields;
-        })
-      ),
-    [setTask]
-  );
-
-  const updateCode = useCallback<Consumer<string>>(
-    code =>
-      setTask(
-        produce(draft => {
-          draft.code = code;
-        })
-      ),
-    [setTask]
-  );
-
-  const updateType = useCallback<Consumer<WfActivatorType>>(
-    type =>
-      setTask(
-        produce(draft => {
-          draft.responsible.type = type;
-        })
-      ),
-    [setTask]
-  );
-
-  const updateActivator = useCallback<Consumer<string>>(
-    activator =>
-      setTask(
-        produce(draft => {
-          draft.responsible.activator = activator;
-        })
-      ),
-    [setTask]
-  );
-
-  const updateLevel = useCallback<Consumer<WfLevel>>(
-    level =>
-      setTask(
-        produce(draft => {
-          draft.priority.level = level;
-        })
-      ),
-    [setTask]
-  );
-
-  const updateScript = useCallback<Consumer<string>>(
-    script =>
-      setTask(
-        produce(draft => {
-          draft.priority.script = script;
-        })
-      ),
-    [setTask]
-  );
+  const updatePriority: PriorityUpdater = (field, value) => {
+    setTask(
+      produce(draft => {
+        draft.priority[field] = value;
+      })
+    );
+  };
 
   return {
-    task,
-    defaultTask,
-    initTask,
-    updateName,
-    updateDescription,
-    updateCategory,
-    updateCustomFields,
-    updateCode,
-    updateResponsible: {
-      updateType,
-      updateActivator
-    },
-    updatePriority: { updateLevel, updateScript },
-    resetTask
+    ...task,
+    update,
+    updateResponsible,
+    updatePriority
   };
 }
 
-export function useMutliTaskData(): {
-  tasks: WfTask[];
-  defaultTasks: WfTask[];
-  initTasks: WfTask[];
+export function useMutliTaskData(): ConfigDataContext<TaskData> & {
   resetTasks: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
-  const resetTasks = useCallback<() => void>(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.tasks = initConfig.tasks;
-        })
-      ),
-    [initConfig.tasks, setConfig]
-  );
+  const resetTasks = () =>
+    setConfig(
+      produce(draft => {
+        draft.tasks = config.initConfig.tasks;
+      })
+    );
 
   return {
-    tasks: config.tasks,
-    defaultTasks: defaultConfig.tasks,
-    initTasks: initConfig.tasks,
+    ...config,
     resetTasks
   };
 }

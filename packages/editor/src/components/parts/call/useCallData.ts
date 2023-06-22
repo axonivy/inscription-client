@@ -1,103 +1,70 @@
-import { useConfigDataContext } from '../../../context';
-import { CallData, DialogCallData, Mapping, ProcessCallData } from '@axonivy/inscription-protocol';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
+import { CallData, DialogCallData, ProcessCallData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
-import { Consumer } from '../../../types/lambda';
+import { DataUpdater } from '../../../types/lambda';
 
-export function useCallData(): {
-  callData: CallData;
-  defaultData: CallData;
-  initData: CallData;
-  updateMap: Consumer<Mapping>;
-  updateCode: Consumer<string>;
+export function useCallData(): ConfigDataContext<CallData> & {
+  update: DataUpdater<CallData['call']>;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
-  const updateMap = useCallback<Consumer<Mapping>>(
-    map =>
-      setConfig(
-        produce(draft => {
-          draft.call.map = map;
-        })
-      ),
-    [setConfig]
-  );
+  const update: DataUpdater<CallData['call']> = (field, value) => {
+    setConfig(
+      produce(draft => {
+        draft.call[field] = value;
+      })
+    );
+  };
 
-  const updateCode = useCallback<Consumer<string>>(
-    code =>
-      setConfig(
-        produce(draft => {
-          draft.call.code = code;
-        })
-      ),
-    [setConfig]
-  );
-
-  return { callData: config, initData: initConfig, defaultData: defaultConfig, updateMap, updateCode };
+  return { ...config, update };
 }
 
-export function useDialogCallData(): {
-  dialogCallData: DialogCallData;
-  defaultDialogData: DialogCallData;
-  initDialogData: DialogCallData;
-  updateDialog: Consumer<string>;
+export function useDialogCallData(): ConfigDataContext<DialogCallData> & {
+  update: DataUpdater<DialogCallData>;
   resetData: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
-  const updateDialog = useCallback<Consumer<string>>(
-    dialog =>
-      setConfig(
-        produce(draft => {
-          draft.dialog = dialog;
-        })
-      ),
-    [setConfig]
-  );
+  const update: DataUpdater<DialogCallData> = (field, value) => {
+    setConfig(
+      produce(draft => {
+        draft[field] = value;
+      })
+    );
+  };
 
-  const resetData = useCallback<() => void>(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.dialog = initConfig.dialog;
-          draft.call = initConfig.call;
-        })
-      ),
-    [initConfig.call, initConfig.dialog, setConfig]
-  );
+  const resetData = () =>
+    setConfig(
+      produce(draft => {
+        draft.dialog = config.initConfig.dialog;
+        draft.call = config.initConfig.call;
+      })
+    );
 
-  return { dialogCallData: config, initDialogData: initConfig, defaultDialogData: defaultConfig, updateDialog, resetData };
+  return { ...config, update, resetData };
 }
 
-export function useProcessCallData(): {
-  processCallData: ProcessCallData;
-  defaultProcessData: ProcessCallData;
-  initProcessData: ProcessCallData;
-  updateProcessCall: Consumer<string>;
+export function useProcessCallData(): ConfigDataContext<ProcessCallData> & {
+  update: DataUpdater<ProcessCallData>;
   resetData: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
-  const updateProcessCall = useCallback<Consumer<string>>(
-    processCall =>
-      setConfig(
-        produce(draft => {
-          draft.processCall = processCall;
-        })
-      ),
-    [setConfig]
-  );
+  const update: DataUpdater<ProcessCallData> = (field, value) => {
+    setConfig(
+      produce(draft => {
+        draft[field] = value;
+      })
+    );
+  };
 
-  const resetData = useCallback<() => void>(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.processCall = initConfig.processCall;
-          draft.call = initConfig.call;
-        })
-      ),
-    [initConfig.call, initConfig.processCall, setConfig]
-  );
+  const resetData = () =>
+    setConfig(
+      produce(draft => {
+        draft.processCall = config.initConfig.processCall;
+        draft.call = config.initConfig.call;
+      })
+    );
 
-  return { processCallData: config, initProcessData: initConfig, defaultProcessData: defaultConfig, updateProcessCall, resetData };
+  return { ...config, update, resetData };
 }

@@ -1,20 +1,22 @@
 import { Fieldset, Input } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useEndPageData } from './useEndPageData';
+import { EndPageData } from '@axonivy/inscription-protocol';
 
 export function useEndPagePart(): PartProps {
-  const { data, initData, defaultData, updatePage } = useEndPageData();
-  const state = usePartState(defaultData.page, data.page, []);
-  const dirty = usePartDirty(initData.page, data.page);
-  return { name: 'End Page', state, reset: { dirty, action: () => updatePage(initData.page) }, content: <EndPagePart /> };
+  const { config, initConfig, defaultConfig, update } = useEndPageData();
+  const compareData = (data: EndPageData) => [data.page];
+  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const dirty = usePartDirty(compareData(initConfig), compareData(config));
+  return { name: 'End Page', state, reset: { dirty, action: () => update('page', initConfig.page) }, content: <EndPagePart /> };
 }
 
 const EndPagePart = () => {
-  const { data, updatePage } = useEndPageData();
+  const { config, update } = useEndPageData();
   return (
     <>
       <Fieldset label='Display the following page' htmlFor='endPageInput'>
-        <Input id='endPageInput' value={data.page} onChange={change => updatePage(change)} />
+        <Input id='endPageInput' value={config.page} onChange={change => update('page', change)} />
       </Fieldset>
     </>
   );

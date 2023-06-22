@@ -1,16 +1,13 @@
 import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
-import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE } from '@axonivy/inscription-protocol';
+import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE, WfTask } from '@axonivy/inscription-protocol';
 import { Fieldset, Input, Select, SelectItem, useFieldset } from '../../../../components/widgets';
 import { useClient, useEditorContext } from '../../../../context';
-import { Consumer } from '../../../../types/lambda';
+import { DataUpdater } from '../../../../types/lambda';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
 
-export interface ResponsibleUpdater {
-  updateType: Consumer<WfActivatorType>;
-  updateActivator: Consumer<string>;
-}
+export type ResponsibleUpdater = DataUpdater<WfTask['responsible']>;
 
 type ResponsibleProps = { responsible?: WfActivator; updateResponsible: ResponsibleUpdater };
 type ActivatorProps = ResponsibleProps & { selectedType?: WfActivatorType };
@@ -33,7 +30,7 @@ const RoleSelect = ({ responsible, updateResponsible }: ResponsibleProps) => {
     [responsible?.activator, roleItems]
   );
 
-  return <Select items={roleItems} value={selectedRole} onChange={item => updateResponsible.updateActivator(item.value)} />;
+  return <Select items={roleItems} value={selectedRole} onChange={item => updateResponsible('activator', item.value)} />;
 };
 
 const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
@@ -46,7 +43,7 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
         <Input
           aria-label='activator'
           value={props.responsible?.activator}
-          onChange={change => props.updateResponsible.updateActivator(change)}
+          onChange={change => props.updateResponsible('activator', change)}
         />
       );
     case 'DELETE_TASK':
@@ -82,7 +79,7 @@ const ResponsibleSelect = (props: {
         <Select
           items={typeItems}
           value={selectedType}
-          onChange={item => props.updateResponsible.updateType(item.value as WfActivatorType)}
+          onChange={item => props.updateResponsible('type', item.value as WfActivatorType)}
           inputProps={selectFieldset.inputProps}
         />
         <ResponsibleActivator {...props} selectedType={selectedType?.value as WfActivatorType} />

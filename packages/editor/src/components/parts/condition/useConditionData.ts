@@ -1,26 +1,20 @@
 import { ConditionData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
-import { Consumer } from '../../../types/lambda';
-import { useConfigDataContext } from '../../../context';
+import { DataUpdater } from '../../../types/lambda';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
 
-export function useConditionData(): {
-  conditionData: ConditionData;
-  defaultData: ConditionData;
-  initData: ConditionData;
-  updateCondition: Consumer<Record<string, string>>;
+export function useConditionData(): ConfigDataContext<ConditionData> & {
+  update: DataUpdater<ConditionData>;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
-  const updateCondition = useCallback<Consumer<Record<string, string>>>(
-    conditions =>
-      setConfig(
-        produce(draft => {
-          draft.conditions = conditions;
-        })
-      ),
-    [setConfig]
-  );
+  const update: DataUpdater<ConditionData> = (field, value) => {
+    setConfig(
+      produce(draft => {
+        draft[field] = value;
+      })
+    );
+  };
 
-  return { conditionData: config, defaultData: defaultConfig, initData: initConfig, updateCondition: updateCondition };
+  return { ...config, update };
 }

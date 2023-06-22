@@ -10,14 +10,9 @@ describe('ResponsibleSelect', () => {
       { id: 'Employee', label: '' },
       { id: 'Teamleader', label: '' }
     ];
-    render(
-      <ResponsibleSelect
-        responsible={responsible}
-        updateResponsible={{ updateType: () => {}, updateActivator: () => {} }}
-        optionFilter={options?.optionsFilter}
-      />,
-      { wrapperProps: { meta: { roles } } }
-    );
+    render(<ResponsibleSelect responsible={responsible} updateResponsible={() => {}} optionFilter={options?.optionsFilter} />, {
+      wrapperProps: { meta: { roles } }
+    });
   }
 
   test('responsible select will render all options', async () => {
