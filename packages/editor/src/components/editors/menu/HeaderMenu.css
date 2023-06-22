@@ -30,6 +30,7 @@ button {
 }
 
 .dropdown-menu-item {
+  cursor: pointer;
   font-size: 12px;
   line-height: 1;
   color: var(--text-color);
@@ -47,6 +48,7 @@ button {
   background-color: var(--editor-header-bg);
 }
 .dropdown-menu-item[data-disabled] {
+  cursor: default;
   background-color: var(--editor-bg);
   color: var(--seperator-color);
 }
