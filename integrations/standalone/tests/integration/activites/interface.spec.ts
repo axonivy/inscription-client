@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { inscriptionView } from '../../utils/engine-util';
 import { NameTest, OutputTest, fillReloadAndAssert } from '../parts';
+import { MailHeaderTest } from '../parts/mail-header';
 
 test.describe('Interface Activities', () => {
   test('Database', async ({ page }) => {
@@ -24,7 +25,7 @@ test.describe('Interface Activities', () => {
   test('EMail', async ({ page }) => {
     await page.goto(inscriptionView('0169A49845D37011-f16'));
     await expect(page.getByText('E-Mail').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest]);
+    await fillReloadAndAssert(page, [NameTest, MailHeaderTest]);
   });
 
   test('Rule', async ({ page }) => {
