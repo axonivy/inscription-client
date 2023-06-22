@@ -10,7 +10,7 @@ export function useMailHeaderPart(): PartProps {
 }
 
 const MailHeaderPart = () => {
-  const { data, updateSubject, updateFrom, updateReplyTo, updateTo, updateCc, updateBcc } = useMailHeaderData();
+  const { data, updater } = useMailHeaderData();
   const subjectFieldset = useFieldset();
   const fromFieldset = useFieldset();
   const replyToFieldset = useFieldset();
@@ -21,22 +21,22 @@ const MailHeaderPart = () => {
   return (
     <>
       <Fieldset label='Subject' {...subjectFieldset.labelProps}>
-        <Input value={data.headers.subject} onChange={change => updateSubject(change)} {...subjectFieldset.inputProps} />
+        <Input value={data.headers.subject} onChange={change => updater('subject', change)} {...subjectFieldset.inputProps} />
       </Fieldset>
       <Fieldset label='From' {...fromFieldset.labelProps}>
-        <Input value={data.headers.from} onChange={change => updateFrom(change)} {...fromFieldset.inputProps} />
+        <Input value={data.headers.from} onChange={change => updater('from', change)} {...fromFieldset.inputProps} />
       </Fieldset>
       <Fieldset label='Reply to' {...replyToFieldset.labelProps}>
-        <Input value={data.headers.replyTo} onChange={change => updateReplyTo(change)} {...replyToFieldset.inputProps} />
+        <Input value={data.headers.replyTo} onChange={change => updater('replyTo', change)} {...replyToFieldset.inputProps} />
       </Fieldset>
       <Fieldset label='To' {...toFieldset.labelProps}>
-        <Input value={data.headers.to} onChange={change => updateTo(change)} {...toFieldset.inputProps} />
+        <Input value={data.headers.to} onChange={change => updater('to', change)} {...toFieldset.inputProps} />
       </Fieldset>
       <Fieldset label='CC' {...ccFieldset.labelProps}>
-        <Input value={data.headers.cc} onChange={change => updateCc(change)} {...ccFieldset.inputProps} />
+        <Input value={data.headers.cc} onChange={change => updater('cc', change)} {...ccFieldset.inputProps} />
       </Fieldset>
       <Fieldset label='BCC' {...bccFieldset.labelProps}>
-        <Input value={data.headers.bcc} onChange={change => updateBcc(change)} {...bccFieldset.inputProps} />
+        <Input value={data.headers.bcc} onChange={change => updater('bcc', change)} {...bccFieldset.inputProps} />
       </Fieldset>
     </>
   );
