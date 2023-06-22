@@ -1,19 +1,15 @@
-import { useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
 import { OutputData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
 import { Consumer, Updater } from '../../../types/lambda';
 
-export function useOutputData(): {
-  outputData: OutputData;
-  defaultData: OutputData;
-  initData: OutputData;
+export function useOutputData(): ConfigDataContext<OutputData> & {
   updater: Updater<OutputData['output']>;
   updateSudo: Consumer<boolean>;
   resetCode: () => void;
   resetOutput: Consumer<boolean | undefined>;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
   const updater: Updater<OutputData['output']> = (field, value) => {
     setConfig(
@@ -23,44 +19,33 @@ export function useOutputData(): {
     );
   };
 
-  const updateSudo = useCallback<Consumer<boolean>>(
-    sudo =>
-      setConfig(
-        produce(draft => {
-          draft.sudo = sudo;
-        })
-      ),
-    [setConfig]
-  );
+  const updateSudo = (sudo: boolean) =>
+    setConfig(
+      produce(draft => {
+        draft.sudo = sudo;
+      })
+    );
 
-  const resetCode = useCallback<() => void>(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.output.code = initConfig.output.code;
-          draft.sudo = initConfig.sudo;
-        })
-      ),
-    [initConfig.output.code, initConfig.sudo, setConfig]
-  );
+  const resetCode = () =>
+    setConfig(
+      produce(draft => {
+        draft.output.code = config.initConfig.output.code;
+        draft.sudo = config.initConfig.sudo;
+      })
+    );
 
-  const resetOutput = useCallback<Consumer<boolean | undefined>>(
-    resetCode =>
-      setConfig(
-        produce(draft => {
-          draft.output.map = initConfig.output.map;
-          if (resetCode) {
-            draft.output.code = initConfig.output.code;
-          }
-        })
-      ),
-    [initConfig.output.code, initConfig.output.map, setConfig]
-  );
+  const resetOutput = (resetCode?: boolean) =>
+    setConfig(
+      produce(draft => {
+        draft.output.map = config.initConfig.output.map;
+        if (resetCode) {
+          draft.output.code = config.initConfig.output.code;
+        }
+      })
+    );
 
   return {
-    outputData: config,
-    defaultData: defaultConfig,
-    initData: initConfig,
+    ...config,
     updater,
     updateSudo,
     resetCode,

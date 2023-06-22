@@ -6,11 +6,13 @@ import { useClient, useEditorContext } from '../../../context';
 import EventCodeSelect, { EventCodeItem } from '../common/eventcode/EventCodeSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useDefaultNameSyncher } from '../name/useNameSyncher';
+import { ErrorCatchData } from '@axonivy/inscription-protocol';
 
 export function useErrorCatchPart(): PartProps {
-  const { data, defaultData, initData, resetData } = useErrorCatchData();
-  const state = usePartState(defaultData.errorCode, data.errorCode, []);
-  const dirty = usePartDirty(initData.errorCode, data.errorCode);
+  const { config, defaultConfig, initConfig, resetData } = useErrorCatchData();
+  const compareData = (data: ErrorCatchData) => [data.errorCode];
+  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
     name: 'Error',
     state,
@@ -20,7 +22,7 @@ export function useErrorCatchPart(): PartProps {
 }
 
 const ErrorCatchPart = () => {
-  const { data, updateErrorCode } = useErrorCatchData();
+  const { config, updateErrorCode } = useErrorCatchData();
   const [errorCodes, setErrorCodes] = useState<EventCodeItem[]>([]);
   const editorContext = useEditorContext();
   const client = useClient();
@@ -35,7 +37,7 @@ const ErrorCatchPart = () => {
     );
   }, [client, editorContext.pid]);
 
-  useDefaultNameSyncher({ synchName: data.errorCode });
+  useDefaultNameSyncher({ synchName: config.errorCode });
 
   const errorField = useFieldset();
 
@@ -43,7 +45,7 @@ const ErrorCatchPart = () => {
     <>
       <Fieldset label='Error Code' {...errorField.labelProps}>
         <EventCodeSelect
-          eventCode={data.errorCode}
+          eventCode={config.errorCode}
           onChange={change => updateErrorCode(change)}
           eventCodes={errorCodes}
           eventIcon={IvyIcons.ErrorEvent}

@@ -1,18 +1,14 @@
-import { useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
 import { StartData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
 import { Consumer, Updater } from '../../../types/lambda';
 
-export function useStartData(): {
-  data: StartData;
-  defaultData: StartData;
-  initData: StartData;
+export function useStartData(): ConfigDataContext<StartData> & {
   updater: Updater<StartData['input']>;
   updateSignature: Consumer<string>;
   resetData: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
   const updater: Updater<StartData['input']> = (field, value) => {
     setConfig(
@@ -22,31 +18,23 @@ export function useStartData(): {
     );
   };
 
-  const updateSignature = useCallback<Consumer<string>>(
-    signature =>
-      setConfig(
-        produce(draft => {
-          draft.signature = signature;
-        })
-      ),
-    [setConfig]
-  );
+  const updateSignature = (signature: string) =>
+    setConfig(
+      produce(draft => {
+        draft.signature = signature;
+      })
+    );
 
-  const resetData = useCallback<() => void>(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.signature = initConfig.signature;
-          draft.input = initConfig.input;
-        })
-      ),
-    [initConfig.input, initConfig.signature, setConfig]
-  );
+  const resetData = () =>
+    setConfig(
+      produce(draft => {
+        draft.signature = config.initConfig.signature;
+        draft.input = config.initConfig.input;
+      })
+    );
 
   return {
-    data: config,
-    defaultData: defaultConfig,
-    initData: initConfig,
+    ...config,
     updater,
     updateSignature,
     resetData

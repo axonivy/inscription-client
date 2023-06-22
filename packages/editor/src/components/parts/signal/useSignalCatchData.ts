@@ -1,17 +1,13 @@
-import { useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
 import { SignalCatchData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
 import { Updater } from '../../../types/lambda';
 
-export function useSignalCatchData(): {
-  data: SignalCatchData;
-  defaultData: SignalCatchData;
-  initData: SignalCatchData;
+export function useSignalCatchData(): ConfigDataContext<SignalCatchData> & {
   updater: Updater<SignalCatchData>;
   resetData: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
   const updater: Updater<SignalCatchData> = (field, value) => {
     setConfig(
@@ -21,16 +17,13 @@ export function useSignalCatchData(): {
     );
   };
 
-  const resetData = useCallback(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.signalCode = initConfig.signalCode;
-          draft.attachToBusinessCase = initConfig.attachToBusinessCase;
-        })
-      ),
-    [setConfig, initConfig]
-  );
+  const resetData = () =>
+    setConfig(
+      produce(draft => {
+        draft.signalCode = config.initConfig.signalCode;
+        draft.attachToBusinessCase = config.initConfig.attachToBusinessCase;
+      })
+    );
 
-  return { data: config, defaultData: defaultConfig, initData: initConfig, updater, resetData };
+  return { ...config, updater, resetData };
 }

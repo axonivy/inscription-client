@@ -6,12 +6,13 @@ import { useSignalCatchData } from './useSignalCatchData';
 import { useEffect, useState } from 'react';
 import { useClient, useEditorContext } from '../../../context';
 import { useDefaultNameSyncher } from '../name/useNameSyncher';
+import { SignalCatchData } from '@axonivy/inscription-protocol';
 
 export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartProps {
-  const { data, defaultData, initData, resetData } = useSignalCatchData();
-  const currentData = [data.signalCode, options?.makroSupport ? '' : data.attachToBusinessCase];
-  const state = usePartState([defaultData.signalCode, options?.makroSupport ? '' : defaultData.attachToBusinessCase], currentData, []);
-  const dirty = usePartDirty([initData.signalCode, options?.makroSupport ? '' : initData.attachToBusinessCase], currentData);
+  const { config, defaultConfig, initConfig, resetData } = useSignalCatchData();
+  const compareData = (data: SignalCatchData) => [data.signalCode, options?.makroSupport ? '' : data.attachToBusinessCase];
+  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
     name: 'Signal',
     state,
@@ -21,7 +22,7 @@ export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartPr
 }
 
 const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
-  const { data, updater } = useSignalCatchData();
+  const { config, updater } = useSignalCatchData();
   const [signalCodes, setSignalCodes] = useState<EventCodeItem[]>([]);
   const editorContext = useEditorContext();
   const client = useClient();
@@ -36,7 +37,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
     );
   }, [client, editorContext.pid]);
 
-  useDefaultNameSyncher({ synchName: data.signalCode });
+  useDefaultNameSyncher({ synchName: config.signalCode });
 
   const signalField = useFieldset();
 
@@ -44,7 +45,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
     <>
       <Fieldset label='Signal Code' {...signalField.labelProps}>
         <EventCodeSelect
-          eventCode={data.signalCode}
+          eventCode={config.signalCode}
           onChange={change => updater('signalCode', change)}
           eventCodes={signalCodes}
           eventIcon={IvyIcons.Signal}
@@ -54,7 +55,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
       {!makroSupport && (
         <Checkbox
           label='Attach to Business Case that signaled this process'
-          value={data.attachToBusinessCase}
+          value={config.attachToBusinessCase}
           onChange={change => updater('attachToBusinessCase', change)}
         />
       )}

@@ -3,7 +3,7 @@ import { CodeEditor, CollapsiblePart, Fieldset, Input, useFieldset } from '../..
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useStartData } from './useStartData';
-import { MappingInfo } from '@axonivy/inscription-protocol';
+import { MappingInfo, StartData } from '@axonivy/inscription-protocol';
 import { useClient, useEditorContext } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
 import { useStartNameSyncher } from './useStartNameSyncher';
@@ -11,10 +11,10 @@ import { useStartNameSyncher } from './useStartNameSyncher';
 type StartPartProps = { hideParamDesc?: boolean; signaturePostfix?: string };
 
 export function useStartPart(props?: StartPartProps): PartProps {
-  const { data, defaultData, initData, resetData } = useStartData();
-  const currentData = [data.signature, data.input];
-  const state = usePartState([defaultData.signature, defaultData.input], currentData, []);
-  const dirty = usePartDirty([initData.signature, initData.input], currentData);
+  const { config, defaultConfig, initConfig, resetData } = useStartData();
+  const compareData = (data: StartData) => [data.signature, data.input];
+  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
     name: 'Start',
     state,
@@ -24,7 +24,7 @@ export function useStartPart(props?: StartPartProps): PartProps {
 }
 
 const StartPart = ({ hideParamDesc, signaturePostfix }: StartPartProps) => {
-  const { data, updateSignature, updater } = useStartData();
+  const { config, updateSignature, updater } = useStartData();
   const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
 
   const editorContext = useEditorContext();
@@ -33,20 +33,20 @@ const StartPart = ({ hideParamDesc, signaturePostfix }: StartPartProps) => {
     client.outMapping(editorContext.pid).then(mapping => setMappingInfo(mapping));
   }, [client, editorContext.pid]);
 
-  useStartNameSyncher(data, signaturePostfix);
+  useStartNameSyncher(config, signaturePostfix);
 
   const signatureFieldset = useFieldset();
   return (
     <>
       <Fieldset label='Signature' {...signatureFieldset.labelProps}>
-        <Input value={data.signature} onChange={change => updateSignature(change)} {...signatureFieldset.inputProps} />
+        <Input value={config.signature} onChange={change => updateSignature(change)} {...signatureFieldset.inputProps} />
       </Fieldset>
       <CollapsiblePart collapsibleLabel='Input parameters'>
-        <ParameterTable data={data.input.params} onChange={change => updater('params', change)} hideDesc={hideParamDesc} />
+        <ParameterTable data={config.input.params} onChange={change => updater('params', change)} hideDesc={hideParamDesc} />
       </CollapsiblePart>
-      <MappingTree data={data.input.map} mappingInfo={mappingInfo} onChange={change => updater('map', change)} location='input.code' />
+      <MappingTree data={config.input.map} mappingInfo={mappingInfo} onChange={change => updater('map', change)} location='input.code' />
       <Fieldset label='Code'>
-        <CodeEditor code={data.input.code} onChange={change => updater('code', change)} location='input.code' />
+        <CodeEditor code={config.input.code} onChange={change => updater('code', change)} location='input.code' />
       </Fieldset>
     </>
   );

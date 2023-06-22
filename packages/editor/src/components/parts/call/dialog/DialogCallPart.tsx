@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useClient, useEditorContext, useValidation } from '../../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../../props';
-import { CallableStart, InscriptionValidation, MappingInfo } from '@axonivy/inscription-protocol';
+import { CallData, CallableStart, DialogCallData, InscriptionValidation, MappingInfo } from '@axonivy/inscription-protocol';
 import CallMapping from '../CallMapping';
 import { useCallData, useDialogCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
@@ -16,16 +16,20 @@ function useCallPartValidation(): InscriptionValidation[] {
 
 export function useDialogCallPart(): PartProps {
   const validation = useCallPartValidation();
-  const { callData, defaultData, initData } = useCallData();
-  const { dialogCallData, defaultDialogData, initDialogData, resetData } = useDialogCallData();
-  const currentData = [callData.call, dialogCallData.dialog];
-  const state = usePartState([defaultData.call, defaultDialogData.dialog], currentData, validation);
-  const dirty = usePartDirty([initData.call, initDialogData.dialog], currentData);
-  return { name: 'Call', state, reset: { dirty, action: () => resetData() }, content: <DialogCallPart /> };
+  const callData = useCallData();
+  const targetData = useDialogCallData();
+  const compareData = (callData: CallData, targetData: DialogCallData) => [callData.call, targetData.dialog];
+  const state = usePartState(
+    compareData(callData.defaultConfig, targetData.defaultConfig),
+    compareData(callData.config, targetData.config),
+    validation
+  );
+  const dirty = usePartDirty(compareData(callData.initConfig, targetData.initConfig), compareData(callData.config, targetData.config));
+  return { name: 'Call', state, reset: { dirty, action: () => targetData.resetData() }, content: <DialogCallPart /> };
 }
 
 const DialogCallPart = () => {
-  const { dialogCallData, updateDialog } = useDialogCallData();
+  const { config, updateDialog } = useDialogCallData();
   const [startItems, setStartItems] = useState<CallableStart[]>([]);
   const [dialogValidation] = useCallPartValidation();
 
@@ -36,8 +40,8 @@ const DialogCallPart = () => {
   }, [client, editorContext.pid]);
 
   const mappingInfo = useMemo<MappingInfo>(
-    () => startItems.find(ds => ds.id === dialogCallData.dialog)?.callParameter ?? { variables: [], types: {} },
-    [dialogCallData.dialog, startItems]
+    () => startItems.find(ds => ds.id === config.dialog)?.callParameter ?? { variables: [], types: {} },
+    [config.dialog, startItems]
   );
 
   const callField = useFieldset();
@@ -50,7 +54,7 @@ const DialogCallPart = () => {
     <>
       <Fieldset label='Dialog' message={dialogValidation} {...callField.labelProps} controls={fieldsetControls}>
         <CallSelect
-          start={dialogCallData.dialog}
+          start={config.dialog}
           onChange={updateDialog}
           starts={startItems}
           startIcon={IvyIcons.InitStart}

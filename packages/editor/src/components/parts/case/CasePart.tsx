@@ -2,28 +2,30 @@ import { Fieldset, Input } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
+import { CaseData } from '@axonivy/inscription-protocol';
 
 export function useCasePart(): PartProps {
-  const { caseData, defaultData, initData, resetData } = useCaseData();
-  const state = usePartState(defaultData.case, caseData.case, []);
-  const dirty = usePartDirty(initData.case, caseData.case);
+  const { config, defaultConfig, initConfig, resetData } = useCaseData();
+  const compareData = (data: CaseData) => [data.case];
+  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Case', state: state, reset: { dirty, action: () => resetData() }, content: <CasePart /> };
 }
 
 const CasePart = () => {
-  const { caseData, updater } = useCaseData();
+  const { config, updater } = useCaseData();
   return (
     <>
       <Fieldset label='Name' htmlFor='caseName'>
-        <Input id='caseName' value={caseData.case.name} onChange={change => updater('name', change)} />
+        <Input id='caseName' value={config.case.name} onChange={change => updater('name', change)} />
       </Fieldset>
       <Fieldset label='Description' htmlFor='caseDescription'>
-        <Input id='caseDescription' value={caseData.case.description} onChange={change => updater('description', change)} />
+        <Input id='caseDescription' value={config.case.description} onChange={change => updater('description', change)} />
       </Fieldset>
       <Fieldset label='Category' htmlFor='caseCategory'>
-        <Input id='caseCategory' value={caseData.case.category} onChange={change => updater('category', change)} />
+        <Input id='caseCategory' value={config.case.category} onChange={change => updater('category', change)} />
       </Fieldset>
-      <CustomFieldPart customFields={caseData.case.customFields} updateCustomFields={change => updater('customFields', change)} />
+      <CustomFieldPart customFields={config.case.customFields} updateCustomFields={change => updater('customFields', change)} />
     </>
   );
 };

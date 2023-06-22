@@ -1,37 +1,27 @@
-import { useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
 import { ErrorCatchData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
 import { Consumer } from '../../../types/lambda';
 
-export function useErrorCatchData(): {
-  data: ErrorCatchData;
-  defaultData: ErrorCatchData;
-  initData: ErrorCatchData;
+export function useErrorCatchData(): ConfigDataContext<ErrorCatchData> & {
   updateErrorCode: Consumer<string>;
   resetData: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
-  const updateErrorCode = useCallback<Consumer<string>>(
-    errorCode =>
-      setConfig(
-        produce(draft => {
-          draft.errorCode = errorCode;
-        })
-      ),
-    [setConfig]
-  );
+  const updateErrorCode = (errorCode: string) =>
+    setConfig(
+      produce(draft => {
+        draft.errorCode = errorCode;
+      })
+    );
 
-  const resetData = useCallback(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.errorCode = initConfig.errorCode;
-        })
-      ),
-    [setConfig, initConfig]
-  );
+  const resetData = () =>
+    setConfig(
+      produce(draft => {
+        draft.errorCode = config.initConfig.errorCode;
+      })
+    );
 
-  return { data: config, defaultData: defaultConfig, initData: initConfig, updateErrorCode, resetData };
+  return { ...config, updateErrorCode, resetData };
 }

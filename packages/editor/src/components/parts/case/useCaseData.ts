@@ -1,17 +1,13 @@
 import { CaseData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
 import { Updater } from '../../../types/lambda';
-import { useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
 
-export function useCaseData(): {
-  caseData: CaseData;
-  defaultData: CaseData;
-  initData: CaseData;
+export function useCaseData(): ConfigDataContext<CaseData> & {
   updater: Updater<CaseData['case']>;
   resetData: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
   const updater: Updater<CaseData['case']> = (field, value) => {
     setConfig(
@@ -21,20 +17,15 @@ export function useCaseData(): {
     );
   };
 
-  const resetData = useCallback<() => void>(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.case = initConfig.case;
-        })
-      ),
-    [initConfig.case, setConfig]
-  );
+  const resetData = () =>
+    setConfig(
+      produce(draft => {
+        draft.case = config.initConfig.case;
+      })
+    );
 
   return {
-    caseData: config,
-    defaultData: defaultConfig,
-    initData: initConfig,
+    ...config,
     updater,
     resetData
   };

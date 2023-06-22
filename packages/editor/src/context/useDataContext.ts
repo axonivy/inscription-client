@@ -16,10 +16,13 @@ const defaultDataContext: any = undefined;
 export const DataContextInstance = createContext<DataContext>(defaultDataContext);
 export const useDataContext = (): DataContext => useContext(DataContextInstance);
 
-export function useConfigDataContext(): {
-  config: ConfigData;
-  defaultConfig: ConfigData;
-  initConfig: ConfigData;
+export type ConfigDataContext<T> = {
+  config: T;
+  defaultConfig: T;
+  initConfig: T;
+};
+
+export function useConfigDataContext<T extends ConfigData>(): ConfigDataContext<T> & {
   setConfig: UpdateConsumer<ConfigData>;
 } {
   const { data, initData, defaultData, setData } = useDataContext();
@@ -34,17 +37,20 @@ export function useConfigDataContext(): {
     [setData]
   );
 
-  return { config: data.config, initConfig: initData.config, defaultConfig: defaultData, setConfig };
+  return { config: data.config as T, initConfig: initData.config as T, defaultConfig: defaultData as T, setConfig };
 }
 
 export const TaskDataContextInstance = createContext<number | undefined>(undefined);
 
-export function useTaskDataContext(): {
+export type TaskDataContext = {
   task: WfTask;
   defaultTask: WfTask;
   initTask: WfTask;
-  setTask: UpdateConsumer<WfTask>;
   resetTask: () => void;
+};
+
+export function useTaskDataContext(): TaskDataContext & {
+  setTask: UpdateConsumer<WfTask>;
 } {
   const taskNumber = useContext(TaskDataContextInstance);
   const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();

@@ -1,17 +1,13 @@
-import { useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext } from '../../../context';
 import { MailHeaderData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { useCallback } from 'react';
 import { Updater } from '../../../types/lambda';
 
-export function useMailHeaderData(): {
-  data: MailHeaderData;
-  initData: MailHeaderData;
-  defaultData: MailHeaderData;
+export function useMailHeaderData(): ConfigDataContext<MailHeaderData> & {
   updater: Updater<MailHeaderData['headers']>;
   resetData: () => void;
 } {
-  const { config, defaultConfig, initConfig, setConfig } = useConfigDataContext();
+  const { setConfig, ...config } = useConfigDataContext();
 
   const updater: Updater<MailHeaderData['headers']> = (field, value) => {
     setConfig(
@@ -21,20 +17,15 @@ export function useMailHeaderData(): {
     );
   };
 
-  const resetData = useCallback(
-    () =>
-      setConfig(
-        produce(draft => {
-          draft.headers = initConfig.headers;
-        })
-      ),
-    [setConfig, initConfig]
-  );
+  const resetData = () =>
+    setConfig(
+      produce(draft => {
+        draft.headers = config.initConfig.headers;
+      })
+    );
 
   return {
-    data: config,
-    initData: initConfig,
-    defaultData: defaultConfig,
+    ...config,
     updater,
     resetData
   };
