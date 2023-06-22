@@ -2,12 +2,6 @@
 
 This repo contains the prototype of the web-based next gen inscription editors.
 
-## Docs
-
-- [UI Mockups](doc/ui-mockup/README.md)
-- [Process Schema](doc/process-schema/README.md)
-- Sample Process involving a UserDialog call: see [QuickStartTutorial](https://github.com/axonivy-market/demo-projects/blob/master/quick-start-tutorial/quick-start-tutorial/processes/MyProcess.p.json)
-
 ## Client
 
 This prototype is build with React and Headless Components.
@@ -17,6 +11,8 @@ This prototype is build with React and Headless Components.
 `yarn`: Install all packages:
 
 `yarn icons:generate`: Build the icon font
+
+`yarn protocol generate`: Generate the protocol types from the newest inscription json schema
 
 `yarn standalone start`: Start the editor
 
