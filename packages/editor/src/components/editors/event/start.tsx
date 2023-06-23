@@ -15,7 +15,7 @@ import {
 
 const RequestStartEditor = memo(() => {
   const name = useNamePart();
-  const start = useStartPart({ signaturePostfix: '.ivp' });
+  const start = useStartPart();
   const request = { name: 'Request', content: <h1>Request</h1> };
   const trigger = { name: 'Trigger', content: <h1>Trigger</h1> };
   const singleTask = useSingleTaskPart({ showPersist: true });
