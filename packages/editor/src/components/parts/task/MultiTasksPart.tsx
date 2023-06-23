@@ -1,5 +1,5 @@
 import { TaskData } from '@axonivy/inscription-protocol';
-import { EmptyWidget, Tab } from '../../widgets';
+import { EmptyWidget, Tab, Tabs } from '../../widgets';
 import { TaskDataContextInstance } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import TaskPart from './task/TaskPart';
@@ -16,8 +16,8 @@ export function useMultiTasksPart(): PartProps {
 const MultiTasksPart = () => {
   const { config } = useMutliTaskData();
 
-  const tabs: PartProps[] =
-    config.tasks?.map((task, index) => {
+  const tabs: Tab[] =
+    config.tasks?.map<Tab>((task, index) => {
       return {
         name: task.id ?? '',
         content: (
@@ -25,8 +25,8 @@ const MultiTasksPart = () => {
             <TaskPart />
           </TaskDataContextInstance.Provider>
         )
-      } as PartProps;
+      };
     }) ?? [];
 
-  return <>{tabs.length > 0 ? <Tab tabs={tabs} /> : <EmptyWidget message='There is no (Task) output flow connected.' />}</>;
+  return <>{tabs.length > 0 ? <Tabs tabs={tabs} /> : <EmptyWidget message='There is no (Task) output flow connected.' />}</>;
 };

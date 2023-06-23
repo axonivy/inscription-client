@@ -1,29 +1,21 @@
-import { Tab } from './Tab';
-import { PartProps } from '../../props';
+import { Tab, Tabs } from './Tab';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('Tabs', () => {
-  const tabs: PartProps[] = [
-    { name: 'Name', state: 'empty', content: <h1>Name</h1> },
-    { name: 'Call', state: 'warning', content: <h1>Call</h1> },
-    { name: 'Result', state: 'error', content: <h1>Result</h1> }
+  const tabs: Tab[] = [
+    { name: 'Name', content: <h1>Name</h1> },
+    { name: 'Call', content: <h1>Call</h1> },
+    { name: 'Result', content: <h1>Result</h1> }
   ];
 
   function renderTabs() {
-    render(<Tab tabs={tabs} />);
+    render(<Tabs tabs={tabs} />);
   }
 
   test('tabs will render', () => {
     renderTabs();
     expect(screen.getAllByRole('tab')).toHaveLength(3);
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
-  });
-
-  test('tabs show state', () => {
-    renderTabs();
-    expect(screen.getByRole('tab', { name: /Name/ })).toHaveAccessibleName('empty Name');
-    expect(screen.getByRole('tab', { name: /Call/ })).toHaveAccessibleName('warning Call');
-    expect(screen.getByRole('tab', { name: /Result/ })).toHaveAccessibleName('error Result');
   });
 
   test('tabs switch tab', async () => {

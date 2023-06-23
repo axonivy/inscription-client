@@ -28,7 +28,6 @@ const CodeEditorMock = (props: { id?: string; value: string; onChange: (value: s
 
 jest.mock('../components/widgets/code-editor', () => ({
   __esModule: true,
-  SingleLineCodeEditor: CodeEditorMock,
   ScriptArea: CodeEditorMock,
   ScriptInput: CodeEditorMock,
   MacroArea: CodeEditorMock,

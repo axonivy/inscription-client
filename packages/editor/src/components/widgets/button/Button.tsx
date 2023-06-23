@@ -1,16 +1,13 @@
 import './Button.css';
-import { IvyIcons } from '@axonivy/editor-icons';
-import IvyIcon from '../IvyIcon';
+import IvyIcon, { IvyIconProps } from '../IvyIcon';
 import { ComponentProps } from 'react';
 import React from 'react';
 
-export type ButtonProps = ComponentProps<'button'> & {
-  icon: IvyIcons;
-};
+export type ButtonProps = ComponentProps<'button'> & IvyIconProps;
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ children, className, icon, ...props }, forwardedRef) => (
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ children, className, icon, rotate, ...props }, forwardedRef) => (
   <button {...props} ref={forwardedRef} className={`button ${className ?? ''}`}>
-    <IvyIcon icon={icon} />
+    <IvyIcon icon={icon} rotate={rotate} />
     {children}
   </button>
 ));
