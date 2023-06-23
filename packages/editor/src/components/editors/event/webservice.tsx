@@ -7,7 +7,7 @@ import { useCasePart, useNamePart, useResultPart, useStartPart } from '../../../
 
 const WebserviceStartEditor = memo(() => {
   const name = useNamePart();
-  const start = useStartPart();
+  const start = useStartPart({ synchParams: true });
   const result = useResultPart();
   const casePart = useCasePart();
   return <InscriptionEditor icon={IvyIcons.WebService} parts={[name, start, result, casePart]} />;

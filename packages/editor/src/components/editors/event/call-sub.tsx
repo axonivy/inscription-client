@@ -7,7 +7,7 @@ import InscriptionEditor from '../InscriptionEditor';
 
 const CallSubStartEditor = memo(() => {
   const name = useNamePart();
-  const start = useStartPart();
+  const start = useStartPart({ synchParams: true });
   const result = useResultPart();
   return <InscriptionEditor icon={IvyIcons.SubStart} parts={[name, start, result]} />;
 });

@@ -8,7 +8,7 @@ import { useClient, useEditorContext } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
 import { useStartNameSyncher } from './useStartNameSyncher';
 
-type StartPartProps = { hideParamDesc?: boolean; signaturePostfix?: string };
+type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
 
 export function useStartPart(props?: StartPartProps): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useStartData();
@@ -23,7 +23,7 @@ export function useStartPart(props?: StartPartProps): PartProps {
   };
 }
 
-const StartPart = ({ hideParamDesc, signaturePostfix }: StartPartProps) => {
+const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
   const { config, updateSignature, update } = useStartData();
   const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
 
@@ -33,7 +33,7 @@ const StartPart = ({ hideParamDesc, signaturePostfix }: StartPartProps) => {
     client.outMapping(editorContext.pid).then(mapping => setMappingInfo(mapping));
   }, [client, editorContext.pid]);
 
-  useStartNameSyncher(config, signaturePostfix);
+  useStartNameSyncher(config, synchParams);
 
   const signatureFieldset = useFieldset();
   return (
