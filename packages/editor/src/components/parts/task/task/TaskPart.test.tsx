@@ -16,7 +16,7 @@ describe('TaskPart', () => {
 
     if (code) {
       await CollapsableUtil.assertOpen('Code');
-      expect(await screen.findByTestId('code-editor')).toHaveValue(code);
+      expect(await screen.findByTestId('taskCode')).toHaveValue(code);
     } else {
       await CollapsableUtil.assertClosed('Code');
     }
