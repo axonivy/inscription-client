@@ -1,6 +1,6 @@
 import { MappingInfo, OutputData } from '@axonivy/inscription-protocol';
 import { useEffect, useState } from 'react';
-import { CodeEditor, Fieldset } from '../../widgets';
+import { Fieldset, ScriptArea, useFieldset } from '../../widgets';
 import { useClient, useEditorContext } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useOutputData } from './useOutputData';
@@ -29,12 +29,19 @@ const OutputPart = (props: { showCode?: boolean }) => {
     client.outMapping(editorContext.pid).then(mapping => setMappingInfo(mapping));
   }, [client, editorContext.pid]);
 
+  const codeFieldset = useFieldset();
+
   return (
     <>
       <MappingTree data={config.output.map} mappingInfo={mappingInfo} onChange={change => update('map', change)} location='output.code' />
       {props.showCode && (
-        <Fieldset label='Code' htmlFor='code'>
-          <CodeEditor code={config.output.code} onChange={change => update('code', change)} location='output.code' />
+        <Fieldset label='Code' {...codeFieldset.labelProps}>
+          <ScriptArea
+            value={config.output.code}
+            onChange={change => update('code', change)}
+            location='output.code'
+            {...codeFieldset.inputProps}
+          />
         </Fieldset>
       )}
     </>

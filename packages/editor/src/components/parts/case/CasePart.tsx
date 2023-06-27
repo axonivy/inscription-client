@@ -1,4 +1,4 @@
-import { Fieldset, Input } from '../../widgets';
+import { Fieldset, Input, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
@@ -14,16 +14,20 @@ export function useCasePart(): PartProps {
 
 const CasePart = () => {
   const { config, update } = useCaseData();
+  const nameFieldset = useFieldset();
+  const descFieldset = useFieldset();
+  const catFieldset = useFieldset();
+
   return (
     <>
-      <Fieldset label='Name' htmlFor='caseName'>
-        <Input id='caseName' value={config.case.name} onChange={change => update('name', change)} />
+      <Fieldset label='Name' {...nameFieldset.labelProps}>
+        <Input value={config.case.name} onChange={change => update('name', change)} {...nameFieldset.inputProps} />
       </Fieldset>
-      <Fieldset label='Description' htmlFor='caseDescription'>
-        <Input id='caseDescription' value={config.case.description} onChange={change => update('description', change)} />
+      <Fieldset label='Description' {...descFieldset.labelProps}>
+        <Input value={config.case.description} onChange={change => update('description', change)} {...descFieldset.inputProps} />
       </Fieldset>
-      <Fieldset label='Category' htmlFor='caseCategory'>
-        <Input id='caseCategory' value={config.case.category} onChange={change => update('category', change)} />
+      <Fieldset label='Category' {...catFieldset.labelProps}>
+        <Input value={config.case.category} onChange={change => update('category', change)} {...catFieldset.inputProps} />
       </Fieldset>
       <CustomFieldPart customFields={config.case.customFields} updateCustomFields={change => update('customFields', change)} />
     </>

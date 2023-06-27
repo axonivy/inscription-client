@@ -16,7 +16,7 @@ describe('DialogCallPart', () => {
   async function assertMainPart(dialog: string, map: RegExp[], code: string) {
     expect(await screen.findByRole('combobox', { name: 'Dialog' })).toHaveValue(dialog);
     TableUtil.assertRows(map);
-    expect(await screen.findByTestId('code-editor')).toHaveValue(code);
+    expect(await screen.findByLabelText('Code')).toHaveValue(code);
   }
 
   test('empty data', async () => {

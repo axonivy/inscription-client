@@ -1,6 +1,6 @@
 import { OutputData } from '@axonivy/inscription-protocol';
 import { PartProps, usePartDirty, usePartState } from '../../props';
-import { Checkbox, CodeEditor, Fieldset } from '../../widgets';
+import { Checkbox, Fieldset, ScriptArea, useFieldset } from '../../widgets';
 import { useOutputData } from './useOutputData';
 
 export function useCodePart(): PartProps {
@@ -13,11 +13,17 @@ export function useCodePart(): PartProps {
 
 const CodePart = () => {
   const { config, update, updateSudo } = useOutputData();
+  const codeFieldset = useFieldset();
 
   return (
     <>
-      <Fieldset label='Code' htmlFor='code'>
-        <CodeEditor code={config.output.code} onChange={change => update('code', change)} location='output.code' resizable={true} />
+      <Fieldset label='Code' {...codeFieldset.labelProps}>
+        <ScriptArea
+          value={config.output.code}
+          onChange={change => update('code', change)}
+          location='output.code'
+          {...codeFieldset.inputProps}
+        />
       </Fieldset>
       <Checkbox label='Disable Permission Checks (Execute this Script Step as SYSTEM)' value={config.sudo} onChange={updateSudo} />
     </>

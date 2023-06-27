@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CodeEditor, CollapsiblePart, Fieldset } from '../../widgets';
+import { CollapsiblePart, Fieldset, ScriptArea, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useResultData } from './useResultData';
@@ -38,14 +38,21 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
     });
   }, [client, editorContext.pid, config.result.params]);
 
+  const codeFieldset = useFieldset();
+
   return (
     <>
       <CollapsiblePart collapsibleLabel='Result parameters'>
         <ParameterTable data={config.result.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
       </CollapsiblePart>
       <MappingTree data={config.result.map} mappingInfo={mappingInfo} onChange={change => update('map', change)} location='result.code' />
-      <Fieldset label='Code'>
-        <CodeEditor code={config.result.code} onChange={change => update('code', change)} location='result.code' />
+      <Fieldset label='Code' {...codeFieldset.labelProps}>
+        <ScriptArea
+          value={config.result.code}
+          onChange={change => update('code', change)}
+          location='result.code'
+          {...codeFieldset.inputProps}
+        />
       </Fieldset>
     </>
   );

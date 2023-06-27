@@ -15,7 +15,7 @@ import {
 import { MappingTreeData } from './mapping-tree-data';
 import { IvyIcons } from '@axonivy/editor-icons';
 import {
-  CodeEditorCell,
+  ScriptCell,
   ExpandableCell,
   ExpandableHeader,
   Fieldset,
@@ -74,7 +74,7 @@ const MappingTree = ({ data, mappingInfo, onChange, location }: MappingTreeProps
         accessorFn: row => row.value,
         id: 'value',
         header: () => <span>Expression</span>,
-        cell: cell => <CodeEditorCell cell={cell} context={{ type: cell.row.original.type, location: location }} />,
+        cell: cell => <ScriptCell cell={cell} context={{ type: cell.row.original.type, location: location }} />,
         footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
       }

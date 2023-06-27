@@ -1,4 +1,4 @@
-import { Fieldset, Input } from '../../widgets';
+import { Fieldset, Input, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useEndPageData } from './useEndPageData';
 import { EndPageData } from '@axonivy/inscription-protocol';
@@ -13,10 +13,12 @@ export function useEndPagePart(): PartProps {
 
 const EndPagePart = () => {
   const { config, update } = useEndPageData();
+  const pageFieldset = useFieldset();
+
   return (
     <>
-      <Fieldset label='Display the following page' htmlFor='endPageInput'>
-        <Input id='endPageInput' value={config.page} onChange={change => update('page', change)} />
+      <Fieldset label='Display the following page' {...pageFieldset.labelProps}>
+        <Input value={config.page} onChange={change => update('page', change)} {...pageFieldset.inputProps} />
       </Fieldset>
     </>
   );

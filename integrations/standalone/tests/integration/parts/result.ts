@@ -34,7 +34,7 @@ export class ResultTester implements PartTest {
   async clear(page: Page) {
     await CollapseUtil.open(page, 'Result parameters');
     await TableUtil.removeRow(page, 0);
-    await TableUtil.fillExpression(page, 1, '');
+    await TableUtil.fillValue(page, 1, '');
     await CodeEditorUtil.focus(page);
     await CodeEditorUtil.clear(page);
   }

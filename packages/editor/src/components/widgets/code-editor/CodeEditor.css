@@ -1,16 +1,10 @@
-.code-editor {
-  width: 100%;
-  position: relative;
-}
-.code-editor .resize-line {
-  cursor: ns-resize;
-  margin: 0;
-  position: absolute;
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  height: 2px;
-}
-.code-editor .resize-line:where(:hover, [data-resize-active='true']) {
-  background-color: var(--seperator-color);
+.code-editor .code-input {
+  border-radius: var(--border-radius);
+  border: 1px solid var(--editor-bg);
+  background: var(--input-bg);
+  font-size: 12px;
+  line-height: 12px;
+  color: var(--input-color);
+  text-align: start;
+  padding: 10px;
 }

@@ -124,11 +124,11 @@ describe('MappingTree', () => {
     expect(inputs).toHaveLength(5);
 
     await userEvent.click(inputs[2]);
-    const mockInput = screen.getByTestId('code-editor');
+    const mockInput = screen.getByLabelText('Code');
     expect(mockInput).toHaveValue('');
     await userEvent.type(mockInput, '123');
-    await userEvent.tab();
-    expect(screen.queryByTestId('code-editor')).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Close' }));
+    expect(screen.queryByLabelText('Code')).not.toBeInTheDocument();
 
     expect(inputs[0]).toHaveValue('in');
     expect(screen.getAllByRole('textbox')[2]).toHaveValue('123');

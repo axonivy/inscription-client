@@ -1,4 +1,4 @@
-import { Button, CodeEditorCell, EditableCell, ReorderRow, Table, TableCell, TableHeader } from '../../widgets';
+import { Button, ScriptCell, EditableCell, ReorderRow, Table, TableCell, TableHeader } from '../../widgets';
 import { useCallback, useMemo } from 'react';
 import { Condition } from './condition';
 import { CellContext, ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
@@ -13,7 +13,7 @@ const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
 
 const ConditionExpressionCell = ({ cell, removeCell }: { cell: CellContext<Condition, unknown>; removeCell: (id: string) => void }) => {
   if (cell.row.original.target) {
-    return <CodeEditorCell cell={cell} context={{ location: 'conditions', type: 'Boolean' }} />;
+    return <ScriptCell cell={cell} context={{ location: 'conditions', type: 'Boolean' }} />;
   }
   return (
     <span style={{ display: 'flex' }}>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CodeEditor, CollapsiblePart, Fieldset, Input, useFieldset } from '../../../components/widgets';
+import { CollapsiblePart, Fieldset, Input, ScriptArea, useFieldset } from '../../../components/widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useStartData } from './useStartData';
@@ -36,6 +36,7 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
   useStartNameSyncher(config, synchParams);
 
   const signatureFieldset = useFieldset();
+  const codeFieldset = useFieldset();
   return (
     <>
       <Fieldset label='Signature' {...signatureFieldset.labelProps}>
@@ -45,8 +46,13 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
         <ParameterTable data={config.input.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
       </CollapsiblePart>
       <MappingTree data={config.input.map} mappingInfo={mappingInfo} onChange={change => update('map', change)} location='input.code' />
-      <Fieldset label='Code'>
-        <CodeEditor code={config.input.code} onChange={change => update('code', change)} location='input.code' />
+      <Fieldset label='Code' {...codeFieldset.labelProps}>
+        <ScriptArea
+          value={config.input.code}
+          onChange={change => update('code', change)}
+          location='input.code'
+          {...codeFieldset.inputProps}
+        />
       </Fieldset>
     </>
   );

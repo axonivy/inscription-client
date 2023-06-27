@@ -9,7 +9,7 @@
       "type" : "ProgramStart",
       "name" : "Program Start",
       "config" : {
-        "javaClass" : "ch.ivyteam.ivy.process.eventstart.beans.FilePickupStartEventBean",
+        "javaClass" : "ch.ivyteam.ivy.process.eventstart.beans.TimerBean",
         "link" : "eventLink.ivp"
       },
       "visual" : {
@@ -45,8 +45,7 @@
       "name" : "Alternative Gateway",
       "config" : {
         "conditions" : {
-          "f18" : "false",
-          "f21" : ""
+          "f18" : "false"
         }
       },
       "visual" : {
