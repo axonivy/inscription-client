@@ -10,14 +10,16 @@ const CodeEditor = (props: {
   code: string;
   onChange: (code: string) => void;
   location?: string;
+  language?: 'ivyScript' | 'macro';
   initFocus?: boolean;
   resizable?: boolean;
   initHeight?: number;
   singleLine?: boolean;
+  id?: string;
 }) => {
   const editorContext = useEditorContext();
   const [resizeActive, setResizeActive] = useState(false);
-  const [height, setHeight] = useState(props.initHeight ?? props.singleLine ? 30 : 90);
+  const [height, setHeight] = useState(props.initHeight ?? props.singleLine ? 36 : 90);
   const { moveProps } = useMove({
     onMoveStart(e) {
       setResizeActive(true);
@@ -83,14 +85,14 @@ const CodeEditor = (props: {
   monacoOptions.readOnly = editorContext.readonly;
 
   return (
-    <div className='code-editor'>
+    <div {...(props.id ? { id: props.id } : {})} className='code-editor'>
       <Editor
         className='input'
         defaultValue={props.code}
         value={props.code}
         defaultLanguage='ivyScript'
         height={`${height}px`}
-        defaultPath={`ivyScript/${editorContext.pid}?location=${props.location ?? ''}`}
+        defaultPath={`${props.language ?? 'ivyScript'}/${editorContext.pid}?location=${props.location ?? ''}`}
         options={monacoOptions}
         theme={MonacoEditorUtil.DEFAULT_THEME_NAME}
         onChange={code => onCodeChange(code ?? '')}

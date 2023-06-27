@@ -59,9 +59,9 @@ export class TaskTester implements PartTest {
     return 'Task';
   }
   async fill(page: Page) {
-    await page.getByRole('textbox', { name: 'Name' }).fill(this.name);
-    await page.getByLabel('Description').fill('test desc');
-    await page.getByLabel('Category').fill('test cat');
+    await CodeEditorUtil.fillById(page, 'taskName', this.name);
+    await CodeEditorUtil.fillById(page, 'taskDescription', 'test desc');
+    await CodeEditorUtil.fillById(page, 'taskCategory', 'test cat');
 
     await SelectUtil.select(page, 'Role from Attr.', 0);
     await page.getByRole('textbox', { name: 'activator' }).fill('"Teamleader"');
@@ -83,12 +83,12 @@ export class TaskTester implements PartTest {
     await TableUtil.fillRow(page, 0, ['cf', 'value']);
 
     await CollapseUtil.open(page, 'Code');
-    await CodeEditorUtil.fill(page, 'code');
+    await CodeEditorUtil.fillById(page, 'taskCode', 'code');
   }
   async assertFill(page: Page) {
-    await expect(page.getByRole('textbox', { name: 'Name' })).toHaveValue(this.name);
-    await expect(page.getByLabel('Description')).toHaveValue('test desc');
-    await expect(page.getByLabel('Category')).toHaveValue('test cat');
+    await CodeEditorUtil.assertValueById(page, 'taskName', this.name);
+    await CodeEditorUtil.assertValueById(page, 'taskDescription', 'test desc');
+    await CodeEditorUtil.assertValueById(page, 'taskCategory', 'test cat');
 
     await SelectUtil.assertSelect(page, /Role from/, 0);
     await expect(page.getByRole('textbox', { name: 'activator' })).toHaveValue('"Teamleader"');
@@ -105,12 +105,12 @@ export class TaskTester implements PartTest {
 
     await TableUtil.assertRow(page, 0, ['cf', 'value']);
 
-    await CodeEditorUtil.assertValue(page, 'code');
+    await CodeEditorUtil.assertValueById(page, 'taskCode', 'code');
   }
   async clear(page: Page) {
-    await page.getByRole('textbox', { name: 'Name' }).clear();
-    await page.getByLabel('Description').clear();
-    await page.getByLabel('Category').clear();
+    await CodeEditorUtil.clearById(page, 'taskName');
+    await CodeEditorUtil.clearById(page, 'taskDescription');
+    await CodeEditorUtil.clearById(page, 'taskCategory');
 
     await SelectUtil.select(page, 'Role', 0);
 
@@ -122,13 +122,12 @@ export class TaskTester implements PartTest {
 
     await TableUtil.removeRow(page, 0);
 
-    await CodeEditorUtil.focus(page);
-    await CodeEditorUtil.clear(page);
+    await CodeEditorUtil.clearById(page, 'taskCode');
   }
   async assertClear(page: Page) {
-    await expect(page.getByRole('textbox', { name: 'Name' })).toBeEmpty();
-    await expect(page.getByLabel('Description')).toBeEmpty();
-    await expect(page.getByLabel('Category')).toBeEmpty();
+    await CodeEditorUtil.assertEmptyById(page, 'taskName');
+    await CodeEditorUtil.assertEmptyById(page, 'taskDescription');
+    await CodeEditorUtil.assertEmptyById(page, 'taskCategory');
 
     await SelectUtil.assertSelect(page, /Role/, 0);
     await SelectUtil.assertSelect(page, /Everybody/, 1);
