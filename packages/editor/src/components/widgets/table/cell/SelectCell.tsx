@@ -9,10 +9,10 @@ declare module '@tanstack/react-table' {
   }
 }
 
-export function SelectCell<TData>(props: { cell: CellContext<TData, unknown>; items: SelectItem[] }) {
-  const value = props.cell.getValue() as string;
+export function SelectCell<TData>({ cell, items }: { cell: CellContext<TData, unknown>; items: SelectItem[] }) {
+  const value = cell.getValue() as string;
   const setValue = (item: SelectItem) => {
-    props.cell.table.options.meta?.updateData(props.cell.row.id, props.cell.column.id, item.value);
+    cell.table.options.meta?.updateData(cell.row.id, cell.column.id, item.value);
   };
-  return <Select items={props.items} value={{ label: value, value: value }} onChange={setValue} />;
+  return <Select items={items} value={{ label: value, value: value }} onChange={setValue} />;
 }

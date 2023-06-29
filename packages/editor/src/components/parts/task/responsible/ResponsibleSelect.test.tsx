@@ -33,6 +33,13 @@ describe('ResponsibleSelect', () => {
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 
+  test('responsible select will render select for role with unknown option', async () => {
+    renderSelect({ type: 'ROLE', activator: 'unknown' });
+    await SelectUtil.assertValue('Role', { label: 'Responsible' });
+    await SelectUtil.assertValue('unknown', { index: 1 });
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+  });
+
   test('responsible select will render select for role', async () => {
     renderSelect({ type: 'ROLE', activator: 'Teamleader' });
     await SelectUtil.assertValue('Role', { label: 'Responsible' });

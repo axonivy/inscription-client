@@ -131,7 +131,7 @@ export class TaskTester implements PartTest {
     await expect(page.getByLabel('Category')).toBeEmpty();
 
     await SelectUtil.assertSelect(page, /Role/, 0);
-    await SelectUtil.assertSelect(page, /Everybody/, 1);
+    await SelectUtil.assertSelect(page, /"Teamleader"/, 1);
     await SelectUtil.select(page, 'Normal', 2);
 
     await CollapseUtil.assertClosed(page, 'Options');

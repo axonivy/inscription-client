@@ -3,7 +3,7 @@ import { EMPTY_SELECT_ITEM, Fieldset, Select, SelectItem, useFieldset } from '..
 import { useClient, useEditorContext } from '../../../../context';
 import { Consumer } from '../../../../types/lambda';
 
-const ErrorSelect = (props: { error: string; updateError: Consumer<string> }) => {
+const ErrorSelect = ({ error, updateError }: { error: string; updateError: Consumer<string> }) => {
   const [errorItems, setErrorItems] = useState<SelectItem[]>([]);
   const editorContext = useEditorContext();
   const client = useClient();
@@ -18,7 +18,10 @@ const ErrorSelect = (props: { error: string; updateError: Consumer<string> }) =>
     );
   }, [client, editorContext.pid]);
 
-  const selectedError = useMemo<SelectItem | undefined>(() => errorItems.find(e => e.value === props.error), [props.error, errorItems]);
+  const selectedError = useMemo<SelectItem>(
+    () => errorItems.find(e => e.value === error) ?? { label: error, value: error },
+    [error, errorItems]
+  );
 
   const selectFieldset = useFieldset();
 
@@ -28,7 +31,7 @@ const ErrorSelect = (props: { error: string; updateError: Consumer<string> }) =>
         <Select
           items={errorItems}
           value={selectedError}
-          onChange={item => props.updateError(item.value)}
+          onChange={item => updateError(item.value)}
           inputProps={selectFieldset.inputProps}
         />
       </Fieldset>

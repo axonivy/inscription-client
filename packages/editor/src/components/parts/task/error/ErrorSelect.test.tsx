@@ -18,7 +18,7 @@ describe('ErrorSelect', () => {
 
   test('error select will render unknown value', async () => {
     renderSelect({ error: 'unknown' });
-    await SelectUtil.assertEmpty();
+    await SelectUtil.assertValue('unknown');
   });
 
   test('error select will render with given error', async () => {
