@@ -21,16 +21,16 @@ export type SelectProps = {
   inputProps?: SelectInputProps;
 };
 
-const Select = (props: SelectProps) => {
-  const [items, setItems] = useState(props.items);
-  useEffect(() => setItems(props.items), [props.items]);
-  const [selectedItem, setSelectedItem] = useState(props.value ?? EMPTY_SELECT_ITEM);
-  useEffect(() => setSelectedItem(props.value ?? EMPTY_SELECT_ITEM), [props.value]);
+const Select = ({ value, onChange, items, inputProps }: SelectProps) => {
+  const [selectItems, setSelectItems] = useState(items);
+  useEffect(() => setSelectItems(items), [items]);
+  const [selectedItem, setSelectedItem] = useState(value ?? EMPTY_SELECT_ITEM);
+  useEffect(() => setSelectedItem(value ?? EMPTY_SELECT_ITEM), [value]);
 
   const { isOpen, getToggleButtonProps, getMenuProps, highlightedIndex, getItemProps } = useSelect<SelectItem>({
     selectedItem: selectedItem,
-    items: items,
-    onSelectedItemChange: change => change.selectedItem && props.onChange(change.selectedItem)
+    items: selectItems,
+    onSelectedItemChange: change => change.selectedItem && onChange(change.selectedItem)
   });
   const readonly = useReadonly();
 
@@ -42,7 +42,7 @@ const Select = (props: SelectProps) => {
           className='select-button'
           type='button'
           {...getToggleButtonProps()}
-          {...props.inputProps}
+          {...inputProps}
           disabled={readonly}
         >
           <span>{selectedItem ? selectedItem.label : ''}</span>
@@ -51,7 +51,7 @@ const Select = (props: SelectProps) => {
       </div>
       <ul {...getMenuProps()} className='select-menu'>
         {isOpen &&
-          props.items.map((item, index) => (
+          selectItems.map((item, index) => (
             <li
               className={`select-menu-entry ${highlightedIndex === index ? 'hover' : ''} ${
                 selectedItem?.value === item.value ? 'selected' : ''

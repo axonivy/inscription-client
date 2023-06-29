@@ -25,10 +25,12 @@ const RoleSelect = ({ responsible, updateResponsible }: ResponsibleProps) => {
       )
     );
   }, [client, editorContext.pid]);
-  const selectedRole = useMemo<SelectItem>(
-    () => roleItems.find(e => e.value === responsible?.activator) ?? DEFAULT_ROLE,
-    [responsible?.activator, roleItems]
-  );
+  const selectedRole = useMemo<SelectItem | undefined>(() => {
+    if (responsible?.activator) {
+      return roleItems.find(e => e.value === responsible.activator) ?? { label: responsible.activator, value: responsible.activator };
+    }
+    return DEFAULT_ROLE;
+  }, [responsible?.activator, roleItems]);
 
   return <Select items={roleItems} value={selectedRole} onChange={item => updateResponsible('activator', item.value)} />;
 };
