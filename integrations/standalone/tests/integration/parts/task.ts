@@ -2,7 +2,7 @@ import { Page, expect } from '@playwright/test';
 import { PartTest } from './part-tester';
 import { SelectUtil } from '../utils/select-util';
 import { CollapseUtil } from '../../utils/collapse-util';
-import { CodeEditorUtil } from '../../utils/code-editor-util';
+import { CodeEditorUtil, FocusCodeEditorUtil } from '../../utils/code-editor-util';
 import { TableUtil } from '../../utils/table-util';
 import { TabUtil } from '../utils/tab-util';
 
@@ -59,9 +59,9 @@ export class TaskTester implements PartTest {
     return 'Task';
   }
   async fill(page: Page) {
-    await CodeEditorUtil.fillById(page, 'taskName', this.name);
-    await CodeEditorUtil.fillById(page, 'taskDescription', 'test desc');
-    await CodeEditorUtil.fillById(page, 'taskCategory', 'test cat');
+    await FocusCodeEditorUtil.fill(page, page.getByRole('textbox', { name: 'Name' }), this.name);
+    await FocusCodeEditorUtil.fill(page, page.getByLabel('Description'), 'test desc');
+    await FocusCodeEditorUtil.fill(page, page.getByLabel('Category'), 'test cat');
 
     await SelectUtil.select(page, 'Role from Attr.', 0);
     await page.getByRole('textbox', { name: 'activator' }).fill('"Teamleader"');
@@ -83,12 +83,12 @@ export class TaskTester implements PartTest {
     await TableUtil.fillRow(page, 0, ['cf', 'value']);
 
     await CollapseUtil.open(page, 'Code');
-    await CodeEditorUtil.fillById(page, 'taskCode', 'code');
+    await CodeEditorUtil.fill(page, 'code');
   }
   async assertFill(page: Page) {
-    await CodeEditorUtil.assertValueById(page, 'taskName', this.name);
-    await CodeEditorUtil.assertValueById(page, 'taskDescription', 'test desc');
-    await CodeEditorUtil.assertValueById(page, 'taskCategory', 'test cat');
+    await expect(page.getByRole('textbox', { name: 'Name' })).toHaveValue(this.name);
+    await expect(page.getByLabel('Description')).toHaveValue('test desc');
+    await expect(page.getByLabel('Category')).toHaveValue('test cat');
 
     await SelectUtil.assertSelect(page, /Role from/, 0);
     await expect(page.getByRole('textbox', { name: 'activator' })).toHaveValue('"Teamleader"');
@@ -105,12 +105,12 @@ export class TaskTester implements PartTest {
 
     await TableUtil.assertRow(page, 0, ['cf', 'value']);
 
-    await CodeEditorUtil.assertValueById(page, 'taskCode', 'code');
+    await CodeEditorUtil.assertValue(page, 'code');
   }
   async clear(page: Page) {
-    await CodeEditorUtil.clearById(page, 'taskName');
-    await CodeEditorUtil.clearById(page, 'taskDescription');
-    await CodeEditorUtil.clearById(page, 'taskCategory');
+    await FocusCodeEditorUtil.clear(page, page.getByRole('textbox', { name: 'Name' }));
+    await FocusCodeEditorUtil.clear(page, page.getByLabel('Description'));
+    await FocusCodeEditorUtil.clear(page, page.getByLabel('Category'));
 
     await SelectUtil.select(page, 'Role', 0);
 
@@ -122,12 +122,13 @@ export class TaskTester implements PartTest {
 
     await TableUtil.removeRow(page, 0);
 
-    await CodeEditorUtil.clearById(page, 'taskCode');
+    await CodeEditorUtil.focus(page);
+    await CodeEditorUtil.clear(page);
   }
   async assertClear(page: Page) {
-    await CodeEditorUtil.assertEmptyById(page, 'taskName');
-    await CodeEditorUtil.assertEmptyById(page, 'taskDescription');
-    await CodeEditorUtil.assertEmptyById(page, 'taskCategory');
+    await expect(page.getByRole('textbox', { name: 'Name' })).toBeEmpty();
+    await expect(page.getByLabel('Description')).toBeEmpty();
+    await expect(page.getByLabel('Category')).toBeEmpty();
 
     await SelectUtil.assertSelect(page, /Role/, 0);
     await SelectUtil.assertSelect(page, /Everybody/, 1);

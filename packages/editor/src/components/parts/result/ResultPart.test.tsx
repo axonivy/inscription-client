@@ -22,7 +22,7 @@ describe('ResultPart', () => {
       TableUtil.assertRows(params, 1);
       TableUtil.assertRows(map, 4);
     }
-    expect(await screen.findByTestId('code-editor')).toHaveValue(code);
+    expect(await screen.findByLabelText('Code')).toHaveValue(code);
   }
 
   test('empty data', async () => {

@@ -14,7 +14,7 @@ describe('CodePart', () => {
   }
 
   async function assertMainPart(code: string, sudo: boolean) {
-    expect(await screen.findByTestId('code-editor')).toHaveValue(code);
+    expect(await screen.findByLabelText('Code')).toHaveValue(code);
     const sudoCheckbox = await screen.findByLabelText(/Disable Permission/);
     if (sudo) {
       expect(sudoCheckbox).toBeChecked();

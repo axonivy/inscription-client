@@ -3,42 +3,35 @@ import PersistPart from '../options/PersistPart';
 import TaskListPart from '../options/TaskListPart';
 import PrioritySelect from '../priority/PrioritySelect';
 import CustomFieldPart from '../../common/customfield/CustomFieldPart';
-import { CodeEditor, CollapsiblePart, Fieldset } from '../../../widgets';
+import { CollapsiblePart, Fieldset, MacroArea, MacroInput, ScriptArea, useFieldset } from '../../../widgets';
 import ResponsibleSelect from '../responsible/ResponsibleSelect';
 import { useTaskData } from '../useTaskData';
 
 const TaskPart = (props: { showPersist?: boolean }) => {
   const { task, update, updateResponsible, updatePriority } = useTaskData();
+  const nameFieldset = useFieldset();
+  const descFieldset = useFieldset();
+  const catFieldset = useFieldset();
 
   return (
     <>
-      <Fieldset label='Name' htmlFor='taskName'>
-        <CodeEditor
-          id='taskName'
-          code={task.name}
-          onChange={change => update('name', change)}
-          location='task.name'
-          language={'macro'}
-          singleLine={true}
-        />
+      <Fieldset label='Name' {...nameFieldset.labelProps}>
+        <MacroInput value={task.name} onChange={change => update('name', change)} location='task.name' {...nameFieldset.inputProps} />
       </Fieldset>
-      <Fieldset label='Description' htmlFor='taskDescription'>
-        <CodeEditor
-          id='taskDescription'
-          code={task.description}
+      <Fieldset label='Description' {...descFieldset.labelProps}>
+        <MacroArea
+          value={task.description}
           onChange={change => update('description', change)}
           location='task.description'
-          language={'macro'}
+          {...descFieldset.inputProps}
         />
       </Fieldset>
-      <Fieldset label='Category' htmlFor='taskCategory'>
-        <CodeEditor
-          id='taskCategory'
-          code={task.category}
+      <Fieldset label='Category' {...catFieldset.labelProps}>
+        <MacroInput
+          value={task.category}
           onChange={change => update('category', change)}
           location='task.category'
-          language={'macro'}
-          singleLine={true}
+          {...catFieldset.inputProps}
         />
       </Fieldset>
       {!props.showPersist && (
@@ -49,7 +42,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
       <ExpiryPart />
       <CustomFieldPart customFields={task.customFields} updateCustomFields={change => update('customFields', change)} />
       <CollapsiblePart collapsibleLabel='Code' defaultOpen={task.code.length > 0}>
-        <CodeEditor id='taskCode' code={task.code} onChange={change => update('code', change)} location='task.code' />
+        <ScriptArea value={task.code} onChange={change => update('code', change)} location='task.code' />
       </CollapsiblePart>
     </>
   );

@@ -16,15 +16,21 @@ global.ResizeObserver = class ResizeObserver {
   disconnect() {}
 };
 
+const CodeEditorMock = (props: { id?: string; value: string; onChange: (value: string) => void }) => {
+  return (
+    <input
+      {...(props.id ? { id: props.id, 'data-testid': props.id } : { 'data-testid': 'code-editor' })}
+      value={props.value}
+      onChange={e => props.onChange(e.target.value)}
+    />
+  );
+};
+
 jest.mock('../components/widgets/code-editor', () => ({
   __esModule: true,
-  CodeEditor: (props: { id?: string; code: string; onChange: (code: string) => void }) => {
-    return (
-      <input
-        {...(props.id ? { id: props.id, 'data-testid': props.id } : { 'data-testid': 'code-editor' })}
-        value={props.code}
-        onChange={e => props.onChange(e.target.value)}
-      />
-    );
-  }
+  SingleLineCodeEditor: CodeEditorMock,
+  ScriptArea: CodeEditorMock,
+  ScriptInput: CodeEditorMock,
+  MacroArea: CodeEditorMock,
+  MacroInput: CodeEditorMock
 }));

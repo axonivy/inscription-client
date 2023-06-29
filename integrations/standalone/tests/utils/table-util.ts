@@ -20,9 +20,15 @@ export namespace TableUtil {
   }
 
   export async function fillExpression(page: Page, rowIndex: number, value: string) {
-    await page.locator('tbody').getByRole('row').nth(rowIndex).getByRole('textbox').click();
+    const expression = page.locator('tbody').getByRole('row').nth(rowIndex).getByRole('textbox');
+    await expect(expression).toHaveAttribute('aria-expanded', 'false');
+    await expression.click();
     await CodeEditorUtil.type(page, value);
-    await page.keyboard.press('Tab');
+    await page.getByRole('button', { name: 'Close' }).click();
+  }
+
+  export async function fillValue(page: Page, rowIndex: number, value: string) {
+    await page.locator('tbody').getByRole('row').nth(rowIndex).getByRole('textbox').fill(value);
   }
 
   export async function assertRow(page: Page, rowIndex: number, values: string[]) {
