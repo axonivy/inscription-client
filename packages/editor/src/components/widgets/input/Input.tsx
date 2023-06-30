@@ -3,7 +3,7 @@ import { useReadonly } from '../../../context';
 import './Input.css';
 import { ComponentProps } from 'react';
 
-export type InputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange'> & {
+export type InputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'ref'> & {
   value?: string;
   onChange: (change: string) => void;
 };
@@ -14,11 +14,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ value, onChange,
   return (
     <input
       {...props}
+      ref={forwardedRef}
       className={`input ${props.className ?? ''}`}
       value={value ?? ''}
       onChange={event => onChange(event.target.value)}
       disabled={readonly}
-      ref={forwardedRef}
     />
   );
 });

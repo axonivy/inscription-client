@@ -1,0 +1,9 @@
+.script-area {
+  display: flex;
+  gap: var(--size-1);
+}
+.script-area .input,
+.script-area .resizable-code-editor {
+  flex: auto;
+  width: 100%;
+}

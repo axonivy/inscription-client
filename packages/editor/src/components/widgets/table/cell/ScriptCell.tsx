@@ -8,7 +8,7 @@ import IvyIcon from '../../IvyIcon';
 import { useEditorContext } from '../../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Input } from '../../input';
-import { SingleLineCodeEditor } from '../../code-editor';
+import { ScriptInput } from '../../code-editor';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -49,7 +49,7 @@ export function ScriptCell<TData>({ cell, context }: ScriptCellProps<TData>) {
           <PopoverPortal container={editorContext.editorRef.current}>
             <PopoverContent className='popover-content' sideOffset={5} align={'end'}>
               <Fieldset label='Code' {...codeFieldset.labelProps}>
-                <SingleLineCodeEditor
+                <ScriptInput
                   value={value as string}
                   onChange={setValue}
                   location={`${context.location}&type=${context.type}`}

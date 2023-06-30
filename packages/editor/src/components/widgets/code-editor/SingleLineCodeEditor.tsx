@@ -2,13 +2,13 @@ import { useCallback } from 'react';
 import { SINGLE_LINE_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import CodeEditor, { CodeEditorProps } from './CodeEditor';
-import { monacoAutoFocus } from './useCodeEditorOnFocus';
+import { monacoAutoFocus } from './useCodeEditor';
 
-export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height'>;
+export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs'>;
 
-const SingleLineCodeEditor = ({ onChange, ...props }: CodeEditorProps) => {
-  const handleEditorDidMount = useCallback<(editor: monaco.editor.IStandaloneCodeEditor) => void>(editor => {
-    monacoAutoFocus(editor);
+const SingleLineCodeEditor = ({ onChange, onMountFuncs, ...props }: CodeEditorProps) => {
+  const mountFuncs = onMountFuncs ? onMountFuncs : [];
+  const singleLineMountFuncs = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editor.createContextKey('singleLine', true);
     const STATE_OPEN = 3;
     editor.addCommand(
@@ -33,7 +33,7 @@ const SingleLineCodeEditor = ({ onChange, ...props }: CodeEditorProps) => {
       },
       'singleLine'
     );
-  }, []);
+  };
 
   const onCodeChange = useCallback<(code: string) => void>(
     code => {
@@ -43,7 +43,15 @@ const SingleLineCodeEditor = ({ onChange, ...props }: CodeEditorProps) => {
     [onChange]
   );
 
-  return <CodeEditor height={40} onChange={onCodeChange} options={SINGLE_LINE_MONACO_OPTIONS} onMount={handleEditorDidMount} {...props} />;
+  return (
+    <CodeEditor
+      height={40}
+      onChange={onCodeChange}
+      options={SINGLE_LINE_MONACO_OPTIONS}
+      onMountFuncs={[...mountFuncs, monacoAutoFocus, singleLineMountFuncs]}
+      {...props}
+    />
+  );
 };
 
 export default SingleLineCodeEditor;

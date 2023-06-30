@@ -10,13 +10,17 @@ export type CodeEditorProps = {
   location: string;
   macro?: boolean;
   height?: number;
-  onMount?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
+  onMountFuncs?: Array<(editor: monaco.editor.IStandaloneCodeEditor) => void>;
   options?: monaco.editor.IStandaloneEditorConstructionOptions;
   id?: string;
 };
 
-const CodeEditor = ({ value, onChange, location, macro, options, id, ...props }: CodeEditorProps) => {
+const CodeEditor = ({ value, onChange, location, macro, onMountFuncs, options, id, ...props }: CodeEditorProps) => {
   const editorContext = useEditorContext();
+
+  const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
+    onMountFuncs?.forEach(func => func(editor));
+  };
 
   const monacoOptions = options ?? MONACO_OPTIONS;
   monacoOptions.readOnly = editorContext.readonly;
@@ -32,6 +36,7 @@ const CodeEditor = ({ value, onChange, location, macro, options, id, ...props }:
         options={monacoOptions}
         theme={MonacoEditorUtil.DEFAULT_THEME_NAME}
         onChange={code => onChange(code ?? '')}
+        onMount={handleEditorDidMount}
         {...props}
       />
     </div>

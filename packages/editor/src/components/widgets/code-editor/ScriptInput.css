@@ -1,0 +1,10 @@
+.script-input {
+  display: flex;
+  gap: var(--size-1);
+  align-items: center;
+}
+.script-input .input,
+.script-input .code-editor {
+  flex: auto;
+  width: 100%;
+}
