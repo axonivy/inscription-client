@@ -30,7 +30,7 @@ const Browser = ({ open, onOpenChange, types, accept }: BrowserProps) => {
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>
-          <Button icon={IvyIcons.WsEvent} />
+          <Button icon={IvyIcons.WsEvent} aria-label='Browser' />
         </DialogTrigger>
         <DialogPortal container={editorRef.current}>
           <DialogOverlay className='dialog-overlay' />
