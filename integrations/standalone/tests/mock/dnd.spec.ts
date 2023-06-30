@@ -1,10 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('Drag and drop features', () => {
-  test('Alternative condition reorder', async ({ page, browserName }) => {
-    if (browserName === 'webkit') {
-      return; //drag and drop on this table is not working in the webkit test...
-    }
+  test('Alternative condition reorder', async ({ page }) => {
     await page.goto('mock.html?type=Alternative');
     const conditions = page.getByRole('button', { name: 'Condition' });
     await conditions.click();
