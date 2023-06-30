@@ -3,9 +3,9 @@ import { render, screen, userEvent } from 'test-utils';
 
 describe('Tabs', () => {
   const tabs: Tab[] = [
-    { name: 'Name', content: <h1>Name</h1> },
-    { name: 'Call', content: <h1>Call</h1> },
-    { name: 'Result', content: <h1>Result</h1> }
+    { id: '1', name: 'Name', content: <h1>Name</h1> },
+    { id: 'asdf', name: 'Call', content: <h1>Call</h1> },
+    { id: 'hi', name: 'Result', content: <h1>Result</h1> }
   ];
 
   function renderTabs() {

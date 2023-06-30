@@ -6,6 +6,8 @@ export * from './cell/SelectCell';
 export * from './cell/TableCell';
 
 export * from './row/ReorderRow';
+export * from './row/SelectRow';
+
 export * from './footer/TableFooter';
 export * from './header/TableHeader';
 export * from './table/Table';

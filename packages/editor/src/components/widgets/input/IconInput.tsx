@@ -1,4 +1,4 @@
-import './Input.css';
+import './IconInput.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
 import Input, { InputProps } from './Input';

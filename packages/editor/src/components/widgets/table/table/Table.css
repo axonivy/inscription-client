@@ -2,6 +2,9 @@
   background: var(--table-bg);
   border-radius: var(--border-radius);
 }
+.table-root .icon-input {
+  margin-bottom: var(--size-1);
+}
 .table {
   width: 100%;
   border-spacing: 0 var(--size-1);

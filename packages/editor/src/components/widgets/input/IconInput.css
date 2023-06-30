@@ -1,0 +1,14 @@
+.icon-input {
+  width: 100%;
+  position: relative;
+}
+.icon-input i.ivy {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.5rem;
+  font-size: 16px;
+}
+.icon-input .input {
+  padding-left: calc(10px + 1rem);
+  width: calc(100% - 22px - 1rem);
+}

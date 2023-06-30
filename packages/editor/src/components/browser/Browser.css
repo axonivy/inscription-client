@@ -6,9 +6,10 @@
 }
 
 .dialog-content {
-  background-color: var(--editor-bg);
+  background-color: var(--accordion-bg);
   border-radius: var(--border-radius);
   box-shadow: var(--editor-shadow);
+  color: var(--text-color);
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -16,13 +17,28 @@
   width: 90vw;
   max-width: 450px;
   max-height: 85vh;
-  padding: 25px;
+  padding: var(--size-4);
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
   border-end-end-radius: 0;
   border-end-start-radius: 0;
 }
 .dialog-content:focus {
   outline: none;
+}
+.dialog-content .tabs-content {
+  gap: var(--size-1);
+  margin-block: var(--size-2);
+}
+.dialog-content .table-root {
+  overflow: auto;
+  max-height: 50vh;
+  padding: 1px;
+}
+.dialog-content .browser-helptext {
+  font-size: 12px;
+  background-color: var(--input-bg);
+  border: 1px solid var(--editor-bg);
+  padding: var(--input-padding);
 }
 
 .dialog-title {
@@ -31,14 +47,24 @@
   color: var(--text-color);
   font-size: 17px;
   display: flex;
-  justify-content: space-between;
+  gap: var(--size-4);
+}
+.dialog-title .button {
+  border-radius: 100%;
 }
 
-.dialog-description {
-  margin: 10px 0 20px;
-  color: var(--text-color);
-  font-size: 15px;
-  line-height: 1.5;
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--size-1);
+}
+.dialog-footer .button {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: var(--size-1);
+  padding-inline: var(--size-1);
+  width: unset;
 }
 
 @keyframes overlayShow {

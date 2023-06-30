@@ -20,7 +20,6 @@ import {
   ExpandableHeader,
   Fieldset,
   FieldsetControl,
-  IconInput,
   Table,
   TableCell,
   TableHeader
@@ -137,8 +136,7 @@ const MappingTree = ({ data, mappingInfo, onChange, location }: MappingTreeProps
 
   return (
     <Fieldset label='Mapping' controls={tableControls}>
-      {showGlobalFilter && <IconInput value={globalFilter} onChange={setGlobalFilter} icon={IvyIcons.Search} placeholder='Search' />}
-      <Table>
+      <Table search={showGlobalFilter ? { value: globalFilter, onChange: setGlobalFilter } : undefined}>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>

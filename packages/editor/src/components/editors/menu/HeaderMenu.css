@@ -7,7 +7,7 @@ button {
   min-width: 148px;
   background-color: var(--editor-bg);
   border-radius: var(--border-radius);
-  padding: 5px;
+  padding: var(--size-2);
   box-shadow: var(--editor-shadow);
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);

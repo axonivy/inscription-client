@@ -6,5 +6,5 @@
   line-height: 12px;
   color: var(--input-color);
   text-align: start;
-  padding: 10px;
+  padding: var(--input-padding);
 }

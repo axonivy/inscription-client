@@ -10,8 +10,8 @@ test.describe('Script browser', () => {
     await page.getByLabel('Description').click();
     await assertCodeVisible(page);
 
-    await applyBrowser(page);
-    await CodeEditorUtil.assertValue(page, 'attribute');
+    await applyBrowser(page, 'out.accepted');
+    await CodeEditorUtil.assertValue(page, 'out.accepted');
   });
 
   test('browser replace selection', async ({ page }) => {
@@ -25,8 +25,8 @@ test.describe('Script browser', () => {
     await CodeEditorUtil.fill(page, 'test 123 bla');
     await page.getByRole('code').dblclick();
 
-    await applyBrowser(page);
-    await CodeEditorUtil.assertValue(page, 'test 123 attribute');
+    await applyBrowser(page, 'out.accepted');
+    await CodeEditorUtil.assertValue(page, 'test 123 out.accepted');
   });
 
   async function assertCodeHidden(page: Page) {
@@ -39,9 +39,12 @@ test.describe('Script browser', () => {
     await expect(page.getByRole('button', { name: 'Browser' })).toBeVisible();
   }
 
-  async function applyBrowser(page: Page) {
+  async function applyBrowser(page: Page, expectedSelection: string) {
     await page.getByRole('button', { name: 'Browser' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
+
+    await page.getByRole('row').nth(2).click();
+    await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
     await page.getByRole('button', { name: 'Ok' }).click();
 
     await expect(page.getByRole('dialog')).toBeHidden();

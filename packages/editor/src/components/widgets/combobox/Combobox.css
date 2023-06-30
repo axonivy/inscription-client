@@ -33,7 +33,7 @@
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--size-2);
 }
 .combobox-menu-entry:where(.hover, .selected) {
   background: var(--editor-bg);
@@ -44,7 +44,7 @@
 .combobox-menu-entry > div {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: var(--size-1);
 }
 .combobox-menu-entry .ivy {
   font-size: 1rem;
