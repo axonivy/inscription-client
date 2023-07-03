@@ -45,7 +45,7 @@
 }
 .popover-close:hover {
   cursor: pointer;
-  background-color: var(--input-bg);
+  background-color: var(--editor-header-bg);
 }
 .popover-close:focus-visible {
   box-shadow: var(--focus-shadow);

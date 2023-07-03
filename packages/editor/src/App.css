@@ -31,6 +31,7 @@
   --size-2: 0.5rem;
   --size-3: 0.75rem;
   --size-4: 1rem;
+  --input-padding: 10px;
 }
 
 .editor-root {

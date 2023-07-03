@@ -1,0 +1,6 @@
+.selectable-row {
+  cursor: pointer;
+}
+.selectable-row:where(:hover, [data-state='selected']) {
+  background-color: var(--editor-bg);
+}

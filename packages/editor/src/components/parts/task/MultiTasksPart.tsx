@@ -18,8 +18,10 @@ const MultiTasksPart = () => {
 
   const tabs: Tab[] =
     config.tasks?.map<Tab>((task, index) => {
+      const taskId = task.id ?? '';
       return {
-        name: task.id ?? '',
+        id: taskId,
+        name: taskId,
         content: (
           <TaskDataContextInstance.Provider value={index}>
             <TaskPart />
