@@ -12,39 +12,48 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { MappingTreeData } from '../parts/common/mapping-tree/mapping-tree-data';
-import { MappingInfo } from '@axonivy/inscription-protocol';
+import { VariableInfo } from '@axonivy/inscription-protocol';
 import { useClient, useEditorContext } from '../../context';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
-export const useAttributeBrowser = (): UseBrowserImplReturnValue => {
+export const useAttributeBrowser = (location: string): UseBrowserImplReturnValue => {
   const [value, setValue] = useState('');
   return {
     id: ATTRIBUTE_BROWSER_ID,
     name: 'Attribute',
-    content: <AttributeBrowser value={value} onChange={setValue} />,
+    content: <AttributeBrowser value={value} onChange={setValue} location={location} />,
     accept: () => value
   };
 };
 
-const AttributeBrowser = ({ value, onChange }: { value: string; onChange: (value: string) => void }) => {
+const AttributeBrowser = ({ value, onChange, location }: { value: string; onChange: (value: string) => void; location: string }) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
 
-  const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
+  const [varInfo, setVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
+  const [inVarInfo, setInVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
+  const [outVarInfo, setOutVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
   const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.outMapping(editorContext.pid).then(mapping => setMappingInfo(mapping));
-  }, [client, editorContext.pid]);
+    client.inScripting(editorContext.pid, location).then(info => setInVarInfo(info));
+    if (location.endsWith('code')) {
+      client.outScripting(editorContext.pid, location).then(info => setOutVarInfo(info));
+    }
+  }, [client, editorContext.pid, location]);
 
   useEffect(() => {
-    setTree(MappingTreeData.of(mappingInfo));
-  }, [mappingInfo]);
+    setVarInfo({ variables: [...inVarInfo.variables, ...outVarInfo.variables], types: { ...inVarInfo.types, ...outVarInfo.types } });
+  }, [inVarInfo.variables, inVarInfo.types, outVarInfo.variables, outVarInfo.types]);
+
+  useEffect(() => {
+    setTree(MappingTreeData.of(varInfo));
+  }, [varInfo]);
 
   const loadChildren = useCallback<(row: MappingTreeData) => void>(
-    row => setTree(tree => MappingTreeData.loadChildrenFor(mappingInfo, row.type, tree)),
-    [mappingInfo]
+    row => setTree(tree => MappingTreeData.loadChildrenFor(varInfo, row.type, tree)),
+    [varInfo]
   );
 
   const columns = useMemo<ColumnDef<MappingTreeData>[]>(

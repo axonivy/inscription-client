@@ -10,8 +10,8 @@ test.describe('Script browser', () => {
     await page.getByLabel('Description').click();
     await assertCodeVisible(page);
 
-    await applyBrowser(page, 'out.accepted');
-    await CodeEditorUtil.assertValue(page, 'out.accepted');
+    await applyBrowser(page, 'in.bla');
+    await CodeEditorUtil.assertValue(page, '<%=in.bla%>');
   });
 
   test('browser replace selection', async ({ page }) => {
@@ -22,11 +22,11 @@ test.describe('Script browser', () => {
     await page.getByLabel('Category').click();
     await assertCodeVisible(page);
 
-    await CodeEditorUtil.fill(page, 'test 123 bla');
+    await CodeEditorUtil.fill(page, 'test 123 zag');
     await page.getByRole('code').dblclick();
 
-    await applyBrowser(page, 'out.accepted');
-    await CodeEditorUtil.assertValue(page, 'test 123 out.accepted');
+    await applyBrowser(page, 'in.bla');
+    await CodeEditorUtil.assertValue(page, 'test 123 <%=in.bla%>');
   });
 
   async function assertCodeHidden(page: Page) {

@@ -7,7 +7,7 @@ import {
   InscriptionSaveData,
   InscriptionType,
   InscriptionValidation,
-  MappingInfo,
+  VariableInfo,
   RoleMeta,
   ElementType,
   ElementData,
@@ -85,12 +85,15 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve([]);
   }
 
-  outMapping(pid: PID): Promise<MappingInfo> {
-    return Promise.resolve(MetaMock.OUT_MAP_INFO);
+  outScripting(pid: PID, location: string): Promise<VariableInfo> {
+    if (location === 'result') {
+      return Promise.resolve(JSON.parse(JSON.stringify(MetaMock.RESULT_VAR_INFO)));
+    }
+    return Promise.resolve(MetaMock.OUT_VAR_INFO);
   }
 
-  resultMapping(pid: string): Promise<MappingInfo> {
-    return Promise.resolve(JSON.parse(JSON.stringify(MetaMock.RESULT_MAP_INFO)));
+  inScripting(pid: string, location: string): Promise<VariableInfo> {
+    return Promise.resolve(MetaMock.IN_VAR_INFO);
   }
 
   connectorOf(pid: PID): Promise<ConnectorRef> {

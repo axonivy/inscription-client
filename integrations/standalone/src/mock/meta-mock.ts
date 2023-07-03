@@ -1,6 +1,27 @@
-import { CallableStart, ConnectorRef, ErrorMeta, MappingInfo, NodeRef, RoleMeta } from '@axonivy/inscription-protocol';
+import { CallableStart, ConnectorRef, ErrorMeta, VariableInfo, NodeRef, RoleMeta } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
+  const USER_INFO_TYPE = [
+    {
+      attribute: 'email',
+      type: 'String',
+      simpleType: 'String',
+      description: ''
+    },
+    {
+      attribute: 'fullName',
+      type: 'String',
+      simpleType: 'String',
+      description: ''
+    },
+    {
+      attribute: 'role',
+      type: 'String',
+      simpleType: 'String',
+      description: ''
+    }
+  ];
+
   const MAP_INFO_TYPES = {
     'workflow.humantask.ProcurementRequest': [
       {
@@ -64,29 +85,28 @@ export namespace MetaMock {
         description: ''
       }
     ],
-    'workflow.humantask.User': [
-      {
-        attribute: 'email',
-        type: 'String',
-        simpleType: 'String',
-        description: ''
-      },
-      {
-        attribute: 'fullName',
-        type: 'String',
-        simpleType: 'String',
-        description: ''
-      },
-      {
-        attribute: 'role',
-        type: 'String',
-        simpleType: 'String',
-        description: ''
-      }
-    ]
+    'workflow.humantask.User': USER_INFO_TYPE
   };
 
-  export const OUT_MAP_INFO: MappingInfo = {
+  const IN_INFO_TYPES = {
+    'mock.Test': [
+      {
+        attribute: 'bla',
+        type: 'Boolean',
+        simpleType: 'Boolean',
+        description: ''
+      },
+      {
+        attribute: 'user',
+        type: 'workflow.humantask.User',
+        simpleType: 'User',
+        description: ''
+      }
+    ],
+    'workflow.humantask.User': USER_INFO_TYPE
+  };
+
+  export const OUT_VAR_INFO: VariableInfo = {
     variables: [
       {
         attribute: 'out',
@@ -98,7 +118,7 @@ export namespace MetaMock {
     types: MAP_INFO_TYPES
   };
 
-  export const RESULT_MAP_INFO: MappingInfo = {
+  export const RESULT_VAR_INFO: VariableInfo = {
     variables: [
       {
         attribute: 'result',
@@ -108,6 +128,18 @@ export namespace MetaMock {
       }
     ],
     types: {}
+  };
+
+  export const IN_VAR_INFO: VariableInfo = {
+    variables: [
+      {
+        attribute: 'in',
+        type: 'mock.Test',
+        simpleType: 'Test',
+        description: ''
+      }
+    ],
+    types: IN_INFO_TYPES
   };
 
   export const CALLABLE_STARTS: CallableStart[] = [

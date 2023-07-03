@@ -10,7 +10,7 @@ const ScriptArea = (props: CodeEditorAreaProps) => {
   return (
     <div className='script-area'>
       <ResizableCodeEditor {...props} onMountFuncs={[setEditor]} />
-      <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} />
+      <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} location={props.location} />
     </div>
   );
 };

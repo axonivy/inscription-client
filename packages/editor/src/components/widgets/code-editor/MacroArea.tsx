@@ -14,7 +14,7 @@ const MacroArea = (props: CodeEditorAreaProps) => {
       {isFocusWithin || browser.open ? (
         <>
           <ResizableCodeEditor {...props} onMountFuncs={[setEditor, monacoAutoFocus]} macro={true} />
-          <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} />
+          <Browser {...browser} types={['attr', 'cms']} accept={value => modifyEditor(`<%=${value}%>`)} location={props.location} />
         </>
       ) : (
         <Textarea {...props} />

@@ -1,4 +1,4 @@
-import { MappingInfo } from '@axonivy/inscription-protocol';
+import { VariableInfo } from '@axonivy/inscription-protocol';
 import { Mapping } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 import MappingTree from './MappingTree';
@@ -12,7 +12,7 @@ describe('MappingTree', () => {
   const USER = /requesterUser/;
   const NODE_STRING = /🔵 emailString/;
 
-  const mappingInfo: MappingInfo = {
+  const variableInfo: VariableInfo = {
     variables: [
       {
         attribute: 'param.procurementRequest',
@@ -58,7 +58,7 @@ describe('MappingTree', () => {
   } {
     userEvent.setup();
     let data: Mapping = initData ?? { 'param.procurementRequest': 'in' };
-    render(<MappingTree data={data} mappingInfo={mappingInfo} onChange={(change: Mapping) => (data = change)} location='test' />);
+    render(<MappingTree data={data} variableInfo={variableInfo} onChange={(change: Mapping) => (data = change)} location='test' />);
     return {
       data: () => data
     };
@@ -170,7 +170,7 @@ describe('MappingTree', () => {
   });
 
   test('tree support readonly mode', async () => {
-    render(<MappingTree data={{}} mappingInfo={mappingInfo} onChange={() => {}} location='' />, {
+    render(<MappingTree data={{}} variableInfo={variableInfo} onChange={() => {}} location='' />, {
       wrapperProps: { editor: { readonly: true } }
     });
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useClient, useEditorContext } from '../../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../../props';
-import { CallData, CallableStart, MappingInfo, ProcessCallData } from '@axonivy/inscription-protocol';
+import { CallData, CallableStart, ProcessCallData, VariableInfo } from '@axonivy/inscription-protocol';
 import CallMapping from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
@@ -31,7 +31,7 @@ const TriggerCallPart = () => {
     client.triggerStarts(editorContext.pid).then(starts => setStartItems(starts));
   }, [client, editorContext.pid]);
 
-  const mappingInfo = useMemo<MappingInfo>(
+  const variableInfo = useMemo<VariableInfo>(
     () => startItems.find(ds => ds.id === config.processCall)?.callParameter ?? { variables: [], types: {} },
     [config.processCall, startItems]
   );
@@ -49,7 +49,7 @@ const TriggerCallPart = () => {
           comboboxInputProps={callField.inputProps}
         />
       </Fieldset>
-      <CallMapping mappingInfo={mappingInfo} />
+      <CallMapping variableInfo={variableInfo} />
     </>
   );
 };

@@ -10,7 +10,7 @@ import {
   InscriptionRequestTypes,
   InscriptionSaveData,
   InscriptionValidation,
-  MappingInfo,
+  VariableInfo,
   PID,
   RoleMeta
 } from '@axonivy/inscription-protocol';
@@ -73,12 +73,12 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('meta/workflow/signalCodes', { pid });
   }
 
-  outMapping(pid: PID): Promise<MappingInfo> {
-    return this.sendRequest('meta/map/out', { pid });
+  outScripting(pid: PID, location: string): Promise<VariableInfo> {
+    return this.sendRequest('meta/scripting/out', { pid, location });
   }
 
-  resultMapping(pid: PID): Promise<MappingInfo> {
-    return this.sendRequest('meta/map/result', { pid });
+  inScripting(pid: PID, location: string): Promise<VariableInfo> {
+    return this.sendRequest('meta/scripting/in', { pid, location });
   }
 
   connectorOf(pid: PID): Promise<ConnectorRef> {

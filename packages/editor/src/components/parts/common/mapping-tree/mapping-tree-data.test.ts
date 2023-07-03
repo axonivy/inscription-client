@@ -1,9 +1,9 @@
-import { MappingInfo } from '@axonivy/inscription-protocol';
+import { VariableInfo } from '@axonivy/inscription-protocol';
 import { MappingTreeData } from './mapping-tree-data';
 import { cloneObject } from 'test-utils';
 
 describe('MappingTreeData', () => {
-  const mappingInfo: MappingInfo = {
+  const variableInfo: VariableInfo = {
     variables: [
       {
         attribute: 'param.procurementRequest',
@@ -44,7 +44,7 @@ describe('MappingTreeData', () => {
     }
   };
 
-  const endlessParamInfo: MappingInfo = {
+  const endlessParamInfo: VariableInfo = {
     variables: [
       {
         attribute: 'param.Endless',
@@ -114,12 +114,12 @@ describe('MappingTreeData', () => {
   }
 
   test('of', () => {
-    expect(MappingTreeData.of(mappingInfo)).toEqual(tree);
+    expect(MappingTreeData.of(variableInfo)).toEqual(tree);
   });
 
   test('of with lazy loading', () => {
-    const treeData = MappingTreeData.of(mappingInfo);
-    MappingTreeData.loadChildrenFor(mappingInfo, 'workflow.humantask.User', treeData);
+    const treeData = MappingTreeData.of(variableInfo);
+    MappingTreeData.loadChildrenFor(variableInfo, 'workflow.humantask.User', treeData);
 
     const expectTree = cloneObject(tree);
 
@@ -172,9 +172,9 @@ describe('MappingTreeData', () => {
   test('update', () => {
     const resultTree = mappingTreeMultiRootData();
     const tree = cloneObject(resultTree);
-    MappingTreeData.update(mappingInfo, tree, ['param', 'procurementRequest'], 'in');
-    MappingTreeData.update(mappingInfo, tree, ['param', 'procurementRequest', 'amount'], '12');
-    MappingTreeData.update(mappingInfo, tree, ['dummy'], 'dummy');
+    MappingTreeData.update(variableInfo, tree, ['param', 'procurementRequest'], 'in');
+    MappingTreeData.update(variableInfo, tree, ['param', 'procurementRequest', 'amount'], '12');
+    MappingTreeData.update(variableInfo, tree, ['dummy'], 'dummy');
 
     expect(tree).not.toEqual(resultTree);
     resultTree[0].value = 'in';
@@ -184,8 +184,8 @@ describe('MappingTreeData', () => {
   });
 
   test('update should load lazy node', () => {
-    const treeData = MappingTreeData.of(mappingInfo);
-    MappingTreeData.update(mappingInfo, treeData, ['param', 'procurementRequest', 'requester', 'email'], 'luke@skywalker.com');
+    const treeData = MappingTreeData.of(variableInfo);
+    MappingTreeData.update(variableInfo, treeData, ['param', 'procurementRequest', 'requester', 'email'], 'luke@skywalker.com');
 
     const expectTree = cloneObject(tree);
     expectTree[0].children[2].isLoaded = true;
@@ -195,10 +195,10 @@ describe('MappingTreeData', () => {
   });
 
   test('update unknown mapping', () => {
-    const treeData = MappingTreeData.of(mappingInfo);
-    MappingTreeData.update(mappingInfo, treeData, ['dummy'], 'dummy');
-    MappingTreeData.update(mappingInfo, treeData, ['param', 'unknown'], 'unknown value');
-    MappingTreeData.update(mappingInfo, treeData, ['param', 'unknown', 'deep'], 'unknown deep value');
+    const treeData = MappingTreeData.of(variableInfo);
+    MappingTreeData.update(variableInfo, treeData, ['dummy'], 'dummy');
+    MappingTreeData.update(variableInfo, treeData, ['param', 'unknown'], 'unknown value');
+    MappingTreeData.update(variableInfo, treeData, ['param', 'unknown', 'deep'], 'unknown deep value');
 
     const expectTree = cloneObject(tree);
     expectTree[1] = { attribute: 'dummy', children: [], value: 'dummy', type: '', simpleType: '', isLoaded: true, description: '' };

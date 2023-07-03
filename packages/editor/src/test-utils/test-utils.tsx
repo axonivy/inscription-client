@@ -5,7 +5,7 @@ import {
   CallableStart,
   ErrorMeta,
   InscriptionValidation,
-  MappingInfo,
+  VariableInfo,
   RoleMeta,
   ConnectorRef,
   EventCodeMeta
@@ -37,8 +37,8 @@ type ContextHelperProps = {
     triggerStarts?: CallableStart[];
     callSubStarts?: CallableStart[];
     eventCodes?: EventCodeMeta[];
-    outMapping?: MappingInfo;
-    resultMapping?: MappingInfo;
+    outMapping?: VariableInfo;
+    resultMapping?: VariableInfo;
     connectorOf?: Record<string, DeepPartial<ConnectorRef>>;
   };
   editor?: { title?: string; readonly?: boolean };
@@ -85,13 +85,16 @@ const ContextHelper = (
       signalCodes() {
         return Promise.resolve(props.meta?.eventCodes ?? []);
       },
-      outMapping() {
+      outScripting(pid: string, location: string) {
+        if (location === 'result') {
+          return Promise.resolve(
+            props.meta?.resultMapping ?? { types: {}, variables: [{ attribute: 'result', description: '', type: '<>', simpleType: '<>' }] }
+          );
+        }
         return Promise.resolve(props.meta?.outMapping ?? { types: {}, variables: [] });
       },
-      resultMapping() {
-        return Promise.resolve(
-          props.meta?.resultMapping ?? { types: {}, variables: [{ attribute: 'result', description: '', type: '<>', simpleType: '<>' }] }
-        );
+      inScripting() {
+        return Promise.resolve(props.meta?.outMapping ?? { types: {}, variables: [] });
       },
       // @ts-ignore
       connectorOf(pid: string) {

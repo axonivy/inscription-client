@@ -3,7 +3,7 @@ import { CollapsiblePart, Fieldset, Input, ScriptArea, useFieldset } from '../..
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useStartData } from './useStartData';
-import { MappingInfo, StartData } from '@axonivy/inscription-protocol';
+import { VariableInfo, StartData } from '@axonivy/inscription-protocol';
 import { useClient, useEditorContext } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
 import { useStartNameSyncher } from './useStartNameSyncher';
@@ -25,12 +25,12 @@ export function useStartPart(props?: StartPartProps): PartProps {
 
 const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
   const { config, updateSignature, update } = useStartData();
-  const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
+  const [variableInfo, setVariableInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
   const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.outMapping(editorContext.pid).then(mapping => setMappingInfo(mapping));
+    client.outScripting(editorContext.pid, 'input').then(mapping => setVariableInfo(mapping));
   }, [client, editorContext.pid]);
 
   useStartNameSyncher(config, synchParams);
@@ -45,7 +45,7 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
       <CollapsiblePart collapsibleLabel='Input parameters'>
         <ParameterTable data={config.input.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
       </CollapsiblePart>
-      <MappingTree data={config.input.map} mappingInfo={mappingInfo} onChange={change => update('map', change)} location='input.code' />
+      <MappingTree data={config.input.map} variableInfo={variableInfo} onChange={change => update('map', change)} location='input.code' />
       <Fieldset label='Code' {...codeFieldset.labelProps}>
         <ScriptArea
           value={config.input.code}
