@@ -37,8 +37,8 @@ type ContextHelperProps = {
     triggerStarts?: CallableStart[];
     callSubStarts?: CallableStart[];
     eventCodes?: EventCodeMeta[];
-    outMapping?: VariableInfo;
-    resultMapping?: VariableInfo;
+    outScripting?: VariableInfo;
+    inScripting?: VariableInfo;
     connectorOf?: Record<string, DeepPartial<ConnectorRef>>;
   };
   editor?: { title?: string; readonly?: boolean };
@@ -86,15 +86,17 @@ const ContextHelper = (
         return Promise.resolve(props.meta?.eventCodes ?? []);
       },
       outScripting(pid: string, location: string) {
-        if (location === 'result') {
-          return Promise.resolve(
-            props.meta?.resultMapping ?? { types: {}, variables: [{ attribute: 'result', description: '', type: '<>', simpleType: '<>' }] }
-          );
+        if (props.meta?.outScripting) {
+          return Promise.resolve(props.meta.outScripting);
         }
-        return Promise.resolve(props.meta?.outMapping ?? { types: {}, variables: [] });
+        const emptyScripting =
+          location === 'result'
+            ? { types: {}, variables: [{ attribute: 'result', description: '', type: '<>', simpleType: '<>' }] }
+            : { types: {}, variables: [] };
+        return Promise.resolve(emptyScripting);
       },
       inScripting() {
-        return Promise.resolve(props.meta?.outMapping ?? { types: {}, variables: [] });
+        return Promise.resolve(props.meta?.inScripting ?? { types: {}, variables: [] });
       },
       // @ts-ignore
       connectorOf(pid: string) {
