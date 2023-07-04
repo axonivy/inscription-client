@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { Mapping, MappingInfo } from '@axonivy/inscription-protocol';
+import { Mapping, VariableInfo } from '@axonivy/inscription-protocol';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -25,22 +25,22 @@ import {
   TableHeader
 } from '../../../../components/widgets';
 
-type MappingTreeProps = { data: Mapping; mappingInfo: MappingInfo; onChange: (change: Mapping) => void; location: string };
+type MappingTreeProps = { data: Mapping; variableInfo: VariableInfo; onChange: (change: Mapping) => void; location: string };
 
-const MappingTree = ({ data, mappingInfo, onChange, location }: MappingTreeProps) => {
+const MappingTree = ({ data, variableInfo, onChange, location }: MappingTreeProps) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
   const [showGlobalFilter, setShowGlobalFilter] = useState(false);
   const [showOnlyInscribed, setShowOnlyInscribed] = useState(false);
 
   useEffect(() => {
-    const treeData = MappingTreeData.of(mappingInfo);
-    Object.entries(data).forEach(mapping => MappingTreeData.update(mappingInfo, treeData, mapping[0].split('.'), mapping[1]));
+    const treeData = MappingTreeData.of(variableInfo);
+    Object.entries(data).forEach(mapping => MappingTreeData.update(variableInfo, treeData, mapping[0].split('.'), mapping[1]));
     setTree(treeData);
-  }, [data, mappingInfo]);
+  }, [data, variableInfo]);
 
   const loadChildren = useCallback<(row: MappingTreeData) => void>(
-    row => setTree(tree => MappingTreeData.loadChildrenFor(mappingInfo, row.type, tree)),
-    [mappingInfo, setTree]
+    row => setTree(tree => MappingTreeData.loadChildrenFor(variableInfo, row.type, tree)),
+    [variableInfo, setTree]
   );
 
   const columns = useMemo<ColumnDef<MappingTreeData>[]>(

@@ -14,7 +14,7 @@ const MacroInput = (props: CodeEditorInputProps) => {
       {isFocusWithin || browser.open ? (
         <>
           <SingleLineCodeEditor {...props} macro={true} onMountFuncs={[setEditor]} />
-          <Browser {...browser} types={['attr']} accept={modifyEditor} />
+          <Browser {...browser} types={['attr']} accept={value => modifyEditor(`<%=${value}%>`)} location={props.location} />
         </>
       ) : (
         <Input {...props} />

@@ -7,9 +7,9 @@ import {
   InscriptionData,
   InscriptionSaveData,
   InscriptionValidation,
-  MappingInfo,
   PID,
-  RoleMeta
+  RoleMeta,
+  VariableInfo
 } from './data';
 
 export interface Event<T> {
@@ -34,8 +34,8 @@ export interface InscriptionClient {
   errorCodes(pid: PID): Promise<EventCodeMeta[]>;
   signalCodes(pid: PID): Promise<EventCodeMeta[]>;
 
-  outMapping(pid: PID): Promise<MappingInfo>;
-  resultMapping(pid: PID): Promise<MappingInfo>;
+  outScripting(pid: PID, location: string): Promise<VariableInfo>;
+  inScripting(pid: PID, location: string): Promise<VariableInfo>;
 
   connectorOf(pid: PID): Promise<ConnectorRef>;
 

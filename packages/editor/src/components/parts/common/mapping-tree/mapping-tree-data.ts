@@ -1,4 +1,4 @@
-import { Mapping, MappingInfo, Variable } from '@axonivy/inscription-protocol';
+import { Mapping, VariableInfo, Variable } from '@axonivy/inscription-protocol';
 
 export interface MappingTreeData extends Variable {
   value: string;
@@ -7,7 +7,7 @@ export interface MappingTreeData extends Variable {
 }
 
 export namespace MappingTreeData {
-  export function of(paramInfo: MappingInfo): MappingTreeData[] {
+  export function of(paramInfo: VariableInfo): MappingTreeData[] {
     return paramInfo.variables.map(param => ({
       ...param,
       value: '',
@@ -16,7 +16,7 @@ export namespace MappingTreeData {
     }));
   }
 
-  export function loadChildrenFor(paramInfo: MappingInfo, paramType: string, tree: MappingTreeData[]): MappingTreeData[] {
+  export function loadChildrenFor(paramInfo: VariableInfo, paramType: string, tree: MappingTreeData[]): MappingTreeData[] {
     return tree.map(node => {
       if (node.isLoaded === false && node.type === paramType) {
         node.children = typesOfParam(paramInfo, paramType);
@@ -28,7 +28,7 @@ export namespace MappingTreeData {
     });
   }
 
-  function typesOfParam(paramInfo: MappingInfo, paramType: string): MappingTreeData[] {
+  function typesOfParam(paramInfo: VariableInfo, paramType: string): MappingTreeData[] {
     return (
       paramInfo.types[paramType]?.map(type => ({
         ...type,
@@ -39,7 +39,7 @@ export namespace MappingTreeData {
     );
   }
 
-  export function update(paramInfo: MappingInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
+  export function update(paramInfo: VariableInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
     if (mappingPath.length >= 2 && mappingPath[0] === 'param') {
       mappingPath.shift();
       mappingPath[0] = 'param.' + mappingPath[0];
@@ -47,7 +47,7 @@ export namespace MappingTreeData {
     updateValue(paramInfo, tree, mappingPath, mappingValue);
   }
 
-  function updateValue(paramInfo: MappingInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
+  function updateValue(paramInfo: VariableInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
     for (const node of tree) {
       if (node.attribute === mappingPath[0]) {
         mappingPath.shift();

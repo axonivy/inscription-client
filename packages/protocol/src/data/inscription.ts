@@ -26,7 +26,8 @@ export interface Inscription {
   inscriptionSaveRequest: InscriptionSaveRequest;
   inscriptionValidation: InscriptionValidation[];
   callableStart: CallableStart[];
-  mappingInfo: MappingInfo;
+  scriptingDataArgs: ScriptingDataArgs;
+  variableInfo: VariableInfo;
   errorMeta: ErrorMeta[];
   eventCodeMeta: EventCodeMeta[];
   roleMeta: RoleMeta[];
@@ -505,7 +506,7 @@ export interface InscriptionValidation {
   severity: Severity;
 }
 export interface CallableStart {
-  callParameter: MappingInfo;
+  callParameter: VariableInfo;
   deprecated: boolean;
   description: string;
   id: string;
@@ -514,7 +515,7 @@ export interface CallableStart {
   project: string;
   startName: string;
 }
-export interface MappingInfo {
+export interface VariableInfo {
   types: MapStringListVariable;
   variables: Variable[];
 }
@@ -526,6 +527,10 @@ export interface Variable {
   description: string;
   simpleType: string;
   type: string;
+}
+export interface ScriptingDataArgs {
+  location: string;
+  pid: PID;
 }
 export interface ErrorMeta {
   id: string;

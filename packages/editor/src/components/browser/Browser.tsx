@@ -11,13 +11,14 @@ import { BrowserType, UseBrowserReturnValue } from './useBrowser';
 type BrowserProps = UseBrowserReturnValue & {
   types: BrowserType[];
   accept: (value: string) => void;
+  location: string;
 };
 
-const Browser = ({ open, onOpenChange, types, accept }: BrowserProps) => {
+const Browser = ({ open, onOpenChange, types, accept, location }: BrowserProps) => {
   const { editorRef } = useEditorContext();
   const [active, setActive] = useState<BrowserType>(types[0]);
 
-  const attrBrowser = useAttributeBrowser();
+  const attrBrowser = useAttributeBrowser(location);
   const cmsBrowser = useCmsBrowser();
   const allBrowsers = [attrBrowser, cmsBrowser];
 

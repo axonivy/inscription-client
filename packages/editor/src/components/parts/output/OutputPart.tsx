@@ -1,4 +1,4 @@
-import { MappingInfo, OutputData } from '@axonivy/inscription-protocol';
+import { VariableInfo, OutputData } from '@axonivy/inscription-protocol';
 import { useEffect, useState } from 'react';
 import { Fieldset, ScriptArea, useFieldset } from '../../widgets';
 import { useClient, useEditorContext } from '../../../context';
@@ -21,19 +21,19 @@ export function useOutputPart(options?: { hideCode?: boolean }): PartProps {
 
 const OutputPart = (props: { showCode?: boolean }) => {
   const { config, update } = useOutputData();
-  const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
+  const [variableInfo, setVariableInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
   const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.outMapping(editorContext.pid).then(mapping => setMappingInfo(mapping));
+    client.outScripting(editorContext.pid, 'output').then(info => setVariableInfo(info));
   }, [client, editorContext.pid]);
 
   const codeFieldset = useFieldset();
 
   return (
     <>
-      <MappingTree data={config.output.map} mappingInfo={mappingInfo} onChange={change => update('map', change)} location='output.code' />
+      <MappingTree data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} location='output.code' />
       {props.showCode && (
         <Fieldset label='Code' {...codeFieldset.labelProps}>
           <ScriptArea

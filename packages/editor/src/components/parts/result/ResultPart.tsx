@@ -3,7 +3,7 @@ import { CollapsiblePart, Fieldset, ScriptArea, useFieldset } from '../../widget
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useResultData } from './useResultData';
-import { MappingInfo, ResultData, Variable } from '@axonivy/inscription-protocol';
+import { VariableInfo, ResultData, Variable } from '@axonivy/inscription-protocol';
 import { useClient, useEditorContext } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
 
@@ -22,19 +22,19 @@ export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
 
 const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   const { config, update } = useResultData();
-  const [mappingInfo, setMappingInfo] = useState<MappingInfo>({ variables: [], types: {} });
+  const [variableInfo, setVariableInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
   const editorContext = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.resultMapping(editorContext.pid).then(mapping => {
-      const resultType = mapping.variables[0].type;
-      if (mapping.types[resultType]?.length !== config.result.params.length) {
-        mapping.types[resultType] = config.result.params.map<Variable>(param => {
+    client.outScripting(editorContext.pid, 'result').then(info => {
+      const resultType = info.variables[0].type;
+      if (info.types[resultType]?.length !== config.result.params.length) {
+        info.types[resultType] = config.result.params.map<Variable>(param => {
           return { attribute: param.name, type: param.type, simpleType: param.type, description: param.desc };
         });
       }
-      setMappingInfo(mapping);
+      setVariableInfo(info);
     });
   }, [client, editorContext.pid, config.result.params]);
 
@@ -45,7 +45,7 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
       <CollapsiblePart collapsibleLabel='Result parameters'>
         <ParameterTable data={config.result.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
       </CollapsiblePart>
-      <MappingTree data={config.result.map} mappingInfo={mappingInfo} onChange={change => update('map', change)} location='result.code' />
+      <MappingTree data={config.result.map} variableInfo={variableInfo} onChange={change => update('map', change)} location='result.code' />
       <Fieldset label='Code' {...codeFieldset.labelProps}>
         <ScriptArea
           value={config.result.code}

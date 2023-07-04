@@ -6,8 +6,9 @@ import {
   InscriptionAction,
   InscriptionDataArgs,
   InscriptionValidation,
-  MappingInfo,
-  RoleMeta
+  RoleMeta,
+  ScriptingDataArgs,
+  VariableInfo
 } from './data/inscription';
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -25,8 +26,8 @@ export interface InscriptionRequestTypes {
   'meta/workflow/errorCodes': [InscriptionDataArgs, EventCodeMeta[]];
   'meta/workflow/signalCodes': [InscriptionDataArgs, EventCodeMeta[]];
 
-  'meta/map/out': [InscriptionDataArgs, MappingInfo];
-  'meta/map/result': [InscriptionDataArgs, MappingInfo];
+  'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
+  'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
 
   'meta/connector/of': [InscriptionDataArgs, ConnectorRef];
 
