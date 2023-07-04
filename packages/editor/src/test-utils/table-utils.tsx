@@ -22,7 +22,7 @@ export namespace TableUtil {
     }
   }
 
-  export function assertRowCount(expectedRows: number): Promise<void> {
+  export async function assertRowCount(expectedRows: number): Promise<void> {
     return waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(expectedRows));
   }
 
