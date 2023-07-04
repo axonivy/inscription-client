@@ -21,8 +21,30 @@ export namespace CodeEditorUtil {
     await page.keyboard.press('Delete');
   }
 
+  export async function triggerContentAssist(page: Page) {
+    triggerContentAssistWithLocator(page, page.getByRole('code').nth(0));
+  }
+
+  export async function triggerContentAssistWithLocator(page: Page, locator: Locator) {
+    await locator.click();
+    var content = contentAssist(page);
+    await expect(content).toBeHidden();
+    await page.keyboard.press('Control+Space');
+    await page.keyboard.press('Meta+Space');
+    await expect(content).toBeVisible();
+  }
+
+  function contentAssist(page: Page) {
+    return page.locator('div.suggest-widget');
+  }
+
   export async function assertValue(page: Page, value: string) {
     await expect(page.getByRole('code').getByRole('textbox')).toHaveValue(value);
+  }
+
+  export async function assertContentAssist(page: Page, expectedContentAssist: string) {
+    var content = contentAssist(page);
+    await expect(content).toContainText(expectedContentAssist);
   }
 }
 
@@ -35,5 +57,13 @@ export namespace FocusCodeEditorUtil {
   export async function clear(page: Page, locator: Locator) {
     await locator.click();
     await CodeEditorUtil.clear(page);
+  }
+
+  export async function triggerContentAssist(page: Page, locator: Locator) {
+    await CodeEditorUtil.triggerContentAssistWithLocator(page, locator);
+  }
+
+  export async function assertContentAssist(page: Page, expectedContentAssist: string) {
+    await CodeEditorUtil.assertContentAssist(page, expectedContentAssist);
   }
 }

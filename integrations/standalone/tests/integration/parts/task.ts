@@ -73,7 +73,7 @@ export class TaskTester implements PartTest {
     await page.getByLabel('Delay').fill('delay');
 
     await CollapseUtil.open(page, 'Expiry');
-    await page.getByLabel('Timeout').fill('timeout');
+    await FocusCodeEditorUtil.fill(page, page.getByLabel('Timeout'), 'timeout');
     await SelectUtil.select(page, this.error, 2);
     await SelectUtil.select(page, 'Nobody & delete', 3);
     await SelectUtil.select(page, 'Low', 4);
@@ -98,7 +98,7 @@ export class TaskTester implements PartTest {
     await expect(page.getByRole('checkbox')).toBeChecked();
     await expect(page.getByLabel('Delay')).toHaveValue('delay');
 
-    await page.getByLabel('Timeout').fill('timeout');
+    await expect(page.getByLabel('Timeout')).toHaveValue('timeout');
     await SelectUtil.assertSelect(page, this.error, 2);
     await SelectUtil.assertSelect(page, /Nobody/, 3);
     await SelectUtil.assertSelect(page, /Low/, 4);
@@ -118,7 +118,7 @@ export class TaskTester implements PartTest {
     await page.getByRole('checkbox').uncheck();
     await page.getByLabel('Delay').clear();
 
-    await page.getByLabel('Timeout').clear();
+    await FocusCodeEditorUtil.clear(page, page.getByLabel('Timeout'));
 
     await TableUtil.removeRow(page, 0);
 
