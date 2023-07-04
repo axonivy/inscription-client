@@ -1,4 +1,4 @@
-import { Fieldset, MacroInput, useFieldset } from '../../widgets';
+import { Fieldset, MacroArea, MacroInput, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
@@ -29,7 +29,7 @@ const CasePart = () => {
         />
       </Fieldset>
       <Fieldset label='Description' {...descFieldset.labelProps}>
-        <MacroInput
+        <MacroArea
           value={config.case.description}
           onChange={change => update('description', change)}
           location='case.description'

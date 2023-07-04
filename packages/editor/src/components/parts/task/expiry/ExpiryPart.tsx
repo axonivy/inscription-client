@@ -1,4 +1,4 @@
-import { CollapsiblePart, Fieldset, Input, useFieldset } from '../../../../components/widgets';
+import { CollapsiblePart, Fieldset, ScriptInput, useFieldset } from '../../../../components/widgets';
 import ErrorSelect from './../error/ErrorSelect';
 import PrioritySelect from './../priority/PrioritySelect';
 import ResponsibleSelect from './../responsible/ResponsibleSelect';
@@ -12,7 +12,12 @@ const ExpiryPart = () => {
   return (
     <CollapsiblePart collapsibleLabel='Expiry' defaultOpen={isTimeout}>
       <Fieldset label='Timeout' {...timeoutFieldset.labelProps}>
-        <Input value={expiry.timeout} onChange={change => update('timeout', change)} {...timeoutFieldset.inputProps} />
+        <ScriptInput
+          value={expiry.timeout}
+          onChange={change => update('timeout', change)}
+          location='task.expiry&type=Duration'
+          {...timeoutFieldset.inputProps}
+        />
       </Fieldset>
       <>
         {isTimeout && (
