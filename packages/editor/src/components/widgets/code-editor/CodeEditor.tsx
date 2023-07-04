@@ -31,8 +31,8 @@ const CodeEditor = ({ value, onChange, location, macro, onMountFuncs, options, i
         className='code-input'
         defaultValue={value}
         value={value}
-        defaultLanguage={macro ? 'macro' : 'ivyScript'}
-        defaultPath={`ivyScript/${editorContext.pid}?location=${location ?? ''}`}
+        defaultLanguage={'ivyScript'}
+        defaultPath={`${macro ? 'macro' : 'ivyScript'}/${editorContext.pid}?location=${location ?? ''}`}
         options={monacoOptions}
         theme={MonacoEditorUtil.DEFAULT_THEME_NAME}
         onChange={code => onChange(code ?? '')}

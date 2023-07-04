@@ -1,4 +1,4 @@
-import { Fieldset, Input, useFieldset } from '../../widgets';
+import { Fieldset, MacroInput, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useMailHeaderData } from './useMailHeaderData';
 import { MailHeaderData } from '@axonivy/inscription-protocol';
@@ -23,22 +23,42 @@ const MailHeaderPart = () => {
   return (
     <>
       <Fieldset label='Subject' {...subjectFieldset.labelProps}>
-        <Input value={config.headers.subject} onChange={change => update('subject', change)} {...subjectFieldset.inputProps} />
+        <MacroInput
+          value={config.headers.subject}
+          onChange={change => update('subject', change)}
+          location='headers.subject'
+          {...subjectFieldset.inputProps}
+        />
       </Fieldset>
       <Fieldset label='From' {...fromFieldset.labelProps}>
-        <Input value={config.headers.from} onChange={change => update('from', change)} {...fromFieldset.inputProps} />
+        <MacroInput
+          value={config.headers.from}
+          onChange={change => update('from', change)}
+          location='headers.from'
+          {...fromFieldset.inputProps}
+        />
       </Fieldset>
       <Fieldset label='Reply to' {...replyToFieldset.labelProps}>
-        <Input value={config.headers.replyTo} onChange={change => update('replyTo', change)} {...replyToFieldset.inputProps} />
+        <MacroInput
+          value={config.headers.replyTo}
+          onChange={change => update('replyTo', change)}
+          location='headers.replyTo'
+          {...replyToFieldset.inputProps}
+        />
       </Fieldset>
       <Fieldset label='To' {...toFieldset.labelProps}>
-        <Input value={config.headers.to} onChange={change => update('to', change)} {...toFieldset.inputProps} />
+        <MacroInput value={config.headers.to} onChange={change => update('to', change)} location='headers.to' {...toFieldset.inputProps} />
       </Fieldset>
       <Fieldset label='CC' {...ccFieldset.labelProps}>
-        <Input value={config.headers.cc} onChange={change => update('cc', change)} {...ccFieldset.inputProps} />
+        <MacroInput value={config.headers.cc} onChange={change => update('cc', change)} location='headers.cc' {...ccFieldset.inputProps} />
       </Fieldset>
       <Fieldset label='BCC' {...bccFieldset.labelProps}>
-        <Input value={config.headers.bcc} onChange={change => update('bcc', change)} {...bccFieldset.inputProps} />
+        <MacroInput
+          value={config.headers.bcc}
+          onChange={change => update('bcc', change)}
+          location='headers.bcc'
+          {...bccFieldset.inputProps}
+        />
       </Fieldset>
     </>
   );

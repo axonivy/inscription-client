@@ -1,5 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { PartTest } from './part-tester';
+import { FocusCodeEditorUtil } from '../../utils/code-editor-util';
 
 export class MailHeaderTester implements PartTest {
   constructor(private readonly hasTags: boolean = true) {}
@@ -8,12 +9,12 @@ export class MailHeaderTester implements PartTest {
     return 'Header';
   }
   async fill(page: Page) {
-    await page.getByLabel('Subject').fill('subject');
-    await page.getByLabel('From').fill('from');
-    await page.getByLabel('Reply To').fill('reply');
-    await page.getByLabel('To', { exact: true }).fill('to');
-    await page.getByLabel('CC', { exact: true }).fill('cc');
-    await page.getByLabel('BCC').fill('bcc');
+    await FocusCodeEditorUtil.fill(page, page.getByLabel('Subject'), 'subject');
+    await FocusCodeEditorUtil.fill(page, page.getByLabel('From'), 'from');
+    await FocusCodeEditorUtil.fill(page, page.getByLabel('Reply To'), 'reply');
+    await FocusCodeEditorUtil.fill(page, page.getByLabel('To', { exact: true }), 'to');
+    await FocusCodeEditorUtil.fill(page, page.getByLabel('CC', { exact: true }), 'cc');
+    await FocusCodeEditorUtil.fill(page, page.getByLabel('BCC'), 'bcc');
   }
   async assertFill(page: Page) {
     await expect(page.getByLabel('Subject')).toHaveValue('subject');
@@ -24,12 +25,12 @@ export class MailHeaderTester implements PartTest {
     await expect(page.getByLabel('BCC')).toHaveValue('bcc');
   }
   async clear(page: Page) {
-    await page.getByLabel('Subject').clear();
-    await page.getByLabel('From').clear();
-    await page.getByLabel('Reply To').clear();
-    await page.getByLabel('To', { exact: true }).clear();
-    await page.getByLabel('CC', { exact: true }).clear();
-    await page.getByLabel('BCC').clear();
+    await FocusCodeEditorUtil.clear(page, page.getByLabel('Subject'));
+    await FocusCodeEditorUtil.clear(page, page.getByLabel('From'));
+    await FocusCodeEditorUtil.clear(page, page.getByLabel('Reply To'));
+    await FocusCodeEditorUtil.clear(page, page.getByLabel('To', { exact: true }));
+    await FocusCodeEditorUtil.clear(page, page.getByLabel('CC', { exact: true }));
+    await FocusCodeEditorUtil.clear(page, page.getByLabel('BCC'));
   }
   async assertClear(page: Page) {
     await expect(page.getByLabel('Subject')).toBeEmpty();
