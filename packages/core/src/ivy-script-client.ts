@@ -7,7 +7,7 @@ export namespace IvyScriptLanguage {
     const connection = await ConnectionUtil.createWebSocketConnection(url);
     const client = new MonacoLanguageClient({
       name: 'IvyScript Language Client',
-      clientOptions: { documentSelector: ['ivyScript'] },
+      clientOptions: { documentSelector: [{ language: 'ivyScript' }, { language: 'ivyMacro' }] },
       connectionProvider: { get: async () => connection }
     });
     client.start();

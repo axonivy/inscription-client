@@ -2,6 +2,7 @@ import { loader, Monaco } from '@monaco-editor/react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { ThemeMode } from '../context/useTheme';
 import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
+import { ivyMacroConf, ivyMacroLang } from './ivy-macro-language';
 
 export const MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
   glyphMargin: false,
@@ -56,8 +57,15 @@ export namespace MonacoEditorUtil {
         extensions: ['.ivyScript', '.ivyScript'],
         aliases: ['IvyScript', 'ivyScript']
       });
+      monaco.languages.register({
+        id: 'ivyMacro',
+        extensions: ['.ivyMacro', '.ivyMacro'],
+        aliases: []
+      });
       monaco.languages.setLanguageConfiguration('ivyScript', ivyScriptConf);
       monaco.languages.setMonarchTokensProvider('ivyScript', ivyScriptLang);
+      monaco.languages.setLanguageConfiguration('ivyMacro', ivyMacroConf);
+      monaco.languages.setMonarchTokensProvider('ivyMacro', ivyMacroLang);
 
       monaco.editor.defineTheme(DEFAULT_THEME_NAME, themeData(theme));
       return monaco;
