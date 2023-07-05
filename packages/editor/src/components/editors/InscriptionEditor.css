@@ -21,12 +21,20 @@ button:disabled {
   line-height: 24px;
   background-color: var(--editor-header-bg);
   padding: var(--size-3) var(--size-4);
+  gap: var(--size-2);
 }
 .header-left {
   display: flex;
   gap: 0.75rem;
   font-weight: 600;
   font-size: 14px;
+  flex: 1;
+  min-width: 7rem;
+}
+.header-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .header-left .ivy {
   font-size: 1.5rem;

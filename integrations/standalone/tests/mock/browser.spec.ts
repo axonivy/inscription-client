@@ -45,7 +45,7 @@ test.describe('Script browser', () => {
 
     await page.getByRole('row').nth(2).click();
     await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
-    await page.getByRole('button', { name: 'Ok' }).click();
+    await page.getByRole('button', { name: 'Insert' }).click();
 
     await expect(page.getByRole('dialog')).toBeHidden();
     await expect(page.getByRole('button', { name: 'Browser' })).toBeVisible();

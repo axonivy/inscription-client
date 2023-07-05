@@ -52,8 +52,8 @@ const Browser = ({ open, onOpenChange, types, accept, location }: BrowserProps) 
                 </Button>
               </DialogClose>
               <DialogClose asChild>
-                <Button icon={IvyIcons.Add} aria-label='Ok' onClick={() => acceptBrowser()}>
-                  Ok
+                <Button icon={IvyIcons.Add} aria-label='Insert' onClick={() => acceptBrowser()}>
+                  Insert
                 </Button>
               </DialogClose>
             </div>
