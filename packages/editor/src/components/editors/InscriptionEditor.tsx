@@ -10,6 +10,7 @@ import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { PartProps } from '../props';
 import DropdownMenu from './menu/HeaderMenu';
+import { useNameData } from '../parts/name/useNameData';
 
 const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors]);
 
@@ -26,6 +27,7 @@ export interface EditorProps {
 }
 
 const Header = (props: EditorProps) => {
+  const { data } = useNameData();
   const { validation } = useDataContext();
   const editorContext = useEditorContext();
   return (
@@ -33,7 +35,10 @@ const Header = (props: EditorProps) => {
       <div className='header'>
         <div className='header-left'>
           <IvyIcon icon={props.icon} />
-          <div className='header-title'>{editorContext.type.shortLabel}</div>
+          <div className='header-title'>
+            {editorContext.type.shortLabel}
+            {data.name.length > 0 && ` - ${data.name}`}
+          </div>
         </div>
         <div className='header-right'>
           <div className='header-search'>
