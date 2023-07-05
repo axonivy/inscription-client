@@ -1,6 +1,6 @@
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
-export const ivyScriptLang: monaco.languages.IMonarchLanguage = {
+export const ivyMacroLang: monaco.languages.IMonarchLanguage = {
   defaultToken: '',
   tokenPostfix: '.ivyscript',
   keywords: [
@@ -82,6 +82,7 @@ export const ivyScriptLang: monaco.languages.IMonarchLanguage = {
       ],
       { include: '@whitespace' },
       [/[{}()[\]]/, '@brackets'],
+      [/<%=?|%>/, 'tag'],
       [/[<>](?!@symbols)/, '@brackets'],
       [
         /@symbols/,
@@ -125,7 +126,7 @@ export const ivyScriptLang: monaco.languages.IMonarchLanguage = {
   }
 };
 
-export const ivyScriptConf: monaco.languages.LanguageConfiguration = {
+export const ivyMacroConf: monaco.languages.LanguageConfiguration = {
   wordPattern: /(-?\d*\.\d\w*)|([^`~!#%^&*()\-=+[{\]}\\|;:'",.<>/?\s]+)/g,
   comments: {
     lineComment: '//',
@@ -141,7 +142,8 @@ export const ivyScriptConf: monaco.languages.LanguageConfiguration = {
     { open: '[', close: ']' },
     { open: '(', close: ')' },
     { open: '"', close: '"' },
-    { open: "'", close: "'" }
+    { open: "'", close: "'" },
+    { open: '<%', close: '%>' }
   ],
   surroundingPairs: [
     { open: '{', close: '}' },
