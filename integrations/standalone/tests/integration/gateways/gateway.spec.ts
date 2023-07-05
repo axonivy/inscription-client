@@ -1,29 +1,33 @@
-import { test, expect } from '@playwright/test';
-import { inscriptionView } from '../../utils/engine-util';
-import { fillReloadAndAssert, NameTest, CaseTest, OutputTest, TasksTest, EndPageTest, ConditionTest } from '../parts';
+import { test } from '@playwright/test';
+import { InscriptionView } from '../../pageobjects/InscriptionView';
+import { CaseTest, ConditionTest, EndPageTest, NameTest, OutputTest, TasksTest, fillReloadAndAssert } from '../parts';
 
 test.describe('Gateways', () => {
   test('Alternative', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f5'));
-    await expect(page.getByText('Alternative').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, ConditionTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f5');
+    await inscriptionView.expectHeaderText('Alternative');
+    await fillReloadAndAssert(inscriptionView, [NameTest, ConditionTest]);
   });
 
   test('Join', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f7'));
-    await expect(page.getByText('Join').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, OutputTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f7');
+    await inscriptionView.expectHeaderText('Join');
+    await fillReloadAndAssert(inscriptionView, [NameTest, OutputTest]);
   });
 
   test('Split', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f6'));
-    await expect(page.getByText('Split').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, OutputTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f6');
+    await inscriptionView.expectHeaderText('Split');
+    await fillReloadAndAssert(inscriptionView, [NameTest, OutputTest]);
   });
 
   test('Tasks', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f8'));
-    await expect(page.getByText('Tasks').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, OutputTest, TasksTest, CaseTest, EndPageTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f8');
+    await inscriptionView.expectHeaderText('Tasks');
+    await fillReloadAndAssert(inscriptionView, [NameTest, OutputTest, TasksTest, CaseTest, EndPageTest]);
   });
 });

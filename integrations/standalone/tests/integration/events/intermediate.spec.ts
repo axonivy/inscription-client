@@ -1,17 +1,19 @@
-import { test, expect } from '@playwright/test';
-import { inscriptionView } from '../../utils/engine-util';
+import { test } from '@playwright/test';
+import { InscriptionView } from '../../pageobjects/InscriptionView';
 import { CaseTest, EndPageTest, NameTest, OutputTest, TaskTester, fillReloadAndAssert } from '../parts';
 
 test.describe('Intermediate Events', () => {
   test('Task', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f9'));
-    await expect(page.getByText('Task').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, OutputTest, new TaskTester({ error: /EventAndGateway/ }), CaseTest, EndPageTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f9');
+    await inscriptionView.expectHeaderText('Task');
+    await fillReloadAndAssert(inscriptionView, [NameTest, OutputTest, new TaskTester({ error: /EventAndGateway/ }), CaseTest, EndPageTest]);
   });
 
   test('Wait', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f10'));
-    await expect(page.getByText('Wait').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, OutputTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f10');
+    await inscriptionView.expectHeaderText('Wait');
+    await fillReloadAndAssert(inscriptionView, [NameTest, OutputTest]);
   });
 });

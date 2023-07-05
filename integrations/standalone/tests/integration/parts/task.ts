@@ -1,10 +1,6 @@
-import { Page, expect } from '@playwright/test';
+import { Accordion } from '../../pageobjects/Accordion';
 import { PartTest } from './part-tester';
-import { SelectUtil } from '../utils/select-util';
-import { CollapseUtil } from '../../utils/collapse-util';
-import { CodeEditorUtil, FocusCodeEditorUtil } from '../../utils/code-editor-util';
-import { TableUtil } from '../../utils/table-util';
-import { TabUtil } from '../utils/tab-util';
+import { Part } from '../../pageobjects/Part';
 
 export class TasksTester implements PartTest {
   private tasks: { tab: string; test: PartTest }[];
@@ -17,28 +13,32 @@ export class TasksTester implements PartTest {
   partName() {
     return 'Tasks';
   }
-  async fill(page: Page) {
+  async fill(part: Part) {
     for (const task of this.tasks) {
-      await TabUtil.change(page, task.tab);
-      await task.test.fill(page);
+      const tab = (part as Accordion).tab(task.tab);
+      await tab.switchTo();
+      await task.test.fill(tab);
     }
   }
-  async assertFill(page: Page) {
+  async assertFill(part: Part) {
     for (const task of this.tasks) {
-      await TabUtil.change(page, task.tab);
-      await task.test.assertFill(page);
+      const tab = (part as Accordion).tab(task.tab);
+      tab.switchTo();
+      await task.test.assertFill(tab);
     }
   }
-  async clear(page: Page) {
+  async clear(part: Part) {
     for (const task of this.tasks) {
-      await TabUtil.change(page, task.tab);
-      await task.test.clear(page);
+      const tab = (part as Accordion).tab(task.tab);
+      tab.switchTo();
+      await task.test.clear(tab);
     }
   }
-  async assertClear(page: Page) {
+  async assertClear(part: Part) {
     for (const task of this.tasks) {
-      await TabUtil.change(page, task.tab);
-      await task.test.assertClear(page);
+      const tab = (part as Accordion).tab(task.tab);
+      tab.switchTo();
+      await task.test.assertClear(tab);
     }
   }
 }
@@ -58,86 +58,113 @@ export class TaskTester implements PartTest {
   partName() {
     return 'Task';
   }
-  async fill(page: Page) {
-    await FocusCodeEditorUtil.fill(page, page.getByRole('textbox', { name: 'Name' }), this.name);
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('Description'), 'test desc');
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('Category'), 'test cat');
 
-    await SelectUtil.select(page, 'Role from Attr.', 0);
-    await page.getByRole('textbox', { name: 'activator' }).fill('"Teamleader"');
+  async fill(part: Part) {
+    await part.macroInput('Name').fill(this.name);
+    await part.macroArea('Description').fill('test desc');
+    await part.macroInput('Category').fill('test cat');
 
-    await SelectUtil.select(page, 'High', 1);
+    const roleChooser = part.responsibleSelect('Responsible');
+    await roleChooser.chooseType('Role from Attr.');
+    await roleChooser.fill('"Teamleader"');
 
-    await CollapseUtil.open(page, 'Options');
-    await page.getByRole('checkbox').check();
-    await page.getByLabel('Delay').fill('delay');
+    await part.select('Priority').choose('High');
 
-    await CollapseUtil.open(page, 'Expiry');
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('Timeout'), 'timeout');
-    await SelectUtil.select(page, this.error, 2);
-    await SelectUtil.select(page, 'Nobody & delete', 3);
-    await SelectUtil.select(page, 'Low', 4);
+    const options = part.section('Options');
+    await options.toggle();
+    await options.checkbox('Skip Tasklist').click();
+    await options.input('Delay').fill('delay');
 
-    await CollapseUtil.open(page, 'Custom Fields');
-    await TableUtil.addRow(page);
-    await TableUtil.fillRow(page, 0, ['cf', 'value']);
+    const expiry = part.section('Expiry');
+    await expiry.toggle();
+    await expiry.scriptInput('Timeout').fill('timeout');
+    await expiry.select('Error').choose(this.error);
+    const responsible = expiry.responsibleSelect('Responsible');
+    await responsible.chooseType('Nobody & delete');
+    await expiry.select('Priority').choose('Low');
 
-    await CollapseUtil.open(page, 'Code');
-    await CodeEditorUtil.fill(page, 'code');
+    const custom = part.section('Custom fields');
+    await custom.toggle();
+    const table = custom.table();
+    const row = await table.addRow();
+    await row.fill(['cf', 'value']);
+
+    const code = part.section('Code');
+    await code.toggle();
+    await code.scriptArea().fill('code');
   }
-  async assertFill(page: Page) {
-    await expect(page.getByRole('textbox', { name: 'Name' })).toHaveValue(this.name);
-    await expect(page.getByLabel('Description')).toHaveValue('test desc');
-    await expect(page.getByLabel('Category')).toHaveValue('test cat');
 
-    await SelectUtil.assertSelect(page, /Role from/, 0);
-    await expect(page.getByRole('textbox', { name: 'activator' })).toHaveValue('"Teamleader"');
+  async assertFill(part: Part) {
+    await part.macroInput('Name').expectValue(this.name);
+    await part.macroArea('Description').expectValue('test desc');
+    await part.macroInput('Category').expectValue('test cat');
 
-    await SelectUtil.assertSelect(page, /High/, 1);
+    const responsible = part.responsibleSelect('Responsible');
+    await responsible.expectType('Role from Attr.');
+    await responsible.expectValue('"Teamleader"');
 
-    await expect(page.getByRole('checkbox')).toBeChecked();
-    await expect(page.getByLabel('Delay')).toHaveValue('delay');
+    await part.select('Priority').expectValue(/High/);
 
-    await expect(page.getByLabel('Timeout')).toHaveValue('timeout');
-    await SelectUtil.assertSelect(page, this.error, 2);
-    await SelectUtil.assertSelect(page, /Nobody/, 3);
-    await SelectUtil.assertSelect(page, /Low/, 4);
+    const options = part.section('Options');
+    await options.checkbox('Skip Tasklist').expectChecked();
+    await options.scriptInput('Delay').expectValue('delay');
 
-    await TableUtil.assertRow(page, 0, ['cf', 'value']);
+    const expiry = part.section('Expiry');
+    await expiry.scriptInput('Timeout').expectValue('timeout');
+    await expiry.select('Error').expectValue(this.error);
+    await expiry.responsibleSelect('Responsible').expectType('Nobody & delete');
+    await expiry.select('Priority').expectValue(/Low/);
 
-    await CodeEditorUtil.assertValue(page, 'code');
+    const custom = part.section('Custom Fields');
+    const table = custom.table();
+    await table.expectRowCount(1);
+    await table.cell(0, 0).expectValue('cf');
+    await table.cell(0, 2).expectValue('value');
+
+    const code = part.section('Code');
+    await code.scriptArea().expectValue('code');
   }
-  async clear(page: Page) {
-    await FocusCodeEditorUtil.clear(page, page.getByRole('textbox', { name: 'Name' }));
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('Description'));
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('Category'));
 
-    await SelectUtil.select(page, 'Role', 0);
+  async clear(part: Part) {
+    await part.macroInput('Name').clear();
+    await part.macroArea('Description').clear();
+    await part.macroInput('Category').clear();
 
-    await SelectUtil.select(page, 'Normal', 2);
-    await page.getByRole('checkbox').uncheck();
-    await page.getByLabel('Delay').clear();
+    const roleChooser = part.responsibleSelect('Responsible');
+    await roleChooser.clear();
 
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('Timeout'));
+    await part.select('Priority').choose('Normal');
 
-    await TableUtil.removeRow(page, 0);
+    const options = part.section('Options');
+    await options.checkbox('Skip Tasklist').uncheck();
+    await options.input('Delay').clear();
 
-    await CodeEditorUtil.focus(page);
-    await CodeEditorUtil.clear(page);
+    const expiry = part.section('Expiry');
+    await expiry.scriptInput('Timeout').clear();
+
+    const custom = part.section('Custom fields');
+    const table = custom.table();
+    await table.clear();
+
+    const code = part.section('Code');
+    await code.scriptArea().clear();
   }
-  async assertClear(page: Page) {
-    await expect(page.getByRole('textbox', { name: 'Name' })).toBeEmpty();
-    await expect(page.getByLabel('Description')).toBeEmpty();
-    await expect(page.getByLabel('Category')).toBeEmpty();
 
-    await SelectUtil.assertSelect(page, /Role/, 0);
-    await SelectUtil.assertSelect(page, /"Teamleader"/, 1);
-    await SelectUtil.select(page, 'Normal', 2);
+  async assertClear(part: Part) {
+    await part.macroInput('Name').expectEmpty();
+    await part.macroArea('Description').expectEmpty();
+    await part.macroInput('Category').expectEmpty();
 
-    await CollapseUtil.assertClosed(page, 'Options');
-    await CollapseUtil.assertClosed(page, 'Expiry');
-    await CollapseUtil.assertClosed(page, 'Custom Fields');
-    await CollapseUtil.assertClosed(page, 'Code');
+    const responsible = part.responsibleSelect('Responsible');
+    await responsible.expectType('Role');
+    await responsible.expectValue('Everybody');
+
+    await part.select('Priority').expectValue('Normal');
+
+    await part.section('Options').isClosed();
+    await part.section('Expiry').isClosed();
+    await part.section('Custom Fields').isClosed();
+    await part.section('Code').isClosed();
   }
 }
 

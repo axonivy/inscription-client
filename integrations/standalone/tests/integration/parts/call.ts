@@ -1,8 +1,8 @@
-import { Page } from '@playwright/test';
-import { PartTest } from './part-tester';
+import { Part } from '../../pageobjects/Part';
+import { CodeEditorUtil } from '../../utils/code-editor-util';
 import { TableUtil } from '../../utils/table-util';
 import { ComboboxUtil } from '../utils/combobox-util';
-import { CodeEditorUtil } from '../../utils/code-editor-util';
+import { PartTest } from './part-tester';
 
 export class CallTester implements PartTest {
   constructor(
@@ -15,23 +15,23 @@ export class CallTester implements PartTest {
   partName() {
     return this.tabLabel;
   }
-  async fill(page: Page) {
+  async fill({ page }: Part) {
     await ComboboxUtil.select(page, this.selectValue, this.selectLabel);
     await TableUtil.fillExpression(page, 2, '"test"');
     await CodeEditorUtil.fill(page, 'ivy.log.info("hi");');
   }
-  async assertFill(page: Page) {
+  async assertFill({ page }: Part) {
     await ComboboxUtil.assertSelect(page, this.assertSelectValue, this.selectLabel);
     await TableUtil.assertRow(page, 2, ['"test"']);
     await CodeEditorUtil.assertValue(page, 'ivy.log.info("hi");');
   }
-  async clear(page: Page) {
+  async clear({ page }: Part) {
     //TODO cannot reset dialog
     await TableUtil.fillExpression(page, 2, '');
     await CodeEditorUtil.focus(page);
     await CodeEditorUtil.clear(page);
   }
-  async assertClear(page: Page) {
+  async assertClear({ page }: Part) {
     await ComboboxUtil.assertSelect(page, this.assertSelectValue, this.selectLabel);
     await TableUtil.assertRow(page, 2, ['']);
     await CodeEditorUtil.assertValue(page, '');
