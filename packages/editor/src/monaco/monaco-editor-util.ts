@@ -72,7 +72,7 @@ export namespace MonacoEditorUtil {
     });
   }
 
-  function themeData(theme: ThemeMode): monaco.editor.IStandaloneThemeData {
+  export function themeData(theme: ThemeMode): monaco.editor.IStandaloneThemeData {
     if (theme === 'dark') {
       return {
         base: 'vs-dark',
