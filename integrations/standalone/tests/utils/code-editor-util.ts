@@ -22,7 +22,7 @@ export namespace CodeEditorUtil {
   }
 
   export async function triggerContentAssist(page: Page) {
-    triggerContentAssistWithLocator(page, page.getByRole('code').nth(0));
+    await triggerContentAssistWithLocator(page, page.getByRole('code').nth(0));
   }
 
   export async function triggerContentAssistWithLocator(page: Page, locator: Locator) {

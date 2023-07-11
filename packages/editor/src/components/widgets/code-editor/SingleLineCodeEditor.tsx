@@ -4,9 +4,15 @@ import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import CodeEditor, { CodeEditorProps } from './CodeEditor';
 import { monacoAutoFocus } from './useCodeEditor';
 
-export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs'>;
+type EditorOptions = {
+  editorOptions?: {
+    fixedOverflowWidgets?: boolean;
+  };
+};
 
-const SingleLineCodeEditor = ({ onChange, onMountFuncs, ...props }: CodeEditorProps) => {
+export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs'> & EditorOptions;
+
+const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, ...props }: CodeEditorProps & EditorOptions) => {
   const mountFuncs = onMountFuncs ? onMountFuncs : [];
   const singleLineMountFuncs = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editor.createContextKey('singleLine', true);
@@ -47,7 +53,7 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, ...props }: CodeEditorPr
     <CodeEditor
       height={40}
       onChange={onCodeChange}
-      options={SINGLE_LINE_MONACO_OPTIONS}
+      options={editorOptions ? { ...SINGLE_LINE_MONACO_OPTIONS, ...editorOptions } : SINGLE_LINE_MONACO_OPTIONS}
       onMountFuncs={[...mountFuncs, monacoAutoFocus, singleLineMountFuncs]}
       {...props}
     />

@@ -135,7 +135,7 @@ const AttributeBrowser = ({ value, onChange, location }: { value: string; onChan
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <SelectRow row={row}>
+            <SelectRow key={row.id} row={row}>
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}

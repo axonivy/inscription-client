@@ -10,7 +10,8 @@ const MacroInput = (props: CodeEditorInputProps) => {
   const { setEditor, modifyEditor } = useModifyEditor();
 
   return (
-    <div className='script-input' {...focusWithinProps}>
+    // tabIndex is needed for safari to catch the focus when click on browser button
+    <div className='script-input' {...focusWithinProps} tabIndex={1}>
       {isFocusWithin || browser.open ? (
         <>
           <SingleLineCodeEditor {...props} macro={true} onMountFuncs={[setEditor]} />

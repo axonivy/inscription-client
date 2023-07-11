@@ -10,7 +10,8 @@ const MacroArea = (props: CodeEditorAreaProps) => {
   const { setEditor, modifyEditor } = useModifyEditor();
 
   return (
-    <div className='script-area' {...focusWithinProps}>
+    // tabIndex is needed for safari to catch the focus when click on browser button
+    <div className='script-area' {...focusWithinProps} tabIndex={1}>
       {isFocusWithin || browser.open ? (
         <>
           <ResizableCodeEditor {...props} onMountFuncs={[setEditor, monacoAutoFocus]} macro={true} />
