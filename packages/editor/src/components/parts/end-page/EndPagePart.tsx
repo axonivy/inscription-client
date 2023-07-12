@@ -1,7 +1,9 @@
-import { Fieldset, Input, useFieldset } from '../../widgets';
+import { Fieldset, FieldsetControl, Input, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useEndPageData } from './useEndPageData';
 import { EndPageData } from '@axonivy/inscription-protocol';
+import { useAction } from '../../../context';
+import { IvyIcons } from '@axonivy/editor-icons';
 
 export function useEndPagePart(): PartProps {
   const { config, initConfig, defaultConfig, update } = useEndPageData();
@@ -13,11 +15,13 @@ export function useEndPagePart(): PartProps {
 
 const EndPagePart = () => {
   const { config, update } = useEndPageData();
-  const pageFieldset = useFieldset();
 
+  const action = useAction('openFile');
+  const openFile: FieldsetControl = { label: 'Open file', icon: IvyIcons.GoToSource, action: () => action(config.page) };
+  const pageFieldset = useFieldset();
   return (
     <>
-      <Fieldset label='Display the following page' {...pageFieldset.labelProps}>
+      <Fieldset label='Display the following page' {...pageFieldset.labelProps} controls={[openFile]}>
         <Input value={config.page} onChange={change => update('page', change)} {...pageFieldset.inputProps} />
       </Fieldset>
     </>

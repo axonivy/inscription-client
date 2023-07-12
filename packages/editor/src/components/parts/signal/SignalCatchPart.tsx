@@ -44,6 +44,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
   return (
     <>
       <Fieldset label='Signal Code' {...signalField.labelProps}>
+        {/* todo: somehow support macro input here... */}
         <EventCodeSelect
           eventCode={config.signalCode}
           onChange={change => update('signalCode', change)}

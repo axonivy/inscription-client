@@ -1,54 +1,17 @@
 import './Fieldset.css';
 import { Label } from '@radix-ui/react-label';
-import { memo, useMemo } from 'react';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { memo } from 'react';
 import Button from '../button/Button';
 import IvyIcon from '../IvyIcon';
 import { Message } from '../../../components/props';
 import { LabelProps } from '@radix-ui/react-label';
-import { generateId } from '../../../utils/utils';
+import { FieldsetControl } from './fieldset-control';
 
-export interface FieldsetControl {
-  label: string;
-  icon: IvyIcons;
-  active?: boolean;
-  action: () => void;
-}
-
-export const ResetControl: FieldsetControl = {
-  label: 'Reset',
-  icon: IvyIcons.Undo,
-  active: false,
-  action: () => {}
-};
-
-export type FieldsetProps = LabelProps & {
+type FieldsetProps = LabelProps & {
   label: string;
   controls?: FieldsetControl[];
   message?: Message;
 };
-
-export type FieldsetInputProps = {
-  id: string;
-  'aria-labelledby': string;
-};
-
-export type FieldsetLabelProps = {
-  id: string;
-  htmlFor: string;
-};
-
-type UseFieldsetReturnValue = {
-  labelProps: FieldsetLabelProps;
-  inputProps: FieldsetInputProps;
-};
-
-export function useFieldset(): UseFieldsetReturnValue {
-  const id = useMemo(() => `fieldset-${generateId()}`, []);
-  const labelId = `${id}-label`;
-  const inputId = `${id}-input`;
-  return { labelProps: { id: labelId, htmlFor: inputId }, inputProps: { id: inputId, 'aria-labelledby': labelId } };
-}
 
 const Fieldset = ({ label, controls, message, children, ...labelProps }: FieldsetProps) => {
   return (

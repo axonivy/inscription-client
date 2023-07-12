@@ -2,6 +2,7 @@
   padding: var(--size-1);
 }
 .table-cell .action-buttons {
-  display: inline-flex;
+  display: flex;
+  justify-content: flex-end;
   gap: var(--size-1);
 }

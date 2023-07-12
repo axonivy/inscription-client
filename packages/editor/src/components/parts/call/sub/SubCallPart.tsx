@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useClient, useEditorContext } from '../../../../context';
+import { useAction, useClient, useEditorContext } from '../../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../../props';
 import { CallData, CallableStart, VariableInfo, ProcessCallData } from '@axonivy/inscription-protocol';
 import CallMapping from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { Fieldset, useFieldset } from '../../../../components/widgets';
+import { Fieldset, FieldsetControl, useFieldset } from '../../../../components/widgets';
 
 export function useSubCallPart(): PartProps {
   const callData = useCallData();
@@ -36,11 +36,12 @@ const SubCallPart = () => {
     [config.processCall, startItems]
   );
 
+  const action = useAction('newProcess');
+  const createProcess: FieldsetControl = { label: 'Create new Sub Process', icon: IvyIcons.Add, action: () => action() };
   const callField = useFieldset();
-
   return (
     <>
-      <Fieldset label='Process start' {...callField.labelProps}>
+      <Fieldset label='Process start' {...callField.labelProps} controls={[createProcess]}>
         <CallSelect
           start={config.processCall}
           onChange={change => update('processCall', change)}
