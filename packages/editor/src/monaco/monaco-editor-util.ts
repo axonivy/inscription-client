@@ -38,12 +38,9 @@ export const SINGLE_LINE_MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstruc
     autoFindInSelection: 'never',
     seedSearchStringFromSelection: 'never'
   },
-  // wordBasedSuggestions: false,
   links: false,
   renderLineHighlight: 'none',
-  contextmenu: false,
-  // roundedSelection: false,
-  fixedOverflowWidgets: true
+  contextmenu: false
 };
 
 export namespace MonacoEditorUtil {

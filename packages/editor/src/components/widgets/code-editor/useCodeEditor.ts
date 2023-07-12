@@ -4,7 +4,7 @@ import { useFocusWithin } from 'react-aria';
 
 export const useCodeEditorOnFocus = () => {
   const [isFocusWithin, setFocusWithin] = useState(false);
-  let { focusWithinProps } = useFocusWithin({ onFocusWithinChange: isFocusWithin => setFocusWithin(isFocusWithin) });
+  let { focusWithinProps } = useFocusWithin({ onFocusWithinChange: setFocusWithin });
   return { isFocusWithin, focusWithinProps };
 };
 
