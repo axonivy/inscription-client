@@ -15,7 +15,7 @@ const ExpiryPart = () => {
         <ScriptInput
           value={expiry.timeout}
           onChange={change => update('timeout', change)}
-          location='task.expiry&type=Duration'
+          context={{ location: 'task.expiry', type: 'Duration' }}
           {...timeoutFieldset.inputProps}
         />
       </Fieldset>

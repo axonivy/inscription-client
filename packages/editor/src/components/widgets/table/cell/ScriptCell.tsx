@@ -52,7 +52,7 @@ export function ScriptCell<TData>({ cell, context }: ScriptCellProps<TData>) {
                 <ScriptInput
                   value={value as string}
                   onChange={setValue}
-                  location={`${context.location}&type=${context.type}`}
+                  context={context}
                   editorOptions={{ fixedOverflowWidgets: false }}
                   {...codeFieldset.inputProps}
                 />

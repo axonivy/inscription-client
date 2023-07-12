@@ -5,11 +5,12 @@ import CodeEditor, { CodeEditorProps } from './CodeEditor';
 
 export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'options' | 'onMount'>;
 
-type ResizableCodeEditorProps = Omit<CodeEditorProps, 'height'> & {
+type ResizableCodeEditorProps = Omit<CodeEditorProps, 'height' | 'context'> & {
+  location: string;
   initHeight?: number;
 };
 
-const ResizableCodeEditor = ({ initHeight, ...props }: ResizableCodeEditorProps) => {
+const ResizableCodeEditor = ({ initHeight, location, ...props }: ResizableCodeEditorProps) => {
   const [height, setHeight] = useState(initHeight ?? 90);
   const [resizeActive, setResizeActive] = useState(false);
   const { moveProps } = useMove({
@@ -26,7 +27,7 @@ const ResizableCodeEditor = ({ initHeight, ...props }: ResizableCodeEditorProps)
 
   return (
     <div className='resizable-code-editor'>
-      <CodeEditor {...props} height={height} />
+      <CodeEditor {...props} context={{ location }} height={height} />
       <hr className='resize-line' data-resize-active={resizeActive} {...moveProps} style={{ top: height }} />
     </div>
   );
