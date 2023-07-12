@@ -7,7 +7,7 @@ import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 export type CodeEditorProps = {
   value: string;
   onChange: (value: string) => void;
-  location: string;
+  context: { location: string; type?: string };
   macro?: boolean;
   height?: number;
   onMountFuncs?: Array<(editor: monaco.editor.IStandaloneCodeEditor) => void>;
@@ -15,7 +15,7 @@ export type CodeEditorProps = {
   id?: string;
 };
 
-const CodeEditor = ({ value, onChange, location, macro, onMountFuncs, options, id, ...props }: CodeEditorProps) => {
+const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, id, ...props }: CodeEditorProps) => {
   const editorContext = useEditorContext();
 
   const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
@@ -33,7 +33,7 @@ const CodeEditor = ({ value, onChange, location, macro, onMountFuncs, options, i
         defaultValue={value}
         value={value}
         defaultLanguage={language}
-        defaultPath={`${language}/${editorContext.pid}?location=${location ?? ''}`}
+        defaultPath={`${language}/${editorContext.pid}?location=${context.location}${context.type ? `&type=${context.type}` : ''}`}
         options={monacoOptions}
         theme={MonacoEditorUtil.DEFAULT_THEME_NAME}
         onChange={code => onChange(code ?? '')}

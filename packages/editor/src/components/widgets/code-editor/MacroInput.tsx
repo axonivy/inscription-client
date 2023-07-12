@@ -4,7 +4,9 @@ import { useCodeEditorOnFocus, useModifyEditor } from './useCodeEditor';
 import { Input } from '../input';
 import { Browser, useBrowser } from '../../../components/browser';
 
-const MacroInput = (props: CodeEditorInputProps) => {
+type MacroInputProps = Omit<CodeEditorInputProps, 'context'> & { location: string };
+
+const MacroInput = ({ location, ...props }: MacroInputProps) => {
   const { isFocusWithin, focusWithinProps } = useCodeEditorOnFocus();
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useModifyEditor();
@@ -14,8 +16,8 @@ const MacroInput = (props: CodeEditorInputProps) => {
     <div className='script-input' {...focusWithinProps} tabIndex={1}>
       {isFocusWithin || browser.open ? (
         <>
-          <SingleLineCodeEditor {...props} macro={true} onMountFuncs={[setEditor]} />
-          <Browser {...browser} types={['attr']} accept={value => modifyEditor(`<%=${value}%>`)} location={props.location} />
+          <SingleLineCodeEditor {...props} context={{ location }} macro={true} onMountFuncs={[setEditor]} />
+          <Browser {...browser} types={['attr']} accept={value => modifyEditor(`<%=${value}%>`)} location={location} />
         </>
       ) : (
         <Input {...props} />

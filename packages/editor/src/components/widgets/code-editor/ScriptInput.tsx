@@ -15,7 +15,7 @@ const ScriptInput = (props: CodeEditorInputProps) => {
       {isFocusWithin || browser.open ? (
         <>
           <SingleLineCodeEditor {...props} onMountFuncs={[setEditor]} />
-          <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} location={props.location} />
+          <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} location={props.context.location} />
         </>
       ) : (
         <Input {...props} />
