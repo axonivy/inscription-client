@@ -17,6 +17,8 @@ export interface InscriptionRequestTypes {
   data: [InscriptionDataArgs, InscriptionData];
   saveData: [InscriptionSaveData, InscriptionValidation[]];
 
+  validate: [InscriptionDataArgs, InscriptionValidation[]];
+
   'meta/start/dialogs': [InscriptionDataArgs, CallableStart[]];
   'meta/start/triggers': [InscriptionDataArgs, CallableStart[]];
   'meta/start/calls': [InscriptionDataArgs, CallableStart[]];

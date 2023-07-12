@@ -12,7 +12,8 @@ import {
   InscriptionValidation,
   VariableInfo,
   PID,
-  RoleMeta
+  RoleMeta,
+  InscriptionDataArgs
 } from '@axonivy/inscription-protocol';
 import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
 import { Disposable } from 'vscode-ws-jsonrpc';
@@ -43,6 +44,10 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
 
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {
     return this.sendRequest('saveData', { ...args });
+  }
+
+  validate(args: InscriptionDataArgs): Promise<InscriptionValidation[]> {
+    return this.sendRequest('validate', args);
   }
 
   dialogStarts(pid: PID): Promise<CallableStart[]> {

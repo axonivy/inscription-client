@@ -5,6 +5,7 @@ import {
   EventCodeMeta,
   InscriptionAction,
   InscriptionData,
+  InscriptionDataArgs,
   InscriptionSaveData,
   InscriptionValidation,
   PID,
@@ -24,6 +25,8 @@ export interface InscriptionClient {
   initialize(): Promise<boolean>;
   data(pid: PID): Promise<InscriptionData>;
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]>;
+
+  validate(args: InscriptionDataArgs): Promise<InscriptionValidation[]>;
 
   dialogStarts(pid: PID): Promise<CallableStart[]>;
   triggerStarts(pid: PID): Promise<CallableStart[]>;
