@@ -571,7 +571,6 @@ export interface SchemaKey {
   RestClient: {
     Common: "method" | "target" | "body" | "response";
     Body: "form" | "entity";
-    [k: string]: unknown;
   };
   Script: "sudo";
   Signal: "signalCode" | "attachToBusinessCase";
@@ -579,5 +578,4 @@ export interface SchemaKey {
   WebService: "clientId" | "operation" | "properties";
   Workflow: "task" | "tasks" | "case" | "page" | "customFields";
   WsProcess: "exception";
-  [k: string]: unknown;
 }
