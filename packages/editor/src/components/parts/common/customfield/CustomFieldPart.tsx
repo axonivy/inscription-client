@@ -1,11 +1,17 @@
-import { WfCustomField } from '@axonivy/inscription-protocol';
+import { CustomFieldType, WfCustomField } from '@axonivy/inscription-protocol';
 import { CollapsiblePart } from '../../../../components/widgets';
 import CustomFieldTable from './CustomFieldTable';
 
-const CustomFieldPart = (props: { customFields: WfCustomField[]; updateCustomFields: (customFields: WfCustomField[]) => void }) => {
+type CustomFieldPartProps = {
+  customFields: WfCustomField[];
+  updateCustomFields: (customFields: WfCustomField[]) => void;
+  type: CustomFieldType;
+};
+
+const CustomFieldPart = ({ customFields, updateCustomFields, type }: CustomFieldPartProps) => {
   return (
-    <CollapsiblePart collapsibleLabel='Custom Fields' defaultOpen={props.customFields.length > 0}>
-      <CustomFieldTable data={props.customFields} onChange={props.updateCustomFields} />
+    <CollapsiblePart collapsibleLabel='Custom Fields' defaultOpen={customFields.length > 0}>
+      <CustomFieldTable data={customFields} onChange={updateCustomFields} type={type} />
     </CollapsiblePart>
   );
 };

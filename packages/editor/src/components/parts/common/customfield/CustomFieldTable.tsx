@@ -1,4 +1,4 @@
-import { WfCustomField, CUSTOM_FIELD_TYPE } from '@axonivy/inscription-protocol';
+import { WfCustomField, CUSTOM_FIELD_TYPE, CustomFieldType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
@@ -14,8 +14,15 @@ import {
   TableAddRow,
   SortableHeader
 } from '../../../../components/widgets';
+import { useAction } from '../../../../context';
 
-const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfCustomField[]) => void }) => {
+type CustomFieldTableProps = {
+  data: WfCustomField[];
+  onChange: (change: WfCustomField[]) => void;
+  type: CustomFieldType;
+};
+
+const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
   const items = useMemo<SelectItem[]>(() => Object.entries(CUSTOM_FIELD_TYPE).map(([value, label]) => ({ label, value })), []);
 
   const columns = useMemo<ColumnDef<WfCustomField>[]>(
@@ -45,19 +52,19 @@ const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfC
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const addRow = () => {
-    const newData = [...props.data];
+    const newData = [...data];
     newData.push({ name: '', type: 'STRING', value: '' });
-    props.onChange(newData);
+    onChange(newData);
   };
 
   const removeTableRow = (index: number) => {
-    const newData = [...props.data];
+    const newData = [...data];
     newData.splice(index, 1);
-    props.onChange(newData);
+    onChange(newData);
   };
 
   const table = useReactTable({
-    data: props.data,
+    data: data,
     columns,
     state: { sorting },
     onSortingChange: setSorting,
@@ -66,11 +73,11 @@ const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfC
     meta: {
       updateData: (rowId: string, columnId: string, value: unknown) => {
         const rowIndex = parseInt(rowId);
-        props.onChange(
-          props.data.map((row, index) => {
+        onChange(
+          data.map((row, index) => {
             if (index === rowIndex) {
               return {
-                ...props.data[rowIndex]!,
+                ...data[rowIndex]!,
                 [columnId]: value
               };
             }
@@ -80,6 +87,8 @@ const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfC
       }
     }
   });
+
+  const action = useAction('openCustomField');
 
   return (
     <Table>
@@ -104,7 +113,11 @@ const CustomFieldTable = (props: { data: WfCustomField[]; onChange: (change: WfC
             <ActionCell
               actions={[
                 { label: 'Remove row', icon: IvyIcons.Delete, action: () => removeTableRow(row.index) },
-                { label: 'Open custom field configuration', icon: IvyIcons.GoToSource, action: () => {} }
+                {
+                  label: 'Open custom field configuration',
+                  icon: IvyIcons.GoToSource,
+                  action: () => action(`${type},${row.original.name}`)
+                }
               ]}
             />
           </tr>
