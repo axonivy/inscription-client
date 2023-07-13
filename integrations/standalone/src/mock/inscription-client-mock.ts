@@ -14,7 +14,8 @@ import {
   ConnectorRef,
   InscriptionAction,
   PID,
-  EventCodeMeta
+  EventCodeMeta,
+  InscriptionDataArgs
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
@@ -23,6 +24,7 @@ import { ValidationMock } from './validation-mock';
 import { MetaMock } from './meta-mock';
 
 export class InscriptionClientMock implements InscriptionClient {
+  private elementData = {} as ElementData;
   constructor(readonly readonly = false, readonly type: ElementType = 'UserTask') {}
 
   protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
@@ -42,19 +44,23 @@ export class InscriptionClientMock implements InscriptionClient {
       description: this.type,
       iconId: this.type
     };
-    let data = DataMock.mockForType(this.type) as ElementData;
-    this.onValidationEmitter.fire(ValidationMock.validateData({ data, pid, type: inscriptionType.id }));
+    this.elementData = DataMock.mockForType(this.type) as ElementData;
+    this.onValidationEmitter.fire(ValidationMock.validateData({ data: this.elementData, pid, type: inscriptionType.id }));
     return Promise.resolve({
       pid,
       type: inscriptionType,
       readonly: this.readonly,
-      data: deepmerge(DEFAULT_DATA, data),
+      data: deepmerge(DEFAULT_DATA, this.elementData),
       defaults: DEFAULT_DATA.config
     });
   }
 
   saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {
     return Promise.resolve(ValidationMock.validateData(args));
+  }
+
+  validate(args: InscriptionDataArgs): Promise<InscriptionValidation[]> {
+    return Promise.resolve(ValidationMock.validateData({ pid: args.pid, data: this.elementData, type: this.type }));
   }
 
   dialogStarts(pid: PID): Promise<CallableStart[]> {

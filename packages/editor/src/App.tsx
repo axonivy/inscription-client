@@ -44,6 +44,7 @@ function App(props: AppProps) {
       .data(props.pid)
       .then(initData)
       .catch(error => setAppState(errorState(error)));
+    client.validate({ pid: props.pid }).then(setValidation).catch(console.error);
   }, [client, props.pid, initData]);
 
   useEffect(() => {

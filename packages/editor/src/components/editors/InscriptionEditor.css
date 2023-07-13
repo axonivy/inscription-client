@@ -57,7 +57,9 @@ button:disabled {
 .header-messages {
   display: flex;
   flex-direction: column;
-  padding: 0 var(--size-4);
+  margin: 0 var(--size-4);
+  max-height: calc(15px * 2 + var(--size-1) * 4);
+  overflow: auto;
 }
 .header-status {
   padding: var(--size-1);
