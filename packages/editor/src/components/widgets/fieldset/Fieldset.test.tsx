@@ -1,8 +1,9 @@
 import { Message } from '../../props/message';
-import Fieldset, { useFieldset } from './Fieldset';
+import Fieldset from './Fieldset';
 import { render, renderHook, screen, userEvent } from 'test-utils';
-import { FieldsetControl } from './Fieldset';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { useFieldset } from './useFieldset';
+import { FieldsetControl } from './fieldset-control';
 
 describe('Fieldset', () => {
   function renderFieldset(options?: { controls?: FieldsetControl[]; message?: Message }) {
