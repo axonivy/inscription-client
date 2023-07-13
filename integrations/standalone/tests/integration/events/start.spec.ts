@@ -1,69 +1,79 @@
-import { test, expect } from '@playwright/test';
-import { inscriptionView } from '../../utils/engine-util';
+import { test } from '@playwright/test';
+import { InscriptionView } from '../../pageobjects/InscriptionView';
 import { CaseTest, NameTest, NameTestWithoutTags, OutputTest, fillReloadAndAssert } from '../parts';
-import { StartTest, StartTester } from '../parts/start';
 import { ErrorCatchTest } from '../parts/error-catch';
-import { SignalCatchTest } from '../parts/signal-catch';
 import { ResultTest, ResultTester } from '../parts/result';
+import { SignalCatchTest } from '../parts/signal-catch';
+import { StartTest, StartTester } from '../parts/start';
 
 test.describe('Start Events', () => {
   test('Start', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f15'));
-    await expect(page.getByText('Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, StartTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f15');
+    await inscriptionView.expectHeaderText('Start');
+    await fillReloadAndAssert(inscriptionView, [NameTest, StartTest]);
   });
 
   test('Signal Start', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f4'));
-    await expect(page.getByText('Signal Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, SignalCatchTest, OutputTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f4');
+    await inscriptionView.expectHeaderText('Signal Start');
+    await fillReloadAndAssert(inscriptionView, [NameTest, SignalCatchTest, OutputTest]);
   });
 
   test('Error Start', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f3'));
-    await expect(page.getByText('Error Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, ErrorCatchTest, OutputTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f3');
+    await inscriptionView.expectHeaderText('Error Start');
+    await fillReloadAndAssert(inscriptionView, [NameTest, ErrorCatchTest, OutputTest]);
   });
 
   test('Program Start', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f2'));
-    await expect(page.getByText('Program Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f2');
+    await inscriptionView.expectHeaderText('Program Start');
+    await fillReloadAndAssert(inscriptionView, [NameTest]);
   });
 
   test('Embedded Start', async ({ page }) => {
-    await page.goto(inscriptionView('0169A49845D37011-S10-g0'));
-    await expect(page.getByText('Embedded Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTestWithoutTags]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('0169A49845D37011-S10-g0');
+    await inscriptionView.expectHeaderText('Embedded Start');
+    await fillReloadAndAssert(inscriptionView, [NameTestWithoutTags]);
   });
 
   test('Sub Start', async ({ page }) => {
-    await page.goto(inscriptionView('169A4A2A4DC8B908-f0'));
-    await expect(page.getByText('Sub Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, StartTest, ResultTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4A2A4DC8B908-f0');
+    await inscriptionView.expectHeaderText('Sub Start');
+    await fillReloadAndAssert(inscriptionView, [NameTest, StartTest, ResultTest]);
   });
 
   test('WS Start', async ({ page }) => {
-    await page.goto(inscriptionView('169A4A3BFDC7DFFE-ws0'));
-    await expect(page.getByText('WS Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, StartTest, ResultTest, CaseTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4A3BFDC7DFFE-ws0');
+    await inscriptionView.expectHeaderText('WS Start');
+    await fillReloadAndAssert(inscriptionView, [NameTest, StartTest, ResultTest, CaseTest]);
   });
 
   test('Init Start', async ({ page }) => {
-    await page.goto(inscriptionView('167356B1245C7158-f0'));
-    await expect(page.getByText('Init Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, StartTest, ResultTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('167356B1245C7158-f0');
+    await inscriptionView.expectHeaderText('Init Start');
+    await fillReloadAndAssert(inscriptionView, [NameTest, StartTest, ResultTest]);
   });
 
   test('Method Start', async ({ page }) => {
-    await page.goto(inscriptionView('167356B1245C7158-f6'));
-    await expect(page.getByText('Method Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, new StartTester(true), new ResultTester(true)]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('167356B1245C7158-f6');
+    await inscriptionView.expectHeaderText('Method Start');
+    await fillReloadAndAssert(inscriptionView, [NameTest, new StartTester(true), new ResultTester(true)]);
   });
 
   test('Event Start', async ({ page }) => {
-    await page.goto(inscriptionView('167356B1245C7158-f3'));
-    await expect(page.getByText('Event Start').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, OutputTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('167356B1245C7158-f3');
+    await inscriptionView.expectHeaderText('Event Start');
+    await fillReloadAndAssert(inscriptionView, [NameTest, OutputTest]);
   });
 });

@@ -1,46 +1,54 @@
-import { test, expect } from '@playwright/test';
-import { inscriptionView } from '../../utils/engine-util';
+import { test } from '@playwright/test';
 import { NameTestWithoutTags, fillReloadAndAssert } from '../parts';
+import { InscriptionView } from '../../pageobjects/InscriptionView';
 
 test.describe('BPMN Activities', () => {
   test('Generic', async ({ page }) => {
-    await page.goto(inscriptionView('169A49F1790F4A32-G10'));
-    await expect(page.getByText('Generic').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTestWithoutTags]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A49F1790F4A32-G10');
+    await inscriptionView.expectHeaderText('Generic');
+    await fillReloadAndAssert(inscriptionView, [NameTestWithoutTags]);
   });
 
   test('User', async ({ page }) => {
-    await page.goto(inscriptionView('169A49F1790F4A32-U20'));
-    await expect(page.getByText('User').first()).toBeVisible();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A49F1790F4A32-U20');
+    await inscriptionView.expectHeaderText('User');
   });
 
   test('Manual', async ({ page }) => {
-    await page.goto(inscriptionView('169A49F1790F4A32-M30'));
-    await expect(page.getByText('Manual').first()).toBeVisible();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A49F1790F4A32-M30');
+    await inscriptionView.expectHeaderText('Manual');
   });
 
   test('Script', async ({ page }) => {
-    await page.goto(inscriptionView('169A49F1790F4A32-S80'));
-    await expect(page.getByText('Script').first()).toBeVisible();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A49F1790F4A32-S80');
+    await inscriptionView.expectHeaderText('Script');
   });
 
   test('Service', async ({ page }) => {
-    await page.goto(inscriptionView('169A49F1790F4A32-S70'));
-    await expect(page.getByText('Service').first()).toBeVisible();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A49F1790F4A32-S70');
+    await inscriptionView.expectHeaderText('Service');
   });
 
   test('Rule', async ({ page }) => {
-    await page.goto(inscriptionView('169A49F1790F4A32-R50'));
-    await expect(page.getByText('Rule').first()).toBeVisible();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A49F1790F4A32-R50');
+    await inscriptionView.expectHeaderText('Rule');
   });
 
   test('Receive', async ({ page }) => {
-    await page.goto(inscriptionView('169A49F1790F4A32-R40'));
-    await expect(page.getByText('Receive').first()).toBeVisible();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A49F1790F4A32-R40');
+    await inscriptionView.expectHeaderText('Receive');
   });
 
   test('Send', async ({ page }) => {
-    await page.goto(inscriptionView('169A49F1790F4A32-S60'));
-    await expect(page.getByText('Send').first()).toBeVisible();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A49F1790F4A32-S60');
+    await inscriptionView.expectHeaderText('Send');
   });
 });

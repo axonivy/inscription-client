@@ -1,41 +1,48 @@
-import { test, expect } from '@playwright/test';
-import { inscriptionView } from '../../utils/engine-util';
-import { AccordionUtil } from '../../utils/accordion-util';
-import { CodeEditorUtil, FocusCodeEditorUtil } from '../../utils/code-editor-util';
-import { CollapseUtil } from '../../utils/collapse-util';
+import { test } from '@playwright/test';
+import { InscriptionView } from '../../pageobjects/InscriptionView';
 
 test.describe('Widgets', () => {
   test('MacroInput', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f9'));
-    await expect(page.getByText('Task').first()).toBeVisible();
-    await AccordionUtil.toggle(page, 'Task');
-    await FocusCodeEditorUtil.triggerContentAssist(page, page.getByRole('textbox', { name: 'Name' }));
-    await FocusCodeEditorUtil.assertContentAssist(page, 'Insert Macro');
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f9');
+    const taskPart = inscriptionView.accordion('Task');
+    await taskPart.toggle();
+    const name = taskPart.macroInput('Name');
+    await name.triggerContentAssist();
+    await name.expectContentAssistContains('Insert Macro');
   });
 
   test('MacroArea', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f9'));
-    await expect(page.getByText('Task').first()).toBeVisible();
-    await AccordionUtil.toggle(page, 'Task');
-    await FocusCodeEditorUtil.triggerContentAssist(page, page.getByLabel('Description'));
-    await FocusCodeEditorUtil.assertContentAssist(page, 'Insert Macro');
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f9');
+    const taskPart = inscriptionView.accordion('Task');
+    await taskPart.toggle();
+    const description = taskPart.macroArea('Description');
+    await description.triggerContentAssist();
+    await description.expectContentAssistContains('Insert Macro');
   });
 
   test('ScriptArea', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f9'));
-    await expect(page.getByText('Task').first()).toBeVisible();
-    await AccordionUtil.toggle(page, 'Task');
-    await CollapseUtil.open(page, 'Code');
-    await CodeEditorUtil.triggerContentAssist(page);
-    await CodeEditorUtil.assertContentAssist(page, 'in1');
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f9');
+    const taskPart = inscriptionView.accordion('Task');
+    await taskPart.toggle();
+    const codeSection = taskPart.section('Code');
+    await codeSection.toggle();
+    const code = codeSection.scriptArea();
+    await code.triggerContentAssist();
+    await code.expectContentAssistContains('in1');
   });
 
   test('ScriptInput', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f9'));
-    await expect(page.getByText('Task').first()).toBeVisible();
-    await AccordionUtil.toggle(page, 'Task');
-    await CollapseUtil.open(page, 'Expiry');
-    await FocusCodeEditorUtil.triggerContentAssist(page, page.getByLabel('Timeout'));
-    await FocusCodeEditorUtil.assertContentAssist(page, 'in1');
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f9');
+    const taskPart = inscriptionView.accordion('Task');
+    await taskPart.toggle();
+    const expirySection = taskPart.section('Expiry');
+    await expirySection.toggle();
+    const timeout = expirySection.scriptInput('Timeout');
+    await timeout.triggerContentAssist();
+    await timeout.expectContentAssistContains('in1');
   });
 });

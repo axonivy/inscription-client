@@ -1,6 +1,7 @@
-import { Page, expect } from '@playwright/test';
-import { PartTest } from './part-tester';
+import { expect } from '@playwright/test';
+import { Part } from '../../pageobjects/Part';
 import { FocusCodeEditorUtil } from '../../utils/code-editor-util';
+import { PartTest } from './part-tester';
 
 export class MailHeaderTester implements PartTest {
   constructor(private readonly hasTags: boolean = true) {}
@@ -8,7 +9,7 @@ export class MailHeaderTester implements PartTest {
   partName() {
     return 'Header';
   }
-  async fill(page: Page) {
+  async fill({ page }: Part) {
     await FocusCodeEditorUtil.fill(page, page.getByLabel('Subject'), 'subject');
     await FocusCodeEditorUtil.fill(page, page.getByLabel('From'), 'from');
     await FocusCodeEditorUtil.fill(page, page.getByLabel('Reply To'), 'reply');
@@ -16,7 +17,7 @@ export class MailHeaderTester implements PartTest {
     await FocusCodeEditorUtil.fill(page, page.getByLabel('CC', { exact: true }), 'cc');
     await FocusCodeEditorUtil.fill(page, page.getByLabel('BCC'), 'bcc');
   }
-  async assertFill(page: Page) {
+  async assertFill({ page }: Part) {
     await expect(page.getByLabel('Subject')).toHaveValue('subject');
     await expect(page.getByLabel('From')).toHaveValue('from');
     await expect(page.getByLabel('Reply To')).toHaveValue('reply');
@@ -24,7 +25,7 @@ export class MailHeaderTester implements PartTest {
     await expect(page.getByLabel('CC', { exact: true })).toHaveValue('cc');
     await expect(page.getByLabel('BCC')).toHaveValue('bcc');
   }
-  async clear(page: Page) {
+  async clear({ page }: Part) {
     await FocusCodeEditorUtil.clear(page, page.getByLabel('Subject'));
     await FocusCodeEditorUtil.clear(page, page.getByLabel('From'));
     await FocusCodeEditorUtil.clear(page, page.getByLabel('Reply To'));
@@ -32,7 +33,7 @@ export class MailHeaderTester implements PartTest {
     await FocusCodeEditorUtil.clear(page, page.getByLabel('CC', { exact: true }));
     await FocusCodeEditorUtil.clear(page, page.getByLabel('BCC'));
   }
-  async assertClear(page: Page) {
+  async assertClear({ page }: Part) {
     await expect(page.getByLabel('Subject')).toBeEmpty();
     await expect(page.getByLabel('From')).toBeEmpty();
     await expect(page.getByLabel('Reply To')).toBeEmpty();

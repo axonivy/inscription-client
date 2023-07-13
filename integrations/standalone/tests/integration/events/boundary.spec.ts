@@ -1,19 +1,21 @@
-import { test, expect } from '@playwright/test';
-import { inscriptionView } from '../../utils/engine-util';
+import { test } from '@playwright/test';
 import { NameTest, OutputTest, fillReloadAndAssert } from '../parts';
 import { ErrorCatchTest } from '../parts/error-catch';
 import { SignalCatchTester } from '../parts/signal-catch';
+import { InscriptionView } from '../../pageobjects/InscriptionView';
 
 test.describe('Boundary Events', () => {
   test('Error Boundary', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f16'));
-    await expect(page.getByText('Error Boundary').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, ErrorCatchTest, OutputTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f16');
+    await inscriptionView.expectHeaderText('Error Boundary');
+    await fillReloadAndAssert(inscriptionView, [NameTest, ErrorCatchTest, OutputTest]);
   });
 
   test('Signal Boundary', async ({ page }) => {
-    await page.goto(inscriptionView('169A4921D0EF0B91-f17'));
-    await expect(page.getByText('Signal Boundary').first()).toBeVisible();
-    await fillReloadAndAssert(page, [NameTest, new SignalCatchTester(true), OutputTest]);
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.selectElement('169A4921D0EF0B91-f17');
+    await inscriptionView.expectHeaderText('Signal Boundary');
+    await fillReloadAndAssert(inscriptionView, [NameTest, new SignalCatchTester(true), OutputTest]);
   });
 });

@@ -1,12 +1,13 @@
-import { Page, expect } from '@playwright/test';
-import { PartTest } from './part-tester';
-import { TableUtil } from '../../utils/table-util';
-import { CollapseUtil } from '../../utils/collapse-util';
+import { expect } from '@playwright/test';
+import { Part } from '../../pageobjects/Part';
 import { FocusCodeEditorUtil } from '../../utils/code-editor-util';
+import { CollapseUtil } from '../../utils/collapse-util';
+import { TableUtil } from '../../utils/table-util';
+import { PartTest } from './part-tester';
 
 export const CaseTest: PartTest = {
   partName: () => 'Case',
-  fill: async (page: Page) => {
+  fill: async ({ page }: Part) => {
     await FocusCodeEditorUtil.fill(page, page.getByRole('textbox', { name: 'Name' }), 'case name');
     await FocusCodeEditorUtil.fill(page, page.getByLabel('Description'), 'case desc');
     await FocusCodeEditorUtil.fill(page, page.getByLabel('Category'), 'case cat');
@@ -15,19 +16,19 @@ export const CaseTest: PartTest = {
     await TableUtil.addRow(page);
     await TableUtil.fillRow(page, 0, ['cf', 'value']);
   },
-  assertFill: async (page: Page) => {
+  assertFill: async ({ page }: Part) => {
     await expect(page.getByRole('textbox', { name: 'Name' })).toHaveValue('case name');
     await expect(page.getByLabel('Description')).toHaveValue('case desc');
     await expect(page.getByLabel('Category')).toHaveValue('case cat');
     await TableUtil.assertRow(page, 0, ['cf', 'value']);
   },
-  clear: async (page: Page) => {
+  clear: async ({ page }: Part) => {
     await FocusCodeEditorUtil.clear(page, page.getByRole('textbox', { name: 'Name' }));
     await FocusCodeEditorUtil.clear(page, page.getByLabel('Description'));
     await FocusCodeEditorUtil.clear(page, page.getByLabel('Category'));
     await TableUtil.removeRow(page, 0);
   },
-  assertClear: async (page: Page) => {
+  assertClear: async ({ page }: Part) => {
     await expect(page.getByRole('textbox', { name: 'Name' })).toBeEmpty();
     await expect(page.getByLabel('Description')).toBeEmpty();
     await expect(page.getByLabel('Category')).toBeEmpty();

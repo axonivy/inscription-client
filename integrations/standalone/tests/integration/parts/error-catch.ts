@@ -1,21 +1,21 @@
-import { Page } from '@playwright/test';
-import { PartTest } from './part-tester';
+import { Part } from '../../pageobjects/Part';
 import { ComboboxUtil } from '../utils/combobox-util';
+import { PartTest } from './part-tester';
 
 export class ErrorCatchTester implements PartTest {
   partName() {
     return 'Error';
   }
-  async fill(page: Page) {
+  async fill({ page }: Part) {
     await ComboboxUtil.select(page, 'ivy:error');
   }
-  async assertFill(page: Page) {
+  async assertFill({ page }: Part) {
     await ComboboxUtil.assertSelect(page, 'ivy:error');
   }
-  async clear(page: Page) {
+  async clear({ page }: Part) {
     await ComboboxUtil.select(page, '');
   }
-  async assertClear(page: Page) {
+  async assertClear({ page }: Part) {
     await ComboboxUtil.assertSelect(page, '');
   }
 }

@@ -1,35 +1,39 @@
-import { Page } from '@playwright/test';
-import { AccordionUtil } from '../../utils/accordion-util';
+import { InscriptionView } from '../../pageobjects/InscriptionView';
+import { Part } from '../../pageobjects/Part';
 
 export interface PartTest {
   partName: () => string;
-  fill: (page: Page) => Promise<void>;
-  assertFill: (page: Page) => Promise<void>;
-  clear: (page: Page) => Promise<void>;
-  assertClear: (page: Page) => Promise<void>;
+  fill: (part: Part) => Promise<void>;
+  assertFill: (part: Part) => Promise<void>;
+  clear: (part: Part) => Promise<void>;
+  assertClear: (part: Part) => Promise<void>;
 }
 
-export async function fillReloadAndAssert(page: Page, tests: PartTest[]) {
+export async function fillReloadAndAssert(inscriptionView: InscriptionView, tests: PartTest[]) {
   for (const test of tests) {
-    await AccordionUtil.toggle(page, test.partName());
-    await test.fill(page);
-    await AccordionUtil.toggle(page, test.partName());
+    const accordion = inscriptionView.accordion(test.partName());
+    await accordion.toggle();
+    await test.fill(accordion);
+    await accordion.toggle();
   }
-  await page.reload();
+  await inscriptionView.reload();
   for (const test of tests) {
-    await AccordionUtil.toggle(page, test.partName());
-    await test.assertFill(page);
-    await AccordionUtil.toggle(page, test.partName());
+    const accordion = inscriptionView.accordion(test.partName());
+    await accordion.toggle();
+    await test.assertFill(accordion);
+    await accordion.toggle();
   }
   for (const test of tests) {
-    await AccordionUtil.toggle(page, test.partName());
-    await test.clear(page);
-    await AccordionUtil.toggle(page, test.partName());
+    const accordion = inscriptionView.accordion(test.partName());
+    await accordion.toggle();
+    await test.clear(accordion);
+    await accordion.toggle();
   }
-  await page.reload();
+  await inscriptionView.reload();
   for (const test of tests) {
-    await AccordionUtil.toggle(page, test.partName());
-    await test.assertClear(page);
-    await AccordionUtil.toggle(page, test.partName());
+    const accordion = inscriptionView.accordion(test.partName());
+    await accordion.toggle();
+    await test.assertClear(accordion);
+    await accordion.toggle();
   }
 }
