@@ -21,10 +21,10 @@ export type Severity = "INFO" | "WARNING" | "ERROR";
 export interface Inscription {
   inscriptionDataArgs: InscriptionDataArgs;
   inscriptionRequest: InscriptionRequest;
+  inscriptionValidation: InscriptionValidation[];
   boolean: boolean;
   inscriptionAction: InscriptionAction;
   inscriptionSaveRequest: InscriptionSaveRequest;
-  inscriptionValidation: InscriptionValidation[];
   callableStart: CallableStart[];
   scriptingDataArgs: ScriptingDataArgs;
   variableInfo: VariableInfo;
@@ -32,6 +32,7 @@ export interface Inscription {
   eventCodeMeta: EventCodeMeta[];
   roleMeta: RoleMeta[];
   connectorRef: ConnectorRef;
+  schemaKey: SchemaKey;
   [k: string]: unknown;
 }
 export interface InscriptionDataArgs {
@@ -491,6 +492,11 @@ export interface InscriptionType {
   label: string;
   shortLabel: string;
 }
+export interface InscriptionValidation {
+  message: string;
+  path: string;
+  severity: Severity;
+}
 export interface InscriptionAction {
   kind: string;
   payload: string;
@@ -499,11 +505,6 @@ export interface InscriptionAction {
 export interface InscriptionSaveRequest {
   data: Data;
   pid: PID;
-}
-export interface InscriptionValidation {
-  message: string;
-  path: string;
-  severity: Severity;
 }
 export interface CallableStart {
   callParameter: VariableInfo;
@@ -556,4 +557,27 @@ export interface NodeRef {
   name: string;
   pid: PID;
   type: InscriptionType;
+}
+export interface SchemaKey {
+  Common: "output" | "exceptionHandler" | "code" | "map";
+  Alternative: "conditions";
+  Cachable: "cache";
+  Callable: "signature" | "input" | "result" | "guid" | "params";
+  Caller: "dialog" | "processCall" | "call";
+  Database: "query";
+  Error: "errorCode" | "throws";
+  Mail: "headers" | "message" | "attachments" | "failIfMissingAttachments";
+  Programmed: "javaClass" | "userConfig" | "link" | "timeout" | "eventId";
+  RestClient: {
+    Common: "method" | "target" | "body" | "response";
+    Body: "form" | "entity";
+    [k: string]: unknown;
+  };
+  Script: "sudo";
+  Signal: "signalCode" | "attachToBusinessCase";
+  Start: "request" | "permission" | "triggerable" | "persistOnStart";
+  WebService: "clientId" | "operation" | "properties";
+  Workflow: "task" | "tasks" | "case" | "page" | "customFields";
+  WsProcess: "exception";
+  [k: string]: unknown;
 }
