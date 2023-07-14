@@ -3,7 +3,7 @@ import {
   ConnectorRef,
   ErrorMeta,
   EventCodeMeta,
-  InscriptionAction,
+  InscriptionActionArgs,
   InscriptionData,
   InscriptionDataArgs,
   InscriptionSaveData,
@@ -42,7 +42,7 @@ export interface InscriptionClient {
 
   connectorOf(pid: PID): Promise<ConnectorRef>;
 
-  action(action: InscriptionAction): void;
+  action(action: InscriptionActionArgs): void;
 
   onDataChanged: Event<InscriptionData>;
   onValidation: Event<InscriptionValidation[]>;

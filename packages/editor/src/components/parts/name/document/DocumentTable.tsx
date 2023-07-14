@@ -73,7 +73,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
     }
   });
 
-  const action = useAction('openDoc');
+  const action = useAction('openPage');
 
   return (
     <Table>

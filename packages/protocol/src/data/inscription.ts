@@ -17,7 +17,7 @@ export type IntermediateEventTimeoutAction = "NOTHING" | "DESTROY_TASK" | "CONTI
 export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | "OPTIONS" | "JAX_RS";
 export type InputType = "ENTITY" | "FORM" | "RAW";
 export type Severity = "INFO" | "WARNING" | "ERROR";
-export type ElementType = "START" | "TASK" | "CASE";
+export type CustomFieldConfigType = "START" | "TASK" | "CASE";
 
 export interface Inscription {
   inscriptionDataArgs: InscriptionDataArgs;
@@ -505,7 +505,7 @@ export interface InscriptionActionArgs {
 }
 export interface OpenCustomField {
   name: string;
-  type: ElementType;
+  type: CustomFieldConfigType;
 }
 export interface InscriptionSaveRequest {
   data: Data;

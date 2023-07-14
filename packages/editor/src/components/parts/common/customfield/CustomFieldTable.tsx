@@ -1,4 +1,4 @@
-import { WfCustomField, CUSTOM_FIELD_TYPE, CustomFieldType } from '@axonivy/inscription-protocol';
+import { WfCustomField, CUSTOM_FIELD_TYPE, CustomFieldConfigType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
@@ -19,7 +19,7 @@ import { useAction } from '../../../../context';
 type CustomFieldTableProps = {
   data: WfCustomField[];
   onChange: (change: WfCustomField[]) => void;
-  type: CustomFieldType;
+  type: CustomFieldConfigType;
 };
 
 const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {

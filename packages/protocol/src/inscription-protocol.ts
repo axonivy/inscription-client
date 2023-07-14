@@ -3,7 +3,7 @@ import {
   ConnectorRef,
   ErrorMeta,
   EventCodeMeta,
-  InscriptionAction,
+  InscriptionActionArgs,
   InscriptionDataArgs,
   InscriptionValidation,
   RoleMeta,
@@ -33,7 +33,7 @@ export interface InscriptionRequestTypes {
 
   'meta/connector/of': [InscriptionDataArgs, ConnectorRef];
 
-  action: [InscriptionAction, void];
+  action: [InscriptionActionArgs, void];
 }
 
 export interface InscriptionNotificationTypes {
