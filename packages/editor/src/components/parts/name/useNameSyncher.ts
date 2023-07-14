@@ -11,10 +11,12 @@ export function useNameSyncher(syncher: () => string) {
   const [isInSynch, setInSynch] = useState<boolean>();
 
   useEffect(() => {
-    if (isInSynch) {
-      update('name', syncher());
+    const newName = syncher();
+    if (isInSynch && data.name !== newName) {
+      update('name', newName);
+      setInSynch(false);
     }
-  }, [isInSynch, update, syncher]);
+  }, [isInSynch, update, syncher, data.name]);
 
   useEffect(() => {
     setInSynch(data.name === syncher());
