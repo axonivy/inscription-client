@@ -17,13 +17,14 @@ export type IntermediateEventTimeoutAction = "NOTHING" | "DESTROY_TASK" | "CONTI
 export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | "OPTIONS" | "JAX_RS";
 export type InputType = "ENTITY" | "FORM" | "RAW";
 export type Severity = "INFO" | "WARNING" | "ERROR";
+export type ElementType = "START" | "TASK" | "CASE";
 
 export interface Inscription {
   inscriptionDataArgs: InscriptionDataArgs;
   inscriptionRequest: InscriptionRequest;
   inscriptionValidation: InscriptionValidation[];
   boolean: boolean;
-  inscriptionAction: InscriptionAction;
+  inscriptionActionArgs: InscriptionActionArgs;
   inscriptionSaveRequest: InscriptionSaveRequest;
   callableStart: CallableStart[];
   scriptingDataArgs: ScriptingDataArgs;
@@ -497,10 +498,14 @@ export interface InscriptionValidation {
   path: string;
   severity: Severity;
 }
-export interface InscriptionAction {
-  kind: string;
-  payload: string;
+export interface InscriptionActionArgs {
+  actionId: "openEndPage" | "newProcess" | "newHtmlDialog" | "openCustomField" | "openPage";
+  payload: string | OpenCustomField;
   pid: PID;
+}
+export interface OpenCustomField {
+  name: string;
+  type: ElementType;
 }
 export interface InscriptionSaveRequest {
   data: Data;
