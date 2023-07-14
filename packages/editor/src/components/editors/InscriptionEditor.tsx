@@ -28,7 +28,7 @@ export interface EditorProps {
 
 const Header = (props: EditorProps) => {
   const { data } = useNameData();
-  const { validation } = useDataContext();
+  const { validations } = useDataContext();
   const editorContext = useEditorContext();
   return (
     <>
@@ -48,9 +48,9 @@ const Header = (props: EditorProps) => {
           <DropdownMenu />
         </div>
       </div>
-      {validation.length > 0 && (
+      {validations.length > 0 && (
         <div className='header-messages'>
-          {validation.map((state, index) => (
+          {validations.map((state, index) => (
             <div key={index} className={`header-status message-${state.severity.toString().toLowerCase()}`}>
               <IvyIcon icon={state.severity} />
               {state.message}

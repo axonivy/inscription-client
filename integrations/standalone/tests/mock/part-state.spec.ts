@@ -1,26 +1,25 @@
-import { test, expect, Locator } from '@playwright/test';
+import { test } from '@playwright/test';
 import { selectDialog } from './combobox-util';
+import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Part states', () => {
   test('different states on different parts', async ({ page }) => {
-    await page.goto('mock.html');
-    const name = page.getByRole('button', { name: 'Name' }).locator('.accordion-state');
-    const call = page.getByRole('button', { name: 'Call' }).locator('.accordion-state');
-    await assertTabState(name, 'configured');
-    await assertTabState(call, 'warning');
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.mock();
+    const casePart = inscriptionView.accordion('Case');
+    const callPart = inscriptionView.accordion('Call');
 
-    await page.getByRole('button', { name: 'Name' }).click();
-    await page.getByLabel('Display name').clear();
-    await assertTabState(name, 'error');
-    await assertTabState(call, 'warning');
+    await casePart.expectState('configured');
+    await callPart.expectState('warning');
 
-    await page.getByRole('button', { name: 'Call' }).click();
+    await casePart.toggle();
+    casePart.macroInput('Name').clear();
+    await casePart.expectState('error');
+    await callPart.expectState('warning');
+
+    await callPart.toggle();
     await selectDialog(page);
-    await assertTabState(name, 'error');
-    await assertTabState(call, 'configured');
+    await casePart.expectState('error');
+    await callPart.expectState('configured');
   });
-
-  async function assertTabState(tab: Locator, state: string): Promise<void> {
-    await expect(tab).toHaveAttribute('data-state', state);
-  }
 });

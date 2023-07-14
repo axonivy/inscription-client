@@ -1,6 +1,3 @@
-import { Severity } from '@axonivy/inscription-protocol';
+import { InscriptionValidation } from '@axonivy/inscription-protocol';
 
-export interface Message {
-  severity: Severity;
-  message: string;
-}
+export type Message = Omit<InscriptionValidation, 'path'>;

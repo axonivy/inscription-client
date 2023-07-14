@@ -29,7 +29,7 @@ type ContextHelperProps = {
   setData?: (data: ElementData) => void;
   defaultData?: DeepPartial<ConfigData>;
   initData?: DeepPartial<ElementData>;
-  validation?: InscriptionValidation[];
+  validations?: InscriptionValidation[];
   meta?: {
     roles?: RoleMeta[];
     expiryErrors?: ErrorMeta[];
@@ -59,7 +59,7 @@ const ContextHelper = (
     defaultData: props.defaultData ? deepmerge(DEFAULT_DATA.config, props.defaultData) : DEFAULT_DATA.config,
     // @ts-ignore
     initData: props.initData ? deepmerge(DEFAULT_DATA, props.initData) : DEFAULT_DATA,
-    validation: props.validation ?? []
+    validations: props.validations ?? []
   };
   const client: ClientContext = {
     // @ts-ignore

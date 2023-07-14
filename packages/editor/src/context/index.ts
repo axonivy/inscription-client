@@ -4,3 +4,4 @@ export * from './useValidation';
 export * from './useEditorContext';
 export * from './useTheme';
 export * from './useAction';
+export * from './usePath';

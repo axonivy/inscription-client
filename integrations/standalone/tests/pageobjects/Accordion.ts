@@ -1,6 +1,7 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 import { Part } from './Part';
 import { Tab } from './Tab';
+import { PartState } from '@axonivy/inscription-editor';
 
 export class Accordion extends Part {
   private readonly toggleButtonLocator: Locator;
@@ -24,5 +25,10 @@ export class Accordion extends Part {
 
   tab(label: string) {
     return new Tab(this.page, this.locator, label);
+  }
+
+  async expectState(state: PartState) {
+    const stateLocator = this.locator.locator('.accordion-state');
+    await expect(stateLocator).toHaveAttribute('data-state', state);
   }
 }

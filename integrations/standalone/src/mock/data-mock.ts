@@ -29,6 +29,10 @@ export namespace DataMock {
       task: {
         name: 'user task'
       },
+      case: {
+        name: 'case',
+        description: 'desc'
+      },
       output: {
         map: {
           'out.amount': '123',

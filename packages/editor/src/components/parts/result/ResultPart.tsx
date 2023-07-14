@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { CollapsiblePart, Fieldset, ScriptArea, useFieldset } from '../../widgets';
+import { CollapsiblePart, ScriptArea, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useResultData } from './useResultData';
 import { VariableInfo, ResultData, Variable } from '@axonivy/inscription-protocol';
-import { useClient, useEditorContext } from '../../../context';
+import { PathContext, useClient, useEditorContext, usePartValidation } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
+import { PathFieldset } from '../common/path/PathFieldset';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useResultData();
   const compareData = (data: ResultData) => [data.result];
-  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const validations = usePartValidation('result');
+  const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
     name: 'Result',
@@ -41,19 +43,14 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   const codeFieldset = useFieldset();
 
   return (
-    <>
+    <PathContext path='result'>
       <CollapsiblePart collapsibleLabel='Result parameters'>
         <ParameterTable data={config.result.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
       </CollapsiblePart>
-      <MappingTree data={config.result.map} variableInfo={variableInfo} onChange={change => update('map', change)} location='result.code' />
-      <Fieldset label='Code' {...codeFieldset.labelProps}>
-        <ScriptArea
-          value={config.result.code}
-          onChange={change => update('code', change)}
-          location='result.code'
-          {...codeFieldset.inputProps}
-        />
-      </Fieldset>
-    </>
+      <MappingTree data={config.result.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
+      <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
+        <ScriptArea value={config.result.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
+      </PathFieldset>
+    </PathContext>
   );
 };

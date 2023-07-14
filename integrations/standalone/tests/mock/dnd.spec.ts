@@ -1,10 +1,12 @@
 import { expect, test } from '@playwright/test';
+import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Drag and drop features', () => {
   test('Alternative condition reorder', async ({ page }) => {
-    await page.goto('mock.html?type=Alternative');
-    const conditions = page.getByRole('button', { name: 'Condition' });
-    await conditions.click();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.mock({ type: 'Alternative' });
+    const conditions = inscriptionView.accordion('Condition');
+    await conditions.toggle();
 
     const rows = page.locator('.dnd-row');
     await expect(rows).toHaveCount(2);

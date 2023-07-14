@@ -19,10 +19,10 @@ declare module '@tanstack/react-table' {
 
 type ScriptCellProps<TData> = {
   cell: CellContext<TData, unknown>;
-  context: { type: string; location: string };
+  type: string;
 };
 
-export function ScriptCell<TData>({ cell, context }: ScriptCellProps<TData>) {
+export function ScriptCell<TData>({ cell, type }: ScriptCellProps<TData>) {
   const initialValue = cell.getValue();
   const [value, setValue] = useState(initialValue);
   const updateValue = (open: boolean) => {
@@ -39,7 +39,7 @@ export function ScriptCell<TData>({ cell, context }: ScriptCellProps<TData>) {
 
   return (
     <>
-      {context.type.length === 0 ? (
+      {type.length === 0 ? (
         <Input value={value as string} onChange={setValue} onBlur={() => updateValue(false)} />
       ) : (
         <Popover onOpenChange={updateValue}>
@@ -52,7 +52,7 @@ export function ScriptCell<TData>({ cell, context }: ScriptCellProps<TData>) {
                 <ScriptInput
                   value={value as string}
                   onChange={setValue}
-                  context={context}
+                  type={type}
                   editorOptions={{ fixedOverflowWidgets: false }}
                   {...codeFieldset.inputProps}
                 />

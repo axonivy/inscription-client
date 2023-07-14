@@ -1,10 +1,13 @@
 import { Page, expect, test } from '@playwright/test';
 import { CodeEditorUtil } from '../utils/code-editor-util';
+import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Script browser', () => {
   test('browser add to input', async ({ page }) => {
-    await page.goto('mock.html');
-    await page.getByRole('button', { name: 'Task' }).click();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.mock();
+    const task = inscriptionView.accordion('Task');
+    await task.toggle();
 
     await assertCodeHidden(page);
     await page.getByLabel('Description').click();
@@ -15,8 +18,10 @@ test.describe('Script browser', () => {
   });
 
   test('browser replace selection', async ({ page }) => {
-    await page.goto('mock.html');
-    await page.getByRole('button', { name: 'Task' }).click();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.mock();
+    const task = inscriptionView.accordion('Task');
+    await task.toggle();
 
     await assertCodeHidden(page);
     await page.getByLabel('Category').click();

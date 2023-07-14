@@ -10,7 +10,8 @@ type EditorOptions = {
   };
 };
 
-export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs'> & EditorOptions;
+export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs' | 'context'> &
+  EditorOptions;
 
 const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, ...props }: CodeEditorProps & EditorOptions) => {
   const mountFuncs = onMountFuncs ? onMountFuncs : [];

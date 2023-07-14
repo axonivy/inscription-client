@@ -18,16 +18,16 @@ import {
   ScriptCell,
   ExpandableCell,
   ExpandableHeader,
-  Fieldset,
   FieldsetControl,
   Table,
   TableCell,
   TableHeader
 } from '../../../../components/widgets';
+import { PathFieldset } from '../path/PathFieldset';
 
-type MappingTreeProps = { data: Mapping; variableInfo: VariableInfo; onChange: (change: Mapping) => void; location: string };
+type MappingTreeProps = { data: Mapping; variableInfo: VariableInfo; onChange: (change: Mapping) => void };
 
-const MappingTree = ({ data, variableInfo, onChange, location }: MappingTreeProps) => {
+const MappingTree = ({ data, variableInfo, onChange }: MappingTreeProps) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
   const [showGlobalFilter, setShowGlobalFilter] = useState(false);
   const [showOnlyInscribed, setShowOnlyInscribed] = useState(false);
@@ -73,12 +73,12 @@ const MappingTree = ({ data, variableInfo, onChange, location }: MappingTreeProp
         accessorFn: row => row.value,
         id: 'value',
         header: () => <span>Expression</span>,
-        cell: cell => <ScriptCell cell={cell} context={{ type: cell.row.original.type, location: location }} />,
+        cell: cell => <ScriptCell cell={cell} type={cell.row.original.type} />,
         footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
       }
     ],
-    [loadChildren, location]
+    [loadChildren]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -135,7 +135,7 @@ const MappingTree = ({ data, variableInfo, onChange, location }: MappingTreeProp
   });
 
   return (
-    <Fieldset label='Mapping' controls={tableControls}>
+    <PathFieldset label='Mapping' controls={tableControls} path='map'>
       <Table search={showGlobalFilter ? { value: globalFilter, onChange: setGlobalFilter } : undefined}>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
@@ -158,7 +158,7 @@ const MappingTree = ({ data, variableInfo, onChange, location }: MappingTreeProp
           ))}
         </tbody>
       </Table>
-    </Fieldset>
+    </PathFieldset>
   );
 };
 

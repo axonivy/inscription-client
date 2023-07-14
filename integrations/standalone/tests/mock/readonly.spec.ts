@@ -1,15 +1,20 @@
 import { test, expect } from '@playwright/test';
+import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Readonly', () => {
   test('edit mode', async ({ page }) => {
-    await page.goto('mock.html');
-    await page.getByRole('button', { name: 'Name' }).click();
-    await expect(page.getByLabel('Display name')).not.toBeDisabled();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.mock();
+    const name = inscriptionView.accordion('Name');
+    await name.toggle();
+    await expect(name.input('Display name')).not.toBeDisabled();
   });
 
   test('readonly mode', async ({ page }) => {
-    await page.goto('mock.html?readonly=true');
-    await page.getByRole('button', { name: 'Name' }).click();
-    await expect(page.getByLabel('Display name')).toBeDisabled();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.mock({ readonly: true });
+    const name = inscriptionView.accordion('Name');
+    await name.toggle();
+    await expect(name.input('Display name')).toBeDisabled();
   });
 });

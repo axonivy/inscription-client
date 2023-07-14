@@ -8,7 +8,7 @@ export interface DataContext {
   setData: UpdateConsumer<ElementData>;
   defaultData: ConfigData;
   initData: ElementData;
-  validation: InscriptionValidation[];
+  validations: InscriptionValidation[];
 }
 
 const defaultDataContext: any = undefined;

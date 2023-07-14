@@ -16,7 +16,7 @@ describe('Editor', () => {
       { name: 'Result', content: <ErrorWidget /> }
     ];
     render(<InscriptionEditor icon={IvyIcons.Add} parts={parts} />, {
-      wrapperProps: { validation: options.headerState, editor: { title: 'Test Editor' } }
+      wrapperProps: { validations: options.headerState, editor: { title: 'Test Editor' } }
     });
   }
 

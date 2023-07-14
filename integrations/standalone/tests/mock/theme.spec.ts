@@ -1,4 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
+import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Theme mode dark', () => {
   test.use({
@@ -6,12 +7,12 @@ test.describe('Theme mode dark', () => {
   });
 
   test('dark browser', async ({ page, colorScheme: dark }) => {
-    await page.goto('mock.html');
+    await new InscriptionView(page).mock();
     await assertThemeMode(page, 'dark');
   });
 
   test('light param', async ({ page }) => {
-    await page.goto('mock.html?theme=light');
+    await new InscriptionView(page).mock({ theme: 'light' });
     await assertThemeMode(page, 'light');
   });
 });
@@ -22,12 +23,12 @@ test.describe('Theme mode light', () => {
   });
 
   test('light browser', async ({ page, colorScheme: dark }) => {
-    await page.goto('mock.html');
+    await new InscriptionView(page).mock();
     await assertThemeMode(page, 'light');
   });
 
   test('dark param', async ({ page }) => {
-    await page.goto('mock.html?theme=dark');
+    await new InscriptionView(page).mock({ theme: 'dark' });
     await assertThemeMode(page, 'dark');
   });
 });

@@ -13,18 +13,20 @@ export namespace ValidationMock {
 
   function validateDialogCallEditor(data: any): InscriptionValidation[] {
     const msgs: InscriptionValidation[] = [];
-    msgs.push(...validateNameData(data));
+    msgs.push(...validateCaseData(data));
     msgs.push(...validateCallData(data));
     return msgs;
   }
 
-  function validateNameData(data: ElementData): InscriptionValidation[] {
+  function validateCaseData(data: ElementData): InscriptionValidation[] {
     const msgs: InscriptionValidation[] = [];
-    if (data.name === undefined || data.name.length === 0) {
-      msgs.push({ path: 'name', severity: 'ERROR', message: 'Display name must not be empty' });
+    const name = data.config.case?.name;
+    const desc = data.config.case?.description;
+    if (name === undefined || name.length === 0) {
+      msgs.push({ path: 'case.name', severity: 'ERROR', message: 'Name must not be empty' });
     }
-    if (data.description === undefined || data.description.length === 0) {
-      msgs.push({ path: 'description', severity: 'WARNING', message: 'Description is empty' });
+    if (desc === undefined || desc.length === 0) {
+      msgs.push({ path: 'case.description', severity: 'WARNING', message: 'Description is empty' });
     }
     return msgs;
   }
@@ -32,7 +34,7 @@ export namespace ValidationMock {
   function validateCallData(data: ElementData): InscriptionValidation[] {
     const msgs: InscriptionValidation[] = [];
     if (data.config.dialog === undefined || data.config.dialog.length === 0) {
-      msgs.push({ path: 'config/dialog', severity: 'WARNING', message: 'No User Dialog specified, auto dialog will be shown.' });
+      msgs.push({ path: 'dialog', severity: 'WARNING', message: 'No User Dialog specified, auto dialog will be shown.' });
     }
     return msgs;
   }
