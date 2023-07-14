@@ -12,11 +12,11 @@ describe('CustomFieldTable', () => {
     rerender: () => void;
   } {
     let data: WfCustomField[] = customFields;
-    const view = render(<CustomFieldTable data={data} onChange={change => (data = change)} />);
+    const view = render(<CustomFieldTable data={data} onChange={change => (data = change)} type='CASE' />);
     return {
       data: () => data,
       // eslint-disable-next-line testing-library/no-unnecessary-act
-      rerender: () => view.rerender(<CustomFieldTable data={data} onChange={change => (data = change)} />)
+      rerender: () => view.rerender(<CustomFieldTable data={data} onChange={change => (data = change)} type='CASE' />)
     };
   }
 
@@ -69,7 +69,7 @@ describe('CustomFieldTable', () => {
   });
 
   test('table support readonly mode', async () => {
-    render(<CustomFieldTable data={customFields} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
+    render(<CustomFieldTable data={customFields} onChange={() => {}} type='CASE' />, { wrapperProps: { editor: { readonly: true } } });
     TableUtil.assertReadonly();
     expect(screen.getByDisplayValue(/field1/)).toBeDisabled();
     expect(screen.getAllByRole('combobox')[0]).toBeDisabled();

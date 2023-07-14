@@ -1,5 +1,9 @@
+export type CustomFieldType = 'START' | 'TASK' | 'CASE';
+
 export interface InscriptionActionHandlers {
   newHtmlDialog: undefined;
   newProcess: undefined;
-  openFile: string;
+  openPage: string;
+  openCustomField: `${CustomFieldType},${string}`;
+  openDoc: string;
 }

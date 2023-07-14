@@ -4,7 +4,7 @@ import CustomFieldPart from './CustomFieldPart';
 
 describe('CustomFieldPart', () => {
   function renderTable(customFields?: WfCustomField[]) {
-    render(<CustomFieldPart customFields={customFields ?? []} updateCustomFields={() => {}} />);
+    render(<CustomFieldPart customFields={customFields ?? []} updateCustomFields={() => {}} type='CASE' />);
   }
 
   test('part render empty', async () => {

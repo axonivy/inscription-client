@@ -40,7 +40,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
       <PrioritySelect priority={task.priority} updatePriority={updatePriority} />
       {props.showPersist ? <PersistPart /> : <TaskListPart />}
       <ExpiryPart />
-      <CustomFieldPart customFields={task.customFields} updateCustomFields={change => update('customFields', change)} />
+      <CustomFieldPart customFields={task.customFields} updateCustomFields={change => update('customFields', change)} type='TASK' />
       <CollapsiblePart collapsibleLabel='Code' defaultOpen={task.code.length > 0}>
         <ScriptArea value={task.code} onChange={change => update('code', change)} location='task.code' />
       </CollapsiblePart>

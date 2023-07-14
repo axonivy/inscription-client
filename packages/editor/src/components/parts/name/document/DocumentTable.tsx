@@ -12,6 +12,7 @@ import {
   TableFooter,
   TableHeader
 } from '../../../../components/widgets';
+import { useAction } from '../../../../context';
 
 const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change: Document[]) => void }) => {
   const columns = React.useMemo<ColumnDef<Document>[]>(
@@ -72,6 +73,8 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
     }
   });
 
+  const action = useAction('openDoc');
+
   return (
     <Table>
       <thead>
@@ -96,7 +99,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
               actions={[
                 { label: 'Remove row', icon: IvyIcons.Delete, action: () => removeTableRow(row.index) },
                 { label: 'Browse', icon: IvyIcons.Search, action: () => {} },
-                { label: 'Open URL', icon: IvyIcons.GoToSource, action: () => {} }
+                { label: 'Open URL', icon: IvyIcons.GoToSource, action: () => action(row.original.url) }
               ]}
             />
           </tr>

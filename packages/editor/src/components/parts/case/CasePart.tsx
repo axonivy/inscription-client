@@ -44,7 +44,7 @@ const CasePart = () => {
           {...catFieldset.inputProps}
         />
       </Fieldset>
-      <CustomFieldPart customFields={config.case.customFields} updateCustomFields={change => update('customFields', change)} />
+      <CustomFieldPart customFields={config.case.customFields} updateCustomFields={change => update('customFields', change)} type='CASE' />
     </>
   );
 };
