@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useFieldset } from '../../widgets';
 import { useErrorCatchData } from './useErrorCatchData';
-import { useClient, useEditorContext, usePartValidation } from '../../../context';
+import { useClient, useEditorContext, useValidations } from '../../../context';
 import EventCodeSelect, { EventCodeItem } from '../common/eventcode/EventCodeSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useDefaultNameSyncher } from '../name/useNameSyncher';
@@ -12,7 +12,7 @@ import { PathFieldset } from '../common/path/PathFieldset';
 export function useErrorCatchPart(): PartProps {
   const { config, defaultConfig, initConfig, update } = useErrorCatchData();
   const compareData = (data: ErrorCatchData) => [data.errorCode];
-  const validations = usePartValidation('errorCode');
+  const validations = useValidations('errorCode');
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {

@@ -4,12 +4,12 @@ import TaskPart from './task/TaskPart';
 import { useTaskData } from './useTaskData';
 import { EmptyWidget } from '../../widgets';
 import { WfTask } from '@axonivy/inscription-protocol';
-import { usePartValidation } from '../../../context';
+import { useValidations } from '../../../context';
 
 export function useSingleTaskPart(options?: { showPersist?: boolean }): PartProps {
   const { task, defaultTask, initTask, resetTask } = useTaskData();
   const { config, defaultConfig, initConfig, updatePersist } = useTaskPersistData();
-  const validations = usePartValidation('task');
+  const validations = useValidations('task');
   const compareData = (task: WfTask, persist: TaskPersistData) => [task, options?.showPersist ? persist.persist : ''];
   const state = usePartState(compareData(defaultTask, defaultConfig), compareData(task, config), validations);
   const dirty = usePartDirty(compareData(initTask, initConfig), compareData(task, config));

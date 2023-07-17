@@ -4,7 +4,7 @@ import { Checkbox, useFieldset } from '../../widgets';
 import EventCodeSelect, { EventCodeItem } from '../common/eventcode/EventCodeSelect';
 import { useSignalCatchData } from './useSignalCatchData';
 import { useEffect, useState } from 'react';
-import { useClient, useEditorContext, usePartValidation } from '../../../context';
+import { useClient, useEditorContext, useValidations } from '../../../context';
 import { useDefaultNameSyncher } from '../name/useNameSyncher';
 import { SignalCatchData } from '@axonivy/inscription-protocol';
 import { PathFieldset } from '../common/path/PathFieldset';
@@ -12,7 +12,7 @@ import { PathFieldset } from '../common/path/PathFieldset';
 export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useSignalCatchData();
   const compareData = (data: SignalCatchData) => [data.signalCode, options?.makroSupport ? '' : data.attachToBusinessCase];
-  const validations = usePartValidation('signalCode');
+  const validations = useValidations('signalCode');
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {

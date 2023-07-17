@@ -11,16 +11,16 @@
   margin-block: calc(-1 * var(--size-1));
 }
 .table tr :where(th, td) {
-  border-top: 1px solid var(--editor-bg);
-  border-bottom: 1px solid var(--editor-bg);
+  border-top: var(--row-border);
+  border-bottom: var(--row-border);
 }
 .table tr :where(th, td):first-child {
-  border-left: 1px solid var(--editor-bg);
+  border-left: var(--row-border);
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
 }
 .table tr :where(th, td):last-child {
-  border-right: 1px solid var(--editor-bg);
+  border-right: var(--row-border);
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }

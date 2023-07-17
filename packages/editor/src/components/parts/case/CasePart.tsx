@@ -3,12 +3,12 @@ import { PartProps, usePartDirty, usePartState } from '../../props';
 import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
 import { CaseData } from '@axonivy/inscription-protocol';
-import { PathContext, usePartValidation } from '../../../context';
+import { PathContext, useValidations } from '../../../context';
 import { PathFieldset } from '../common/path/PathFieldset';
 
 export function useCasePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useCaseData();
-  const validaitons = usePartValidation('case');
+  const validaitons = useValidations('case');
   const compareData = (data: CaseData) => [data.case];
   const state = usePartState(compareData(defaultConfig), compareData(config), validaitons);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));

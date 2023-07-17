@@ -4,12 +4,12 @@ import React, { ReactNode, useContext } from 'react';
 type FullPath = Brand<string, 'Path'>;
 const PathContextInstance = React.createContext<FullPath | SchemaKeys | ''>('');
 
-export const useFullPath = (path: SchemaKeys) => {
+export const useFullPath = (path?: SchemaKeys) => {
   const parentPath = useContext(PathContextInstance);
   if (parentPath.length === 0) {
     return path as FullPath;
   }
-  if (path.length === 0) {
+  if (path === undefined || path.length === 0) {
     return parentPath as FullPath;
   }
   return `${parentPath}.${path}` as FullPath;

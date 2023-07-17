@@ -1,6 +1,6 @@
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useConditionData } from './useConditionData';
-import { PathContext, useClient, useEditorContext, usePartValidation } from '../../../context';
+import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
 import { useEffect, useState } from 'react';
 import { Condition } from './condition';
 import { PID } from '../../../utils/pid';
@@ -10,7 +10,7 @@ import { ConditionData } from '@axonivy/inscription-protocol';
 export function useConditionPart(): PartProps {
   const { config, initConfig, defaultConfig, update } = useConditionData();
   const compareData = (data: ConditionData) => [data.conditions];
-  const validations = usePartValidation('conditions');
+  const validations = useValidations('conditions');
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {

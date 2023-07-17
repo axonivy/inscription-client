@@ -1,16 +1,16 @@
 import { VariableInfo, OutputData } from '@axonivy/inscription-protocol';
 import { useEffect, useState } from 'react';
 import { ScriptArea, useFieldset } from '../../widgets';
-import { PathContext, useClient, useEditorContext, usePartValidation } from '../../../context';
+import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useOutputData } from './useOutputData';
-import MappingTree from '../common/mapping-tree/MappingTree';
 import { PathFieldset } from '../common/path/PathFieldset';
+import MappingPart from '../common/mapping-tree/MappingPart';
 
 export function useOutputPart(options?: { hideCode?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetOutput } = useOutputData();
   const compareData = (data: OutputData) => [data.output.map, options?.hideCode ? '' : data.output.code];
-  let validations = usePartValidation('output');
+  let validations = useValidations('output');
   if (options?.hideCode) {
     validations = validations.filter(val => !val.path.includes('code'));
   }
@@ -38,7 +38,7 @@ const OutputPart = (props: { showCode?: boolean }) => {
 
   return (
     <PathContext path='output'>
-      <MappingTree data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
+      <MappingPart data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
       {props.showCode && (
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
           <ScriptArea value={config.output.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />

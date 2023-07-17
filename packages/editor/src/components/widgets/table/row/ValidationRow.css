@@ -1,0 +1,6 @@
+.table-root .row.row-error {
+  --row-border: 1px solid var(--error-color);
+}
+.table-root .row.row-warning {
+  --row-border: 1px solid var(--warning-color);
+}

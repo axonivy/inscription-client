@@ -1,13 +1,13 @@
 import { TaskData } from '@axonivy/inscription-protocol';
 import { EmptyWidget, Tab, Tabs } from '../../widgets';
-import { TaskDataContextInstance, usePartValidation } from '../../../context';
+import { TaskDataContextInstance, useValidations } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import TaskPart from './task/TaskPart';
 import { useMutliTaskData } from './useTaskData';
 
 export function useMultiTasksPart(): PartProps {
   const { config, defaultConfig, initConfig, resetTasks } = useMutliTaskData();
-  const validations = usePartValidation('tasks');
+  const validations = useValidations('tasks');
   const compareData = (data: TaskData) => [data.tasks];
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));

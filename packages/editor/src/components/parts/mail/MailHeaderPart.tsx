@@ -2,13 +2,13 @@ import { MacroInput, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useMailHeaderData } from './useMailHeaderData';
 import { MailHeaderData } from '@axonivy/inscription-protocol';
-import { PathContext, usePartValidation } from '../../../context';
+import { PathContext, useValidations } from '../../../context';
 import { PathFieldset } from '../common/path/PathFieldset';
 
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetData } = useMailHeaderData();
   const compareData = (data: MailHeaderData) => [data.headers];
-  const validations = usePartValidation('headers');
+  const validations = useValidations('headers');
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Header', state, reset: { dirty, action: () => resetData() }, content: <MailHeaderPart /> };
