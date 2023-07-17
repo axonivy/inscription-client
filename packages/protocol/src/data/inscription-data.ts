@@ -14,7 +14,7 @@ import {
   StartData,
   TaskData
 } from './part-data';
-import { InscriptionType, SchemaKey } from './inscription';
+import { InscriptionType, MailHeaders, SchemaKey, WfTask } from './inscription';
 import { ValuesAsUnionDeep } from '../utils/type-helper';
 
 export type ConfigData = CallData &
@@ -49,8 +49,6 @@ export interface InscriptionSaveData {
 
 export type ElementType = InscriptionType['id'];
 
-type TaskCaseSchemaKeys = 'name' | 'description' | 'category' | 'expriy';
-
-type EmailSchemaKeys = 'subject' | 'from' | 'to' | 'replyTo' | 'cc' | 'bcc';
-
-export type SchemaKeys = ValuesAsUnionDeep<SchemaKey> | TaskCaseSchemaKeys | EmailSchemaKeys;
+type TaskSchemaKeys = keyof WfTask;
+type EmailSchemaKeys = keyof MailHeaders;
+export type SchemaKeys = ValuesAsUnionDeep<SchemaKey> | TaskSchemaKeys | EmailSchemaKeys;
