@@ -1,14 +1,14 @@
-import CollapsiblePart from './CollapsiblePart';
+import Collapsible from './Collapsible';
 import { render, screen, userEvent } from 'test-utils';
 
-describe('CollapsiblePart', () => {
+describe('Collapsible', () => {
   const COLLAPSE_DATA = /collapsible data/i;
 
   function renderCollapsible(open: boolean) {
     render(
-      <CollapsiblePart collapsibleLabel='Test' defaultOpen={open}>
+      <Collapsible label='Test' defaultOpen={open}>
         <p>collapsible data</p>
-      </CollapsiblePart>
+      </Collapsible>
     );
   }
 

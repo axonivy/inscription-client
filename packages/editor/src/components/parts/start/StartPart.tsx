@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CollapsiblePart, Input, ScriptArea, useFieldset } from '../../../components/widgets';
+import { Collapsible, Input, ScriptArea, useFieldset } from '../../../components/widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useStartData } from './useStartData';
@@ -51,9 +51,9 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
         <Input value={config.signature} onChange={change => updateSignature(change)} {...signatureFieldset.inputProps} />
       </PathFieldset>
       <PathContext path='input'>
-        <CollapsiblePart collapsibleLabel='Input parameters'>
+        <Collapsible label='Input parameters'>
           <ParameterTable data={config.input.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
-        </CollapsiblePart>
+        </Collapsible>
         <MappingTree data={config.input.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
           <ScriptArea value={config.input.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />

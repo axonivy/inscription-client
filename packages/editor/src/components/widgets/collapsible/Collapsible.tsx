@@ -1,12 +1,12 @@
 import { Collapsible as CollapsibleRoot, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
 import { memo, ReactNode, useState } from 'react';
-import './CollapsiblePart.css';
+import './Collapsible.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
 
-export type CollapsiblePartProps = { collapsibleLabel: string; defaultOpen?: boolean; children: ReactNode };
+export type CollapsibleProps = { label: string; defaultOpen?: boolean; children: ReactNode };
 
-const CollapsiblePart = ({ collapsibleLabel, defaultOpen, children }: CollapsiblePartProps) => {
+const Collapsible = ({ label, defaultOpen, children }: CollapsibleProps) => {
   const [open, setOpen] = useState(defaultOpen ?? false);
   return (
     <CollapsibleRoot className='collapsible-root' open={open} onOpenChange={setOpen}>
@@ -14,7 +14,7 @@ const CollapsiblePart = ({ collapsibleLabel, defaultOpen, children }: Collapsibl
         <CollapsibleTrigger asChild className='collapsible-trigger button'>
           <button>
             <IvyIcon icon={IvyIcons.AngleDown} />
-            {collapsibleLabel}
+            {label}
           </button>
         </CollapsibleTrigger>
       </div>
@@ -26,4 +26,4 @@ const CollapsiblePart = ({ collapsibleLabel, defaultOpen, children }: Collapsibl
   );
 };
 
-export default memo(CollapsiblePart);
+export default memo(Collapsible);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CollapsiblePart, ScriptArea, useFieldset } from '../../widgets';
+import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useResultData } from './useResultData';
@@ -44,9 +44,9 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
 
   return (
     <PathContext path='result'>
-      <CollapsiblePart collapsibleLabel='Result parameters'>
+      <Collapsible label='Result parameters'>
         <ParameterTable data={config.result.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
-      </CollapsiblePart>
+      </Collapsible>
       <MappingTree data={config.result.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
       <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
         <ScriptArea value={config.result.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />

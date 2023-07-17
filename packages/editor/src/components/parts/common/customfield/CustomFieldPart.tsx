@@ -1,5 +1,5 @@
 import { CustomFieldConfigType, WfCustomField } from '@axonivy/inscription-protocol';
-import { CollapsiblePart } from '../../../../components/widgets';
+import { Collapsible } from '../../../../components/widgets';
 import CustomFieldTable from './CustomFieldTable';
 
 type CustomFieldPartProps = {
@@ -10,9 +10,9 @@ type CustomFieldPartProps = {
 
 const CustomFieldPart = ({ customFields, updateCustomFields, type }: CustomFieldPartProps) => {
   return (
-    <CollapsiblePart collapsibleLabel='Custom Fields' defaultOpen={customFields.length > 0}>
+    <Collapsible label='Custom Fields' defaultOpen={customFields.length > 0}>
       <CustomFieldTable data={customFields} onChange={updateCustomFields} type={type} />
-    </CollapsiblePart>
+    </Collapsible>
   );
 };
 

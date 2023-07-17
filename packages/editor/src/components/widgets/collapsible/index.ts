@@ -1,1 +1,1 @@
-export { default as CollapsiblePart } from './CollapsiblePart';
+export { default as Collapsible } from './Collapsible';

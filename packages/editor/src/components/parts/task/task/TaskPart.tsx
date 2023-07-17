@@ -34,7 +34,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
       {props.showPersist ? <PersistPart /> : <TaskListPart />}
       <ExpiryPart />
       <CustomFieldPart customFields={task.customFields} updateCustomFields={change => update('customFields', change)} type='TASK' />
-      <PathCollapsible collapsibleLabel='Code' defaultOpen={task.code.length > 0} path='code'>
+      <PathCollapsible label='Code' defaultOpen={task.code.length > 0} path='code'>
         <ScriptArea value={task.code} onChange={change => update('code', change)} />
       </PathCollapsible>
     </PathContext>
