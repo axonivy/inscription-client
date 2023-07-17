@@ -1,6 +1,6 @@
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import DocumentTable from './document/DocumentTable';
-import { CollapsiblePart, Fieldset, SummaryFieldset, SummaryTags, Tags, Textarea, useFieldset } from '../../widgets';
+import { Collapsible, Fieldset, SummaryFieldset, SummaryTags, Tags, Textarea, useFieldset } from '../../widgets';
 import { useNameData } from './useNameData';
 
 export function useNamePart(options?: { hideTags?: boolean }): PartProps {
@@ -35,13 +35,13 @@ const NamePart = (props: { hideTags?: boolean }) => {
           {...descriptionField.inputProps}
         />
       </Fieldset>
-      <CollapsiblePart collapsibleLabel='Means / Documents' defaultOpen={data.docs !== undefined && data.docs.length > 0}>
+      <Collapsible label='Means / Documents' defaultOpen={data.docs !== undefined && data.docs.length > 0}>
         <DocumentTable data={data.docs} onChange={change => update('docs', change)} />
-      </CollapsiblePart>
+      </Collapsible>
       {!props.hideTags && (
-        <CollapsiblePart collapsibleLabel='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>
+        <Collapsible label='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>
           <Tags tags={data.tags ?? []} onChange={change => update('tags', change)} />
-        </CollapsiblePart>
+        </Collapsible>
       )}
     </>
   );
