@@ -12,10 +12,9 @@ export type CodeEditorProps = {
   height?: number;
   onMountFuncs?: Array<(editor: monaco.editor.IStandaloneCodeEditor) => void>;
   options?: monaco.editor.IStandaloneEditorConstructionOptions;
-  id?: string;
 };
 
-const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, id, ...props }: CodeEditorProps) => {
+const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, ...props }: CodeEditorProps) => {
   const editorContext = useEditorContext();
 
   const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
@@ -27,7 +26,7 @@ const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, id
   const language = macro ? 'ivyMacro' : 'ivyScript';
 
   return (
-    <div {...(id ? { id } : {})} className='code-editor'>
+    <div className='code-editor'>
       <Editor
         className='code-input'
         defaultValue={value}
