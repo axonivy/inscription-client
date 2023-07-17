@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import { PartProps, usePartDirty, usePartState } from '../../props';
-import { Fieldset, useFieldset } from '../../widgets';
+import { useFieldset } from '../../widgets';
 import { useErrorCatchData } from './useErrorCatchData';
-import { useClient, useEditorContext } from '../../../context';
+import { useClient, useEditorContext, usePartValidation } from '../../../context';
 import EventCodeSelect, { EventCodeItem } from '../common/eventcode/EventCodeSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useDefaultNameSyncher } from '../name/useNameSyncher';
 import { ErrorCatchData } from '@axonivy/inscription-protocol';
+import { PathFieldset } from '../common/path/PathFieldset';
 
 export function useErrorCatchPart(): PartProps {
   const { config, defaultConfig, initConfig, update } = useErrorCatchData();
   const compareData = (data: ErrorCatchData) => [data.errorCode];
-  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const validations = usePartValidation('errorCode');
+  const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
     name: 'Error',
@@ -42,16 +44,14 @@ const ErrorCatchPart = () => {
   const errorField = useFieldset();
 
   return (
-    <>
-      <Fieldset label='Error Code' {...errorField.labelProps}>
-        <EventCodeSelect
-          eventCode={config.errorCode}
-          onChange={change => update('errorCode', change)}
-          eventCodes={errorCodes}
-          eventIcon={IvyIcons.ErrorEvent}
-          comboboxInputProps={errorField.inputProps}
-        />
-      </Fieldset>
-    </>
+    <PathFieldset label='Error Code' {...errorField.labelProps} path='errorCode'>
+      <EventCodeSelect
+        eventCode={config.errorCode}
+        onChange={change => update('errorCode', change)}
+        eventCodes={errorCodes}
+        eventIcon={IvyIcons.ErrorEvent}
+        comboboxInputProps={errorField.inputProps}
+      />
+    </PathFieldset>
   );
 };

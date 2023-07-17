@@ -1,33 +1,42 @@
-import { test, expect } from '@playwright/test';
-import { AccordionUtil } from '../utils/accordion-util';
-import { CollapseUtil } from '../utils/collapse-util';
-import { TableUtil } from '../utils/table-util';
+import { test } from '@playwright/test';
 import { selectDialog } from './combobox-util';
+import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Mappings', () => {
   test('DialogCall change will update mapping tree', async ({ page }) => {
-    await page.goto('mock.html');
-    await page.getByRole('button', { name: 'Call' }).click();
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.mock();
+    const callPart = inscriptionView.accordion('Call');
+    await callPart.toggle();
 
     await selectDialog(page, 'AcceptRequest');
-    await expect(page.getByRole('row')).toHaveCount(12);
+    const callTable = callPart.table();
+    await callTable.expectRowCount(11);
 
     await selectDialog(page, 'test1');
-    await expect(page.getByRole('row')).toHaveCount(4);
+    await callTable.expectRowCount(3);
   });
 
   test('SubStart result param change will update mapping tree', async ({ page }) => {
-    await page.goto('mock.html?type=CallSubStart');
-    await AccordionUtil.toggle(page, 'Result');
+    const inscriptionView = new InscriptionView(page);
+    await inscriptionView.mock({ type: 'CallSubStart' });
+    const resultPart = inscriptionView.accordion('Result');
+    await resultPart.toggle();
 
-    await CollapseUtil.open(page, 'Result parameters');
-    await TableUtil.assertEmpty(page, 0);
-    await TableUtil.assertRowCount(page, 1, 1);
+    const resultTable = resultPart.table();
+    await resultTable.expectRowCount(1);
 
-    await TableUtil.addRow(page);
-    await TableUtil.assertRowCount(page, 2, 1);
+    const params = resultPart.section('Result parameters');
+    await params.toggle();
+    const paramTable = params.table();
+    await paramTable.expectRowCount(0);
 
-    await TableUtil.removeRow(page, 0);
-    await TableUtil.assertRowCount(page, 1, 1);
+    await paramTable.addRow();
+    await params.toggle();
+    await resultTable.expectRowCount(2);
+
+    await params.toggle();
+    await paramTable.clear();
+    await resultTable.expectRowCount(1);
   });
 });

@@ -4,21 +4,23 @@ import './CollapsiblePart.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
 
-const CollapsiblePart = (props: { collapsibleLabel: string; defaultOpen?: boolean; children: ReactNode }) => {
-  const [open, setOpen] = useState(props.defaultOpen ?? false);
+export type CollapsiblePartProps = { collapsibleLabel: string; defaultOpen?: boolean; children: ReactNode };
+
+const CollapsiblePart = ({ collapsibleLabel, defaultOpen, children }: CollapsiblePartProps) => {
+  const [open, setOpen] = useState(defaultOpen ?? false);
   return (
     <CollapsibleRoot className='collapsible-root' open={open} onOpenChange={setOpen}>
       <div>
         <CollapsibleTrigger asChild className='collapsible-trigger button'>
           <button>
             <IvyIcon icon={IvyIcons.AngleDown} />
-            {props.collapsibleLabel}
+            {collapsibleLabel}
           </button>
         </CollapsibleTrigger>
       </div>
 
       <CollapsibleContent className='collapsible-content'>
-        <div className='collapsible-content-data'>{props.children}</div>
+        <div className='collapsible-content-data'>{children}</div>
       </CollapsibleContent>
     </CollapsibleRoot>
   );

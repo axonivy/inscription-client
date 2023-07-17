@@ -1,9 +1,5 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { RESPONSIBLE_TYPE } from '@axonivy/inscription-protocol';
-
-type ObjectValuesAsUnion<T> = {
-  [V in keyof T]: T[V];
-}[keyof T];
+import { RESPONSIBLE_TYPE, ValuesAsUnion } from '@axonivy/inscription-protocol';
 
 export class ResponsibleSelect {
   private readonly locator: Locator;
@@ -28,12 +24,12 @@ export class ResponsibleSelect {
     await this.locator.getByRole('option', { name: 'Everybody' }).first().click();
   }
 
-  async chooseType(type: ObjectValuesAsUnion<typeof RESPONSIBLE_TYPE>) {
+  async chooseType(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>) {
     await this.type.click();
     await this.locator.getByRole('option', { name: type }).first().click();
   }
 
-  async expectType(type: ObjectValuesAsUnion<typeof RESPONSIBLE_TYPE>) {
+  async expectType(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>) {
     await expect(this.type).toHaveText(type);
   }
 

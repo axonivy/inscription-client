@@ -1,21 +1,12 @@
-import { useValidation } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import DocumentTable from './document/DocumentTable';
 import { CollapsiblePart, Fieldset, SummaryFieldset, SummaryTags, Tags, Textarea, useFieldset } from '../../widgets';
 import { useNameData } from './useNameData';
 
-function useNamePartValidation(): InscriptionValidation[] {
-  const name = useValidation('name');
-  const description = useValidation('description');
-  return [name, description];
-}
-
 export function useNamePart(options?: { hideTags?: boolean }): PartProps {
-  const validation = useNamePartValidation();
   const { data, initData, resetData } = useNameData();
   const currentData = [data.name, data.description, data.docs, data.tags];
-  const state = usePartState(['', '', [], []], currentData, validation);
+  const state = usePartState(['', '', [], []], currentData, []);
   const dirty = usePartDirty([initData.name, initData.description, initData.docs, initData.tags], currentData);
   return {
     name: 'Name',
@@ -28,17 +19,15 @@ export function useNamePart(options?: { hideTags?: boolean }): PartProps {
 
 const NamePart = (props: { hideTags?: boolean }) => {
   const { data, update } = useNameData();
-  const [nameValidation, descriptionValidation] = useNamePartValidation();
 
   const nameField = useFieldset();
   const descriptionField = useFieldset();
-
   return (
     <>
-      <Fieldset label='Display name' message={nameValidation} {...nameField.labelProps}>
+      <Fieldset label='Display name' {...nameField.labelProps}>
         <Textarea maxRows={3} value={data.name} onChange={change => update('name', change)} {...nameField.inputProps} />
       </Fieldset>
-      <Fieldset label='Description' message={descriptionValidation} {...descriptionField.labelProps}>
+      <Fieldset label='Description' {...descriptionField.labelProps}>
         <Textarea
           maxRows={10}
           value={data.description}

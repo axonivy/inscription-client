@@ -1,15 +1,20 @@
 import { VariableInfo, OutputData } from '@axonivy/inscription-protocol';
 import { useEffect, useState } from 'react';
-import { Fieldset, ScriptArea, useFieldset } from '../../widgets';
-import { useClient, useEditorContext } from '../../../context';
+import { ScriptArea, useFieldset } from '../../widgets';
+import { PathContext, useClient, useEditorContext, usePartValidation } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useOutputData } from './useOutputData';
 import MappingTree from '../common/mapping-tree/MappingTree';
+import { PathFieldset } from '../common/path/PathFieldset';
 
 export function useOutputPart(options?: { hideCode?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetOutput } = useOutputData();
   const compareData = (data: OutputData) => [data.output.map, options?.hideCode ? '' : data.output.code];
-  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  let validations = usePartValidation('output');
+  if (options?.hideCode) {
+    validations = validations.filter(val => !val.path.includes('code'));
+  }
+  const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
     name: 'Output',
@@ -32,18 +37,13 @@ const OutputPart = (props: { showCode?: boolean }) => {
   const codeFieldset = useFieldset();
 
   return (
-    <>
-      <MappingTree data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} location='output.code' />
+    <PathContext path='output'>
+      <MappingTree data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
       {props.showCode && (
-        <Fieldset label='Code' {...codeFieldset.labelProps}>
-          <ScriptArea
-            value={config.output.code}
-            onChange={change => update('code', change)}
-            location='output.code'
-            {...codeFieldset.inputProps}
-          />
-        </Fieldset>
+        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
+          <ScriptArea value={config.output.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
+        </PathFieldset>
       )}
-    </>
+    </PathContext>
   );
 };

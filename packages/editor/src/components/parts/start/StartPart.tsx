@@ -1,19 +1,27 @@
 import { useEffect, useState } from 'react';
-import { CollapsiblePart, Fieldset, Input, ScriptArea, useFieldset } from '../../../components/widgets';
+import { CollapsiblePart, Input, ScriptArea, useFieldset } from '../../../components/widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import MappingTree from '../common/mapping-tree/MappingTree';
 import { useStartData } from './useStartData';
 import { VariableInfo, StartData } from '@axonivy/inscription-protocol';
-import { useClient, useEditorContext } from '../../../context';
+import { PathContext, useClient, useEditorContext, usePartValidation } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
 import { useStartNameSyncher } from './useStartNameSyncher';
+import { PathFieldset } from '../common/path/PathFieldset';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
 
+export const useStartPartValidation = () => {
+  const signarture = usePartValidation('signature');
+  const input = usePartValidation('input');
+  return [...signarture, ...input];
+};
+
 export function useStartPart(props?: StartPartProps): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useStartData();
+  const validations = useStartPartValidation();
   const compareData = (data: StartData) => [data.signature, data.input];
-  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
     name: 'Start',
@@ -39,21 +47,18 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
   const codeFieldset = useFieldset();
   return (
     <>
-      <Fieldset label='Signature' {...signatureFieldset.labelProps}>
+      <PathFieldset label='Signature' {...signatureFieldset.labelProps} path='signature'>
         <Input value={config.signature} onChange={change => updateSignature(change)} {...signatureFieldset.inputProps} />
-      </Fieldset>
-      <CollapsiblePart collapsibleLabel='Input parameters'>
-        <ParameterTable data={config.input.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
-      </CollapsiblePart>
-      <MappingTree data={config.input.map} variableInfo={variableInfo} onChange={change => update('map', change)} location='input.code' />
-      <Fieldset label='Code' {...codeFieldset.labelProps}>
-        <ScriptArea
-          value={config.input.code}
-          onChange={change => update('code', change)}
-          location='input.code'
-          {...codeFieldset.inputProps}
-        />
-      </Fieldset>
+      </PathFieldset>
+      <PathContext path='input'>
+        <CollapsiblePart collapsibleLabel='Input parameters'>
+          <ParameterTable data={config.input.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
+        </CollapsiblePart>
+        <MappingTree data={config.input.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
+        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
+          <ScriptArea value={config.input.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
+        </PathFieldset>
+      </PathContext>
     </>
   );
 };

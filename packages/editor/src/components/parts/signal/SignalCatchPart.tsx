@@ -1,17 +1,19 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import { PartProps, usePartDirty, usePartState } from '../../props';
-import { Checkbox, Fieldset, useFieldset } from '../../widgets';
+import { Checkbox, useFieldset } from '../../widgets';
 import EventCodeSelect, { EventCodeItem } from '../common/eventcode/EventCodeSelect';
 import { useSignalCatchData } from './useSignalCatchData';
 import { useEffect, useState } from 'react';
-import { useClient, useEditorContext } from '../../../context';
+import { useClient, useEditorContext, usePartValidation } from '../../../context';
 import { useDefaultNameSyncher } from '../name/useNameSyncher';
 import { SignalCatchData } from '@axonivy/inscription-protocol';
+import { PathFieldset } from '../common/path/PathFieldset';
 
 export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useSignalCatchData();
   const compareData = (data: SignalCatchData) => [data.signalCode, options?.makroSupport ? '' : data.attachToBusinessCase];
-  const state = usePartState(compareData(defaultConfig), compareData(config), []);
+  const validations = usePartValidation('signalCode');
+  const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
     name: 'Signal',
@@ -43,7 +45,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
 
   return (
     <>
-      <Fieldset label='Signal Code' {...signalField.labelProps}>
+      <PathFieldset label='Signal Code' {...signalField.labelProps} path='signalCode'>
         {/* todo: somehow support macro input here... */}
         <EventCodeSelect
           eventCode={config.signalCode}
@@ -52,7 +54,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
           eventIcon={IvyIcons.Signal}
           comboboxInputProps={signalField.inputProps}
         />
-      </Fieldset>
+      </PathFieldset>
       {!makroSupport && (
         <Checkbox
           label='Attach to Business Case that signaled this process'

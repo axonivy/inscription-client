@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useMove } from 'react-aria';
 import CodeEditor, { CodeEditorProps } from './CodeEditor';
 
-export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'options' | 'onMount'>;
+export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'options' | 'onMount' | 'location'>;
 
 type ResizableCodeEditorProps = Omit<CodeEditorProps, 'height' | 'context'> & {
   location: string;

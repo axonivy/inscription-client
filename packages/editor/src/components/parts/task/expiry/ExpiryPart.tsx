@@ -1,4 +1,6 @@
-import { CollapsiblePart, Fieldset, ScriptInput, useFieldset } from '../../../../components/widgets';
+import { ScriptInput, useFieldset } from '../../../../components/widgets';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { PathFieldset } from '../../common/path/PathFieldset';
 import ErrorSelect from './../error/ErrorSelect';
 import PrioritySelect from './../priority/PrioritySelect';
 import ResponsibleSelect from './../responsible/ResponsibleSelect';
@@ -10,15 +12,15 @@ const ExpiryPart = () => {
   const timeoutFieldset = useFieldset();
 
   return (
-    <CollapsiblePart collapsibleLabel='Expiry' defaultOpen={isTimeout}>
-      <Fieldset label='Timeout' {...timeoutFieldset.labelProps}>
+    <PathCollapsible collapsibleLabel='Expiry' defaultOpen={isTimeout} path='expriy'>
+      <PathFieldset label='Timeout' {...timeoutFieldset.labelProps} path='timeout'>
         <ScriptInput
           value={expiry.timeout}
           onChange={change => update('timeout', change)}
-          context={{ location: 'task.expiry', type: 'Duration' }}
+          type='Duration'
           {...timeoutFieldset.inputProps}
         />
-      </Fieldset>
+      </PathFieldset>
       <>
         {isTimeout && (
           <>
@@ -28,7 +30,7 @@ const ExpiryPart = () => {
           </>
         )}
       </>
-    </CollapsiblePart>
+    </PathCollapsible>
   );
 };
 

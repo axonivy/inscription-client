@@ -16,12 +16,41 @@ export class InscriptionView {
     await this.page.goto(url);
   }
 
+  async mock(options?: { type?: string; readonly?: boolean; theme?: string }) {
+    let url = 'mock.html';
+    if (options) {
+      url += '?';
+      if (options.type) {
+        url += `type=${options.type}&`;
+      }
+      if (options.readonly) {
+        url += `readonly=${options.readonly}&`;
+      }
+      if (options.theme) {
+        url += `theme=${options.theme}&`;
+      }
+    }
+    await this.page.goto(url);
+  }
+
   accordion(partName: string) {
     return new Accordion(this.page, partName);
   }
 
   async expectHeaderText(text: string) {
     await expect(this.page.getByText(text).first()).toBeVisible();
+  }
+
+  async expectHeaderMessages(messages: string[]) {
+    const headerMessages = this.page.locator('.header-messages');
+    if (messages.length === 0) {
+      await expect(headerMessages).toBeHidden();
+    } else {
+      const msgLocator = headerMessages.locator('.header-status');
+      for (var index = 0; index < messages.length; index++) {
+        await expect(msgLocator.nth(index)).toContainText(messages[index]);
+      }
+    }
   }
 
   reload() {

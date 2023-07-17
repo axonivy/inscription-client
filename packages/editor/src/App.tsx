@@ -16,7 +16,7 @@ function App(props: AppProps) {
   const [data, setData] = useState<ElementData>({} as ElementData);
   const [shouldSave, setShouldSave] = useState(false);
   const [appState, setAppState] = useState<AppState>(waitingState());
-  const [validation, setValidation] = useState<InscriptionValidation[]>([]);
+  const [validations, setValidations] = useState<InscriptionValidation[]>([]);
   const client = useClient();
   const { mode: theme } = useTheme();
 
@@ -31,7 +31,7 @@ function App(props: AppProps) {
   }, []);
 
   useEffect(() => {
-    const validationDispose = client.onValidation(setValidation);
+    const validationDispose = client.onValidation(setValidations);
     const dataDispose = client.onDataChanged(initData);
     return () => {
       validationDispose.dispose();
@@ -44,7 +44,7 @@ function App(props: AppProps) {
       .data(props.pid)
       .then(initData)
       .catch(error => setAppState(errorState(error)));
-    client.validate({ pid: props.pid }).then(setValidation).catch(console.error);
+    client.validate({ pid: props.pid }).then(setValidations).catch(console.error);
   }, [client, props.pid, initData]);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ function App(props: AppProps) {
           pid: appState.initialData.pid,
           type: appState.initialData.type.id
         })
-        .then(setValidation);
+        .then(setValidations);
       setShouldSave(false);
     }
   }, [client, data, appState, shouldSave]);
@@ -79,7 +79,7 @@ function App(props: AppProps) {
               setData: updateData,
               defaultData: appState.initialData.defaults,
               initData: appState.initialData.data,
-              validation
+              validations
             }}
           >
             {inscriptionEditor(appState.initialData.type.id)}

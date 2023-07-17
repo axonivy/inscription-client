@@ -58,7 +58,7 @@ describe('MappingTree', () => {
   } {
     userEvent.setup();
     let data: Mapping = initData ?? { 'param.procurementRequest': 'in' };
-    render(<MappingTree data={data} variableInfo={variableInfo} onChange={(change: Mapping) => (data = change)} location='test' />);
+    render(<MappingTree data={data} variableInfo={variableInfo} onChange={(change: Mapping) => (data = change)} />);
     return {
       data: () => data
     };
@@ -170,7 +170,7 @@ describe('MappingTree', () => {
   });
 
   test('tree support readonly mode', async () => {
-    render(<MappingTree data={{}} variableInfo={variableInfo} onChange={() => {}} location='' />, {
+    render(<MappingTree data={{}} variableInfo={variableInfo} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();

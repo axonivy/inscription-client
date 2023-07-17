@@ -1,21 +1,24 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useAction, useClient, useEditorContext } from '../../../../context';
+import { useAction, useClient, useEditorContext, usePartValidation } from '../../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../../props';
 import { CallData, CallableStart, VariableInfo, ProcessCallData } from '@axonivy/inscription-protocol';
-import CallMapping from '../CallMapping';
+import CallMapping, { useCallPartValidation } from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { Fieldset, FieldsetControl, useFieldset } from '../../../../components/widgets';
+import { FieldsetControl, useFieldset } from '../../../../components/widgets';
+import { PathFieldset } from '../../common/path/PathFieldset';
 
 export function useSubCallPart(): PartProps {
   const callData = useCallData();
   const targetData = useProcessCallData();
   const compareData = (callData: CallData, targetData: ProcessCallData) => [callData.call, targetData.processCall];
+  const subCallValidations = usePartValidation('processCall');
+  const callValidations = useCallPartValidation();
   const state = usePartState(
     compareData(callData.defaultConfig, targetData.defaultConfig),
     compareData(callData.config, targetData.config),
-    []
+    [...subCallValidations, ...callValidations]
   );
   const dirty = usePartDirty(compareData(callData.initConfig, targetData.initConfig), compareData(callData.config, targetData.config));
   return { name: 'Process Call', state, reset: { dirty, action: () => targetData.resetData() }, content: <SubCallPart /> };
@@ -41,7 +44,7 @@ const SubCallPart = () => {
   const callField = useFieldset();
   return (
     <>
-      <Fieldset label='Process start' {...callField.labelProps} controls={[createProcess]}>
+      <PathFieldset label='Process start' {...callField.labelProps} controls={[createProcess]} path='processCall'>
         <CallSelect
           start={config.processCall}
           onChange={change => update('processCall', change)}
@@ -49,7 +52,7 @@ const SubCallPart = () => {
           startIcon={IvyIcons.SubStart}
           comboboxInputProps={callField.inputProps}
         />
-      </Fieldset>
+      </PathFieldset>
       <CallMapping variableInfo={variableInfo} />
     </>
   );
