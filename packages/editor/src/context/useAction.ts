@@ -1,10 +1,10 @@
-import { InscriptionActionHandlers } from '@axonivy/inscription-protocol';
+import { InscriptionActionArgs } from '@axonivy/inscription-protocol';
 import { useClient } from './useClient';
 import { useEditorContext } from './useEditorContext';
 
-export function useAction<TKind extends keyof InscriptionActionHandlers>(kind: TKind) {
+export function useAction(actionId: InscriptionActionArgs["actionId"]) {
   const { pid } = useEditorContext();
   const client = useClient();
 
-  return (payload?: InscriptionActionHandlers[TKind]) => client.action({ kind, pid, payload: payload ?? '' });
+  return (payload?: InscriptionActionArgs["payload"]) => client.action({ actionId, pid, payload: payload ?? '' });
 }

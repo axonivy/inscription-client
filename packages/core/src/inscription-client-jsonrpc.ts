@@ -3,7 +3,7 @@ import {
   ConnectorRef,
   ErrorMeta,
   EventCodeMeta,
-  InscriptionAction,
+  InscriptionActionArgs,
   InscriptionClient,
   InscriptionData,
   InscriptionNotificationTypes,
@@ -90,7 +90,7 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('meta/connector/of', { pid });
   }
 
-  action(action: InscriptionAction): void {
+  action(action: InscriptionActionArgs): void {
     this.sendNotification('action', action);
   }
 
