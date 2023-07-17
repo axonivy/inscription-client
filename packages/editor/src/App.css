@@ -12,6 +12,7 @@
   --tab-inactive-border: #a0a0a0;
 
   --input-bg: #ffffff;
+  --input-border: 1px solid var(--editor-bg);
   --input-color: #202020;
   --button-bg: #f5f5f5;
   --button-color: #202020;
@@ -51,6 +52,7 @@
   --seperator-color: #5a5a5a;
 
   --input-bg: #1b1b1b;
+  --input-border: 1px solid var(--editor-bg);
   --input-color: white;
   --button-bg: #2c2c2c;
   --button-color: #bababa;
