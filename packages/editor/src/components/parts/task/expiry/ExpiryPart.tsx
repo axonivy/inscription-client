@@ -12,7 +12,7 @@ const ExpiryPart = () => {
   const timeoutFieldset = useFieldset();
 
   return (
-    <PathCollapsible label='Expiry' defaultOpen={isTimeout} path='expriy'>
+    <PathCollapsible label='Expiry' defaultOpen={isTimeout} path='expiry'>
       <PathFieldset label='Timeout' {...timeoutFieldset.labelProps} path='timeout'>
         <ScriptInput
           value={expiry.timeout}
