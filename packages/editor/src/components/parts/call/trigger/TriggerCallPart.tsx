@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useAction, useClient, useEditorContext, usePartValidation } from '../../../../context';
+import { useAction, useClient, useEditorContext, useValidations } from '../../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../../props';
 import { CallData, CallableStart, ProcessCallData, VariableInfo } from '@axonivy/inscription-protocol';
 import CallMapping, { useCallPartValidation } from '../CallMapping';
@@ -13,7 +13,7 @@ export function useTriggerCallPart(): PartProps {
   const callData = useCallData();
   const targetData = useProcessCallData();
   const compareData = (callData: CallData, targetData: ProcessCallData) => [callData.call, targetData.processCall];
-  const triggerCallValidations = usePartValidation('processCall');
+  const triggerCallValidations = useValidations('processCall');
   const callValidations = useCallPartValidation();
   const state = usePartState(
     compareData(callData.defaultConfig, targetData.defaultConfig),

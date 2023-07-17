@@ -14,6 +14,7 @@ import {
 import { MappingTreeData } from '../parts/common/mapping-tree/mapping-tree-data';
 import { VariableInfo } from '@axonivy/inscription-protocol';
 import { useClient, useEditorContext } from '../../context';
+import { calcFullPathId } from '../parts/common/mapping-tree/useMappingTree';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
@@ -113,10 +114,7 @@ const AttributeBrowser = ({ value, onChange, location }: { value: string; onChan
       return;
     }
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
-    const fullAttrPath = [...selectedRow.getParentRows().map(parent => parent.original.attribute), selectedRow.original.attribute].join(
-      '.'
-    );
-    onChange(fullAttrPath);
+    onChange(calcFullPathId(selectedRow));
   }, [onChange, rowSelection, table]);
 
   return (

@@ -2,12 +2,12 @@ import { InscriptionValidation, VariableInfo } from '@axonivy/inscription-protoc
 import { memo } from 'react';
 import { ScriptArea, useFieldset } from '../../widgets';
 import { useCallData } from './useCallData';
-import MappingTree from '../common/mapping-tree/MappingTree';
-import { PathContext, usePartValidation } from '../../../context';
+import { PathContext, useValidations } from '../../../context';
 import { PathFieldset } from '../common/path/PathFieldset';
+import MappingPart from '../common/mapping-tree/MappingPart';
 
 export function useCallPartValidation(): InscriptionValidation[] {
-  return usePartValidation('call');
+  return useValidations('call');
 }
 
 const CallMapping = ({ variableInfo }: { variableInfo: VariableInfo }) => {
@@ -16,7 +16,7 @@ const CallMapping = ({ variableInfo }: { variableInfo: VariableInfo }) => {
 
   return (
     <PathContext path='call'>
-      <MappingTree data={config.call.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
+      <MappingPart data={config.call.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
       <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
         <ScriptArea value={config.call.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
       </PathFieldset>

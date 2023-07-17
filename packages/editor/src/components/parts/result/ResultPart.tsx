@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
-import MappingTree from '../common/mapping-tree/MappingTree';
 import { useResultData } from './useResultData';
 import { VariableInfo, ResultData, Variable } from '@axonivy/inscription-protocol';
-import { PathContext, useClient, useEditorContext, usePartValidation } from '../../../context';
+import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
 import ParameterTable from '../common/parameter/ParameterTable';
 import { PathFieldset } from '../common/path/PathFieldset';
+import MappingPart from '../common/mapping-tree/MappingPart';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useResultData();
   const compareData = (data: ResultData) => [data.result];
-  const validations = usePartValidation('result');
+  const validations = useValidations('result');
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
@@ -47,7 +47,7 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
       <Collapsible label='Result parameters'>
         <ParameterTable data={config.result.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
       </Collapsible>
-      <MappingTree data={config.result.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
+      <MappingPart data={config.result.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
       <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
         <ScriptArea value={config.result.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
       </PathFieldset>

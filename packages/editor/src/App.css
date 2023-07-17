@@ -19,6 +19,7 @@
   --text-color: #202020;
   --table-bg: #fcfcfc;
   --table-header-bg: #ffffff;
+  --row-border: 1px solid var(--editor-bg);
 
   --error-color: #ff4a3d;
   --warning-color: #ff8614;
@@ -59,6 +60,7 @@
   --text-color: #bababa;
   --table-bg: #202020;
   --table-header-bg: #1b1b1b;
+  --row-border: 1px solid var(--editor-bg);
 
   --error-color: #ff796f;
   --warning-color: #ff9f46;

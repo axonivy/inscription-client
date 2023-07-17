@@ -1,5 +1,4 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { Mapping, VariableInfo } from '@axonivy/inscription-protocol';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,24 +12,18 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { MappingTreeData } from './mapping-tree-data';
-import { IvyIcons } from '@axonivy/editor-icons';
-import {
-  ScriptCell,
-  ExpandableCell,
-  ExpandableHeader,
-  FieldsetControl,
-  Table,
-  TableCell,
-  TableHeader
-} from '../../../../components/widgets';
-import { PathFieldset } from '../path/PathFieldset';
+import { ScriptCell, ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, ValidationRow } from '../../../../components/widgets';
+import { useValidations } from '../../../../context';
+import { MappingPartProps } from './MappingPart';
+import { TableFilter, calcFullPathId } from './useMappingTree';
 
-type MappingTreeProps = { data: Mapping; variableInfo: VariableInfo; onChange: (change: Mapping) => void };
+type MappingTreeProps = MappingPartProps & {
+  globalFilter: TableFilter<string>;
+  onlyInscribedFilter: TableFilter<ColumnFiltersState>;
+};
 
-const MappingTree = ({ data, variableInfo, onChange }: MappingTreeProps) => {
+const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribedFilter }: MappingTreeProps) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
-  const [showGlobalFilter, setShowGlobalFilter] = useState(false);
-  const [showOnlyInscribed, setShowOnlyInscribed] = useState(false);
 
   useEffect(() => {
     const treeData = MappingTreeData.of(variableInfo);
@@ -83,29 +76,6 @@ const MappingTree = ({ data, variableInfo, onChange }: MappingTreeProps) => {
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [expanded, setExpanded] = useState<ExpandedState>(true);
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
-  const tableControls: FieldsetControl[] = [
-    {
-      label: 'Toggle Search',
-      icon: IvyIcons.Search,
-      active: showGlobalFilter,
-      action: () => {
-        setShowGlobalFilter(show => !show);
-        setGlobalFilter('');
-      }
-    },
-    {
-      label: 'Toggle Inscribed',
-      icon: IvyIcons.Rule,
-      active: showOnlyInscribed,
-      action: () => {
-        setShowOnlyInscribed(show => !show);
-        setColumnFilters([{ id: 'value', value: showOnlyInscribed }]);
-      }
-    }
-  ];
 
   const table = useReactTable({
     data: tree,
@@ -113,13 +83,13 @@ const MappingTree = ({ data, variableInfo, onChange }: MappingTreeProps) => {
     state: {
       sorting,
       expanded,
-      globalFilter,
-      columnFilters
+      globalFilter: globalFilter.filter,
+      columnFilters: onlyInscribedFilter.filter
     },
     filterFromLeafRows: true,
     onExpandedChange: setExpanded,
-    onGlobalFilterChange: setGlobalFilter,
-    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: globalFilter.setFilter,
+    onColumnFiltersChange: onlyInscribedFilter.setFilter,
     getSubRows: row => row.children,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
@@ -134,31 +104,31 @@ const MappingTree = ({ data, variableInfo, onChange }: MappingTreeProps) => {
     }
   });
 
+  const validations = useValidations();
+
   return (
-    <PathFieldset label='Mapping' controls={tableControls} path='map'>
-      <Table search={showGlobalFilter ? { value: globalFilter, onChange: setGlobalFilter } : undefined}>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </PathFieldset>
+    <Table search={globalFilter.active ? { value: globalFilter.filter, onChange: globalFilter.setFilter } : undefined}>
+      <thead>
+        {table.getHeaderGroups().map(headerGroup => (
+          <tr key={headerGroup.id}>
+            {headerGroup.headers.map(header => (
+              <TableHeader key={header.id} colSpan={header.colSpan}>
+                {flexRender(header.column.columnDef.header, header.getContext())}
+              </TableHeader>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody>
+        {table.getRowModel().rows.map(row => (
+          <ValidationRow key={row.id} rowId={calcFullPathId(row)} messages={validations}>
+            {row.getVisibleCells().map(cell => (
+              <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+            ))}
+          </ValidationRow>
+        ))}
+      </tbody>
+    </Table>
   );
 };
 
