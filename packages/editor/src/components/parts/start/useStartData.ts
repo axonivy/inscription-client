@@ -11,19 +11,10 @@ export function useStartData(): ConfigDataContext<StartData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<StartData['input']> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft.input[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft.input[field] = value)));
   };
 
-  const updateSignature = (signature: string) =>
-    setConfig(
-      produce(draft => {
-        draft.signature = signature;
-      })
-    );
+  const updateSignature = (signature: string) => setConfig(produce(draft => (draft.signature = signature)));
 
   const resetData = () =>
     setConfig(

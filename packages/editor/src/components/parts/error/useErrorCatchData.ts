@@ -9,11 +9,7 @@ export function useErrorCatchData(): ConfigDataContext<ErrorCatchData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<ErrorCatchData> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft[field] = value)));
   };
 
   return { ...config, update };

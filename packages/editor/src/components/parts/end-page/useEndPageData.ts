@@ -9,11 +9,7 @@ export function useEndPageData(): ConfigDataContext<EndPageData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<EndPageData> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft[field] = value)));
   };
 
   return { ...config, update };

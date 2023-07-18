@@ -10,12 +10,7 @@ export function useTaskPersistData(): ConfigDataContext<TaskPersistData> & {
 } {
   const { setConfig, ...config } = useConfigDataContext();
 
-  const updatePersist = (persist: boolean) =>
-    setConfig(
-      produce(draft => {
-        draft.persist = persist;
-      })
-    );
+  const updatePersist = (persist: boolean) => setConfig(produce(draft => (draft.persist = persist)));
 
   return { ...config, updatePersist };
 }

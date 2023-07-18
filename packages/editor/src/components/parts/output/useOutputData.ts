@@ -12,19 +12,10 @@ export function useOutputData(): ConfigDataContext<OutputData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<OutputData['output']> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft.output[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft.output[field] = value)));
   };
 
-  const updateSudo = (sudo: boolean) =>
-    setConfig(
-      produce(draft => {
-        draft.sudo = sudo;
-      })
-    );
+  const updateSudo = (sudo: boolean) => setConfig(produce(draft => (draft.sudo = sudo)));
 
   const resetCode = () =>
     setConfig(

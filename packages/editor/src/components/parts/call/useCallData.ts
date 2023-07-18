@@ -9,11 +9,7 @@ export function useCallData(): ConfigDataContext<CallData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<CallData['call']> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft.call[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft.call[field] = value)));
   };
 
   return { ...config, update };
@@ -26,11 +22,7 @@ export function useDialogCallData(): ConfigDataContext<DialogCallData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<DialogCallData> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft[field] = value)));
   };
 
   const resetData = () =>
@@ -51,11 +43,7 @@ export function useProcessCallData(): ConfigDataContext<ProcessCallData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<ProcessCallData> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft[field] = value)));
   };
 
   const resetData = () =>

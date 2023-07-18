@@ -9,11 +9,7 @@ export function useConditionData(): ConfigDataContext<ConditionData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<ConditionData> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft[field] = value)));
   };
 
   return { ...config, update };

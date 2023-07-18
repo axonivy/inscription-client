@@ -13,27 +13,15 @@ export function useTaskData(): TaskDataContext & {
   const { setTask, ...task } = useTaskDataContext();
 
   const update: DataUpdater<WfTask> = (field, value) => {
-    setTask(
-      produce(draft => {
-        draft[field] = value;
-      })
-    );
+    setTask(produce(draft => (draft[field] = value)));
   };
 
   const updateResponsible: ResponsibleUpdater = (field, value) => {
-    setTask(
-      produce(draft => {
-        draft.responsible[field] = value;
-      })
-    );
+    setTask(produce(draft => (draft.responsible[field] = value)));
   };
 
   const updatePriority: PriorityUpdater = (field, value) => {
-    setTask(
-      produce(draft => {
-        draft.priority[field] = value;
-      })
-    );
+    setTask(produce(draft => (draft.priority[field] = value)));
   };
 
   return {
@@ -49,12 +37,7 @@ export function useMutliTaskData(): ConfigDataContext<TaskData> & {
 } {
   const { setConfig, ...config } = useConfigDataContext();
 
-  const resetTasks = () =>
-    setConfig(
-      produce(draft => {
-        draft.tasks = config.initConfig.tasks;
-      })
-    );
+  const resetTasks = () => setConfig(produce(draft => (draft.tasks = config.initConfig.tasks)));
 
   return {
     ...config,

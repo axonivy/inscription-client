@@ -10,19 +10,10 @@ export function useCaseData(): ConfigDataContext<CaseData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<CaseData['case']> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft.case[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft.case[field] = value)));
   };
 
-  const resetData = () =>
-    setConfig(
-      produce(draft => {
-        draft.case = config.initConfig.case;
-      })
-    );
+  const resetData = () => setConfig(produce(draft => (draft.case = config.initConfig.case)));
 
   return {
     ...config,

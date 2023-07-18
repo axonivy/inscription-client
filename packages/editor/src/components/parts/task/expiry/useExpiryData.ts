@@ -14,27 +14,15 @@ export function useExpiryData(): {
   const { task, setTask } = useTaskDataContext();
 
   const update: DataUpdater<WfExpiry> = (field, value) => {
-    setTask(
-      produce(draft => {
-        draft.expiry[field] = value;
-      })
-    );
+    setTask(produce(draft => (draft.expiry[field] = value)));
   };
 
   const updateResponsible: ResponsibleUpdater = (field, value) => {
-    setTask(
-      produce(draft => {
-        draft.expiry.responsible[field] = value;
-      })
-    );
+    setTask(produce(draft => (draft.expiry.responsible[field] = value)));
   };
 
   const updatePriority: PriorityUpdater = (field, value) => {
-    setTask(
-      produce(draft => {
-        draft.expiry.priority[field] = value;
-      })
-    );
+    setTask(produce(draft => (draft.expiry.priority[field] = value)));
   };
 
   return {

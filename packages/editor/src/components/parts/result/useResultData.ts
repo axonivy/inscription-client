@@ -10,19 +10,10 @@ export function useResultData(): ConfigDataContext<ResultData> & {
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<ResultData['result']> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft.result[field] = value;
-      })
-    );
+    setConfig(produce(draft => (draft.result[field] = value)));
   };
 
-  const resetData = () =>
-    setConfig(
-      produce(draft => {
-        draft.result = config.initConfig.result;
-      })
-    );
+  const resetData = () => setConfig(produce(draft => (draft.result = config.initConfig.result)));
 
   return {
     ...config,
