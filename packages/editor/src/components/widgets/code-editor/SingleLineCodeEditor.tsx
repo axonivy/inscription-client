@@ -8,22 +8,32 @@ type EditorOptions = {
   editorOptions?: {
     fixedOverflowWidgets?: boolean;
   };
+  keyActions?: {
+    enter?: () => void;
+    tab?: () => void;
+    escape?: () => void;
+  };
 };
 
 export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs' | 'context'> &
   EditorOptions;
 
-const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, ...props }: CodeEditorProps & EditorOptions) => {
+const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyActions, ...props }: CodeEditorProps & EditorOptions) => {
   const mountFuncs = onMountFuncs ? onMountFuncs : [];
   const singleLineMountFuncs = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editor.createContextKey('singleLine', true);
+    const isSuggestWidgetOpen = (editor: monaco.editor.IStandaloneCodeEditor) =>
+      (editor as any)._contentWidgets['editor.widget.suggestWidget']?.widget._widget._state === STATE_OPEN;
+    const triggerAcceptSuggestion = (editor: monaco.editor.IStandaloneCodeEditor) =>
+      editor.trigger(undefined, 'acceptSelectedSuggestion', undefined);
     const STATE_OPEN = 3;
     editor.addCommand(
       monaco.KeyCode.Enter,
       () => {
-        // trigger 'acceptSelectedSuggestion' if 'Enter' is pressed on autocomplete widget
-        if ((editor as any)._contentWidgets['editor.widget.suggestWidget']?.widget._widget._state === STATE_OPEN) {
-          editor.trigger(undefined, 'acceptSelectedSuggestion', undefined);
+        if (isSuggestWidgetOpen(editor)) {
+          triggerAcceptSuggestion(editor);
+        } else if (keyActions?.enter) {
+          keyActions.enter();
         }
       },
       'singleLine'
@@ -31,11 +41,24 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, ...props 
     editor.addCommand(
       monaco.KeyCode.Tab,
       () => {
-        // trigger 'acceptSelectedSuggestion' if 'Tab' is pressed on autocomplete widget
-        if ((editor as any)._contentWidgets['editor.widget.suggestWidget']?.widget._widget._state === STATE_OPEN) {
-          editor.trigger(undefined, 'acceptSelectedSuggestion', undefined);
-        } else if (editor.hasTextFocus() && document.activeElement instanceof HTMLElement) {
-          document.activeElement.blur();
+        if (isSuggestWidgetOpen(editor)) {
+          triggerAcceptSuggestion(editor);
+        } else {
+          if (editor.hasTextFocus() && document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+          }
+          if (keyActions?.tab) {
+            keyActions.tab();
+          }
+        }
+      },
+      'singleLine'
+    );
+    editor.addCommand(
+      monaco.KeyCode.Escape,
+      () => {
+        if (!isSuggestWidgetOpen(editor) && keyActions?.escape) {
+          keyActions.escape();
         }
       },
       'singleLine'

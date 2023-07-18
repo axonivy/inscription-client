@@ -1,5 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { Accordion } from './Accordion';
+import { Popover } from './Popover';
 
 export class InscriptionView {
   readonly page: Page;
@@ -37,6 +38,10 @@ export class InscriptionView {
     return new Accordion(this.page, partName);
   }
 
+  popover() {
+    return new Popover(this.page);
+  }
+
   async expectHeaderText(text: string) {
     await expect(this.page.getByText(text).first()).toBeVisible();
   }
@@ -53,7 +58,7 @@ export class InscriptionView {
     }
   }
 
-  reload() {
+  async reload() {
     this.page.reload();
   }
 }

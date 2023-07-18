@@ -1,7 +1,7 @@
 import { ScriptInput, useFieldset } from '../../../../components/widgets';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 import { PathFieldset } from '../../common/path/PathFieldset';
-import ErrorSelect from './../error/ErrorSelect';
+import ErrorSelect from './ErrorSelect';
 import PrioritySelect from './../priority/PrioritySelect';
 import ResponsibleSelect from './../responsible/ResponsibleSelect';
 import { useExpiryData } from './useExpiryData';
@@ -24,7 +24,7 @@ const ExpiryPart = () => {
       <>
         {isTimeout && (
           <>
-            <ErrorSelect error={expiry.error} updateError={change => update('error', change)} />
+            <ErrorSelect value={expiry.error} onChange={change => update('error', change)} />
             <ResponsibleSelect responsible={expiry.responsible} updateResponsible={updateResponsible} />
             <PrioritySelect priority={expiry.priority} updatePriority={updatePriority} />
           </>

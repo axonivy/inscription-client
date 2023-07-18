@@ -1,5 +1,5 @@
-import { DeepPartial, render, renderHook, screen } from 'test-utils';
-import { MailHeaderData } from '@axonivy/inscription-protocol';
+import { CollapsableUtil, DeepPartial, SelectUtil, render, renderHook, screen } from 'test-utils';
+import { MailData } from '@axonivy/inscription-protocol';
 import { PartState } from '../../props';
 import { useMailHeaderPart } from './MailHeaderPart';
 
@@ -8,18 +8,25 @@ const Part = () => {
   return <>{part.content}</>;
 };
 
-describe('EndPagePart', () => {
-  function renderPart(data?: MailHeaderData) {
+describe('MailHeaderPart', () => {
+  function renderPart(data?: DeepPartial<MailData>) {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
-  async function assertPage(data?: MailHeaderData) {
-    expect(await screen.findByLabelText('Subject')).toHaveValue(data?.headers.subject ?? '');
-    expect(await screen.findByLabelText('From')).toHaveValue(data?.headers.from ?? '');
-    expect(await screen.findByLabelText('Reply to')).toHaveValue(data?.headers.replyTo ?? '');
-    expect(await screen.findByLabelText('To')).toHaveValue(data?.headers.to ?? '');
-    expect(await screen.findByLabelText('CC')).toHaveValue(data?.headers.cc ?? '');
-    expect(await screen.findByLabelText('BCC')).toHaveValue(data?.headers.bcc ?? '');
+  async function assertPage(data?: DeepPartial<MailData>) {
+    expect(screen.getByLabelText('Subject')).toHaveValue(data?.headers?.subject ?? '');
+    expect(screen.getByLabelText('From')).toHaveValue(data?.headers?.from ?? '');
+    expect(screen.getByLabelText('Reply to')).toHaveValue(data?.headers?.replyTo ?? '');
+    expect(screen.getByLabelText('To')).toHaveValue(data?.headers?.to ?? '');
+    expect(screen.getByLabelText('CC')).toHaveValue(data?.headers?.cc ?? '');
+    expect(screen.getByLabelText('BCC')).toHaveValue(data?.headers?.bcc ?? '');
+    if (data?.failIfMissingAttachments) {
+      await CollapsableUtil.assertOpen('Options');
+      await SelectUtil.assertValue('f9');
+      expect(screen.getByRole('checkbox')).toBeChecked();
+    } else {
+      await CollapsableUtil.assertClosed('Options');
+    }
   }
 
   test('empty data', async () => {
@@ -28,12 +35,16 @@ describe('EndPagePart', () => {
   });
 
   test('full data', async () => {
-    const data: MailHeaderData = { headers: { subject: 'sub', from: 'from', replyTo: 'reply', to: 'to', cc: 'cc', bcc: 'bcc' } };
+    const data: DeepPartial<MailData> = {
+      headers: { subject: 'sub', from: 'from', replyTo: 'reply', to: 'to', cc: 'cc', bcc: 'bcc' },
+      failIfMissingAttachments: true,
+      exceptionHandler: 'f9'
+    };
     renderPart(data);
     await assertPage(data);
   });
 
-  function assertState(expectedState: PartState, data?: DeepPartial<MailHeaderData>) {
+  function assertState(expectedState: PartState, data?: DeepPartial<MailData>) {
     const { result } = renderHook(() => useMailHeaderPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state).toEqual(expectedState);
   }
@@ -46,10 +57,18 @@ describe('EndPagePart', () => {
     assertState('configured', { headers: { replyTo: 's' } });
     assertState('configured', { headers: { cc: 's' } });
     assertState('configured', { headers: { bcc: 's' } });
+    assertState('configured', { failIfMissingAttachments: true });
+    assertState('configured', { exceptionHandler: 'hi' });
   });
 
   test('reset', () => {
-    let data = { config: { headers: { subject: 'sub', from: 'from', replyTo: 'reply', to: 'to', cc: 'cc', bcc: 'bcc' } } };
+    let data = {
+      config: {
+        headers: { subject: 'sub', from: 'from', replyTo: 'reply', to: 'to', cc: 'cc', bcc: 'bcc' },
+        failIfMissingAttachments: true,
+        exceptionHandler: 'hi'
+      }
+    };
     const view = renderHook(() => useMailHeaderPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { headers: { subject: 'init' } } } }
     });
@@ -62,5 +81,7 @@ describe('EndPagePart', () => {
     expect(data.config.headers.cc).toEqual('');
     expect(data.config.headers.bcc).toEqual('');
     expect(data.config.headers.to).toEqual('');
+    expect(data.config.failIfMissingAttachments).toBeFalsy();
+    expect(data.config.exceptionHandler).toEqual('ivy:error:email');
   });
 });

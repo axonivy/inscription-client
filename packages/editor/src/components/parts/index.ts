@@ -14,3 +14,5 @@ export * from './condition/ConditionPart';
 export * from './error/ErrorCatchPart';
 export * from './signal/SignalCatchPart';
 export * from './mail/MailHeaderPart';
+export * from './mail/MailMessagePart';
+export * from './mail/MailAttachmentPart';

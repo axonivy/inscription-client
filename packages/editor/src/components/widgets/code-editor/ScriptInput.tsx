@@ -5,7 +5,7 @@ import { useCodeEditorOnFocus, useModifyEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
 
-const ScriptInput = ({ type, editorOptions, ...props }: CodeEditorInputProps & { type: string }) => {
+const ScriptInput = ({ type, editorOptions, keyActions, ...props }: CodeEditorInputProps & { type: string }) => {
   const { isFocusWithin, focusWithinProps } = useCodeEditorOnFocus();
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useModifyEditor();
@@ -16,7 +16,13 @@ const ScriptInput = ({ type, editorOptions, ...props }: CodeEditorInputProps & {
     <div className='script-input' {...focusWithinProps} tabIndex={1}>
       {isFocusWithin || browser.open ? (
         <>
-          <SingleLineCodeEditor {...props} context={{ type, location: path }} onMountFuncs={[setEditor]} editorOptions={editorOptions} />
+          <SingleLineCodeEditor
+            {...props}
+            context={{ type, location: path }}
+            onMountFuncs={[setEditor]}
+            editorOptions={editorOptions}
+            keyActions={keyActions}
+          />
           <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} location={path} />
         </>
       ) : (

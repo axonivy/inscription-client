@@ -3,7 +3,7 @@ import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useMailHeaderPart, useNamePart, useOutputPart } from '../../../components/parts';
+import { useMailAttachmentPart, useMailHeaderPart, useMailMessagePart, useNamePart, useOutputPart } from '../../../components/parts';
 
 const DatabaseEditor = memo(() => {
   const name = useNamePart();
@@ -14,8 +14,8 @@ const DatabaseEditor = memo(() => {
 const EMailEditor = memo(() => {
   const name = useNamePart();
   const header = useMailHeaderPart();
-  const content = { name: 'Content', content: <div>Content</div> };
-  const attachment = { name: 'Attachments', content: <div>Attachments</div> };
+  const content = useMailMessagePart();
+  const attachment = useMailAttachmentPart();
   return <InscriptionEditor icon={IvyIcons.EMail} parts={[name, header, content, attachment]} />;
 });
 

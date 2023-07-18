@@ -1,7 +1,7 @@
 import './ScriptCell.css';
 import '../../popover/Popover.css';
 import { CellContext, RowData } from '@tanstack/react-table';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover';
 import { Fieldset, useFieldset } from '../../fieldset';
 import IvyIcon from '../../IvyIcon';
@@ -23,41 +23,60 @@ type ScriptCellProps<TData> = {
 };
 
 export function ScriptCell<TData>({ cell, type }: ScriptCellProps<TData>) {
-  const initialValue = cell.getValue();
+  const initialValue = cell.getValue() as string;
   const [value, setValue] = useState(initialValue);
-  const updateValue = (open: boolean) => {
-    if (!open) {
-      cell.table.options.meta?.updateData(cell.row.id, cell.column.id, value);
-    }
-  };
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
 
+  const [open, setOpen] = useState(false);
+  const changeOpen = (open: boolean) => {
+    setOpen(open);
+    if (!open) {
+      updateValue();
+    }
+  };
+  const updateValue = () => {
+    cell.table.options.meta?.updateData(cell.row.id, cell.column.id, value);
+  };
+
   const editorContext = useEditorContext();
   const codeFieldset = useFieldset();
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   return (
     <>
       {type.length === 0 ? (
-        <Input value={value as string} onChange={setValue} onBlur={() => updateValue(false)} />
+        <Input value={value} onChange={setValue} onBlur={() => updateValue()} />
       ) : (
-        <Popover onOpenChange={updateValue}>
+        <Popover open={open} onOpenChange={changeOpen}>
           <PopoverTrigger asChild>
-            <Input value={value as string} onChange={setValue} type='input' />
+            <Input
+              value={value}
+              onChange={change => {
+                setValue(change);
+                setOpen(true);
+              }}
+              type='input'
+            />
           </PopoverTrigger>
           <PopoverPortal container={editorContext.editorRef.current}>
             <PopoverContent className='popover-content' sideOffset={5} align={'end'}>
               <Fieldset label='Code' {...codeFieldset.labelProps}>
                 <ScriptInput
-                  value={value as string}
+                  value={value}
                   onChange={setValue}
                   type={type}
                   editorOptions={{ fixedOverflowWidgets: false }}
+                  keyActions={{
+                    enter: () => closeRef.current?.click(),
+                    escape: () => closeRef.current?.click(),
+                    tab: () => closeRef.current?.click()
+                  }}
                   {...codeFieldset.inputProps}
                 />
               </Fieldset>
-              <PopoverClose className='popover-close' aria-label='Close'>
+              <PopoverClose className='popover-close' aria-label='Close' ref={closeRef}>
                 <IvyIcon icon={IvyIcons.Add} rotate={45} />
               </PopoverClose>
               <PopoverArrow className='popover-arrow' />

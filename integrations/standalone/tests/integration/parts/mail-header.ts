@@ -1,45 +1,53 @@
-import { expect } from '@playwright/test';
 import { Part } from '../../pageobjects/Part';
-import { FocusCodeEditorUtil } from '../../utils/code-editor-util';
 import { PartTest } from './part-tester';
 
 export class MailHeaderTester implements PartTest {
-  constructor(private readonly hasTags: boolean = true) {}
-
   partName() {
     return 'Header';
   }
-  async fill({ page }: Part) {
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('Subject'), 'subject');
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('From'), 'from');
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('Reply To'), 'reply');
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('To', { exact: true }), 'to');
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('CC', { exact: true }), 'cc');
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('BCC'), 'bcc');
+  async fill(part: Part) {
+    await part.macroInput('Subject').fill('subject');
+    await part.macroInput('From').fill('from');
+    await part.macroInput('Reply to').fill('reply');
+    await part.macroInput('To').fill('to');
+    await part.macroInput('CC').fill('cc');
+    await part.macroInput('BCC').fill('bcc');
+    const options = part.section('Options');
+    await options.toggle();
+    // await options.select('Error').choose('>> Ignore Exception');
+    await options.checkbox('Throw').check();
   }
-  async assertFill({ page }: Part) {
-    await expect(page.getByLabel('Subject')).toHaveValue('subject');
-    await expect(page.getByLabel('From')).toHaveValue('from');
-    await expect(page.getByLabel('Reply To')).toHaveValue('reply');
-    await expect(page.getByLabel('To', { exact: true })).toHaveValue('to');
-    await expect(page.getByLabel('CC', { exact: true })).toHaveValue('cc');
-    await expect(page.getByLabel('BCC')).toHaveValue('bcc');
+  async assertFill(part: Part) {
+    await part.macroInput('Subject').expectValue('subject');
+    await part.macroInput('From').expectValue('from');
+    await part.macroInput('Reply to').expectValue('reply');
+    await part.macroInput('To').expectValue('to');
+    await part.macroInput('CC').expectValue('cc');
+    await part.macroInput('BCC').expectValue('bcc');
+    const options = part.section('Options');
+    await options.isOpen();
+    // await options.select('Error').expectValue('>> Ignore Exception');
+    await options.checkbox('Throw').expectChecked();
   }
-  async clear({ page }: Part) {
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('Subject'));
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('From'));
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('Reply To'));
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('To', { exact: true }));
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('CC', { exact: true }));
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('BCC'));
+  async clear(part: Part) {
+    await part.macroInput('Subject').clear();
+    await part.macroInput('From').clear();
+    await part.macroInput('Reply to').clear();
+    await part.macroInput('To').clear();
+    await part.macroInput('CC').clear();
+    await part.macroInput('BCC').clear();
+    const options = part.section('Options');
+    // await options.select('Error').choose('ivy:error:mail');
+    await options.checkbox('Throw').uncheck();
   }
-  async assertClear({ page }: Part) {
-    await expect(page.getByLabel('Subject')).toBeEmpty();
-    await expect(page.getByLabel('From')).toBeEmpty();
-    await expect(page.getByLabel('Reply To')).toBeEmpty();
-    await expect(page.getByLabel('To', { exact: true })).toBeEmpty();
-    await expect(page.getByLabel('CC', { exact: true })).toBeEmpty();
-    await expect(page.getByLabel('BCC')).toBeEmpty();
+  async assertClear(part: Part) {
+    await part.macroInput('Subject').expectEmpty();
+    await part.macroInput('From').expectEmpty();
+    await part.macroInput('Reply to').expectEmpty();
+    await part.macroInput('To').expectEmpty();
+    await part.macroInput('CC').expectEmpty();
+    await part.macroInput('BCC').expectEmpty();
+    await part.section('Options').isClosed();
   }
 }
 
