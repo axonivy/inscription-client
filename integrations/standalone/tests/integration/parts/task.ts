@@ -73,7 +73,7 @@ export class TaskTester implements PartTest {
     const options = part.section('Options');
     await options.toggle();
     await options.checkbox('Skip Tasklist').check();
-    await options.input('Delay').fill('delay');
+    await options.scriptInput('Delay').fill('delay');
 
     const expiry = part.section('Expiry');
     await expiry.toggle();
@@ -137,7 +137,7 @@ export class TaskTester implements PartTest {
 
     const options = part.section('Options');
     await options.checkbox('Skip Tasklist').uncheck();
-    await options.input('Delay').clear();
+    await options.scriptInput('Delay').clear();
 
     const expiry = part.section('Expiry');
     await expiry.scriptInput('Timeout').clear();

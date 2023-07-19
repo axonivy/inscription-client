@@ -5,6 +5,6 @@
 .responsible-select .select:first-child {
   flex: 0 0 8rem;
 }
-.responsible-select .input {
+.responsible-select .script-input {
   width: calc(100% - 8rem - var(--size-4));
 }

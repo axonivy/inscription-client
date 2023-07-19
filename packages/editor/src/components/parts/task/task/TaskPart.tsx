@@ -7,7 +7,7 @@ import { MacroArea, MacroInput, ScriptArea, useFieldset } from '../../../widgets
 import ResponsibleSelect from '../responsible/ResponsibleSelect';
 import { useTaskData } from '../useTaskData';
 import { PathContext } from '../../../../context';
-import { PathFieldset } from '../../common/path/PathFieldset';
+import { PathFieldset, ValidationFieldset } from '../../common/path/PathFieldset';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 
 const TaskPart = (props: { showPersist?: boolean }) => {
@@ -35,7 +35,9 @@ const TaskPart = (props: { showPersist?: boolean }) => {
       <ExpiryPart />
       <CustomFieldPart customFields={task.customFields} updateCustomFields={change => update('customFields', change)} type='TASK' />
       <PathCollapsible label='Code' defaultOpen={task.code.length > 0} path='code'>
-        <ScriptArea value={task.code} onChange={change => update('code', change)} />
+        <ValidationFieldset>
+          <ScriptArea value={task.code} onChange={change => update('code', change)} />
+        </ValidationFieldset>
       </PathCollapsible>
     </PathContext>
   );

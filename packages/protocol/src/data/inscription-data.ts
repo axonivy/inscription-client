@@ -15,7 +15,7 @@ import {
   TaskData
 } from './part-data';
 import { InscriptionType, MailHeaders, SchemaKey, WfTask } from './inscription';
-import { ValuesAsUnionDeep } from '../utils/type-helper';
+import { Brand, ValuesAsUnionDeep } from '../utils/type-helper';
 
 export type ConfigData = CallData &
   DialogCallData &
@@ -52,3 +52,4 @@ export type ElementType = InscriptionType['id'];
 type TaskSchemaKeys = keyof WfTask | keyof WfTask['expiry'];
 type EmailSchemaKeys = keyof MailHeaders;
 export type SchemaKeys = ValuesAsUnionDeep<SchemaKey> | TaskSchemaKeys | EmailSchemaKeys;
+export type SchemaPath = Brand<string, 'SchemaPath'>;

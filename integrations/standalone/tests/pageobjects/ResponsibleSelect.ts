@@ -1,16 +1,17 @@
 import { Locator, Page, expect } from '@playwright/test';
 import { RESPONSIBLE_TYPE, ValuesAsUnion } from '@axonivy/inscription-protocol';
+import { CodeEditor } from './CodeEditor';
 
 export class ResponsibleSelect {
   private readonly locator: Locator;
   private readonly type: Locator;
-  private readonly script: Locator;
+  private readonly script: CodeEditor;
   private readonly combo: Locator;
 
   constructor(page: Page, parentLocator: Locator, label: string) {
     this.locator = parentLocator.locator('.responsible-select', { has: page.getByLabel(label) }).first();
     this.type = parentLocator.getByLabel(label).first();
-    this.script = this.locator.getByRole('textbox');
+    this.script = new CodeEditor(page, this.locator, true);
     this.combo = this.locator.getByRole('combobox').nth(1);
   }
 
@@ -38,7 +39,7 @@ export class ResponsibleSelect {
     switch (type) {
       case 'Role from Attr.':
       case 'User from Attr.':
-        await expect(this.script).toHaveValue(value);
+        await this.script.expectValue(value);
         break;
       case 'Role':
         await expect(this.combo).toHaveText(value);

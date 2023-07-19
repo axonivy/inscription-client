@@ -1,4 +1,5 @@
-import { Checkbox, Collapsible, Fieldset, Input, useFieldset } from '../../../widgets';
+import { Checkbox, Collapsible, ScriptInput, useFieldset } from '../../../widgets';
+import { PathFieldset } from '../../common/path/PathFieldset';
 import { useTaskData } from '../useTaskData';
 
 const TaskListPart = () => {
@@ -8,9 +9,9 @@ const TaskListPart = () => {
   return (
     <Collapsible label='Options' defaultOpen={task.skipTasklist}>
       <Checkbox label='Skip Tasklist' value={task.skipTasklist} onChange={change => update('skipTasklist', change)} />
-      <Fieldset label='Delay' {...delayFieldset.labelProps}>
-        <Input value={task.delay} onChange={change => update('delay', change)} {...delayFieldset.inputProps} />
-      </Fieldset>
+      <PathFieldset label='Delay' {...delayFieldset.labelProps} path='delay'>
+        <ScriptInput value={task.delay} onChange={change => update('delay', change)} {...delayFieldset.inputProps} type='Duration' />
+      </PathFieldset>
     </Collapsible>
   );
 };

@@ -2,7 +2,18 @@ import { ScriptVariable } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
-import { EditableCell, Table, TableHeader, TableCell, ActionCell, TableFooter, TableAddRow, SortableHeader } from '../../../widgets';
+import {
+  EditableCell,
+  Table,
+  TableHeader,
+  TableCell,
+  ActionCell,
+  TableFooter,
+  TableAddRow,
+  SortableHeader,
+  ValidationRow
+} from '../../../widgets';
+import { mergePaths, usePath, useValidations } from '../../../../context';
 
 type ParameterTableProps = {
   data: ScriptVariable[];
@@ -76,6 +87,9 @@ const ParameterTable = ({ data, onChange, hideDesc }: ParameterTableProps) => {
     }
   });
 
+  const validations = useValidations();
+  const path = usePath();
+
   return (
     <Table>
       <thead>
@@ -92,12 +106,12 @@ const ParameterTable = ({ data, onChange, hideDesc }: ParameterTableProps) => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <tr key={row.id}>
+          <ValidationRow key={row.id} path={mergePaths(path, row.original.name)} validations={validations}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}
             <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Delete, action: () => removeTableRow(row.index) }]} />
-          </tr>
+          </ValidationRow>
         ))}
       </tbody>
       <TableFooter>

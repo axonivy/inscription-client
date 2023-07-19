@@ -12,9 +12,10 @@ import {
   ActionCell,
   TableFooter,
   TableAddRow,
-  SortableHeader
+  SortableHeader,
+  ValidationRow
 } from '../../../../components/widgets';
-import { useAction } from '../../../../context';
+import { mergePaths, useAction, usePath, useValidations } from '../../../../context';
 
 type CustomFieldTableProps = {
   data: WfCustomField[];
@@ -90,6 +91,9 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
 
   const action = useAction('openCustomField');
 
+  const validations = useValidations();
+  const path = usePath();
+
   return (
     <Table>
       <thead>
@@ -106,7 +110,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <tr key={row.id}>
+          <ValidationRow key={row.id} path={mergePaths(path, row.original.name)} validations={validations}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}
@@ -120,7 +124,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
                 }
               ]}
             />
-          </tr>
+          </ValidationRow>
         ))}
       </tbody>
       <TableFooter>

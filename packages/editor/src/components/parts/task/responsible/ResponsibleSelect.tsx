@@ -1,9 +1,10 @@
 import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
 import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE, WfTask } from '@axonivy/inscription-protocol';
-import { Fieldset, Input, Select, SelectItem, useFieldset } from '../../../../components/widgets';
+import { ScriptInput, Select, SelectItem, useFieldset } from '../../../../components/widgets';
 import { useClient, useEditorContext } from '../../../../context';
 import { DataUpdater } from '../../../../types/lambda';
+import { PathFieldset } from '../../common/path/PathFieldset';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
 
@@ -42,10 +43,11 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
     case 'ROLE_FROM_ATTRIBUTE':
     case 'USER_FROM_ATTRIBUTE':
       return (
-        <Input
+        <ScriptInput
           aria-label='activator'
-          value={props.responsible?.activator}
+          value={props.responsible?.activator ?? ''}
           onChange={change => props.updateResponsible('activator', change)}
+          type='String'
         />
       );
     case 'DELETE_TASK':
@@ -76,7 +78,7 @@ const ResponsibleSelect = (props: {
   const selectFieldset = useFieldset();
 
   return (
-    <Fieldset label='Responsible' {...selectFieldset.labelProps}>
+    <PathFieldset label='Responsible' {...selectFieldset.labelProps} path='responsible'>
       <div className='responsible-select'>
         <Select
           items={typeItems}
@@ -86,7 +88,7 @@ const ResponsibleSelect = (props: {
         />
         <ResponsibleActivator {...props} selectedType={selectedType?.value as WfActivatorType} />
       </div>
-    </Fieldset>
+    </PathFieldset>
   );
 };
 

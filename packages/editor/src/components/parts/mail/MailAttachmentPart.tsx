@@ -2,7 +2,7 @@ import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableFooter, Tab
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useMailData } from './useMailData';
 import { MailData } from '@axonivy/inscription-protocol';
-import { PathContext, usePath, useValidations } from '../../../context';
+import { PathContext, mergePaths, usePath, useValidations } from '../../../context';
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { IvyIcons } from '@axonivy/editor-icons';
@@ -83,7 +83,7 @@ const MailAttachmentTable = () => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <ValidationRow key={row.id} path={`${path}.${row.index}`} validations={validations}>
+          <ValidationRow key={row.id} path={mergePaths(path, row.index)} validations={validations}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}

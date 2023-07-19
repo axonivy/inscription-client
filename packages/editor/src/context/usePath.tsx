@@ -1,18 +1,11 @@
-import { Brand, SchemaKeys } from '@axonivy/inscription-protocol';
+import { SchemaPath, SchemaKeys } from '@axonivy/inscription-protocol';
 import React, { ReactNode, useContext } from 'react';
 
-type FullPath = Brand<string, 'Path'>;
-const PathContextInstance = React.createContext<FullPath | SchemaKeys | ''>('');
+const PathContextInstance = React.createContext<SchemaPath | SchemaKeys | ''>('');
 
 export const useFullPath = (path?: SchemaKeys) => {
   const parentPath = useContext(PathContextInstance);
-  if (parentPath.length === 0) {
-    return path as FullPath;
-  }
-  if (path === undefined || path.length === 0) {
-    return parentPath as FullPath;
-  }
-  return `${parentPath}.${path}` as FullPath;
+  return mergePaths(parentPath, path);
 };
 
 export const PathContext = ({ path, children }: { path: SchemaKeys; children: ReactNode }) => {
@@ -21,3 +14,16 @@ export const PathContext = ({ path, children }: { path: SchemaKeys; children: Re
 };
 
 export const usePath = () => useContext(PathContextInstance);
+
+export const mergePaths = (path1: string, path2?: string | number) => {
+  if (path1.length === 0) {
+    return path2 as SchemaPath;
+  }
+  if (path2 === undefined || (typeof path2 === 'string' && path2.length === 0)) {
+    return path1 as SchemaPath;
+  }
+  if (typeof path2 === 'number') {
+    return `${path1}.[${path2}]` as SchemaPath;
+  }
+  return `${path1}.${path2}` as SchemaPath;
+};
