@@ -73,6 +73,10 @@ export class Cell {
     this.locator = rowLocator.getByRole('cell').nth(column);
   }
 
+  async fill(value: string) {
+    await this.locator.getByRole('textbox').fill(value);
+  }
+
   async expectValue(value: string) {
     await expect(this.locator.getByRole('textbox')).toHaveValue(value);
   }

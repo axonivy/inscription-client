@@ -1,8 +1,8 @@
 import {
   Data,
   ElementAlternative,
+  ElementEMail,
   ElementScript,
-  MailHeaders,
   ScriptMapCode,
   ScriptParameterizedMapCode,
   WfCase,
@@ -62,6 +62,4 @@ export interface SignalCatchData {
   attachToBusinessCase: boolean;
 }
 
-export interface MailHeaderData {
-  headers: MailHeaders;
-}
+export interface MailData extends ElementEMail {}

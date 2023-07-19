@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
 
-test.describe('Widgets', () => {
+test.describe('Code Editor', () => {
   test('MacroInput', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
     await inscriptionView.selectElement('169A4921D0EF0B91-f9');

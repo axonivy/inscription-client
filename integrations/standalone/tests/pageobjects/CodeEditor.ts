@@ -13,7 +13,7 @@ export class CodeEditor {
     if (label === undefined) {
       this.locator = parentLocator.getByRole('code').nth(0);
     } else {
-      this.locator = parentLocator.getByLabel(label).first();
+      this.locator = parentLocator.getByLabel(label, { exact: true }).first();
     }
     this.value = activateOnFocus ? this.locator : this.locator.getByRole('textbox');
   }

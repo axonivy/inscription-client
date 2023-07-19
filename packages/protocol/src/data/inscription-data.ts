@@ -5,7 +5,7 @@ import {
   DialogCallData,
   EndPageData,
   ErrorCatchData,
-  MailHeaderData,
+  MailData,
   NameData,
   OutputData,
   ProcessCallData,
@@ -29,7 +29,7 @@ export type ConfigData = CallData &
   ResultData &
   ErrorCatchData &
   SignalCatchData &
-  MailHeaderData;
+  MailData;
 
 export type ElementData = NameData & { config: ConfigData };
 
@@ -49,6 +49,6 @@ export interface InscriptionSaveData {
 
 export type ElementType = InscriptionType['id'];
 
-type TaskSchemaKeys = keyof WfTask;
+type TaskSchemaKeys = keyof WfTask | keyof WfTask['expiry'];
 type EmailSchemaKeys = keyof MailHeaders;
 export type SchemaKeys = ValuesAsUnionDeep<SchemaKey> | TaskSchemaKeys | EmailSchemaKeys;

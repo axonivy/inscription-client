@@ -72,7 +72,7 @@ export class TaskTester implements PartTest {
 
     const options = part.section('Options');
     await options.toggle();
-    await options.checkbox('Skip Tasklist').click();
+    await options.checkbox('Skip Tasklist').check();
     await options.input('Delay').fill('delay');
 
     const expiry = part.section('Expiry');

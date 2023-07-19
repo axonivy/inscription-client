@@ -2,6 +2,8 @@ import { expect, test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
 import { NameTest, OutputTest, fillReloadAndAssert } from '../parts';
 import { MailHeaderTest } from '../parts/mail-header';
+import { MailContentTest } from '../parts/mail-content';
+import { MailAttachmentTest } from '../parts/mail-attachments';
 
 test.describe('Interface Activities', () => {
   test('Database', async ({ page }) => {
@@ -29,7 +31,7 @@ test.describe('Interface Activities', () => {
     const inscriptionView = new InscriptionView(page);
     await inscriptionView.selectElement('0169A49845D37011-f16');
     await inscriptionView.expectHeaderText('E-Mail');
-    await fillReloadAndAssert(inscriptionView, [NameTest, MailHeaderTest]);
+    await fillReloadAndAssert(inscriptionView, [NameTest, MailHeaderTest, MailContentTest, MailAttachmentTest]);
   });
 
   test('Rule', async ({ page }) => {

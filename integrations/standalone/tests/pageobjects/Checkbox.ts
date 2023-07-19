@@ -7,15 +7,18 @@ export class Checkbox {
     this.locator = parentLocator.getByLabel(label);
   }
 
-  uncheck() {
-    this.locator.uncheck();
+  async uncheck() {
+    await this.locator.uncheck();
   }
 
-  click() {
-    this.locator.click();
+  async check() {
+    await this.locator.check();
   }
 
-  async expectChecked() {
+  async expectChecked(checked?: boolean) {
+    if (!!checked) {
+      await expect(this.locator).not.toBeChecked();
+    }
     await expect(this.locator).toBeChecked();
   }
 }

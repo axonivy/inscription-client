@@ -13,7 +13,9 @@ import {
   ResultData,
   ErrorCatchData,
   SignalCatchData,
-  MailHeaderData
+  MailData,
+  MAIL_TYPE,
+  IVY_EXCEPTIONS
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -75,7 +77,7 @@ export const DEFAULT_SIGNAL_CATCH_DATA: SignalCatchData = {
   attachToBusinessCase: true
 };
 
-export const DEFAULT_MAIL_HEADER_DATA: MailHeaderData = {
+export const DEFAULT_MAIL_DATA: MailData = {
   headers: {
     subject: '',
     from: '',
@@ -83,7 +85,11 @@ export const DEFAULT_MAIL_HEADER_DATA: MailHeaderData = {
     to: '',
     cc: '',
     bcc: ''
-  }
+  },
+  failIfMissingAttachments: false,
+  attachments: [],
+  message: { body: '', contentType: MAIL_TYPE.plain },
+  exceptionHandler: IVY_EXCEPTIONS.mail
 };
 
 export const DEFAULT_DATA: ElementData = {
@@ -99,6 +105,6 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_RESULT_DATA,
     ...DEFAULT_ERROR_CATCH_DATA,
     ...DEFAULT_SIGNAL_CATCH_DATA,
-    ...DEFAULT_MAIL_HEADER_DATA
+    ...DEFAULT_MAIL_DATA
   }
 } as const;
