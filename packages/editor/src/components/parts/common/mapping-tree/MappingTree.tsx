@@ -13,7 +13,7 @@ import {
 } from '@tanstack/react-table';
 import { MappingTreeData } from './mapping-tree-data';
 import { ScriptCell, ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, ValidationRow } from '../../../../components/widgets';
-import { usePath, useValidations } from '../../../../context';
+import { mergePaths, usePath, useValidations } from '../../../../context';
 import { MappingPartProps } from './MappingPart';
 import { TableFilter, calcFullPathId } from './useMappingTree';
 
@@ -122,7 +122,7 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <ValidationRow key={row.id} path={`${path}.${calcFullPathId(row)}`} validations={validations}>
+          <ValidationRow key={row.id} path={mergePaths(path, calcFullPathId(row))} validations={validations}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}

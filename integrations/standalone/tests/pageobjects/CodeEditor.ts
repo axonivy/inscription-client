@@ -10,10 +10,12 @@ export class CodeEditor {
   constructor(page: Page, parentLocator: Locator, activateOnFocus: boolean, label?: string) {
     this.page = page;
     this.contentAssist = parentLocator.locator('div.suggest-widget');
-    if (label === undefined) {
-      this.locator = parentLocator.getByRole('code').nth(0);
-    } else {
+    if (label) {
       this.locator = parentLocator.getByLabel(label, { exact: true }).first();
+    } else if (activateOnFocus) {
+      this.locator = parentLocator.getByRole('textbox');
+    } else {
+      this.locator = parentLocator.getByRole('code').nth(0);
     }
     this.value = activateOnFocus ? this.locator : this.locator.getByRole('textbox');
   }

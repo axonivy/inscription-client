@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Collapsible, Input, ScriptArea, useFieldset } from '../../../components/widgets';
+import { Input, ScriptArea, useFieldset } from '../../../components/widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useStartData } from './useStartData';
 import { VariableInfo, StartData } from '@axonivy/inscription-protocol';
@@ -8,6 +8,7 @@ import ParameterTable from '../common/parameter/ParameterTable';
 import { useStartNameSyncher } from './useStartNameSyncher';
 import { PathFieldset } from '../common/path/PathFieldset';
 import MappingPart from '../common/mapping-tree/MappingPart';
+import { PathCollapsible } from '../common/path/PathCollapsible';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
 
@@ -51,9 +52,9 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
         <Input value={config.signature} onChange={change => updateSignature(change)} {...signatureFieldset.inputProps} />
       </PathFieldset>
       <PathContext path='input'>
-        <Collapsible label='Input parameters'>
+        <PathCollapsible label='Input parameters' path='params'>
           <ParameterTable data={config.input.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
-        </Collapsible>
+        </PathCollapsible>
         <MappingPart data={config.input.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
           <ScriptArea value={config.input.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />

@@ -1,9 +1,9 @@
 import './ValidationRow.css';
 import { ReactNode } from 'react';
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import { InscriptionValidation, SchemaPath } from '@axonivy/inscription-protocol';
 
 type ValidationRowProps = {
-  path: string;
+  path: SchemaPath;
   validations: InscriptionValidation[];
   children: ReactNode;
 };
