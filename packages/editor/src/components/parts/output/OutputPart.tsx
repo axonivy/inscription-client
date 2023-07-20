@@ -4,8 +4,7 @@ import { ScriptArea, useFieldset } from '../../widgets';
 import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useOutputData } from './useOutputData';
-import { PathFieldset } from '../common/path/PathFieldset';
-import MappingPart from '../common/mapping-tree/MappingPart';
+import { MappingPart, PathFieldset } from '../common';
 
 export function useOutputPart(options?: { hideCode?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetOutput } = useOutputData();

@@ -2,16 +2,15 @@ import './Fieldset.css';
 import { Label } from '@radix-ui/react-label';
 import { memo } from 'react';
 import Button from '../button/Button';
-import IvyIcon from '../IvyIcon';
 import { LabelProps } from '@radix-ui/react-label';
 import { FieldsetControl } from './fieldset-control';
-import { Message } from '../../../components/props';
+import { MessageText, MessageTextProps } from '../message/Message';
 
-export type FieldsetProps = LabelProps & {
-  label?: string;
-  controls?: FieldsetControl[];
-  message?: Message;
-};
+export type FieldsetProps = LabelProps &
+  MessageTextProps & {
+    label?: string;
+    controls?: FieldsetControl[];
+  };
 
 const Fieldset = ({ label, controls, message, children, ...labelProps }: FieldsetProps) => {
   const severiry = message ? `fieldset-${message.severity.toString().toLowerCase()}` : '';
@@ -37,12 +36,7 @@ const Fieldset = ({ label, controls, message, children, ...labelProps }: Fieldse
         </div>
       )}
       <div className={`fieldset-input ${severiry}`}>{children}</div>
-      {message && (
-        <div className={`fieldset-message ${severiry}`}>
-          <IvyIcon icon={message.severity} />
-          {message.message}
-        </div>
-      )}
+      <MessageText message={message} />
     </div>
   );
 };

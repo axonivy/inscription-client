@@ -4,11 +4,8 @@ import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useStartData } from './useStartData';
 import { VariableInfo, StartData } from '@axonivy/inscription-protocol';
 import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
-import ParameterTable from '../common/parameter/ParameterTable';
 import { useStartNameSyncher } from './useStartNameSyncher';
-import { PathFieldset } from '../common/path/PathFieldset';
-import MappingPart from '../common/mapping-tree/MappingPart';
-import { PathCollapsible } from '../common/path/PathCollapsible';
+import { MappingPart, ParameterTable, PathCollapsible, PathFieldset } from '../common';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
 

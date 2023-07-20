@@ -7,7 +7,7 @@ import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { FieldsetControl, useFieldset } from '../../../../components/widgets';
-import { PathFieldset } from '../../common/path/PathFieldset';
+import { PathFieldset } from '../../common';
 
 export function useTriggerCallPart(): PartProps {
   const callData = useCallData();

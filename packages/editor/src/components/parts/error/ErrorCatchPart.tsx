@@ -3,11 +3,10 @@ import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useFieldset } from '../../widgets';
 import { useErrorCatchData } from './useErrorCatchData';
 import { useClient, useEditorContext, useValidations } from '../../../context';
-import EventCodeSelect, { EventCodeItem } from '../common/eventcode/EventCodeSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useDefaultNameSyncher } from '../name/useNameSyncher';
 import { ErrorCatchData } from '@axonivy/inscription-protocol';
-import { PathFieldset } from '../common/path/PathFieldset';
+import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
 
 export function useErrorCatchPart(): PartProps {
   const { config, defaultConfig, initConfig, update } = useErrorCatchData();

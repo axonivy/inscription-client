@@ -2,13 +2,11 @@ import ExpiryPart from '../expiry/ExpiryPart';
 import PersistPart from '../options/PersistPart';
 import TaskListPart from '../options/TaskListPart';
 import PrioritySelect from '../priority/PrioritySelect';
-import CustomFieldPart from '../../common/customfield/CustomFieldPart';
 import { MacroArea, MacroInput, ScriptArea, useFieldset } from '../../../widgets';
 import ResponsibleSelect from '../responsible/ResponsibleSelect';
 import { useTaskData } from '../useTaskData';
 import { PathContext } from '../../../../context';
-import { PathFieldset, ValidationFieldset } from '../../common/path/PathFieldset';
-import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { PathFieldset, PathCollapsible, ValidationFieldset, CustomFieldPart } from '../../common';
 
 const TaskPart = (props: { showPersist?: boolean }) => {
   const { task, update, updateResponsible, updatePriority } = useTaskData();

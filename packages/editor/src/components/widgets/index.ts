@@ -9,6 +9,7 @@ export * from './tab';
 export * from './table';
 export * from './tag';
 export * from './accordion';
+export * from './message/Message';
 
 export { default as IvyIcon } from './IvyIcon';
 export { default as EmptyWidget } from './empty/EmptyWidget';

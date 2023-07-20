@@ -1,12 +1,13 @@
+import { Message } from '../message/Message';
 import Collapsible from './Collapsible';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('Collapsible', () => {
   const COLLAPSE_DATA = /collapsible data/i;
 
-  function renderCollapsible(open: boolean) {
+  function renderCollapsible(open: boolean, options?: { message: Message }) {
     render(
-      <Collapsible label='Test' defaultOpen={open}>
+      <Collapsible label='Test' defaultOpen={open} message={options?.message}>
         <p>collapsible data</p>
       </Collapsible>
     );
@@ -39,5 +40,10 @@ describe('Collapsible', () => {
     expect(screen.getByText(COLLAPSE_DATA)).toBeInTheDocument();
     await userEvent.keyboard('[Space]');
     expect(screen.queryByText(COLLAPSE_DATA)).not.toBeInTheDocument();
+  });
+
+  test('message', () => {
+    renderCollapsible(false, { message: { message: 'this is a error', severity: 'ERROR' } });
+    expect(screen.getByTitle('this is a error')).toHaveClass('message');
   });
 });

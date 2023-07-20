@@ -4,9 +4,7 @@ import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useResultData } from './useResultData';
 import { VariableInfo, ResultData, Variable } from '@axonivy/inscription-protocol';
 import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
-import ParameterTable from '../common/parameter/ParameterTable';
-import { PathFieldset } from '../common/path/PathFieldset';
-import MappingPart from '../common/mapping-tree/MappingPart';
+import { MappingPart, ParameterTable, PathFieldset } from '../common';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useResultData();

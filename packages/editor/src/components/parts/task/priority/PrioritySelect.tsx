@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { WfPriority, WfLevel, PRIORITY_LEVEL, WfTask } from '@axonivy/inscription-protocol';
 import { ScriptInput, Select, SelectItem, useFieldset } from '../../../../components/widgets';
 import { DataUpdater } from '../../../../types/lambda';
-import { PathFieldset } from '../../common/path/PathFieldset';
+import { PathFieldset } from '../../common';
 
 const DEFAULT_PRIORITY: SelectItem & { value: WfLevel } = { label: PRIORITY_LEVEL.NORMAL, value: 'NORMAL' };
 

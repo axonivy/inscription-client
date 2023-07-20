@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
-import { PathContext, useValidation } from '../../../../context';
-import Fieldset, { FieldsetProps } from '../../../widgets/fieldset/Fieldset';
+import { PathContext } from '../../../../context';
+import { FieldsetProps } from '../../../widgets/fieldset/Fieldset';
 import { SchemaKeys } from '@axonivy/inscription-protocol';
+import { ValidationFieldset } from './validation/ValidationFieldset';
 
 type PathFieldsetProps = FieldsetProps & {
   path: SchemaKeys;
@@ -13,12 +14,3 @@ export const PathFieldset = ({ path: location, children, ...props }: PathFieldse
     <ValidationFieldset {...props}>{children}</ValidationFieldset>
   </PathContext>
 );
-
-export const ValidationFieldset = ({ children, ...props }: FieldsetProps) => {
-  const validation = useValidation();
-  return (
-    <Fieldset {...props} message={validation}>
-      {children}
-    </Fieldset>
-  );
-};

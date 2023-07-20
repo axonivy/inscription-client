@@ -3,8 +3,7 @@ import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useMailData } from './useMailData';
 import { IVY_EXCEPTIONS, MailData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import { PathFieldset } from '../common/path/PathFieldset';
-import ExceptionSelect, { IGNROE_EXCEPTION } from '../common/exception-handler/ExceptionSelect';
+import { ExceptionSelect, IGNROE_EXCEPTION, PathFieldset } from '../common';
 
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetHeaders } = useMailData();

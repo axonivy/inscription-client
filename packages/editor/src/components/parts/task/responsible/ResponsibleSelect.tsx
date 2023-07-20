@@ -4,7 +4,7 @@ import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE, WfTask } from '@axonivy
 import { ScriptInput, Select, SelectItem, useFieldset } from '../../../../components/widgets';
 import { useClient, useEditorContext } from '../../../../context';
 import { DataUpdater } from '../../../../types/lambda';
-import { PathFieldset } from '../../common/path/PathFieldset';
+import { PathFieldset } from '../../common';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
 

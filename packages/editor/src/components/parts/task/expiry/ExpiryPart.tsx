@@ -1,6 +1,5 @@
 import { ScriptInput, useFieldset } from '../../../../components/widgets';
-import { PathCollapsible } from '../../common/path/PathCollapsible';
-import { PathFieldset } from '../../common/path/PathFieldset';
+import { PathCollapsible, PathFieldset } from '../../common';
 import ErrorSelect from './ErrorSelect';
 import PrioritySelect from './../priority/PrioritySelect';
 import ResponsibleSelect from './../responsible/ResponsibleSelect';

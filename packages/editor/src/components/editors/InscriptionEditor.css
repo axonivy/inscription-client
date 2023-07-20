@@ -57,23 +57,10 @@ button:disabled {
 .header-messages {
   display: flex;
   flex-direction: column;
-  margin: 0 var(--size-4);
-  max-height: calc(15px * 2 + var(--size-1) * 4);
-  overflow: auto;
-}
-.header-status {
-  padding: var(--size-1);
-  font-weight: 400;
-  font-size: 12px;
-  display: inline-flex;
-  align-items: center;
   gap: var(--size-1);
-}
-.header-status.message-error {
-  color: var(--error-color);
-}
-.header-status.message-warning {
-  color: var(--warning-color);
+  margin: 0 var(--size-4);
+  max-height: calc(15px * 2 + var(--size-1) * 2);
+  overflow: auto;
 }
 
 .content {

@@ -7,7 +7,7 @@ export * from './cell/TableCell';
 
 export * from './row/ReorderRow';
 export * from './row/SelectRow';
-export * from './row/ValidationRow';
+export * from './row/MessageRow';
 
 export * from './footer/TableFooter';
 export * from './header/TableHeader';

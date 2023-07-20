@@ -5,7 +5,7 @@ import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { IvyIcon, Accordion } from '../widgets';
+import { IvyIcon, Accordion, MessageText } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { PartProps } from '../props';
@@ -50,11 +50,8 @@ const Header = (props: EditorProps) => {
       </div>
       {validations.length > 0 && (
         <div className='header-messages'>
-          {validations.map((state, index) => (
-            <div key={index} className={`header-status message-${state.severity.toString().toLowerCase()}`}>
-              <IvyIcon icon={state.severity} />
-              {state.message}
-            </div>
+          {validations.map((validaiton, index) => (
+            <MessageText key={index} message={validaiton} />
           ))}
         </div>
       )}

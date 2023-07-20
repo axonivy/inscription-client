@@ -1,5 +1,4 @@
 import Select, { SelectItem } from './Select';
-import { Message } from '../../props';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('Select', () => {
@@ -8,7 +7,7 @@ describe('Select', () => {
     { label: 'test', value: 'bla' }
   ];
 
-  function renderSelect(message?: Message): {
+  function renderSelect(): {
     data: () => SelectItem;
     rerender: () => void;
   } {

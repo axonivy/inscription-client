@@ -3,8 +3,7 @@ import { memo } from 'react';
 import { ScriptArea, useFieldset } from '../../widgets';
 import { useCallData } from './useCallData';
 import { PathContext, useValidations } from '../../../context';
-import { PathFieldset } from '../common/path/PathFieldset';
-import MappingPart from '../common/mapping-tree/MappingPart';
+import { MappingPart, PathFieldset } from '../common';
 
 export function useCallPartValidation(): InscriptionValidation[] {
   return useValidations('call');

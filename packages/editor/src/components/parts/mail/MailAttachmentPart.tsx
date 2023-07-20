@@ -1,11 +1,12 @@
-import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableFooter, TableHeader, ValidationRow } from '../../widgets';
+import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableFooter, TableHeader } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useMailData } from './useMailData';
 import { MailData } from '@axonivy/inscription-protocol';
-import { PathContext, mergePaths, usePath, useValidations } from '../../../context';
+import { PathContext, useValidations } from '../../../context';
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { ValidationRow } from '../common';
 
 export function useMailAttachmentPart(): PartProps {
   const { config, initConfig, defaultConfig, resetAttachments } = useMailData();
@@ -64,9 +65,6 @@ const MailAttachmentTable = () => {
     }
   });
 
-  const validations = useValidations();
-  const path = usePath();
-
   return (
     <Table>
       <thead>
@@ -83,7 +81,7 @@ const MailAttachmentTable = () => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <ValidationRow key={row.id} path={mergePaths(path, row.index)} validations={validations}>
+          <ValidationRow key={row.id} rowPathSuffix={row.index}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}

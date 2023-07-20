@@ -13,9 +13,10 @@ import {
   TableFooter,
   TableAddRow,
   SortableHeader,
-  ValidationRow
+  ScriptCell
 } from '../../../../components/widgets';
-import { mergePaths, useAction, usePath, useValidations } from '../../../../context';
+import { useAction } from '../../../../context';
+import { ValidationRow } from '../path/validation/ValidationRow';
 
 type CustomFieldTableProps = {
   data: WfCustomField[];
@@ -43,7 +44,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
       {
         accessorKey: 'value',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => <EditableCell cell={cell} />,
+        cell: cell => <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} />,
         footer: props => props.column.id
       }
     ],
@@ -91,9 +92,6 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
 
   const action = useAction('openCustomField');
 
-  const validations = useValidations();
-  const path = usePath();
-
   return (
     <Table>
       <thead>
@@ -110,7 +108,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <ValidationRow key={row.id} path={mergePaths(path, row.original.name)} validations={validations}>
+          <ValidationRow key={row.id} rowPathSuffix={row.original.name}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}
