@@ -4,7 +4,7 @@ import { useEndPageData } from './useEndPageData';
 import { EndPageData } from '@axonivy/inscription-protocol';
 import { useAction, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { PathFieldset } from '../common/path/PathFieldset';
+import { PathFieldset } from '../common';
 
 export function useEndPagePart(): PartProps {
   const { config, initConfig, defaultConfig, update } = useEndPageData();

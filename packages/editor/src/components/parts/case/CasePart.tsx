@@ -1,10 +1,9 @@
 import { MacroArea, MacroInput, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../props';
-import CustomFieldPart from '../common/customfield/CustomFieldPart';
 import { useCaseData } from './useCaseData';
 import { CaseData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import { PathFieldset } from '../common/path/PathFieldset';
+import { CustomFieldPart, PathFieldset } from '../common';
 
 export function useCasePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useCaseData();

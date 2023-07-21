@@ -15,15 +15,24 @@ export const PathContext = ({ path, children }: { path: SchemaKeys; children: Re
 
 export const usePath = () => useContext(PathContextInstance);
 
-export const mergePaths = (path1: string, path2?: string | number) => {
+export const mergePaths = (path1: string, path2?: string | number) => mergeSchemaPaths(path1, path2) as SchemaPath;
+
+const mergeSchemaPaths = (path1: string, path2?: string | number): string => {
   if (path1.length === 0) {
-    return path2 as SchemaPath;
+    return pathToString(path2);
   }
   if (path2 === undefined || (typeof path2 === 'string' && path2.length === 0)) {
-    return path1 as SchemaPath;
+    return path1;
   }
-  if (typeof path2 === 'number') {
-    return `${path1}.[${path2}]` as SchemaPath;
+  return `${path1}.${pathToString(path2)}`;
+};
+
+const pathToString = (path?: string | number): string => {
+  if (Number.isInteger(path)) {
+    return `[${path}]`;
   }
-  return `${path1}.${path2}` as SchemaPath;
+  if (path) {
+    return path as string;
+  }
+  return '';
 };

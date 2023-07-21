@@ -1,7 +1,6 @@
 import { EMPTY_SELECT_ITEM, useFieldset } from '../../../widgets';
 import { Consumer } from '../../../../types/lambda';
-import { PathFieldset } from '../../common/path/PathFieldset';
-import ExceptionSelect from '../../common/exception-handler/ExceptionSelect';
+import { ExceptionSelect, PathFieldset } from '../../common';
 
 const ErrorSelect = (props: { value: string; onChange: Consumer<string> }) => {
   const selectFieldset = useFieldset();

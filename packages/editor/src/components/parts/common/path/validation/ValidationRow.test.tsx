@@ -1,5 +1,5 @@
 import { render, screen } from 'test-utils';
-import { InscriptionValidation, SchemaPath } from '@axonivy/inscription-protocol';
+import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { ValidationRow } from './ValidationRow';
 
 describe('ValidationRow', () => {
@@ -8,11 +8,12 @@ describe('ValidationRow', () => {
     render(
       <table>
         <tbody>
-          <ValidationRow path={path as SchemaPath} validations={validations}>
+          <ValidationRow rowPathSuffix={path}>
             <td>content</td>
           </ValidationRow>
         </tbody>
-      </table>
+      </table>,
+      { wrapperProps: { validations } }
     );
   }
 

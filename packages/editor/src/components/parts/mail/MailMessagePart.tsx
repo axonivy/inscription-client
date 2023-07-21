@@ -3,7 +3,7 @@ import { PartProps, usePartDirty, usePartState } from '../../props';
 import { useMailData } from './useMailData';
 import { MAIL_TYPE, MailData } from '@axonivy/inscription-protocol';
 import { useValidations } from '../../../context';
-import { PathFieldset } from '../common/path/PathFieldset';
+import { PathFieldset } from '../common';
 import { useMemo } from 'react';
 
 export function useMailMessagePart(): PartProps {

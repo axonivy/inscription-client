@@ -2,18 +2,8 @@ import { ScriptVariable } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
-import {
-  EditableCell,
-  Table,
-  TableHeader,
-  TableCell,
-  ActionCell,
-  TableFooter,
-  TableAddRow,
-  SortableHeader,
-  ValidationRow
-} from '../../../widgets';
-import { mergePaths, usePath, useValidations } from '../../../../context';
+import { EditableCell, Table, TableHeader, TableCell, ActionCell, TableFooter, TableAddRow, SortableHeader } from '../../../widgets';
+import { ValidationRow } from '../path/validation/ValidationRow';
 
 type ParameterTableProps = {
   data: ScriptVariable[];
@@ -87,9 +77,6 @@ const ParameterTable = ({ data, onChange, hideDesc }: ParameterTableProps) => {
     }
   });
 
-  const validations = useValidations();
-  const path = usePath();
-
   return (
     <Table>
       <thead>
@@ -106,7 +93,7 @@ const ParameterTable = ({ data, onChange, hideDesc }: ParameterTableProps) => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <ValidationRow key={row.id} path={mergePaths(path, row.original.name)} validations={validations}>
+          <ValidationRow key={row.id} rowPathSuffix={row.original.name}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}

@@ -25,6 +25,6 @@ describe('PathFieldset', () => {
 
   test('validations visible', () => {
     renderFieldset([{ path: 'name', message: 'this is a error', severity: 'ERROR' }]);
-    expect(screen.getByText('this is a error')).toHaveClass('fieldset-message', 'fieldset-error');
+    expect(screen.getByTitle('this is a error')).toHaveClass('message');
   });
 });

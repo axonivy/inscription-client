@@ -1,0 +1,14 @@
+.message {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-1);
+  padding-inline: var(--size-1);
+  font-size: 12px;
+  font-weight: 400;
+}
+.message[data-state='error'] {
+  color: var(--error-color);
+}
+.message[data-state='warning'] {
+  color: var(--warning-color);
+}

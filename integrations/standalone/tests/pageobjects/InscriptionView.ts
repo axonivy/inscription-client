@@ -51,7 +51,7 @@ export class InscriptionView {
     if (messages.length === 0) {
       await expect(headerMessages).toBeHidden();
     } else {
-      const msgLocator = headerMessages.locator('.header-status');
+      const msgLocator = headerMessages.locator('.message');
       for (var index = 0; index < messages.length; index++) {
         await expect(msgLocator.nth(index)).toContainText(messages[index]);
       }

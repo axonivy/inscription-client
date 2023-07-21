@@ -1,7 +1,15 @@
 import { mergePaths } from './usePath';
 
-describe('usePath', () => {
-  test('mergePath', async () => {
+describe('mergePath', () => {
+  test('empty parent', async () => {
+    expect(mergePaths('')).toEqual('');
+    expect(mergePaths('', undefined)).toEqual('');
+
+    expect(mergePaths('', 'bla.hi')).toEqual('bla.hi');
+    expect(mergePaths('', 15)).toEqual('[15]');
+  });
+
+  test('merge', async () => {
     expect(mergePaths('test')).toEqual('test');
     expect(mergePaths('test', undefined)).toEqual('test');
     expect(mergePaths('test', '')).toEqual('test');

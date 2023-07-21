@@ -32,8 +32,8 @@ describe('Editor', () => {
       { path: '', message: 'this is an warning', severity: 'WARNING' }
     ];
     renderEditor({ headerState: headerState });
-    expect(screen.getByText(/this is an error/i)).toHaveClass('header-status', 'message-error');
-    expect(screen.getByText(/this is an warning/i)).toHaveClass('header-status', 'message-warning');
+    expect(screen.getByTitle(/this is an error/i)).toHaveAttribute('data-state', 'error');
+    expect(screen.getByTitle(/this is an warning/i)).toHaveAttribute('data-state', 'warning');
   });
 
   describe('Editor with errors', () => {

@@ -3,7 +3,7 @@ import { PartProps, usePartDirty, usePartState } from '../../props';
 import { Checkbox, ScriptArea, useFieldset } from '../../widgets';
 import { useOutputData } from './useOutputData';
 import { PathContext, useValidations } from '../../../context';
-import { PathFieldset } from '../common/path/PathFieldset';
+import { PathFieldset } from '../common';
 
 export function useCodePart(): PartProps {
   const { config, defaultConfig, initConfig, resetCode } = useOutputData();

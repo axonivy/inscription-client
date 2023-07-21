@@ -1,3 +1,15 @@
+.collapsible-root .collapsible-header {
+  display: flex;
+}
+.collapsible-root .collapsible-header .message {
+  min-width: 0;
+}
+.collapsible-root .collapsible-header .message span {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .collapsible-root .collapsible-trigger {
   font-size: 12px;
   display: flex;
@@ -5,6 +17,7 @@
   gap: var(--size-1);
   padding-inline: var(--size-1);
   width: unset;
+  white-space: nowrap;
 }
 .collapsible-root .collapsible-trigger .ivy-angle-down {
   transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
