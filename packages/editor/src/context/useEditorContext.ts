@@ -1,15 +1,15 @@
-import { InscriptionType } from '@axonivy/inscription-protocol';
+import { InscriptionContext, InscriptionType } from '@axonivy/inscription-protocol';
 import React, { useContext } from 'react';
 
-export interface EditorContext {
-  pid: string;
+export type EditorContext = {
+  context: InscriptionContext;
   readonly: boolean;
   editorRef: React.MutableRefObject<HTMLElement | null>;
   type: InscriptionType;
-}
+};
 
 export const DEFAULT_EDITOR_CONTEXT: EditorContext = {
-  pid: '',
+  context: { app: '', pmv: '', pid: '' },
   readonly: false,
   editorRef: { current: null },
   type: {

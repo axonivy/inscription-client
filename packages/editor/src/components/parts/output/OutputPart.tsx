@@ -27,11 +27,11 @@ const OutputPart = (props: { showCode?: boolean }) => {
   const { config, update } = useOutputData();
   const [variableInfo, setVariableInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.outScripting(editorContext.pid, 'output').then(info => setVariableInfo(info));
-  }, [client, editorContext.pid]);
+    client.outScripting(context, 'output').then(info => setVariableInfo(info));
+  }, [client, context]);
 
   const codeFieldset = useFieldset();
 

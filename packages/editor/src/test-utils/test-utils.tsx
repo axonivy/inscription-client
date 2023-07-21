@@ -8,7 +8,8 @@ import {
   VariableInfo,
   RoleMeta,
   ConnectorRef,
-  EventCodeMeta
+  EventCodeMeta,
+  InscriptionContext
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
@@ -85,7 +86,7 @@ const ContextHelper = (
       signalCodes() {
         return Promise.resolve(props.meta?.eventCodes ?? []);
       },
-      outScripting(pid: string, location: string) {
+      outScripting(context: InscriptionContext, location: string) {
         if (props.meta?.outScripting) {
           return Promise.resolve(props.meta.outScripting);
         }
@@ -99,8 +100,8 @@ const ContextHelper = (
         return Promise.resolve(props.meta?.inScripting ?? { types: {}, variables: [] });
       },
       // @ts-ignore
-      connectorOf(pid: string) {
-        const connectorPid = PID.fieldId(pid);
+      connectorOf(context: InscriptionContext) {
+        const connectorPid = PID.fieldId(context.pid);
         return Promise.resolve(props.meta?.connectorOf ? props.meta.connectorOf[connectorPid] : undefined);
       }
     }

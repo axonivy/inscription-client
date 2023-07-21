@@ -25,10 +25,10 @@ export function useErrorCatchPart(): PartProps {
 const ErrorCatchPart = () => {
   const { config, update } = useErrorCatchData();
   const [errorCodes, setErrorCodes] = useState<EventCodeItem[]>([]);
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.errorCodes(editorContext.pid).then(codes =>
+    client.errorCodes(context).then(codes =>
       setErrorCodes([
         { value: '', eventCode: '<< Empty >>', info: 'Catches all errors' },
         ...codes.map(code => {
@@ -36,7 +36,7 @@ const ErrorCatchPart = () => {
         })
       ])
     );
-  }, [client, editorContext.pid]);
+  }, [client, context]);
 
   useDefaultNameSyncher({ synchName: config.errorCode });
 

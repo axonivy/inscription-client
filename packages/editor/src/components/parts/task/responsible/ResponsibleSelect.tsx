@@ -15,17 +15,17 @@ type ActivatorProps = ResponsibleProps & { selectedType?: WfActivatorType };
 
 const RoleSelect = ({ responsible, updateResponsible }: ResponsibleProps) => {
   const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.roles(editorContext.pid).then(roles =>
+    client.roles(context).then(roles =>
       setRoleItems(
         roles.map(role => {
           return { label: role.id, value: role.id };
         })
       )
     );
-  }, [client, editorContext.pid]);
+  }, [client, context]);
   const selectedRole = useMemo<SelectItem | undefined>(() => {
     if (responsible?.activator) {
       return roleItems.find(e => e.value === responsible.activator) ?? { label: responsible.activator, value: responsible.activator };

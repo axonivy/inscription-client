@@ -14,7 +14,7 @@ import {
   StartData,
   TaskData
 } from './part-data';
-import { InscriptionType, MailHeaders, SchemaKey, WfTask } from './inscription';
+import { InscriptionContext, InscriptionType, MailHeaders, SchemaKey, WfTask } from './inscription';
 import { Brand, ValuesAsUnionDeep } from '../utils/type-helper';
 
 export type ConfigData = CallData &
@@ -34,7 +34,7 @@ export type ConfigData = CallData &
 export type ElementData = NameData & { config: ConfigData };
 
 export interface InscriptionData {
-  pid: string;
+  context: InscriptionContext;
   type: InscriptionType;
   readonly: boolean;
   data: ElementData;
@@ -42,8 +42,7 @@ export interface InscriptionData {
 }
 
 export interface InscriptionSaveData {
-  pid: string;
-  type: ElementType;
+  context: InscriptionContext;
   data: ElementData;
 }
 

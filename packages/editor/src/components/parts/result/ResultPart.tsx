@@ -24,10 +24,10 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   const { config, update } = useResultData();
   const [variableInfo, setVariableInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.outScripting(editorContext.pid, 'result').then(info => {
+    client.outScripting(context, 'result').then(info => {
       const resultType = info.variables[0].type;
       if (info.types[resultType]?.length !== config.result.params.length) {
         info.types[resultType] = config.result.params.map<Variable>(param => {
@@ -36,7 +36,7 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
       }
       setVariableInfo(info);
     });
-  }, [client, editorContext.pid, config.result.params]);
+  }, [client, context, config.result.params]);
 
   const codeFieldset = useFieldset();
 

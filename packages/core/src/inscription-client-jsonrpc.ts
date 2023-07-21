@@ -11,9 +11,8 @@ import {
   InscriptionSaveData,
   InscriptionValidation,
   VariableInfo,
-  PID,
   RoleMeta,
-  InscriptionDataArgs
+  InscriptionContext
 } from '@axonivy/inscription-protocol';
 import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
 import { Disposable } from 'vscode-ws-jsonrpc';
@@ -38,56 +37,56 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('initialize', undefined);
   }
 
-  data(pid: PID): Promise<InscriptionData> {
-    return this.sendRequest('data', { pid });
+  data(context: InscriptionContext): Promise<InscriptionData> {
+    return this.sendRequest('data', { ...context });
   }
 
-  saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {
-    return this.sendRequest('saveData', { ...args });
+  saveData(saveData: InscriptionSaveData): Promise<InscriptionValidation[]> {
+    return this.sendRequest('saveData', { ...saveData });
   }
 
-  validate(args: InscriptionDataArgs): Promise<InscriptionValidation[]> {
-    return this.sendRequest('validate', args);
+  validate(context: InscriptionContext): Promise<InscriptionValidation[]> {
+    return this.sendRequest('validate', { ...context });
   }
 
-  dialogStarts(pid: PID): Promise<CallableStart[]> {
-    return this.sendRequest('meta/start/dialogs', { pid });
+  dialogStarts(context: InscriptionContext): Promise<CallableStart[]> {
+    return this.sendRequest('meta/start/dialogs', { ...context });
   }
 
-  triggerStarts(pid: PID): Promise<CallableStart[]> {
-    return this.sendRequest('meta/start/triggers', { pid });
+  triggerStarts(context: InscriptionContext): Promise<CallableStart[]> {
+    return this.sendRequest('meta/start/triggers', { ...context });
   }
 
-  callSubStarts(pid: PID): Promise<CallableStart[]> {
-    return this.sendRequest('meta/start/calls', { pid });
+  callSubStarts(context: InscriptionContext): Promise<CallableStart[]> {
+    return this.sendRequest('meta/start/calls', { ...context });
   }
 
-  roles(pid: PID): Promise<RoleMeta[]> {
-    return this.sendRequest('meta/workflow/roles', { pid });
+  roles(context: InscriptionContext): Promise<RoleMeta[]> {
+    return this.sendRequest('meta/workflow/roles', { ...context });
   }
 
-  expiryErrors(pid: PID): Promise<ErrorMeta[]> {
-    return this.sendRequest('meta/workflow/expiryErrors', { pid });
+  expiryErrors(context: InscriptionContext): Promise<ErrorMeta[]> {
+    return this.sendRequest('meta/workflow/expiryErrors', { ...context });
   }
 
-  errorCodes(pid: string): Promise<EventCodeMeta[]> {
-    return this.sendRequest('meta/workflow/errorCodes', { pid });
+  errorCodes(context: InscriptionContext): Promise<EventCodeMeta[]> {
+    return this.sendRequest('meta/workflow/errorCodes', { ...context });
   }
 
-  signalCodes(pid: string): Promise<EventCodeMeta[]> {
-    return this.sendRequest('meta/workflow/signalCodes', { pid });
+  signalCodes(context: InscriptionContext): Promise<EventCodeMeta[]> {
+    return this.sendRequest('meta/workflow/signalCodes', { ...context });
   }
 
-  outScripting(pid: PID, location: string): Promise<VariableInfo> {
-    return this.sendRequest('meta/scripting/out', { pid, location });
+  outScripting(context: InscriptionContext, location: string): Promise<VariableInfo> {
+    return this.sendRequest('meta/scripting/out', { context: context, location });
   }
 
-  inScripting(pid: PID, location: string): Promise<VariableInfo> {
-    return this.sendRequest('meta/scripting/in', { pid, location });
+  inScripting(context: InscriptionContext, location: string): Promise<VariableInfo> {
+    return this.sendRequest('meta/scripting/in', { context: context, location });
   }
 
-  connectorOf(pid: PID): Promise<ConnectorRef> {
-    return this.sendRequest('meta/connector/of', { pid });
+  connectorOf(context: InscriptionContext): Promise<ConnectorRef> {
+    return this.sendRequest('meta/connector/of', { ...context });
   }
 
   action(action: InscriptionActionArgs): void {

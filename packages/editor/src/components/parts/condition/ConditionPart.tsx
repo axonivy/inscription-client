@@ -25,15 +25,17 @@ const ConditionPart = () => {
   const { config, update } = useConditionData();
   const [conditions, setConditions] = useState<Condition[]>([]);
 
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
     setConditions(Condition.of(config.conditions));
     Object.keys(config.conditions).forEach(conditionId => {
-      const pid = PID.createChild(PID.processId(editorContext.pid), conditionId);
-      client.connectorOf(pid).then(data => setConditions(conds => Condition.replace(conds, conditionId, data, editorContext.pid)));
+      const pid = PID.createChild(PID.processId(context.pid), conditionId);
+      client
+        .connectorOf({ ...context, pid })
+        .then(data => setConditions(conds => Condition.replace(conds, conditionId, data, context.pid)));
     });
-  }, [client, config.conditions, editorContext.pid]);
+  }, [client, config.conditions, context]);
 
   return (
     <PathContext path='conditions'>

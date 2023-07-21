@@ -28,11 +28,11 @@ const TriggerCallPart = () => {
   const { config, update } = useProcessCallData();
   const [startItems, setStartItems] = useState<CallableStart[]>([]);
 
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.triggerStarts(editorContext.pid).then(starts => setStartItems(starts));
-  }, [client, editorContext.pid]);
+    client.triggerStarts(context).then(starts => setStartItems(starts));
+  }, [client, context]);
 
   const variableInfo = useMemo<VariableInfo>(
     () => startItems.find(ds => ds.id === config.processCall)?.callParameter ?? { variables: [], types: {} },
