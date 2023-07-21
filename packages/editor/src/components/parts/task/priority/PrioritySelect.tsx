@@ -1,6 +1,6 @@
 import './PrioritySelect.css';
 import { useMemo } from 'react';
-import { WfPriority, WfLevel, PRIORITY_LEVEL, WfTask } from '@axonivy/inscription-protocol';
+import { WfPriority, WfLevel, PRIORITY_LEVEL, WfTask, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { ScriptInput, Select, SelectItem, useFieldset } from '../../../../components/widgets';
 import { DataUpdater } from '../../../../types/lambda';
 import { PathFieldset } from '../../common';
@@ -28,7 +28,7 @@ const PrioritySelect = ({ priority, updatePriority }: { priority?: WfPriority; u
           inputProps={selectFieldset.inputProps}
         />
         {(selectedLevel.value as WfLevel) === 'SCRIPT' && (
-          <ScriptInput type='Integer' value={priority?.script ?? ''} onChange={change => updatePriority('script', change)} />
+          <ScriptInput type={IVY_SCRIPT_TYPES.INT} value={priority?.script ?? ''} onChange={change => updatePriority('script', change)} />
         )}
       </div>
     </PathFieldset>

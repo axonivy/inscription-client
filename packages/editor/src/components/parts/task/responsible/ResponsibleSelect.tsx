@@ -1,6 +1,6 @@
 import './ResponsibleSelect.css';
 import { useEffect, useMemo, useState } from 'react';
-import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE, WfTask } from '@axonivy/inscription-protocol';
+import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE, WfTask, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { ScriptInput, Select, SelectItem, useFieldset } from '../../../../components/widgets';
 import { useClient, useEditorContext } from '../../../../context';
 import { DataUpdater } from '../../../../types/lambda';
@@ -47,7 +47,7 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
           aria-label='activator'
           value={props.responsible?.activator ?? ''}
           onChange={change => props.updateResponsible('activator', change)}
-          type='String'
+          type={IVY_SCRIPT_TYPES.STRING}
         />
       );
     case 'DELETE_TASK':

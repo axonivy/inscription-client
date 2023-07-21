@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { Condition } from './condition';
 import { CellContext, ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {
@@ -13,7 +14,7 @@ const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
 
 const ConditionExpressionCell = ({ cell, removeCell }: { cell: CellContext<Condition, unknown>; removeCell: (id: string) => void }) => {
   if (cell.row.original.target) {
-    return <ScriptCell cell={cell} type='Boolean' />;
+    return <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.BOOLEAN} />;
   }
   return (
     <span style={{ display: 'flex' }}>
