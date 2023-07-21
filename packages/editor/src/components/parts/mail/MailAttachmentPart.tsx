@@ -1,5 +1,5 @@
 import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableFooter, TableHeader } from '../../widgets';
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
 import { MailData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';

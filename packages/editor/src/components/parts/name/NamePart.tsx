@@ -1,4 +1,4 @@
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import DocumentTable from './document/DocumentTable';
 import { Collapsible, Fieldset, SummaryFieldset, SummaryTags, Tags, Textarea, useFieldset } from '../../widgets';
 import { useNameData } from './useNameData';

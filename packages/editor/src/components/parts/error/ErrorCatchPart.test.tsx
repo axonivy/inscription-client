@@ -1,7 +1,7 @@
 import { ComboboxUtil, render, renderHook } from 'test-utils';
 import { ErrorCatchData } from '@axonivy/inscription-protocol';
 import { useErrorCatchPart } from './ErrorCatchPart';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useErrorCatchPart();
@@ -30,9 +30,9 @@ describe('ErrorCatchPart', () => {
     await assertMainPart('test:code');
   });
 
-  function assertState(expectedState: PartState, data?: Partial<ErrorCatchData>) {
+  function assertState(expectedState: PartStateFlag, data?: Partial<ErrorCatchData>) {
     const { result } = renderHook(() => useErrorCatchPart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -47,9 +47,9 @@ describe('ErrorCatchPart', () => {
     const view = renderHook(() => useErrorCatchPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { errorCode: 'init' } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.errorCode).toEqual('init');
   });
 });

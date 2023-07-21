@@ -1,5 +1,5 @@
 import InscriptionEditor from './InscriptionEditor';
-import { PartProps } from '../props/part';
+import { PartProps } from './part/usePart';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { render, screen, userEvent } from 'test-utils';
@@ -11,9 +11,9 @@ describe('Editor', () => {
 
   function renderEditor(options: { headerState?: InscriptionValidation[] } = {}) {
     const parts: PartProps[] = [
-      { name: 'Name', content: <h1>Name</h1> },
-      { name: 'Call', content: <h1>Call</h1> },
-      { name: 'Result', content: <ErrorWidget /> }
+      { name: 'Name', content: <h1>Name</h1>, reset: { dirty: false, action: () => {} }, state: { state: 'empty', validations: [] } },
+      { name: 'Call', content: <h1>Call</h1>, reset: { dirty: false, action: () => {} }, state: { state: 'empty', validations: [] } },
+      { name: 'Result', content: <ErrorWidget />, reset: { dirty: false, action: () => {} }, state: { state: 'empty', validations: [] } }
     ];
     render(<InscriptionEditor icon={IvyIcons.Add} parts={parts} />, {
       wrapperProps: { validations: options.headerState, editor: { title: 'Test Editor' } }
@@ -49,7 +49,7 @@ describe('Editor', () => {
 
     test('editor part render error', async () => {
       renderEditor();
-      await userEvent.click(screen.getByRole('button', { name: /Result/ }));
+      await userEvent.click(screen.getByRole('button', { name: 'Result', exact: true }));
       expect(screen.getByRole('alert')).toHaveTextContent('this is an exception');
       expect(console.error).toHaveBeenCalled();
     });

@@ -1,7 +1,7 @@
 import { TaskData } from '@axonivy/inscription-protocol';
 import { EmptyWidget, Tab, Tabs } from '../../widgets';
 import { TaskDataContextInstance, useValidations } from '../../../context';
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import TaskPart from './task/TaskPart';
 import { useMutliTaskData } from './useTaskData';
 

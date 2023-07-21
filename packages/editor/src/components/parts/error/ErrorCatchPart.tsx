@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useFieldset } from '../../widgets';
 import { useErrorCatchData } from './useErrorCatchData';
 import { useClient, useEditorContext, useValidations } from '../../../context';

@@ -1,7 +1,7 @@
 import { ComboboxUtil, render, renderHook, screen } from 'test-utils';
 import { SignalCatchData } from '@axonivy/inscription-protocol';
 import { useSignalCatchPart } from './SignalCatchPart';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 
 const Part = (props: { makroSupport?: boolean }) => {
   const part = useSignalCatchPart({ makroSupport: props.makroSupport });
@@ -32,9 +32,9 @@ describe('SignalCatchPart', () => {
     expect(await screen.findByLabelText(/Attach to Business Case/)).not.toBeChecked();
   });
 
-  function assertState(expectedState: PartState, data?: Partial<SignalCatchData>) {
+  function assertState(expectedState: PartStateFlag, data?: Partial<SignalCatchData>) {
     const { result } = renderHook(() => useSignalCatchPart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -50,9 +50,9 @@ describe('SignalCatchPart', () => {
     const view = renderHook(() => useSignalCatchPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { signalCode: 'init' } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.signalCode).toEqual('init');
     expect(data.config.attachToBusinessCase).toEqual(true);
   });

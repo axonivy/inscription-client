@@ -1,7 +1,7 @@
 import { useDialogCallPart } from './DialogCallPart';
 import { render, screen, TableUtil, renderHook } from 'test-utils';
 import { CallData, DialogCallData } from '@axonivy/inscription-protocol';
-import { PartState } from '../../../props';
+import { PartStateFlag } from '../../../editors';
 
 const Part = () => {
   const part = useDialogCallPart();
@@ -29,9 +29,9 @@ describe('DialogCallPart', () => {
     await assertMainPart('dialog', [/key value/], 'code');
   });
 
-  function assertState(expectedState: PartState, data?: Partial<CallData & DialogCallData>) {
+  function assertState(expectedState: PartStateFlag, data?: Partial<CallData & DialogCallData>) {
     const { result } = renderHook(() => useDialogCallPart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -48,9 +48,9 @@ describe('DialogCallPart', () => {
     const view = renderHook(() => useDialogCallPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { dialog: 'init' } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.dialog).toEqual('init');
     expect(data.config.call.code).toEqual('');
     expect(data.config.call.map).toEqual({});

@@ -1,7 +1,7 @@
 import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
 import { NameData } from '@axonivy/inscription-protocol';
 import { useNamePart } from './NamePart';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 
 const Part = (props: { hideTags?: boolean }) => {
   const part = useNamePart({ hideTags: props.hideTags });
@@ -38,9 +38,9 @@ describe('NamePart', () => {
     await CollapsableUtil.assertOpen('Tags');
   });
 
-  function assertState(expectedState: PartState, data?: Partial<NameData>) {
+  function assertState(expectedState: PartStateFlag, data?: Partial<NameData>) {
     const { result } = renderHook(() => useNamePart(), { wrapperProps: { data } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -56,9 +56,9 @@ describe('NamePart', () => {
     const view = renderHook(() => useNamePart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { name: 'initName' } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.name).toEqual('initName');
     expect(data.description).toEqual('');
     expect(data.docs).toEqual([]);

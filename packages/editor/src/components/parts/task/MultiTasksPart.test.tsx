@@ -1,6 +1,6 @@
 import { render, screen, renderHook, userEvent, DeepPartial } from 'test-utils';
 import { TaskData, DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/inscription-protocol';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 import { useMultiTasksPart } from './MultiTasksPart';
 import { deepmerge } from 'deepmerge-ts';
 
@@ -35,11 +35,11 @@ describe('MultiTasksPart', () => {
     expect(screen.getByLabelText('Name')).toHaveValue('task 2');
   });
 
-  function assertState(expectedState: PartState, data?: DeepPartial<TaskData>) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<TaskData>) {
     data = addDefaultTaskData(data);
     const defaultData = createDefaultTaskData(data);
     const { result } = renderHook(() => useMultiTasksPart(), { wrapperProps: { data: data && { config: data }, defaultData } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -63,9 +63,9 @@ describe('MultiTasksPart', () => {
     const view = renderHook(() => useMultiTasksPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: initTaskData } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config?.tasks?.at(0)?.name).toEqual('');
     expect(data.config?.tasks?.at(1)?.name).toEqual('');
   });

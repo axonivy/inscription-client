@@ -5,12 +5,13 @@ import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { IvyIcon, Accordion, MessageText } from '../widgets';
+import { IvyIcon, MessageText } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { PartProps } from '../props';
 import DropdownMenu from './menu/HeaderMenu';
 import { useNameData } from '../parts/name/useNameData';
+import Part from './part/Part';
+import { PartProps } from './part/usePart';
 
 const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors]);
 
@@ -65,7 +66,7 @@ const InscriptionEditor = (props: EditorProps) => {
       <Header {...props} />
       <div className='content'>
         {props.parts.map((part, index) => (
-          <Accordion key={`${index}-${part.name}`} part={part} />
+          <Part key={`${index}-${part.name}`} part={part} />
         ))}
       </div>
     </div>

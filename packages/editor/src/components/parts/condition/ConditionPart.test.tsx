@@ -1,6 +1,6 @@
 import { render, TableUtil, renderHook, screen, DeepPartial } from 'test-utils';
 import { ConditionData, ConnectorRef } from '@axonivy/inscription-protocol';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 import { useConditionPart } from './ConditionPart';
 
 const Part = () => {
@@ -38,9 +38,9 @@ describe('ConditionPart', () => {
     await assertMainPart([/db: Database in.accepted == false/, /⛔ f6 false/, /end: TaskEnd/]);
   });
 
-  function assertState(expectedState: PartState, data?: Partial<ConditionData>) {
+  function assertState(expectedState: PartStateFlag, data?: Partial<ConditionData>) {
     const { result } = renderHook(() => useConditionPart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -53,9 +53,9 @@ describe('ConditionPart', () => {
     const view = renderHook(() => useConditionPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { conditions: { f1: 'init' } } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.conditions.f1).toEqual('init');
   });
 });

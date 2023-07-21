@@ -1,6 +1,6 @@
 import { DeepPartial, SelectUtil, render, renderHook, screen } from 'test-utils';
 import { MAIL_TYPE, MailData } from '@axonivy/inscription-protocol';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 import { useMailMessagePart } from './MailMessagePart';
 
 const Part = () => {
@@ -31,9 +31,9 @@ describe('MailMessagePart', () => {
     await assertPage(data);
   });
 
-  function assertState(expectedState: PartState, data?: DeepPartial<MailData>) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<MailData>) {
     const { result } = renderHook(() => useMailMessagePart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -51,9 +51,9 @@ describe('MailMessagePart', () => {
     const view = renderHook(() => useMailMessagePart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { message: { body: 'init' } } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.message.body).toEqual('init');
     expect(data.config.message.contentType).toEqual(MAIL_TYPE.plain);
   });

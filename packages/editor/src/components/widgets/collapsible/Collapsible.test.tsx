@@ -46,4 +46,9 @@ describe('Collapsible', () => {
     renderCollapsible(false, { message: { message: 'this is a error', severity: 'ERROR' } });
     expect(screen.getByTitle('this is a error')).toHaveClass('message');
   });
+
+  test('no message if open', () => {
+    renderCollapsible(true, { message: { message: 'this is a error', severity: 'ERROR' } });
+    expect(screen.queryByTitle('this is a error')).not.toBeInTheDocument();
+  });
 });

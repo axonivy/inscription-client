@@ -1,0 +1,22 @@
+.accordion-trigger .accordion-state {
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 0.5rem;
+  margin-right: 0.25rem;
+  background-color: var(--button-color);
+}
+.accordion-trigger .accordion-state[data-state='configured'] {
+  background-color: var(--info-color);
+}
+.accordion-trigger .accordion-state[data-state='configured'][data-dirty='true'] {
+  background-color: var(--success-color);
+}
+.accordion-trigger .accordion-state[data-state='warning'] {
+  background-color: var(--warning-color);
+}
+.accordion-trigger .accordion-state[data-state='error'] {
+  background-color: var(--error-color);
+}
+.accordion-content .accordion-summary-data {
+  gap: var(--size-2);
+}

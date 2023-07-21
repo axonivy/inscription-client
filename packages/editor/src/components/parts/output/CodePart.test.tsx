@@ -1,6 +1,6 @@
 import { render, screen, renderHook } from 'test-utils';
 import { useCodePart } from './CodePart';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 import { OutputData } from '@axonivy/inscription-protocol';
 
 const Part = () => {
@@ -34,9 +34,9 @@ describe('CodePart', () => {
     await assertMainPart('code', true);
   });
 
-  function assertState(expectedState: PartState, data?: Partial<OutputData>) {
+  function assertState(expectedState: PartStateFlag, data?: Partial<OutputData>) {
     const { result } = renderHook(() => useCodePart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -53,9 +53,9 @@ describe('CodePart', () => {
     const view = renderHook(() => useCodePart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { output: { code: 'init' } } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.output.code).toEqual('init');
     expect(data.config.output.map).toEqual({});
     expect(data.config.sudo).toEqual(false);

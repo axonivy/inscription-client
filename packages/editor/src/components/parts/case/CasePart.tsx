@@ -1,5 +1,5 @@
 import { MacroArea, MacroInput, useFieldset } from '../../widgets';
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useCaseData } from './useCaseData';
 import { CaseData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
