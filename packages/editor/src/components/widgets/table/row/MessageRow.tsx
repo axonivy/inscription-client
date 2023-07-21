@@ -1,6 +1,6 @@
 import './MessageRow.css';
 import { ReactNode } from 'react';
-import { MessageTextProps } from '../../message/Message';
+import { MessageText, MessageTextProps } from '../../message/Message';
 
 export type MessageRowProps = MessageTextProps & {
   children: ReactNode;
@@ -8,8 +8,15 @@ export type MessageRowProps = MessageTextProps & {
 
 export const MessageRow = ({ message, children }: MessageRowProps) => {
   return (
-    <tr className={`row ${message ? `row-${message.severity.toLocaleLowerCase()}` : ''}`} title={message?.message}>
-      {children}
-    </tr>
+    <>
+      <tr className={`row ${message ? `row-${message.severity.toLocaleLowerCase()}` : ''}`}>{children}</tr>
+      {message && (
+        <tr className='row row-message'>
+          <td colSpan={100}>
+            <MessageText message={message} />
+          </td>
+        </tr>
+      )}
+    </>
   );
 };
