@@ -1,7 +1,7 @@
 import { useTriggerCallPart } from './TriggerCallPart';
 import { render, screen, TableUtil, renderHook } from 'test-utils';
 import { CallData, ProcessCallData } from '@axonivy/inscription-protocol';
-import { PartState } from '../../../props';
+import { PartStateFlag } from '../../../editors';
 
 const Part = () => {
   const part = useTriggerCallPart();
@@ -29,9 +29,9 @@ describe('TriggerCallPart', () => {
     await assertMainPart('trigger', [/key value/], 'code');
   });
 
-  function assertState(expectedState: PartState, data?: Partial<CallData & ProcessCallData>) {
+  function assertState(expectedState: PartStateFlag, data?: Partial<CallData & ProcessCallData>) {
     const { result } = renderHook(() => useTriggerCallPart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -48,9 +48,9 @@ describe('TriggerCallPart', () => {
     const view = renderHook(() => useTriggerCallPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { processCall: 'init' } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.processCall).toEqual('init');
     expect(data.config.call.code).toEqual('');
     expect(data.config.call.map).toEqual({});

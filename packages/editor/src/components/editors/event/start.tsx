@@ -16,11 +16,9 @@ import {
 const RequestStartEditor = memo(() => {
   const name = useNamePart();
   const start = useStartPart();
-  const request = { name: 'Request', content: <h1>Request</h1> };
-  const trigger = { name: 'Trigger', content: <h1>Trigger</h1> };
   const singleTask = useSingleTaskPart({ showPersist: true });
   const casePart = useCasePart();
-  return <InscriptionEditor icon={IvyIcons.Start} parts={[name, start, request, trigger, singleTask, casePart]} />;
+  return <InscriptionEditor icon={IvyIcons.Start} parts={[name, start, /*request, trigger,*/ singleTask, casePart]} />;
 });
 
 const SignalStartEventEditor = memo(() => {

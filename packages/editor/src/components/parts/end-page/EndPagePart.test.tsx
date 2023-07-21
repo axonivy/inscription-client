@@ -1,7 +1,7 @@
 import { render, renderHook, screen } from 'test-utils';
 import { EndPageData } from '@axonivy/inscription-protocol';
 import { useEndPagePart } from './EndPagePart';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useEndPagePart();
@@ -27,9 +27,9 @@ describe('EndPagePart', () => {
     await assertPage('layout/basic.xhtml');
   });
 
-  function assertState(expectedState: PartState, data?: EndPageData) {
+  function assertState(expectedState: PartStateFlag, data?: EndPageData) {
     const { result } = renderHook(() => useEndPagePart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -42,9 +42,9 @@ describe('EndPagePart', () => {
     const view = renderHook(() => useEndPagePart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { page: 'init' } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.page).toEqual('init');
   });
 });

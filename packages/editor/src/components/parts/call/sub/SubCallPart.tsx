@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAction, useClient, useEditorContext, useValidations } from '../../../../context';
-import { PartProps, usePartDirty, usePartState } from '../../../props';
+import { PartProps, usePartDirty, usePartState } from '../../../editors';
 import { CallData, CallableStart, VariableInfo, ProcessCallData } from '@axonivy/inscription-protocol';
 import CallMapping, { useCallPartValidation } from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';

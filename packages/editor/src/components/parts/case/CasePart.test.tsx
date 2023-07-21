@@ -1,7 +1,7 @@
 import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
 import { WfCase, CaseData } from '@axonivy/inscription-protocol';
 import { useCasePart } from './CasePart';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useCasePart();
@@ -41,9 +41,9 @@ describe('CasePart', () => {
     TableUtil.assertRows(['field 123']);
   });
 
-  function assertState(expectedState: PartState, data?: Partial<WfCase>) {
+  function assertState(expectedState: PartStateFlag, data?: Partial<WfCase>) {
     const { result } = renderHook(() => useCasePart(), { wrapperProps: { data: data && { config: { case: data } } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -69,9 +69,9 @@ describe('CasePart', () => {
     const view = renderHook(() => useCasePart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { case: { name: 'init' } } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.case.name).toEqual('init');
     expect(data.config.case.description).toEqual('');
     expect(data.config.case.category).toEqual('');

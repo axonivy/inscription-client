@@ -1,5 +1,5 @@
 import { Fieldset, MacroArea, Select, SelectItem, useFieldset } from '../../widgets';
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
 import { MAIL_TYPE, MailData } from '@axonivy/inscription-protocol';
 import { useValidations } from '../../../context';

@@ -2,7 +2,7 @@ import { VariableInfo, OutputData } from '@axonivy/inscription-protocol';
 import { useEffect, useState } from 'react';
 import { ScriptArea, useFieldset } from '../../widgets';
 import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useOutputData } from './useOutputData';
 import { MappingPart, PathFieldset } from '../common';
 

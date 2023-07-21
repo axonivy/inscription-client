@@ -1,4 +1,4 @@
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { TaskPersistData, useTaskPersistData } from './options/useTaskOptionsData';
 import TaskPart from './task/TaskPart';
 import { useTaskData } from './useTaskData';

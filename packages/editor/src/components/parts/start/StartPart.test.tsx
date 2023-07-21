@@ -1,7 +1,7 @@
 import { CollapsableUtil, DeepPartial, render, renderHook, screen, TableUtil } from 'test-utils';
 import { StartData } from '@axonivy/inscription-protocol';
 import { useStartPart } from './StartPart';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useStartPart();
@@ -39,9 +39,9 @@ describe('StartPart', () => {
     await assertMainPart('sig', [/param String desc/], [/key value/], 'code');
   });
 
-  function assertState(expectedState: PartState, data?: DeepPartial<StartData>) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<StartData>) {
     const { result } = renderHook(() => useStartPart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -62,9 +62,9 @@ describe('StartPart', () => {
     const view = renderHook(() => useStartPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { signature: 'initSig' } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.signature).toEqual('initSig');
     expect(data.config.input.code).toEqual('');
     expect(data.config.input.map).toEqual({});

@@ -1,7 +1,7 @@
 import { CollapsableUtil, DeepPartial, render, renderHook, screen, TableUtil } from 'test-utils';
 import { ResultData } from '@axonivy/inscription-protocol';
 import { useResultPart } from './ResultPart';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useResultPart();
@@ -37,9 +37,9 @@ describe('ResultPart', () => {
     await assertMainPart([/param String desc/], [/result <>/, /desc String/, /key value/], 'code');
   });
 
-  function assertState(expectedState: PartState, data?: DeepPartial<ResultData>) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ResultData>) {
     const { result } = renderHook(() => useResultPart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -58,9 +58,9 @@ describe('ResultPart', () => {
     const view = renderHook(() => useResultPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { result: { code: 'initcode' } } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.result.code).toEqual('initcode');
     expect(data.config.result.map).toEqual({});
     expect(data.config.result.params).toEqual([]);

@@ -1,6 +1,6 @@
 import { DeepPartial, TableUtil, render, renderHook } from 'test-utils';
 import { MailData } from '@axonivy/inscription-protocol';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 import { useMailAttachmentPart } from './MailAttachmentPart';
 
 const Part = () => {
@@ -28,9 +28,9 @@ describe('MailAttachmentPart', () => {
     await assertPage(data);
   });
 
-  function assertState(expectedState: PartState, data?: DeepPartial<MailData>) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<MailData>) {
     const { result } = renderHook(() => useMailAttachmentPart(), { wrapperProps: { data: data && { config: data } } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
@@ -43,9 +43,9 @@ describe('MailAttachmentPart', () => {
     const view = renderHook(() => useMailAttachmentPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { attachments: ['init'] } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     expect(data.config.attachments).toEqual(['init']);
   });
 });

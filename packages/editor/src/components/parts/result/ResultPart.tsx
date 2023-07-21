@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useResultData } from './useResultData';
 import { VariableInfo, ResultData, Variable } from '@axonivy/inscription-protocol';
 import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';

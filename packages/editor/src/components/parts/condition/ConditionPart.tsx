@@ -1,4 +1,4 @@
-import { PartProps, usePartDirty, usePartState } from '../../props';
+import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useConditionData } from './useConditionData';
 import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
 import { useEffect, useState } from 'react';

@@ -1,7 +1,7 @@
 import { renderHook, screen, render, DeepPartial, cloneObject } from 'test-utils';
 import { WfTask, TaskData, DEFAULT_TASK } from '@axonivy/inscription-protocol';
 import { useSingleTaskPart } from './SingleTaskPart';
-import { PartState } from '../../props';
+import { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useSingleTaskPart();
@@ -14,10 +14,10 @@ describe('SingleTaskPart', () => {
     render(<Part />, { wrapperProps: { defaultData: { task: undefined } } });
   }
 
-  function assertState(expectedState: PartState, task?: DeepPartial<WfTask>, taskData?: Partial<TaskData>, showPersist?: boolean) {
+  function assertState(expectedState: PartStateFlag, task?: DeepPartial<WfTask>, taskData?: Partial<TaskData>, showPersist?: boolean) {
     let data = taskData ? { config: taskData } : task ? { config: { task } } : undefined;
     const { result } = renderHook(() => useSingleTaskPart({ showPersist }), { wrapperProps: { data } });
-    expect(result.current.state).toEqual(expectedState);
+    expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('empty data', async () => {
@@ -64,9 +64,9 @@ describe('SingleTaskPart', () => {
     const view = renderHook(() => useSingleTaskPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { task: { name: 'init' } } } }
     });
-    expect(view.result.current.reset?.dirty).toEqual(true);
+    expect(view.result.current.reset.dirty).toEqual(true);
 
-    view.result.current.reset?.action();
+    view.result.current.reset.action();
     const expectedTask = cloneObject(DEFAULT_TASK);
     expectedTask.name = 'init';
     expect(data.config.task).toEqual(expectedTask);
