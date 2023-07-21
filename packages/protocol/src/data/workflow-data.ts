@@ -30,3 +30,10 @@ export const MAIL_TYPE = {
 export const IVY_EXCEPTIONS = {
   mail: 'ivy:error:email'
 } as const;
+
+export const IVY_SCRIPT_TYPES = {
+  ...CUSTOM_FIELD_TYPE,
+  DURATION: 'Duration',
+  BOOLEAN: 'Boolean',
+  INT: 'Integer'
+} as const;
