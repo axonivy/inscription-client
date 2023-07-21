@@ -10,7 +10,7 @@ export class Table {
     } else {
       this.locator = parentLocator.getByLabel(label);
     }
-    this.rows = this.locator.locator('tbody').getByRole('row');
+    this.rows = this.locator.locator('tbody tr:not(.row-message)');
   }
 
   async addRow() {

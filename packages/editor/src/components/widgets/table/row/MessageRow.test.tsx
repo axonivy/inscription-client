@@ -22,6 +22,9 @@ describe('MessageRow', () => {
 
   test('message', async () => {
     renderTable({ message: 'hi', severity: 'ERROR' });
-    expect(screen.getByRole('row')).toHaveClass('row-error');
+    const rows = screen.getAllByRole('row');
+    expect(rows[0]).toHaveClass('row-error');
+    expect(rows[1]).toHaveClass('row-message');
+    expect(rows[1]).toHaveTextContent('hi');
   });
 });
