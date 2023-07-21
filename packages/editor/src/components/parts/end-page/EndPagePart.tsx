@@ -18,7 +18,7 @@ export function useEndPagePart(): PartProps {
 const EndPagePart = () => {
   const { config, update } = useEndPageData();
 
-  const action = useAction('openPage');
+  const action = useAction('openEndPage');
   const openFile: FieldsetControl = { label: 'Open file', icon: IvyIcons.GoToSource, action: () => action(config.page) };
   const pageFieldset = useFieldset();
   return (
