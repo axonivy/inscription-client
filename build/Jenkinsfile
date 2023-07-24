@@ -33,7 +33,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.image('mcr.microsoft.com/playwright:v1.35.0-jammy').inside {
+            docker.image('mcr.microsoft.com/playwright:v1.36.1-jammy').inside {
               sh 'yarn standalone webtest:mock'
             }
           }
