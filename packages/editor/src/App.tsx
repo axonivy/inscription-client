@@ -1,6 +1,6 @@
 import './App.css';
 import '@axonivy/editor-icons/src-gen/ivy-icons.css';
-import { ElementData, InscriptionData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import { ElementData, InscriptionContext, InscriptionData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
@@ -8,11 +8,7 @@ import AppStateView from './AppStateView';
 import { AppState, errorState, successState, waitingState } from './app-state';
 import { UpdateConsumer } from './types/lambda';
 
-export interface AppProps {
-  pid: string;
-}
-
-function App(props: AppProps) {
+function App(props: InscriptionContext) {
   const [data, setData] = useState<ElementData>({} as ElementData);
   const [shouldSave, setShouldSave] = useState(false);
   const [appState, setAppState] = useState<AppState>(waitingState());
@@ -41,19 +37,18 @@ function App(props: AppProps) {
 
   useEffect(() => {
     client
-      .data(props.pid)
+      .data(props)
       .then(initData)
       .catch(error => setAppState(errorState(error)));
-    client.validate({ pid: props.pid }).then(setValidations).catch(console.error);
-  }, [client, props.pid, initData]);
+    client.validate(props).then(setValidations).catch(console.error);
+  }, [client, props, initData]);
 
   useEffect(() => {
     if (appState.state === 'success' && shouldSave) {
       client
         .saveData({
           data,
-          pid: appState.initialData.pid,
-          type: appState.initialData.type.id
+          context: appState.initialData.context
         })
         .then(setValidations);
       setShouldSave(false);
@@ -67,7 +62,7 @@ function App(props: AppProps) {
       <div ref={editorRef} className='editor-root' data-theme={theme}>
         <EditorContextInstance.Provider
           value={{
-            pid: props.pid,
+            context: appState.initialData.context,
             readonly: appState.initialData.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
             editorRef,
             type: appState.initialData.type ?? DEFAULT_EDITOR_CONTEXT.type

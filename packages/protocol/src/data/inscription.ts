@@ -20,7 +20,7 @@ export type Severity = "INFO" | "WARNING" | "ERROR";
 export type CustomFieldConfigType = "START" | "TASK" | "CASE";
 
 export interface Inscription {
-  inscriptionDataArgs: InscriptionDataArgs;
+  inscriptionContext: InscriptionContext;
   inscriptionRequest: InscriptionRequest;
   inscriptionValidation: InscriptionValidation[];
   boolean: boolean;
@@ -36,13 +36,15 @@ export interface Inscription {
   schemaKey: SchemaKey;
   [k: string]: unknown;
 }
-export interface InscriptionDataArgs {
+export interface InscriptionContext {
+  app: string;
   pid: PID;
+  pmv: string;
 }
 export interface InscriptionRequest {
+  context: InscriptionContext;
   data: Data;
   defaults: unknown;
-  pid: PID;
   readonly: boolean;
   type: InscriptionType;
 }
@@ -500,16 +502,16 @@ export interface InscriptionValidation {
 }
 export interface InscriptionActionArgs {
   actionId: "openEndPage" | "newProcess" | "newHtmlDialog" | "openCustomField" | "openPage";
+  context: InscriptionContext;
   payload: string | OpenCustomField;
-  pid: PID;
 }
 export interface OpenCustomField {
   name: string;
   type: CustomFieldConfigType;
 }
 export interface InscriptionSaveRequest {
+  context: InscriptionContext;
   data: Data;
-  pid: PID;
 }
 export interface CallableStart {
   callParameter: VariableInfo;
@@ -535,8 +537,8 @@ export interface Variable {
   type: string;
 }
 export interface ScriptingDataArgs {
+  context: InscriptionContext;
   location: string;
-  pid: PID;
 }
 export interface ErrorMeta {
   id: string;

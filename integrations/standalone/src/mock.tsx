@@ -23,7 +23,7 @@ export async function start(): Promise<void> {
     <React.StrictMode>
       <ThemeContextProvider theme={theme}>
         <ClientContextInstance.Provider value={{ client: inscriptionClient }}>
-          <App pid={'1'} />
+          <App app='' pmv='' pid={'1'} />
         </ClientContextInstance.Provider>
       </ThemeContextProvider>
     </React.StrictMode>

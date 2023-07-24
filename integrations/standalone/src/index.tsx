@@ -8,6 +8,8 @@ import { URLParams } from './url-helper';
 
 export async function start(): Promise<void> {
   const server = URLParams.webSocketBase();
+  const app = URLParams.app();
+  const pmv = URLParams.pmv();
   const pid = URLParams.pid();
   const theme = URLParams.themeMode();
 
@@ -23,7 +25,7 @@ export async function start(): Promise<void> {
       <React.StrictMode>
         <ThemeContextProvider theme={theme}>
           <ClientContextInstance.Provider value={{ client: client }}>
-            <App pid={pid} />
+            <App app={app} pmv={pmv} pid={pid} />
           </ClientContextInstance.Provider>
         </ThemeContextProvider>
       </React.StrictMode>

@@ -33,11 +33,11 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
   const { config, updateSignature, update } = useStartData();
   const [variableInfo, setVariableInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.outScripting(editorContext.pid, 'input').then(mapping => setVariableInfo(mapping));
-  }, [client, editorContext.pid]);
+    client.outScripting(context, 'input').then(mapping => setVariableInfo(mapping));
+  }, [client, context]);
 
   useStartNameSyncher(config, synchParams);
 

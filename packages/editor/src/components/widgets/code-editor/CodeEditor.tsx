@@ -25,6 +25,8 @@ const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, ..
   monacoOptions.readOnly = editorContext.readonly;
   const language = macro ? 'ivyMacro' : 'ivyScript';
 
+  const contextPath = `${editorContext.context.app}/${editorContext.context.pmv}/${editorContext.context.pid}`;
+
   return (
     <div className='code-editor'>
       <Editor
@@ -32,7 +34,7 @@ const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, ..
         defaultValue={value}
         value={value}
         defaultLanguage={language}
-        defaultPath={`${language}/${editorContext.pid}?location=${context.location}${context.type ? `&type=${context.type}` : ''}`}
+        defaultPath={`${language}/${contextPath}?location=${context.location}${context.type ? `&type=${context.type}` : ''}`}
         options={monacoOptions}
         theme={MonacoEditorUtil.DEFAULT_THEME_NAME}
         onChange={code => onChange(code ?? '')}

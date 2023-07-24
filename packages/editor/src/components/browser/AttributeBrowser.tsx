@@ -35,14 +35,14 @@ const AttributeBrowser = ({ value, onChange, location }: { value: string; onChan
   const [inVarInfo, setInVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
   const [outVarInfo, setOutVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.inScripting(editorContext.pid, location).then(info => setInVarInfo(info));
+    client.inScripting(context, location).then(info => setInVarInfo(info));
     if (location.endsWith('code')) {
-      client.outScripting(editorContext.pid, location).then(info => setOutVarInfo(info));
+      client.outScripting(context, location).then(info => setOutVarInfo(info));
     }
-  }, [client, editorContext.pid, location]);
+  }, [client, context, location]);
 
   useEffect(() => {
     setVarInfo({ variables: [...inVarInfo.variables, ...outVarInfo.variables], types: { ...inVarInfo.types, ...outVarInfo.types } });

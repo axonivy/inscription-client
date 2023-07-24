@@ -4,11 +4,10 @@ import {
   ErrorMeta,
   EventCodeMeta,
   InscriptionActionArgs,
+  InscriptionContext,
   InscriptionData,
-  InscriptionDataArgs,
   InscriptionSaveData,
   InscriptionValidation,
-  PID,
   RoleMeta,
   VariableInfo
 } from './data';
@@ -23,24 +22,24 @@ export interface Disposable {
 
 export interface InscriptionClient {
   initialize(): Promise<boolean>;
-  data(pid: PID): Promise<InscriptionData>;
-  saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]>;
+  data(context: InscriptionContext): Promise<InscriptionData>;
+  saveData(saveData: InscriptionSaveData): Promise<InscriptionValidation[]>;
 
-  validate(args: InscriptionDataArgs): Promise<InscriptionValidation[]>;
+  validate(context: InscriptionContext): Promise<InscriptionValidation[]>;
 
-  dialogStarts(pid: PID): Promise<CallableStart[]>;
-  triggerStarts(pid: PID): Promise<CallableStart[]>;
-  callSubStarts(pid: PID): Promise<CallableStart[]>;
+  dialogStarts(context: InscriptionContext): Promise<CallableStart[]>;
+  triggerStarts(context: InscriptionContext): Promise<CallableStart[]>;
+  callSubStarts(context: InscriptionContext): Promise<CallableStart[]>;
 
-  roles(pid: PID): Promise<RoleMeta[]>;
-  expiryErrors(pid: PID): Promise<ErrorMeta[]>;
-  errorCodes(pid: PID): Promise<EventCodeMeta[]>;
-  signalCodes(pid: PID): Promise<EventCodeMeta[]>;
+  roles(context: InscriptionContext): Promise<RoleMeta[]>;
+  expiryErrors(context: InscriptionContext): Promise<ErrorMeta[]>;
+  errorCodes(context: InscriptionContext): Promise<EventCodeMeta[]>;
+  signalCodes(context: InscriptionContext): Promise<EventCodeMeta[]>;
 
-  outScripting(pid: PID, location: string): Promise<VariableInfo>;
-  inScripting(pid: PID, location: string): Promise<VariableInfo>;
+  outScripting(context: InscriptionContext, location: string): Promise<VariableInfo>;
+  inScripting(context: InscriptionContext, location: string): Promise<VariableInfo>;
 
-  connectorOf(pid: PID): Promise<ConnectorRef>;
+  connectorOf(context: InscriptionContext): Promise<ConnectorRef>;
 
   action(action: InscriptionActionArgs): void;
 

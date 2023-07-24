@@ -1,8 +1,8 @@
-import { ElementData, InscriptionSaveData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import { ElementData, ElementType, InscriptionSaveData, InscriptionValidation } from '@axonivy/inscription-protocol';
 
 export namespace ValidationMock {
-  export function validateData(data: InscriptionSaveData): InscriptionValidation[] {
-    switch (data.type) {
+  export function validateData(type: ElementType, data: InscriptionSaveData): InscriptionValidation[] {
+    switch (type) {
       case 'UserTask':
       case 'DialogCall':
         return validateDialogCallEditor(data.data);

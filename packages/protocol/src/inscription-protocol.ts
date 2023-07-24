@@ -4,7 +4,7 @@ import {
   ErrorMeta,
   EventCodeMeta,
   InscriptionActionArgs,
-  InscriptionDataArgs,
+  InscriptionContext,
   InscriptionValidation,
   RoleMeta,
   ScriptingDataArgs,
@@ -14,24 +14,24 @@ import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
 export interface InscriptionRequestTypes {
   initialize: [void, boolean];
-  data: [InscriptionDataArgs, InscriptionData];
+  data: [InscriptionContext, InscriptionData];
   saveData: [InscriptionSaveData, InscriptionValidation[]];
 
-  validate: [InscriptionDataArgs, InscriptionValidation[]];
+  validate: [InscriptionContext, InscriptionValidation[]];
 
-  'meta/start/dialogs': [InscriptionDataArgs, CallableStart[]];
-  'meta/start/triggers': [InscriptionDataArgs, CallableStart[]];
-  'meta/start/calls': [InscriptionDataArgs, CallableStart[]];
+  'meta/start/dialogs': [InscriptionContext, CallableStart[]];
+  'meta/start/triggers': [InscriptionContext, CallableStart[]];
+  'meta/start/calls': [InscriptionContext, CallableStart[]];
 
-  'meta/workflow/roles': [InscriptionDataArgs, RoleMeta[]];
-  'meta/workflow/expiryErrors': [InscriptionDataArgs, ErrorMeta[]];
-  'meta/workflow/errorCodes': [InscriptionDataArgs, EventCodeMeta[]];
-  'meta/workflow/signalCodes': [InscriptionDataArgs, EventCodeMeta[]];
+  'meta/workflow/roles': [InscriptionContext, RoleMeta[]];
+  'meta/workflow/expiryErrors': [InscriptionContext, ErrorMeta[]];
+  'meta/workflow/errorCodes': [InscriptionContext, EventCodeMeta[]];
+  'meta/workflow/signalCodes': [InscriptionContext, EventCodeMeta[]];
 
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
 
-  'meta/connector/of': [InscriptionDataArgs, ConnectorRef];
+  'meta/connector/of': [InscriptionContext, ConnectorRef];
 
   action: [InscriptionActionArgs, void];
 }

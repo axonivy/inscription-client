@@ -13,9 +13,8 @@ import {
   ElementData,
   ConnectorRef,
   InscriptionActionArgs,
-  PID,
   EventCodeMeta,
-  InscriptionDataArgs
+  InscriptionContext
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
@@ -36,7 +35,7 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(true);
   }
 
-  data(pid: PID): Promise<InscriptionData> {
+  data(context: InscriptionContext): Promise<InscriptionData> {
     const inscriptionType: InscriptionType = {
       id: this.type,
       label: this.type,
@@ -45,9 +44,9 @@ export class InscriptionClientMock implements InscriptionClient {
       iconId: this.type
     };
     this.elementData = DataMock.mockForType(this.type) as ElementData;
-    this.onValidationEmitter.fire(ValidationMock.validateData({ data: this.elementData, pid, type: inscriptionType.id }));
+    this.onValidationEmitter.fire(ValidationMock.validateData(this.type, { data: this.elementData, context }));
     return Promise.resolve({
-      pid,
+      context,
       type: inscriptionType,
       readonly: this.readonly,
       data: deepmerge(DEFAULT_DATA, this.elementData),
@@ -55,55 +54,55 @@ export class InscriptionClientMock implements InscriptionClient {
     });
   }
 
-  saveData(args: InscriptionSaveData): Promise<InscriptionValidation[]> {
-    return Promise.resolve(ValidationMock.validateData(args));
+  saveData(saveData: InscriptionSaveData): Promise<InscriptionValidation[]> {
+    return Promise.resolve(ValidationMock.validateData(this.type, saveData));
   }
 
-  validate(args: InscriptionDataArgs): Promise<InscriptionValidation[]> {
-    return Promise.resolve(ValidationMock.validateData({ pid: args.pid, data: this.elementData, type: this.type }));
+  validate(context: InscriptionContext): Promise<InscriptionValidation[]> {
+    return Promise.resolve(ValidationMock.validateData(this.type, { context, data: this.elementData }));
   }
 
-  dialogStarts(pid: PID): Promise<CallableStart[]> {
+  dialogStarts(context: InscriptionContext): Promise<CallableStart[]> {
     return Promise.resolve(MetaMock.CALLABLE_STARTS);
   }
 
-  triggerStarts(pid: PID): Promise<CallableStart[]> {
+  triggerStarts(context: InscriptionContext): Promise<CallableStart[]> {
     return Promise.resolve(MetaMock.CALLABLE_STARTS);
   }
 
-  callSubStarts(pid: PID): Promise<CallableStart[]> {
+  callSubStarts(context: InscriptionContext): Promise<CallableStart[]> {
     return Promise.resolve(MetaMock.CALLABLE_STARTS);
   }
 
-  roles(pid: PID): Promise<RoleMeta[]> {
+  roles(context: InscriptionContext): Promise<RoleMeta[]> {
     return Promise.resolve(MetaMock.ROLES);
   }
 
-  expiryErrors(pid: PID): Promise<ErrorMeta[]> {
+  expiryErrors(context: InscriptionContext): Promise<ErrorMeta[]> {
     return Promise.resolve(MetaMock.EXPIRY_ERRORS);
   }
 
-  errorCodes(pid: string): Promise<EventCodeMeta[]> {
+  errorCodes(context: InscriptionContext): Promise<EventCodeMeta[]> {
     return Promise.resolve([]);
   }
 
-  signalCodes(pid: string): Promise<EventCodeMeta[]> {
+  signalCodes(context: InscriptionContext): Promise<EventCodeMeta[]> {
     return Promise.resolve([]);
   }
 
-  outScripting(pid: PID, location: string): Promise<VariableInfo> {
+  outScripting(context: InscriptionContext, location: string): Promise<VariableInfo> {
     if (location === 'result') {
       return Promise.resolve(JSON.parse(JSON.stringify(MetaMock.RESULT_VAR_INFO)));
     }
     return Promise.resolve(MetaMock.OUT_VAR_INFO);
   }
 
-  inScripting(pid: string, location: string): Promise<VariableInfo> {
+  inScripting(context: InscriptionContext, location: string): Promise<VariableInfo> {
     return Promise.resolve(MetaMock.IN_VAR_INFO);
   }
 
-  connectorOf(pid: PID): Promise<ConnectorRef> {
-    if (pid.includes('f1')) {
+  connectorOf(context: InscriptionContext): Promise<ConnectorRef> {
+    if (context.pid.includes('f1')) {
       return Promise.resolve(MetaMock.CONNECTOR_OF);
     }
     //@ts-ignore
@@ -111,6 +110,6 @@ export class InscriptionClientMock implements InscriptionClient {
   }
 
   action(action: InscriptionActionArgs): void {
-    alert(`action: [actionId: ${action.actionId}, pid: ${action.pid}, payload: ${action.payload}]`);
+    alert(`action: [actionId: ${action.actionId}, context: ${action.context}, payload: ${action.payload}]`);
   }
 }

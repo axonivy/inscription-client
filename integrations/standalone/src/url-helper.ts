@@ -6,6 +6,14 @@ export namespace URLParams {
     return param !== null ? param : undefined;
   }
 
+  export function app(): string {
+    return parameter('app') ?? '';
+  }
+
+  export function pmv(): string {
+    return parameter('pmv') ?? '';
+  }
+
   export function pid(): string {
     return parameter('pid') ?? defaultPid();
   }

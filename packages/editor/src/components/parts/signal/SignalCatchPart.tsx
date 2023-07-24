@@ -25,10 +25,10 @@ export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartPr
 const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
   const { config, update } = useSignalCatchData();
   const [signalCodes, setSignalCodes] = useState<EventCodeItem[]>([]);
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.signalCodes(editorContext.pid).then(codes =>
+    client.signalCodes(context).then(codes =>
       setSignalCodes([
         { value: '', eventCode: '<< Empty >>', info: 'Receives every signal' },
         ...codes.map(code => {
@@ -36,7 +36,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
         })
       ])
     );
-  }, [client, editorContext.pid]);
+  }, [client, context]);
 
   useDefaultNameSyncher({ synchName: config.signalCode });
 

@@ -14,10 +14,10 @@ type ExceptionSelectProps = {
 
 const ExceptionSelect = ({ value, onChange, staticExceptions, inputProps }: ExceptionSelectProps) => {
   const [items, setItems] = useState<SelectItem[]>([]);
-  const editorContext = useEditorContext();
+  const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.expiryErrors(editorContext.pid).then(errors =>
+    client.expiryErrors(context).then(errors =>
       setItems([
         ...staticExceptions.map(ex => {
           return { label: ex, value: ex };
@@ -27,7 +27,7 @@ const ExceptionSelect = ({ value, onChange, staticExceptions, inputProps }: Exce
         })
       ])
     );
-  }, [client, editorContext.pid, staticExceptions]);
+  }, [client, context, staticExceptions]);
 
   const selectedItem = useMemo<SelectItem>(() => items.find(e => e.value === value) ?? { label: value, value }, [value, items]);
 
