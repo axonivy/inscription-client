@@ -7,7 +7,7 @@ test.describe('Readonly', () => {
     await inscriptionView.mock();
     const name = inscriptionView.accordion('Name');
     await name.toggle();
-    await expect(name.input('Display name')).not.toBeDisabled();
+    await name.textArea('Display name').expectEnabled();
   });
 
   test('readonly mode', async ({ page }) => {
@@ -15,6 +15,6 @@ test.describe('Readonly', () => {
     await inscriptionView.mock({ readonly: true });
     const name = inscriptionView.accordion('Name');
     await name.toggle();
-    await expect(name.input('Display name')).toBeDisabled();
+    await name.textArea('Display name').expectDisabled();
   });
 });

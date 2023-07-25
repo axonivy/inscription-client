@@ -61,6 +61,14 @@ export class Row {
     return new Cell(this.locator, column);
   }
 
+  async expectValues(values: string[]) {
+    let row = 0;
+    for (let value of values) {
+      let cell = this.column(row++);
+      await cell.expectValue(value);
+    }
+  }
+
   async remove() {
     await this.locator.getByRole('button', { name: 'Remove row' }).click();
   }

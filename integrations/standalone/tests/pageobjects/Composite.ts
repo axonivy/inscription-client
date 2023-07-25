@@ -4,6 +4,8 @@ import { ResponsibleSelect } from './ResponsibleSelect';
 import { Select } from './Select';
 import { Table } from './Table';
 import { Checkbox } from './Checkbox';
+import { TextArea } from './TextArea';
+import { Tags } from './Tags';
 
 export abstract class Composite {
   readonly page: Page;
@@ -14,8 +16,8 @@ export abstract class Composite {
     this.locator = locator;
   }
 
-  input(label: string) {
-    return this.locator.getByLabel(label);
+  textArea(label: string) {
+    return new TextArea(this.locator, label);
   }
 
   checkbox(label: string) {
@@ -48,5 +50,9 @@ export abstract class Composite {
 
   table() {
     return new Table(this.page, this.locator);
+  }
+
+  tags(): any {
+    return new Tags(this.page, this.locator);
   }
 }
