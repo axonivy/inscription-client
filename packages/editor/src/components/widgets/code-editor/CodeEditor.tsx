@@ -34,7 +34,7 @@ const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, ..
         defaultValue={value}
         value={value}
         defaultLanguage={language}
-        defaultPath={`${language}/${contextPath}?location=${context.location}${context.type ? `&type=${context.type}` : ''}`}
+        defaultPath={`${language}/${contextPath}/${context.location}/${context.type ? context.type : ''}`}
         options={monacoOptions}
         theme={MonacoEditorUtil.DEFAULT_THEME_NAME}
         onChange={code => onChange(code ?? '')}
