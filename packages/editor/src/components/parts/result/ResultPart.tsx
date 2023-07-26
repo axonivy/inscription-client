@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useResultData } from './useResultData';
-import { VariableInfo, ResultData, Variable } from '@axonivy/inscription-protocol';
-import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
+import { ResultData, ScriptVariable } from '@axonivy/inscription-protocol';
+import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { MappingPart, ParameterTable, PathFieldset } from '../common';
+import { deepEqual } from '../../../utils/equals';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useResultData();
@@ -22,24 +23,18 @@ export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
 
 const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   const { config, update } = useResultData();
-  const [variableInfo, setVariableInfo] = useState<VariableInfo>({ variables: [], types: {} });
+  const [params, setParams] = useState<ScriptVariable[]>([]);
 
   const { context } = useEditorContext();
-  const client = useClient();
+  const { data: variableInfo, invalidate } = useMeta('meta/scripting/out', { context, location: 'result' }, { variables: [], types: {} });
   useEffect(() => {
-    client.outScripting(context, 'result').then(info => {
-      const resultType = info.variables[0].type;
-      if (info.types[resultType]?.length !== config.result.params.length) {
-        info.types[resultType] = config.result.params.map<Variable>(param => {
-          return { attribute: param.name, type: param.type, simpleType: param.type, description: param.desc };
-        });
-      }
-      setVariableInfo(info);
-    });
-  }, [client, context, config.result.params]);
+    if (!deepEqual(params, config.result.params)) {
+      invalidate();
+      setParams(config.result.params);
+    }
+  }, [config.result.params, invalidate, params]);
 
   const codeFieldset = useFieldset();
-
   return (
     <PathContext path='result'>
       <Collapsible label='Result parameters'>

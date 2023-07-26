@@ -1,26 +1,24 @@
 import {
   DEFAULT_DATA,
-  CallableStart,
-  ErrorMeta,
   InscriptionClient,
   InscriptionData,
   InscriptionSaveData,
   InscriptionType,
   InscriptionValidation,
-  VariableInfo,
-  RoleMeta,
   ElementType,
   ElementData,
-  ConnectorRef,
   InscriptionActionArgs,
-  EventCodeMeta,
-  InscriptionContext
+  InscriptionContext,
+  InscriptionMetaRequestTypes,
+  ScriptingDataArgs,
+  Variable
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
 import { DataMock } from './data-mock';
 import { ValidationMock } from './validation-mock';
 import { MetaMock } from './meta-mock';
+import { deepEqual } from '@axonivy/inscription-editor/src/utils/equals';
 
 export class InscriptionClientMock implements InscriptionClient {
   private elementData = {} as ElementData;
@@ -55,6 +53,7 @@ export class InscriptionClientMock implements InscriptionClient {
   }
 
   saveData(saveData: InscriptionSaveData): Promise<InscriptionValidation[]> {
+    this.elementData = saveData.data;
     return Promise.resolve(ValidationMock.validateData(this.type, saveData));
   }
 
@@ -62,51 +61,48 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(ValidationMock.validateData(this.type, { context, data: this.elementData }));
   }
 
-  dialogStarts(context: InscriptionContext): Promise<CallableStart[]> {
-    return Promise.resolve(MetaMock.CALLABLE_STARTS);
-  }
-
-  triggerStarts(context: InscriptionContext): Promise<CallableStart[]> {
-    return Promise.resolve(MetaMock.CALLABLE_STARTS);
-  }
-
-  callSubStarts(context: InscriptionContext): Promise<CallableStart[]> {
-    return Promise.resolve(MetaMock.CALLABLE_STARTS);
-  }
-
-  roles(context: InscriptionContext): Promise<RoleMeta[]> {
-    return Promise.resolve(MetaMock.ROLES);
-  }
-
-  expiryErrors(context: InscriptionContext): Promise<ErrorMeta[]> {
-    return Promise.resolve(MetaMock.EXPIRY_ERRORS);
-  }
-
-  errorCodes(context: InscriptionContext): Promise<EventCodeMeta[]> {
-    return Promise.resolve([]);
-  }
-
-  signalCodes(context: InscriptionContext): Promise<EventCodeMeta[]> {
-    return Promise.resolve([]);
-  }
-
-  outScripting(context: InscriptionContext, location: string): Promise<VariableInfo> {
-    if (location === 'result') {
-      return Promise.resolve(JSON.parse(JSON.stringify(MetaMock.RESULT_VAR_INFO)));
+  meta<TMeta extends keyof InscriptionMetaRequestTypes>(
+    path: TMeta,
+    args: InscriptionMetaRequestTypes[TMeta][0]
+  ): Promise<InscriptionMetaRequestTypes[TMeta][1]> {
+    switch (path) {
+      case 'meta/start/dialogs':
+      case 'meta/start/triggers':
+      case 'meta/start/calls':
+        return Promise.resolve(MetaMock.CALLABLE_STARTS);
+      case 'meta/workflow/roles':
+        return Promise.resolve(MetaMock.ROLES);
+      case 'meta/workflow/expiryErrors':
+        return Promise.resolve(MetaMock.EXPIRY_ERRORS);
+      case 'meta/workflow/errorCodes':
+      case 'meta/workflow/signalCodes':
+        return Promise.resolve([]);
+      case 'meta/scripting/out':
+        if ((args as ScriptingDataArgs).location === 'result') {
+          let resultInfo = MetaMock.RESULT_VAR_INFO;
+          if (this.elementData.config?.result?.params.length > 0) {
+            const types = this.elementData.config.result.params.map<Variable>(param => {
+              return { attribute: param.name, type: param.type, simpleType: param.type, description: param.desc };
+            });
+            if (!deepEqual(resultInfo.types, types)) {
+              resultInfo = JSON.parse(JSON.stringify(resultInfo));
+              resultInfo.types['<>'] = types;
+            }
+          }
+          return Promise.resolve(resultInfo);
+        }
+        return Promise.resolve(MetaMock.OUT_VAR_INFO);
+      case 'meta/scripting/in':
+        return Promise.resolve(JSON.parse(JSON.stringify(MetaMock.IN_VAR_INFO)));
+      case 'meta/connector/of':
+        if ((args as InscriptionContext).pid.includes('f1')) {
+          return Promise.resolve(MetaMock.CONNECTOR_OF);
+        }
+        //@ts-ignore
+        return Promise.resolve(undefined);
+      default:
+        throw Error('mock meta path not programmed');
     }
-    return Promise.resolve(MetaMock.OUT_VAR_INFO);
-  }
-
-  inScripting(context: InscriptionContext, location: string): Promise<VariableInfo> {
-    return Promise.resolve(MetaMock.IN_VAR_INFO);
-  }
-
-  connectorOf(context: InscriptionContext): Promise<ConnectorRef> {
-    if (context.pid.includes('f1')) {
-      return Promise.resolve(MetaMock.CONNECTOR_OF);
-    }
-    //@ts-ignore
-    return Promise.resolve(undefined);
   }
 
   action(action: InscriptionActionArgs): void {

@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
 import { Input, ScriptArea, useFieldset } from '../../../components/widgets';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useStartData } from './useStartData';
-import { VariableInfo, StartData } from '@axonivy/inscription-protocol';
-import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
+import { StartData } from '@axonivy/inscription-protocol';
+import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { useStartNameSyncher } from './useStartNameSyncher';
 import { MappingPart, ParameterTable, PathCollapsible, PathFieldset } from '../common';
 
@@ -31,16 +30,11 @@ export function useStartPart(props?: StartPartProps): PartProps {
 
 const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
   const { config, updateSignature, update } = useStartData();
-  const [variableInfo, setVariableInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
   const { context } = useEditorContext();
-  const client = useClient();
-  useEffect(() => {
-    client.outScripting(context, 'input').then(mapping => setVariableInfo(mapping));
-  }, [client, context]);
+  const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'input' }, { variables: [], types: {} });
 
   useStartNameSyncher(config, synchParams);
-
   const signatureFieldset = useFieldset();
   const codeFieldset = useFieldset();
   return (

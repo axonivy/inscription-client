@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useFieldset } from '../../widgets';
 import { useErrorCatchData } from './useErrorCatchData';
-import { useClient, useEditorContext, useValidations } from '../../../context';
+import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useDefaultNameSyncher } from '../name/useNameSyncher';
 import { ErrorCatchData } from '@axonivy/inscription-protocol';
@@ -24,24 +23,16 @@ export function useErrorCatchPart(): PartProps {
 
 const ErrorCatchPart = () => {
   const { config, update } = useErrorCatchData();
-  const [errorCodes, setErrorCodes] = useState<EventCodeItem[]>([]);
   const { context } = useEditorContext();
-  const client = useClient();
-  useEffect(() => {
-    client.errorCodes(context).then(codes =>
-      setErrorCodes([
-        { value: '', eventCode: '<< Empty >>', info: 'Catches all errors' },
-        ...codes.map(code => {
-          return { ...code, value: code.eventCode, info: code.usage > 0 ? `${code.project} > ${code.process} (${code.usage})` : undefined };
-        })
-      ])
-    );
-  }, [client, context]);
+  const errorCodes = [
+    { value: '', eventCode: '<< Empty >>', info: 'Catches all errors' },
+    ...useMeta('meta/workflow/errorCodes', context, []).data.map<EventCodeItem>(code => {
+      return { ...code, value: code.eventCode, info: code.usage > 0 ? `${code.project} > ${code.process} (${code.usage})` : undefined };
+    })
+  ];
 
   useDefaultNameSyncher({ synchName: config.errorCode });
-
   const errorField = useFieldset();
-
   return (
     <PathFieldset label='Error Code' {...errorField.labelProps} path='errorCode'>
       <EventCodeSelect

@@ -2,8 +2,7 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { Checkbox, useFieldset } from '../../widgets';
 import { useSignalCatchData } from './useSignalCatchData';
-import { useEffect, useState } from 'react';
-import { useClient, useEditorContext, useValidations } from '../../../context';
+import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { useDefaultNameSyncher } from '../name/useNameSyncher';
 import { SignalCatchData } from '@axonivy/inscription-protocol';
 import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
@@ -24,24 +23,16 @@ export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartPr
 
 const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
   const { config, update } = useSignalCatchData();
-  const [signalCodes, setSignalCodes] = useState<EventCodeItem[]>([]);
   const { context } = useEditorContext();
-  const client = useClient();
-  useEffect(() => {
-    client.signalCodes(context).then(codes =>
-      setSignalCodes([
-        { value: '', eventCode: '<< Empty >>', info: 'Receives every signal' },
-        ...codes.map(code => {
-          return { ...code, value: code.eventCode, info: code.usage > 0 ? `${code.project} > ${code.process} (${code.usage})` : undefined };
-        })
-      ])
-    );
-  }, [client, context]);
+  const signalCodes = [
+    { value: '', eventCode: '<< Empty >>', info: 'Receives every signal' },
+    ...useMeta('meta/workflow/signalCodes', context, []).data.map<EventCodeItem>(code => {
+      return { ...code, value: code.eventCode, info: code.usage > 0 ? `${code.project} > ${code.process} (${code.usage})` : undefined };
+    })
+  ];
 
   useDefaultNameSyncher({ synchName: config.signalCode });
-
   const signalField = useFieldset();
-
   return (
     <>
       <PathFieldset label='Signal Code' {...signalField.labelProps} path='signalCode'>

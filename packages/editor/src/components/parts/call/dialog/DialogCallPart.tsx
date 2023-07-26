@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useAction, useClient, useEditorContext, useValidations } from '../../../../context';
+import { useMemo } from 'react';
+import { useAction, useEditorContext, useMeta, useValidations } from '../../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../../editors';
-import { CallData, CallableStart, DialogCallData, VariableInfo } from '@axonivy/inscription-protocol';
+import { CallData, DialogCallData, VariableInfo } from '@axonivy/inscription-protocol';
 import CallMapping, { useCallPartValidation } from '../CallMapping';
 import { useCallData, useDialogCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
@@ -26,16 +26,12 @@ export function useDialogCallPart(): PartProps {
 
 const DialogCallPart = () => {
   const { config, update } = useDialogCallData();
-  const [startItems, setStartItems] = useState<CallableStart[]>([]);
 
   const { context } = useEditorContext();
-  const client = useClient();
-  useEffect(() => {
-    client.dialogStarts(context).then(starts => setStartItems(starts));
-  }, [client, context]);
+  const { data: startItems } = useMeta('meta/start/dialogs', context, []);
 
   const variableInfo = useMemo<VariableInfo>(
-    () => startItems.find(ds => ds.id === config.dialog)?.callParameter ?? { variables: [], types: {} },
+    () => startItems.find(start => start.id === config.dialog)?.callParameter ?? { variables: [], types: {} },
     [config.dialog, startItems]
   );
 

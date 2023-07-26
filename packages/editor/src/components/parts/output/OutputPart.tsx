@@ -1,7 +1,6 @@
-import { VariableInfo, OutputData } from '@axonivy/inscription-protocol';
-import { useEffect, useState } from 'react';
+import { OutputData } from '@axonivy/inscription-protocol';
 import { ScriptArea, useFieldset } from '../../widgets';
-import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
+import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useOutputData } from './useOutputData';
 import { MappingPart, PathFieldset } from '../common';
@@ -25,16 +24,11 @@ export function useOutputPart(options?: { hideCode?: boolean }): PartProps {
 
 const OutputPart = (props: { showCode?: boolean }) => {
   const { config, update } = useOutputData();
-  const [variableInfo, setVariableInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
   const { context } = useEditorContext();
-  const client = useClient();
-  useEffect(() => {
-    client.outScripting(context, 'output').then(info => setVariableInfo(info));
-  }, [client, context]);
+  const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'output' }, { variables: [], types: {} });
 
   const codeFieldset = useFieldset();
-
   return (
     <PathContext path='output'>
       <MappingPart data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} />

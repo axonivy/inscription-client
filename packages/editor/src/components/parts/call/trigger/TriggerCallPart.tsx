@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useAction, useClient, useEditorContext, useValidations } from '../../../../context';
+import { useMemo } from 'react';
+import { useAction, useEditorContext, useMeta, useValidations } from '../../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../../editors';
-import { CallData, CallableStart, ProcessCallData, VariableInfo } from '@axonivy/inscription-protocol';
+import { CallData, ProcessCallData, VariableInfo } from '@axonivy/inscription-protocol';
 import CallMapping, { useCallPartValidation } from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
@@ -26,16 +26,12 @@ export function useTriggerCallPart(): PartProps {
 
 const TriggerCallPart = () => {
   const { config, update } = useProcessCallData();
-  const [startItems, setStartItems] = useState<CallableStart[]>([]);
 
   const { context } = useEditorContext();
-  const client = useClient();
-  useEffect(() => {
-    client.triggerStarts(context).then(starts => setStartItems(starts));
-  }, [client, context]);
+  const { data: startItems } = useMeta('meta/start/triggers', context, []);
 
   const variableInfo = useMemo<VariableInfo>(
-    () => startItems.find(ds => ds.id === config.processCall)?.callParameter ?? { variables: [], types: {} },
+    () => startItems.find(start => start.id === config.processCall)?.callParameter ?? { variables: [], types: {} },
     [config.processCall, startItems]
   );
 
