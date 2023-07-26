@@ -1,6 +1,12 @@
 import { Accordion } from '../../pageobjects/Accordion';
 import { PartTest } from './part-tester';
 import { Part } from '../../pageobjects/Part';
+import { CodeEditor } from '../../pageobjects/CodeEditor';
+import { Section } from '../../pageobjects/Section';
+import { ResponsibleSelect } from '../../pageobjects/ResponsibleSelect';
+import { Select } from '../../pageobjects/Select';
+import { Table } from '../../pageobjects/Table';
+import { Checkbox } from '../../pageobjects/Checkbox';
 
 export class TasksTester implements PartTest {
   private tasks: { tab: string; test: PartTest }[];
@@ -43,6 +49,45 @@ export class TasksTester implements PartTest {
   }
 }
 
+class Task {
+  name: CodeEditor;
+  description: CodeEditor;
+  category: CodeEditor;
+  responsible: ResponsibleSelect;
+  priority: Select;
+  optionsSection: Section;
+  skipTasklist: Checkbox;
+  delay: CodeEditor;
+  expirySection: Section;
+  timeout: CodeEditor;
+  error: Select;
+  expiryResponsbile: ResponsibleSelect;
+  expiryPriority: Select;
+  customFieldsSection: Section;
+  customFields: Table;
+  codeSection: Section;
+  code: CodeEditor;
+  constructor(part: Part) {
+    this.name = part.macroInput('Name');
+    this.description = part.macroArea('Description');
+    this.category = part.macroInput('Category');
+    this.responsible = part.responsibleSelect('Responsible');
+    this.priority = part.select('Priority');
+    this.optionsSection = part.section('Options');
+    this.skipTasklist = this.optionsSection.checkbox('Skip Tasklist');
+    this.delay = this.optionsSection.scriptInput('Delay');
+    this.expirySection = part.section('Expiry');
+    this.timeout = this.expirySection.scriptInput('Timeout');
+    this.error = this.expirySection.select('Error');
+    this.expiryResponsbile = this.expirySection.responsibleSelect('Responsible');
+    this.expiryPriority = this.expirySection.select('Priority');
+    this.customFieldsSection = part.section('Custom fields');
+    this.customFields = this.customFieldsSection.table(['text', 'label', 'expression']);
+    this.codeSection = part.section('Code');
+    this.code = this.codeSection.scriptArea();
+  }
+}
+
 export class TaskTester implements PartTest {
   private name: string = 'test name';
   private error: RegExp = /f8/;
@@ -60,111 +105,95 @@ export class TaskTester implements PartTest {
   }
 
   async fill(part: Part) {
-    await part.macroInput('Name').fill(this.name);
-    await part.macroArea('Description').fill('test desc');
-    await part.macroInput('Category').fill('test cat');
+    const task = new Task(part);
+    await task.name.fill(this.name);
+    await task.description.fill('test desc');
+    await task.category.fill('test cat');
 
-    const roleChooser = part.responsibleSelect('Responsible');
-    await roleChooser.chooseType('Role from Attr.');
-    await roleChooser.fill('"Teamleader"');
+    await task.responsible.chooseType('Role from Attr.');
+    await task.responsible.fill('"Teamleader"');
 
-    await part.select('Priority').choose('High');
+    await task.priority.choose('High');
 
-    const options = part.section('Options');
-    await options.toggle();
-    await options.checkbox('Skip Tasklist').check();
-    await options.scriptInput('Delay').fill('delay');
+    await task.optionsSection.toggle();
+    await task.skipTasklist.check();
+    await task.delay.fill('delay');
 
-    const expiry = part.section('Expiry');
-    await expiry.toggle();
-    await expiry.scriptInput('Timeout').fill('timeout');
-    await expiry.select('Error').choose(this.error);
-    const responsible = expiry.responsibleSelect('Responsible');
-    await responsible.chooseType('Nobody & delete');
-    await expiry.select('Priority').choose('Low');
+    await task.expirySection.toggle();
+    await task.timeout.fill('timeout');
+    await task.error.choose(this.error);
+    await task.expiryResponsbile.chooseType('Nobody & delete');
+    await task.expiryPriority.choose('Low');
 
-    const custom = part.section('Custom fields');
-    await custom.toggle();
-    const table = custom.table();
-    const row = await table.addRow();
+    await task.customFieldsSection.toggle();
+    const row = await task.customFields.addRow();
     await row.fill(['cf', 'value']);
 
-    const code = part.section('Code');
-    await code.toggle();
-    await code.scriptArea().fill('code');
+    await task.codeSection.toggle();
+    await task.code.fill('code');
   }
 
   async assertFill(part: Part) {
-    await part.macroInput('Name').expectValue(this.name);
-    await part.macroArea('Description').expectValue('test desc');
-    await part.macroInput('Category').expectValue('test cat');
+    const task = new Task(part);
+    await task.name.expectValue(this.name);
+    await task.description.expectValue('test desc');
+    await task.category.expectValue('test cat');
 
-    const responsible = part.responsibleSelect('Responsible');
-    await responsible.expectType('Role from Attr.');
-    await responsible.expectValue('"Teamleader"');
+    await task.responsible.expectType('Role from Attr.');
+    await task.responsible.expectValue('"Teamleader"');
 
-    await part.select('Priority').expectValue(/High/);
+    await task.priority.expectValue(/High/);
 
-    const options = part.section('Options');
-    await options.checkbox('Skip Tasklist').expectChecked();
-    await options.scriptInput('Delay').expectValue('delay');
+    await task.skipTasklist.expectChecked();
+    await task.delay.expectValue('delay');
 
-    const expiry = part.section('Expiry');
-    await expiry.scriptInput('Timeout').expectValue('timeout');
-    await expiry.select('Error').expectValue(this.error);
-    await expiry.responsibleSelect('Responsible').expectType('Nobody & delete');
-    await expiry.select('Priority').expectValue(/Low/);
+    await task.timeout.expectValue('timeout');
+    await task.error.expectValue(this.error);
+    await task.expiryResponsbile.expectType('Nobody & delete');
+    await task.expiryPriority.expectValue(/Low/);
 
-    const custom = part.section('Custom Fields');
-    const table = custom.table();
-    await table.expectRowCount(1);
-    await table.cell(0, 0).expectValue('cf');
-    await table.cell(0, 2).expectValue('value');
+    await task.customFields.expectRowCount(1);
+    await task.customFields.cell(0, 0).expectValue('cf');
+    await task.customFields.cell(0, 2).expectValue('value');
 
-    const code = part.section('Code');
-    await code.scriptArea().expectValue('code');
+    await task.code.expectValue('code');
   }
 
   async clear(part: Part) {
-    await part.macroInput('Name').clear();
-    await part.macroArea('Description').clear();
-    await part.macroInput('Category').clear();
+    const task = new Task(part);
+    await task.name.clear();
+    await task.description.clear();
+    await task.category.clear();
 
-    const roleChooser = part.responsibleSelect('Responsible');
-    await roleChooser.clear();
+    await task.responsible.clear();
 
-    await part.select('Priority').choose('Normal');
+    await task.priority.choose('Normal');
 
-    const options = part.section('Options');
-    await options.checkbox('Skip Tasklist').uncheck();
-    await options.scriptInput('Delay').clear();
+    await task.skipTasklist.uncheck();
+    await task.delay.clear();
 
-    const expiry = part.section('Expiry');
-    await expiry.scriptInput('Timeout').clear();
+    await task.timeout.clear();
 
-    const custom = part.section('Custom fields');
-    const table = custom.table();
-    await table.clear();
+    await task.customFields.clear();
 
-    const code = part.section('Code');
-    await code.scriptArea().clear();
+    await task.code.clear();
   }
 
   async assertClear(part: Part) {
-    await part.macroInput('Name').expectEmpty();
-    await part.macroArea('Description').expectEmpty();
-    await part.macroInput('Category').expectEmpty();
+    const task = new Task(part);
+    await task.name.expectEmpty();
+    await task.description.expectEmpty();
+    await task.category.expectEmpty();
 
-    const responsible = part.responsibleSelect('Responsible');
-    await responsible.expectType('Role');
-    await responsible.expectValue('Everybody');
+    await task.responsible.expectType('Role');
+    await task.responsible.expectValue('Everybody');
 
-    await part.select('Priority').expectValue('Normal');
+    await task.priority.expectValue('Normal');
 
-    await part.section('Options').isClosed();
-    await part.section('Expiry').isClosed();
-    await part.section('Custom Fields').isClosed();
-    await part.section('Code').isClosed();
+    await task.optionsSection.isClosed();
+    await task.expirySection.isClosed();
+    await task.customFieldsSection.isClosed();
+    await task.codeSection.isClosed();
   }
 }
 

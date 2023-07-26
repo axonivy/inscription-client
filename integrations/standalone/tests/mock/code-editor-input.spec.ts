@@ -50,7 +50,7 @@ test.describe('Code Editor Input', () => {
     await taskPart.toggle();
     const popover = inscriptionView.popover();
     await popover.expectHidden();
-    await taskPart.table().row(1).column(2).fill('test');
+    await taskPart.table(['label', 'label', 'expression']).row(1).column(2).edit('test');
     await popover.expectOpen();
     if (key) {
       await page.keyboard.press(key);
@@ -61,6 +61,6 @@ test.describe('Code Editor Input', () => {
 
     await taskPart.toggle();
     await taskPart.toggle();
-    await taskPart.table().row(1).column(2).expectValue('test');
+    await taskPart.table(['label', 'label', 'expression']).row(1).column(2).expectValue('test');
   }
 });
