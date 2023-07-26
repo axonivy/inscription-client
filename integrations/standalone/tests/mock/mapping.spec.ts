@@ -10,7 +10,7 @@ test.describe('Mappings', () => {
     await callPart.toggle();
 
     await selectDialog(page, 'AcceptRequest');
-    const callTable = callPart.table();
+    const callTable = callPart.table(['text', 'label', 'expression']);
     await callTable.expectRowCount(11);
 
     await selectDialog(page, 'test1');
@@ -23,12 +23,12 @@ test.describe('Mappings', () => {
     const resultPart = inscriptionView.accordion('Result');
     await resultPart.toggle();
 
-    const resultTable = resultPart.table();
+    const resultTable = resultPart.table(['text', 'label', 'expression']);
     await resultTable.expectRowCount(1);
 
     const params = resultPart.section('Result parameters');
     await params.toggle();
-    const paramTable = params.table();
+    const paramTable = params.table(['text', 'label', 'expression']);
     await paramTable.expectRowCount(0);
 
     await paramTable.addRow();

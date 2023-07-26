@@ -13,11 +13,11 @@ export class Section extends Composite {
     await this.toggleButtonLocator.click();
   }
 
-  async isClosed() {
+  async expectIsClosed() {
     await expect(this.toggleButtonLocator).toHaveAttribute('data-state', 'closed');
   }
 
-  async isOpen() {
+  async expectIsOpen() {
     await expect(this.toggleButtonLocator).toHaveAttribute('data-state', 'open');
   }
 
