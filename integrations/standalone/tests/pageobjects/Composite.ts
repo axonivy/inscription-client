@@ -2,7 +2,7 @@ import { Locator, Page } from '@playwright/test';
 import { CodeEditor } from './CodeEditor';
 import { ResponsibleSelect } from './ResponsibleSelect';
 import { Select } from './Select';
-import { Table } from './Table';
+import { ColumnType, Table } from './Table';
 import { Checkbox } from './Checkbox';
 import { TextArea } from './TextArea';
 import { Tags } from './Tags';
@@ -48,8 +48,8 @@ export abstract class Composite {
     return new CodeEditor(this.page, this.locator, false);
   }
 
-  table() {
-    return new Table(this.page, this.locator);
+  table(columns: ColumnType[]) {
+    return new Table(this.page, this.locator, columns);
   }
 
   tags(): any {

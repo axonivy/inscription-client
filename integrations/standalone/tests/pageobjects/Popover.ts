@@ -1,9 +1,10 @@
 import { Page, expect } from '@playwright/test';
-import { Part } from './Part';
 
-export class Popover extends Part {
-  constructor(page: Page) {
-    super(page, Popover.locator(page));
+export class Popover {
+  private readonly locator;
+
+  constructor(readonly page: Page) {
+    this.locator = Popover.locator(page);
   }
 
   private static locator(page: Page) {

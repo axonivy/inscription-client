@@ -17,7 +17,7 @@ class Name {
     this.displayName = part.textArea('Display name');
     this.description = part.textArea('Description');
     this.meansDocumentsSection = part.section('Means / Documents');
-    this.documents = this.meansDocumentsSection.table();
+    this.documents = this.meansDocumentsSection.table(['text', 'text']);
     this.tagsSection = part.section('Tags');
     this.tags = this.tagsSection.tags();
   }

@@ -1,22 +1,34 @@
 import { Part } from '../../pageobjects/Part';
+import { Table } from '../../pageobjects/Table';
 import { PartTest } from './part-tester';
+
+class Attachements {
+  table: Table;
+  constructor(part: Part) {
+    this.table = part.table(['text']);
+  }
+}
 
 export class MailAttachmentTester implements PartTest {
   partName() {
     return 'Attachments';
   }
   async fill(part: Part) {
-    const row = await part.table().addRow();
+    const table = new Attachements(part).table;
+    const row = await table.addRow();
     await row.fill(['hi']);
   }
   async assertFill(part: Part) {
-    await part.table().row(0).column(0).expectValue('hi');
+    const table = new Attachements(part).table;
+    await table.row(0).column(0).expectValue('hi');
   }
   async clear(part: Part) {
-    await part.table().clear();
+    const table = new Attachements(part).table;
+    await table.clear();
   }
   async assertClear(part: Part) {
-    await part.table().expectRowCount(0);
+    const table = new Attachements(part).table;
+    await table.expectRowCount(0);
   }
 }
 

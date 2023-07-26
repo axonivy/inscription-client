@@ -1,28 +1,46 @@
 import { Part } from '../../pageobjects/Part';
-import { TableUtil } from '../../utils/table-util';
+import { Table } from '../../pageobjects/Table';
 import { PartTest } from './part-tester';
+
+class Condition {
+  table: Table;
+  constructor(part: Part) {
+    this.table = part.table(['label', 'expression']);
+  }
+}
 
 export class ConditionTester implements PartTest {
   partName() {
     return 'Condition';
   }
-  async fill({ page }: Part) {
-    await TableUtil.fillExpression(page, 1, '"bla"');
-    const rows = page.locator('.dnd-row');
-    await rows.first().locator('.dnd-row-handle').dragTo(rows.last().locator('.dnd-row-handle'));
+  async fill(part: Part) {
+    const condition = new Condition(part);
+    const table = condition.table;
+    const row = table.row(1);
+    await row.fill(['"bla"']);
+
+    await table.row(0).dragTo(table.row(1));
   }
-  async assertFill({ page }: Part) {
-    await TableUtil.assertRow(page, 0, ['"bla"']);
-    await TableUtil.assertRow(page, 1, ['false']);
+
+  async assertFill(part: Part) {
+    const condition = new Condition(part);
+    const table = condition.table;
+    await table.row(0).expectValues(['"bla"']);
+    await table.row(1).expectValues(['false']);
   }
-  async clear({ page }: Part) {
-    await TableUtil.fillExpression(page, 0, '');
-    const rows = page.locator('.dnd-row');
-    await rows.first().locator('.dnd-row-handle').dragTo(rows.last().locator('.dnd-row-handle'));
+
+  async clear(part: Part) {
+    const condition = new Condition(part);
+    const table = condition.table;
+    await table.row(0).fill(['']);
+    await table.row(0).dragTo(table.row(1));
   }
-  async assertClear({ page }: Part) {
-    await TableUtil.assertRow(page, 0, ['false']);
-    await TableUtil.assertRow(page, 1, ['']);
+
+  async assertClear(part: Part) {
+    const condition = new Condition(part);
+    const table = condition.table;
+    await table.row(0).expectValues(['false']);
+    await table.row(1).expectValues(['']);
   }
 }
 

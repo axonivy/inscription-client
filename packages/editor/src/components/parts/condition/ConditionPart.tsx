@@ -39,7 +39,7 @@ const ConditionPart = () => {
 
   return (
     <PathContext path='conditions'>
-      <ConditionTable data={conditions} onChange={conditions => update('conditions', Condition.to(conditions))} />;
+      <ConditionTable data={conditions} onChange={conditions => update('conditions', Condition.to(conditions))} />
     </PathContext>
   );
 };
