@@ -3,7 +3,7 @@ import { ThemeMode } from '@axonivy/inscription-editor';
 export namespace URLParams {
   export function parameter(key: string): string | undefined {
     const param = new URLSearchParams(window.location.search).get(key);
-    return param !== null ? param : undefined;
+    return param !== null ? decodeURIComponent(param) : undefined;
   }
 
   export function app(): string {
