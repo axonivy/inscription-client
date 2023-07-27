@@ -29,7 +29,7 @@ export interface EditorProps {
 
 const Header = (props: EditorProps) => {
   const { data } = useNameData();
-  const { validations } = useDataContext();
+  const validations = useDataContext().validations.filter(val => val.path.length === 0);
   const editorContext = useEditorContext();
   return (
     <>
