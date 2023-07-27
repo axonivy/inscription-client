@@ -126,7 +126,7 @@ export class Cell {
   }
 
   private async fillExpression(value: string) {
-    this.edit(value);
+    await this.edit(value);
     await new Popover(this.page).close();
   }
 }
