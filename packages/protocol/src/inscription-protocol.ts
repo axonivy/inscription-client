@@ -12,13 +12,7 @@ import {
 } from './data/inscription';
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
-export interface InscriptionRequestTypes {
-  initialize: [void, boolean];
-  data: [InscriptionContext, InscriptionData];
-  saveData: [InscriptionSaveData, InscriptionValidation[]];
-
-  validate: [InscriptionContext, InscriptionValidation[]];
-
+export interface InscriptionMetaRequestTypes {
   'meta/start/dialogs': [InscriptionContext, CallableStart[]];
   'meta/start/triggers': [InscriptionContext, CallableStart[]];
   'meta/start/calls': [InscriptionContext, CallableStart[]];
@@ -32,6 +26,14 @@ export interface InscriptionRequestTypes {
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
 
   'meta/connector/of': [InscriptionContext, ConnectorRef];
+}
+
+export interface InscriptionRequestTypes extends InscriptionMetaRequestTypes {
+  initialize: [void, boolean];
+  data: [InscriptionContext, InscriptionData];
+  saveData: [InscriptionSaveData, InscriptionValidation[]];
+
+  validate: [InscriptionContext, InscriptionValidation[]];
 
   action: [InscriptionActionArgs, void];
 }

@@ -1,16 +1,5 @@
-import {
-  CallableStart,
-  ConnectorRef,
-  ErrorMeta,
-  EventCodeMeta,
-  InscriptionActionArgs,
-  InscriptionContext,
-  InscriptionData,
-  InscriptionSaveData,
-  InscriptionValidation,
-  RoleMeta,
-  VariableInfo
-} from './data';
+import { InscriptionActionArgs, InscriptionContext, InscriptionData, InscriptionSaveData, InscriptionValidation } from './data';
+import { InscriptionMetaRequestTypes } from './inscription-protocol';
 
 export interface Event<T> {
   (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
@@ -27,19 +16,10 @@ export interface InscriptionClient {
 
   validate(context: InscriptionContext): Promise<InscriptionValidation[]>;
 
-  dialogStarts(context: InscriptionContext): Promise<CallableStart[]>;
-  triggerStarts(context: InscriptionContext): Promise<CallableStart[]>;
-  callSubStarts(context: InscriptionContext): Promise<CallableStart[]>;
-
-  roles(context: InscriptionContext): Promise<RoleMeta[]>;
-  expiryErrors(context: InscriptionContext): Promise<ErrorMeta[]>;
-  errorCodes(context: InscriptionContext): Promise<EventCodeMeta[]>;
-  signalCodes(context: InscriptionContext): Promise<EventCodeMeta[]>;
-
-  outScripting(context: InscriptionContext, location: string): Promise<VariableInfo>;
-  inScripting(context: InscriptionContext, location: string): Promise<VariableInfo>;
-
-  connectorOf(context: InscriptionContext): Promise<ConnectorRef>;
+  meta<TMeta extends keyof InscriptionMetaRequestTypes>(
+    path: TMeta,
+    args: InscriptionMetaRequestTypes[TMeta][0]
+  ): Promise<InscriptionMetaRequestTypes[TMeta][1]>;
 
   action(action: InscriptionActionArgs): void;
 

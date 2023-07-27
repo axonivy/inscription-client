@@ -9,7 +9,9 @@ import {
   RoleMeta,
   ConnectorRef,
   EventCodeMeta,
-  InscriptionContext
+  InscriptionContext,
+  InscriptionMetaRequestTypes,
+  ScriptingDataArgs
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
@@ -34,9 +36,7 @@ type ContextHelperProps = {
   meta?: {
     roles?: RoleMeta[];
     expiryErrors?: ErrorMeta[];
-    dialogStarts?: CallableStart[];
-    triggerStarts?: CallableStart[];
-    callSubStarts?: CallableStart[];
+    callableStarts?: CallableStart[];
     eventCodes?: EventCodeMeta[];
     outScripting?: VariableInfo;
     inScripting?: VariableInfo;
@@ -65,44 +65,41 @@ const ContextHelper = (
   const client: ClientContext = {
     // @ts-ignore
     client: {
-      roles() {
-        return Promise.resolve(props.meta?.roles ?? []);
-      },
-      expiryErrors() {
-        return Promise.resolve(props.meta?.expiryErrors ?? []);
-      },
-      dialogStarts() {
-        return Promise.resolve(props.meta?.dialogStarts ?? []);
-      },
-      triggerStarts() {
-        return Promise.resolve(props.meta?.triggerStarts ?? []);
-      },
-      callSubStarts() {
-        return Promise.resolve(props.meta?.callSubStarts ?? []);
-      },
-      errorCodes() {
-        return Promise.resolve(props.meta?.eventCodes ?? []);
-      },
-      signalCodes() {
-        return Promise.resolve(props.meta?.eventCodes ?? []);
-      },
-      outScripting(context: InscriptionContext, location: string) {
-        if (props.meta?.outScripting) {
-          return Promise.resolve(props.meta.outScripting);
+      meta<TMeta extends keyof InscriptionMetaRequestTypes>(
+        path: TMeta,
+        args: InscriptionMetaRequestTypes[TMeta][0]
+      ): Promise<InscriptionMetaRequestTypes[TMeta][1]> {
+        switch (path) {
+          case 'meta/start/dialogs':
+          case 'meta/start/triggers':
+          case 'meta/start/calls':
+            return Promise.resolve(props.meta?.callableStarts ?? []);
+          case 'meta/workflow/roles':
+            return Promise.resolve(props.meta?.roles ?? []);
+          case 'meta/workflow/expiryErrors':
+            return Promise.resolve(props.meta?.expiryErrors ?? []);
+          case 'meta/workflow/errorCodes':
+          case 'meta/workflow/signalCodes':
+            return Promise.resolve(props.meta?.eventCodes ?? []);
+          case 'meta/scripting/out':
+            const location = (args as ScriptingDataArgs).location;
+            if (props.meta?.outScripting) {
+              return Promise.resolve(props.meta.outScripting);
+            }
+            return Promise.resolve(
+              location === 'result'
+                ? { types: {}, variables: [{ attribute: 'result', description: '', type: '<>', simpleType: '<>' }] }
+                : { types: {}, variables: [] }
+            );
+          case 'meta/scripting/in':
+            return Promise.resolve(props.meta?.inScripting ?? { types: {}, variables: [] });
+          case 'meta/connector/of':
+            const connectorPid = PID.fieldId((args as InscriptionContext).pid);
+            // @ts-ignore
+            return Promise.resolve(props.meta?.connectorOf ? props.meta.connectorOf[connectorPid] : undefined);
+          default:
+            throw Error('mock meta path not programmed');
         }
-        const emptyScripting =
-          location === 'result'
-            ? { types: {}, variables: [{ attribute: 'result', description: '', type: '<>', simpleType: '<>' }] }
-            : { types: {}, variables: [] };
-        return Promise.resolve(emptyScripting);
-      },
-      inScripting() {
-        return Promise.resolve(props.meta?.inScripting ?? { types: {}, variables: [] });
-      },
-      // @ts-ignore
-      connectorOf(context: InscriptionContext) {
-        const connectorPid = PID.fieldId(context.pid);
-        return Promise.resolve(props.meta?.connectorOf ? props.meta.connectorOf[connectorPid] : undefined);
       }
     }
   };

@@ -1,5 +1,5 @@
 import { CollapsableUtil, DeepPartial, render, renderHook, screen, TableUtil } from 'test-utils';
-import { ResultData } from '@axonivy/inscription-protocol';
+import { ResultData, VariableInfo } from '@axonivy/inscription-protocol';
 import { useResultPart } from './ResultPart';
 import { PartStateFlag } from '../../editors';
 
@@ -9,8 +9,8 @@ const Part = () => {
 };
 
 describe('ResultPart', () => {
-  function renderPart(data?: DeepPartial<ResultData>) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+  function renderPart(data?: DeepPartial<ResultData>, outScripting?: VariableInfo) {
+    render(<Part />, { wrapperProps: { data: data && { config: data }, meta: { outScripting } } });
   }
 
   async function assertMainPart(params: RegExp[], map: RegExp[], code: string) {
@@ -31,10 +31,16 @@ describe('ResultPart', () => {
   });
 
   test('full data', async () => {
-    renderPart({
-      result: { code: 'code', map: { key: 'value' }, params: [{ name: 'param', type: 'String', desc: 'desc' }] }
-    });
-    await assertMainPart([/param String desc/], [/result <>/, /desc String/, /key value/], 'code');
+    renderPart(
+      {
+        result: { code: 'code', map: { key: 'value' }, params: [{ name: 'param', type: 'String', desc: 'desc' }] }
+      },
+      {
+        types: { '<String param>': [{ attribute: 'param', description: 'desc', type: 'String', simpleType: 'String' }] },
+        variables: [{ attribute: 'result', description: '', type: '<String param>', simpleType: '<>' }]
+      }
+    );
+    await assertMainPart([/param String desc/], [/result <String param>/, /desc String/, /key value/], 'code');
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ResultData>) {

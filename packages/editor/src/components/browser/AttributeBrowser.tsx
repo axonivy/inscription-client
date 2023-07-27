@@ -38,9 +38,9 @@ const AttributeBrowser = ({ value, onChange, location }: { value: string; onChan
   const { context } = useEditorContext();
   const client = useClient();
   useEffect(() => {
-    client.inScripting(context, location).then(info => setInVarInfo(info));
+    client.meta('meta/scripting/in', { context, location }).then(info => setInVarInfo(info));
     if (location.endsWith('code')) {
-      client.outScripting(context, location).then(info => setOutVarInfo(info));
+      client.meta('meta/scripting/out', { context, location }).then(info => setOutVarInfo(info));
     }
   }, [client, context, location]);
 

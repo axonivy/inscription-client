@@ -32,7 +32,7 @@ const ConditionPart = () => {
     Object.keys(config.conditions).forEach(conditionId => {
       const pid = PID.createChild(PID.processId(context.pid), conditionId);
       client
-        .connectorOf({ ...context, pid })
+        .meta('meta/connector/of', { ...context, pid })
         .then(data => setConditions(conds => Condition.replace(conds, conditionId, data, context.pid)));
     });
   }, [client, config.conditions, context]);

@@ -35,7 +35,9 @@ const Combobox = <T extends ComboboxItem>({ items, itemFilter, comboboxItem, val
     useCombobox({
       onSelectedItemChange(change) {
         setFilteredItems(items);
-        onChange(change.inputValue ?? '');
+        if (change.inputValue !== value) {
+          onChange(change.inputValue ?? '');
+        }
       },
       stateReducer(state, actionAndChanges) {
         switch (actionAndChanges.type) {

@@ -1,8 +1,8 @@
 import './ResponsibleSelect.css';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE, WfTask, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { ScriptInput, Select, SelectItem, useFieldset } from '../../../../components/widgets';
-import { useClient, useEditorContext } from '../../../../context';
+import { useEditorContext, useMeta } from '../../../../context';
 import { DataUpdater } from '../../../../types/lambda';
 import { PathFieldset } from '../../common';
 
@@ -14,18 +14,10 @@ type ResponsibleProps = { responsible?: WfActivator; updateResponsible: Responsi
 type ActivatorProps = ResponsibleProps & { selectedType?: WfActivatorType };
 
 const RoleSelect = ({ responsible, updateResponsible }: ResponsibleProps) => {
-  const [roleItems, setRoleItems] = useState<SelectItem[]>([]);
   const { context } = useEditorContext();
-  const client = useClient();
-  useEffect(() => {
-    client.roles(context).then(roles =>
-      setRoleItems(
-        roles.map(role => {
-          return { label: role.id, value: role.id };
-        })
-      )
-    );
-  }, [client, context]);
+  const roleItems = useMeta('meta/workflow/roles', context, []).data.map<SelectItem>(role => {
+    return { label: role.id, value: role.id };
+  });
   const selectedRole = useMemo<SelectItem | undefined>(() => {
     if (responsible?.activator) {
       return roleItems.find(e => e.value === responsible.activator) ?? { label: responsible.activator, value: responsible.activator };

@@ -1,8 +1,4 @@
 import {
-  CallableStart,
-  ConnectorRef,
-  ErrorMeta,
-  EventCodeMeta,
   InscriptionActionArgs,
   InscriptionClient,
   InscriptionData,
@@ -10,9 +6,8 @@ import {
   InscriptionRequestTypes,
   InscriptionSaveData,
   InscriptionValidation,
-  VariableInfo,
-  RoleMeta,
-  InscriptionContext
+  InscriptionContext,
+  InscriptionMetaRequestTypes
 } from '@axonivy/inscription-protocol';
 import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
 import { Disposable } from 'vscode-ws-jsonrpc';
@@ -49,44 +44,11 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('validate', { ...context });
   }
 
-  dialogStarts(context: InscriptionContext): Promise<CallableStart[]> {
-    return this.sendRequest('meta/start/dialogs', { ...context });
-  }
-
-  triggerStarts(context: InscriptionContext): Promise<CallableStart[]> {
-    return this.sendRequest('meta/start/triggers', { ...context });
-  }
-
-  callSubStarts(context: InscriptionContext): Promise<CallableStart[]> {
-    return this.sendRequest('meta/start/calls', { ...context });
-  }
-
-  roles(context: InscriptionContext): Promise<RoleMeta[]> {
-    return this.sendRequest('meta/workflow/roles', { ...context });
-  }
-
-  expiryErrors(context: InscriptionContext): Promise<ErrorMeta[]> {
-    return this.sendRequest('meta/workflow/expiryErrors', { ...context });
-  }
-
-  errorCodes(context: InscriptionContext): Promise<EventCodeMeta[]> {
-    return this.sendRequest('meta/workflow/errorCodes', { ...context });
-  }
-
-  signalCodes(context: InscriptionContext): Promise<EventCodeMeta[]> {
-    return this.sendRequest('meta/workflow/signalCodes', { ...context });
-  }
-
-  outScripting(context: InscriptionContext, location: string): Promise<VariableInfo> {
-    return this.sendRequest('meta/scripting/out', { context: context, location });
-  }
-
-  inScripting(context: InscriptionContext, location: string): Promise<VariableInfo> {
-    return this.sendRequest('meta/scripting/in', { context: context, location });
-  }
-
-  connectorOf(context: InscriptionContext): Promise<ConnectorRef> {
-    return this.sendRequest('meta/connector/of', { ...context });
+  meta<TMeta extends keyof InscriptionMetaRequestTypes>(
+    path: TMeta,
+    args: InscriptionMetaRequestTypes[TMeta][0]
+  ): Promise<InscriptionMetaRequestTypes[TMeta][1]> {
+    return this.sendRequest(path, args);
   }
 
   action(action: InscriptionActionArgs): void {
