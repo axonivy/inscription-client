@@ -1,38 +1,56 @@
-import { expect } from '@playwright/test';
 import { Part } from '../../pageobjects/Part';
-import { FocusCodeEditorUtil } from '../../utils/code-editor-util';
-import { CollapseUtil } from '../../utils/collapse-util';
-import { TableUtil } from '../../utils/table-util';
-import { PartTest } from './part-tester';
+import { NewPartTest, PartObject } from './part-tester';
+import { CodeEditor } from '../../pageobjects/CodeEditor';
+import { Section } from '../../pageobjects/Section';
+import { Table } from '../../pageobjects/Table';
 
-export const CaseTest: PartTest = {
-  partName: () => 'Case',
-  fill: async ({ page }: Part) => {
-    await FocusCodeEditorUtil.fill(page, page.getByRole('textbox', { name: 'Name' }), 'case name');
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('Description'), 'case desc');
-    await FocusCodeEditorUtil.fill(page, page.getByLabel('Category'), 'case cat');
+class Case extends PartObject {
+  name: CodeEditor;
+  description: CodeEditor;
+  category: CodeEditor;
+  customSection: Section;
+  customFields: Table;
 
-    await CollapseUtil.open(page, 'Custom Fields');
-    await TableUtil.addRow(page);
-    await TableUtil.fillRow(page, 0, ['cf', 'value']);
-  },
-  assertFill: async ({ page }: Part) => {
-    await expect(page.getByRole('textbox', { name: 'Name' })).toHaveValue('case name');
-    await expect(page.getByLabel('Description')).toHaveValue('case desc');
-    await expect(page.getByLabel('Category')).toHaveValue('case cat');
-    await TableUtil.assertRow(page, 0, ['cf', 'value']);
-  },
-  clear: async ({ page }: Part) => {
-    await FocusCodeEditorUtil.clear(page, page.getByRole('textbox', { name: 'Name' }));
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('Description'));
-    await FocusCodeEditorUtil.clear(page, page.getByLabel('Category'));
-    await TableUtil.removeRow(page, 0);
-  },
-  assertClear: async ({ page }: Part) => {
-    await expect(page.getByRole('textbox', { name: 'Name' })).toBeEmpty();
-    await expect(page.getByLabel('Description')).toBeEmpty();
-    await expect(page.getByLabel('Category')).toBeEmpty();
+  constructor(part: Part) {
+    super(part);
+    this.name = part.macroInput('Name');
+    this.description = part.macroArea('Description');
+    this.category = part.macroInput('Category');
 
-    await CollapseUtil.assertClosed(page, 'Custom Fields');
+    this.customSection = part.section('Custom Fields');
+    this.customFields = this.customSection.table(['text', 'label', 'expression']);
   }
-};
+
+  async fill() {
+    await this.name.fill('case name');
+    await this.description.fill('case desc');
+    await this.category.fill('case cat');
+
+    await this.customSection.toggle();
+    const row = await this.customFields.addRow();
+    await row.fill(['cf', 'value']);
+  }
+
+  async assertFill() {
+    await this.name.expectValue('case name');
+    await this.description.expectValue('case desc');
+    await this.category.expectValue('case cat');
+    await this.customFields.row(0).expectValues(['cf', 'value']);
+  }
+
+  async clear() {
+    await this.name.clear();
+    await this.description.clear();
+    await this.category.clear();
+    await this.customFields.clear();
+  }
+
+  async assertClear() {
+    await this.name.expectEmpty();
+    await this.description.expectEmpty();
+    await this.category.expectEmpty;
+    await this.customSection.expectIsClosed();
+  }
+}
+
+export const CaseTest = new NewPartTest('Case', (part: Part) => new Case(part));

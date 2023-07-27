@@ -25,7 +25,7 @@ export class MailHeaderTester implements PartTest {
     await part.macroInput('CC').expectValue('cc');
     await part.macroInput('BCC').expectValue('bcc');
     const options = part.section('Options');
-    await options.isOpen();
+    await options.expectIsOpen();
     // await options.select('Error').expectValue('>> Ignore Exception');
     await options.checkbox('Throw').expectChecked();
   }
@@ -47,7 +47,7 @@ export class MailHeaderTester implements PartTest {
     await part.macroInput('To').expectEmpty();
     await part.macroInput('CC').expectEmpty();
     await part.macroInput('BCC').expectEmpty();
-    await part.section('Options').isClosed();
+    await part.section('Options').expectIsClosed();
   }
 }
 
