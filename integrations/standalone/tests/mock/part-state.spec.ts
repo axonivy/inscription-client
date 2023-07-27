@@ -13,7 +13,7 @@ test.describe('Part states', () => {
     await callPart.expectState('warning');
 
     await casePart.toggle();
-    casePart.macroInput('Name').clear();
+    await casePart.macroInput('Name').clear();
     await casePart.expectState('error');
     await callPart.expectState('warning');
 
