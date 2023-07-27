@@ -1,0 +1,34 @@
+.card-text {
+  border-radius: var(--border-radius);
+  border: var(--input-border);
+  background: var(--input-bg);
+  font-size: 12px;
+  line-height: 12px;
+  color: var(--input-color);
+  text-align: start;
+  padding: var(--input-padding);
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  min-height: 14px;
+}
+.card-text .card-text-line {
+  height: 20px;
+  white-space: pre-wrap;
+}
+
+.card-text .card {
+  color: var(--text-color);
+  padding: 2px 0.24em;
+  background-color: var(--editor-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  user-select: none;
+}
+.card-text .card .card-icon {
+  margin-right: var(--size-1);
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: bottom;
+}

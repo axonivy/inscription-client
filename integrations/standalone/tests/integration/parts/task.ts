@@ -1,7 +1,7 @@
 import { Accordion } from '../../pageobjects/Accordion';
 import { NewPartTest, PartObject, PartTest } from './part-tester';
 import { Part } from '../../pageobjects/Part';
-import { CodeEditor } from '../../pageobjects/CodeEditor';
+import { MacroEditor, ScriptArea, ScriptInput } from '../../pageobjects/CodeEditor';
 import { Section } from '../../pageobjects/Section';
 import { ResponsibleSelect } from '../../pageobjects/ResponsibleSelect';
 import { Select } from '../../pageobjects/Select';
@@ -50,23 +50,23 @@ export class TasksTester implements PartTest {
 }
 
 class Task extends PartObject {
-  name: CodeEditor;
-  description: CodeEditor;
-  category: CodeEditor;
+  name: MacroEditor;
+  description: MacroEditor;
+  category: MacroEditor;
   responsible: ResponsibleSelect;
   priority: Select;
   optionsSection: Section;
   skipTasklist: Checkbox;
-  delay: CodeEditor;
+  delay: ScriptInput;
   expirySection: Section;
-  timeout: CodeEditor;
+  timeout: ScriptInput;
   error: Select;
   expiryResponsbile: ResponsibleSelect;
   expiryPriority: Select;
   customFieldsSection: Section;
   customFields: Table;
   codeSection: Section;
-  code: CodeEditor;
+  code: ScriptArea;
 
   constructor(part: Part, private readonly nameValue: string, private readonly errorValue: RegExp) {
     super(part);

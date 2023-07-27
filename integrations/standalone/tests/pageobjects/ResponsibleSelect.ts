@@ -1,17 +1,17 @@
 import { Locator, Page, expect } from '@playwright/test';
 import { RESPONSIBLE_TYPE, ValuesAsUnion } from '@axonivy/inscription-protocol';
-import { CodeEditor } from './CodeEditor';
+import { ScriptInput } from './CodeEditor';
 
 export class ResponsibleSelect {
   private readonly locator: Locator;
   private readonly type: Locator;
-  private readonly script: CodeEditor;
+  private readonly script: ScriptInput;
   private readonly combo: Locator;
 
   constructor(page: Page, parentLocator: Locator, label: string) {
     this.locator = parentLocator.locator('.responsible-select', { has: page.getByLabel(label) }).first();
     this.type = parentLocator.getByLabel(label).first();
-    this.script = new CodeEditor(page, this.locator, true);
+    this.script = new ScriptInput(page, this.locator);
     this.combo = this.locator.getByRole('combobox').nth(1);
   }
 

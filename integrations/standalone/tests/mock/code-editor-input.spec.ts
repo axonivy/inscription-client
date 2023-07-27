@@ -1,6 +1,6 @@
 import { Page, test } from '@playwright/test';
 import { InscriptionView } from '../pageobjects/InscriptionView';
-import { CodeEditor } from '../pageobjects/CodeEditor';
+import { MacroEditor, ScriptInput } from '../pageobjects/CodeEditor';
 
 test.describe('Code Editor Input', () => {
   test('MacroInput - no new line', async ({ page }) => {
@@ -37,7 +37,7 @@ test.describe('Code Editor Input', () => {
     await assertAcceptScriptCellValue(page);
   });
 
-  async function assertNoNewLine(page: Page, name: CodeEditor) {
+  async function assertNoNewLine(page: Page, name: ScriptInput | MacroEditor) {
     await name.fill('test \nnewline');
     await page.keyboard.press('Tab');
     await name.expectValue('test newline');
