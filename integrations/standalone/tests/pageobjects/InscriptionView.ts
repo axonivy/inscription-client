@@ -46,18 +46,6 @@ export class InscriptionView {
     await expect(this.page.getByText(text).first()).toBeVisible();
   }
 
-  async expectHeaderMessages(messages: string[]) {
-    const headerMessages = this.page.locator('.header-messages');
-    if (messages.length === 0) {
-      await expect(headerMessages).toBeHidden();
-    } else {
-      const msgLocator = headerMessages.locator('.message');
-      for (var index = 0; index < messages.length; index++) {
-        await expect(msgLocator.nth(index)).toContainText(messages[index]);
-      }
-    }
-  }
-
   async reload() {
     this.page.reload();
   }

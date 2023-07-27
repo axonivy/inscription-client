@@ -26,7 +26,7 @@ describe('Editor', () => {
     expect(screen.getByRole('button', { name: 'Name' })).toHaveAttribute('data-state', 'closed');
   });
 
-  test('editor show state', () => {
+  test('editor show messages', () => {
     const headerState: InscriptionValidation[] = [
       { path: '', message: 'this is an error', severity: 'ERROR' },
       { path: '', message: 'this is an warning', severity: 'WARNING' }
@@ -34,6 +34,12 @@ describe('Editor', () => {
     renderEditor({ headerState: headerState });
     expect(screen.getByTitle(/this is an error/i)).toHaveAttribute('data-state', 'error');
     expect(screen.getByTitle(/this is an warning/i)).toHaveAttribute('data-state', 'warning');
+  });
+
+  test('editor do not show messages with path', () => {
+    const headerState: InscriptionValidation[] = [{ path: 'output', message: 'message on output', severity: 'ERROR' }];
+    renderEditor({ headerState: headerState });
+    expect(screen.queryByTitle(/message on output/i)).not.toBeInTheDocument();
   });
 
   describe('Editor with errors', () => {
