@@ -1,4 +1,5 @@
 import { AlternativeConditions, ConnectorRef, NodeRef } from '@axonivy/inscription-protocol';
+import { PID } from '../../../utils/pid';
 
 export interface Condition {
   fid: string;
@@ -13,12 +14,12 @@ export namespace Condition {
     });
   }
 
-  export function replace(conditions: Condition[], conditionId: string, connectorRef: ConnectorRef, sourcePid: string): Condition[] {
-    if (connectorRef === undefined || connectorRef === null || connectorRef.source.pid !== sourcePid) {
+  export function replace(conditions: Condition[], connectorRef: ConnectorRef): Condition[] {
+    if (connectorRef === undefined || connectorRef === null) {
       return conditions;
     }
     return conditions.map(cond => {
-      if (cond.fid === conditionId) {
+      if (cond.fid === PID.fieldId(connectorRef.pid)) {
         cond.target = connectorRef.target;
       }
       return cond;

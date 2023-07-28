@@ -231,10 +231,12 @@ export namespace MetaMock {
     }
   };
 
-  export const CONNECTOR_OF: ConnectorRef = {
-    pid: '169A4921D0EF0B91-f21',
-    name: '',
-    source: NODE_OF,
-    target: NODE_OF
-  };
+  export const CONNECTORS_OUT: ConnectorRef[] = [
+    {
+      pid: '169A4921D0EF0B91-f1',
+      name: '',
+      source: NODE_OF,
+      target: NODE_OF
+    }
+  ];
 }

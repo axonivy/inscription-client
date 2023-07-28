@@ -1,9 +1,8 @@
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useConditionData } from './useConditionData';
-import { PathContext, useClient, useEditorContext, useValidations } from '../../../context';
+import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { useEffect, useState } from 'react';
 import { Condition } from './condition';
-import { PID } from '../../../utils/pid';
 import ConditionTable from './ConditionTable';
 import { ConditionData } from '@axonivy/inscription-protocol';
 
@@ -26,16 +25,11 @@ const ConditionPart = () => {
   const [conditions, setConditions] = useState<Condition[]>([]);
 
   const { context } = useEditorContext();
-  const client = useClient();
+  const { data: outConnectors } = useMeta('meta/connector/out', context, []);
   useEffect(() => {
     setConditions(Condition.of(config.conditions));
-    Object.keys(config.conditions).forEach(conditionId => {
-      const pid = PID.createChild(PID.processId(context.pid), conditionId);
-      client
-        .meta('meta/connector/of', { ...context, pid })
-        .then(data => setConditions(conds => Condition.replace(conds, conditionId, data, context.pid)));
-    });
-  }, [client, config.conditions, context]);
+    outConnectors.forEach(connector => setConditions(conditions => Condition.replace(conditions, connector)));
+  }, [config.conditions, outConnectors]);
 
   return (
     <PathContext path='conditions'>

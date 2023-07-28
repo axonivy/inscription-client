@@ -10,10 +10,10 @@ const Part = () => {
 
 describe('ConditionPart', () => {
   function renderPart(data?: ConditionData) {
-    const connectorOf: Record<string, DeepPartial<ConnectorRef>> = {};
-    connectorOf['f1'] = { pid: 'f1', target: { name: 'db', type: { id: 'Database' } }, source: { pid: '' } };
-    connectorOf['f8'] = { pid: 'f8', target: { name: 'end', type: { id: 'TaskEnd' } }, source: { pid: '' } };
-    render(<Part />, { wrapperProps: { data: data && { config: data }, meta: { connectorOf } } });
+    const connectors: DeepPartial<ConnectorRef[]> = [];
+    connectors.push({ pid: 'something-f1', target: { name: 'db', type: { id: 'Database' } }, source: { pid: '' } });
+    connectors.push({ pid: 'something-f8', target: { name: 'end', type: { id: 'TaskEnd' } }, source: { pid: '' } });
+    render(<Part />, { wrapperProps: { data: data && { config: data }, meta: { connectors } } });
   }
 
   async function assertMainPart(map: RegExp[]) {
@@ -34,6 +34,7 @@ describe('ConditionPart', () => {
       }
     };
     renderPart(conditions);
+
     expect(await screen.findByText(/db: Database/)).toBeInTheDocument();
     await assertMainPart([/db: Database in.accepted == false/, /⛔ f6 false/, /end: TaskEnd/]);
   });
