@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import { CodeEditor } from './CodeEditor';
+import { MacroEditor, ScriptArea, ScriptInput } from './CodeEditor';
 import { ResponsibleSelect } from './ResponsibleSelect';
 import { Select } from './Select';
 import { ColumnType, Table } from './Table';
@@ -33,19 +33,19 @@ export abstract class Composite {
   }
 
   macroInput(label: string) {
-    return new CodeEditor(this.page, this.locator, true, label);
+    return new MacroEditor(this.page, this.locator, label);
   }
 
   macroArea(label: string) {
-    return new CodeEditor(this.page, this.locator, true, label);
+    return new MacroEditor(this.page, this.locator, label);
   }
 
   scriptInput(label: string) {
-    return new CodeEditor(this.page, this.locator, true, label);
+    return new ScriptInput(this.page, this.locator, label);
   }
 
   scriptArea() {
-    return new CodeEditor(this.page, this.locator, false);
+    return new ScriptArea(this.page, this.locator);
   }
 
   table(columns: ColumnType[]) {

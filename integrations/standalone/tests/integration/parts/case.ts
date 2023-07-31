@@ -1,13 +1,13 @@
 import { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { CodeEditor } from '../../pageobjects/CodeEditor';
+import { MacroEditor } from '../../pageobjects/CodeEditor';
 import { Section } from '../../pageobjects/Section';
 import { Table } from '../../pageobjects/Table';
 
 class Case extends PartObject {
-  name: CodeEditor;
-  description: CodeEditor;
-  category: CodeEditor;
+  name: MacroEditor;
+  description: MacroEditor;
+  category: MacroEditor;
   customSection: Section;
   customFields: Table;
 

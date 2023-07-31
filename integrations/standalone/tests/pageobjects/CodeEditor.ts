@@ -1,23 +1,11 @@
 import { Locator, Page, expect } from '@playwright/test';
 import { FocusCodeEditorUtil } from '../utils/code-editor-util';
 
-export class CodeEditor {
-  private readonly page: Page;
-  private readonly locator: Locator;
-  private readonly contentAssist: Locator;
-  private readonly value: Locator;
+class CodeEditor {
+  protected contentAssist: Locator;
 
-  constructor(page: Page, parentLocator: Locator, activateOnFocus: boolean, label?: string) {
-    this.page = page;
+  constructor(readonly page: Page, readonly locator: Locator, readonly value: Locator, parentLocator: Locator) {
     this.contentAssist = parentLocator.locator('div.suggest-widget');
-    if (label) {
-      this.locator = parentLocator.getByLabel(label, { exact: true }).first();
-    } else if (activateOnFocus) {
-      this.locator = parentLocator.getByRole('textbox');
-    } else {
-      this.locator = parentLocator.getByRole('code').nth(0);
-    }
-    this.value = activateOnFocus ? this.locator : this.locator.getByRole('textbox');
   }
 
   async triggerContentAssist() {
@@ -42,5 +30,33 @@ export class CodeEditor {
 
   async expectContentAssistContains(contentAssist: string) {
     await expect(this.contentAssist).toContainText(contentAssist);
+  }
+}
+
+export class ScriptArea extends CodeEditor {
+  constructor(page: Page, parentLocator: Locator) {
+    const locator = parentLocator.getByRole('code').nth(0);
+    super(page, locator, locator.getByRole('textbox'), parentLocator);
+  }
+}
+
+export class ScriptInput extends CodeEditor {
+  constructor(page: Page, parentLocator: Locator, label?: string) {
+    let locator = parentLocator.getByRole('textbox');
+    if (label) {
+      locator = parentLocator.getByLabel(label, { exact: true }).first();
+    }
+    super(page, locator, locator, parentLocator);
+  }
+}
+
+export class MacroEditor extends CodeEditor {
+  constructor(page: Page, parentLocator: Locator, label: string) {
+    const locator = parentLocator.getByLabel(label, { exact: true }).first();
+    super(page, locator, locator, parentLocator);
+  }
+
+  async expectValue(value: string) {
+    await expect(this.value).toHaveText(value.replace('\n', ''));
   }
 }

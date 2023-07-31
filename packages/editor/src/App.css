@@ -20,6 +20,7 @@
   --table-bg: #fcfcfc;
   --table-header-bg: #ffffff;
   --row-border: 1px solid var(--editor-bg);
+  --card-shadow: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px 1px rgba(9, 30, 66, 0.13);
 
   --error-color: #ff4a3d;
   --warning-color: #ff8614;
@@ -61,6 +62,7 @@
   --table-bg: #202020;
   --table-header-bg: #1b1b1b;
   --row-border: 1px solid var(--editor-bg);
+  --card-shadow: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px 1px rgba(9, 30, 66, 0.13);
 
   --error-color: #ff796f;
   --warning-color: #ff9f46;

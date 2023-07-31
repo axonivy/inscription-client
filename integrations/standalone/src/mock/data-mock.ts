@@ -30,8 +30,12 @@ export namespace DataMock {
         name: 'user task'
       },
       case: {
-        name: 'case',
-        description: 'desc'
+        name: 'case <%=ivy.cms.co("/Case/name")%> bla <%= in.name %>',
+        description: `<%=ivy.cms.co("/Emails/yourRequestHasBeen")%> 
+blalbalba
+<%=in.amount%> and <%=in.description%> 
+<%=ivy.cms.co("/Dialogs/procurementRequest/forTotal")%> <%=in.totalPrice%> 
+<%=ivy.cms.co("/Dialogs/procurementRequest/currencySymbol")%>`
       },
       output: {
         map: {

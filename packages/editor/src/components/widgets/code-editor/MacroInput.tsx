@@ -1,9 +1,9 @@
 import './ScriptInput.css';
 import SingleLineCodeEditor, { CodeEditorInputProps } from './SingleLineCodeEditor';
 import { useCodeEditorOnFocus, useModifyEditor } from './useCodeEditor';
-import { Input } from '../input';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
+import { CardText } from '../output/CardText';
 
 type MacroInputProps = Omit<CodeEditorInputProps, 'context'>;
 
@@ -22,7 +22,7 @@ const MacroInput = (props: MacroInputProps) => {
           <Browser {...browser} types={['attr']} accept={value => modifyEditor(`<%=${value}%>`)} location={path} />
         </>
       ) : (
-        <Input {...props} />
+        <CardText {...props} />
       )}
     </div>
   );
