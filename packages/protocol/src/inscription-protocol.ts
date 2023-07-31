@@ -25,7 +25,7 @@ export interface InscriptionMetaRequestTypes {
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
 
-  'meta/connector/of': [InscriptionContext, ConnectorRef];
+  'meta/connector/out': [InscriptionContext, ConnectorRef[]];
 }
 
 export interface InscriptionRequestTypes extends InscriptionMetaRequestTypes {

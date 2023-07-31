@@ -31,35 +31,35 @@ describe('Condition', () => {
   test('replace', () => {
     const ref: ConnectorRef = {
       name: 'flow',
-      pid: 'f6',
+      pid: 'asdf-f6',
       source: { name: 'alternative', pid: 'f5', type: altType },
       target: { name: 'end', pid: 'f7', type: altType }
     };
     const expected = cloneObject(conditions);
     expected[1].target = ref.target;
-    expect(Condition.replace(cloneObject(conditions), 'f6', ref, 'f5')).toEqual(expected);
+    expect(Condition.replace(cloneObject(conditions), ref)).toEqual(expected);
   });
 
   test('replace - undefined', () => {
     //@ts-ignore
     const ref: ConnectorRef = undefined;
-    expect(Condition.replace(cloneObject(conditions), 'f6', ref, 'f5')).toEqual(conditions);
+    expect(Condition.replace(cloneObject(conditions), ref)).toEqual(conditions);
   });
 
   test('replace - null', () => {
     //@ts-ignore
     const ref: ConnectorRef = null;
-    expect(Condition.replace(cloneObject(conditions), 'f6', ref, 'f5')).toEqual(conditions);
+    expect(Condition.replace(cloneObject(conditions), ref)).toEqual(conditions);
   });
 
   test('replace - unknown', () => {
     const ref: ConnectorRef = {
       name: 'flow',
-      pid: 'f6',
+      pid: 'asdf-f7',
       source: { name: 'alternative', pid: 'f5', type: altType },
       target: { name: 'end', pid: 'f7', type: altType }
     };
-    expect(Condition.replace(cloneObject(conditions), 'f6', ref, 'f2')).toEqual(conditions);
+    expect(Condition.replace(cloneObject(conditions), ref)).toEqual(conditions);
   });
 
   test('remove', () => {

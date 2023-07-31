@@ -9,7 +9,6 @@ import {
   RoleMeta,
   ConnectorRef,
   EventCodeMeta,
-  InscriptionContext,
   InscriptionMetaRequestTypes,
   ScriptingDataArgs
 } from '@axonivy/inscription-protocol';
@@ -25,7 +24,6 @@ import {
   DEFAULT_EDITOR_CONTEXT,
   EditorContextInstance
 } from '../context';
-import { PID } from '../utils/pid';
 
 type ContextHelperProps = {
   data?: DeepPartial<ElementData>;
@@ -40,7 +38,7 @@ type ContextHelperProps = {
     eventCodes?: EventCodeMeta[];
     outScripting?: VariableInfo;
     inScripting?: VariableInfo;
-    connectorOf?: Record<string, DeepPartial<ConnectorRef>>;
+    connectors?: DeepPartial<ConnectorRef[]>;
   };
   editor?: { title?: string; readonly?: boolean };
 };
@@ -93,10 +91,8 @@ const ContextHelper = (
             );
           case 'meta/scripting/in':
             return Promise.resolve(props.meta?.inScripting ?? { types: {}, variables: [] });
-          case 'meta/connector/of':
-            const connectorPid = PID.fieldId((args as InscriptionContext).pid);
-            // @ts-ignore
-            return Promise.resolve(props.meta?.connectorOf ? props.meta.connectorOf[connectorPid] : undefined);
+          case 'meta/connector/out':
+            return Promise.resolve(props.meta?.connectors ? (props.meta.connectors as ConnectorRef[]) : []);
           default:
             throw Error('mock meta path not programmed');
         }

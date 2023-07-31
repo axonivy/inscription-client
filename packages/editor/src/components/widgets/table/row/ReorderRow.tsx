@@ -23,7 +23,6 @@ export const ReorderRow = (props: { id: string; updateOrder: (moveId: string, ta
       const dndItems = e.items.filter(item => item.kind === 'text' && item.types.has(DND_TYPE));
       if (dndItems.length === 1) {
         const item = await (dndItems[0] as TextDropItem).getText(DND_TYPE);
-        console.log(`dropped ${item} on ${props.id}`);
         props.updateOrder(item, props.id);
       } else {
         console.log(`invalid drop item ${e.items[0]}`);
