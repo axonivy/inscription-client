@@ -1,90 +1,109 @@
 import './App.css';
 import '@axonivy/editor-icons/src-gen/ivy-icons.css';
 import { ElementData, InscriptionContext, InscriptionData, InscriptionValidation } from '@axonivy/inscription-protocol';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
 import AppStateView from './AppStateView';
-import { AppState, errorState, successState, waitingState } from './app-state';
-import { UpdateConsumer } from './types/lambda';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Unary } from './types/lambda';
 
 function App(props: InscriptionContext) {
-  const [data, setData] = useState<ElementData>({} as ElementData);
-  const [shouldSave, setShouldSave] = useState(false);
-  const [appState, setAppState] = useState<AppState>(waitingState());
-  const [validations, setValidations] = useState<InscriptionValidation[]>([]);
+  const [context, setContext] = useState(props);
+  useEffect(() => {
+    setContext(props);
+  }, [props]);
+
   const client = useClient();
+  const queryClient = useQueryClient();
   const { mode: theme } = useTheme();
+  const editorRef = useRef(null);
 
-  const initData = useCallback((newData: InscriptionData) => {
-    setAppState(successState(newData));
-    setData(newData.data);
-  }, []);
-
-  const updateData = useCallback<UpdateConsumer<ElementData>>(update => {
-    setData(update);
-    setShouldSave(true);
-  }, []);
+  const queryKeys = useMemo(() => {
+    return {
+      data: () => ['data', context],
+      saveData: () => ['saveData', context],
+      validation: () => ['validations', context]
+    };
+  }, [context]);
 
   useEffect(() => {
-    const validationDispose = client.onValidation(setValidations);
-    const dataDispose = client.onDataChanged(initData);
+    const validationDispose = client.onValidation(() => queryClient.invalidateQueries({ queryKey: queryKeys.validation() }));
+    const dataDispose = client.onDataChanged(() => queryClient.invalidateQueries({ queryKey: queryKeys.data() }));
     return () => {
       validationDispose.dispose();
       dataDispose.dispose();
     };
-  }, [client, initData]);
+  }, [client, context, queryClient, queryKeys]);
+
+  const { data, isSuccess, isLoading, isError, error } = useQuery({
+    queryKey: queryKeys.data(),
+    queryFn: () => client.data(context),
+    structuralSharing: false
+  });
 
   useEffect(() => {
-    client
-      .data(props)
-      .then(initData)
-      .catch(error => setAppState(errorState(error)));
-    client.validate(props).then(setValidations).catch(console.error);
-  }, [client, props, initData]);
-
-  useEffect(() => {
-    if (appState.state === 'success' && shouldSave) {
-      client
-        .saveData({
-          data,
-          context: appState.initialData.context
-        })
-        .then(setValidations);
-      setShouldSave(false);
+    if (isSuccess) {
+      setContext(data.context);
     }
-  }, [client, data, appState, shouldSave]);
+  }, [data?.context, isSuccess]);
 
-  const editorRef = useRef(null);
+  const { data: validations } = useQuery({
+    queryKey: queryKeys.validation(),
+    queryFn: () => client.validate(context),
+    initialData: [],
+    enabled: isSuccess
+  });
 
-  if (appState.state === 'success') {
-    return (
-      <div ref={editorRef} className='editor-root' data-theme={theme}>
-        <EditorContextInstance.Provider
-          value={{
-            context: appState.initialData.context,
-            readonly: appState.initialData.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
-            editorRef,
-            type: appState.initialData.type ?? DEFAULT_EDITOR_CONTEXT.type
-          }}
-        >
-          <DataContextInstance.Provider
-            value={{
-              data,
-              setData: updateData,
-              defaultData: appState.initialData.defaults,
-              initData: appState.initialData.data,
-              validations
-            }}
-          >
-            {inscriptionEditor(appState.initialData.type.id)}
-          </DataContextInstance.Provider>
-        </EditorContextInstance.Provider>
-      </div>
-    );
+  const mutation = useMutation({
+    mutationKey: queryKeys.saveData(),
+    mutationFn: (updateData: Unary<ElementData>) => {
+      const saveData = queryClient.setQueryData<InscriptionData>(queryKeys.data(), prevData => {
+        if (prevData) {
+          return { ...prevData, data: updateData(prevData.data) };
+        }
+        return undefined;
+      });
+      if (saveData) {
+        return client.saveData(saveData);
+      }
+      return Promise.resolve([]);
+    },
+    onSuccess: (data: InscriptionValidation[]) => queryClient.setQueryData(queryKeys.validation(), data)
+  });
+
+  if (isLoading) {
+    return <AppStateView>Loading...</AppStateView>;
   }
 
-  return <AppStateView {...appState} />;
+  if (isError) {
+    return <AppStateView>{'An error has occurred: ' + error}</AppStateView>;
+  }
+
+  return (
+    <div ref={editorRef} className='editor-root' data-theme={theme}>
+      <EditorContextInstance.Provider
+        value={{
+          context,
+          readonly: data.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
+          editorRef,
+          type: data.type ?? DEFAULT_EDITOR_CONTEXT.type
+        }}
+      >
+        <DataContextInstance.Provider
+          value={{
+            data: data.data,
+            setData: mutation.mutate,
+            defaultData: data.defaults,
+            initData: data.data,
+            validations
+          }}
+        >
+          {inscriptionEditor(data.type.id)}
+        </DataContextInstance.Provider>
+      </EditorContextInstance.Provider>
+    </div>
+  );
 }
 
 export default App;

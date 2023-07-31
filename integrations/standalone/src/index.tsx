@@ -1,10 +1,12 @@
 import './index.css';
 import { MonacoUtil, IvyScriptLanguage, InscriptionClientJsonRpc } from '@axonivy/inscription-core';
-import { App, AppStateView, ClientContextInstance, errorState, MonacoEditorUtil, ThemeContextProvider } from '@axonivy/inscription-editor';
+import { App, AppStateView, ClientContextInstance, MonacoEditorUtil, ThemeContextProvider } from '@axonivy/inscription-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { URLParams } from './url-helper';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export async function start(): Promise<void> {
   const server = URLParams.webSocketBase();
@@ -20,18 +22,22 @@ export async function start(): Promise<void> {
   try {
     await IvyScriptLanguage.startWebSocketClient(`${server}/ivy-script-lsp`);
     const client = await InscriptionClientJsonRpc.startWebSocketClient(`${server}/ivy-inscription-lsp`);
+    const queryClient = new QueryClient();
 
     root.render(
       <React.StrictMode>
         <ThemeContextProvider theme={theme}>
           <ClientContextInstance.Provider value={{ client: client }}>
-            <App app={app} pmv={pmv} pid={pid} />
+            <QueryClientProvider client={queryClient}>
+              <App app={app} pmv={pmv} pid={pid} />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
           </ClientContextInstance.Provider>
         </ThemeContextProvider>
       </React.StrictMode>
     );
   } catch (error) {
-    root.render(<AppStateView {...errorState(error as string)} />);
+    root.render(<AppStateView>{'An error has occurred: ' + error}</AppStateView>);
   }
 }
 

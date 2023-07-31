@@ -1,25 +1,14 @@
-import { AppState } from './app-state';
+import { ReactNode } from 'react';
 import './App.css';
 import { useTheme } from './context/useTheme';
 
-function AppStateView(props: AppState) {
+function AppStateView({ children }: { children: ReactNode }) {
   const { mode: theme } = useTheme();
   return (
     <div className='editor-root editor-state' data-theme={theme}>
-      {visualizeState(props)}
+      {children}
     </div>
   );
-}
-
-function visualizeState(state: AppState): string {
-  switch (state.state) {
-    case 'waiting':
-      return 'Loading...';
-    case 'error':
-      return `Error: ${state.error}`;
-    default:
-      return 'Unknown state';
-  }
 }
 
 export default AppStateView;

@@ -24,6 +24,7 @@ import {
   DEFAULT_EDITOR_CONTEXT,
   EditorContextInstance
 } from '../context';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 type ContextHelperProps = {
   data?: DeepPartial<ElementData>;
@@ -108,11 +109,14 @@ const ContextHelper = (
   }
   const editorRef = useRef(null);
   editorContext.editorRef = editorRef;
+  const queryClient = new QueryClient();
   return (
     <div ref={editorRef}>
       <EditorContextInstance.Provider value={editorContext}>
         <ClientContextInstance.Provider value={client}>
-          <DataContextInstance.Provider value={data}>{props.children}</DataContextInstance.Provider>
+          <QueryClientProvider client={queryClient}>
+            <DataContextInstance.Provider value={data}>{props.children}</DataContextInstance.Provider>
+          </QueryClientProvider>{' '}
         </ClientContextInstance.Provider>
       </EditorContextInstance.Provider>
     </div>

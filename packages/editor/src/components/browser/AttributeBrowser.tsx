@@ -13,7 +13,7 @@ import {
 } from '@tanstack/react-table';
 import { MappingTreeData } from '../parts/common/mapping-tree/mapping-tree-data';
 import { VariableInfo } from '@axonivy/inscription-protocol';
-import { useClient, useEditorContext } from '../../context';
+import { useEditorContext, useMeta } from '../../context';
 import { calcFullPathId } from '../parts/common/mapping-tree/useMappingTree';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
@@ -30,23 +30,17 @@ export const useAttributeBrowser = (location: string): UseBrowserImplReturnValue
 
 const AttributeBrowser = ({ value, onChange, location }: { value: string; onChange: (value: string) => void; location: string }) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
-
   const [varInfo, setVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
-  const [inVarInfo, setInVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
-  const [outVarInfo, setOutVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
   const { context } = useEditorContext();
-  const client = useClient();
-  useEffect(() => {
-    client.meta('meta/scripting/in', { context, location }).then(info => setInVarInfo(info));
-    if (location.endsWith('code')) {
-      client.meta('meta/scripting/out', { context, location }).then(info => setOutVarInfo(info));
-    }
-  }, [client, context, location]);
+  const { data: inVarInfo } = useMeta('meta/scripting/in', { context, location }, { variables: [], types: {} });
+  const { data: outVarInfo } = useMeta('meta/scripting/out', { context, location }, { variables: [], types: {} });
 
   useEffect(() => {
-    setVarInfo({ variables: [...inVarInfo.variables, ...outVarInfo.variables], types: { ...inVarInfo.types, ...outVarInfo.types } });
-  }, [inVarInfo.variables, inVarInfo.types, outVarInfo.variables, outVarInfo.types]);
+    location.endsWith('code')
+      ? setVarInfo({ variables: [...inVarInfo.variables, ...outVarInfo.variables], types: { ...inVarInfo.types, ...outVarInfo.types } })
+      : setVarInfo(inVarInfo);
+  }, [inVarInfo, outVarInfo, location]);
 
   useEffect(() => {
     setTree(MappingTreeData.of(varInfo));
