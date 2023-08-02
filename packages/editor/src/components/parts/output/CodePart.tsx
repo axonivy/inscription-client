@@ -8,7 +8,7 @@ import { PathFieldset } from '../common';
 export function useCodePart(): PartProps {
   const { config, defaultConfig, initConfig, resetCode } = useOutputData();
   const compareData = (data: OutputData) => [data.output.code, data.sudo];
-  const validation = useValidations('output').filter(val => val.path.includes('code'));
+  const validation = useValidations(['output', 'code']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Code', state, reset: { dirty, action: () => resetCode() }, content: <CodePart /> };

@@ -2,9 +2,9 @@ import { InscriptionValidation, SchemaKeys } from '@axonivy/inscription-protocol
 import { useDataContext } from './useDataContext';
 import { useFullPath, usePath } from './usePath';
 
-export function useValidations(path?: SchemaKeys): InscriptionValidation[] {
+export function useValidations(paths?: SchemaKeys[]): InscriptionValidation[] {
   const { validations } = useDataContext();
-  const fullLocation = useFullPath(path);
+  const fullLocation = useFullPath(paths);
   return validations.filter(val => val.path.startsWith(fullLocation));
 }
 

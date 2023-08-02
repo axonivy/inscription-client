@@ -11,7 +11,7 @@ import { ValidationRow } from '../common';
 export function useMailAttachmentPart(): PartProps {
   const { config, initConfig, defaultConfig, resetAttachments } = useMailData();
   const compareData = (data: MailData) => [data.attachments];
-  const validations = useValidations('attachments');
+  const validations = useValidations(['attachments']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Attachments', state, reset: { dirty, action: () => resetAttachments() }, content: <MailAttachmentsPart /> };

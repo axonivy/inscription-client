@@ -1,16 +1,18 @@
 import './Checkbox.css';
 import { Checkbox as CheckboxRoot, CheckboxIndicator } from '@radix-ui/react-checkbox';
 import { useReadonly } from '../../../context';
+import { useFieldset } from '../fieldset';
 
-const Checkbox = (props: { label: string; value: boolean; onChange: (change: boolean) => void }) => {
+const Checkbox = ({ label, value, onChange }: { label: string; value: boolean; onChange: (change: boolean) => void }) => {
   const readonly = useReadonly();
+  const fieldset = useFieldset();
   return (
     <div className='checkbox'>
       <CheckboxRoot
         className='checkbox-root'
-        id='checkbox'
-        checked={props.value}
-        onCheckedChange={change => props.onChange(change ? true : false)}
+        {...fieldset.inputProps}
+        checked={value}
+        onCheckedChange={change => onChange(change ? true : false)}
         disabled={readonly}
       >
         <CheckboxIndicator className='checkbox-indicator'>
@@ -24,8 +26,8 @@ const Checkbox = (props: { label: string; value: boolean; onChange: (change: boo
           </svg>
         </CheckboxIndicator>
       </CheckboxRoot>
-      <label className='checkbox-label' htmlFor='checkbox'>
-        {props.label}
+      <label className='checkbox-label' {...fieldset.labelProps}>
+        {label}
       </label>
     </div>
   );

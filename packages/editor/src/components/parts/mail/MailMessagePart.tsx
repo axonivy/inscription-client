@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 export function useMailMessagePart(): PartProps {
   const { config, initConfig, defaultConfig, resetMessage } = useMailData();
   const compareData = (data: MailData) => [data.message];
-  const validations = useValidations('message');
+  const validations = useValidations(['message']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Content', state, reset: { dirty, action: () => resetMessage() }, content: <MailMessagePart /> };

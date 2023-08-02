@@ -10,7 +10,7 @@ import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
 export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useSignalCatchData();
   const compareData = (data: SignalCatchData) => [data.signalCode, options?.makroSupport ? '' : data.attachToBusinessCase];
-  const validations = useValidations('signalCode');
+  const validations = useValidations(['signalCode']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {

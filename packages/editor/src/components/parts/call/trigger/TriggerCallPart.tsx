@@ -13,7 +13,7 @@ export function useTriggerCallPart(): PartProps {
   const callData = useCallData();
   const targetData = useProcessCallData();
   const compareData = (callData: CallData, targetData: ProcessCallData) => [callData.call, targetData.processCall];
-  const triggerCallValidations = useValidations('processCall');
+  const triggerCallValidations = useValidations(['processCall']);
   const callValidations = useCallPartValidation();
   const state = usePartState(
     compareData(callData.defaultConfig, targetData.defaultConfig),

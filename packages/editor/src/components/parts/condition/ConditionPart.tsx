@@ -9,7 +9,7 @@ import { ConditionData } from '@axonivy/inscription-protocol';
 export function useConditionPart(): PartProps {
   const { config, initConfig, defaultConfig, update } = useConditionData();
   const compareData = (data: ConditionData) => [data.conditions];
-  const validations = useValidations('conditions');
+  const validations = useValidations(['conditions']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {

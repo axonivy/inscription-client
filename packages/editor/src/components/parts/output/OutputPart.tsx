@@ -8,10 +8,7 @@ import { MappingPart, PathFieldset } from '../common';
 export function useOutputPart(options?: { hideCode?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetOutput } = useOutputData();
   const compareData = (data: OutputData) => [data.output.map, options?.hideCode ? '' : data.output.code];
-  let validations = useValidations('output');
-  if (options?.hideCode) {
-    validations = validations.filter(val => !val.path.includes('code'));
-  }
+  const validations = useValidations(options?.hideCode ? ['output', 'map'] : ['output']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {

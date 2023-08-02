@@ -10,7 +10,7 @@ import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
 export function useErrorCatchPart(): PartProps {
   const { config, defaultConfig, initConfig, update } = useErrorCatchData();
   const compareData = (data: ErrorCatchData) => [data.errorCode];
-  const validations = useValidations('errorCode');
+  const validations = useValidations(['errorCode']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {

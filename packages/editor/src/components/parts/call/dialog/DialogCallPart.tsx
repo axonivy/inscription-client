@@ -13,7 +13,7 @@ export function useDialogCallPart(): PartProps {
   const callData = useCallData();
   const targetData = useDialogCallData();
   const compareData = (callData: CallData, targetData: DialogCallData) => [callData.call, targetData.dialog];
-  const dialogValidations = useValidations('dialog');
+  const dialogValidations = useValidations(['dialog']);
   const callValidations = useCallPartValidation();
   const state = usePartState(
     compareData(callData.defaultConfig, targetData.defaultConfig),

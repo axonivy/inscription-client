@@ -10,7 +10,7 @@ import { useQueryClient } from '@tanstack/react-query';
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useResultData();
   const compareData = (data: ResultData) => [data.result];
-  const validations = useValidations('result');
+  const validations = useValidations(['result']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {

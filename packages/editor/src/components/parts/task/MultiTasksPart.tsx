@@ -7,7 +7,7 @@ import { useMutliTaskData } from './useTaskData';
 
 export function useMultiTasksPart(): PartProps {
   const { config, defaultConfig, initConfig, resetTasks } = useMutliTaskData();
-  const validations = useValidations('tasks');
+  const validations = useValidations(['tasks']);
   const compareData = (data: TaskData) => [data.tasks];
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
