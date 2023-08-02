@@ -1,5 +1,4 @@
 import { test } from '@playwright/test';
-import { selectDialog } from './combobox-util';
 import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Mappings', () => {
@@ -9,11 +8,12 @@ test.describe('Mappings', () => {
     const callPart = inscriptionView.accordion('Call');
     await callPart.toggle();
 
-    await selectDialog(page, 'AcceptRequest');
+    const dialogCombo = callPart.combobox('Dialog');
+    await dialogCombo.choose('AcceptRequest');
     const callTable = callPart.table(['text', 'label', 'expression']);
     await callTable.expectRowCount(11);
 
-    await selectDialog(page, 'test1');
+    await dialogCombo.choose('test1');
     await callTable.expectRowCount(3);
   });
 
