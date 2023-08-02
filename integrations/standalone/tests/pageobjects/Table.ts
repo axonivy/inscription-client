@@ -119,6 +119,10 @@ export class Cell {
     await expect(this.locator.getByRole('textbox')).toHaveValue(value);
   }
 
+  async expectEmpty() {
+    await expect(this.locator.getByRole('textbox')).toBeEmpty();
+  }
+
   private async fillText(value: string) {
     const input = this.locator.getByRole('textbox');
     await input.fill(value);

@@ -1,5 +1,4 @@
 import { test } from '@playwright/test';
-import { selectDialog } from './combobox-util';
 import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Part states', () => {
@@ -18,7 +17,7 @@ test.describe('Part states', () => {
     await callPart.expectState('warning');
 
     await callPart.toggle();
-    await selectDialog(page);
+    await callPart.combobox('Dialog').choose('AcceptRequest');
     await casePart.expectState('error');
     await callPart.expectState('configured');
   });

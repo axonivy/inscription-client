@@ -6,6 +6,7 @@ import { ColumnType, Table } from './Table';
 import { Checkbox } from './Checkbox';
 import { TextArea } from './TextArea';
 import { Tags } from './Tags';
+import { Combobox } from './Combobox';
 
 export abstract class Composite {
   readonly page: Page;
@@ -26,6 +27,10 @@ export abstract class Composite {
 
   select(label: string) {
     return new Select(this.page, this.locator, label);
+  }
+
+  combobox(label: string) {
+    return new Combobox(this.page, this.locator, label);
   }
 
   responsibleSelect(label: string) {
