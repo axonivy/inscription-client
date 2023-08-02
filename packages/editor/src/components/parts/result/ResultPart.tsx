@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useResultData } from './useResultData';
-import { ResultData, ScriptVariable } from '@axonivy/inscription-protocol';
+import { ResultData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { MappingPart, ParameterTable, PathFieldset } from '../common';
-import { deepEqual } from '../../../utils/equals';
+import { useQueryClient } from '@tanstack/react-query';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useResultData();
@@ -23,16 +23,13 @@ export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
 
 const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   const { config, update } = useResultData();
-  const [params, setParams] = useState<ScriptVariable[]>([]);
 
   const { context } = useEditorContext();
-  const { data: variableInfo, invalidate } = useMeta('meta/scripting/out', { context, location: 'result' }, { variables: [], types: {} });
+  const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'result' }, { variables: [], types: {} });
+  const queryClient = useQueryClient();
   useEffect(() => {
-    if (!deepEqual(params, config.result.params)) {
-      invalidate();
-      setParams(config.result.params);
-    }
-  }, [config.result.params, invalidate, params]);
+    queryClient.invalidateQueries({ queryKey: ['meta/scripting/out'] });
+  }, [config.result.params, queryClient]);
 
   const codeFieldset = useFieldset();
   return (
