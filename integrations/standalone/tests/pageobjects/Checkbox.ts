@@ -15,10 +15,11 @@ export class Checkbox {
     await this.locator.check();
   }
 
-  async expectChecked(checked?: boolean) {
-    if (!!checked) {
-      await expect(this.locator).not.toBeChecked();
-    }
+  async expectChecked() {
     await expect(this.locator).toBeChecked();
+  }
+
+  async expectUnchecked() {
+    await expect(this.locator).not.toBeChecked();
   }
 }
