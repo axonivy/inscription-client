@@ -13,7 +13,7 @@ export function useSubCallPart(): PartProps {
   const callData = useCallData();
   const targetData = useProcessCallData();
   const compareData = (callData: CallData, targetData: ProcessCallData) => [callData.call, targetData.processCall];
-  const subCallValidations = useValidations('processCall');
+  const subCallValidations = useValidations(['processCall']);
   const callValidations = useCallPartValidation();
   const state = usePartState(
     compareData(callData.defaultConfig, targetData.defaultConfig),

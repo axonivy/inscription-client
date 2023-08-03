@@ -17,7 +17,7 @@ import {
   MAIL_TYPE,
   IVY_EXCEPTIONS
 } from '../data';
-import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
+import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA, TRIGGER_DATA } from './workflow-defaults';
 
 export const DEFAULT_NAME_DATA: NameData = {
   name: '',
@@ -105,6 +105,7 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_RESULT_DATA,
     ...DEFAULT_ERROR_CATCH_DATA,
     ...DEFAULT_SIGNAL_CATCH_DATA,
-    ...DEFAULT_MAIL_DATA
+    ...DEFAULT_MAIL_DATA,
+    ...TRIGGER_DATA
   }
 } as const;

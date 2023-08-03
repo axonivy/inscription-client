@@ -1,10 +1,10 @@
 import './ResponsibleSelect.css';
 import { useMemo } from 'react';
 import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE, WfTask, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { ScriptInput, Select, SelectItem, useFieldset } from '../../../../components/widgets';
+import { ScriptInput, Select, SelectItem, useFieldset } from '../../../widgets';
 import { useEditorContext, useMeta } from '../../../../context';
 import { DataUpdater } from '../../../../types/lambda';
-import { PathFieldset } from '../../common';
+import { PathFieldset } from '..';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
 

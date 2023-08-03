@@ -10,7 +10,7 @@ type ValidationRowProps = {
 export const ValidationRow = ({ rowPathSuffix, children }: ValidationRowProps) => {
   const validations = useValidations();
   const path = usePath();
-  const rowPath = mergePaths(path, rowPathSuffix);
+  const rowPath = mergePaths(path, [rowPathSuffix]);
   const message = validations.find(val => val.path === rowPath);
   return <MessageRow message={message}>{children}</MessageRow>;
 };

@@ -6,7 +6,7 @@ import { PathContext, useValidations } from '../../../context';
 import { MappingPart, PathFieldset } from '../common';
 
 export function useCallPartValidation(): InscriptionValidation[] {
-  return useValidations('call');
+  return useValidations(['call']);
 }
 
 const CallMapping = ({ variableInfo }: { variableInfo: VariableInfo }) => {

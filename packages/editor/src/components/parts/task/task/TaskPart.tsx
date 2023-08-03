@@ -3,7 +3,7 @@ import PersistPart from '../options/PersistPart';
 import TaskListPart from '../options/TaskListPart';
 import PrioritySelect from '../priority/PrioritySelect';
 import { MacroArea, MacroInput, ScriptArea, useFieldset } from '../../../widgets';
-import ResponsibleSelect from '../responsible/ResponsibleSelect';
+import ResponsibleSelect from '../../common/responsible/ResponsibleSelect';
 import { useTaskData } from '../useTaskData';
 import { PathContext } from '../../../../context';
 import { PathFieldset, PathCollapsible, ValidationFieldset, CustomFieldPart } from '../../common';

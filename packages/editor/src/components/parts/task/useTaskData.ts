@@ -2,7 +2,7 @@ import { TaskData, WfTask } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { DataUpdater } from '../../../types/lambda';
 import { ConfigDataContext, TaskDataContext, useConfigDataContext, useTaskDataContext } from '../../../context';
-import { ResponsibleUpdater } from './responsible/ResponsibleSelect';
+import { ResponsibleUpdater } from '../common/responsible/ResponsibleSelect';
 import { PriorityUpdater } from './priority/PrioritySelect';
 
 export function useTaskData(): TaskDataContext & {

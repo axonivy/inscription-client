@@ -1,4 +1,4 @@
-import { WfActivator, WfPriority, WfTask, WfCustomField, TaskData, CaseData } from '../data';
+import { WfActivator, WfPriority, WfTask, WfCustomField, TaskData, CaseData, TriggerData } from '../data';
 
 const DEFAULT_RESPONSIBLE: WfActivator = {
   type: 'ROLE',
@@ -41,6 +41,10 @@ export const DEFAULT_CASE_DATA: CaseData = {
     description: '',
     category: '',
     customFields: [] as WfCustomField[],
-    attachToBusinessCase: false
+    attachToBusinessCase: true
   }
+} as const;
+
+export const TRIGGER_DATA: Pick<TriggerData, 'triggerable'> = {
+  triggerable: false
 } as const;

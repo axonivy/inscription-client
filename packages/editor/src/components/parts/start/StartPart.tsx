@@ -9,8 +9,8 @@ import { MappingPart, ParameterTable, PathCollapsible, PathFieldset } from '../c
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
 
 export const useStartPartValidation = () => {
-  const signarture = useValidations('signature');
-  const input = useValidations('input');
+  const signarture = useValidations(['signature']);
+  const input = useValidations(['input']);
   return [...signarture, ...input];
 };
 

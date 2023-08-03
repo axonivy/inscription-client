@@ -8,8 +8,8 @@ import { ExceptionSelect, IGNROE_EXCEPTION, PathFieldset } from '../common';
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetHeaders } = useMailData();
   const compareData = (data: MailData) => [data.headers, data.failIfMissingAttachments, data.exceptionHandler];
-  const headerValidations = useValidations('headers');
-  const exceptionValidations = useValidations('exceptionHandler');
+  const headerValidations = useValidations(['headers']);
+  const exceptionValidations = useValidations(['exceptionHandler']);
   const state = usePartState(compareData(defaultConfig), compareData(config), [...headerValidations, ...exceptionValidations]);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Header', state, reset: { dirty, action: () => resetHeaders() }, content: <MailHeaderPart /> };

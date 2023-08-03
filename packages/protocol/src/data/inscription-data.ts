@@ -12,7 +12,8 @@ import {
   ResultData,
   SignalCatchData,
   StartData,
-  TaskData
+  TaskData,
+  TriggerData
 } from './part-data';
 import { InscriptionContext, InscriptionType, MailHeaders, SchemaKey, WfTask } from './inscription';
 import { Brand, ValuesAsUnionDeep } from '../utils/type-helper';
@@ -29,7 +30,8 @@ export type ConfigData = CallData &
   ResultData &
   ErrorCatchData &
   SignalCatchData &
-  MailData;
+  MailData &
+  TriggerData;
 
 export type ElementData = NameData & { config: ConfigData };
 

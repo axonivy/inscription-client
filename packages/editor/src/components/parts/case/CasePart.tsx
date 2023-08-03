@@ -7,7 +7,7 @@ import { CustomFieldPart, PathFieldset } from '../common';
 
 export function useCasePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useCaseData();
-  const validaitons = useValidations('case');
+  const validaitons = useValidations(['case']);
   const compareData = (data: CaseData) => [data.case];
   const state = usePartState(compareData(defaultConfig), compareData(config), validaitons);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));

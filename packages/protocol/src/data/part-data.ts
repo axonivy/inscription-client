@@ -63,3 +63,9 @@ export interface SignalCatchData {
 }
 
 export interface MailData extends ElementEMail {}
+
+export interface TriggerData {
+  triggerable: boolean;
+  case: Pick<WfCase, 'attachToBusinessCase'>;
+  task: Pick<WfTask, 'responsible' | 'delay'>;
+}

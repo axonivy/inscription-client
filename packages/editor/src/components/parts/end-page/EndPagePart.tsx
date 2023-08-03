@@ -9,7 +9,7 @@ import { PathFieldset } from '../common';
 export function useEndPagePart(): PartProps {
   const { config, initConfig, defaultConfig, update } = useEndPageData();
   const compareData = (data: EndPageData) => [data.page];
-  const validations = useValidations('page');
+  const validations = useValidations(['page']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'End Page', state, reset: { dirty, action: () => update('page', initConfig.page) }, content: <EndPagePart /> };

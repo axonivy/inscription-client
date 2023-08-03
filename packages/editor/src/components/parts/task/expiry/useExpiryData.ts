@@ -3,7 +3,7 @@ import { produce } from 'immer';
 import { DataUpdater } from '../../../../types/lambda';
 import { useTaskDataContext } from '../../../../context';
 import { PriorityUpdater } from '../priority/PrioritySelect';
-import { ResponsibleUpdater } from '../responsible/ResponsibleSelect';
+import { ResponsibleUpdater } from '../../common/responsible/ResponsibleSelect';
 
 export function useExpiryData(): {
   expiry: WfExpiry;
