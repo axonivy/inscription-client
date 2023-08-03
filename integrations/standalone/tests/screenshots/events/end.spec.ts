@@ -7,7 +7,7 @@ const END_PID = {
 } as const;
 
 test.describe('Process End Page', () => {
-  test.skip('End Page Tab', async ({ page }) => {
+  test('End Page Tab', async ({ page }) => {
     await screenshotTab(page, END_PID.PAGE, 'End Page', 'process-end-page-tab-end-page.png');
   });
 });

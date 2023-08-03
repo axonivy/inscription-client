@@ -60,4 +60,8 @@ export abstract class Composite {
   tags(): any {
     return new Tags(this.page, this.locator);
   }
+
+  currentLocator() {
+    return this.locator;
+  }
 }
