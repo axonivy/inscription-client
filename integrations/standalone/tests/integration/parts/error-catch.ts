@@ -1,23 +1,30 @@
+import { Combobox } from '../../pageobjects/Combobox';
 import { Part } from '../../pageobjects/Part';
-import { ComboboxUtil } from '../utils/combobox-util';
-import { PartTest } from './part-tester';
+import { NewPartTest, PartObject } from './part-tester';
 
-export class ErrorCatchTester implements PartTest {
-  partName() {
-    return 'Error';
+class ErrorCatch extends PartObject {
+  error: Combobox;
+
+  constructor(part: Part) {
+    super(part);
+    this.error = part.combobox('Error');
   }
-  async fill({ page }: Part) {
-    await ComboboxUtil.select(page, 'ivy:error');
+
+  async fill() {
+    await this.error.choose('ivy:error');
   }
-  async assertFill({ page }: Part) {
-    await ComboboxUtil.assertSelect(page, 'ivy:error');
+
+  async assertFill() {
+    await this.error.expectValue('ivy:error');
   }
-  async clear({ page }: Part) {
-    await ComboboxUtil.select(page, '');
+
+  async clear() {
+    await this.error.choose('');
   }
-  async assertClear({ page }: Part) {
-    await ComboboxUtil.assertSelect(page, '');
+
+  async assertClear() {
+    await this.error.expectValue('');
   }
 }
 
-export const ErrorCatchTest = new ErrorCatchTester();
+export const ErrorCatchTest = new NewPartTest('Error', (part: Part) => new ErrorCatch(part));

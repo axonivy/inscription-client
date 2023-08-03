@@ -32,10 +32,4 @@ class Condition extends PartObject {
   }
 }
 
-export class ConditionTester extends NewPartTest {
-  constructor() {
-    super('Condition', (part: Part) => new Condition(part));
-  }
-}
-
-export const ConditionTest = new ConditionTester();
+export const ConditionTest = new NewPartTest('Condition', (part: Part) => new Condition(part));
