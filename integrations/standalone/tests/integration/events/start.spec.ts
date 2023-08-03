@@ -2,9 +2,9 @@ import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
 import { CaseTest, NameTest, NameTestWithoutTags, OutputTest, fillReloadAndAssert } from '../parts';
 import { ErrorCatchTest } from '../parts/error-catch';
-import { ResultTest, ResultTester } from '../parts/result';
+import { MethodResultTest, ResultTest } from '../parts/result';
 import { SignalCatchTest } from '../parts/signal-catch';
-import { StartTest, StartTester } from '../parts/start';
+import { MethodStartTest, StartTest } from '../parts/start';
 
 test.describe('Start Events', () => {
   test('Start', async ({ page }) => {
@@ -67,7 +67,7 @@ test.describe('Start Events', () => {
     const inscriptionView = new InscriptionView(page);
     await inscriptionView.selectElement('167356B1245C7158-f6');
     await inscriptionView.expectHeaderText('Method Start');
-    await fillReloadAndAssert(inscriptionView, [NameTest, new StartTester(true), new ResultTester(true)]);
+    await fillReloadAndAssert(inscriptionView, [NameTest, MethodStartTest, MethodResultTest]);
   });
 
   test('Event Start', async ({ page }) => {
