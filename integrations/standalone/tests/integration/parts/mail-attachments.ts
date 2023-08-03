@@ -1,35 +1,28 @@
 import { Part } from '../../pageobjects/Part';
 import { Table } from '../../pageobjects/Table';
-import { PartTest } from './part-tester';
+import { NewPartTest, PartObject } from './part-tester';
 
-class Attachements {
+class Attachements extends PartObject {
   table: Table;
+
   constructor(part: Part) {
+    super(part);
     this.table = part.table(['text']);
   }
-}
 
-export class MailAttachmentTester implements PartTest {
-  partName() {
-    return 'Attachments';
-  }
-  async fill(part: Part) {
-    const table = new Attachements(part).table;
-    const row = await table.addRow();
+  async fill() {
+    const row = await this.table.addRow();
     await row.fill(['hi']);
   }
-  async assertFill(part: Part) {
-    const table = new Attachements(part).table;
-    await table.row(0).column(0).expectValue('hi');
+  async assertFill() {
+    await this.table.row(0).column(0).expectValue('hi');
   }
-  async clear(part: Part) {
-    const table = new Attachements(part).table;
-    await table.clear();
+  async clear() {
+    await this.table.clear();
   }
-  async assertClear(part: Part) {
-    const table = new Attachements(part).table;
-    await table.expectRowCount(0);
+  async assertClear() {
+    await this.table.expectEmpty();
   }
 }
 
-export const MailAttachmentTest = new MailAttachmentTester();
+export const MailAttachmentTest = new NewPartTest('Attachments', (part: Part) => new Attachements(part));
