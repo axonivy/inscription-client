@@ -1,23 +1,30 @@
-import { expect } from '@playwright/test';
 import { Part } from '../../pageobjects/Part';
-import { PartTest } from './part-tester';
+import { NewPartTest, PartObject } from './part-tester';
+import { TextArea } from '../../pageobjects/TextArea';
 
-export class EndPageTester implements PartTest {
-  partName() {
-    return 'End Page';
+class EndPage extends PartObject {
+  endPage: TextArea;
+
+  constructor(part: Part) {
+    super(part);
+    this.endPage = part.textArea('Display the following page');
   }
-  async fill({ page }: Part) {
-    await page.getByLabel('Display the following page').fill('page.xhtml');
+
+  async fill() {
+    await this.endPage.fill('page.xhtml');
   }
-  async assertFill({ page }: Part) {
-    await expect(page.getByLabel('Display the following page')).toHaveValue('page.xhtml');
+
+  async assertFill() {
+    await this.endPage.expectValue('page.xhtml');
   }
-  async clear({ page }: Part) {
-    await page.getByLabel('Display the following page').clear();
+
+  async clear() {
+    await this.endPage.clear();
   }
-  async assertClear({ page }: Part) {
-    await expect(page.getByLabel('Display the following page')).toBeEmpty();
+
+  async assertClear() {
+    await this.endPage.expectEmpty();
   }
 }
 
-export const EndPageTest = new EndPageTester();
+export const EndPageTest = new NewPartTest('End Page', (part: Part) => new EndPage(part));
