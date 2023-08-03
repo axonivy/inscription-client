@@ -7,8 +7,12 @@ export class Combobox {
     this.locator = parentLocator.locator('.combobox', { has: page.getByLabel(label) }).first();
   }
 
-  async choose(value: string) {
+  async fill(value: string) {
     await this.locator.getByRole('combobox').fill(value);
+  }
+
+  async choose(value: string) {
+    await this.fill(value);
     await this.locator.getByRole('option', { name: value }).first().click();
   }
 

@@ -1,38 +1,46 @@
-import { expect } from '@playwright/test';
 import { Part } from '../../pageobjects/Part';
-import { ComboboxUtil } from '../utils/combobox-util';
-import { PartTest } from './part-tester';
+import { NewPartTest, PartObject } from './part-tester';
+import { Combobox } from '../../pageobjects/Combobox';
+import { Checkbox } from '../../pageobjects/Checkbox';
 
-export class SignalCatchTester implements PartTest {
-  constructor(private readonly makroSupport: boolean = false) {}
+class SignalCatch extends PartObject {
+  signal: Combobox;
+  attach: Checkbox;
 
-  partName() {
-    return 'Signal';
+  constructor(part: Part, private readonly makroSupport: boolean = false) {
+    super(part);
+    this.signal = part.combobox('Signal Code');
+    this.attach = part.checkbox('Attach to Business Case that signaled this process');
   }
-  async fill({ page }: Part) {
-    await ComboboxUtil.setValue(page, 'test:signal');
+
+  async fill() {
+    await this.signal.fill('test:signal');
     if (!this.makroSupport) {
-      await page.getByRole('checkbox').uncheck();
+      await this.attach.uncheck();
     }
   }
-  async assertFill({ page }: Part) {
-    await ComboboxUtil.assertSelect(page, 'test:signal');
+
+  async assertFill() {
+    await this.signal.expectValue('test:signal');
     if (!this.makroSupport) {
-      await expect(page.getByRole('checkbox')).not.toBeChecked();
+      await this.attach.expectUnchecked();
     }
   }
-  async clear({ page }: Part) {
-    await ComboboxUtil.select(page, '');
+
+  async clear() {
+    await this.signal.choose('');
     if (!this.makroSupport) {
-      await page.getByRole('checkbox').check();
+      await this.attach.check();
     }
   }
-  async assertClear({ page }: Part) {
-    await ComboboxUtil.assertSelect(page, '');
+
+  async assertClear() {
+    await this.signal.expectValue('');
     if (!this.makroSupport) {
-      await expect(page.getByRole('checkbox')).toBeChecked();
+      await this.attach.expectChecked();
     }
   }
 }
 
-export const SignalCatchTest = new SignalCatchTester();
+export const SignalCatchTest = new NewPartTest('Signal', (part: Part) => new SignalCatch(part));
+export const BoundarySignalCatchTest = new NewPartTest('Signal', (part: Part) => new SignalCatch(part, true));
