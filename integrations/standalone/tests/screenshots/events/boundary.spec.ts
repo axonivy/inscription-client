@@ -7,13 +7,13 @@ const END_PID = {
 } as const;
 
 test.describe('Error Boundary', () => {
-  test.skip('Error Tab', async ({ page }) => {
+  test('Error Tab', async ({ page }) => {
     await screenshotTab(page, END_PID.ERROR, 'Error', 'error-boundary-event-tab-error.png');
   });
 });
 
 test.describe('Signal Boundary', () => {
-  test.skip('Signal Tab', async ({ page }) => {
+  test('Signal Tab', async ({ page }) => {
     await screenshotTab(page, END_PID.SIGNAL, 'Signal', 'signal-boundary-event-tab-signal.png');
   });
 });

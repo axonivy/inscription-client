@@ -1,17 +1,18 @@
-import { Page, expect } from '@playwright/test';
-import { inscriptionView } from '../../utils/engine-util';
-import { AccordionUtil } from '../../utils/accordion-util';
+import { Locator, Page, expect } from '@playwright/test';
+import { InscriptionView } from '../../pageobjects/InscriptionView';
 
-export async function screenshotTab(page: Page, pid: string, tab: string, screenshotName: string) {
-  await page.goto(inscriptionView(pid));
-  await AccordionUtil.toggle(page, tab);
-  await screenshot(page, screenshotName);
-  await AccordionUtil.toggle(page, tab);
+export async function screenshotTab(page: Page, pid: string, part: string, screenshotName: string) {
+  const inscriptionView = new InscriptionView(page);
+  await inscriptionView.selectElement(pid);
+  await page.addStyleTag({ content: `body { overflow: hidden; } .ReactQueryDevtools { display: none; }` });
+  const accordion = inscriptionView.accordion(part);
+  await accordion.toggle();
+  await screenshot(accordion.currentLocator(), screenshotName);
+  await accordion.toggle();
 }
 
-async function screenshot(page: Page, name: string) {
+async function screenshot(page: Locator, name: string) {
   const dir = process.env.SCREENSHOT_DIR ?? './target';
-  await page.addStyleTag({ content: 'body { overflow: hidden; }' });
-  const buffer = await page.screenshot({ path: `${dir}/screenshots/${name}`, fullPage: true, animations: 'disabled' });
-  expect(buffer.byteLength).toBeGreaterThan(10000);
+  const buffer = await page.screenshot({ path: `${dir}/screenshots/${name}`, animations: 'disabled' });
+  expect(buffer.byteLength).toBeGreaterThan(5000);
 }

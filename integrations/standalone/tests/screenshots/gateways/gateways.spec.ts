@@ -7,13 +7,13 @@ const GATEWAY_PID = {
 } as const;
 
 test.describe('Alternative', () => {
-  test.skip('Condition Tab', async ({ page }) => {
+  test('Condition Tab', async ({ page }) => {
     await screenshotTab(page, GATEWAY_PID.ALTERNATIVE, 'Condition', 'alternative-tab-condition.png');
   });
 });
 
 test.describe('Task Switch Gateway', () => {
-  test.skip('Tasks Tab', async ({ page }) => {
+  test('Tasks Tab', async ({ page }) => {
     await screenshotTab(page, GATEWAY_PID.TASKS, 'Tasks', 'task-switch-gateway-tab-task.png');
   });
 });

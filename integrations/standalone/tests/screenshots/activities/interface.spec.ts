@@ -42,15 +42,15 @@ test.describe('Rest Client', () => {
 });
 
 test.describe('Email', () => {
-  test.skip('Header Tab', async ({ page }) => {
+  test('Header Tab', async ({ page }) => {
     await screenshotTab(page, INTERFACE_PID.EMAIL, 'Header', 'mail-tab-header.png');
   });
 
-  test.skip('Content Tab', async ({ page }) => {
+  test('Content Tab', async ({ page }) => {
     await screenshotTab(page, INTERFACE_PID.EMAIL, 'Content', 'mail-tab-content.png');
   });
 
-  test.skip('Attachments Tab', async ({ page }) => {
+  test('Attachments Tab', async ({ page }) => {
     await screenshotTab(page, INTERFACE_PID.EMAIL, 'Attachments', 'mail-tab-attachments.png');
   });
 });

@@ -23,7 +23,7 @@ test.describe('Request Start', () => {
 });
 
 test.describe('Signal Start', () => {
-  test.skip('Signal Tab', async ({ page }) => {
+  test('Signal Tab', async ({ page }) => {
     await screenshotTab(page, START_PID.SIGNAL, 'Signal', 'signal-start-event-tab-signal.png');
   });
 });
@@ -35,7 +35,7 @@ test.describe('Program Start', () => {
 });
 
 test.describe('Error Start', () => {
-  test.skip('Error Tab', async ({ page }) => {
+  test('Error Tab', async ({ page }) => {
     await screenshotTab(page, START_PID.ERROR, 'Error', 'error-start-event-tab-error.png');
   });
 });

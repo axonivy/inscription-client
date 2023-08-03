@@ -7,13 +7,13 @@ const WORKFLOW_PID = {
 } as const;
 
 test.describe('Call Sub', () => {
-  test.skip('Process Call Tab', async ({ page }) => {
+  test('Process Call Tab', async ({ page }) => {
     await screenshotTab(page, WORKFLOW_PID.CALL_SUB, 'Process call', 'call-sub-tab-process-call.png');
   });
 });
 
 test.describe('Trigger', () => {
-  test.skip('Trigger Tab', async ({ page }) => {
+  test('Trigger Tab', async ({ page }) => {
     await screenshotTab(page, WORKFLOW_PID.TRIGGER, 'Trigger', 'trigger-tab-trigger.png');
   });
 });
