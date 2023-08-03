@@ -14,12 +14,12 @@ class Code extends PartObject {
   }
 
   async fill() {
-    await this.code.fill('ivy.log.info("hi");');
+    await this.code.fill('code');
     await this.sudo.check();
   }
 
   async assertFill() {
-    await this.code.expectValue('ivy.log.info("hi");');
+    await this.code.expectValue('code');
     await this.sudo.expectChecked();
   }
 

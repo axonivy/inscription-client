@@ -27,6 +27,10 @@ export class Accordion extends Part {
     return new Tab(this.page, this.locator, label);
   }
 
+  resetButton() {
+    return this.page.locator('.accordion-header-group button');
+  }
+
   async expectState(state: PartStateFlag) {
     const stateLocator = this.locator.locator('.accordion-state');
     await expect(stateLocator).toHaveAttribute('data-state', state);

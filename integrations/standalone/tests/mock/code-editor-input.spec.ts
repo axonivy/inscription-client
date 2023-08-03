@@ -39,7 +39,6 @@ test.describe('Code Editor Input', () => {
 
   async function assertNoNewLine(page: Page, name: ScriptInput | MacroEditor) {
     await name.fill('test \nnewline');
-    await page.keyboard.press('Tab');
     await name.expectValue('test newline');
   }
 

@@ -1,23 +1,27 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { FocusCodeEditorUtil } from '../utils/code-editor-util';
+import { CodeEditorUtil } from '../utils/code-editor-util';
 
 class CodeEditor {
   protected contentAssist: Locator;
 
-  constructor(readonly page: Page, readonly locator: Locator, readonly value: Locator, parentLocator: Locator) {
+  constructor(readonly page: Page, readonly locator: Locator, readonly value: Locator, readonly parentLocator: Locator) {
     this.contentAssist = parentLocator.locator('div.suggest-widget');
   }
 
   async triggerContentAssist() {
-    await FocusCodeEditorUtil.triggerContentAssist(this.page, this.locator);
+    await CodeEditorUtil.triggerContentAssistWithLocator(this.page, this.locator);
   }
 
   async fill(value: string) {
-    await FocusCodeEditorUtil.fill(this.page, this.locator, value);
+    await this.locator.click();
+    await CodeEditorUtil.type(this.page, value);
+    await this.page.locator('*:focus').blur();
   }
 
   async clear() {
-    await FocusCodeEditorUtil.clear(this.page, this.locator);
+    await this.locator.click();
+    await CodeEditorUtil.clear(this.page);
+    await this.page.locator('*:focus').blur();
   }
 
   async expectValue(value: string) {

@@ -19,13 +19,13 @@ class Call extends PartObject {
   async fill() {
     await this.call.choose(this.selectValue);
     await this.mapping.row(2).column(2).fill('"test"');
-    await this.code.fill('ivy.log.info("hi");');
+    await this.code.fill('code');
   }
 
   async assertFill() {
     await this.call.expectValue(this.assertSelectValue);
     await this.mapping.row(2).column(2).expectValue('"test"');
-    await this.code.expectValue('ivy.log.info("hi");');
+    await this.code.expectValue('code');
   }
 
   async clear() {

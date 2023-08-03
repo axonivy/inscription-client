@@ -21,7 +21,7 @@ export class StartTester implements PartTest {
       await TableUtil.fillRow(page, 0, ['param', 'String', 'desc']);
     }
     await TableUtil.fillExpression(page, 1, '"bla"');
-    await CodeEditorUtil.fill(page, 'ivy.log.info("hi");');
+    await CodeEditorUtil.fill(page, 'code');
   }
   async assertFill({ page }: Part) {
     await expect(page.getByLabel('Signature')).toHaveValue('myStart');
@@ -32,7 +32,7 @@ export class StartTester implements PartTest {
       await TableUtil.assertRow(page, 0, ['param', 'String', 'desc']);
     }
     await TableUtil.assertRow(page, 1, ['"bla"']);
-    await CodeEditorUtil.assertValue(page, 'ivy.log.info("hi");');
+    await CodeEditorUtil.assertValue(page, 'code');
   }
   async clear({ page }: Part) {
     await page.getByLabel('Signature').clear();
