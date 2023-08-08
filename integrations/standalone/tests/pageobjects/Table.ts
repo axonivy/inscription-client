@@ -75,7 +75,7 @@ export class Row {
     let value = 0;
     for (let column = 0; column < this.columns.length; column++) {
       if (this.columns[column] !== 'label') {
-        const cell = this.column(column++);
+        const cell = this.column(column);
         await cell.expectValue(values[value++]);
       }
     }

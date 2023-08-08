@@ -1,39 +1,46 @@
+import { ScriptArea } from '../../pageobjects/CodeEditor';
 import { Part } from '../../pageobjects/Part';
-import { CodeEditorUtil } from '../../utils/code-editor-util';
-import { TableUtil } from '../../utils/table-util';
-import { PartTest } from './part-tester';
+import { Table } from '../../pageobjects/Table';
+import { NewPartTest, PartObject } from './part-tester';
 
-export class OutputTester implements PartTest {
-  constructor(private readonly hasCode: boolean = true) {}
+class Output extends PartObject {
+  mapping: Table;
+  code: ScriptArea;
 
-  partName() {
-    return 'Output';
+  constructor(part: Part, private readonly hasCode: boolean = true) {
+    super(part);
+    this.mapping = part.table(['text', 'label', 'expression']);
+    this.code = part.scriptArea();
   }
-  async fill({ page }: Part) {
-    await TableUtil.fillExpression(page, 1, '"bla"');
+
+  async fill() {
+    await this.mapping.row(1).column(2).fill('"bla"');
     if (this.hasCode) {
-      await CodeEditorUtil.fill(page, 'code');
+      await this.code.fill('code');
     }
   }
-  async assertFill({ page }: Part) {
-    await TableUtil.assertRow(page, 1, ['"bla"']);
+
+  async assertFill() {
+    await this.mapping.row(1).column(2).expectValue('"bla"');
     if (this.hasCode) {
-      await CodeEditorUtil.assertValue(page, 'code');
+      await this.code.expectValue('code');
     }
   }
-  async clear({ page }: Part) {
-    await TableUtil.fillExpression(page, 1, '');
+
+  async clear() {
+    await this.mapping.row(1).column(2).fill('');
     if (this.hasCode) {
-      await CodeEditorUtil.focus(page);
-      await CodeEditorUtil.clear(page);
+      await this.code.clear();
     }
   }
-  async assertClear({ page }: Part) {
-    await TableUtil.assertRow(page, 1, ['']);
+
+  async assertClear() {
+    await this.mapping.row(1).column(2).expectEmpty();
     if (this.hasCode) {
-      await CodeEditorUtil.assertValue(page, '');
+      await this.code.expectEmpty();
     }
   }
 }
 
-export const OutputTest = new OutputTester();
+export const OutputTest = new NewPartTest('Output', (part: Part) => new Output(part));
+export const ScriptOutputTest = new NewPartTest('Output', (part: Part) => new Output(part, false));
