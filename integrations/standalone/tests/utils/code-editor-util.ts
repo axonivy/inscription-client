@@ -47,23 +47,3 @@ export namespace CodeEditorUtil {
     await expect(content).toContainText(expectedContentAssist);
   }
 }
-
-export namespace FocusCodeEditorUtil {
-  export async function fill(page: Page, locator: Locator, value: string) {
-    await locator.click();
-    await CodeEditorUtil.type(page, value);
-  }
-
-  export async function clear(page: Page, locator: Locator) {
-    await locator.click();
-    await CodeEditorUtil.clear(page);
-  }
-
-  export async function triggerContentAssist(page: Page, locator: Locator) {
-    await CodeEditorUtil.triggerContentAssistWithLocator(page, locator);
-  }
-
-  export async function assertContentAssist(page: Page, expectedContentAssist: string) {
-    await CodeEditorUtil.assertContentAssist(page, expectedContentAssist);
-  }
-}

@@ -12,13 +12,13 @@ export class OutputTester implements PartTest {
   async fill({ page }: Part) {
     await TableUtil.fillExpression(page, 1, '"bla"');
     if (this.hasCode) {
-      await CodeEditorUtil.fill(page, 'ivy.log.info("hi");');
+      await CodeEditorUtil.fill(page, 'code');
     }
   }
   async assertFill({ page }: Part) {
     await TableUtil.assertRow(page, 1, ['"bla"']);
     if (this.hasCode) {
-      await CodeEditorUtil.assertValue(page, 'ivy.log.info("hi");');
+      await CodeEditorUtil.assertValue(page, 'code');
     }
   }
   async clear({ page }: Part) {

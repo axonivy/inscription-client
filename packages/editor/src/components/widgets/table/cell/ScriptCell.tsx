@@ -5,10 +5,12 @@ import { useEffect, useRef, useState } from 'react';
 import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover';
 import { Fieldset, useFieldset } from '../../fieldset';
 import IvyIcon from '../../IvyIcon';
-import { useEditorContext } from '../../../../context';
+import { useEditorContext, usePath } from '../../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Input } from '../../input';
-import { ScriptInput } from '../../code-editor';
+import { SingleLineCodeEditor } from '../../code-editor';
+import { Browser, useBrowser } from '../../../../components/browser';
+import { useModifyEditor } from '../../code-editor/useCodeEditor';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,6 +45,9 @@ export function ScriptCell<TData>({ cell, type }: ScriptCellProps<TData>) {
   const editorContext = useEditorContext();
   const codeFieldset = useFieldset();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const path = usePath();
+  const browser = useBrowser();
+  const { setEditor, modifyEditor } = useModifyEditor();
 
   return (
     <>
@@ -63,18 +68,22 @@ export function ScriptCell<TData>({ cell, type }: ScriptCellProps<TData>) {
           <PopoverPortal container={editorContext.editorRef.current}>
             <PopoverContent className='popover-content' sideOffset={5} align={'end'}>
               <Fieldset label='Code' {...codeFieldset.labelProps}>
-                <ScriptInput
-                  value={value}
-                  onChange={setValue}
-                  type={type}
-                  editorOptions={{ fixedOverflowWidgets: false }}
-                  keyActions={{
-                    enter: () => closeRef.current?.click(),
-                    escape: () => closeRef.current?.click(),
-                    tab: () => closeRef.current?.click()
-                  }}
-                  {...codeFieldset.inputProps}
-                />
+                <div className='script-input'>
+                  <SingleLineCodeEditor
+                    value={value}
+                    onChange={setValue}
+                    context={{ type, location: path }}
+                    onMountFuncs={[setEditor]}
+                    editorOptions={{ fixedOverflowWidgets: false }}
+                    keyActions={{
+                      enter: () => closeRef.current?.click(),
+                      escape: () => closeRef.current?.click(),
+                      tab: () => closeRef.current?.click()
+                    }}
+                    {...codeFieldset.inputProps}
+                  />
+                  <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} location={path} />
+                </div>
               </Fieldset>
               <PopoverClose className='popover-close' aria-label='Close' ref={closeRef}>
                 <IvyIcon icon={IvyIcons.Add} rotate={45} />

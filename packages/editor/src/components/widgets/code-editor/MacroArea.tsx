@@ -6,8 +6,8 @@ import { usePath } from '../../../context';
 import { CardArea } from '../output/CardText';
 import { ElementRef, useRef } from 'react';
 
-const MacroArea = (props: CodeEditorAreaProps) => {
-  const { isFocusWithin, focusWithinProps } = useCodeEditorOnFocus();
+const MacroArea = ({ value, onChange, ...props }: CodeEditorAreaProps) => {
+  const { isFocusWithin, focusWithinProps, focusValue } = useCodeEditorOnFocus(value, onChange);
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useModifyEditor();
   const path = usePath();
@@ -19,6 +19,7 @@ const MacroArea = (props: CodeEditorAreaProps) => {
       {isFocusWithin || browser.open ? (
         <>
           <ResizableCodeEditor
+            {...focusValue}
             {...props}
             location={path}
             onMountFuncs={[setEditor, monacoAutoFocus]}
@@ -28,7 +29,7 @@ const MacroArea = (props: CodeEditorAreaProps) => {
           <Browser {...browser} types={['attr', 'cms']} accept={value => modifyEditor(`<%=${value}%>`)} location={path} />
         </>
       ) : (
-        <CardArea {...props} ref={areaRef} />
+        <CardArea value={value} {...props} ref={areaRef} />
       )}
     </div>
   );

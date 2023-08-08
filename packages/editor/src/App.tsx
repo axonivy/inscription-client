@@ -10,8 +10,10 @@ import { Unary } from './types/lambda';
 
 function App(props: InscriptionContext) {
   const [context, setContext] = useState(props);
+  const [initData, setInitData] = useState<ElementData>();
   useEffect(() => {
     setContext(props);
+    setInitData(undefined);
   }, [props]);
 
   const client = useClient();
@@ -45,8 +47,9 @@ function App(props: InscriptionContext) {
   useEffect(() => {
     if (isSuccess) {
       setContext(data.context);
+      setInitData(initData => (initData ? initData : data.data));
     }
-  }, [data?.context, isSuccess]);
+  }, [data, isSuccess]);
 
   const { data: validations } = useQuery({
     queryKey: queryKeys.validation(),
@@ -95,7 +98,7 @@ function App(props: InscriptionContext) {
             data: data.data,
             setData: mutation.mutate,
             defaultData: data.defaults,
-            initData: data.data,
+            initData: initData ? initData : data.data,
             validations
           }}
         >

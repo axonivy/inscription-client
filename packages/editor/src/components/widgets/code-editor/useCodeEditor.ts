@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { useFocusWithin } from 'react-aria';
 
-export const useCodeEditorOnFocus = () => {
+export const useCodeEditorOnFocus = (initialValue: string, onChange: (change: string) => void) => {
   const [isFocusWithin, setFocusWithin] = useState(false);
-  let { focusWithinProps } = useFocusWithin({ onFocusWithinChange: setFocusWithin });
-  return { isFocusWithin, focusWithinProps };
+  const [focusValue, setFocusValue] = useState(initialValue);
+  useEffect(() => {
+    setFocusValue(initialValue);
+  }, [initialValue]);
+  const { focusWithinProps } = useFocusWithin({ onFocusWithinChange: setFocusWithin, onBlurWithin: () => onChange(focusValue) });
+  return { isFocusWithin, focusWithinProps, focusValue: { value: focusValue, onChange: setFocusValue } };
 };
 
 export const monacoAutoFocus = (editor: monaco.editor.IStandaloneCodeEditor) => {

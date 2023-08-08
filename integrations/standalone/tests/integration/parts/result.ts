@@ -19,7 +19,7 @@ export class ResultTester implements PartTest {
       await TableUtil.fillRow(page, 0, ['param', 'String', 'desc']);
     }
     await TableUtil.fillExpression(page, 2, '"bla"');
-    await CodeEditorUtil.fill(page, 'ivy.log.info("hi");');
+    await CodeEditorUtil.fill(page, 'code');
   }
   async assertFill({ page }: Part) {
     await CollapseUtil.open(page, 'Result parameters');
@@ -29,7 +29,7 @@ export class ResultTester implements PartTest {
       await TableUtil.assertRow(page, 0, ['param', 'String', 'desc']);
     }
     await TableUtil.assertRow(page, 2, ['"bla"']);
-    await CodeEditorUtil.assertValue(page, 'ivy.log.info("hi");');
+    await CodeEditorUtil.assertValue(page, 'code');
   }
   async clear({ page }: Part) {
     await CollapseUtil.open(page, 'Result parameters');
