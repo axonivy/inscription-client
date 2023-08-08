@@ -5,10 +5,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
 import AppStateView from './AppStateView';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Unary } from './types/lambda';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-function App(props: InscriptionContext) {
+function DataApp(props: InscriptionContext) {
   const [context, setContext] = useState(props);
   const [initData, setInitData] = useState<ElementData>();
   useEffect(() => {
@@ -106,6 +107,16 @@ function App(props: InscriptionContext) {
         </DataContextInstance.Provider>
       </EditorContextInstance.Provider>
     </div>
+  );
+}
+
+function App(props: InscriptionContext) {
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+      <DataApp {...props} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

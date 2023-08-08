@@ -7,8 +7,6 @@ import ReactDOM from 'react-dom/client';
 import { URLParams } from './url-helper';
 import { ElementType } from '@axonivy/inscription-protocol';
 import { InscriptionClientMock } from './mock/inscription-client-mock';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export async function start(): Promise<void> {
   const theme = URLParams.themeMode();
@@ -20,16 +18,12 @@ export async function start(): Promise<void> {
   const root = ReactDOM.createRoot(document.getElementById('root')!);
 
   const inscriptionClient = new InscriptionClientMock(readonly, type);
-  const queryClient = new QueryClient();
 
   root.render(
     <React.StrictMode>
       <ThemeContextProvider theme={theme}>
         <ClientContextInstance.Provider value={{ client: inscriptionClient }}>
-          <QueryClientProvider client={queryClient}>
-            <App app='' pmv='' pid={'1'} />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
+          <App app='' pmv='' pid={'1'} />
         </ClientContextInstance.Provider>
       </ThemeContextProvider>
     </React.StrictMode>
