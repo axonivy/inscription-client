@@ -28,7 +28,8 @@ export const MAIL_TYPE = {
 } as const;
 
 export const IVY_EXCEPTIONS = {
-  mail: 'ivy:error:email'
+  mail: 'ivy:error:email',
+  security: 'ivy:security:forbidden'
 } as const;
 
 export const IVY_SCRIPT_TYPES = {

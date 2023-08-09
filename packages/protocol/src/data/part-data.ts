@@ -5,6 +5,8 @@ import {
   ElementScript,
   ScriptMapCode,
   ScriptParameterizedMapCode,
+  StartPermission,
+  StartRequest,
   WfCase,
   WfTask
 } from './inscription';
@@ -68,4 +70,9 @@ export interface TriggerData {
   triggerable: boolean;
   case: Pick<WfCase, 'attachToBusinessCase'>;
   task: Pick<WfTask, 'responsible' | 'delay'>;
+}
+
+export interface RequestData {
+  request: StartRequest;
+  permission: StartPermission;
 }

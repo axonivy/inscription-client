@@ -15,9 +15,12 @@ import {
   SignalCatchData,
   MailData,
   MAIL_TYPE,
-  IVY_EXCEPTIONS
+  IVY_EXCEPTIONS,
+  TriggerData,
+  RequestData,
+  StartCustomStartField
 } from '../data';
-import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA, TRIGGER_DATA } from './workflow-defaults';
+import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
 export const DEFAULT_NAME_DATA: NameData = {
   name: '',
@@ -92,6 +95,27 @@ export const DEFAULT_MAIL_DATA: MailData = {
   exceptionHandler: IVY_EXCEPTIONS.mail
 };
 
+export const DEFAULT_TRIGGER_DATA: Pick<TriggerData, 'triggerable'> = {
+  triggerable: false
+} as const;
+
+export const DEFAULT_REQUEST_DATA: RequestData = {
+  request: {
+    isHttpRequestable: true,
+    linkName: '',
+    isVisibleOnStartList: true,
+    name: '',
+    description: '',
+    category: '',
+    customFields: [] as StartCustomStartField[]
+  },
+  permission: {
+    anonymous: true,
+    role: 'Everybody',
+    error: IVY_EXCEPTIONS.security
+  }
+} as const;
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -106,6 +130,7 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_ERROR_CATCH_DATA,
     ...DEFAULT_SIGNAL_CATCH_DATA,
     ...DEFAULT_MAIL_DATA,
-    ...TRIGGER_DATA
+    ...DEFAULT_TRIGGER_DATA,
+    ...DEFAULT_REQUEST_DATA
   }
 } as const;

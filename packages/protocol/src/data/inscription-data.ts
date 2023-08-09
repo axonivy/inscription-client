@@ -9,13 +9,14 @@ import {
   NameData,
   OutputData,
   ProcessCallData,
+  RequestData,
   ResultData,
   SignalCatchData,
   StartData,
   TaskData,
   TriggerData
 } from './part-data';
-import { InscriptionContext, InscriptionType, MailHeaders, SchemaKey, WfTask } from './inscription';
+import { InscriptionContext, InscriptionType, MailHeaders, SchemaKey, StartPermission, WfTask } from './inscription';
 import { Brand, ValuesAsUnionDeep } from '../utils/type-helper';
 
 export type ConfigData = CallData &
@@ -31,7 +32,8 @@ export type ConfigData = CallData &
   ErrorCatchData &
   SignalCatchData &
   MailData &
-  TriggerData;
+  TriggerData &
+  RequestData;
 
 export type ElementData = NameData & { config: ConfigData };
 
@@ -52,5 +54,6 @@ export type ElementType = InscriptionType['id'];
 
 type TaskSchemaKeys = keyof WfTask | keyof WfTask['expiry'];
 type EmailSchemaKeys = keyof MailHeaders;
-export type SchemaKeys = ValuesAsUnionDeep<SchemaKey> | TaskSchemaKeys | EmailSchemaKeys;
+type StartPermissionSchemaKeys = keyof StartPermission;
+export type SchemaKeys = ValuesAsUnionDeep<SchemaKey> | TaskSchemaKeys | EmailSchemaKeys | StartPermissionSchemaKeys;
 export type SchemaPath = Brand<string, 'SchemaPath'>;

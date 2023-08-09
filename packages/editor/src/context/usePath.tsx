@@ -24,9 +24,12 @@ const mergeSchemaPaths = (parentPath: string, subPaths: Array<string | number>):
   if (subPaths.length === 0) {
     return parentPath;
   }
-  return `${parentPath}.${pathToString(subPaths)}`;
+  return pathToString([parentPath, ...subPaths]);
 };
 
 const pathToString = (paths: Array<string | number>): string => {
-  return paths.map(path => (Number.isInteger(path) ? `[${path}]` : path)).join('.');
+  return paths
+    .map(path => (Number.isInteger(path) ? `[${path}]` : path) as string)
+    .filter(path => path.length > 0)
+    .join('.');
 };

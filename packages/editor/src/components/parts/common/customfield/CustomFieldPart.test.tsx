@@ -1,5 +1,5 @@
 import { WfCustomField } from '@axonivy/inscription-protocol';
-import { render, screen, userEvent, TableUtil } from 'test-utils';
+import { render, TableUtil, CollapsableUtil } from 'test-utils';
 import CustomFieldPart from './CustomFieldPart';
 
 describe('CustomFieldPart', () => {
@@ -9,8 +9,7 @@ describe('CustomFieldPart', () => {
 
   test('part render empty', async () => {
     renderTable();
-    await userEvent.click(screen.getByRole('button', { name: /Custom Fields/ }));
-    TableUtil.assertRowCount(0);
+    await CollapsableUtil.assertClosed('Custom Fields');
   });
 
   test('part render full', async () => {
