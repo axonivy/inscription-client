@@ -11,16 +11,18 @@ import {
   useSingleTaskPart,
   useStartPart,
   useErrorCatchPart,
-  useTriggerPart
+  useTriggerPart,
+  useRequestPart
 } from '../../../components/parts';
 
 const RequestStartEditor = memo(() => {
   const name = useNamePart();
   const start = useStartPart();
+  const request = useRequestPart();
   const trigger = useTriggerPart();
   const singleTask = useSingleTaskPart({ showPersist: true });
   const casePart = useCasePart();
-  return <InscriptionEditor icon={IvyIcons.Start} parts={[name, start, /*request,*/ trigger, singleTask, casePart]} />;
+  return <InscriptionEditor icon={IvyIcons.Start} parts={[name, start, request, trigger, singleTask, casePart]} />;
 });
 
 const SignalStartEventEditor = memo(() => {

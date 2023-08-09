@@ -1,11 +1,9 @@
-import { WfCustomField, CUSTOM_FIELD_TYPE, CustomFieldConfigType } from '@axonivy/inscription-protocol';
+import { StartCustomStartField } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
 import {
-  SelectItem,
   EditableCell,
-  SelectCell,
   Table,
   TableHeader,
   TableCell,
@@ -13,21 +11,18 @@ import {
   TableFooter,
   TableAddRow,
   SortableHeader,
-  ScriptCell
-} from '../../../../components/widgets';
+  MacroCell
+} from '../../../widgets';
 import { useAction } from '../../../../context';
 import { ValidationRow } from '../path/validation/ValidationRow';
 
-type CustomFieldTableProps = {
-  data: WfCustomField[];
-  onChange: (change: WfCustomField[]) => void;
-  type: CustomFieldConfigType;
+type StartCustomFieldTableProps = {
+  data: StartCustomStartField[];
+  onChange: (change: StartCustomStartField[]) => void;
 };
 
-const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
-  const items = useMemo<SelectItem[]>(() => Object.entries(CUSTOM_FIELD_TYPE).map(([value, label]) => ({ label, value })), []);
-
-  const columns = useMemo<ColumnDef<WfCustomField>[]>(
+const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) => {
+  const columns = useMemo<ColumnDef<StartCustomStartField>[]>(
     () => [
       {
         accessorKey: 'name',
@@ -36,26 +31,20 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
         footer: props => props.column.id
       },
       {
-        accessorKey: 'type',
-        header: header => <SortableHeader header={header} name='Type' />,
-        cell: cell => <SelectCell cell={cell} items={items} />,
-        footer: props => props.column.id
-      },
-      {
         accessorKey: 'value',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} />,
+        cell: cell => <MacroCell cell={cell} />,
         footer: props => props.column.id
       }
     ],
-    [items]
+    []
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const addRow = () => {
     const newData = [...data];
-    newData.push({ name: '', type: 'STRING', value: '' });
+    newData.push({ name: '', value: '' });
     onChange(newData);
   };
 
@@ -118,7 +107,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
                 {
                   label: 'Open custom field configuration',
                   icon: IvyIcons.GoToSource,
-                  action: () => action({ name: row.original.name, type })
+                  action: () => action({ name: row.original.name, type: 'START' })
                 }
               ]}
             />
@@ -132,4 +121,4 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
   );
 };
 
-export default memo(CustomFieldTable);
+export default memo(StartCustomFieldTable);

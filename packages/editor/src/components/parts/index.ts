@@ -17,3 +17,4 @@ export * from './mail/MailHeaderPart';
 export * from './mail/MailMessagePart';
 export * from './mail/MailAttachmentPart';
 export * from './trigger/TriggerPart';
+export * from './request/RequestPart';

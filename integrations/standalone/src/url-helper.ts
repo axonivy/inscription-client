@@ -15,7 +15,7 @@ export namespace URLParams {
   }
 
   export function pid(): string {
-    return parameter('pid') ?? defaultPid();
+    return parameter('pid') ?? '';
   }
 
   export function webSocketBase(): string {
@@ -30,13 +30,6 @@ export namespace URLParams {
     return window.location.protocol === 'https:' || parameter('secure') === 'true';
   }
 
-  function defaultPid(): string {
-    if (window.location.pathname.includes('designer')) {
-      return '';
-    }
-    return '15254DC87A1B183B-f5';
-  }
-
   function server(): string {
     return parameter('server') ?? basePath();
   }
@@ -47,7 +40,7 @@ export namespace URLParams {
     if (href.includes('/process-inscription')) {
       return href.substring(protocol.length + 2, href.indexOf('/process-inscription'));
     }
-    return 'localhost:8081/designer';
+    return 'localhost:8081';
   }
 
   function defaultTheme(): ThemeMode {

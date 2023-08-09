@@ -12,7 +12,7 @@ describe('mergePath', () => {
 
   test('merge', async () => {
     expect(mergePaths('test', [])).toEqual('test');
-    expect(mergePaths('test', [''])).toEqual('test.');
+    expect(mergePaths('test', [''])).toEqual('test');
 
     expect(mergePaths('test', ['bla'])).toEqual('test.bla');
     expect(mergePaths('test', ['bla', 'hi'])).toEqual('test.bla.hi');

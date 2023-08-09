@@ -6,5 +6,11 @@ export function useAction(actionId: InscriptionActionArgs['actionId']) {
   const { context } = useEditorContext();
   const client = useClient();
 
-  return (payload?: InscriptionActionArgs['payload']) => client.action({ actionId, context, payload: payload ?? '' });
+  return (content?: InscriptionActionArgs['payload']) => {
+    let payload = content ?? '';
+    if (typeof payload === 'object') {
+      payload = JSON.stringify(payload);
+    }
+    client.action({ actionId, context, payload });
+  };
 }

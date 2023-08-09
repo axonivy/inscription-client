@@ -16,8 +16,8 @@ global.ResizeObserver = class ResizeObserver {
   disconnect() {}
 };
 
-const CodeEditorMock = ({ onChange, ...props }: { id: string; value: string; onChange: (value: string) => void }) => {
-  return <input data-testid='code-editor' {...props} onChange={e => onChange(e.target.value)} />;
+const CodeEditorMock = ({ id, value, onChange }: { id: string; value: string; onChange: (value: string) => void }) => {
+  return <input data-testid='code-editor' id={id} value={value} onChange={e => onChange(e.target.value)} />;
 };
 
 jest.mock('../components/widgets/code-editor', () => ({
