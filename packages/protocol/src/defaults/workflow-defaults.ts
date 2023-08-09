@@ -32,7 +32,7 @@ export const DEFAULT_TASK: WfTask = {
 export const DEFAULT_TASK_DATA: TaskData = {
   task: DEFAULT_TASK,
   tasks: [] as WfTask[],
-  persist: false
+  persistOnStart: false
 } as const;
 
 export const DEFAULT_CASE_DATA: CaseData = {

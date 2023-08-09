@@ -1,13 +1,13 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { CaseTest, EndPageTest, NameTest, OutputTest, TaskTester, fillReloadAndAssert } from '../parts';
+import { CaseTest, EndPageTest, NameTest, OutputTest, TaskIntermediateTaskTest, fillReloadAndAssert } from '../parts';
 
 test.describe('Intermediate Events', () => {
   test('Task', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
     await inscriptionView.selectElement('169A4921D0EF0B91-f9');
     await inscriptionView.expectHeaderText('Task');
-    await fillReloadAndAssert(inscriptionView, [NameTest, OutputTest, new TaskTester({ error: /EventAndGateway/ }), CaseTest, EndPageTest]);
+    await fillReloadAndAssert(inscriptionView, [NameTest, OutputTest, TaskIntermediateTaskTest, CaseTest, EndPageTest]);
   });
 
   test('Wait', async ({ page }) => {

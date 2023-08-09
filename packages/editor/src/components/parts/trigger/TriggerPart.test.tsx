@@ -13,7 +13,7 @@ describe('TriggerPart', () => {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
-  async function assertMainPart(triggerable: boolean, responsible: string, attachToBusinessCase: boolean, delay: string) {
+  async function assertMainPart(triggerable: boolean, responsible: string, delay: string) {
     const triggerCheckbox = screen.getByLabelText('Yes, this can be started with a Trigger Activity');
     if (triggerable) {
       expect(triggerCheckbox).toBeChecked();
@@ -28,7 +28,7 @@ describe('TriggerPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart(false, 'Role', false, '');
+    await assertMainPart(false, '', '');
   });
 
   test('full data', async () => {
@@ -46,7 +46,7 @@ describe('TriggerPart', () => {
       }
     };
     renderPart(triggerData);
-    await assertMainPart(true, 'Role from Attr.', true, 'test');
+    await assertMainPart(true, 'Role from Attr.', 'test');
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<TriggerData>, validation?: InscriptionValidation) {

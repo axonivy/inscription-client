@@ -30,7 +30,7 @@ const TriggerPart = () => {
       {config.triggerable && (
         <PathContext path='task'>
           <ResponsibleSelect responsible={config.task.responsible} updateResponsible={updateResponsible} />
-          <Collapsible label='Options' defaultOpen={config.case.attachToBusinessCase || config.task.delay.length > 0}>
+          <Collapsible label='Options' defaultOpen={!config.case.attachToBusinessCase || config.task.delay.length > 0}>
             <Checkbox
               value={config.case.attachToBusinessCase}
               onChange={change => updateAttach(change)}

@@ -39,7 +39,7 @@ export type ConditionData = ElementAlternative;
 export interface TaskData {
   task: WfTask;
   tasks: WfTask[];
-  persist: boolean;
+  persistOnStart: boolean;
 }
 
 export interface CaseData {

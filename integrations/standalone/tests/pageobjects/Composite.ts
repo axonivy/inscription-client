@@ -26,7 +26,7 @@ export abstract class Composite {
   }
 
   select(label: string) {
-    return new Select(this.page, this.locator, label);
+    return new Select(this.page, this.locator, { label });
   }
 
   combobox(label: string) {
