@@ -93,7 +93,7 @@
       "type" : "TriggerCall",
       "name" : "Trigger",
       "config" : {
-        "processCall" : "AllElements/MinimalInscription/EventAndGateway:start()"
+        "processCall" : "AllElements/MinimalInscription/Activity:triggerstart()"
       },
       "visual" : {
         "at" : { "x" : 432, "y" : 160 }
@@ -144,6 +144,17 @@
       "type" : "ErrorStartEvent",
       "visual" : {
         "at" : { "x" : 232, "y" : 440 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RequestStart",
+      "name" : "trigger start",
+      "config" : {
+        "signature" : "triggerstart",
+        "triggerable" : true
+      },
+      "visual" : {
+        "at" : { "x" : 528, "y" : 160 }
       }
     } ]
 }

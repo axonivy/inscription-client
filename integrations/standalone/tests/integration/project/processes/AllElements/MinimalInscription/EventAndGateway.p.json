@@ -145,8 +145,7 @@
         "start()"
       ],
       "config" : {
-        "signature" : "start",
-        "triggerable" : true
+        "signature" : "start"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 200 },

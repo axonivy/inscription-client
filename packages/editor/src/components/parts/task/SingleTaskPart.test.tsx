@@ -35,7 +35,7 @@ describe('SingleTaskPart', () => {
 
     assertState('configured', { skipTasklist: true });
     assertState('configured', { delay: 'delay' });
-    assertState('configured', undefined, { persist: true }, true);
+    assertState('configured', undefined, { persistOnStart: true }, true);
 
     assertState('configured', { expiry: { timeout: 'asf' } });
 

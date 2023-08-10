@@ -15,7 +15,7 @@ describe('TaskPart', () => {
   });
 
   test('task option render full', async () => {
-    renderTaskPart({ persist: true });
+    renderTaskPart({ persistOnStart: true });
     expect(screen.getByLabelText(/Persist/)).toBeChecked();
   });
 });

@@ -15,7 +15,7 @@ describe('Checkbox', () => {
     };
   }
 
-  test('checkbox can be toggled by box', async () => {
+  test('toggled by box', async () => {
     const view = renderCheckbox();
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).not.toBeChecked();
@@ -32,7 +32,7 @@ describe('Checkbox', () => {
     expect(view.data()).toBeFalsy();
   });
 
-  test('checkbox can be toggled by label', async () => {
+  test('toggled by label', async () => {
     const view = renderCheckbox();
     const label = screen.getByLabelText('test checkbox');
     const checkbox = screen.getByRole('checkbox');
@@ -43,7 +43,7 @@ describe('Checkbox', () => {
     expect(checkbox).toBeChecked();
   });
 
-  test('checkbox can be toggled with keyboard', async () => {
+  test('toggled with keyboard', async () => {
     const view = renderCheckbox();
     const checkbox = screen.getByRole('checkbox');
     await userEvent.tab();
@@ -59,8 +59,15 @@ describe('Checkbox', () => {
     expect(checkbox).not.toBeChecked();
   });
 
-  test('checkbox support readonly mode', () => {
+  test('readonly mode', () => {
     render(<Checkbox label='test checkbox' value={true} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
+    expect(screen.getByRole('checkbox')).toBeDisabled();
+  });
+
+  test('disabled mode', () => {
+    render(<Checkbox label='test checkbox' value={true} onChange={() => {}} disabled={true} />, {
+      wrapperProps: { editor: { readonly: true } }
+    });
     expect(screen.getByRole('checkbox')).toBeDisabled();
   });
 });

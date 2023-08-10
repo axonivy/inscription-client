@@ -3,7 +3,9 @@ import { Checkbox as CheckboxRoot, CheckboxIndicator } from '@radix-ui/react-che
 import { useReadonly } from '../../../context';
 import { useFieldset } from '../fieldset';
 
-const Checkbox = ({ label, value, onChange }: { label: string; value: boolean; onChange: (change: boolean) => void }) => {
+type CheckboxProps = { label: string; value: boolean; onChange: (change: boolean) => void; disabled?: boolean };
+
+const Checkbox = ({ label, value, onChange, disabled }: CheckboxProps) => {
   const readonly = useReadonly();
   const fieldset = useFieldset();
   return (
@@ -13,7 +15,7 @@ const Checkbox = ({ label, value, onChange }: { label: string; value: boolean; o
         {...fieldset.inputProps}
         checked={value}
         onCheckedChange={change => onChange(change ? true : false)}
-        disabled={readonly}
+        disabled={readonly || disabled}
       >
         <CheckboxIndicator className='checkbox-indicator'>
           <svg width={24} height={24} aria-hidden='true'>

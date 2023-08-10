@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Select, SelectItem } from '../../../widgets';
+import { FieldsetInputProps, Select, SelectItem } from '../../../widgets';
 import { useEditorContext, useMeta } from '../../../../context';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
@@ -7,9 +7,10 @@ const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as c
 type RoleSelectProps = {
   value?: string;
   onChange: (change: string) => void;
+  inputProps?: FieldsetInputProps;
 };
 
-const RoleSelect = ({ value, onChange }: RoleSelectProps) => {
+const RoleSelect = ({ value, onChange, inputProps }: RoleSelectProps) => {
   const { context } = useEditorContext();
   const roleItems = useMeta('meta/workflow/roles', context, []).data.map<SelectItem>(role => {
     return { label: role.id, value: role.id };
@@ -21,7 +22,7 @@ const RoleSelect = ({ value, onChange }: RoleSelectProps) => {
     return DEFAULT_ROLE;
   }, [value, roleItems]);
 
-  return <Select items={roleItems} value={selectedRole} onChange={item => onChange(item.value)} />;
+  return <Select items={roleItems} value={selectedRole} onChange={item => onChange(item.value)} inputProps={inputProps} />;
 };
 
 export default RoleSelect;

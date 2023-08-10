@@ -1,17 +1,19 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { CaseTest, NameTest, NameTestWithoutTags, OutputTest, fillReloadAndAssert } from '../parts';
+import { CaseTest, NameTest, NameTestWithoutTags, OutputTest, StartRequestTaskTest, fillReloadAndAssert } from '../parts';
 import { ErrorCatchTest } from '../parts/error-catch';
 import { MethodResultTest, ResultTest } from '../parts/result';
 import { SignalCatchTest } from '../parts/signal-catch';
 import { MethodStartTest, StartTest } from '../parts/start';
+import { RequestTest } from '../parts/request';
+import { TriggerTest } from '../parts/trigger';
 
 test.describe('Start Events', () => {
   test('Start', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
     await inscriptionView.selectElement('169A4921D0EF0B91-f15');
     await inscriptionView.expectHeaderText('Start');
-    await fillReloadAndAssert(inscriptionView, [NameTest, StartTest]);
+    await fillReloadAndAssert(inscriptionView, [NameTest, StartTest, RequestTest, TriggerTest, StartRequestTaskTest, CaseTest]);
   });
 
   test('Signal Start', async ({ page }) => {

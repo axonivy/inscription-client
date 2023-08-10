@@ -58,6 +58,7 @@ class Task extends PartObject {
   optionsSection: Section;
   skipTasklist: Checkbox;
   delay: ScriptInput;
+  persist: Checkbox;
   expirySection: Section;
   timeout: ScriptInput;
   error: Select;
@@ -68,7 +69,12 @@ class Task extends PartObject {
   codeSection: Section;
   code: ScriptArea;
 
-  constructor(part: Part, private readonly nameValue: string, private readonly errorValue: RegExp) {
+  constructor(
+    part: Part,
+    private readonly nameValue = 'test name',
+    private readonly errorValue = /f8/,
+    private readonly showPersist = false
+  ) {
     super(part);
     this.name = part.macroInput('Name');
     this.description = part.macroArea('Description');
@@ -78,6 +84,7 @@ class Task extends PartObject {
     this.optionsSection = part.section('Options');
     this.skipTasklist = this.optionsSection.checkbox('Skip Tasklist');
     this.delay = this.optionsSection.scriptInput('Delay');
+    this.persist = this.optionsSection.checkbox('Persist task on creation');
     this.expirySection = part.section('Expiry');
     this.timeout = this.expirySection.scriptInput('Timeout');
     this.error = this.expirySection.select('Error');
@@ -94,14 +101,20 @@ class Task extends PartObject {
     await this.description.fill('test desc');
     await this.category.fill('test cat');
 
-    await this.responsible.chooseType('Role from Attr.');
-    await this.responsible.fill('"Teamleader"');
+    if (!this.showPersist) {
+      await this.responsible.chooseType('Role from Attr.');
+      await this.responsible.fill('"Teamleader"');
+    }
 
     await this.priority.choose('High');
 
     await this.optionsSection.toggle();
-    await this.skipTasklist.check();
-    await this.delay.fill('delay');
+    if (this.showPersist) {
+      await this.persist.check();
+    } else {
+      await this.skipTasklist.check();
+      await this.delay.fill('delay');
+    }
 
     await this.expirySection.toggle();
     await this.timeout.fill('timeout');
@@ -122,13 +135,20 @@ class Task extends PartObject {
     await this.description.expectValue('test desc');
     await this.category.expectValue('test cat');
 
-    await this.responsible.expectType('Role from Attr.');
-    await this.responsible.expectValue('"Teamleader"');
+    if (!this.showPersist) {
+      await this.responsible.expectType('Role from Attr.');
+      await this.responsible.expectValue('"Teamleader"');
+    }
 
     await this.priority.expectValue(/High/);
 
-    await this.skipTasklist.expectChecked();
-    await this.delay.expectValue('delay');
+    if (this.showPersist) {
+      await this.persist.expectChecked();
+      await this.persist.uncheck();
+    } else {
+      await this.skipTasklist.expectChecked();
+      await this.delay.expectValue('delay');
+    }
 
     await this.timeout.expectValue('timeout');
     await this.error.expectValue(this.errorValue);
@@ -147,12 +167,16 @@ class Task extends PartObject {
     await this.description.clear();
     await this.category.clear();
 
-    await this.responsible.clear();
+    if (!this.showPersist) {
+      await this.responsible.clear();
+    }
 
     await this.priority.choose('Normal');
 
-    await this.skipTasklist.uncheck();
-    await this.delay.clear();
+    if (!this.showPersist) {
+      await this.skipTasklist.uncheck();
+      await this.delay.clear();
+    }
 
     await this.timeout.clear();
 
@@ -166,8 +190,10 @@ class Task extends PartObject {
     await this.description.expectEmpty();
     await this.category.expectEmpty();
 
-    await this.responsible.expectType('Role');
-    await this.responsible.expectValue('Everybody');
+    if (!this.showPersist) {
+      await this.responsible.expectType('Role');
+      await this.responsible.expectValue('Everybody');
+    }
 
     await this.priority.expectValue('Normal');
 
@@ -178,12 +204,13 @@ class Task extends PartObject {
   }
 }
 
-export class TaskTester extends NewPartTest {
-  constructor(options?: { name?: string; error?: RegExp }) {
-    super('Task', (part: Part) => new Task(part, options?.name ?? 'test name', options?.error ?? /f8/));
+class TaskTester extends NewPartTest {
+  constructor(options?: { name?: string; error?: RegExp; persist?: boolean }) {
+    super('Task', (part: Part) => new Task(part, options?.name, options?.error, options?.persist));
   }
 }
 
 export const TaskTest = new TaskTester();
-
+export const StartRequestTaskTest = new TaskTester({ error: /EventAndGateway/, persist: true });
+export const TaskIntermediateTaskTest = new TaskTester({ error: /EventAndGateway/ });
 export const TasksTest = new TasksTester();

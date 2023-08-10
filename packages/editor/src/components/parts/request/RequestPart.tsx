@@ -24,6 +24,8 @@ const RequestPart = () => {
   const nameFieldset = useFieldset();
   const descFieldset = useFieldset();
   const categoryFieldset = useFieldset();
+  const roleFieldset = useFieldset();
+  const errorFieldset = useFieldset();
 
   return (
     <>
@@ -66,15 +68,20 @@ const RequestPart = () => {
           <PathCollapsible label='Permission' path='permission' defaultOpen={!deepEqual(config.permission, defaultConfig.permission)}>
             <Checkbox value={config.permission.anonymous} onChange={change => updatePermission('anonymous', change)} label='Anonymous' />
             {!config.permission.anonymous && (
-              <PathFieldset label='Role' path='role'>
-                <RoleSelect value={config.permission.role} onChange={change => updatePermission('role', change)} />
+              <PathFieldset label='Role' path='role' {...roleFieldset.labelProps}>
+                <RoleSelect
+                  value={config.permission.role}
+                  onChange={change => updatePermission('role', change)}
+                  inputProps={roleFieldset.inputProps}
+                />
               </PathFieldset>
             )}
-            <PathFieldset label='Validation error' path='error'>
+            <PathFieldset label='Validation error' path='error' {...errorFieldset.labelProps}>
               <ExceptionSelect
                 value={config.permission.error}
                 onChange={change => updatePermission('error', change)}
                 staticExceptions={[IVY_EXCEPTIONS.security, IGNROE_EXCEPTION]}
+                inputProps={errorFieldset.inputProps}
               />
             </PathFieldset>
           </PathCollapsible>

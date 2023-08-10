@@ -13,13 +13,13 @@ export function useSingleTaskPart(options?: { showPersist?: boolean }): PartProp
   if (options?.showPersist) {
     validations = validations.filter(val => !val.path.startsWith('task.responsible')).filter(val => !val.path.startsWith('task.delay'));
   }
-  const compareData = (task: WfTask, persist: TaskPersistData) => [task, options?.showPersist ? persist.persist : ''];
+  const compareData = (task: WfTask, persist: TaskPersistData) => [task, options?.showPersist ? persist.persistOnStart : ''];
   const state = usePartState(compareData(defaultTask, defaultConfig), compareData(task, config), validations);
   const dirty = usePartDirty(compareData(initTask, initConfig), compareData(task, config));
   const resetData = () => {
     resetTask();
     if (options?.showPersist) {
-      updatePersist(initConfig.persist);
+      updatePersist(initConfig.persistOnStart);
     }
   };
   return {
