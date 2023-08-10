@@ -1,9 +1,10 @@
-import { Button, ScriptCell, EditableCell, ReorderRow, Table, TableCell, TableHeader } from '../../widgets';
+import { Button, ScriptCell, EditableCell, Table, TableCell, TableHeader } from '../../widgets';
 import { useCallback, useMemo } from 'react';
 import { Condition } from './condition';
 import { CellContext, ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
+import { ValidationReorderRow } from '../common';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {
@@ -85,11 +86,11 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <ReorderRow key={row.id} id={row.original.fid} updateOrder={updateOrder}>
+          <ValidationReorderRow key={row.id} id={row.original.fid} updateOrder={updateOrder} rowPathSuffix={row.index}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}
-          </ReorderRow>
+          </ValidationReorderRow>
         ))}
       </tbody>
     </Table>

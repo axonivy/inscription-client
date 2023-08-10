@@ -4,7 +4,7 @@ import TaskPart from './task/TaskPart';
 import { useTaskData } from './useTaskData';
 import { EmptyWidget } from '../../widgets';
 import { WfTask } from '@axonivy/inscription-protocol';
-import { useValidations } from '../../../context';
+import { PathContext, useValidations } from '../../../context';
 
 export function useSingleTaskPart(options?: { showPersist?: boolean }): PartProps {
   const { task, defaultTask, initTask, resetTask } = useTaskData();
@@ -33,7 +33,11 @@ export function useSingleTaskPart(options?: { showPersist?: boolean }): PartProp
 const SingleTaskPart = (props: { showPersist?: boolean }) => {
   const { defaultTask } = useTaskData();
   if (defaultTask) {
-    return <TaskPart showPersist={props.showPersist} />;
+    return (
+      <PathContext path='task'>
+        <TaskPart showPersist={props.showPersist} />
+      </PathContext>
+    );
   }
   return <EmptyWidget message='There is no (Task) output flow connected.' />;
 };

@@ -1,15 +1,15 @@
 import './MessageRow.css';
-import { ReactNode } from 'react';
+import { ComponentProps, forwardRef } from 'react';
 import { MessageText, MessageTextProps } from '../../message/Message';
 
-export type MessageRowProps = MessageTextProps & {
-  children: ReactNode;
-};
+export type MessageRowProps = MessageTextProps & ComponentProps<'tr'>;
 
-export const MessageRow = ({ message, children }: MessageRowProps) => {
+export const MessageRow = forwardRef<HTMLTableRowElement, MessageRowProps>(({ message, children, className, ...props }, forwardRef) => {
   return (
     <>
-      <tr className={`row ${message ? `row-${message.severity.toLocaleLowerCase()}` : ''}`}>{children}</tr>
+      <tr ref={forwardRef} className={`row ${message ? `row-${message.severity.toLocaleLowerCase()}` : ''} ${className}`} {...props}>
+        {children}
+      </tr>
       {message && (
         <tr className='row row-message'>
           <td colSpan={100}>
@@ -19,4 +19,4 @@ export const MessageRow = ({ message, children }: MessageRowProps) => {
       )}
     </>
   );
-};
+});
