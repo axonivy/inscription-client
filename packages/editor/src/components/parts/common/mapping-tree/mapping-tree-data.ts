@@ -1,4 +1,4 @@
-import { Mapping, VariableInfo, Variable } from '@axonivy/inscription-protocol';
+import { VariableInfo, Variable } from '@axonivy/inscription-protocol';
 
 export interface MappingTreeData extends Variable {
   value: string;
@@ -107,8 +107,8 @@ export namespace MappingTreeData {
     });
   }
 
-  export function to(tree: MappingTreeData[]): Mapping {
-    let mappings: Mapping = {};
+  export function to(tree: MappingTreeData[]): Record<string, string> {
+    let mappings: Record<string, string> = {};
     for (const node of tree) {
       if (node.value.length > 0) {
         mappings[node.attribute] = node.value;

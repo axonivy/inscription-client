@@ -1,78 +1,34 @@
-import {
-  Data,
-  ElementAlternative,
-  ElementEMail,
-  ElementScript,
-  ScriptMapCode,
-  ScriptParameterizedMapCode,
-  StartPermission,
-  StartRequest,
-  WfCase,
-  WfTask
-} from './inscription';
+import { Data } from './inscription';
+import { ConfigData } from './inscription-data';
 
 export type NameData = Omit<Data, 'config'>;
 
-export type ProcessCallData = {
-  processCall: string;
-};
+export type ProcessCallData = Pick<ConfigData, 'processCall'>;
 
-export type DialogCallData = {
-  dialog: string;
-};
+export type DialogCallData = Pick<ConfigData, 'dialog'>;
 
-export type MappingData = ScriptMapCode;
-export type Mapping = MappingData['map'];
+export type CallData = Pick<ConfigData, 'call'>;
 
-export type CallData = {
-  call: MappingData;
-};
+export type EndPageData = Pick<ConfigData, 'page'>;
 
-export interface EndPageData {
-  page: string;
-}
+export type OutputData = Pick<ConfigData, 'output' | 'sudo'>;
 
-export type OutputData = ElementScript;
+export type ConditionData = Pick<ConfigData, 'conditions'>;
 
-export type ConditionData = ElementAlternative;
+export type TaskData = Pick<ConfigData, 'persistOnStart' | 'task' | 'tasks'>;
 
-export interface TaskData {
-  task: WfTask;
-  tasks: WfTask[];
-  persistOnStart: boolean;
-}
+export type CaseData = Pick<ConfigData, 'case'>;
 
-export interface CaseData {
-  case: WfCase;
-}
+export type StartData = Pick<ConfigData, 'input' | 'signature'>;
 
-export interface StartData {
-  input: ScriptParameterizedMapCode;
-  signature: string;
-}
+export type ResultData = Pick<ConfigData, 'result'>;
 
-export interface ResultData {
-  result: ScriptParameterizedMapCode;
-}
+export type ErrorCatchData = Pick<ConfigData, 'errorCode'>;
 
-export interface ErrorCatchData {
-  errorCode: string;
-}
+export type SignalCatchData = Pick<ConfigData, 'signalCode' | 'attachToBusinessCase'>;
 
-export interface SignalCatchData {
-  signalCode: string;
-  attachToBusinessCase: boolean;
-}
+export type MailData = Pick<ConfigData, 'headers' | 'failIfMissingAttachments' | 'attachments' | 'message' | 'exceptionHandler'>;
 
-export interface MailData extends ElementEMail {}
+export type TriggerData = Pick<ConfigData, 'triggerable' | 'case' | 'task'>;
 
-export interface TriggerData {
-  triggerable: boolean;
-  case: Pick<WfCase, 'attachToBusinessCase'>;
-  task: Pick<WfTask, 'responsible' | 'delay'>;
-}
-
-export interface RequestData {
-  request: StartRequest;
-  permission: StartPermission;
-}
+export type RequestData = Pick<ConfigData, 'request' | 'permission'>;
