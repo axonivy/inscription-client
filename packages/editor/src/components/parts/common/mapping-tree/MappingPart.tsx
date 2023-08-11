@@ -1,13 +1,13 @@
 import { memo } from 'react';
 import { PathFieldset } from '../path/PathFieldset';
 import MappingTree from './MappingTree';
-import { Mapping, VariableInfo } from '@axonivy/inscription-protocol';
+import { VariableInfo } from '@axonivy/inscription-protocol';
 import { useTableGlobalFilter, useTableOnlyInscribed } from './useMappingTree';
 
 export type MappingPartProps = {
-  data: Mapping;
+  data: Record<string, string>;
   variableInfo: VariableInfo;
-  onChange: (change: Mapping) => void;
+  onChange: (change: Record<string, string>) => void;
 };
 
 const MappingPart = (props: MappingPartProps) => {

@@ -18,7 +18,17 @@ import {
   IVY_EXCEPTIONS,
   TriggerData,
   RequestData,
-  StartCustomStartField
+  StartCustomStartField,
+  RestBody,
+  DbQuery,
+  Cache,
+  JavaTimeout,
+  JavaEventTimeout,
+  ErrorDefinition,
+  SoapOperation,
+  SoapWsProcessException,
+  RestResponse,
+  RestTarget
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -48,11 +58,11 @@ export const DEFAULT_CALL_DATA: CallData & DialogCallData & ProcessCallData = {
 
 export const DEFAULT_END_PAGE_DATA: EndPageData = {
   page: ''
-};
+} as const;
 
 export const DEFAULT_CONDITION_DATA: ConditionData = {
   conditions: {}
-};
+} as const;
 
 export const DEFAULT_START_DATA: StartData = {
   signature: '',
@@ -61,7 +71,7 @@ export const DEFAULT_START_DATA: StartData = {
     map: {},
     params: [] as ScriptVariable[]
   }
-};
+} as const;
 
 export const DEFAULT_RESULT_DATA: ResultData = {
   result: {
@@ -69,16 +79,16 @@ export const DEFAULT_RESULT_DATA: ResultData = {
     map: {},
     params: [] as ScriptVariable[]
   }
-};
+} as const;
 
 export const DEFAULT_ERROR_CATCH_DATA: ErrorCatchData = {
   errorCode: ''
-};
+} as const;
 
 export const DEFAULT_SIGNAL_CATCH_DATA: SignalCatchData = {
   signalCode: '',
   attachToBusinessCase: true
-};
+} as const;
 
 export const DEFAULT_MAIL_DATA: MailData = {
   headers: {
@@ -90,10 +100,10 @@ export const DEFAULT_MAIL_DATA: MailData = {
     bcc: ''
   },
   failIfMissingAttachments: false,
-  attachments: [],
+  attachments: [] as string[],
   message: { body: '', contentType: MAIL_TYPE.plain },
   exceptionHandler: IVY_EXCEPTIONS.mail
-};
+} as const;
 
 export const DEFAULT_TRIGGER_DATA: Pick<TriggerData, 'triggerable'> = {
   triggerable: false
@@ -131,6 +141,25 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_SIGNAL_CATCH_DATA,
     ...DEFAULT_MAIL_DATA,
     ...DEFAULT_TRIGGER_DATA,
-    ...DEFAULT_REQUEST_DATA
+    ...DEFAULT_REQUEST_DATA,
+    // Other defaults, not implemented yet, but needed to satisfy TS
+    body: {} as RestBody,
+    query: {} as DbQuery,
+    cache: {} as Cache,
+    javaClass: '',
+    userConfig: '',
+    timeout: {} as JavaTimeout & JavaEventTimeout,
+    guid: '',
+    code: '',
+    throws: {} as ErrorDefinition,
+    link: '',
+    clientId: '',
+    operation: {} as SoapOperation,
+    properties: {},
+    exception: {} as SoapWsProcessException,
+    eventId: '',
+    method: 'GET',
+    response: {} as RestResponse,
+    target: {} as RestTarget
   }
 } as const;

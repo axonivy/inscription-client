@@ -1,5 +1,4 @@
 import { VariableInfo } from '@axonivy/inscription-protocol';
-import { Mapping } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 import MappingPart from './MappingPart';
 
@@ -53,12 +52,12 @@ describe('MappingPart', () => {
     }
   };
 
-  function renderTree(initData?: Mapping): {
-    data: () => Mapping;
+  function renderTree(initData?: Record<string, string>): {
+    data: () => Record<string, string>;
   } {
     userEvent.setup();
-    let data: Mapping = initData ?? { 'param.procurementRequest': 'in' };
-    render(<MappingPart data={data} variableInfo={variableInfo} onChange={(change: Mapping) => (data = change)} />);
+    let data = initData ?? { 'param.procurementRequest': 'in' };
+    render(<MappingPart data={data} variableInfo={variableInfo} onChange={(change: Record<string, string>) => (data = change)} />);
     return {
       data: () => data
     };

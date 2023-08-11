@@ -9,7 +9,7 @@ const Part = () => {
 };
 
 describe('TriggerPart', () => {
-  function renderPart(data?: TriggerData) {
+  function renderPart(data?: DeepPartial<TriggerData>) {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
@@ -32,7 +32,7 @@ describe('TriggerPart', () => {
   });
 
   test('full data', async () => {
-    const triggerData: TriggerData = {
+    const triggerData: DeepPartial<TriggerData> = {
       triggerable: true,
       task: {
         delay: 'test',
