@@ -5,7 +5,6 @@ import PrioritySelect from '../priority/PrioritySelect';
 import { MacroArea, MacroInput, ScriptArea, useFieldset } from '../../../widgets';
 import ResponsibleSelect from '../../common/responsible/ResponsibleSelect';
 import { useTaskData } from '../useTaskData';
-import { PathContext } from '../../../../context';
 import { PathFieldset, PathCollapsible, ValidationFieldset, CustomFieldPart } from '../../common';
 
 const TaskPart = (props: { showPersist?: boolean }) => {
@@ -15,7 +14,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
   const catFieldset = useFieldset();
 
   return (
-    <PathContext path='task'>
+    <>
       <PathFieldset label='Name' {...nameFieldset.labelProps} path='name'>
         <MacroInput value={task.name} onChange={change => update('name', change)} {...nameFieldset.inputProps} />
       </PathFieldset>
@@ -37,7 +36,7 @@ const TaskPart = (props: { showPersist?: boolean }) => {
           <ScriptArea value={task.code} onChange={change => update('code', change)} />
         </ValidationFieldset>
       </PathCollapsible>
-    </PathContext>
+    </>
   );
 };
 

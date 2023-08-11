@@ -3,13 +3,21 @@ import { ReactNode, useRef } from 'react';
 import { TextDropItem, useDrag, useDrop } from 'react-aria';
 import IvyIcon from '../../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
+import { MessageRow } from './MessageRow';
+import { MessageTextProps } from '../../message/Message';
 
-export const ReorderRow = (props: { id: string; updateOrder: (moveId: string, targetId: string) => void; children: ReactNode }) => {
+export type ReorderRowProps = {
+  id: string;
+  updateOrder: (moveId: string, targetId: string) => void;
+  children: ReactNode;
+};
+
+export const ReorderRow = ({ id, updateOrder, children, ...props }: ReorderRowProps & MessageTextProps) => {
   const DND_TYPE = 'text/id';
 
   let { dragProps, isDragging } = useDrag({
     getItems() {
-      return [{ 'text/id': props.id }];
+      return [{ 'text/id': id }];
     }
   });
 
@@ -23,7 +31,7 @@ export const ReorderRow = (props: { id: string; updateOrder: (moveId: string, ta
       const dndItems = e.items.filter(item => item.kind === 'text' && item.types.has(DND_TYPE));
       if (dndItems.length === 1) {
         const item = await (dndItems[0] as TextDropItem).getText(DND_TYPE);
-        props.updateOrder(item, props.id);
+        updateOrder(item, id);
       } else {
         console.log(`invalid drop item ${e.items[0]}`);
       }
@@ -31,13 +39,17 @@ export const ReorderRow = (props: { id: string; updateOrder: (moveId: string, ta
   });
 
   return (
-    <>
-      <tr {...dragProps} {...dropProps} ref={ref} className={`dnd-row${isDragging ? ' dragging' : ''}${isDropTarget ? ' target' : ''}`}>
-        {props.children}
-        <td className='dnd-row-handle'>
-          <IvyIcon icon={IvyIcons.ChangeType} />
-        </td>
-      </tr>
-    </>
+    <MessageRow
+      {...dragProps}
+      {...dropProps}
+      ref={ref}
+      className={`dnd-row${isDragging ? ' dragging' : ''}${isDropTarget ? ' target' : ''}`}
+      {...props}
+    >
+      {children}
+      <td className='dnd-row-handle'>
+        <IvyIcon icon={IvyIcons.ChangeType} />
+      </td>
+    </MessageRow>
   );
 };

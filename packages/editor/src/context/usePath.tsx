@@ -3,14 +3,14 @@ import React, { ReactNode, useContext } from 'react';
 
 const PathContextInstance = React.createContext<SchemaPath | SchemaKeys | ''>('');
 
-export const PathContext = ({ path, children }: { path: SchemaKeys; children: ReactNode }) => {
+export const PathContext = ({ path, children }: { path: SchemaKeys | number; children: ReactNode }) => {
   const fullPath = useFullPath([path]);
   return <PathContextInstance.Provider value={fullPath}>{children}</PathContextInstance.Provider>;
 };
 
 export const usePath = () => useContext(PathContextInstance);
 
-export const useFullPath = (paths?: SchemaKeys[]) => {
+export const useFullPath = (paths?: Array<SchemaKeys | number>) => {
   const parentPath = useContext(PathContextInstance);
   return mergePaths(parentPath, paths ?? []);
 };

@@ -1,10 +1,12 @@
 import './Tab.css';
 import { Tabs as TabsRoot, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
+import { Message } from '../message/Message';
 
 export type Tab = {
   id: string;
   name: string;
+  messages?: Message[];
   content: ReactNode;
 };
 
@@ -33,14 +35,12 @@ export const TabRoot = ({ tabs, value, onChange, children }: TabsProps & { child
 export const TabList = ({ tabs }: TabsProps) => (
   <TabsList className='tabs-list'>
     {tabs.map((tab, index) => (
-      <TabsTrigger key={`${index}-${tab.name}`} className='tabs-trigger' value={tab.id}>
-        {tab.name}
-      </TabsTrigger>
+      <TabTrigger key={`${index}-${tab.name}`} tab={tab} />
     ))}
   </TabsList>
 );
 
-export const TabContent = ({ tabs, value, onChange }: TabsProps) => (
+export const TabContent = ({ tabs }: TabsProps) => (
   <>
     {tabs.map((tab, index) => (
       <TabsContent key={`${index}-${tab}`} className='tabs-content' value={tab.id}>
@@ -49,3 +49,20 @@ export const TabContent = ({ tabs, value, onChange }: TabsProps) => (
     ))}
   </>
 );
+
+export const TabTrigger = ({ tab }: { tab: Tab }) => {
+  const state = useMemo(() => {
+    if (tab.messages?.find(message => message.severity === 'ERROR')) {
+      return 'error';
+    }
+    if (tab.messages?.find(message => message.severity === 'WARNING')) {
+      return 'warning';
+    }
+    return undefined;
+  }, [tab.messages]);
+  return (
+    <TabsTrigger className='tabs-trigger' data-message={state} value={tab.id}>
+      {tab.name}
+    </TabsTrigger>
+  );
+};

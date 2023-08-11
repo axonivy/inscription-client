@@ -31,21 +31,11 @@
   position: relative;
   box-shadow: var(--focus-shadow);
 }
-.tabs-trigger .tab-state {
-  height: 0.5rem;
-  width: 0.5rem;
-  border-radius: 0.5rem;
-  margin-right: 0.25rem;
-  background-color: var(--button-color);
+.tabs-trigger[data-message='error'] {
+  color: var(--error-color);
 }
-.tabs-trigger .tab-state[data-state='configured'] {
-  background-color: var(--info-color);
-}
-.tabs-trigger .tab-state[data-state='warning'] {
-  background-color: var(--warning-color);
-}
-.tabs-trigger .tab-state[data-state='error'] {
-  background-color: var(--error-color);
+.tabs-trigger[data-message='warning'] {
+  color: var(--warning-color);
 }
 .tabs-content {
   display: flex;

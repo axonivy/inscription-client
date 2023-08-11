@@ -4,21 +4,29 @@ import { render, screen, userEvent } from 'test-utils';
 describe('Tabs', () => {
   const tabs: Tab[] = [
     { id: '1', name: 'Name', content: <h1>Name</h1> },
-    { id: 'asdf', name: 'Call', content: <h1>Call</h1> },
-    { id: 'hi', name: 'Result', content: <h1>Result</h1> }
+    {
+      id: 'asdf',
+      name: 'Call',
+      content: <h1>Call</h1>,
+      messages: [
+        { message: 'hi1', severity: 'WARNING' },
+        { message: 'hi2', severity: 'ERROR' }
+      ]
+    },
+    { id: 'hi', name: 'Result', content: <h1>Result</h1>, messages: [{ message: 'hi1', severity: 'WARNING' }] }
   ];
 
   function renderTabs() {
     render(<Tabs tabs={tabs} />);
   }
 
-  test('tabs will render', () => {
+  test('render', () => {
     renderTabs();
     expect(screen.getAllByRole('tab')).toHaveLength(3);
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
   });
 
-  test('tabs switch tab', async () => {
+  test('switch tab', async () => {
     renderTabs();
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
 
@@ -35,7 +43,7 @@ describe('Tabs', () => {
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
   });
 
-  test('tabs switch tab by keyboard', async () => {
+  test('switch tab by keyboard', async () => {
     renderTabs();
 
     const name = screen.getByRole('tab', { name: /Name/ });
@@ -57,5 +65,12 @@ describe('Tabs', () => {
     await userEvent.keyboard('[ArrowLeft]');
     expect(call).toHaveFocus();
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Call');
+  });
+
+  test('tab show state', async () => {
+    renderTabs();
+    expect(screen.getByRole('tab', { name: /Name/ })).not.toHaveAttribute('data-message');
+    expect(screen.getByRole('tab', { name: /Call/ })).toHaveAttribute('data-message', 'error');
+    expect(screen.getByRole('tab', { name: /Result/ })).toHaveAttribute('data-message', 'warning');
   });
 });

@@ -13,7 +13,13 @@ describe('MultiTasksPart', () => {
   function renderPart(data?: DeepPartial<TaskData>) {
     data = addDefaultTaskData(data);
     const defaultData = createDefaultTaskData(data);
-    render(<Part />, { wrapperProps: { data: data && { config: data }, defaultData } });
+    render(<Part />, {
+      wrapperProps: {
+        data: data && { config: data },
+        defaultData,
+        validations: [{ path: 'tasks.[1].name', message: 'this is an error', severity: 'ERROR' }]
+      }
+    });
   }
 
   test('empty data', async () => {
@@ -29,8 +35,10 @@ describe('MultiTasksPart', () => {
       ]
     });
     expect(screen.getAllByRole('tab')).toHaveLength(2);
-    expect(screen.getByLabelText('Name')).toHaveValue('task 1');
+    expect(screen.getByRole('tab', { name: 'TaskA' })).not.toHaveAttribute('data-message');
+    expect(screen.getByRole('tab', { name: 'TaskB' })).toHaveAttribute('data-message', 'error');
 
+    expect(screen.getByLabelText('Name')).toHaveValue('task 1');
     await userEvent.click(screen.getByRole('tab', { name: 'TaskB' }));
     expect(screen.getByLabelText('Name')).toHaveValue('task 2');
   });
