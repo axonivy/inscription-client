@@ -10,8 +10,7 @@ export class InscriptionView {
   }
 
   async selectElement(pid: string) {
-    const app = process.env.TEST_APP ?? '';
-    const server = process.env.BASE_URL ? process.env.BASE_URL + app : 'localhost:8081';
+    const server = process.env.BASE_URL ?? 'localhost:8081';
     var serverUrl = server.replace(/^https?:\/\//, '');
     var url = `?server=${serverUrl}&pid=${pid}`;
     await this.page.goto(url);
