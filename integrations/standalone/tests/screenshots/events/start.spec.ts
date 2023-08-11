@@ -9,11 +9,11 @@ const START_PID = {
 } as const;
 
 test.describe('Request Start', () => {
-  test.skip('Request Tab', async ({ page }) => {
+  test('Request Tab', async ({ page }) => {
     await screenshotTab(page, START_PID.START, 'Request', 'request-start-tab-request.png');
   });
 
-  test.skip('Trigger Tab', async ({ page }) => {
+  test('Trigger Tab', async ({ page }) => {
     await screenshotTab(page, START_PID.START, 'Trigger', 'request-start-tab-trigger.png');
   });
 
