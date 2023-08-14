@@ -1,24 +1,28 @@
 import { PartProps, usePartDirty, usePartState } from '../../editors';
-import { TaskPersistData, useTaskPersistData } from './options/useTaskOptionsData';
-import TaskPart from './task/TaskPart';
+import { TaskPersistData, useTaskPersistData } from './options/usePersistOptionsData';
+import Task from './task/Task';
 import { useTaskData } from './useTaskData';
 import { EmptyWidget } from '../../widgets';
 import { WfTask } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
+import RequestTask from './task/RequestTask';
+import WaitTask from './task/WaitTask';
+import WsTask from './task/WsTask';
 
-export function useSingleTaskPart(options?: { showPersist?: boolean }): PartProps {
+export function useTaskPart(options?: TaskPartProps): PartProps {
   const { task, defaultTask, initTask, resetTask } = useTaskData();
   const { config, defaultConfig, initConfig, updatePersist } = useTaskPersistData();
   let validations = useValidations(['task']);
-  if (options?.showPersist) {
+  const isStartRequest = options?.type === 'request';
+  if (isStartRequest) {
     validations = validations.filter(val => !val.path.startsWith('task.responsible')).filter(val => !val.path.startsWith('task.delay'));
   }
-  const compareData = (task: WfTask, persist: TaskPersistData) => [task, options?.showPersist ? persist.persistOnStart : ''];
+  const compareData = (task: WfTask, persist: TaskPersistData) => [task, isStartRequest ? persist.persistOnStart : ''];
   const state = usePartState(compareData(defaultTask, defaultConfig), compareData(task, config), validations);
   const dirty = usePartDirty(compareData(initTask, initConfig), compareData(task, config));
   const resetData = () => {
     resetTask();
-    if (options?.showPersist) {
+    if (isStartRequest) {
       updatePersist(initConfig.persistOnStart);
     }
   };
@@ -26,18 +30,30 @@ export function useSingleTaskPart(options?: { showPersist?: boolean }): PartProp
     name: 'Task',
     state,
     reset: { dirty, action: () => resetData() },
-    content: <SingleTaskPart showPersist={options?.showPersist} />
+    content: <TaskPart type={options?.type} />
   };
 }
 
-const SingleTaskPart = (props: { showPersist?: boolean }) => {
+export type TaskPartProps = {
+  type?: 'request' | 'wait' | 'ws';
+};
+
+const TaskPart = ({ type }: TaskPartProps) => {
   const { defaultTask } = useTaskData();
+  const task = (type: TaskPartProps['type']) => {
+    switch (type) {
+      case 'request':
+        return <RequestTask />;
+      case 'wait':
+        return <WaitTask />;
+      case 'ws':
+        return <WsTask />;
+      default:
+        return <Task />;
+    }
+  };
   if (defaultTask) {
-    return (
-      <PathContext path='task'>
-        <TaskPart showPersist={props.showPersist} />
-      </PathContext>
-    );
+    return <PathContext path='task'>{task(type)}</PathContext>;
   }
   return <EmptyWidget message='There is no (Task) output flow connected.' />;
 };

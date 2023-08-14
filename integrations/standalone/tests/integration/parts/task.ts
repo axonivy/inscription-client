@@ -49,6 +49,8 @@ export class TasksTester implements PartTest {
   }
 }
 
+type TaskTestOptions = { responsible: boolean; priority: boolean; expiry: boolean; options: 'persist' | 'list' | undefined };
+
 class Task extends PartObject {
   name: MacroEditor;
   description: MacroEditor;
@@ -73,7 +75,7 @@ class Task extends PartObject {
     part: Part,
     private readonly nameValue = 'test name',
     private readonly errorValue = /f8/,
-    private readonly showPersist = false
+    private readonly options: TaskTestOptions = { responsible: true, priority: true, expiry: true, options: 'list' }
   ) {
     super(part);
     this.name = part.macroInput('Name');
@@ -101,26 +103,32 @@ class Task extends PartObject {
     await this.description.fill('test desc');
     await this.category.fill('test cat');
 
-    if (!this.showPersist) {
+    if (this.options.responsible) {
       await this.responsible.chooseType('Role from Attr.');
       await this.responsible.fill('"Teamleader"');
     }
 
-    await this.priority.choose('High');
-
-    await this.optionsSection.toggle();
-    if (this.showPersist) {
-      await this.persist.check();
-    } else {
-      await this.skipTasklist.check();
-      await this.delay.fill('delay');
+    if (this.options.priority) {
+      await this.priority.choose('High');
     }
 
-    await this.expirySection.toggle();
-    await this.timeout.fill('timeout');
-    await this.error.choose(this.errorValue);
-    await this.expiryResponsbile.chooseType('Nobody & delete');
-    await this.expiryPriority.choose('Low');
+    if (this.options.options) {
+      await this.optionsSection.toggle();
+      if (this.options.options === 'persist') {
+        await this.persist.check();
+      } else {
+        await this.skipTasklist.check();
+        await this.delay.fill('delay');
+      }
+    }
+
+    if (this.options.expiry) {
+      await this.expirySection.toggle();
+      await this.timeout.fill('timeout');
+      await this.error.choose(this.errorValue);
+      await this.expiryResponsbile.chooseType('Nobody & delete');
+      await this.expiryPriority.choose('Low');
+    }
 
     await this.customFieldsSection.toggle();
     const row = await this.customFields.addRow();
@@ -135,25 +143,31 @@ class Task extends PartObject {
     await this.description.expectValue('test desc');
     await this.category.expectValue('test cat');
 
-    if (!this.showPersist) {
+    if (this.options.responsible) {
       await this.responsible.expectType('Role from Attr.');
       await this.responsible.expectValue('"Teamleader"');
     }
 
-    await this.priority.expectValue(/High/);
-
-    if (this.showPersist) {
-      await this.persist.expectChecked();
-      await this.persist.uncheck();
-    } else {
-      await this.skipTasklist.expectChecked();
-      await this.delay.expectValue('delay');
+    if (this.options.priority) {
+      await this.priority.expectValue(/High/);
     }
 
-    await this.timeout.expectValue('timeout');
-    await this.error.expectValue(this.errorValue);
-    await this.expiryResponsbile.expectType('Nobody & delete');
-    await this.expiryPriority.expectValue(/Low/);
+    if (this.options.options) {
+      if (this.options.options === 'persist') {
+        await this.persist.expectChecked();
+        await this.persist.uncheck();
+      } else {
+        await this.skipTasklist.expectChecked();
+        await this.delay.expectValue('delay');
+      }
+    }
+
+    if (this.options.expiry) {
+      await this.timeout.expectValue('timeout');
+      await this.error.expectValue(this.errorValue);
+      await this.expiryResponsbile.expectType('Nobody & delete');
+      await this.expiryPriority.expectValue(/Low/);
+    }
 
     await this.customFields.expectRowCount(1);
     await this.customFields.cell(0, 0).expectValue('cf');
@@ -167,18 +181,24 @@ class Task extends PartObject {
     await this.description.clear();
     await this.category.clear();
 
-    if (!this.showPersist) {
+    if (this.options.responsible) {
       await this.responsible.clear();
     }
 
-    await this.priority.choose('Normal');
-
-    if (!this.showPersist) {
-      await this.skipTasklist.uncheck();
-      await this.delay.clear();
+    if (this.options.priority) {
+      await this.priority.choose('Normal');
     }
 
-    await this.timeout.clear();
+    if (this.options.options) {
+      if (this.options.options === 'list') {
+        await this.skipTasklist.uncheck();
+        await this.delay.clear();
+      }
+    }
+
+    if (this.options.expiry) {
+      await this.timeout.clear();
+    }
 
     await this.customFields.clear();
 
@@ -190,27 +210,44 @@ class Task extends PartObject {
     await this.description.expectEmpty();
     await this.category.expectEmpty();
 
-    if (!this.showPersist) {
+    if (this.options.responsible) {
       await this.responsible.expectType('Role');
       await this.responsible.expectValue('Everybody');
     }
 
-    await this.priority.expectValue('Normal');
+    if (this.options.priority) {
+      await this.priority.expectValue('Normal');
+    }
 
-    await this.optionsSection.expectIsClosed();
-    await this.expirySection.expectIsClosed();
+    if (this.options.options) {
+      await this.optionsSection.expectIsClosed();
+    }
+    if (this.options.expiry) {
+      await this.expirySection.expectIsClosed();
+    }
     await this.customFieldsSection.expectIsClosed();
     await this.codeSection.expectIsClosed();
   }
 }
 
 class TaskTester extends NewPartTest {
-  constructor(options?: { name?: string; error?: RegExp; persist?: boolean }) {
-    super('Task', (part: Part) => new Task(part, options?.name, options?.error, options?.persist));
+  constructor(options?: { name?: string; error?: RegExp; testOptions?: TaskTestOptions }) {
+    super('Task', (part: Part) => new Task(part, options?.name, options?.error, options?.testOptions));
   }
 }
 
 export const TaskTest = new TaskTester();
-export const StartRequestTaskTest = new TaskTester({ error: /EventAndGateway/, persist: true });
+export const StartRequestTaskTest = new TaskTester({
+  error: /EventAndGateway/,
+  testOptions: { responsible: false, priority: true, expiry: true, options: 'persist' }
+});
+export const WsStartTaskTest = new TaskTester({
+  error: /EventAndGateway/,
+  testOptions: { responsible: false, priority: true, expiry: false, options: undefined }
+});
+export const WaitTaskTest = new TaskTester({
+  error: /EventAndGateway/,
+  testOptions: { responsible: false, priority: false, expiry: false, options: undefined }
+});
 export const TaskIntermediateTaskTest = new TaskTester({ error: /EventAndGateway/ });
 export const TasksTest = new TasksTester();

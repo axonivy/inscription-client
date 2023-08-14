@@ -1,7 +1,7 @@
-import { Checkbox, Collapsible } from '../../../../components/widgets';
-import { useTaskPersistData } from './useTaskOptionsData';
+import { Checkbox, Collapsible } from '../../../widgets';
+import { useTaskPersistData } from './usePersistOptionsData';
 
-const PersistPart = () => {
+const PersistOptions = () => {
   const { config, updatePersist } = useTaskPersistData();
   const disabled = config.permission.anonymous;
 
@@ -17,4 +17,4 @@ const PersistPart = () => {
   );
 };
 
-export default PersistPart;
+export default PersistOptions;

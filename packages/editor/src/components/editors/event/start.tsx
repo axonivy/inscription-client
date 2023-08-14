@@ -8,7 +8,7 @@ import {
   useSignalCatchPart,
   useNamePart,
   useOutputPart,
-  useSingleTaskPart,
+  useTaskPart,
   useStartPart,
   useErrorCatchPart,
   useTriggerPart,
@@ -20,9 +20,9 @@ const RequestStartEditor = memo(() => {
   const start = useStartPart();
   const request = useRequestPart();
   const trigger = useTriggerPart();
-  const singleTask = useSingleTaskPart({ showPersist: true });
+  const task = useTaskPart({ type: 'request' });
   const casePart = useCasePart();
-  return <InscriptionEditor icon={IvyIcons.Start} parts={[name, start, request, trigger, singleTask, casePart]} />;
+  return <InscriptionEditor icon={IvyIcons.Start} parts={[name, start, request, trigger, task, casePart]} />;
 });
 
 const SignalStartEventEditor = memo(() => {

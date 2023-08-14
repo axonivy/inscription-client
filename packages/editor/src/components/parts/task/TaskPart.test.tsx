@@ -1,22 +1,27 @@
 import { renderHook, screen, render, DeepPartial, cloneObject } from 'test-utils';
 import { WfTask, TaskData, DEFAULT_TASK } from '@axonivy/inscription-protocol';
-import { useSingleTaskPart } from './SingleTaskPart';
+import { TaskPartProps, useTaskPart } from './TaskPart';
 import { PartStateFlag } from '../../editors';
 
 const Part = () => {
-  const part = useSingleTaskPart();
+  const part = useTaskPart();
   return <>{part.content}</>;
 };
 
-describe('SingleTaskPart', () => {
+describe('TaskPart', () => {
   function renderEmptyPart() {
     //@ts-ignore
     render(<Part />, { wrapperProps: { defaultData: { task: undefined } } });
   }
 
-  function assertState(expectedState: PartStateFlag, task?: DeepPartial<WfTask>, taskData?: Partial<TaskData>, showPersist?: boolean) {
+  function assertState(
+    expectedState: PartStateFlag,
+    task?: DeepPartial<WfTask>,
+    taskData?: Partial<TaskData>,
+    type?: TaskPartProps['type']
+  ) {
     let data = taskData ? { config: taskData } : task ? { config: { task } } : undefined;
-    const { result } = renderHook(() => useSingleTaskPart({ showPersist }), { wrapperProps: { data } });
+    const { result } = renderHook(() => useTaskPart({ type }), { wrapperProps: { data } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -35,7 +40,7 @@ describe('SingleTaskPart', () => {
 
     assertState('configured', { skipTasklist: true });
     assertState('configured', { delay: 'delay' });
-    assertState('configured', undefined, { persistOnStart: true }, true);
+    assertState('configured', undefined, { persistOnStart: true }, 'request');
 
     assertState('configured', { expiry: { timeout: 'asf' } });
 
@@ -61,7 +66,7 @@ describe('SingleTaskPart', () => {
         }
       }
     };
-    const view = renderHook(() => useSingleTaskPart(), {
+    const view = renderHook(() => useTaskPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { task: { name: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);
