@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../../test';
 import { screenshotTab } from '../utils/screenshot-util';
 
 const GATEWAY_PID = {
@@ -7,13 +7,13 @@ const GATEWAY_PID = {
 } as const;
 
 test.describe('Alternative', () => {
-  test('Condition Tab', async ({ page }) => {
-    await screenshotTab(page, GATEWAY_PID.ALTERNATIVE, 'Condition', 'alternative-tab-condition.png');
+  test('Condition Tab', async ({ view }) => {
+    await screenshotTab(view, GATEWAY_PID.ALTERNATIVE, 'Condition', 'alternative-tab-condition.png');
   });
 });
 
 test.describe('Task Switch Gateway', () => {
-  test('Tasks Tab', async ({ page }) => {
-    await screenshotTab(page, GATEWAY_PID.TASKS, 'Tasks', 'task-switch-gateway-tab-task.png');
+  test('Tasks Tab', async ({ view }) => {
+    await screenshotTab(view, GATEWAY_PID.TASKS, 'Tasks', 'task-switch-gateway-tab-task.png');
   });
 });

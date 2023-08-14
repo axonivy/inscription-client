@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../../test';
 import { screenshotTab } from '../utils/screenshot-util';
 
 const END_PID = {
@@ -7,13 +7,13 @@ const END_PID = {
 } as const;
 
 test.describe('Error Boundary', () => {
-  test('Error Tab', async ({ page }) => {
-    await screenshotTab(page, END_PID.ERROR, 'Error', 'error-boundary-event-tab-error.png');
+  test('Error Tab', async ({ view }) => {
+    await screenshotTab(view, END_PID.ERROR, 'Error', 'error-boundary-event-tab-error.png');
   });
 });
 
 test.describe('Signal Boundary', () => {
-  test('Signal Tab', async ({ page }) => {
-    await screenshotTab(page, END_PID.SIGNAL, 'Signal', 'signal-boundary-event-tab-signal.png');
+  test('Signal Tab', async ({ view }) => {
+    await screenshotTab(view, END_PID.SIGNAL, 'Signal', 'signal-boundary-event-tab-signal.png');
   });
 });

@@ -1,5 +1,4 @@
-import { test } from '@playwright/test';
-import { InscriptionView } from '../../pageobjects/InscriptionView';
+import { test } from '../../test';
 import {
   CaseTest,
   CodeTest,
@@ -15,45 +14,39 @@ import {
 } from '../parts';
 
 test.describe('Workflow Activities', () => {
-  test('User Task', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f4');
-    await inscriptionView.expectHeaderText('User Task');
-    await fillReloadAndAssert(inscriptionView, [NameTest, TaskTest, CaseTest, DialogCallTest, OutputTest]);
+  test('User Task', async ({ view }) => {
+    await view.selectElement('0169A49845D37011-f4');
+    await view.expectHeaderText('User Task');
+    await fillReloadAndAssert(view, [NameTest, TaskTest, CaseTest, DialogCallTest, OutputTest]);
   });
 
-  test('Dialog Call', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f2');
-    await inscriptionView.expectHeaderText('User Dialog');
-    await fillReloadAndAssert(inscriptionView, [NameTest, DialogCallTest, OutputTest]);
+  test('Dialog Call', async ({ view }) => {
+    await view.selectElement('0169A49845D37011-f2');
+    await view.expectHeaderText('User Dialog');
+    await fillReloadAndAssert(view, [NameTest, DialogCallTest, OutputTest]);
   });
 
-  test('Script', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f5');
-    await inscriptionView.expectHeaderText('Script');
-    await fillReloadAndAssert(inscriptionView, [NameTest, ScriptOutputTest, CodeTest]);
+  test('Script', async ({ view }) => {
+    await view.selectElement('0169A49845D37011-f5');
+    await view.expectHeaderText('Script');
+    await fillReloadAndAssert(view, [NameTest, ScriptOutputTest, CodeTest]);
   });
 
-  test('Embedded Sub', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-S10');
-    await inscriptionView.expectHeaderText('Sub');
-    await fillReloadAndAssert(inscriptionView, [NameTestWithoutTags]);
+  test('Embedded Sub', async ({ view }) => {
+    await view.selectElement('0169A49845D37011-S10');
+    await view.expectHeaderText('Sub');
+    await fillReloadAndAssert(view, [NameTestWithoutTags]);
   });
 
-  test('Call Sub', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f19');
-    await inscriptionView.expectHeaderText('Call');
-    await fillReloadAndAssert(inscriptionView, [NameTest, SubCallTest, OutputTest]);
+  test('Call Sub', async ({ view }) => {
+    await view.selectElement('0169A49845D37011-f19');
+    await view.expectHeaderText('Call');
+    await fillReloadAndAssert(view, [NameTest, SubCallTest, OutputTest]);
   });
 
-  test('Trigger', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f21');
-    await inscriptionView.expectHeaderText('Trigger');
-    await fillReloadAndAssert(inscriptionView, [NameTest, TriggerCallTest, OutputTest]);
+  test('Trigger', async ({ view }) => {
+    await view.selectElement('0169A49845D37011-f21');
+    await view.expectHeaderText('Trigger');
+    await fillReloadAndAssert(view, [NameTest, TriggerCallTest, OutputTest]);
   });
 });

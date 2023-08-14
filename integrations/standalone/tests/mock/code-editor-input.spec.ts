@@ -1,58 +1,55 @@
-import { Page, test } from '@playwright/test';
-import { InscriptionView } from '../pageobjects/InscriptionView';
+import { test } from '../test';
 import { MacroEditor, ScriptInput } from '../pageobjects/CodeEditor';
+import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Code Editor Input', () => {
-  test('MacroInput - no new line', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
-    const taskPart = inscriptionView.accordion('Case');
+  test('MacroInput - no new line', async ({ view }) => {
+    await view.mock();
+    const taskPart = view.accordion('Case');
     await taskPart.toggle();
-    await assertNoNewLine(page, taskPart.macroInput('Name'));
+    await assertNoNewLine(taskPart.macroInput('Name'));
   });
 
-  test('ScriptInput - no new line', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
-    const taskPart = inscriptionView.accordion('Task');
+  test('ScriptInput - no new line', async ({ view }) => {
+    await view.mock();
+    const taskPart = view.accordion('Task');
     await taskPart.toggle();
     const expirySection = taskPart.section('Expiry');
     await expirySection.toggle();
-    await assertNoNewLine(page, expirySection.scriptInput('Timeout'));
+    await assertNoNewLine(expirySection.scriptInput('Timeout'));
   });
 
-  test('ScriptCell - enter accepts value', async ({ page }) => {
-    await assertAcceptScriptCellValue(page, 'Enter');
+  test('ScriptCell - enter accepts value', async ({ view }) => {
+    await assertAcceptScriptCellValue(view, 'Enter');
   });
 
-  test('ScriptCell - tab accepts value', async ({ page }) => {
-    await assertAcceptScriptCellValue(page, 'Tab');
+  test('ScriptCell - tab accepts value', async ({ view }) => {
+    await assertAcceptScriptCellValue(view, 'Tab');
   });
 
-  test('ScriptCell - escape accepts value', async ({ page }) => {
-    await assertAcceptScriptCellValue(page, 'Escape');
+  test('ScriptCell - escape accepts value', async ({ view }) => {
+    await assertAcceptScriptCellValue(view, 'Escape');
   });
 
-  test('ScriptCell - close popup accepts value', async ({ page }) => {
-    await assertAcceptScriptCellValue(page);
+  test('ScriptCell - close popup accepts value', async ({ view }) => {
+    await assertAcceptScriptCellValue(view);
   });
 
-  async function assertNoNewLine(page: Page, name: ScriptInput | MacroEditor) {
+  async function assertNoNewLine(name: ScriptInput | MacroEditor) {
     await name.fill('test \nnewline');
     await name.expectValue('test newline');
   }
 
-  async function assertAcceptScriptCellValue(page: Page, key?: string) {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
-    const taskPart = inscriptionView.accordion('Output');
+  async function assertAcceptScriptCellValue(view: InscriptionView, key?: string) {
+    await view.mock();
+    const taskPart = view.accordion('Output');
     await taskPart.toggle();
-    const popover = inscriptionView.popover();
+    const popover = view.popover();
     await popover.expectHidden();
     await taskPart.table(['label', 'label', 'expression']).row(1).column(2).edit('test');
     await popover.expectOpen();
     if (key) {
-      await page.keyboard.press(key);
+      await view.page.keyboard.press(key);
     } else {
       await popover.close();
     }

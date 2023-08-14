@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../../test';
 import { screenshotTab } from '../utils/screenshot-util';
 
 const INTERFACE_PID = {
@@ -12,61 +12,61 @@ const INTERFACE_PID = {
 } as const;
 
 test.describe('Database', () => {
-  test.skip('Query Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.DATABASE, 'Query', 'database-tab-query.png');
+  test.skip('Query Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.DATABASE, 'Query', 'database-tab-query.png');
   });
 });
 
 test.describe('Web Service Call', () => {
-  test.skip('Request Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.WS_CALL, 'Request', 'web-service-call-tab-request.png');
+  test.skip('Request Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.WS_CALL, 'Request', 'web-service-call-tab-request.png');
   });
 
-  test.skip('Response Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.WS_CALL, 'Response', 'web-service-call-tab-response.png');
+  test.skip('Response Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.WS_CALL, 'Response', 'web-service-call-tab-response.png');
   });
 });
 
 test.describe('Rest Client', () => {
-  test.skip('Request Tab - GET', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.REST, 'Request', 'rest-client-tab-request-get.png');
+  test.skip('Request Tab - GET', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.REST, 'Request', 'rest-client-tab-request-get.png');
   });
 
-  test.skip('Request Tab - POST', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.REST_POST, 'Request', 'rest-client-tab-request-post.png');
+  test.skip('Request Tab - POST', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.REST_POST, 'Request', 'rest-client-tab-request-post.png');
   });
 
-  test.skip('Response Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.REST_POST, 'Response', 'rest-client-tab-response.png');
+  test.skip('Response Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.REST_POST, 'Response', 'rest-client-tab-response.png');
   });
 });
 
 test.describe('Email', () => {
-  test('Header Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.EMAIL, 'Header', 'mail-tab-header.png');
+  test('Header Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.EMAIL, 'Header', 'mail-tab-header.png');
   });
 
-  test('Content Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.EMAIL, 'Content', 'mail-tab-content.png');
+  test('Content Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.EMAIL, 'Content', 'mail-tab-content.png');
   });
 
-  test('Attachments Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.EMAIL, 'Attachments', 'mail-tab-attachments.png');
+  test('Attachments Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.EMAIL, 'Attachments', 'mail-tab-attachments.png');
   });
 });
 
 test.describe('Rule', () => {
-  test.skip('Call Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.RULE, 'Call', 'rule-tab-call.png');
+  test.skip('Call Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.RULE, 'Call', 'rule-tab-call.png');
   });
 });
 
 test.describe('Program', () => {
-  test.skip('Start Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.PROGRAM, 'Start', 'program-interface-tab-start.png');
+  test.skip('Start Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.PROGRAM, 'Start', 'program-interface-tab-start.png');
   });
 
-  test.skip('Editor Tab', async ({ page }) => {
-    await screenshotTab(page, INTERFACE_PID.PROGRAM, 'Editor', 'program-interface-tab-editor.png');
+  test.skip('Editor Tab', async ({ view }) => {
+    await screenshotTab(view, INTERFACE_PID.PROGRAM, 'Editor', 'program-interface-tab-editor.png');
   });
 });

@@ -1,11 +1,9 @@
-import { test } from '@playwright/test';
-import { InscriptionView } from '../pageobjects/InscriptionView';
+import { test } from '../test';
 
 test.describe('Mappings', () => {
-  test('DialogCall change will update mapping tree', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
-    const callPart = inscriptionView.accordion('Call');
+  test('DialogCall change will update mapping tree', async ({ view }) => {
+    await view.mock();
+    const callPart = view.accordion('Call');
     await callPart.toggle();
 
     const dialogCombo = callPart.combobox('Dialog');
@@ -17,10 +15,9 @@ test.describe('Mappings', () => {
     await callTable.expectRowCount(3);
   });
 
-  test('SubStart result param change will update mapping tree', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock({ type: 'CallSubStart' });
-    const resultPart = inscriptionView.accordion('Result');
+  test('SubStart result param change will update mapping tree', async ({ view }) => {
+    await view.mock({ type: 'CallSubStart' });
+    const resultPart = view.accordion('Result');
     await resultPart.toggle();
 
     const resultTable = resultPart.table(['text', 'label', 'expression']);

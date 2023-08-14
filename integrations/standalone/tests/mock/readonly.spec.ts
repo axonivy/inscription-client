@@ -1,19 +1,16 @@
-import { test, expect } from '@playwright/test';
-import { InscriptionView } from '../pageobjects/InscriptionView';
+import { test } from '../test';
 
 test.describe('Readonly', () => {
-  test('edit mode', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
-    const name = inscriptionView.accordion('Name');
+  test('edit mode', async ({ view }) => {
+    await view.mock();
+    const name = view.accordion('Name');
     await name.toggle();
     await name.textArea('Display name').expectEnabled();
   });
 
-  test('readonly mode', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock({ readonly: true });
-    const name = inscriptionView.accordion('Name');
+  test('readonly mode', async ({ view }) => {
+    await view.mock({ readonly: true });
+    const name = view.accordion('Name');
     await name.toggle();
     await name.textArea('Display name').expectDisabled();
   });

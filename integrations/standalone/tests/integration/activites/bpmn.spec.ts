@@ -1,54 +1,45 @@
-import { test } from '@playwright/test';
+import { test } from '../../test';
 import { NameTestWithoutTags, fillReloadAndAssert } from '../parts';
-import { InscriptionView } from '../../pageobjects/InscriptionView';
 
 test.describe('BPMN Activities', () => {
-  test('Generic', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-G10');
-    await inscriptionView.expectHeaderText('Generic');
-    await fillReloadAndAssert(inscriptionView, [NameTestWithoutTags]);
+  test('Generic', async ({ view }) => {
+    await view.selectElement('169A49F1790F4A32-G10');
+    await view.expectHeaderText('Generic');
+    await fillReloadAndAssert(view, [NameTestWithoutTags]);
   });
 
-  test('User', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-U20');
-    await inscriptionView.expectHeaderText('User');
+  test('User', async ({ view }) => {
+    await view.selectElement('169A49F1790F4A32-U20');
+    await view.expectHeaderText('User');
   });
 
-  test('Manual', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-M30');
-    await inscriptionView.expectHeaderText('Manual');
+  test('Manual', async ({ view }) => {
+    await view.selectElement('169A49F1790F4A32-M30');
+    await view.expectHeaderText('Manual');
   });
 
-  test('Script', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-S80');
-    await inscriptionView.expectHeaderText('Script');
+  test('Script', async ({ view }) => {
+    await view.selectElement('169A49F1790F4A32-S80');
+    await view.expectHeaderText('Script');
   });
 
-  test('Service', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-S70');
-    await inscriptionView.expectHeaderText('Service');
+  test('Service', async ({ view }) => {
+    await view.selectElement('169A49F1790F4A32-S70');
+    await view.expectHeaderText('Service');
   });
 
-  test('Rule', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-R50');
-    await inscriptionView.expectHeaderText('Rule');
+  test('Rule', async ({ view }) => {
+    await view.selectElement('169A49F1790F4A32-R50');
+    await view.expectHeaderText('Rule');
   });
 
-  test('Receive', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-R40');
-    await inscriptionView.expectHeaderText('Receive');
+  test('Receive', async ({ view }) => {
+    await view.selectElement('169A49F1790F4A32-R40');
+    await view.expectHeaderText('Receive');
   });
 
-  test('Send', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-S60');
-    await inscriptionView.expectHeaderText('Send');
+  test('Send', async ({ view }) => {
+    await view.selectElement('169A49F1790F4A32-S60');
+    await view.expectHeaderText('Send');
   });
 });

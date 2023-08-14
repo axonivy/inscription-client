@@ -3,7 +3,7 @@ import { Accordion } from './Accordion';
 import { Popover } from './Popover';
 
 export class InscriptionView {
-  readonly page: Page;
+  public readonly page: Page;
 
   constructor(page: Page) {
     this.page = page;

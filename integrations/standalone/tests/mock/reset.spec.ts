@@ -1,11 +1,9 @@
-import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../pageobjects/InscriptionView';
+import { test, expect } from '../test';
 
 test.describe('Reset part', () => {
-  test('reset button', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
-    const part = inscriptionView.accordion('Name');
+  test('reset button', async ({ view }) => {
+    await view.mock();
+    const part = view.accordion('Name');
     await part.toggle();
 
     const resetBtn = part.resetButton();

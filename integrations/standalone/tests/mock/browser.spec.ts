@@ -1,58 +1,65 @@
-import { Page, expect, test } from '@playwright/test';
-import { CodeEditorUtil } from '../utils/code-editor-util';
 import { InscriptionView } from '../pageobjects/InscriptionView';
+import { test, expect } from '../test';
 
 test.describe('Script browser', () => {
-  test('browser add to input', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
-    const task = inscriptionView.accordion('Task');
+  test('browser add to input', async ({ view }) => {
+    await view.mock();
+    const task = view.accordion('Task');
     await task.toggle();
 
-    await assertCodeHidden(page);
-    await page.getByLabel('Description').click();
-    await assertCodeVisible(page);
+    const description = task.macroArea('Description');
+    await assertCodeHidden(view);
+    await description.focus();
+    await assertCodeVisible(view);
 
-    await applyBrowser(page, 'in.bla');
-    await CodeEditorUtil.assertValue(page, '<%=in.bla%>');
+    await applyBrowser(view, 'in.bla');
+    await expect(code(view).getByRole('textbox')).toHaveValue('<%=in.bla%>');
   });
 
-  test('browser replace selection', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
-    const task = inscriptionView.accordion('Task');
+  test('browser replace selection', async ({ view }) => {
+    await view.mock();
+    const task = view.accordion('Task');
     await task.toggle();
 
-    await assertCodeHidden(page);
-    await page.getByLabel('Category').click();
-    await assertCodeVisible(page);
+    const category = task.macroInput('Category');
+    await assertCodeHidden(view);
+    await category.focus();
+    await assertCodeVisible(view);
 
-    await CodeEditorUtil.fill(page, 'test 123 zag');
-    await page.getByRole('code').dblclick();
+    await view.page.keyboard.type('test 123 zag');
+    await view.page.getByRole('code').dblclick();
 
-    await applyBrowser(page, 'in.bla');
-    await CodeEditorUtil.assertValue(page, 'test 123 <%=in.bla%>');
+    await applyBrowser(view, 'in.bla');
+    await expect(code(view).getByRole('textbox')).toHaveValue('test 123 <%=in.bla%>');
   });
 
-  async function assertCodeHidden(page: Page) {
-    await expect(page.getByRole('code')).toBeHidden();
-    await expect(page.getByRole('button', { name: 'Browser' })).toBeHidden();
+  async function assertCodeHidden(view: InscriptionView) {
+    await expect(code(view)).toBeHidden();
+    await expect(browserBtn(view)).toBeHidden();
   }
 
-  async function assertCodeVisible(page: Page) {
-    await expect(page.getByRole('code')).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Browser' })).toBeVisible();
+  async function assertCodeVisible(view: InscriptionView) {
+    await expect(code(view)).toBeVisible();
+    await expect(browserBtn(view)).toBeVisible();
   }
 
-  async function applyBrowser(page: Page, expectedSelection: string) {
-    await page.getByRole('button', { name: 'Browser' }).click();
-    await expect(page.getByRole('dialog')).toBeVisible();
+  async function applyBrowser(view: InscriptionView, expectedSelection: string) {
+    await browserBtn(view).click();
+    await expect(view.page.getByRole('dialog')).toBeVisible();
 
-    await page.getByRole('row').nth(2).click();
-    await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
-    await page.getByRole('button', { name: 'Insert' }).click();
+    await view.page.getByRole('row').nth(2).click();
+    await expect(view.page.locator('.browser-helptext')).toHaveText(expectedSelection);
+    await view.page.getByRole('button', { name: 'Insert' }).click();
 
-    await expect(page.getByRole('dialog')).toBeHidden();
-    await expect(page.getByRole('button', { name: 'Browser' })).toBeVisible();
+    await expect(view.page.getByRole('dialog')).toBeHidden();
+    await expect(browserBtn(view)).toBeVisible();
+  }
+
+  function code(view: InscriptionView) {
+    return view.page.getByRole('code');
+  }
+
+  function browserBtn(view: InscriptionView) {
+    return view.page.getByRole('button', { name: 'Browser' });
   }
 });

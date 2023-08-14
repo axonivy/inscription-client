@@ -1,20 +1,16 @@
-import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../pageobjects/InscriptionView';
+import { test } from '../test';
 
 test.describe('Drag and drop features', () => {
-  test('Alternative condition reorder', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock({ type: 'Alternative' });
-    const conditions = inscriptionView.accordion('Condition');
+  test('Alternative condition reorder', async ({ view }) => {
+    await view.mock({ type: 'Alternative' });
+    const conditions = view.accordion('Condition');
     await conditions.toggle();
 
-    const rows = page.locator('.dnd-row');
-    await expect(rows).toHaveCount(2);
-    await expect(rows.first()).toHaveText(/Mock Element/);
-    await expect(rows.last()).toHaveText(/f6/);
+    const table = conditions.table(['label', 'expression']);
+    await table.expectRowCount(2);
+    await table.expectRows([/Mock Element/, /f6/]);
 
-    await rows.first().locator('.dnd-row-handle').dragTo(rows.last().locator('.dnd-row-handle'));
-    await expect(rows.first()).toHaveText(/f6/);
-    await expect(rows.last()).toHaveText(/Mock Element/);
+    table.row(0).dragTo(table.row(1));
+    await table.expectRows([/f6/, /Mock Element/]);
   });
 });

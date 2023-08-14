@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../test';
 import { screenshotTab } from './utils/screenshot-util';
 
 const GENERIC_PID = {
@@ -9,39 +9,39 @@ const GENERIC_PID = {
 } as const;
 
 test.describe('Generic Tabs', () => {
-  test('Name Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.SCRIPT, 'Name', 'tab-name.png');
+  test('Name Tab', async ({ view }) => {
+    await screenshotTab(view, GENERIC_PID.SCRIPT, 'Name', 'tab-name.png');
   });
 
-  test('Output Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.USER_TASK, 'Output', 'tab-output.png');
+  test('Output Tab', async ({ view }) => {
+    await screenshotTab(view, GENERIC_PID.USER_TASK, 'Output', 'tab-output.png');
   });
 
-  test('Code Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.SCRIPT, 'Code', 'tab-code.png');
+  test('Code Tab', async ({ view }) => {
+    await screenshotTab(view, GENERIC_PID.SCRIPT, 'Code', 'tab-code.png');
   });
 
-  test.skip('Start Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.SUB_START, 'Start', 'tab-start.png');
+  test.skip('Start Tab', async ({ view }) => {
+    await screenshotTab(view, GENERIC_PID.SUB_START, 'Start', 'tab-start.png');
   });
 
-  test.skip('Result Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.SUB_START, 'Result', 'tab-result.png');
+  test.skip('Result Tab', async ({ view }) => {
+    await screenshotTab(view, GENERIC_PID.SUB_START, 'Result', 'tab-result.png');
   });
 
-  test.skip('Data Cache Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.WS_CALL, 'Data Cache', 'tab-data-cache.png');
+  test.skip('Data Cache Tab', async ({ view }) => {
+    await screenshotTab(view, GENERIC_PID.WS_CALL, 'Data Cache', 'tab-data-cache.png');
   });
 
-  test('Case Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.USER_TASK, 'Case', 'tab-case.png');
+  test('Case Tab', async ({ view }) => {
+    await screenshotTab(view, GENERIC_PID.USER_TASK, 'Case', 'tab-case.png');
   });
 
-  test('Task Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.USER_TASK, 'Task', 'tab-task.png');
+  test('Task Tab', async ({ view }) => {
+    await screenshotTab(view, GENERIC_PID.USER_TASK, 'Task', 'tab-task.png');
   });
 
-  test('Call Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.USER_TASK, 'Call', 'tab-call.png');
+  test('Call Tab', async ({ view }) => {
+    await screenshotTab(view, GENERIC_PID.USER_TASK, 'Call', 'tab-call.png');
   });
 });

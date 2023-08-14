@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { CodeEditorUtil } from '../utils/code-editor-util';
 import { Popover } from './Popover';
+import { CodeEditor } from './CodeEditor';
 
 export class Table {
   private readonly rows: Locator;
@@ -46,6 +46,13 @@ export class Table {
   async expectRowCount(rows: number) {
     await expect(this.rows).toHaveCount(rows);
   }
+
+  async expectRows(rows: Array<string | RegExp>) {
+    const rowCount = await this.rows.count();
+    for (let row = 0; row < rowCount; row++) {
+      await this.row(row).expectText(rows[row]);
+    }
+  }
 }
 
 export type ColumnType = 'label' | 'text' | 'expression';
@@ -90,6 +97,10 @@ export class Row {
     const target = targetRow.locator.locator('.dnd-row-handle');
     await source.dragTo(target);
   }
+
+  async expectText(text: string | RegExp) {
+    await expect(this.locator).toHaveText(text);
+  }
 }
 
 export class Cell {
@@ -115,8 +126,10 @@ export class Cell {
   async edit(value: string) {
     const expression = this.locator.getByRole('textbox');
     await expect(expression).toHaveAttribute('aria-expanded', 'false');
-    await expression.click();
-    await CodeEditorUtil.type(this.page, value);
+    const code = new CodeEditor(this.page, expression, expression, this.locator);
+    await code.focus();
+    await code.clearContent();
+    await this.page.keyboard.type(value);
   }
 
   async expectValue(value: string) {

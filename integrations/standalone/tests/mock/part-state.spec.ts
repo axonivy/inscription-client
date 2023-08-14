@@ -1,12 +1,10 @@
-import { test } from '@playwright/test';
-import { InscriptionView } from '../pageobjects/InscriptionView';
+import { test } from '../test';
 
 test.describe('Part states', () => {
-  test('different states on different parts', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
-    const casePart = inscriptionView.accordion('Case');
-    const callPart = inscriptionView.accordion('Call');
+  test('different states on different parts', async ({ view }) => {
+    await view.mock();
+    const casePart = view.accordion('Case');
+    const callPart = view.accordion('Call');
 
     await casePart.expectState('configured');
     await callPart.expectState('warning');

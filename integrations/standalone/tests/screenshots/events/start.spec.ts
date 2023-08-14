@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../../test';
 import { screenshotTab } from '../utils/screenshot-util';
 
 const START_PID = {
@@ -9,43 +9,43 @@ const START_PID = {
 } as const;
 
 test.describe('Request Start', () => {
-  test('Request Tab', async ({ page }) => {
-    await screenshotTab(page, START_PID.START, 'Request', 'request-start-tab-request.png');
+  test('Request Tab', async ({ view }) => {
+    await screenshotTab(view, START_PID.START, 'Request', 'request-start-tab-request.png');
   });
 
-  test('Trigger Tab', async ({ page }) => {
-    await screenshotTab(page, START_PID.START, 'Trigger', 'request-start-tab-trigger.png');
+  test('Trigger Tab', async ({ view }) => {
+    await screenshotTab(view, START_PID.START, 'Trigger', 'request-start-tab-trigger.png');
   });
 
-  test('Task Tab', async ({ page }) => {
-    await screenshotTab(page, START_PID.START, 'Task', 'request-start-tab-task.png');
+  test('Task Tab', async ({ view }) => {
+    await screenshotTab(view, START_PID.START, 'Task', 'request-start-tab-task.png');
   });
 });
 
 test.describe('Signal Start', () => {
-  test('Signal Tab', async ({ page }) => {
-    await screenshotTab(page, START_PID.SIGNAL, 'Signal', 'signal-start-event-tab-signal.png');
+  test('Signal Tab', async ({ view }) => {
+    await screenshotTab(view, START_PID.SIGNAL, 'Signal', 'signal-start-event-tab-signal.png');
   });
 });
 
 test.describe('Program Start', () => {
-  test.skip('Start Tab', async ({ page }) => {
-    await screenshotTab(page, START_PID.PROGRAM, 'Start', 'program-start-tab-start.png');
+  test.skip('Start Tab', async ({ view }) => {
+    await screenshotTab(view, START_PID.PROGRAM, 'Start', 'program-start-tab-start.png');
   });
 });
 
 test.describe('Error Start', () => {
-  test('Error Tab', async ({ page }) => {
-    await screenshotTab(page, START_PID.ERROR, 'Error', 'error-start-event-tab-error.png');
+  test('Error Tab', async ({ view }) => {
+    await screenshotTab(view, START_PID.ERROR, 'Error', 'error-start-event-tab-error.png');
   });
 });
 
 test.describe('Web Service Process Start', () => {
-  test.skip('Web Service Tab', async ({ page }) => {
-    await screenshotTab(page, START_PID.ERROR, 'Web Service', 'web-service-process-start-tab-webservice.png');
+  test.skip('Web Service Tab', async ({ view }) => {
+    await screenshotTab(view, START_PID.ERROR, 'Web Service', 'web-service-process-start-tab-webservice.png');
   });
 
-  test.skip('Task Tab', async ({ page }) => {
-    await screenshotTab(page, START_PID.ERROR, 'Task', 'web-service-process-start-tab-task.png');
+  test.skip('Task Tab', async ({ view }) => {
+    await screenshotTab(view, START_PID.ERROR, 'Task', 'web-service-process-start-tab-task.png');
   });
 });

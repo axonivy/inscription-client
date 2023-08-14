@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../../test';
 import { screenshotTab } from '../utils/screenshot-util';
 
 const WORKFLOW_PID = {
@@ -7,13 +7,13 @@ const WORKFLOW_PID = {
 } as const;
 
 test.describe('Call Sub', () => {
-  test('Process Call Tab', async ({ page }) => {
-    await screenshotTab(page, WORKFLOW_PID.CALL_SUB, 'Process call', 'call-sub-tab-process-call.png');
+  test('Process Call Tab', async ({ view }) => {
+    await screenshotTab(view, WORKFLOW_PID.CALL_SUB, 'Process call', 'call-sub-tab-process-call.png');
   });
 });
 
 test.describe('Trigger', () => {
-  test('Trigger Tab', async ({ page }) => {
-    await screenshotTab(page, WORKFLOW_PID.TRIGGER, 'Trigger', 'trigger-tab-trigger.png');
+  test('Trigger Tab', async ({ view }) => {
+    await screenshotTab(view, WORKFLOW_PID.TRIGGER, 'Trigger', 'trigger-tab-trigger.png');
   });
 });

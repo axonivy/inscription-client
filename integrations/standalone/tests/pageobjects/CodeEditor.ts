@@ -1,7 +1,6 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { CodeEditorUtil } from '../utils/code-editor-util';
 
-class CodeEditor {
+export class CodeEditor {
   protected contentAssist: Locator;
 
   constructor(readonly page: Page, readonly locator: Locator, readonly value: Locator, readonly parentLocator: Locator) {
@@ -9,19 +8,38 @@ class CodeEditor {
   }
 
   async triggerContentAssist() {
-    await CodeEditorUtil.triggerContentAssistWithLocator(this.page, this.locator);
+    await this.focus();
+    await expect(this.contentAssist).toBeHidden();
+    await this.page.keyboard.press('Control+Space');
+    await this.page.keyboard.press('Meta+Space');
+    await expect(this.contentAssist).toBeVisible();
   }
 
   async fill(value: string) {
-    await this.locator.click();
-    await CodeEditorUtil.type(this.page, value);
-    await this.page.locator('*:focus').blur();
+    await this.focus();
+    await this.clearContent();
+    await this.page.keyboard.type(value);
+    await this.blur();
   }
 
   async clear() {
+    await this.focus();
+    await this.clearContent();
+    await this.blur();
+  }
+
+  async focus() {
     await this.locator.click();
-    await CodeEditorUtil.clear(this.page);
+  }
+
+  async blur() {
     await this.page.locator('*:focus').blur();
+  }
+
+  async clearContent() {
+    await this.page.keyboard.press('Control+KeyA');
+    await this.page.keyboard.press('Meta+KeyA');
+    await this.page.keyboard.press('Delete');
   }
 
   async expectValue(value: string) {

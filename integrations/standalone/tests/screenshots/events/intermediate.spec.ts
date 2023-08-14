@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../../test';
 import { screenshotTab } from '../utils/screenshot-util';
 
 const INTERMEDIATE_PID = {
@@ -6,15 +6,15 @@ const INTERMEDIATE_PID = {
 } as const;
 
 test.describe('Wait Program', () => {
-  test.skip('Event Tab', async ({ page }) => {
-    await screenshotTab(page, INTERMEDIATE_PID.WAIT, 'Event', 'wait-intermediate-event-tab-event.png');
+  test.skip('Event Tab', async ({ view }) => {
+    await screenshotTab(view, INTERMEDIATE_PID.WAIT, 'Event', 'wait-intermediate-event-tab-event.png');
   });
 
-  test.skip('Editor Tab', async ({ page }) => {
-    await screenshotTab(page, INTERMEDIATE_PID.WAIT, 'Editor', 'wait-intermediate-event-tab-editor.png');
+  test.skip('Editor Tab', async ({ view }) => {
+    await screenshotTab(view, INTERMEDIATE_PID.WAIT, 'Editor', 'wait-intermediate-event-tab-editor.png');
   });
 
-  test.skip('Task Tab', async ({ page }) => {
-    await screenshotTab(page, INTERMEDIATE_PID.WAIT, 'Task', 'wait-intermediate-event-tab-task.png');
+  test.skip('Task Tab', async ({ view }) => {
+    await screenshotTab(view, INTERMEDIATE_PID.WAIT, 'Task', 'wait-intermediate-event-tab-task.png');
   });
 });
