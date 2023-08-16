@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { CodeEditorUtil } from '../utils/code-editor-util';
 import { Popover } from './Popover';
+import { ScriptCell } from './CodeEditor';
 
 export class Table {
   private readonly rows: Locator;
@@ -94,9 +94,11 @@ export class Row {
 
 export class Cell {
   private readonly locator: Locator;
+  private readonly textbox: Locator;
 
   constructor(readonly page: Page, rowLocator: Locator, column: number, readonly columnType: ColumnType) {
     this.locator = rowLocator.getByRole('cell').nth(column);
+    this.textbox = this.locator.getByRole('textbox');
   }
 
   async fill(value: string) {
@@ -113,22 +115,21 @@ export class Cell {
   }
 
   async edit(value: string) {
-    const expression = this.locator.getByRole('textbox');
-    await expect(expression).toHaveAttribute('aria-expanded', 'false');
-    await expression.click();
-    await CodeEditorUtil.type(this.page, value);
+    await expect(this.textbox).toHaveAttribute('aria-expanded', 'false');
+    const code = new ScriptCell(this.page, this.textbox, this.locator);
+    await code.fill(value);
   }
 
   async expectValue(value: string) {
-    await expect(this.locator.getByRole('textbox')).toHaveValue(value);
+    await expect(this.textbox).toHaveValue(value);
   }
 
   async expectEmpty() {
-    await expect(this.locator.getByRole('textbox')).toBeEmpty();
+    await expect(this.textbox).toBeEmpty();
   }
 
   private async fillText(value: string) {
-    const input = this.locator.getByRole('textbox');
+    const input = this.textbox;
     await input.fill(value);
     await input.blur();
   }
