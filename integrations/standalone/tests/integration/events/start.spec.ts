@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { CaseTest, NameTest, NameTestWithoutTags, OutputTest, StartRequestTaskTest, fillReloadAndAssert } from '../parts';
+import { CaseTest, NameTest, NameTestWithoutTags, OutputTest, StartRequestTaskTest, WsStartTaskTest, fillReloadAndAssert } from '../parts';
 import { ErrorCatchTest } from '../parts/error-catch';
 import { MethodResultTest, ResultTest } from '../parts/result';
 import { SignalCatchTest } from '../parts/signal-catch';
@@ -55,7 +55,7 @@ test.describe('Start Events', () => {
     const inscriptionView = new InscriptionView(page);
     await inscriptionView.selectElement('169A4A3BFDC7DFFE-ws0');
     await inscriptionView.expectHeaderText('WS Start');
-    await fillReloadAndAssert(inscriptionView, [NameTest, StartTest, ResultTest, CaseTest]);
+    await fillReloadAndAssert(inscriptionView, [NameTest, StartTest, ResultTest, WsStartTaskTest, CaseTest]);
   });
 
   test('Init Start', async ({ page }) => {

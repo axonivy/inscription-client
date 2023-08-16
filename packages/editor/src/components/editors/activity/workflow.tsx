@@ -9,7 +9,7 @@ import {
   useDialogCallPart,
   useNamePart,
   useOutputPart,
-  useSingleTaskPart,
+  useTaskPart,
   useSubCallPart,
   useTriggerCallPart
 } from '../../../components/parts';
@@ -24,10 +24,10 @@ const DialogCallEditor = memo(() => {
 const UserTaskEditor = memo(() => {
   const name = useNamePart();
   const call = useDialogCallPart();
-  const singleTask = useSingleTaskPart();
+  const task = useTaskPart();
   const casePart = useCasePart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.UserTask} parts={[name, singleTask, casePart, call, output]} />;
+  return <InscriptionEditor icon={IvyIcons.UserTask} parts={[name, task, casePart, call, output]} />;
 });
 
 const ScriptEditor = memo(() => {

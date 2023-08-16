@@ -1,13 +1,13 @@
-import TaskListPart from './TaskListPart';
+import TaskListPart from './TaskListOptions';
 import { WfTask } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 
-describe('TaskPart', () => {
+describe('TaskListOption', () => {
   function renderTaskPart(data?: Partial<WfTask>) {
     render(<TaskListPart />, { wrapperProps: { data: data && { config: { task: data } } } });
   }
 
-  test('task option render empty', async () => {
+  test('empty', async () => {
     renderTaskPart();
     await userEvent.click(screen.getByRole('button', { name: /Option/ }));
 
@@ -15,7 +15,7 @@ describe('TaskPart', () => {
     expect(screen.getByLabelText('Delay')).toHaveValue('');
   });
 
-  test('task option render full', async () => {
+  test('configured', async () => {
     renderTaskPart({ skipTasklist: true, delay: 'delay' });
     expect(screen.getByLabelText('Skip Tasklist')).toBeChecked();
     expect(screen.getByLabelText('Delay')).toHaveValue('delay');

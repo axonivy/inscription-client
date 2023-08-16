@@ -2,7 +2,7 @@ import { TaskData } from '@axonivy/inscription-protocol';
 import { EmptyWidget, Tab, Tabs } from '../../widgets';
 import { PathContext, TaskDataContextInstance, mergePaths, useValidations } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
-import TaskPart from './task/TaskPart';
+import Task from './task/Task';
 import { useMutliTaskData } from './useTaskData';
 
 export function useMultiTasksPart(): PartProps {
@@ -30,7 +30,7 @@ const MultiTasksPart = () => {
           <PathContext path='tasks'>
             <TaskDataContextInstance.Provider value={index}>
               <PathContext path={index}>
-                <TaskPart />
+                <Task />
               </PathContext>
             </TaskDataContextInstance.Provider>
           </PathContext>

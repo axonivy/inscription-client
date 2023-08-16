@@ -4,7 +4,7 @@ export * from './output/CodePart';
 export * from './start/StartPart';
 export * from './result/ResultPart';
 export * from './case/CasePart';
-export * from './task/SingleTaskPart';
+export * from './task/TaskPart';
 export * from './task/MultiTasksPart';
 export * from './call/dialog/DialogCallPart';
 export * from './call/sub/SubCallPart';

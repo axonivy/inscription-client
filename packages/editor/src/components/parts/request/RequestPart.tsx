@@ -2,11 +2,12 @@ import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useRequestData } from './useRequestData';
 import { IVY_EXCEPTIONS, RequestData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import { Checkbox, MacroArea, MacroInput, useFieldset } from '../../../components/widgets';
+import { Checkbox, useFieldset } from '../../../components/widgets';
 import { ExceptionSelect, IGNROE_EXCEPTION, PathCollapsible, PathFieldset } from '../common';
 import StartCustomFieldPart from '../common/customfield/StartCustomFieldPart';
 import RoleSelect from '../common/responsible/RoleSelect';
 import { deepEqual } from '../../../utils/equals';
+import Information from '../common/info/Information';
 
 export function useRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRequestData();
@@ -20,13 +21,8 @@ export function useRequestPart(): PartProps {
 
 const RequestPart = () => {
   const { config, defaultConfig, updateRequest, updatePermission } = useRequestData();
-
-  const nameFieldset = useFieldset();
-  const descFieldset = useFieldset();
-  const categoryFieldset = useFieldset();
   const roleFieldset = useFieldset();
   const errorFieldset = useFieldset();
-
   return (
     <>
       <Checkbox
@@ -43,23 +39,7 @@ const RequestPart = () => {
               onChange={change => updateRequest('isVisibleOnStartList', change)}
               label='Start list'
             />
-            <PathFieldset label='Name' path='name' {...nameFieldset.labelProps}>
-              <MacroInput value={config.request.name} onChange={change => updateRequest('name', change)} {...nameFieldset.inputProps} />
-            </PathFieldset>
-            <PathFieldset label='Description' path='description' {...descFieldset.labelProps}>
-              <MacroArea
-                value={config.request.description}
-                onChange={change => updateRequest('description', change)}
-                {...descFieldset.inputProps}
-              />
-            </PathFieldset>
-            <PathFieldset label='Category' path='category' {...categoryFieldset.labelProps}>
-              <MacroInput
-                value={config.request.category}
-                onChange={change => updateRequest('category', change)}
-                {...categoryFieldset.inputProps}
-              />
-            </PathFieldset>
+            <Information config={config.request} update={updateRequest} />
             <StartCustomFieldPart
               customFields={config.request.customFields}
               updateCustomFields={change => updateRequest('customFields', change)}
