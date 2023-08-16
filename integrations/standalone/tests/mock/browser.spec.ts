@@ -1,5 +1,4 @@
 import { Page, expect, test } from '@playwright/test';
-import { CodeEditorUtil } from '../utils/code-editor-util';
 import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Script browser', () => {
@@ -9,12 +8,13 @@ test.describe('Script browser', () => {
     const task = inscriptionView.accordion('Task');
     await task.toggle();
 
+    const description = task.macroArea('Description');
     await assertCodeHidden(page);
-    await page.getByLabel('Description').click();
+    await description.focus();
     await assertCodeVisible(page);
 
     await applyBrowser(page, 'in.bla');
-    await CodeEditorUtil.assertValue(page, '<%=in.bla%>');
+    await expect(code(page).getByRole('textbox')).toHaveValue('<%=in.bla%>');
   });
 
   test('browser replace selection', async ({ page }) => {
@@ -23,29 +23,30 @@ test.describe('Script browser', () => {
     const task = inscriptionView.accordion('Task');
     await task.toggle();
 
+    const category = task.macroInput('Category');
     await assertCodeHidden(page);
-    await page.getByLabel('Category').click();
+    await category.focus();
     await assertCodeVisible(page);
 
-    await CodeEditorUtil.fill(page, 'test 123 zag');
-    await page.getByRole('code').dblclick();
+    await page.keyboard.type('test 123 zag');
+    await code(page).dblclick();
 
     await applyBrowser(page, 'in.bla');
-    await CodeEditorUtil.assertValue(page, 'test 123 <%=in.bla%>');
+    await expect(code(page).getByRole('textbox')).toHaveValue('test 123 <%=in.bla%>');
   });
 
   async function assertCodeHidden(page: Page) {
-    await expect(page.getByRole('code')).toBeHidden();
-    await expect(page.getByRole('button', { name: 'Browser' })).toBeHidden();
+    await expect(code(page)).toBeHidden();
+    await expect(browserBtn(page)).toBeHidden();
   }
 
   async function assertCodeVisible(page: Page) {
-    await expect(page.getByRole('code')).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Browser' })).toBeVisible();
+    await expect(code(page)).toBeVisible();
+    await expect(browserBtn(page)).toBeVisible();
   }
 
   async function applyBrowser(page: Page, expectedSelection: string) {
-    await page.getByRole('button', { name: 'Browser' }).click();
+    await browserBtn(page).click();
     await expect(page.getByRole('dialog')).toBeVisible();
 
     await page.getByRole('row').nth(2).click();
@@ -53,6 +54,14 @@ test.describe('Script browser', () => {
     await page.getByRole('button', { name: 'Insert' }).click();
 
     await expect(page.getByRole('dialog')).toBeHidden();
-    await expect(page.getByRole('button', { name: 'Browser' })).toBeVisible();
+    await expect(browserBtn(page)).toBeVisible();
+  }
+
+  function code(page: Page) {
+    return page.getByRole('code');
+  }
+
+  function browserBtn(page: Page) {
+    return page.getByRole('button', { name: 'Browser' });
   }
 });

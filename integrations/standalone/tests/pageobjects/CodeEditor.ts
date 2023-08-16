@@ -1,5 +1,4 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { CodeEditorUtil } from '../utils/code-editor-util';
 
 class CodeEditor {
   protected contentAssist: Locator;
@@ -9,19 +8,34 @@ class CodeEditor {
   }
 
   async triggerContentAssist() {
-    await CodeEditorUtil.triggerContentAssistWithLocator(this.page, this.locator);
+    await this.focus();
+    await expect(this.contentAssist).toBeHidden();
+    await this.page.keyboard.press('Control+Space');
+    await this.page.keyboard.press('Meta+Space');
+    await expect(this.contentAssist).toBeVisible();
   }
 
   async fill(value: string) {
-    await this.locator.click();
-    await CodeEditorUtil.type(this.page, value);
+    await this.focus();
+    await this.clearContent();
+    await this.page.keyboard.type(value);
     await this.page.locator('*:focus').blur();
   }
 
   async clear() {
-    await this.locator.click();
-    await CodeEditorUtil.clear(this.page);
+    await this.focus();
+    await this.clearContent();
     await this.page.locator('*:focus').blur();
+  }
+
+  async focus() {
+    await this.locator.click();
+  }
+
+  protected async clearContent() {
+    await this.page.keyboard.press('Control+KeyA');
+    await this.page.keyboard.press('Meta+KeyA');
+    await this.page.keyboard.press('Delete');
   }
 
   async expectValue(value: string) {
@@ -62,5 +76,17 @@ export class MacroEditor extends CodeEditor {
 
   async expectValue(value: string) {
     await expect(this.value).toHaveText(value.replace('\n', ''));
+  }
+}
+
+export class ScriptCell extends CodeEditor {
+  constructor(page: Page, locator: Locator, parentLocator: Locator) {
+    super(page, locator, locator, parentLocator);
+  }
+
+  async fill(value: string) {
+    await this.focus();
+    await this.clearContent();
+    await this.page.keyboard.type(value);
   }
 }
