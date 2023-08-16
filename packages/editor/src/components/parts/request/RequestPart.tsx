@@ -56,7 +56,7 @@ const RequestPart = () => {
                 />
               </PathFieldset>
             )}
-            <PathFieldset label='Validation error' path='error' {...errorFieldset.labelProps}>
+            <PathFieldset label='Violation error' path='error' {...errorFieldset.labelProps}>
               <ExceptionSelect
                 value={config.permission.error}
                 onChange={change => updatePermission('error', change)}

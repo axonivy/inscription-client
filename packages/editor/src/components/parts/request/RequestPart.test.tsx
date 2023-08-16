@@ -25,7 +25,7 @@ describe('RequestPart', () => {
       await CollapsableUtil.assertOpen('Permission');
       expect(screen.getByLabelText('Anonymous')).not.toBeChecked();
       SelectUtil.assertValue('Test', { label: 'Role' });
-      SelectUtil.assertValue('>> Ignore Exception', { label: 'Validation error' });
+      SelectUtil.assertValue('>> Ignore Exception', { label: 'Violation error' });
     } else {
       expect(httpCheckbox).not.toBeChecked();
       expect(screen.queryByLabelText('Start list')).not.toBeInTheDocument();

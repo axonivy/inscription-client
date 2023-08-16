@@ -31,7 +31,7 @@ class Request extends PartObject {
     this.permissionSection = part.section('Permission');
     this.anonym = this.permissionSection.checkbox('Anonymous');
     this.role = this.permissionSection.select('Role');
-    this.error = this.permissionSection.select('Validation error');
+    this.error = this.permissionSection.select('Violation error');
   }
 
   async fill() {
