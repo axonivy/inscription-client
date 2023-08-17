@@ -31,6 +31,11 @@ describe('TriggerPart', () => {
     await assertMainPart(false, '', '');
   });
 
+  test('no task', async () => {
+    renderPart({ task: undefined });
+    await assertMainPart(false, '', '');
+  });
+
   test('full data', async () => {
     const triggerData: DeepPartial<TriggerData> = {
       triggerable: true,

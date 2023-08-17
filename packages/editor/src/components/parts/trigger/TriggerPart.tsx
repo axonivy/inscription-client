@@ -10,7 +10,7 @@ export function useTriggerPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useTriggerData();
   const responsibleVal = useValidations(['task', 'responsible']);
   const delayVal = useValidations(['task', 'delay']);
-  const compareData = (data: TriggerData) => [data.triggerable, data.case.attachToBusinessCase, data.task.responsible, data.task.delay];
+  const compareData = (data: TriggerData) => [data.triggerable, data.case.attachToBusinessCase, data.task?.responsible, data.task?.delay];
   const state = usePartState(compareData(defaultConfig), compareData(config), [...responsibleVal, ...delayVal]);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Trigger', state: state, reset: { dirty, action: () => resetData() }, content: <TriggerPart /> };
