@@ -2,13 +2,13 @@ import { defineConfig, devices } from '@playwright/test';
 
 const config = defineConfig({
   testDir: './tests',
-  timeout: 60 * 1000,
+  timeout: 120 * 1000,
   expect: {
     timeout: 5000
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: 0, //Maybe after undo is implemented: process.env.CI ? 1 : 0,
+  retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['../custom-reporter.ts'], ['junit', { outputFile: 'report.xml' }]] : 'html',
   use: {
     actionTimeout: 0,
@@ -21,8 +21,7 @@ const config = defineConfig({
     {
       name: 'chromium',
       use: {
-        ...devices['Desktop Chrome'],
-        contextOptions: { reducedMotion: 'reduce' }
+        ...devices['Desktop Chrome']
       }
     },
 

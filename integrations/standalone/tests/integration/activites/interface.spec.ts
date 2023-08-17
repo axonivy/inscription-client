@@ -8,28 +8,28 @@ import { MailAttachmentTest } from '../parts/mail-attachments';
 test.describe('Interface Activities', () => {
   test('Database', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f6');
+    await inscriptionView.type('Database');
     await inscriptionView.expectHeaderText('Database');
     await fillReloadAndAssert(inscriptionView, [NameTest, OutputTest]);
   });
 
   test('WebService', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f12');
+    await inscriptionView.type('WebServiceCall');
     await inscriptionView.expectHeaderText('Web Service');
     await fillReloadAndAssert(inscriptionView, [NameTest]);
   });
 
   test('Rest Client', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f14');
+    await inscriptionView.type('RestClientCall');
     await inscriptionView.expectHeaderText('Rest Client');
     await fillReloadAndAssert(inscriptionView, [NameTest]);
   });
 
   test('EMail', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f16');
+    await inscriptionView.type('EMail');
     await inscriptionView.expectHeaderText('E-Mail');
     await fillReloadAndAssert(inscriptionView, [NameTest, MailHeaderTest, MailContentTest, MailAttachmentTest]);
   });
@@ -42,7 +42,7 @@ test.describe('Interface Activities', () => {
 
   test('Program', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f23');
+    await inscriptionView.type('ProgramInterface');
     await inscriptionView.expectHeaderText('Program');
     await fillReloadAndAssert(inscriptionView, [NameTest]);
   });

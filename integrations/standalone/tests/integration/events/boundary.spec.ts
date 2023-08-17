@@ -7,14 +7,14 @@ import { InscriptionView } from '../../pageobjects/InscriptionView';
 test.describe('Boundary Events', () => {
   test('Error Boundary', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A4921D0EF0B91-f16');
+    await inscriptionView.type('UserTask', { boundaryType: 'error' });
     await inscriptionView.expectHeaderText('Error Boundary');
     await fillReloadAndAssert(inscriptionView, [NameTest, ErrorCatchTest, OutputTest]);
   });
 
   test('Signal Boundary', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A4921D0EF0B91-f17');
+    await inscriptionView.type('UserTask', { boundaryType: 'signal' });
     await inscriptionView.expectHeaderText('Signal Boundary');
     await fillReloadAndAssert(inscriptionView, [NameTest, BoundarySignalCatchTest, OutputTest]);
   });

@@ -2371,6 +2371,16 @@
   dependencies:
     "@octokit/openapi-types" "^16.0.0"
 
+"@open-rpc/client-js@1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@open-rpc/client-js/-/client-js-1.8.1.tgz#73b5a5bf237f24b14c3c89205b1fca3aea213213"
+  integrity sha512-vV+Hetl688nY/oWI9IFY0iKDrWuLdYhf7OIKI6U1DcnJV7r4gAgwRJjEr1QVYszUc0gjkHoQJzqevmXMGLyA0g==
+  dependencies:
+    isomorphic-fetch "^3.0.0"
+    isomorphic-ws "^5.0.0"
+    strict-event-emitter-types "^2.0.0"
+    ws "^7.0.0"
+
 "@parcel/watcher@2.0.4":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@parcel/watcher/-/watcher-2.0.4.tgz#f300fef4cc38008ff4b8c29d92588eced3ce014b"
@@ -4137,6 +4147,11 @@
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-4.0.2.tgz#6286b4c7228d58ab7866d19716f3696e03a09397"
   integrity sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==
+
+"@types/uuid@^9.0.0":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.2.tgz#ede1d1b1e451548d44919dc226253e32a6952c4b"
+  integrity sha512-kNnC1GFBLuhImSnV7w4njQkUiJi0ZXUycu1rUaouPqiKlXkh77JKgdRnTAp1x5eBwcIwbtI+3otwzuIDEuDoxQ==
 
 "@types/yargs-parser@*":
   version "21.0.0"
@@ -7438,6 +7453,19 @@ isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==
 
+isomorphic-fetch@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-3.0.0.tgz#0267b005049046d2421207215d45d6a262b8b8b4"
+  integrity sha512-qvUtwJ3j6qwsF3jLxkZ72qCgjMysPzDfeV240JHiGZsANBYd+EEuu35v7dfrJ9Up0Ak07D7GGSkGhCHTqg/5wA==
+  dependencies:
+    node-fetch "^2.6.1"
+    whatwg-fetch "^3.4.1"
+
+isomorphic-ws@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/isomorphic-ws/-/isomorphic-ws-5.0.0.tgz#e5529148912ecb9b451b46ed44d53dae1ce04bbf"
+  integrity sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==
+
 istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.2.0.tgz#189e7909d0a39fa5a3dfad5b03f71947770191d3"
@@ -8876,6 +8904,13 @@ node-fetch@2.6.7:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
+  dependencies:
+    whatwg-url "^5.0.0"
+
+node-fetch@^2.6.1:
+  version "2.6.12"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.12.tgz#02eb8e22074018e3d5a83016649d04df0e348fba"
+  integrity sha512-C/fGU2E8ToujUivIO0H+tpQ6HWo4eEmchoPIoXtxCrVghxdKq+QOHqEZW7tuP3KlV3bC8FRMO5nMCC7Zm1VP6g==
   dependencies:
     whatwg-url "^5.0.0"
 
@@ -10574,6 +10609,11 @@ state-local@^1.0.6:
   resolved "https://registry.yarnpkg.com/state-local/-/state-local-1.0.7.tgz#da50211d07f05748d53009bee46307a37db386d5"
   integrity sha512-HTEHMNieakEnoe33shBYcZ7NX83ACUjCu8c40iOGEZsngj9zRnkqS9j1pqQPXwobB0ZcVTk27REb7COQ0UR59w==
 
+strict-event-emitter-types@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strict-event-emitter-types/-/strict-event-emitter-types-2.0.0.tgz#05e15549cb4da1694478a53543e4e2f4abcf277f"
+  integrity sha512-Nk/brWYpD85WlOgzw5h173aci0Teyv8YdIAEtV+N88nDB0dLlazZyJMIsN6eo1/AR61l+p6CJTG1JIyFaoNEEA==
+
 string-length@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/string-length/-/string-length-4.0.2.tgz#a8a8dc7bd5c1a82b9b3c8b87e125f66871b6e57a"
@@ -11451,6 +11491,11 @@ whatwg-encoding@^2.0.0:
   dependencies:
     iconv-lite "0.6.3"
 
+whatwg-fetch@^3.4.1:
+  version "3.6.17"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.17.tgz#009bbbfc122b227b74ba1ff31536b3a1a0e0e212"
+  integrity sha512-c4ghIvG6th0eudYwKZY5keb81wtFz9/WeAHAoy8+r18kcWlitUIrmGFQ2rWEl4UCKUilD3zCLHOIPheHx5ypRQ==
+
 whatwg-mimetype@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/whatwg-mimetype/-/whatwg-mimetype-3.0.0.tgz#5fa1a7623867ff1af6ca3dc72ad6b8a4208beba7"
@@ -11612,6 +11657,11 @@ write-pkg@4.0.0:
     sort-keys "^2.0.0"
     type-fest "^0.4.1"
     write-json-file "^3.2.0"
+
+ws@^7.0.0:
+  version "7.5.9"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.9.tgz#54fa7db29f4c7cec68b1ddd3a89de099942bb591"
+  integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
 
 ws@^8.11.0:
   version "8.11.0"

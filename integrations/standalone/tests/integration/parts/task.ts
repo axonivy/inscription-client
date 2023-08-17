@@ -230,24 +230,14 @@ class Task extends PartObject {
   }
 }
 
-class TaskTester extends NewPartTest {
+export class TaskTester extends NewPartTest {
   constructor(options?: { name?: string; error?: RegExp; testOptions?: TaskTestOptions }) {
     super('Task', (part: Part) => new Task(part, options?.name, options?.error, options?.testOptions));
   }
 }
 
-export const TaskTest = new TaskTester();
-export const StartRequestTaskTest = new TaskTester({
-  error: /EventAndGateway/,
-  testOptions: { responsible: false, priority: true, expiry: true, options: 'persist' }
-});
 export const WsStartTaskTest = new TaskTester({
   error: /EventAndGateway/,
   testOptions: { responsible: false, priority: true, expiry: false, options: undefined }
 });
-export const WaitTaskTest = new TaskTester({
-  error: /EventAndGateway/,
-  testOptions: { responsible: false, priority: false, expiry: false, options: undefined }
-});
-export const TaskIntermediateTaskTest = new TaskTester({ error: /EventAndGateway/ });
 export const TasksTest = new TasksTester();

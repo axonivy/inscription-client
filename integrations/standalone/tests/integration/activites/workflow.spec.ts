@@ -9,7 +9,7 @@ import {
   OutputTest,
   ScriptOutputTest,
   SubCallTest,
-  TaskTest,
+  TaskTester,
   TriggerCallTest,
   fillReloadAndAssert
 } from '../parts';
@@ -17,42 +17,42 @@ import {
 test.describe('Workflow Activities', () => {
   test('User Task', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f4');
+    const { processId } = await inscriptionView.type('UserTask', { additionalElements: ['ErrorStartEvent'] });
     await inscriptionView.expectHeaderText('User Task');
-    await fillReloadAndAssert(inscriptionView, [NameTest, TaskTest, CaseTest, DialogCallTest, OutputTest]);
+    await fillReloadAndAssert(inscriptionView, [NameTest, new TaskTester({ error: new RegExp(processId) }), CaseTest, DialogCallTest, OutputTest]);
   });
 
   test('Dialog Call', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f2');
+    await inscriptionView.type('DialogCall');
     await inscriptionView.expectHeaderText('User Dialog');
     await fillReloadAndAssert(inscriptionView, [NameTest, DialogCallTest, OutputTest]);
   });
 
   test('Script', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f5');
+    await inscriptionView.type('Script');
     await inscriptionView.expectHeaderText('Script');
     await fillReloadAndAssert(inscriptionView, [NameTest, ScriptOutputTest, CodeTest]);
   });
 
   test('Embedded Sub', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-S10');
+    await inscriptionView.type('EmbeddedProcessElement');
     await inscriptionView.expectHeaderText('Sub');
     await fillReloadAndAssert(inscriptionView, [NameTestWithoutTags]);
   });
 
   test('Call Sub', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f19');
+    await inscriptionView.type('SubProcessCall');
     await inscriptionView.expectHeaderText('Call');
     await fillReloadAndAssert(inscriptionView, [NameTest, SubCallTest, OutputTest]);
   });
 
   test('Trigger', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('0169A49845D37011-f21');
+    await inscriptionView.type('TriggerCall');
     await inscriptionView.expectHeaderText('Trigger');
     await fillReloadAndAssert(inscriptionView, [NameTest, TriggerCallTest, OutputTest]);
   });

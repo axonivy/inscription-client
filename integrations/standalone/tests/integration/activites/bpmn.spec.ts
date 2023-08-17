@@ -5,50 +5,50 @@ import { InscriptionView } from '../../pageobjects/InscriptionView';
 test.describe('BPMN Activities', () => {
   test('Generic', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-G10');
+    await inscriptionView.type('GenericBpmnElement');
     await inscriptionView.expectHeaderText('Generic');
     await fillReloadAndAssert(inscriptionView, [NameTestWithoutTags]);
   });
 
   test('User', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-U20');
+    await inscriptionView.type('UserBpmnElement');
     await inscriptionView.expectHeaderText('User');
   });
 
   test('Manual', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-M30');
+    await inscriptionView.type('ManualBpmnElement');
     await inscriptionView.expectHeaderText('Manual');
   });
 
   test('Script', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-S80');
+    await inscriptionView.type('ScriptBpmnElement');
     await inscriptionView.expectHeaderText('Script');
   });
 
   test('Service', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-S70');
+    await inscriptionView.type('ServiceBpmnElement');
     await inscriptionView.expectHeaderText('Service');
   });
 
   test('Rule', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-R50');
+    await inscriptionView.type('RuleBpmnElement');
     await inscriptionView.expectHeaderText('Rule');
   });
 
   test('Receive', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-R40');
+    await inscriptionView.type('ReceiveBpmnElement');
     await inscriptionView.expectHeaderText('Receive');
   });
 
   test('Send', async ({ page }) => {
     const inscriptionView = new InscriptionView(page);
-    await inscriptionView.selectElement('169A49F1790F4A32-S60');
+    await inscriptionView.type('SendBpmnElement');
     await inscriptionView.expectHeaderText('Send');
   });
 });
