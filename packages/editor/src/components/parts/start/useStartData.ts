@@ -1,27 +1,43 @@
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext, useDataContext } from '../../../context';
 import { StartData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { Consumer, DataUpdater } from '../../../types/lambda';
 
-export function useStartData(): ConfigDataContext<StartData> & {
+export function useStartData(synchParams?: boolean): ConfigDataContext<StartData> & {
   update: DataUpdater<StartData['input']>;
   updateSignature: Consumer<string>;
   resetData: () => void;
 } {
+  const { setData } = useDataContext();
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<StartData['input']> = (field, value) => {
-    setConfig(
+    setData(
       produce(draft => {
-        draft.input[field] = value;
+        const synchName = draft.name === nameSyncher(draft.config);
+        draft.config.input[field] = value;
+        if (synchName) {
+          draft.name = nameSyncher(draft.config);
+        }
       })
     );
   };
 
+  const nameSyncher = (data: StartData) => {
+    if (synchParams) {
+      return `${data.signature}(${data.input.params.map(param => param.type.substring(param.type.lastIndexOf('.') + 1)).join(',')})`;
+    }
+    return data.signature;
+  };
+
   const updateSignature = (signature: string) =>
-    setConfig(
+    setData(
       produce(draft => {
-        draft.signature = signature;
+        const synchName = draft.name === nameSyncher(draft.config);
+        draft.config.signature = signature;
+        if (synchName) {
+          draft.name = nameSyncher(draft.config);
+        }
       })
     );
 

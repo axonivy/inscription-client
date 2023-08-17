@@ -8,7 +8,7 @@ const config = defineConfig({
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: 0, //Maybe after undo is implemented: process.env.CI ? 1 : 0,
+  retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['../custom-reporter.ts'], ['junit', { outputFile: 'report.xml' }], ['list']] : 'html',
   use: {
     actionTimeout: 0,
@@ -21,8 +21,7 @@ const config = defineConfig({
     {
       name: 'chromium',
       use: {
-        ...devices['Desktop Chrome'],
-        contextOptions: { reducedMotion: 'reduce' }
+        ...devices['Desktop Chrome']
       }
     },
 

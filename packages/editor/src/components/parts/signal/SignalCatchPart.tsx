@@ -3,7 +3,6 @@ import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { Checkbox, useFieldset } from '../../widgets';
 import { useSignalCatchData } from './useSignalCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
-import { useDefaultNameSyncher } from '../name/useNameSyncher';
 import { SignalCatchData } from '@axonivy/inscription-protocol';
 import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
 
@@ -22,7 +21,7 @@ export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartPr
 }
 
 const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
-  const { config, update } = useSignalCatchData();
+  const { config, update, updateSignal } = useSignalCatchData();
   const { context } = useEditorContext();
   const signalCodes = [
     { value: '', eventCode: '<< Empty >>', info: 'Receives every signal' },
@@ -31,7 +30,6 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
     })
   ];
 
-  useDefaultNameSyncher({ synchName: config.signalCode });
   const signalField = useFieldset();
   return (
     <>
@@ -39,7 +37,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
         {/* todo: somehow support macro input here... */}
         <EventCodeSelect
           eventCode={config.signalCode}
-          onChange={change => update('signalCode', change)}
+          onChange={change => updateSignal(change)}
           eventCodes={signalCodes}
           eventIcon={IvyIcons.Signal}
           comboboxInputProps={signalField.inputProps}

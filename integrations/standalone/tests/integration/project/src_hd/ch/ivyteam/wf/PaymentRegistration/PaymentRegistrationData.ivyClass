@@ -1,4 +1,0 @@
-PaymentRegistrationData #class
-ch.ivyteam.wf.PaymentRegistration #namespace
-person ch.ivyteam.test.Person #field
-person PERSISTENT #fieldModifier

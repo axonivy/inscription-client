@@ -35,7 +35,7 @@ class Request extends PartObject {
   }
 
   async fill() {
-    await this.startList.uncheck();
+    await this.startList.click();
     await this.name.fill('name');
     await this.description.fill('desc');
     await this.category.fill('cat');
@@ -43,15 +43,15 @@ class Request extends PartObject {
     const customField = await this.customFields.addRow();
     await customField.fill(['field', 'value']);
     await this.permissionSection.toggle();
-    await this.anonym.uncheck();
+    await this.anonym.click();
     await this.role.choose('SYSTEM');
     await this.error.choose('>> Ignore Exception');
-    await this.httpable.uncheck();
+    await this.httpable.click();
   }
 
   async assertFill() {
     await this.httpable.expectUnchecked();
-    await this.httpable.check();
+    await this.httpable.click();
     await this.startList.expectUnchecked();
     await this.name.expectValue('name');
     await this.description.expectValue('desc');
@@ -66,13 +66,13 @@ class Request extends PartObject {
 
   async clear() {
     await this.httpable.expectChecked();
-    await this.startList.check();
+    await this.startList.click();
     await this.name.clear();
     await this.description.clear();
     await this.category.clear();
     await this.customFields.clear();
     await this.role.choose('Everybody');
-    await this.anonym.check();
+    await this.anonym.click();
     await this.error.choose('ivy:security:forbidden');
   }
 

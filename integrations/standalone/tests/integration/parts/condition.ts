@@ -1,34 +1,37 @@
 import { Part } from '../../pageobjects/Part';
-import { Table } from '../../pageobjects/Table';
+import { Row } from '../../pageobjects/Table';
 import { NewPartTest, PartObject } from './part-tester';
 
 class Condition extends PartObject {
-  table: Table;
+  row0: Row;
+  row1: Row;
+
   constructor(part: Part) {
     super(part);
-    this.table = part.table(['label', 'expression']);
+    const table = part.table(['label', 'expression']);
+    this.row0 = table.row(0);
+    this.row1 = table.row(1);
   }
 
   async fill() {
-    const row = this.table.row(1);
-    await row.fill(['"bla"']);
-
-    await this.table.row(0).dragTo(this.table.row(1));
+    await this.row0.fill(['"bla"']);
+    await this.row1.fill(['false']);
+    await this.row0.dragTo(this.row1);
   }
 
   async assertFill() {
-    await this.table.row(0).expectValues(['"bla"']);
-    await this.table.row(1).expectValues(['false']);
+    await this.row0.expectValues(['false']);
+    await this.row1.expectValues(['"bla"']);
   }
 
   async clear() {
-    await this.table.row(0).fill(['']);
-    await this.table.row(0).dragTo(this.table.row(1));
+    await this.row1.fill(['']);
+    await this.row1.dragTo(this.row0);
   }
 
   async assertClear() {
-    await this.table.row(0).expectValues(['false']);
-    await this.table.row(1).expectValues(['']);
+    await this.row0.expectValues(['']);
+    await this.row1.expectValues(['false']);
   }
 }
 

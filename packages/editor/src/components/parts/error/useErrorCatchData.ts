@@ -1,20 +1,24 @@
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext, useDataContext } from '../../../context';
 import { ErrorCatchData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { DataUpdater } from '../../../types/lambda';
+import { Consumer } from '../../../types/lambda';
 
 export function useErrorCatchData(): ConfigDataContext<ErrorCatchData> & {
-  update: DataUpdater<ErrorCatchData>;
+  updateError: Consumer<string>;
 } {
+  const { setData } = useDataContext();
   const { setConfig, ...config } = useConfigDataContext();
 
-  const update: DataUpdater<ErrorCatchData> = (field, value) => {
-    setConfig(
+  const updateError = (errorCode: string) => {
+    setData(
       produce(draft => {
-        draft[field] = value;
+        if (draft.name === draft.config.errorCode) {
+          draft.name = errorCode;
+        }
+        draft.config.errorCode = errorCode;
       })
     );
   };
 
-  return { ...config, update };
+  return { ...config, updateError };
 }

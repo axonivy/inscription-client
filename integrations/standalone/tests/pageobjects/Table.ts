@@ -116,7 +116,7 @@ export class Cell {
 
   async edit(value: string) {
     await expect(this.textbox).toHaveAttribute('aria-expanded', 'false');
-    const code = new ScriptCell(this.page, this.textbox, this.locator);
+    const code = new ScriptCell(this.page, this.textbox, Popover.locator(this.page));
     await code.fill(value);
   }
 

@@ -16,7 +16,7 @@ class SignalCatch extends PartObject {
   async fill() {
     await this.signal.fill('test:signal');
     if (!this.makroSupport) {
-      await this.attach.uncheck();
+      await this.attach.click();
     }
   }
 
@@ -30,7 +30,7 @@ class SignalCatch extends PartObject {
   async clear() {
     await this.signal.choose('');
     if (!this.makroSupport) {
-      await this.attach.check();
+      await this.attach.click();
     }
   }
 

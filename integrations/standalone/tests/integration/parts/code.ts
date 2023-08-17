@@ -15,7 +15,7 @@ class Code extends PartObject {
 
   async fill() {
     await this.code.fill('code');
-    await this.sudo.check();
+    await this.sudo.click();
   }
 
   async assertFill() {
@@ -25,7 +25,7 @@ class Code extends PartObject {
 
   async clear() {
     await this.code.clear();
-    await this.sudo.uncheck();
+    await this.sudo.click();
   }
 
   async assertClear() {

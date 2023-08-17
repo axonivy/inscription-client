@@ -42,31 +42,23 @@ export class NewPartTest implements PartTest {
   }
 }
 
-export async function fillReloadAndAssert(inscriptionView: InscriptionView, tests: PartTest[]) {
-  for (const test of tests) {
-    const accordion = inscriptionView.accordion(test.partName());
-    await accordion.toggle();
-    await test.fill(accordion);
-    await accordion.toggle();
-  }
-  await inscriptionView.reload();
-  for (const test of tests) {
-    const accordion = inscriptionView.accordion(test.partName());
-    await accordion.toggle();
-    await test.assertFill(accordion);
-    await accordion.toggle();
-  }
-  for (const test of tests) {
-    const accordion = inscriptionView.accordion(test.partName());
-    await accordion.toggle();
-    await test.clear(accordion);
-    await accordion.toggle();
-  }
-  await inscriptionView.reload();
-  for (const test of tests) {
-    const accordion = inscriptionView.accordion(test.partName());
-    await accordion.toggle();
-    await test.assertClear(accordion);
-    await accordion.toggle();
-  }
+export async function runTest(view: InscriptionView, test: PartTest) {
+  const accordion = view.accordion(test.partName());
+
+  await accordion.toggle();
+  await test.fill(accordion);
+  await view.page.waitForLoadState('networkidle');
+  await view.reload();
+
+  await accordion.toggle();
+  await test.assertFill(accordion);
+  await view.reload();
+
+  await accordion.toggle();
+  await test.clear(accordion);
+  await view.page.waitForLoadState('networkidle');
+  await view.reload();
+
+  await accordion.toggle();
+  await test.assertClear(accordion);
 }

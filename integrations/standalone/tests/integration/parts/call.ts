@@ -42,7 +42,7 @@ class Call extends PartObject {
 
 export const DialogCallTest = new NewPartTest(
   'Call',
-  (part: Part) => new Call(part, 'Dialog', 'PaymentRegistration', 'ch.ivyteam.wf.PaymentRegistration:start(ch.ivyteam.test.Person)')
+  (part: Part) => new Call(part, 'Dialog', 'PersonEditor', 'com.acme.PersonEditor:start(ch.ivyteam.test.Person)')
 );
 
 export const SubCallTest = new NewPartTest(

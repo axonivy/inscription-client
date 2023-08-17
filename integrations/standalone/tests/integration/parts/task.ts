@@ -115,9 +115,9 @@ class Task extends PartObject {
     if (this.options.options) {
       await this.optionsSection.toggle();
       if (this.options.options === 'persist') {
-        await this.persist.check();
+        await this.persist.click();
       } else {
-        await this.skipTasklist.check();
+        await this.skipTasklist.click();
         await this.delay.fill('delay');
       }
     }
@@ -155,7 +155,7 @@ class Task extends PartObject {
     if (this.options.options) {
       if (this.options.options === 'persist') {
         await this.persist.expectChecked();
-        await this.persist.uncheck();
+        await this.persist.click();
       } else {
         await this.skipTasklist.expectChecked();
         await this.delay.expectValue('delay');
@@ -191,7 +191,7 @@ class Task extends PartObject {
 
     if (this.options.options) {
       if (this.options.options === 'list') {
-        await this.skipTasklist.uncheck();
+        await this.skipTasklist.click();
         await this.delay.clear();
       }
     }
@@ -230,24 +230,14 @@ class Task extends PartObject {
   }
 }
 
-class TaskTester extends NewPartTest {
+export class TaskTester extends NewPartTest {
   constructor(options?: { name?: string; error?: RegExp; testOptions?: TaskTestOptions }) {
     super('Task', (part: Part) => new Task(part, options?.name, options?.error, options?.testOptions));
   }
 }
 
-export const TaskTest = new TaskTester();
-export const StartRequestTaskTest = new TaskTester({
-  error: /EventAndGateway/,
-  testOptions: { responsible: false, priority: true, expiry: true, options: 'persist' }
-});
 export const WsStartTaskTest = new TaskTester({
   error: /EventAndGateway/,
   testOptions: { responsible: false, priority: true, expiry: false, options: undefined }
 });
-export const WaitTaskTest = new TaskTester({
-  error: /EventAndGateway/,
-  testOptions: { responsible: false, priority: false, expiry: false, options: undefined }
-});
-export const TaskIntermediateTaskTest = new TaskTester({ error: /EventAndGateway/ });
 export const TasksTest = new TasksTester();

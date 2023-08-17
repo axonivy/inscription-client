@@ -39,7 +39,7 @@ class MailHeader extends PartObject {
 
     await this.options.toggle();
     await this.error.choose('>> Ignore Exception');
-    await this.throw.check();
+    await this.throw.click();
   }
   async assertFill() {
     await this.subject.expectValue('subject');
@@ -61,7 +61,7 @@ class MailHeader extends PartObject {
     await this.cc.clear();
     await this.bcc.clear();
     await this.error.choose('ivy:error:email');
-    await this.throw.uncheck();
+    await this.throw.click();
   }
   async assertClear() {
     await this.subject.expectEmpty();
