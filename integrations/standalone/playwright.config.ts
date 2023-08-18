@@ -9,7 +9,7 @@ const config = defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0, //Maybe after undo is implemented: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? [['../custom-reporter.ts'], ['junit', { outputFile: 'report.xml' }]] : 'html',
+  reporter: process.env.CI ? [['../custom-reporter.ts'], ['junit', { outputFile: 'report.xml' }], ['list']] : 'html',
   use: {
     actionTimeout: 0,
     baseURL: 'http://localhost:3000',
