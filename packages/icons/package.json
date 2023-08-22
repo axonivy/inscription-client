@@ -19,7 +19,7 @@
   "types": "src-gen/ivy-icons",
   "module": "src-gen/ivy-icons",
   "devDependencies": {
-    "fantasticon": "^2.0.0",
+    "fantasticon": "^1.2.3",
     "rimraf": "^5.0.1"
   },
   "scripts": {
