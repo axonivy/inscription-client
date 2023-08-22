@@ -33,6 +33,7 @@
     "type": "tsc --noEmit",
     "start": "vite",
     "start:mock": "MOCK=true vite",
+    "start:mock:win": "SET MOCK=true&& vite",
     "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
