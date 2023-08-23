@@ -9,14 +9,16 @@ import {
   useMailMessagePart,
   useNamePart,
   useOutputPart,
-  useQueryPart
+  useQueryPart,
+  useCachePart
 } from '../../../components/parts';
 
 const DatabaseEditor = memo(() => {
   const name = useNamePart();
   const query = useQueryPart();
+  const cache = useCachePart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, output]} />;
+  return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, cache, output]} />;
 });
 
 const EMailEditor = memo(() => {

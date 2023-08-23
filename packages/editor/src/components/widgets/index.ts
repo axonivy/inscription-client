@@ -15,3 +15,4 @@ export { default as IvyIcon } from './IvyIcon';
 export { default as EmptyWidget } from './empty/EmptyWidget';
 export { default as ErrorFallback } from './error/ErrorFallback';
 export { default as Button } from './button/Button';
+export { default as Radio } from './radio/Radio';

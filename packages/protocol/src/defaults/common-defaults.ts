@@ -20,7 +20,6 @@ import {
   RequestData,
   StartCustomStartField,
   RestBody,
-  Cache,
   JavaTimeout,
   JavaEventTimeout,
   SoapOperation,
@@ -28,7 +27,8 @@ import {
   RestResponse,
   RestTarget,
   ErrorThrowData,
-  QueryData
+  QueryData,
+  CacheData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -150,6 +150,15 @@ export const DEFAULT_QUERY_DATA: Omit<QueryData, 'exceptionHandler'> = {
   }
 } as const;
 
+export const DEFAULT_CACHE_DATA: CacheData = {
+  cache: {
+    mode: 'DO_NOT_CACHE',
+    scope: 'APPLICATION',
+    group: { name: '', invalidation: 'NONE', time: '' },
+    entry: { name: '', invalidation: 'NONE', time: '' }
+  }
+};
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -170,9 +179,9 @@ export const DEFAULT_DATA: ElementData = {
     exceptionHandler: '',
     ...DEFAULT_ERROR_THROW_DATA,
     ...DEFAULT_QUERY_DATA,
+    ...DEFAULT_CACHE_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
     body: {} as RestBody,
-    cache: {} as Cache,
     javaClass: '',
     userConfig: '',
     timeout: {} as JavaTimeout & JavaEventTimeout,

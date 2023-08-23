@@ -1,0 +1,101 @@
+import { CacheArtifact, CacheData, CacheMode, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
+import { PartProps, usePartDirty, usePartState } from '../../../components/editors';
+import { useCacheData } from './useCacheData';
+import { PathContext, useValidations } from '../../../context';
+import { Collapsible, Radio, ScriptInput } from '../../../components/widgets';
+import { DataUpdater } from '../../../types/lambda';
+import { PathCollapsible, PathCollapsibleProps, PathFieldset } from '../common';
+
+export function useCachePart(): PartProps {
+  const { config, defaultConfig, initConfig, reset } = useCacheData();
+  const compareData = (data: CacheData) => [data.cache];
+  const validation = useValidations(['cache']);
+  const state = usePartState(compareData(defaultConfig), compareData(config), validation);
+  const dirty = usePartDirty(compareData(initConfig), compareData(config));
+  return { name: 'Data Cache', state, reset: { dirty, action: () => reset() }, content: <CachePart /> };
+}
+
+const CachePart = () => {
+  const { config, update, updateGroup, updateEntry } = useCacheData();
+  return (
+    <PathContext path='cache'>
+      <Radio
+        value={config.cache.mode}
+        onChange={change => update('mode', change)}
+        items={[
+          { label: 'Do not cache', value: 'DO_NOT_CACHE', description: 'Does not use caching at all.' },
+          { label: 'Cache', value: 'CACHE', description: 'Use if you call an operation that only reads data.' },
+          { label: 'Invalidate Cache', value: 'INVALIDATE_CACHE', description: 'Use if you call an operation that modifies data' }
+        ]}
+      />
+      {config.cache.mode !== 'DO_NOT_CACHE' && (
+        <>
+          <Collapsible label='Scope' defaultOpen={true}>
+            <Radio
+              value={config.cache.scope}
+              onChange={change => update('scope', change)}
+              items={[
+                { label: 'Session', value: 'SESSION', description: 'Use this option to cache user specific data.' },
+                { label: 'Application', value: 'APPLICATION', description: 'Use this option to cache global data.' }
+              ]}
+            />
+          </Collapsible>
+          <CacheLifetime
+            path='group'
+            label='Group'
+            description='Give the group a name that represents the entity of the result data.'
+            config={config.cache.group}
+            updater={updateGroup}
+            cacheMode={config.cache.mode}
+          />
+          <CacheLifetime
+            path='entry'
+            label='Entry'
+            description='Give the entry a name that represents the result data set (query).'
+            config={config.cache.entry}
+            updater={updateEntry}
+            cacheMode={config.cache.mode}
+          />
+        </>
+      )}
+    </PathContext>
+  );
+};
+
+type CacheLifetimeProps = Omit<PathCollapsibleProps, 'children'> & {
+  description: string;
+  config: CacheArtifact;
+  updater: DataUpdater<CacheArtifact>;
+  cacheMode: CacheMode;
+};
+
+const CacheLifetime = ({ description, config, updater, cacheMode, ...props }: CacheLifetimeProps) => {
+  return (
+    <PathCollapsible defaultOpen={true} {...props}>
+      <PathFieldset label='Name' title={description} path='name'>
+        <ScriptInput value={config.name} onChange={change => updater('name', change)} type={IVY_SCRIPT_TYPES.STRING} />
+      </PathFieldset>
+      {cacheMode === 'CACHE' && (
+        <PathFieldset label='Lifetime' path='time'>
+          <Radio
+            value={config.invalidation}
+            onChange={change => updater('invalidation', change)}
+            items={[
+              { label: 'Forever', value: 'NONE' },
+              { label: 'Fixed time', value: 'FIXED_TIME' },
+              { label: 'Duration', value: 'LIFETIME' }
+            ]}
+            orientation='horizontal'
+          />
+          {config.invalidation !== 'NONE' && (
+            <ScriptInput
+              value={config.time}
+              onChange={change => updater('time', change)}
+              type={config.invalidation === 'FIXED_TIME' ? IVY_SCRIPT_TYPES.TIME : IVY_SCRIPT_TYPES.NUMBER}
+            />
+          )}
+        </PathFieldset>
+      )}
+    </PathCollapsible>
+  );
+};

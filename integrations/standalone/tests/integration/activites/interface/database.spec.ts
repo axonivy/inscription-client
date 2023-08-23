@@ -1,8 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { NameTest, runTest } from '../../parts';
+import { NameTest, OutputTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
-import { OutputTest } from '../../parts';
 
 test.describe('Database', () => {
   let view: InscriptionView;
@@ -24,6 +23,10 @@ test.describe('Database', () => {
   test('Name', async () => {
     await runTest(view, NameTest);
   });
+
+  // test('Data Cache', async () => {
+  //   await runTest(view, DataCacheTest);
+  // });
 
   test('Output', async () => {
     await runTest(view, OutputTest);

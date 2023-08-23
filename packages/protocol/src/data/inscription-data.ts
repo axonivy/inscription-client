@@ -1,5 +1,7 @@
 import { NameData } from './part-data';
 import {
+  Cache,
+  CacheArtifact,
   Data,
   DbQuery,
   DbSqlStatement,
@@ -35,5 +37,7 @@ export type SchemaKeys =
   | keyof StartPermission
   | keyof ErrorDefinition
   | keyof DbQuery
-  | keyof DbSqlStatement;
+  | keyof DbSqlStatement
+  | keyof Cache
+  | keyof CacheArtifact;
 export type SchemaPath = Brand<string, 'SchemaPath'>;
