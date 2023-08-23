@@ -34,3 +34,5 @@ export type TriggerData = Pick<ConfigData, 'triggerable' | 'case' | 'task'>;
 export type RequestData = Pick<ConfigData, 'request' | 'permission'>;
 
 export type CodeData = Pick<ConfigData, 'code'>;
+
+export type ErrorThrowData = Pick<ConfigData, 'throws'>;

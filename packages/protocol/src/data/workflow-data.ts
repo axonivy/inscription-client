@@ -36,5 +36,6 @@ export const IVY_SCRIPT_TYPES = {
   ...CUSTOM_FIELD_TYPE,
   DURATION: 'Duration',
   BOOLEAN: 'Boolean',
-  INT: 'Integer'
+  INT: 'Integer',
+  BPM_ERROR: 'ch.ivyteam.ivy.bpm.error.BpmError'
 } as const;
