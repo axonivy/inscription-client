@@ -1,14 +1,14 @@
 import { render, screen, renderHook } from 'test-utils';
-import { useCodePart } from './CodePart';
+import { useOutputCodePart } from './OutputCodePart';
 import { PartStateFlag } from '../../editors';
 import { OutputData } from '@axonivy/inscription-protocol';
 
 const Part = () => {
-  const part = useCodePart();
+  const part = useOutputCodePart();
   return <>{part.content}</>;
 };
 
-describe('CodePart', () => {
+describe('OutputCodePart', () => {
   function renderPart(data?: OutputData) {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
@@ -35,7 +35,7 @@ describe('CodePart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<OutputData>) {
-    const { result } = renderHook(() => useCodePart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = renderHook(() => useOutputCodePart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -50,7 +50,7 @@ describe('CodePart', () => {
     let data: any = {
       config: { output: { code: 'code', map: {} }, sudo: true }
     };
-    const view = renderHook(() => useCodePart(), {
+    const view = renderHook(() => useOutputCodePart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { output: { code: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

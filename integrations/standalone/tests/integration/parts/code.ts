@@ -7,7 +7,7 @@ class Code extends PartObject {
   code: ScriptArea;
   sudo: Checkbox;
 
-  constructor(part: Part) {
+  constructor(part: Part, private readonly hasSudo = true) {
     super(part);
     this.code = part.scriptArea();
     this.sudo = part.checkbox('Disable Permission Checks');
@@ -15,23 +15,32 @@ class Code extends PartObject {
 
   async fill() {
     await this.code.fill('code');
-    await this.sudo.click();
+    if (this.hasSudo) {
+      await this.sudo.click();
+    }
   }
 
   async assertFill() {
     await this.code.expectValue('code');
-    await this.sudo.expectChecked();
+    if (this.hasSudo) {
+      await this.sudo.expectChecked();
+    }
   }
 
   async clear() {
     await this.code.clear();
-    await this.sudo.click();
+    if (this.hasSudo) {
+      await this.sudo.click();
+    }
   }
 
   async assertClear() {
     await this.code.expectEmpty();
-    await this.sudo.expectUnchecked();
+    if (this.hasSudo) {
+      await this.sudo.expectUnchecked();
+    }
   }
 }
 
-export const CodeTest = new NewPartTest('Code', (part: Part) => new Code(part));
+export const OutputCodeTest = new NewPartTest('Code', (part: Part) => new Code(part));
+export const CodeTest = new NewPartTest('Code', (part: Part) => new Code(part, false));
