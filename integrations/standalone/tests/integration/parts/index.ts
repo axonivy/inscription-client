@@ -6,6 +6,7 @@ export * from './code';
 export * from './condition';
 export * from './end-page';
 export * from './error-catch';
+export * from './error-throw';
 export * from './mail-attachments';
 export * from './mail-content';
 export * from './mail-header';

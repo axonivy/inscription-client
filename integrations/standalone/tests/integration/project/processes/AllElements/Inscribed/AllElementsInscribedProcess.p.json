@@ -286,5 +286,16 @@
       "connect" : [
         { "id" : "f13", "to" : "f10", "via" : [ { "x" : 744, "y" : 160 } ], "var" : "in2" }
       ]
+    }, {
+      "id" : "f24",
+      "type" : "ErrorStartEvent",
+      "name" : "test:error",
+      "config" : {
+        "errorCode" : "test:error"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 272 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
     } ]
 }

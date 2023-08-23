@@ -24,11 +24,11 @@ import {
   Cache,
   JavaTimeout,
   JavaEventTimeout,
-  ErrorDefinition,
   SoapOperation,
   SoapWsProcessException,
   RestResponse,
-  RestTarget
+  RestTarget,
+  ErrorThrowData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -126,6 +126,13 @@ export const DEFAULT_REQUEST_DATA: RequestData = {
   }
 } as const;
 
+export const DEFAULT_ERROR_THROW_DATA: ErrorThrowData = {
+  throws: {
+    cause: '',
+    error: ''
+  }
+} as const;
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -142,6 +149,8 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_MAIL_DATA,
     ...DEFAULT_TRIGGER_DATA,
     ...DEFAULT_REQUEST_DATA,
+    code: '',
+    ...DEFAULT_ERROR_THROW_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
     body: {} as RestBody,
     query: {} as DbQuery,
@@ -150,8 +159,6 @@ export const DEFAULT_DATA: ElementData = {
     userConfig: '',
     timeout: {} as JavaTimeout & JavaEventTimeout,
     guid: '',
-    code: '',
-    throws: {} as ErrorDefinition,
     link: '',
     clientId: '',
     operation: {} as SoapOperation,

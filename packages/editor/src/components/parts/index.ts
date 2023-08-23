@@ -19,3 +19,4 @@ export * from './mail/MailAttachmentPart';
 export * from './trigger/TriggerPart';
 export * from './request/RequestPart';
 export * from './code/CodePart';
+export * from './error/ErrorThrowPart';

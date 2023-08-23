@@ -1,6 +1,7 @@
 import { NameData } from './part-data';
 import {
   Data,
+  ErrorDefinition,
   InscriptionRequest,
   InscriptionSaveRequest,
   InscriptionType,
@@ -24,5 +25,11 @@ export type InscriptionSaveData = Omit<InscriptionSaveRequest, 'data'> & { data:
 
 export type ElementType = InscriptionType['id'];
 
-export type SchemaKeys = ValuesAsUnionDeep<SchemaKey> | keyof WfTask | keyof WfTask['expiry'] | keyof MailHeaders | keyof StartPermission;
+export type SchemaKeys =
+  | ValuesAsUnionDeep<SchemaKey>
+  | keyof WfTask
+  | keyof WfTask['expiry']
+  | keyof MailHeaders
+  | keyof StartPermission
+  | keyof ErrorDefinition;
 export type SchemaPath = Brand<string, 'SchemaPath'>;
