@@ -202,7 +202,7 @@
       "type" : "ProcessAnnotation",
       "name" : "Automatically calculate discount",
       "visual" : {
-        "at" : { "x" : 952, "y" : 392 },
+        "at" : { "x" : 1072, "y" : 384 },
         "size" : { "width" : 208, "height" : 30 },
         "description" : "Discount is calculated on basis of unit price and quantity"
       },
@@ -214,7 +214,7 @@
       "type" : "SubProcessCall",
       "name" : "Custom discount",
       "config" : {
-        "processCall" : "AllElements/MinimalInscription/SubProcess:call()"
+        "processCall" : "AllElements/Inscribed/AllElementsInscribedSubProcess:call(String,Integer,String,Double)"
       },
       "visual" : {
         "at" : { "x" : 1056, "y" : 192 }

@@ -7,6 +7,7 @@ export class InscriptionView {
 
   constructor(page: Page) {
     this.page = page;
+    page.emulateMedia({ reducedMotion: 'reduce' });
   }
 
   async selectElement(pid: string) {

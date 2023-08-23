@@ -1,13 +1,26 @@
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext, useDataContext } from '../../../context';
 import { SignalCatchData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { DataUpdater } from '../../../types/lambda';
+import { Consumer, DataUpdater } from '../../../types/lambda';
 
 export function useSignalCatchData(): ConfigDataContext<SignalCatchData> & {
   update: DataUpdater<SignalCatchData>;
+  updateSignal: Consumer<string>;
   resetData: () => void;
 } {
+  const { setData } = useDataContext();
   const { setConfig, ...config } = useConfigDataContext();
+
+  const updateSignal = (signalCode: string) => {
+    setData(
+      produce(draft => {
+        if (draft.name === draft.config.signalCode) {
+          draft.name = signalCode;
+        }
+        draft.config.signalCode = signalCode;
+      })
+    );
+  };
 
   const update: DataUpdater<SignalCatchData> = (field, value) => {
     setConfig(
@@ -25,5 +38,5 @@ export function useSignalCatchData(): ConfigDataContext<SignalCatchData> & {
       })
     );
 
-  return { ...config, update, resetData };
+  return { ...config, update, updateSignal, resetData };
 }

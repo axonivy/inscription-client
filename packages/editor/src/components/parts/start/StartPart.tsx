@@ -3,7 +3,6 @@ import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useStartData } from './useStartData';
 import { StartData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { useStartNameSyncher } from './useStartNameSyncher';
 import { MappingPart, ParameterTable, PathCollapsible, PathFieldset } from '../common';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
@@ -29,12 +28,11 @@ export function useStartPart(props?: StartPartProps): PartProps {
 }
 
 const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
-  const { config, updateSignature, update } = useStartData();
+  const { config, updateSignature, update } = useStartData(synchParams);
 
   const { context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'input' }, { variables: [], types: {} });
 
-  useStartNameSyncher(config, synchParams);
   const signatureFieldset = useFieldset();
   const codeFieldset = useFieldset();
   return (

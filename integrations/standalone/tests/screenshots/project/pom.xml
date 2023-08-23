@@ -26,7 +26,7 @@
           <engineListPageUrl>${engine.page.url}</engineListPageUrl>
           <deployToEngineApplication>${engine.test.app}</deployToEngineApplication>
           <additionalVmOptions>
-            -Divy.enable.lsp=true
+            -Dglsp.test.mode=true -Divy.enable.lsp=true
           </additionalVmOptions>
         </configuration>
       </plugin>

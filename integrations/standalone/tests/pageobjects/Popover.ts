@@ -7,7 +7,7 @@ export class Popover {
     this.locator = Popover.locator(page);
   }
 
-  private static locator(page: Page) {
+  public static locator(page: Page) {
     return page.locator(`.popover-content`);
   }
 

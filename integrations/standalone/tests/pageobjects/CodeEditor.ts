@@ -1,10 +1,12 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 class CodeEditor {
-  protected contentAssist: Locator;
+  private readonly contentAssist: Locator;
+  private readonly code: Locator;
 
   constructor(readonly page: Page, readonly locator: Locator, readonly value: Locator, readonly parentLocator: Locator) {
     this.contentAssist = parentLocator.locator('div.suggest-widget');
+    this.code = parentLocator.locator('div.code-input').first();
   }
 
   async triggerContentAssist() {
@@ -19,17 +21,22 @@ class CodeEditor {
     await this.focus();
     await this.clearContent();
     await this.page.keyboard.type(value);
-    await this.page.locator('*:focus').blur();
+    await this.blur();
   }
 
   async clear() {
     await this.focus();
     await this.clearContent();
-    await this.page.locator('*:focus').blur();
+    await this.blur();
   }
 
   async focus() {
     await this.locator.click();
+    await expect(this.code).toBeVisible();
+  }
+
+  private async blur() {
+    await this.page.locator('*:focus').blur();
   }
 
   protected async clearContent() {

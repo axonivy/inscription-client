@@ -38,7 +38,8 @@ export class ResponsibleSelect {
 
   async chooseType(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>) {
     await this.type.click();
-    await this.locator.getByRole('option', { name: type }).first().click();
+    await this.locator.getByRole('option', { name: type, exact: true }).first().click();
+    await this.expectType(type);
   }
 
   async expectType(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>) {

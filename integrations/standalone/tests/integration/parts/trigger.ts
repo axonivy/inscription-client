@@ -22,12 +22,12 @@ class Trigger extends PartObject {
   }
 
   async fill() {
-    await this.triggerable.check();
+    await this.triggerable.click();
     await this.responsible.chooseType('Role from Attr.');
     await this.responsible.fill('Test');
     await this.options.expectIsClosed();
     await this.options.toggle();
-    await this.attach.uncheck();
+    await this.attach.click();
     await this.delay.fill('1d');
   }
 
@@ -44,21 +44,21 @@ class Trigger extends PartObject {
     await this.responsible.chooseType('Role');
     await this.responsible.fill('Everybody');
     await this.options.expectIsOpen();
-    await this.attach.check();
+    await this.attach.click();
     await this.delay.clear();
-    await this.triggerable.uncheck();
+    await this.triggerable.click();
   }
 
   async assertClear() {
     await this.triggerable.expectUnchecked();
-    await this.triggerable.check();
+    await this.triggerable.click();
     await this.responsible.expectType('Role');
     await this.responsible.expectValue('Everybody');
     await this.options.expectIsClosed();
     await this.options.toggle();
     await this.attach.expectChecked();
     await this.delay.expectEmpty();
-    await this.triggerable.uncheck();
+    await this.triggerable.click();
   }
 }
 

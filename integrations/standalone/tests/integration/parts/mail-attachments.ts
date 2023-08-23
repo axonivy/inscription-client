@@ -7,7 +7,7 @@ class Attachements extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.table = part.table(['text']);
+    this.table = part.table(['expression']);
   }
 
   async fill() {
