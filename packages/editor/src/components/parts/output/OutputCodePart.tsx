@@ -5,16 +5,16 @@ import { useOutputData } from './useOutputData';
 import { PathContext, useValidations } from '../../../context';
 import { PathFieldset } from '../common';
 
-export function useCodePart(): PartProps {
+export function useOutputCodePart(): PartProps {
   const { config, defaultConfig, initConfig, resetCode } = useOutputData();
   const compareData = (data: OutputData) => [data.output.code, data.sudo];
   const validation = useValidations(['output', 'code']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Code', state, reset: { dirty, action: () => resetCode() }, content: <CodePart /> };
+  return { name: 'Code', state, reset: { dirty, action: () => resetCode() }, content: <OutputCodePart /> };
 }
 
-const CodePart = () => {
+const OutputCodePart = () => {
   const { config, update, updateSudo } = useOutputData();
   const codeFieldset = useFieldset();
 

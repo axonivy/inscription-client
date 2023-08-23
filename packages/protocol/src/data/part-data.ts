@@ -32,3 +32,5 @@ export type MailData = Pick<ConfigData, 'headers' | 'failIfMissingAttachments' |
 export type TriggerData = Pick<ConfigData, 'triggerable' | 'case' | 'task'>;
 
 export type RequestData = Pick<ConfigData, 'request' | 'permission'>;
+
+export type CodeData = Pick<ConfigData, 'code'>;

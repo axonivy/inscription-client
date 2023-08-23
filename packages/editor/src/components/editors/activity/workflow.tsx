@@ -5,7 +5,7 @@ import NameEditor from '../NameEditor';
 import { IvyIcons } from '@axonivy/editor-icons';
 import {
   useCasePart,
-  useCodePart,
+  useOutputCodePart,
   useDialogCallPart,
   useNamePart,
   useOutputPart,
@@ -33,7 +33,7 @@ const UserTaskEditor = memo(() => {
 const ScriptEditor = memo(() => {
   const name = useNamePart();
   const output = useOutputPart({ hideCode: true });
-  const code = useCodePart();
+  const code = useOutputCodePart();
   return <InscriptionEditor icon={IvyIcons.Script} parts={[name, output, code]} />;
 });
 

@@ -1,6 +1,6 @@
 export * from './name/NamePart';
 export * from './output/OutputPart';
-export * from './output/CodePart';
+export * from './output/OutputCodePart';
 export * from './start/StartPart';
 export * from './result/ResultPart';
 export * from './case/CasePart';
@@ -18,3 +18,4 @@ export * from './mail/MailMessagePart';
 export * from './mail/MailAttachmentPart';
 export * from './trigger/TriggerPart';
 export * from './request/RequestPart';
+export * from './code/CodePart';
