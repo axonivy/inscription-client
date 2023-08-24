@@ -1,5 +1,6 @@
 import { AlternativeConditions, ConnectorRef, NodeRef } from '@axonivy/inscription-protocol';
 import { PID } from '../../../utils/pid';
+import { arraymove, indexOf } from '../../../utils/array';
 
 export interface Condition {
   fid: string;
@@ -39,30 +40,16 @@ export namespace Condition {
   }
 
   export function remove(conditions: Condition[], id: string): Condition[] {
-    const index = indexOf(conditions, id);
+    const index = indexOf(conditions, obj => obj.fid === id);
     conditions.splice(index, 1);
     return conditions;
   }
 
   export function move(conditions: Condition[], moveId: string, targetId: string): Condition[] {
-    const fromIndex = indexOf(conditions, moveId);
-    const toIndex = indexOf(conditions, targetId);
+    const fromIndex = indexOf(conditions, obj => obj.fid === moveId);
+    const toIndex = indexOf(conditions, obj => obj.fid === targetId);
     arraymove(conditions, fromIndex, toIndex);
     return conditions;
-  }
-
-  function indexOf(conditions: Condition[], fid: string): number {
-    const cond = conditions.find(cond => cond.fid === fid);
-    if (cond) {
-      return conditions.indexOf(cond);
-    }
-    return -1;
-  }
-
-  function arraymove(arr: Condition[], fromIndex: number, toIndex: number) {
-    var element = arr[fromIndex];
-    arr.splice(fromIndex, 1);
-    arr.splice(toIndex, 0, element);
   }
 
   export function to(conditions: Condition[]): AlternativeConditions {

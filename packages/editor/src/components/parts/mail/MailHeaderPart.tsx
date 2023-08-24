@@ -16,7 +16,7 @@ export function useMailHeaderPart(): PartProps {
 }
 
 const MailHeaderPart = () => {
-  const { config, update, updateHeader } = useMailData();
+  const { config, defaultConfig, update, updateHeader } = useMailData();
   const subjectFieldset = useFieldset();
   const fromFieldset = useFieldset();
   const replyToFieldset = useFieldset();
@@ -47,7 +47,10 @@ const MailHeaderPart = () => {
           <MacroInput value={config.headers.bcc} onChange={change => updateHeader('bcc', change)} {...bccFieldset.inputProps} />
         </PathFieldset>
       </PathContext>
-      <Collapsible label='Options' defaultOpen={config.failIfMissingAttachments || config.exceptionHandler !== IVY_EXCEPTIONS.mail}>
+      <Collapsible
+        label='Options'
+        defaultOpen={config.failIfMissingAttachments || config.exceptionHandler !== defaultConfig.exceptionHandler}
+      >
         <PathFieldset label='Error' {...exceptionFieldset.labelProps} path='exceptionHandler'>
           <ExceptionSelect
             value={config.exceptionHandler}

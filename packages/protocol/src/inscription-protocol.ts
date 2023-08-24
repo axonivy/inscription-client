@@ -1,6 +1,9 @@
 import {
   CallableStart,
   ConnectorRef,
+  DatabaseColumn,
+  DatabaseColumnRequest,
+  DatabaseTablesRequest,
   ErrorMeta,
   EventCodeMeta,
   InscriptionActionArgs,
@@ -21,6 +24,10 @@ export interface InscriptionMetaRequestTypes {
   'meta/workflow/expiryErrors': [InscriptionContext, ErrorMeta[]];
   'meta/workflow/errorCodes': [InscriptionContext, EventCodeMeta[]];
   'meta/workflow/signalCodes': [InscriptionContext, EventCodeMeta[]];
+
+  'meta/database/names': [InscriptionContext, string[]];
+  'meta/database/tables': [DatabaseTablesRequest, string[]];
+  'meta/database/columns': [DatabaseColumnRequest, DatabaseColumn[]];
 
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];

@@ -36,3 +36,5 @@ export type RequestData = Pick<ConfigData, 'request' | 'permission'>;
 export type CodeData = Pick<ConfigData, 'code'>;
 
 export type ErrorThrowData = Pick<ConfigData, 'throws'>;
+
+export type QueryData = Pick<ConfigData, 'query' | 'exceptionHandler'>;

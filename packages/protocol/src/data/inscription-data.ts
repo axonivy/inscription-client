@@ -1,6 +1,8 @@
 import { NameData } from './part-data';
 import {
   Data,
+  DbQuery,
+  DbSqlStatement,
   ErrorDefinition,
   InscriptionRequest,
   InscriptionSaveRequest,
@@ -31,5 +33,7 @@ export type SchemaKeys =
   | keyof WfTask['expiry']
   | keyof MailHeaders
   | keyof StartPermission
-  | keyof ErrorDefinition;
+  | keyof ErrorDefinition
+  | keyof DbQuery
+  | keyof DbSqlStatement;
 export type SchemaPath = Brand<string, 'SchemaPath'>;

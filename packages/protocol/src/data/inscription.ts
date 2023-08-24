@@ -25,6 +25,7 @@ export interface Inscription {
   inscriptionValidation: InscriptionValidation[];
   boolean: boolean;
   inscriptionActionArgs: InscriptionActionArgs;
+  void: Void;
   inscriptionSaveRequest: InscriptionSaveRequest;
   callableStart: CallableStart[];
   scriptingDataArgs: ScriptingDataArgs;
@@ -32,7 +33,11 @@ export interface Inscription {
   errorMeta: ErrorMeta[];
   eventCodeMeta: EventCodeMeta[];
   roleMeta: RoleMeta[];
-  connectorRef: ConnectorRef;
+  connectorRef: ConnectorRef[];
+  string: string[];
+  databaseColumnRequest: DatabaseColumnRequest;
+  databaseColumn: DatabaseColumn[];
+  databaseTablesRequest: DatabaseTablesRequest;
   schemaKey: SchemaKey;
   [k: string]: unknown;
 }
@@ -509,6 +514,7 @@ export interface OpenCustomField {
   name: string;
   type: CustomFieldConfigType;
 }
+export interface Void {}
 export interface InscriptionSaveRequest {
   context: InscriptionContext;
   data: Data;
@@ -564,6 +570,20 @@ export interface NodeRef {
   name: string;
   pid: PID;
   type: InscriptionType;
+}
+export interface DatabaseColumnRequest {
+  context: InscriptionContext;
+  database: string;
+  table: string;
+}
+export interface DatabaseColumn {
+  ivyType: string;
+  name: string;
+  type: string;
+}
+export interface DatabaseTablesRequest {
+  context: InscriptionContext;
+  database: string;
 }
 export interface SchemaKey {
   Common: "output" | "exceptionHandler" | "code" | "map";

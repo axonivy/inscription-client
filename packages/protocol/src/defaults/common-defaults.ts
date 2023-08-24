@@ -20,7 +20,6 @@ import {
   RequestData,
   StartCustomStartField,
   RestBody,
-  DbQuery,
   Cache,
   JavaTimeout,
   JavaEventTimeout,
@@ -28,7 +27,8 @@ import {
   SoapWsProcessException,
   RestResponse,
   RestTarget,
-  ErrorThrowData
+  ErrorThrowData,
+  QueryData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -90,7 +90,7 @@ export const DEFAULT_SIGNAL_CATCH_DATA: SignalCatchData = {
   attachToBusinessCase: true
 } as const;
 
-export const DEFAULT_MAIL_DATA: MailData = {
+export const DEFAULT_MAIL_DATA: Omit<MailData, 'exceptionHandler'> = {
   headers: {
     subject: '',
     from: '',
@@ -101,8 +101,7 @@ export const DEFAULT_MAIL_DATA: MailData = {
   },
   failIfMissingAttachments: false,
   attachments: [] as string[],
-  message: { body: '', contentType: MAIL_TYPE.plain },
-  exceptionHandler: IVY_EXCEPTIONS.mail
+  message: { body: '', contentType: MAIL_TYPE.plain }
 } as const;
 
 export const DEFAULT_TRIGGER_DATA: Pick<TriggerData, 'triggerable'> = {
@@ -133,6 +132,24 @@ export const DEFAULT_ERROR_THROW_DATA: ErrorThrowData = {
   }
 } as const;
 
+export const DEFAULT_QUERY_DATA: Omit<QueryData, 'exceptionHandler'> = {
+  query: {
+    dbName: '',
+    sql: {
+      kind: 'READ',
+      table: '',
+      condition: '',
+      fields: {},
+      select: ['*'] as string[],
+      orderBy: [] as string[],
+      stmt: '',
+      quote: false
+    },
+    offset: '0',
+    limit: '2147483647'
+  }
+} as const;
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -150,10 +167,11 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_TRIGGER_DATA,
     ...DEFAULT_REQUEST_DATA,
     code: '',
+    exceptionHandler: '',
     ...DEFAULT_ERROR_THROW_DATA,
+    ...DEFAULT_QUERY_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
     body: {} as RestBody,
-    query: {} as DbQuery,
     cache: {} as Cache,
     javaClass: '',
     userConfig: '',
