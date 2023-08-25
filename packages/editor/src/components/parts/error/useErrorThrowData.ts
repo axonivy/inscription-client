@@ -1,4 +1,4 @@
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext, useDataContext } from '../../../context';
 import { ErrorThrowData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { DataUpdater } from '../../../types/lambda';
@@ -7,12 +7,16 @@ export function useErrorThrowData(): ConfigDataContext<ErrorThrowData> & {
   update: DataUpdater<ErrorThrowData['throws']>;
   reset: () => void;
 } {
+  const { setData } = useDataContext();
   const { setConfig, ...config } = useConfigDataContext();
 
   const update: DataUpdater<ErrorThrowData['throws']> = (field, value) => {
-    setConfig(
+    setData(
       produce(draft => {
-        draft.throws[field] = value;
+        if (field === 'error' && draft.name === draft.config.throws.error) {
+          draft.name = value;
+        }
+        draft.config.throws[field] = value;
       })
     );
   };
