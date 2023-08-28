@@ -1,4 +1,4 @@
-import { WfActivatorType, WfFieldType, WfLevel } from './inscription';
+import { QueryKind, WfActivatorType, WfFieldType, WfLevel } from './inscription';
 
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
@@ -29,7 +29,21 @@ export const MAIL_TYPE = {
 
 export const IVY_EXCEPTIONS = {
   mail: 'ivy:error:email',
-  security: 'ivy:security:forbidden'
+  security: 'ivy:security:forbidden',
+  database: 'ivy:error:database'
+} as const;
+
+export const QUERY_KIND = {
+  READ: 'READ',
+  WRITE: 'WRITE',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+  ANY: 'ANY'
+} as const satisfies Record<QueryKind, QueryKind>;
+
+export const QUERY_ORDER = {
+  ASCENDING: 'ASCENDING',
+  DESCENDING: 'DESCENDING'
 } as const;
 
 export const IVY_SCRIPT_TYPES = {

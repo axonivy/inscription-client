@@ -82,6 +82,6 @@ describe('MailHeaderPart', () => {
     expect(data.config.headers.bcc).toEqual('');
     expect(data.config.headers.to).toEqual('');
     expect(data.config.failIfMissingAttachments).toBeFalsy();
-    expect(data.config.exceptionHandler).toEqual('ivy:error:email');
+    expect(data.config.exceptionHandler).toEqual('');
   });
 });
