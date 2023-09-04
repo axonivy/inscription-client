@@ -21,3 +21,4 @@ export * from './request/RequestPart';
 export * from './code/CodePart';
 export * from './error/ErrorThrowPart';
 export * from './query/QueryPart';
+export * from './cache/CachePart';

@@ -49,6 +49,7 @@ export const QUERY_ORDER = {
 export const IVY_SCRIPT_TYPES = {
   ...CUSTOM_FIELD_TYPE,
   DURATION: 'Duration',
+  TIME: 'Time',
   BOOLEAN: 'Boolean',
   INT: 'Integer',
   BPM_ERROR: 'ch.ivyteam.ivy.bpm.error.BpmError'
