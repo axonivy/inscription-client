@@ -3,6 +3,7 @@ import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import { NameTest, OutputTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 import { QueryAnyTest, QueryDeleteTest, QueryReadTest, QueryUpdateTest, QueryWriteTest } from '../../parts/query';
+import { DataCacheTest } from '../../parts/db-cache';
 
 test.describe('Database', () => {
   let view: InscriptionView;
@@ -42,9 +43,9 @@ test.describe('Database', () => {
     await runTest(view, QueryAnyTest);
   });
 
-  // test('Data Cache', async () => {
-  //   await runTest(view, DataCacheTest);
-  // });
+  test('Data Cache', async () => {
+    await runTest(view, DataCacheTest);
+  });
 
   test('Output', async () => {
     await runTest(view, OutputTest);
