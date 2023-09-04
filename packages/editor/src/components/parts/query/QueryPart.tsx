@@ -13,9 +13,10 @@ import { DbExceptionHandler } from './database/DbExceptionHandler';
 
 export function useQueryPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useQueryData();
-  const validations = useValidations(['query']);
-  const compareData = (data: QueryData) => [data];
-  const state = usePartState(compareData(defaultConfig), compareData(config), validations);
+  const queryVal = useValidations(['query']);
+  const exceptionVal = useValidations(['exceptionHandler']);
+  const compareData = (data: QueryData) => [data.query, data.exceptionHandler];
+  const state = usePartState(compareData(defaultConfig), compareData(config), [...queryVal, ...exceptionVal]);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Query', state: state, reset: { dirty, action: () => reset() }, content: <QueryPart /> };
 }

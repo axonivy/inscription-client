@@ -10,7 +10,8 @@ import {
   ConnectorRef,
   EventCodeMeta,
   InscriptionMetaRequestTypes,
-  ScriptingDataArgs
+  ScriptingDataArgs,
+  DatabaseColumn
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
@@ -40,6 +41,9 @@ type ContextHelperProps = {
     outScripting?: VariableInfo;
     inScripting?: VariableInfo;
     connectors?: DeepPartial<ConnectorRef[]>;
+    databases?: string[];
+    tables?: string[];
+    columns?: DatabaseColumn[];
   };
   editor?: { title?: string; readonly?: boolean };
 };
@@ -94,6 +98,12 @@ const ContextHelper = (
             return Promise.resolve(props.meta?.inScripting ?? { types: {}, variables: [] });
           case 'meta/connector/out':
             return Promise.resolve(props.meta?.connectors ? (props.meta.connectors as ConnectorRef[]) : []);
+          case 'meta/database/names':
+            return Promise.resolve(props.meta?.databases ?? []);
+          case 'meta/database/tables':
+            return Promise.resolve(props.meta?.tables ?? []);
+          case 'meta/database/columns':
+            return Promise.resolve(props.meta?.columns ?? []);
           default:
             throw Error('mock meta path not programmed');
         }

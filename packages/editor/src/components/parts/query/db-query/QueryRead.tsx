@@ -4,14 +4,12 @@ import { TableSelect } from '../database/TableSelect';
 import { TableReadFields } from '../database/TableReadFields';
 import { TableSort } from '../database/TableSort';
 
-export const QueryRead = () => {
-  return (
-    <>
-      <TableSelect />
-      <TableReadFields />
-      <Condition />
-      <TableSort />
-      <Limit />
-    </>
-  );
-};
+export const QueryRead = () => (
+  <>
+    <TableSelect />
+    <TableReadFields />
+    <Condition />
+    <TableSort />
+    <Limit />
+  </>
+);
