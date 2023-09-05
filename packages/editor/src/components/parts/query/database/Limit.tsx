@@ -1,5 +1,5 @@
-import { Collapsible, ScriptInput, useFieldset } from '../../../../components/widgets';
-import { PathFieldset } from '../../common';
+import { ScriptInput, useFieldset } from '../../../../components/widgets';
+import { PathFieldset, ValidationCollapsible } from '../../common';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { useQueryData } from '../useQueryData';
 
@@ -9,9 +9,10 @@ export const Limit = () => {
   const limitFieldset = useFieldset();
   const offsetFieldset = useFieldset();
   return (
-    <Collapsible
+    <ValidationCollapsible
       label='Limit'
       defaultOpen={config.query.limit !== defaultConfig.query.limit || config.query.offset !== defaultConfig.query.offset}
+      paths={['limit', 'offset']}
     >
       <PathFieldset label='Lot size' path='limit' {...limitFieldset.labelProps}>
         <ScriptInput
@@ -29,6 +30,6 @@ export const Limit = () => {
           {...offsetFieldset.inputProps}
         />
       </PathFieldset>
-    </Collapsible>
+    </ValidationCollapsible>
   );
 };

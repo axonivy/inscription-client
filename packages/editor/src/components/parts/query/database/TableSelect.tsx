@@ -1,4 +1,4 @@
-import { useEditorContext, useMeta } from '../../../../context';
+import { PathContext, useEditorContext, useMeta } from '../../../../context';
 import { Combobox, ComboboxItem, useFieldset } from '../../../widgets';
 import { PathFieldset } from '../../common';
 import { useQueryData } from '../useQueryData';
@@ -13,14 +13,16 @@ export const TableSelect = () => {
 
   const fieldset = useFieldset();
   return (
-    <PathFieldset label='Table' path='table' {...fieldset.labelProps}>
-      <Combobox
-        value={config.query.sql.table}
-        onChange={change => updateSql('table', change)}
-        comboboxItem={item => <span>{item.value}</span>}
-        items={tableItems}
-        {...fieldset.inputProps}
-      />
-    </PathFieldset>
+    <PathContext path='sql'>
+      <PathFieldset label='Table' path='table' {...fieldset.labelProps}>
+        <Combobox
+          value={config.query.sql.table}
+          onChange={change => updateSql('table', change)}
+          comboboxItem={item => <span>{item.value}</span>}
+          items={tableItems}
+          {...fieldset.inputProps}
+        />
+      </PathFieldset>
+    </PathContext>
   );
 };
