@@ -7,6 +7,7 @@ describe('TableReadFields', () => {
     await CollapsableUtil.assertClosed('Fields');
     await CollapsableUtil.toggle('Fields');
     expect(screen.getByRole('checkbox')).toBeChecked();
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
 
   test('data', async () => {

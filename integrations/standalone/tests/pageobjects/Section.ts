@@ -26,6 +26,6 @@ export class Section extends Composite {
   }
 
   private static toggleButtonLocatorInternal(page: Page, label: string) {
-    return page.getByRole('button', { name: label });
+    return page.locator(`.collapsible-trigger:has-text("${label}")`);
   }
 }

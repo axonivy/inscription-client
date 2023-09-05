@@ -1,6 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
 import { Popover } from './Popover';
 import { ScriptCell } from './CodeEditor';
+import { Select } from './Select';
 
 export class Table {
   private readonly rows: Locator;
@@ -48,10 +49,10 @@ export class Table {
   }
 }
 
-export type ColumnType = 'label' | 'text' | 'expression';
+export type ColumnType = 'label' | 'text' | 'expression' | 'select';
 
 export class Row {
-  private readonly locator: Locator;
+  public readonly locator: Locator;
 
   constructor(readonly page: Page, rowsLocator: Locator, row: number, readonly columns: ColumnType[]) {
     this.locator = rowsLocator.nth(row);
@@ -95,10 +96,12 @@ export class Row {
 export class Cell {
   private readonly locator: Locator;
   private readonly textbox: Locator;
+  private readonly select: Select;
 
   constructor(readonly page: Page, rowLocator: Locator, column: number, readonly columnType: ColumnType) {
     this.locator = rowLocator.getByRole('cell').nth(column);
     this.textbox = this.locator.getByRole('textbox');
+    this.select = new Select(page, this.locator);
   }
 
   async fill(value: string) {
@@ -111,6 +114,9 @@ export class Cell {
       case 'expression':
         await this.fillExpression(value);
         break;
+      case 'select':
+        await this.choose(value);
+        break;
     }
   }
 
@@ -121,7 +127,11 @@ export class Cell {
   }
 
   async expectValue(value: string) {
-    await expect(this.textbox).toHaveValue(value);
+    if (this.columnType === 'select') {
+      await this.select.expectValue(value);
+    } else {
+      await expect(this.textbox).toHaveValue(value);
+    }
   }
 
   async expectEmpty() {
@@ -137,5 +147,9 @@ export class Cell {
   private async fillExpression(value: string) {
     await this.edit(value);
     await new Popover(this.page).close();
+  }
+
+  private async choose(value: string) {
+    await this.select.choose(value);
   }
 }
