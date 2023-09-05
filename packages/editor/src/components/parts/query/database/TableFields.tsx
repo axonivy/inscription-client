@@ -23,6 +23,9 @@ export const TableFields = () => {
     const columnData = columnMetas.map<Column>(c => {
       return { ...c, expression: fields[c.name] ?? '' };
     });
+    Object.keys(fields)
+      .filter(field => !columnData.find(column => column.name === field))
+      .forEach(unknown => columnData.push({ name: unknown, expression: fields[unknown], type: '', ivyType: '' }));
     setData(columnData);
   }, [columnMetas, config.query.sql.fields]);
 
