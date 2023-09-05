@@ -7,6 +7,7 @@ import { Checkbox } from './Checkbox';
 import { TextArea } from './TextArea';
 import { Tags } from './Tags';
 import { Combobox } from './Combobox';
+import { RadioGroup } from './RadioGroup';
 
 export abstract class Composite {
   readonly page: Page;
@@ -23,6 +24,10 @@ export abstract class Composite {
 
   checkbox(label: string) {
     return new Checkbox(this.locator, label);
+  }
+
+  radioGroup() {
+    return new RadioGroup(this.locator);
   }
 
   select(label?: string) {

@@ -1,10 +1,9 @@
-import { CacheArtifact, CacheData, CacheMode, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
+import { CacheData } from '@axonivy/inscription-protocol';
 import { PartProps, usePartDirty, usePartState } from '../../../components/editors';
 import { useCacheData } from './useCacheData';
 import { PathContext, useValidations } from '../../../context';
-import { Collapsible, Radio, ScriptInput } from '../../../components/widgets';
-import { DataUpdater } from '../../../types/lambda';
-import { PathCollapsible, PathCollapsibleProps, PathFieldset } from '../common';
+import { Collapsible, Radio } from '../../../components/widgets';
+import { CacheLifetime } from './CacheLifetime';
 
 export function useCachePart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useCacheData();
@@ -59,43 +58,5 @@ const CachePart = () => {
         </>
       )}
     </PathContext>
-  );
-};
-
-type CacheLifetimeProps = Omit<PathCollapsibleProps, 'children'> & {
-  description: string;
-  config: CacheArtifact;
-  updater: DataUpdater<CacheArtifact>;
-  cacheMode: CacheMode;
-};
-
-const CacheLifetime = ({ description, config, updater, cacheMode, ...props }: CacheLifetimeProps) => {
-  return (
-    <PathCollapsible defaultOpen={true} {...props}>
-      <PathFieldset label='Name' title={description} path='name'>
-        <ScriptInput value={config.name} onChange={change => updater('name', change)} type={IVY_SCRIPT_TYPES.STRING} />
-      </PathFieldset>
-      {cacheMode === 'CACHE' && (
-        <PathFieldset label='Lifetime' path='time'>
-          <Radio
-            value={config.invalidation}
-            onChange={change => updater('invalidation', change)}
-            items={[
-              { label: 'Forever', value: 'NONE' },
-              { label: 'Fixed time', value: 'FIXED_TIME' },
-              { label: 'Duration', value: 'LIFETIME' }
-            ]}
-            orientation='horizontal'
-          />
-          {config.invalidation !== 'NONE' && (
-            <ScriptInput
-              value={config.time}
-              onChange={change => updater('time', change)}
-              type={config.invalidation === 'FIXED_TIME' ? IVY_SCRIPT_TYPES.TIME : IVY_SCRIPT_TYPES.NUMBER}
-            />
-          )}
-        </PathFieldset>
-      )}
-    </PathCollapsible>
   );
 };
