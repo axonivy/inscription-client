@@ -76,8 +76,11 @@ export class ScriptInput extends CodeEditor {
 }
 
 export class MacroEditor extends CodeEditor {
-  constructor(page: Page, parentLocator: Locator, label: string) {
-    const locator = parentLocator.getByLabel(label, { exact: true }).first();
+  constructor(page: Page, parentLocator: Locator, label?: string) {
+    let locator = parentLocator.getByRole('status');
+    if (label) {
+      locator = parentLocator.getByLabel(label, { exact: true }).first();
+    }
     super(page, locator, locator, parentLocator);
   }
 

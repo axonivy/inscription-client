@@ -25,7 +25,7 @@ export abstract class Composite {
     return new Checkbox(this.locator, label);
   }
 
-  select(label: string) {
+  select(label?: string) {
     return new Select(this.page, this.locator, { label });
   }
 
@@ -41,7 +41,7 @@ export abstract class Composite {
     return new MacroEditor(this.page, this.locator, label);
   }
 
-  macroArea(label: string) {
+  macroArea(label?: string) {
     return new MacroEditor(this.page, this.locator, label);
   }
 
