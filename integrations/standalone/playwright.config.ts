@@ -1,5 +1,21 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const browsers = () => {
+  const chrome = { name: 'chromium', use: { ...devices['Desktop Chrome'] } };
+  const firefox = { name: 'firefox', use: { ...devices['Desktop Firefox'] } };
+  const webkit = { name: 'webkit', use: { ...devices['Desktop Safari'] } };
+  switch (process.env.BROWSERS) {
+    case 'chrome':
+      return [chrome];
+    case 'firefox':
+      return [firefox];
+    case 'webkit':
+      return [webkit];
+    default:
+      return [chrome, firefox, webkit];
+  }
+};
+
 const config = defineConfig({
   testDir: './tests',
   timeout: 60 * 1000,
@@ -17,28 +33,7 @@ const config = defineConfig({
     headless: process.env.CI ? true : false
   },
 
-  projects: [
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome']
-      }
-    },
-
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox']
-      }
-    },
-
-    {
-      name: 'webkit',
-      use: {
-        ...devices['Desktop Safari']
-      }
-    }
-  ],
+  projects: browsers(),
 
   /* Run your local dev server before starting the tests */
   webServer: {
