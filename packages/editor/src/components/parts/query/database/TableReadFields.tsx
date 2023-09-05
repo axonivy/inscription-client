@@ -71,8 +71,8 @@ export const TableReadFields = () => {
   };
 
   return (
-    <PathCollapsible label='Fields' path='fields'>
-      <Checkbox label='Select all fields' value={selectAll} onChange={change => updateSql('select', selectAll ? [] : ['*'])} />
+    <PathCollapsible label='Fields' path='fields' defaultOpen={!selectAll}>
+      <Checkbox label='Select all fields' value={selectAll} onChange={() => updateSql('select', selectAll ? [] : ['*'])} />
       {!selectAll && (
         <Table>
           <thead>

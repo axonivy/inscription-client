@@ -10,7 +10,7 @@ export namespace SelectUtil {
     if (options?.label) {
       return screen.getByRole('combobox', { name: options.label });
     }
-    if (options?.index) {
+    if (options?.index !== undefined) {
       return screen.getAllByRole('combobox')[options.index];
     }
     return screen.getByRole('combobox');

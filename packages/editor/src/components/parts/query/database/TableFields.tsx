@@ -77,7 +77,7 @@ export const TableFields = () => {
   });
 
   return (
-    <PathCollapsible label='Fields' path='fields'>
+    <PathCollapsible label='Fields' path='fields' defaultOpen={Object.keys(config.query.sql.fields).length > 0}>
       <Table>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (

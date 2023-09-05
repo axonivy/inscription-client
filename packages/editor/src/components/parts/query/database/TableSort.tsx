@@ -125,7 +125,7 @@ export const TableSort = () => {
   };
 
   return (
-    <PathCollapsible label='Sort' path='orderBy'>
+    <PathCollapsible label='Sort' path='orderBy' defaultOpen={config.query.sql.orderBy.length > 0}>
       <Table>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
