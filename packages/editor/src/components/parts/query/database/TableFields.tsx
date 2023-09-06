@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useEditorContext, useMeta } from '../../../../context';
-import { PathCollapsible } from '../../common';
+import { PathContext, useEditorContext, useMeta } from '../../../../context';
+import { PathCollapsible, ValidationRow } from '../../common';
 import { useQueryData } from '../useQueryData';
 import { ColumnDef, SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { ScriptCell, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
@@ -80,29 +80,31 @@ export const TableFields = () => {
   });
 
   return (
-    <PathCollapsible label='Fields' path='fields' defaultOpen={Object.keys(config.query.sql.fields).length > 0}>
-      <Table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </PathCollapsible>
+    <PathContext path='sql'>
+      <PathCollapsible label='Fields' path='fields' defaultOpen={Object.keys(config.query.sql.fields).length > 0}>
+        <Table>
+          <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <TableHeader key={header.id} colSpan={header.colSpan}>
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHeader>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map(row => (
+              <ValidationRow key={row.id} rowPathSuffix={row.original.name}>
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                ))}
+              </ValidationRow>
+            ))}
+          </tbody>
+        </Table>
+      </PathCollapsible>
+    </PathContext>
   );
 };
