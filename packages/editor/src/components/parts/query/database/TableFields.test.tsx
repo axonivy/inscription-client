@@ -2,10 +2,10 @@ import { CollapsableUtil, TableUtil, render, screen } from 'test-utils';
 import { TableFields } from './TableFields';
 
 describe('TableFields', () => {
-  test('data', async () => {
+  const renderTable = async (fields: Record<string, string>) => {
     render(<TableFields />, {
       wrapperProps: {
-        data: { config: { query: { sql: { fields: { test: 'bla' } } } } },
+        data: { config: { query: { sql: { fields } } } },
         meta: {
           columns: [
             { name: 'test', type: 'VarChar(10)', ivyType: 'String' },
@@ -14,9 +14,24 @@ describe('TableFields', () => {
         }
       }
     });
+  };
+
+  test('data', async () => {
+    await renderTable({ test: 'bla' });
     await CollapsableUtil.assertOpen('Fields');
     TableUtil.assertHeaders(['Column', 'Type', 'Value']);
-    await screen.findByText('VarChar(10)');
+    await screen.findByText('bool');
+    await TableUtil.assertRowCount(3);
     TableUtil.assertRows(['test VarChar(10) bla', 'hi bool']);
+  });
+
+  test('unknown columns', async () => {
+    await renderTable({ unknown: '1234' });
+    await CollapsableUtil.assertOpen('Fields');
+    TableUtil.assertHeaders(['Column', 'Type', 'Value']);
+    await screen.findByText('bool');
+    await screen.findByDisplayValue('1234');
+    await TableUtil.assertRowCount(4);
+    TableUtil.assertRows(['test VarChar(10)', 'hi bool', 'unknown 1234']);
   });
 });
