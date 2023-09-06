@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import { NameTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
+import { DataCacheTest } from '../../parts/db-cache';
 
 test.describe('Web Service', () => {
   let view: InscriptionView;
@@ -22,5 +23,9 @@ test.describe('Web Service', () => {
 
   test('Name', async () => {
     await runTest(view, NameTest);
+  });
+
+  test('Data Cache', async () => {
+    await runTest(view, DataCacheTest);
   });
 });

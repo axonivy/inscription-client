@@ -21,6 +21,12 @@ const DatabaseEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, cache, output]} />;
 });
 
+const WebServiceEditor = memo(() => {
+  const name = useNamePart();
+  const cache = useCachePart();
+  return <InscriptionEditor icon={IvyIcons.WebService} parts={[name, cache]} />;
+});
+
 const EMailEditor = memo(() => {
   const name = useNamePart();
   const header = useMailHeaderPart();
@@ -31,7 +37,7 @@ const EMailEditor = memo(() => {
 
 export const interfaceActivityEditors = new Map<ElementType, ReactNode>([
   ['Database', <DatabaseEditor />],
-  ['WebServiceCall', <NameEditor icon={IvyIcons.WebService} />],
+  ['WebServiceCall', <WebServiceEditor />],
   ['RestClientCall', <NameEditor icon={IvyIcons.RestClient} />],
   ['EMail', <EMailEditor />],
   // ['Rule', <NameEditor title='Rule Activity'/>],
