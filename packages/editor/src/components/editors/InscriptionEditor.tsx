@@ -12,8 +12,9 @@ import DropdownMenu from './menu/HeaderMenu';
 import { useNameData } from '../parts/name/useNameData';
 import Part from './part/Part';
 import { PartProps } from './part/usePart';
+import { otherEditors } from './other-editors';
 
-const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors]);
+const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
 
 export const inscriptionEditor = (type?: ElementType): ReactNode => {
   if (type) {
