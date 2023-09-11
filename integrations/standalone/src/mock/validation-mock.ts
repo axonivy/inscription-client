@@ -11,14 +11,14 @@ export namespace ValidationMock {
     }
   }
 
-  function validateDialogCallEditor(data: any): InscriptionValidation[] {
+  const validateDialogCallEditor = (data: ElementData): InscriptionValidation[] => {
     const msgs: InscriptionValidation[] = [];
     msgs.push(...validateCaseData(data));
     msgs.push(...validateCallData(data));
     return msgs;
-  }
+  };
 
-  function validateCaseData(data: ElementData): InscriptionValidation[] {
+  const validateCaseData = (data: ElementData): InscriptionValidation[] => {
     const msgs: InscriptionValidation[] = [];
     const name = data.config.case?.name;
     const desc = data.config.case?.description;
@@ -29,13 +29,13 @@ export namespace ValidationMock {
       msgs.push({ path: 'case.description', severity: 'WARNING', message: 'Description is empty' });
     }
     return msgs;
-  }
+  };
 
-  function validateCallData(data: ElementData): InscriptionValidation[] {
+  const validateCallData = (data: ElementData): InscriptionValidation[] => {
     const msgs: InscriptionValidation[] = [];
     if (data.config.dialog === undefined || data.config.dialog.length === 0) {
       msgs.push({ path: 'dialog', severity: 'WARNING', message: 'No User Dialog specified, auto dialog will be shown.' });
     }
     return msgs;
-  }
+  };
 }

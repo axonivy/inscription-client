@@ -1,8 +1,7 @@
 import './Fieldset.css';
-import { Label } from '@radix-ui/react-label';
+import { Label, LabelProps } from '@radix-ui/react-label';
 import { memo } from 'react';
 import Button from '../button/Button';
-import { LabelProps } from '@radix-ui/react-label';
 import { FieldsetControl } from './fieldset-control';
 import { MessageText, MessageTextProps } from '../message/Message';
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function deepEqual(x: any, y: any): any {
   const ok = Object.keys,
     tx = typeof x,

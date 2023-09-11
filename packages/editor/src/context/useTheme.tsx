@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 
 export type ThemeMode = 'dark' | 'light';
 export type ThemeContext = {
@@ -6,7 +6,7 @@ export type ThemeContext = {
   setMode: (mode: ThemeMode) => void;
 };
 
-export const ThemeContextInstance = React.createContext<ThemeContext>({ mode: 'light', setMode: () => {} });
+export const ThemeContextInstance = createContext<ThemeContext>({ mode: 'light', setMode: () => {} });
 export const useTheme = (): ThemeContext => useContext(ThemeContextInstance);
 
 export const ThemeContextProvider = ({ children, theme }: { children: ReactNode; theme: ThemeMode }) => {

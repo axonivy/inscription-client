@@ -1,5 +1,5 @@
 import { render, screen, renderHook, userEvent, DeepPartial } from 'test-utils';
-import { TaskData, DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/inscription-protocol';
+import { TaskData, DEFAULT_TASK, DEFAULT_TASK_DATA, ElementData } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../editors';
 import { useMultiTasksPart } from './MultiTasksPart';
 import { deepmerge } from 'deepmerge-ts';
@@ -64,7 +64,7 @@ describe('MultiTasksPart', () => {
         { id: 'TaskB', name: 'task2' }
       ]
     });
-    let data: any = { config: taskData };
+    let data: DeepPartial<ElementData> = { config: taskData };
     const initTaskData = {
       tasks: [DEFAULT_TASK, DEFAULT_TASK]
     };

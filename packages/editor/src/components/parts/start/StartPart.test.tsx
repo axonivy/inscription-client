@@ -1,5 +1,5 @@
 import { CollapsableUtil, DeepPartial, render, renderHook, screen, TableUtil } from 'test-utils';
-import { StartData } from '@axonivy/inscription-protocol';
+import { ElementData, StartData } from '@axonivy/inscription-protocol';
 import { useStartPart } from './StartPart';
 import { PartStateFlag } from '../../editors';
 
@@ -53,7 +53,7 @@ describe('StartPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: {
         signature: 'sig',
         input: { code: 'code', map: { key: 'value' }, params: [{ name: 'param', type: 'String', desc: 'desc' }] }
@@ -65,9 +65,9 @@ describe('StartPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.signature).toEqual('initSig');
-    expect(data.config.input.code).toEqual('');
-    expect(data.config.input.map).toEqual({});
-    expect(data.config.input.params).toEqual([]);
+    expect(data.config?.signature).toEqual('initSig');
+    expect(data.config?.input?.code).toEqual('');
+    expect(data.config?.input?.map).toEqual({});
+    expect(data.config?.input?.params).toEqual([]);
   });
 });

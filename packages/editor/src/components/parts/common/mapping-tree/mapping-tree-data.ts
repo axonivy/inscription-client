@@ -28,16 +28,13 @@ export namespace MappingTreeData {
     });
   }
 
-  function typesOfParam(paramInfo: VariableInfo, paramType: string): MappingTreeData[] {
-    return (
-      paramInfo.types[paramType]?.map(type => ({
-        ...type,
-        value: '',
-        children: [],
-        isLoaded: paramInfo.types[type.type] === undefined
-      })) ?? []
-    );
-  }
+  const typesOfParam = (paramInfo: VariableInfo, paramType: string): MappingTreeData[] =>
+    paramInfo.types[paramType]?.map(type => ({
+      ...type,
+      value: '',
+      children: [],
+      isLoaded: paramInfo.types[type.type] === undefined
+    })) ?? [];
 
   export function update(paramInfo: VariableInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
     if (mappingPath.length >= 2 && mappingPath[0] === 'param') {
@@ -47,7 +44,7 @@ export namespace MappingTreeData {
     updateValue(paramInfo, tree, mappingPath, mappingValue);
   }
 
-  function updateValue(paramInfo: VariableInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
+  const updateValue = (paramInfo: VariableInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void => {
     for (const node of tree) {
       if (node.attribute === mappingPath[0]) {
         mappingPath.shift();
@@ -62,9 +59,9 @@ export namespace MappingTreeData {
       }
     }
     addUnknownValue(tree, mappingPath, mappingValue);
-  }
+  };
 
-  function addUnknownValue(tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
+  const addUnknownValue = (tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void => {
     const attribute = mappingPath.shift();
     if (attribute) {
       if (mappingPath.length === 0) {
@@ -83,7 +80,7 @@ export namespace MappingTreeData {
         addUnknownValue(children, mappingPath, mappingValue);
       }
     }
-  }
+  };
 
   export function updateDeep(data: MappingTreeData[], rows: number[], columnId: string, value: unknown): MappingTreeData[] {
     return data.map((row, index) => {
@@ -108,7 +105,7 @@ export namespace MappingTreeData {
   }
 
   export function to(tree: MappingTreeData[]): Record<string, string> {
-    let mappings: Record<string, string> = {};
+    const mappings: Record<string, string> = {};
     for (const node of tree) {
       if (node.value.length > 0) {
         mappings[node.attribute] = node.value;

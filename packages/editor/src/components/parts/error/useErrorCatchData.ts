@@ -7,7 +7,7 @@ export function useErrorCatchData(): ConfigDataContext<ErrorCatchData> & {
   updateError: Consumer<string>;
 } {
   const { setData } = useDataContext();
-  const { setConfig, ...config } = useConfigDataContext();
+  const config = useConfigDataContext();
 
   const updateError = (errorCode: string) => {
     setData(

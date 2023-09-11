@@ -1,5 +1,5 @@
 import { render, TableUtil, renderHook, screen, DeepPartial } from 'test-utils';
-import { ConditionData, ConnectorRef } from '@axonivy/inscription-protocol';
+import { ConditionData, ConnectorRef, ElementData } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../editors';
 import { useConditionPart } from './ConditionPart';
 
@@ -50,13 +50,13 @@ describe('ConditionPart', () => {
   });
 
   test('reset', () => {
-    let data: any = { config: { conditions: { f1: 'test' } } };
+    let data: DeepPartial<ElementData> = { config: { conditions: { f1: 'test' } } };
     const view = renderHook(() => useConditionPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { conditions: { f1: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.conditions.f1).toEqual('init');
+    expect(data.config?.conditions?.f1).toEqual('init');
   });
 });

@@ -32,20 +32,17 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
       {
         accessorKey: 'name',
         header: header => <SortableHeader header={header} name='Name' />,
-        cell: cell => <EditableCell cell={cell} />,
-        footer: props => props.column.id
+        cell: cell => <EditableCell cell={cell} />
       },
       {
         accessorKey: 'type',
         header: header => <SortableHeader header={header} name='Type' />,
-        cell: cell => <SelectCell cell={cell} items={items} />,
-        footer: props => props.column.id
+        cell: cell => <SelectCell cell={cell} items={items} />
       },
       {
         accessorKey: 'value',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} />,
-        footer: props => props.column.id
+        cell: cell => <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} />
       }
     ],
     [items]

@@ -3,7 +3,7 @@ import { PartStateFlag, usePartState } from './usePart';
 import { InscriptionValidation } from '@axonivy/inscription-protocol';
 
 describe('PartState', () => {
-  function assertState(expectedState: PartStateFlag, data?: any, message?: InscriptionValidation[]) {
+  function assertState(expectedState: PartStateFlag, data?: unknown, message?: InscriptionValidation[]) {
     const { result } = renderHook(() => usePartState({}, data ?? {}, message ?? []));
     expect(result.current.state).toEqual(expectedState);
   }

@@ -1,5 +1,5 @@
 import { ComboboxUtil, DeepPartial, render, renderHook } from 'test-utils';
-import { ErrorThrowData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import { ElementData, ErrorThrowData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../editors';
 import { useErrorThrowPart } from './ErrorThrowPart';
 
@@ -47,7 +47,7 @@ describe('ErrorThrowPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { throws: { error: 'error', cause: 'asdf' } }
     };
     const view = renderHook(() => useErrorThrowPart(), {
@@ -56,7 +56,7 @@ describe('ErrorThrowPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.throws.error).toEqual('init');
-    expect(data.config.throws.cause).toEqual('');
+    expect(data.config?.throws?.error).toEqual('init');
+    expect(data.config?.throws?.cause).toEqual('');
   });
 });

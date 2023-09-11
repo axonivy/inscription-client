@@ -1,5 +1,5 @@
-import { ComboboxUtil, render, renderHook } from 'test-utils';
-import { ErrorCatchData } from '@axonivy/inscription-protocol';
+import { ComboboxUtil, DeepPartial, render, renderHook } from 'test-utils';
+import { ElementData, ErrorCatchData } from '@axonivy/inscription-protocol';
 import { useErrorCatchPart } from './ErrorCatchPart';
 import { PartStateFlag } from '../../editors';
 
@@ -41,7 +41,7 @@ describe('ErrorCatchPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { errorCode: 'error' }
     };
     const view = renderHook(() => useErrorCatchPart(), {
@@ -50,6 +50,6 @@ describe('ErrorCatchPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.errorCode).toEqual('init');
+    expect(data.config?.errorCode).toEqual('init');
   });
 });

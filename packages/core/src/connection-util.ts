@@ -17,7 +17,7 @@ export namespace ConnectionUtil {
         const connection: MessageConnection = { reader, writer };
         resolve(connection);
       };
-      webSocket.onerror = _event => reject('Connection could not be established.');
+      webSocket.onerror = () => reject('Connection could not be established.');
     });
   }
 }

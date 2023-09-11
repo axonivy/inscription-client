@@ -10,7 +10,7 @@ describe('useStartData', () => {
   }
 
   test('in synch', () => {
-    let startData: StartData = { signature: 'test', input: { params: [], map: {}, code: '' } };
+    const startData: StartData = { signature: 'test', input: { params: [], map: {}, code: '' } };
     const { view, data } = renderDataHook(startData, { synchParams: true });
 
     view.result.current.updateSignature('myCoolSignature');
@@ -18,7 +18,7 @@ describe('useStartData', () => {
   });
 
   test('in synch with params', () => {
-    let startData: StartData = { signature: 'test', input: { params: [], map: {}, code: '' } };
+    const startData: StartData = { signature: 'test', input: { params: [], map: {}, code: '' } };
     const { view, data } = renderDataHook(startData, { synchParams: true });
 
     view.result.current.update('params', [
@@ -29,7 +29,7 @@ describe('useStartData', () => {
   });
 
   test('in synch with postfix', () => {
-    let startData: StartData = { signature: 'test', input: { params: [], map: {}, code: '' } };
+    const startData: StartData = { signature: 'test', input: { params: [], map: {}, code: '' } };
     const { view, data } = renderDataHook(startData, { name: 'test' });
 
     view.result.current.update('params', [

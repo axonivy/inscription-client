@@ -1,5 +1,5 @@
-import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
-import { WfCase, CaseData } from '@axonivy/inscription-protocol';
+import { render, screen, TableUtil, renderHook, CollapsableUtil, DeepPartial } from 'test-utils';
+import { WfCase, CaseData, ElementData } from '@axonivy/inscription-protocol';
 import { useCasePart } from './CasePart';
 import { PartStateFlag } from '../../editors';
 
@@ -55,7 +55,7 @@ describe('CasePart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: {
         case: {
           name: 'name',
@@ -72,9 +72,9 @@ describe('CasePart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.case.name).toEqual('init');
-    expect(data.config.case.description).toEqual('');
-    expect(data.config.case.category).toEqual('');
-    expect(data.config.case.customFields).toEqual([]);
+    expect(data.config?.case?.name).toEqual('init');
+    expect(data.config?.case?.description).toEqual('');
+    expect(data.config?.case?.category).toEqual('');
+    expect(data.config?.case?.customFields).toEqual([]);
   });
 });

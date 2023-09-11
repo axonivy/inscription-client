@@ -11,6 +11,7 @@ export interface DataContext {
   validations: InscriptionValidation[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const defaultDataContext: any = undefined;
 
 export const DataContextInstance = createContext<DataContext>(defaultDataContext);
@@ -78,9 +79,12 @@ export function useTaskDataContext(): TaskDataContext & {
           } else {
             draft.task = initConfig.task;
           }
+          if (draft.persistOnStart !== undefined) {
+            draft.persistOnStart = initConfig.persistOnStart;
+          }
         })
       ),
-    [initConfig.task, initConfig.tasks, setConfig, taskNumber]
+    [initConfig, setConfig, taskNumber]
   );
 
   const task = taskNumber !== undefined ? config.tasks[taskNumber] : config.task;

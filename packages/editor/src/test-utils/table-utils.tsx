@@ -26,7 +26,7 @@ export namespace TableUtil {
     return waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(expectedRows));
   }
 
-  export async function assertAddRow(view: { data: () => any[]; rerender: () => void }, expectedRows: number): Promise<void> {
+  export async function assertAddRow(view: { data: () => unknown[]; rerender: () => void }, expectedRows: number): Promise<void> {
     await assertRowCount(expectedRows + 1);
 
     const addButton = screen.getByRole('button', { name: 'Add row' });
@@ -37,7 +37,7 @@ export namespace TableUtil {
     await assertRowCount(expectedRows + 2);
   }
 
-  export async function assertRemoveRow(view: { data: () => any[]; rerender: () => void }, expectedRows: number): Promise<void> {
+  export async function assertRemoveRow(view: { data: () => unknown[]; rerender: () => void }, expectedRows: number): Promise<void> {
     await assertRowCount(expectedRows + 3);
 
     const removeButtons = screen.getAllByRole('button', { name: 'Remove row' });
@@ -50,7 +50,7 @@ export namespace TableUtil {
   }
 
   export async function assertAddAndRemoveWithKeyboard(
-    view: { data: () => any[]; rerender: () => void },
+    view: { data: () => unknown[]; rerender: () => void },
     defaultRows: number
   ): Promise<void> {
     await assertRowCount(defaultRows + 2);

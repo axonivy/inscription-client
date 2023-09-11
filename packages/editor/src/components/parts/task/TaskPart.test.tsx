@@ -1,5 +1,5 @@
 import { renderHook, screen, render, DeepPartial, cloneObject } from 'test-utils';
-import { WfTask, TaskData, DEFAULT_TASK } from '@axonivy/inscription-protocol';
+import { WfTask, TaskData, DEFAULT_TASK, ElementData } from '@axonivy/inscription-protocol';
 import { TaskPartProps, useTaskPart } from './TaskPart';
 import { PartStateFlag } from '../../editors';
 
@@ -20,7 +20,7 @@ describe('TaskPart', () => {
     taskData?: Partial<TaskData>,
     type?: TaskPartProps['type']
   ) {
-    let data = taskData ? { config: taskData } : task ? { config: { task } } : undefined;
+    const data = taskData ? { config: taskData } : task ? { config: { task } } : undefined;
     const { result } = renderHook(() => useTaskPart({ type }), { wrapperProps: { data } });
     expect(result.current.state.state).toEqual(expectedState);
   }
@@ -49,7 +49,7 @@ describe('TaskPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: {
         task: {
           name: 'name',
@@ -59,11 +59,11 @@ describe('TaskPart', () => {
           priority: { level: 'LOW', script: '' },
           skipTasklist: true,
           delay: 'delay',
-          persist: true,
           expiry: { timeout: 'asf' },
           customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }],
           code: 'code'
-        }
+        },
+        persistOnStart: true
       }
     };
     const view = renderHook(() => useTaskPart(), {
@@ -74,6 +74,7 @@ describe('TaskPart', () => {
     view.result.current.reset.action();
     const expectedTask = cloneObject(DEFAULT_TASK);
     expectedTask.name = 'init';
-    expect(data.config.task).toEqual(expectedTask);
+    expect(data.config?.task).toEqual(expectedTask);
+    expect(data.config?.persistOnStart).toEqual(false);
   });
 });

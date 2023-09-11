@@ -2,6 +2,7 @@
   "name": "@axonivy/inscription-protocol",
   "version": "11.2.0-next",
   "private": false,
+  "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Axon Ivy AG",
   "homepage": "https://developer.axonivy.com/",
   "repository": {
@@ -16,7 +17,7 @@
   "types": "src/index",
   "module": "src/index",
   "scripts": {
-    "clean": "rimraf lib tsconfig.tsbuildinfo && yarn generate clean",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc",
     "build:clean": "yarn clean && yarn generate && yarn build",
     "generate": "./schemaCodegen.js",

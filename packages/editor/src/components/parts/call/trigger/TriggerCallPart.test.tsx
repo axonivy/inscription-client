@@ -1,6 +1,6 @@
 import { useTriggerCallPart } from './TriggerCallPart';
-import { render, screen, TableUtil, renderHook } from 'test-utils';
-import { CallData, ProcessCallData } from '@axonivy/inscription-protocol';
+import { render, screen, TableUtil, renderHook, DeepPartial } from 'test-utils';
+import { CallData, ElementData, ProcessCallData } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../../editors';
 
 const Part = () => {
@@ -42,7 +42,7 @@ describe('TriggerCallPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { processCall: 'process', call: { code: 'code', map: { key: 'value' } } }
     };
     const view = renderHook(() => useTriggerCallPart(), {
@@ -51,8 +51,8 @@ describe('TriggerCallPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.processCall).toEqual('init');
-    expect(data.config.call.code).toEqual('');
-    expect(data.config.call.map).toEqual({});
+    expect(data.config?.processCall).toEqual('init');
+    expect(data.config?.call?.code).toEqual('');
+    expect(data.config?.call?.map).toEqual({});
   });
 });

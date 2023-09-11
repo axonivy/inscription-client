@@ -17,22 +17,19 @@ const ParameterTable = ({ data, onChange, hideDesc }: ParameterTableProps) => {
       {
         accessorKey: 'name',
         header: header => <SortableHeader header={header} name='Name' />,
-        cell: cell => <EditableCell cell={cell} />,
-        footer: props => props.column.id
+        cell: cell => <EditableCell cell={cell} />
       },
       {
         accessorKey: 'type',
         header: header => <SortableHeader header={header} name='Type' />,
-        cell: cell => <EditableCell cell={cell} />,
-        footer: props => props.column.id
+        cell: cell => <EditableCell cell={cell} />
       }
     ];
     if (hideDesc === undefined || !hideDesc) {
       colDef.push({
         accessorKey: 'desc',
         header: header => <SortableHeader header={header} name='Description' />,
-        cell: cell => <EditableCell cell={cell} />,
-        footer: props => props.column.id
+        cell: cell => <EditableCell cell={cell} />
       });
     }
     return colDef;

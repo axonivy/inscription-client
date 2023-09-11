@@ -26,7 +26,7 @@ const CallSelect = ({ start, onChange, starts, startIcon, comboboxInputProps }: 
     if (!input) {
       return true;
     }
-    var filter = input.toLowerCase();
+    const filter = input.toLowerCase();
     return (
       item.value.toLowerCase().includes(filter) ||
       item.packageName.toLowerCase().includes(filter) ||

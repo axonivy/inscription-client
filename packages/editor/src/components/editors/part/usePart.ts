@@ -17,7 +17,7 @@ export type PartProps = {
   summary?: ReactNode;
 };
 
-export function usePartState(defaultData: any, data: any, validations: InscriptionValidation[]): PartState {
+export function usePartState(defaultData: unknown, data: unknown, validations: InscriptionValidation[]): PartState {
   const state = useMemo(() => {
     if (validations.find(message => message?.severity === 'ERROR')) {
       return 'error';
@@ -30,7 +30,7 @@ export function usePartState(defaultData: any, data: any, validations: Inscripti
   return { state, validations };
 }
 
-export function usePartDirty(initData: any, data: any): boolean {
+export function usePartDirty(initData: unknown, data: unknown): boolean {
   return useMemo<boolean>(() => {
     return !deepEqual(data, initData);
   }, [data, initData]);

@@ -1,7 +1,7 @@
 import { Document } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
-import React, { memo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import {
   ActionCell,
   EditableCell,
@@ -15,20 +15,18 @@ import {
 import { useAction } from '../../../../context';
 
 const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change: Document[]) => void }) => {
-  const columns = React.useMemo<ColumnDef<Document>[]>(
+  const columns = useMemo<ColumnDef<Document>[]>(
     () => [
       {
         accessorKey: 'name',
         header: header => <SortableHeader header={header} name='Name' />,
-        cell: cell => <EditableCell cell={cell} />,
-        footer: props => props.column.id
+        cell: cell => <EditableCell cell={cell} />
       },
       {
         accessorFn: row => row.url,
         id: 'url',
         header: header => <SortableHeader header={header} name='URL' />,
-        cell: cell => <EditableCell cell={cell} />,
-        footer: props => props.column.id
+        cell: cell => <EditableCell cell={cell} />
       }
     ],
     []

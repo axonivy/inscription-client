@@ -45,14 +45,12 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
       {
         accessorKey: 'fid',
         header: () => <span>Type</span>,
-        cell: cell => <ConditionTypeCell condition={cell.row.original} />,
-        footer: props => props.column.id
+        cell: cell => <ConditionTypeCell condition={cell.row.original} />
       },
       {
         accessorKey: 'expression',
         header: () => <span>Expression</span>,
-        cell: cell => <ConditionExpressionCell cell={cell} removeCell={removeCell} />,
-        footer: props => props.column.id
+        cell: cell => <ConditionExpressionCell cell={cell} removeCell={removeCell} />
       }
     ],
     [removeCell]

@@ -23,6 +23,7 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyAction
   const singleLineMountFuncs = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editor.createContextKey('singleLine', true);
     const isSuggestWidgetOpen = (editor: monaco.editor.IStandaloneCodeEditor) =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (editor as any)._contentWidgets['editor.widget.suggestWidget']?.widget._widget._state === STATE_OPEN;
     const triggerAcceptSuggestion = (editor: monaco.editor.IStandaloneCodeEditor) =>
       editor.trigger(undefined, 'acceptSelectedSuggestion', undefined);

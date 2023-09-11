@@ -26,24 +26,24 @@ export namespace URLParams {
     return (parameter('theme') as ThemeMode) ?? defaultTheme();
   }
 
-  function isSecureConnection(): boolean {
+  const isSecureConnection = () => {
     return window.location.protocol === 'https:' || parameter('secure') === 'true';
-  }
+  };
 
-  function server(): string {
+  const server = () => {
     return parameter('server') ?? basePath();
-  }
+  };
 
-  function basePath(): string {
+  const basePath = () => {
     const protocol = window.location.protocol;
     const href = window.location.href;
     if (href.includes('/process-inscription')) {
       return href.substring(protocol.length + 2, href.indexOf('/process-inscription'));
     }
     return 'localhost:8081';
-  }
+  };
 
-  function defaultTheme(): ThemeMode {
+  const defaultTheme = (): ThemeMode => {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
+  };
 }
