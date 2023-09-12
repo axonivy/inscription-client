@@ -1,6 +1,6 @@
 import { useSubCallPart } from './SubCallPart';
-import { render, screen, TableUtil, renderHook } from 'test-utils';
-import { CallData, ProcessCallData } from '@axonivy/inscription-protocol';
+import { render, screen, TableUtil, renderHook, DeepPartial } from 'test-utils';
+import { CallData, ElementData, ProcessCallData } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../../editors';
 
 const Part = () => {
@@ -42,7 +42,7 @@ describe('SubCallPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { processCall: 'process', call: { code: 'code', map: { key: 'value' } } }
     };
     const view = renderHook(() => useSubCallPart(), {
@@ -51,8 +51,8 @@ describe('SubCallPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.processCall).toEqual('init');
-    expect(data.config.call.code).toEqual('');
-    expect(data.config.call.map).toEqual({});
+    expect(data.config?.processCall).toEqual('init');
+    expect(data.config?.call?.code).toEqual('');
+    expect(data.config?.call?.map).toEqual({});
   });
 });

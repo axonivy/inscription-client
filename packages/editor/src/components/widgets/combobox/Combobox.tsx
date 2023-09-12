@@ -24,7 +24,7 @@ const Combobox = <T extends ComboboxItem>({ items, itemFilter, comboboxItem, val
         if (!input) {
           return true;
         }
-        var filter = input.toLowerCase();
+        const filter = input.toLowerCase();
         return item.value.toLowerCase().includes(filter);
       };
 

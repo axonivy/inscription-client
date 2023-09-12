@@ -1,5 +1,5 @@
 import { render, screen, renderHook, DeepPartial, TableUtil, SelectUtil, CollapsableUtil } from 'test-utils';
-import { InscriptionValidation, RequestData } from '@axonivy/inscription-protocol';
+import { ElementData, InscriptionValidation, RequestData } from '@axonivy/inscription-protocol';
 import { useRequestPart } from './RequestPart';
 import { PartStateFlag } from '../../editors';
 
@@ -88,14 +88,14 @@ describe('RequestPart', () => {
   });
 
   test('reset', () => {
-    let data: any = { request: { isHttpRequestable: false, name: 'bla' } };
+    let data: DeepPartial<ElementData> = { config: { request: { isHttpRequestable: false, name: 'bla' } } };
     const view = renderHook(() => useRequestPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { request: { name: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.request.isHttpRequestable).toEqual(true);
-    expect(data.config.request.name).toEqual('init');
+    expect(data.config?.request?.isHttpRequestable).toEqual(true);
+    expect(data.config?.request?.name).toEqual('init');
   });
 });

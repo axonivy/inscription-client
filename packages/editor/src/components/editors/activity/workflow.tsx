@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import { ElementType } from '@axonivy/inscription-protocol';

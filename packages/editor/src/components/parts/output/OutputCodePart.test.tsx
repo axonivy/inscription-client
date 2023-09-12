@@ -1,7 +1,7 @@
-import { render, screen, renderHook } from 'test-utils';
+import { render, screen, renderHook, DeepPartial } from 'test-utils';
 import { useOutputCodePart } from './OutputCodePart';
 import { PartStateFlag } from '../../editors';
-import { OutputData } from '@axonivy/inscription-protocol';
+import { ElementData, OutputData } from '@axonivy/inscription-protocol';
 
 const Part = () => {
   const part = useOutputCodePart();
@@ -47,7 +47,7 @@ describe('OutputCodePart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { output: { code: 'code', map: {} }, sudo: true }
     };
     const view = renderHook(() => useOutputCodePart(), {
@@ -56,8 +56,8 @@ describe('OutputCodePart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.output.code).toEqual('init');
-    expect(data.config.output.map).toEqual({});
-    expect(data.config.sudo).toEqual(false);
+    expect(data.config?.output?.code).toEqual('init');
+    expect(data.config?.output?.map).toEqual({});
+    expect(data.config?.sudo).toEqual(false);
   });
 });

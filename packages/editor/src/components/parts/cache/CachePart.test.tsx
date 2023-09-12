@@ -1,5 +1,5 @@
 import { DeepPartial, render, renderHook, screen } from 'test-utils';
-import { CacheData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import { CacheData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useCachePart } from './CachePart';
 import { PartStateFlag } from '../../editors';
 
@@ -63,7 +63,7 @@ describe('CachePart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: {
         cache: {
           mode: 'CACHE'
@@ -76,6 +76,6 @@ describe('CachePart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.cache.mode).toEqual('DO_NOT_CACHE');
+    expect(data.config?.cache?.mode).toEqual('DO_NOT_CACHE');
   });
 });

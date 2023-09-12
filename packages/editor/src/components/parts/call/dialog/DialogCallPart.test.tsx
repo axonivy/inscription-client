@@ -1,6 +1,6 @@
 import { useDialogCallPart } from './DialogCallPart';
-import { render, screen, TableUtil, renderHook } from 'test-utils';
-import { CallData, DialogCallData } from '@axonivy/inscription-protocol';
+import { render, screen, TableUtil, renderHook, DeepPartial } from 'test-utils';
+import { CallData, DialogCallData, ElementData } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../../editors';
 
 const Part = () => {
@@ -42,7 +42,7 @@ describe('DialogCallPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { dialog: 'dialog', call: { code: 'code', map: { key: 'value' } } }
     };
     const view = renderHook(() => useDialogCallPart(), {
@@ -51,8 +51,8 @@ describe('DialogCallPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.dialog).toEqual('init');
-    expect(data.config.call.code).toEqual('');
-    expect(data.config.call.map).toEqual({});
+    expect(data.config?.dialog).toEqual('init');
+    expect(data.config?.call?.code).toEqual('');
+    expect(data.config?.call?.map).toEqual({});
   });
 });

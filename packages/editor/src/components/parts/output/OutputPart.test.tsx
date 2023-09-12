@@ -1,7 +1,7 @@
-import { render, screen, TableUtil, renderHook, waitFor } from 'test-utils';
+import { render, screen, TableUtil, renderHook, waitFor, DeepPartial } from 'test-utils';
 import { useOutputPart } from './OutputPart';
 import { PartStateFlag } from '../../editors';
-import { OutputData } from '@axonivy/inscription-protocol';
+import { ElementData, OutputData } from '@axonivy/inscription-protocol';
 
 const Part = (props: { hideCode?: boolean }) => {
   const part = useOutputPart({ hideCode: props.hideCode });
@@ -48,7 +48,7 @@ describe('OutputPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { output: { map: { key: 'value' }, code: 'code' } }
     };
     const view = renderHook(() => useOutputPart(), {
@@ -57,12 +57,12 @@ describe('OutputPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.output.code).toEqual('init');
-    expect(data.config.output.map).toEqual({});
+    expect(data.config?.output?.code).toEqual('init');
+    expect(data.config?.output?.map).toEqual({});
   });
 
   test('reset - hide code', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { output: { map: { key: 'value' }, code: 'code' } }
     };
     const view = renderHook(() => useOutputPart({ hideCode: true }), {
@@ -71,7 +71,7 @@ describe('OutputPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.output.code).toEqual('code');
-    expect(data.config.output.map).toEqual({});
+    expect(data.config?.output?.code).toEqual('code');
+    expect(data.config?.output?.map).toEqual({});
   });
 });

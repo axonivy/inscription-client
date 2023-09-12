@@ -7,7 +7,7 @@ export function indexOf<TArr>(array: TArr[], find: (obj: TArr) => boolean): numb
 }
 
 export function arraymove<TArr>(arr: TArr[], fromIndex: number, toIndex: number) {
-  var element = arr[fromIndex];
+  const element = arr[fromIndex];
   arr.splice(fromIndex, 1);
   arr.splice(toIndex, 0, element);
 }

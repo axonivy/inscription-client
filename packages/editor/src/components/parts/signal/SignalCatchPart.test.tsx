@@ -1,5 +1,5 @@
-import { ComboboxUtil, render, renderHook, screen } from 'test-utils';
-import { SignalCatchData } from '@axonivy/inscription-protocol';
+import { ComboboxUtil, DeepPartial, render, renderHook, screen } from 'test-utils';
+import { ElementData, SignalCatchData } from '@axonivy/inscription-protocol';
 import { useSignalCatchPart } from './SignalCatchPart';
 import { PartStateFlag } from '../../editors';
 
@@ -44,7 +44,7 @@ describe('SignalCatchPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { signalCode: 'error', attachToBusinessCase: false }
     };
     const view = renderHook(() => useSignalCatchPart(), {
@@ -53,7 +53,7 @@ describe('SignalCatchPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.signalCode).toEqual('init');
-    expect(data.config.attachToBusinessCase).toEqual(true);
+    expect(data.config?.signalCode).toEqual('init');
+    expect(data.config?.attachToBusinessCase).toEqual(true);
   });
 });

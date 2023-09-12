@@ -64,15 +64,13 @@ const AttributeBrowser = ({ value, onChange, location }: { value: string; onChan
             loadChildren={() => loadChildren(cell.row.original)}
             title={cell.row.original.description}
           />
-        ),
-        footer: props => props.column.id
+        )
       },
       {
         accessorFn: row => row.simpleType,
         id: 'simpleType',
         header: () => <span>Type</span>,
-        cell: cell => <span title={cell.row.original.type}>{cell.getValue() as string}</span>,
-        footer: props => props.column.id
+        cell: cell => <span title={cell.row.original.type}>{cell.getValue() as string}</span>
       }
     ],
     [loadChildren]

@@ -83,7 +83,7 @@ export class BaseRcpClient implements RcpClient {
   }
 
   protected handleConnectionError(error: Error, message: Message | undefined, count: number | undefined): void {
-    console.error('Connection to server is erroring. Shutting down server.', error);
+    console.error('Connection to server is erroring. Shutting down server.', error, message, count);
     this.stop();
     this._state = ClientState.ServerError;
   }

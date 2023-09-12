@@ -55,7 +55,7 @@ describe('Editor', () => {
 
     test('editor part render error', async () => {
       renderEditor();
-      await userEvent.click(screen.getByRole('button', { name: 'Result', exact: true }));
+      await userEvent.click(screen.getByRole('button', { name: 'Result' }));
       expect(screen.getByRole('alert')).toHaveTextContent('this is an exception');
       expect(console.error).toHaveBeenCalled();
     });

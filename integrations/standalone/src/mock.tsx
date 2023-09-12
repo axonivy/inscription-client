@@ -3,7 +3,7 @@ import { MonacoUtil } from '@axonivy/inscription-core';
 import { App, ClientContextInstance, MonacoEditorUtil, ThemeContextProvider } from '@axonivy/inscription-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { URLParams } from './url-helper';
 import { ElementType } from '@axonivy/inscription-protocol';
 import { InscriptionClientMock } from './mock/inscription-client-mock';
@@ -17,7 +17,7 @@ export async function start(): Promise<void> {
 
   MonacoEditorUtil.initMonaco(monaco, theme);
   MonacoUtil.initStandalone();
-  const root = ReactDOM.createRoot(document.getElementById('root')!);
+  const root = createRoot(document.getElementById('root')!);
 
   const inscriptionClient = new InscriptionClientMock(readonly, type);
   const queryClient = new QueryClient();

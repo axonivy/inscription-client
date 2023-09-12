@@ -3,7 +3,7 @@ import { MonacoUtil, IvyScriptLanguage, InscriptionClientJsonRpc } from '@axoniv
 import { App, AppStateView, ClientContextInstance, MonacoEditorUtil, ThemeContextProvider } from '@axonivy/inscription-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { URLParams } from './url-helper';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -17,7 +17,7 @@ export async function start(): Promise<void> {
 
   MonacoEditorUtil.initMonaco(monaco, theme);
   MonacoUtil.initStandalone();
-  const root = ReactDOM.createRoot(document.getElementById('root')!);
+  const root = createRoot(document.getElementById('root')!);
 
   try {
     await IvyScriptLanguage.startWebSocketClient(`${server}/ivy-script-lsp`);

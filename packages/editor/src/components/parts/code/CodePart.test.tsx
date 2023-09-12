@@ -1,7 +1,7 @@
-import { render, screen, renderHook } from 'test-utils';
+import { render, screen, renderHook, DeepPartial } from 'test-utils';
 import { useCodePart } from './CodePart';
 import { PartStateFlag } from '../../editors';
-import { CodeData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import { CodeData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
 
 const Part = () => {
   const part = useCodePart();
@@ -13,18 +13,18 @@ describe('CodePart', () => {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
-  async function assertMainPart(code: string, sudo: boolean) {
+  async function assertMainPart(code: string) {
     expect(await screen.findByLabelText('Code')).toHaveValue(code);
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('', false);
+    await assertMainPart('');
   });
 
   test('full data', async () => {
     renderPart({ code: 'code' });
-    await assertMainPart('code', true);
+    await assertMainPart('code');
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<CodeData>, validation?: InscriptionValidation) {
@@ -42,7 +42,7 @@ describe('CodePart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: { code: 'code' }
     };
     const view = renderHook(() => useCodePart(), {
@@ -51,6 +51,6 @@ describe('CodePart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.code).toEqual('init');
+    expect(data.config?.code).toEqual('init');
   });
 });

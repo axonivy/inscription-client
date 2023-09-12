@@ -130,7 +130,7 @@ describe('MappingTreeData', () => {
   });
 
   test('of endless', () => {
-    let treeData = MappingTreeData.of(endlessParamInfo);
+    const treeData = MappingTreeData.of(endlessParamInfo);
     const endlessNode = {
       attribute: 'endless',
       children: [] as MappingTreeData[],
@@ -140,7 +140,7 @@ describe('MappingTreeData', () => {
       value: '',
       description: ''
     };
-    let expectTree = [
+    const expectTree = [
       {
         attribute: 'param.Endless',
         children: [{ ...endlessNode }],

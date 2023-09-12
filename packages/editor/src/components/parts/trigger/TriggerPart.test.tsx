@@ -1,5 +1,5 @@
 import { render, screen, renderHook, CollapsableUtil, SelectUtil, DeepPartial } from 'test-utils';
-import { InscriptionValidation, TriggerData } from '@axonivy/inscription-protocol';
+import { ElementData, InscriptionValidation, TriggerData } from '@axonivy/inscription-protocol';
 import { useTriggerPart } from './TriggerPart';
 import { PartStateFlag } from '../../editors';
 
@@ -71,7 +71,7 @@ describe('TriggerPart', () => {
   });
 
   test('reset', () => {
-    let data: any = {
+    let data: DeepPartial<ElementData> = {
       config: {
         triggerable: true,
         task: {
@@ -92,10 +92,10 @@ describe('TriggerPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.triggerable).toEqual(true);
-    expect(data.config.task.delay).toEqual('init');
-    expect(data.config.task.responsible.type).toEqual('ROLE');
-    expect(data.config.task.responsible.activator).toEqual('Everybody');
-    expect(data.config.case.attachToBusinessCase).toEqual(true);
+    expect(data.config?.triggerable).toEqual(true);
+    expect(data.config?.task?.delay).toEqual('init');
+    expect(data.config?.task?.responsible?.type).toEqual('ROLE');
+    expect(data.config?.task?.responsible?.activator).toEqual('Everybody');
+    expect(data.config?.case?.attachToBusinessCase).toEqual(true);
   });
 });

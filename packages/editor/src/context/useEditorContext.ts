@@ -1,5 +1,5 @@
 import { InscriptionContext, InscriptionType } from '@axonivy/inscription-protocol';
-import React, { useContext } from 'react';
+import { createContext, useContext } from 'react';
 
 export type EditorContext = {
   context: InscriptionContext;
@@ -21,6 +21,6 @@ export const DEFAULT_EDITOR_CONTEXT: EditorContext = {
   }
 };
 
-export const EditorContextInstance = React.createContext<EditorContext>(DEFAULT_EDITOR_CONTEXT);
+export const EditorContextInstance = createContext<EditorContext>(DEFAULT_EDITOR_CONTEXT);
 export const useEditorContext = (): EditorContext => useContext(EditorContextInstance);
 export const useReadonly = (): boolean => useContext(EditorContextInstance).readonly;

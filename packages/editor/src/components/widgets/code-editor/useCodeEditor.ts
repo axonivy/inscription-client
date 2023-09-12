@@ -13,7 +13,7 @@ export const useCodeEditorOnFocus = (initialValue: string, onChange: (change: st
 };
 
 export const monacoAutoFocus = (editor: monaco.editor.IStandaloneCodeEditor) => {
-  var range = editor.getModel()?.getFullModelRange();
+  const range = editor.getModel()?.getFullModelRange();
   if (range) {
     editor.setPosition(range.getEndPosition());
   }

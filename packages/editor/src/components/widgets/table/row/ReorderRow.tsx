@@ -15,16 +15,16 @@ export type ReorderRowProps = {
 export const ReorderRow = ({ id, updateOrder, children, ...props }: ReorderRowProps & MessageTextProps) => {
   const DND_TYPE = 'text/id';
 
-  let { dragProps, isDragging } = useDrag({
+  const { dragProps, isDragging } = useDrag({
     getItems() {
       return [{ 'text/id': id }];
     }
   });
 
-  let ref = useRef(null);
-  let { dropProps, isDropTarget } = useDrop({
+  const ref = useRef(null);
+  const { dropProps, isDropTarget } = useDrop({
     ref,
-    getDropOperation(types, _allowedOperations) {
+    getDropOperation(types) {
       return types.has(DND_TYPE) ? 'move' : 'cancel';
     },
     async onDrop(e) {

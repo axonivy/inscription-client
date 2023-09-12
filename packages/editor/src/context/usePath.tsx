@@ -1,7 +1,7 @@
 import { SchemaPath, SchemaKeys } from '@axonivy/inscription-protocol';
-import React, { ReactNode, useContext } from 'react';
+import { ReactNode, createContext, useContext } from 'react';
 
-const PathContextInstance = React.createContext<SchemaPath | SchemaKeys | ''>('');
+const PathContextInstance = createContext<SchemaPath | SchemaKeys | ''>('');
 
 export const PathContext = ({ path, children }: { path: SchemaKeys | number; children: ReactNode }) => {
   const fullPath = useFullPath([path]);

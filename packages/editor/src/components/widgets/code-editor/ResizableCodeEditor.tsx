@@ -14,13 +14,13 @@ const ResizableCodeEditor = ({ initHeight, location, ...props }: ResizableCodeEd
   const [height, setHeight] = useState(initHeight ?? 90);
   const [resizeActive, setResizeActive] = useState(false);
   const { moveProps } = useMove({
-    onMoveStart(e) {
+    onMoveStart() {
       setResizeActive(true);
     },
     onMove(e) {
       setHeight(y => y + e.deltaY);
     },
-    onMoveEnd(e) {
+    onMoveEnd() {
       setResizeActive(false);
     }
   });

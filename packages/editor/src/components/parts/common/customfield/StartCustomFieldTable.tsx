@@ -27,14 +27,12 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
       {
         accessorKey: 'name',
         header: header => <SortableHeader header={header} name='Name' />,
-        cell: cell => <EditableCell cell={cell} />,
-        footer: props => props.column.id
+        cell: cell => <EditableCell cell={cell} />
       },
       {
         accessorKey: 'value',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => <MacroCell cell={cell} />,
-        footer: props => props.column.id
+        cell: cell => <MacroCell cell={cell} />
       }
     ],
     []

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { ElementType } from '@axonivy/inscription-protocol';
 import { ReactNode } from 'react';
 import NameEditor from './NameEditor';

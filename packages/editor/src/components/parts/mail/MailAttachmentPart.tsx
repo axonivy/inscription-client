@@ -34,8 +34,7 @@ const MailAttachmentTable = () => {
         id: 'attachment',
         accessorFn: row => row,
         header: () => <span>Attachments</span>,
-        cell: cell => <ScriptCell cell={cell} type='Attachment' />,
-        footer: props => props.column.id
+        cell: cell => <ScriptCell cell={cell} type='Attachment' />
       }
     ],
     []

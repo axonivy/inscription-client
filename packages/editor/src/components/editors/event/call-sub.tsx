@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ReactNode, memo } from 'react';
 import NameEditor from '../NameEditor';

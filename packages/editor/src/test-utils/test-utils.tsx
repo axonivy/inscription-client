@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 import {
   ElementData,
   ConfigData,
@@ -57,7 +58,7 @@ const ContextHelper = (
   const data: DataContext = {
     // @ts-ignore
     data: props.data ? deepmerge(DEFAULT_DATA, props.data) : DEFAULT_DATA,
-    //@ts-ignore
+    // @ts-ignore
     setData: props.setData ? getData => props.setData(getData(d)) : () => {},
     // @ts-ignore
     defaultData: props.defaultData ? deepmerge(DEFAULT_DATA.config, props.defaultData) : DEFAULT_DATA.config,
@@ -85,12 +86,11 @@ const ContextHelper = (
           case 'meta/workflow/signalCodes':
             return Promise.resolve(props.meta?.eventCodes ?? []);
           case 'meta/scripting/out':
-            const location = (args as ScriptingDataArgs).location;
             if (props.meta?.outScripting) {
               return Promise.resolve(props.meta.outScripting);
             }
             return Promise.resolve(
-              location === 'result'
+              (args as ScriptingDataArgs).location === 'result'
                 ? { types: {}, variables: [{ attribute: 'result', description: '', type: '<>', simpleType: '<>' }] }
                 : { types: {}, variables: [] }
             );
