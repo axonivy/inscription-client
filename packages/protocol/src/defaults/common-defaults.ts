@@ -23,12 +23,12 @@ import {
   JavaTimeout,
   JavaEventTimeout,
   SoapOperation,
-  SoapWsProcessException,
   RestResponse,
   RestTarget,
   ErrorThrowData,
   QueryData,
-  CacheData
+  CacheData,
+  WebserviceStartData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -132,6 +132,19 @@ export const DEFAULT_ERROR_THROW_DATA: ErrorThrowData = {
   }
 } as const;
 
+export const DEFAULT_WEB_SERVICE_DATA: WebserviceStartData = {
+  permission: {
+    anonymous: true,
+    error: 'Everyone',
+    role: IVY_EXCEPTIONS.security
+  },
+  exception: {
+    enabled: false,
+    condition: '',
+    message: ''
+  }
+} as const;
+
 export const DEFAULT_QUERY_DATA: Omit<QueryData, 'exceptionHandler'> = {
   query: {
     dbName: '',
@@ -180,6 +193,7 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_ERROR_THROW_DATA,
     ...DEFAULT_QUERY_DATA,
     ...DEFAULT_CACHE_DATA,
+    ...DEFAULT_WEB_SERVICE_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
     body: {} as RestBody,
     javaClass: '',
@@ -190,7 +204,6 @@ export const DEFAULT_DATA: ElementData = {
     clientId: '',
     operation: {} as SoapOperation,
     properties: {},
-    exception: {} as SoapWsProcessException,
     eventId: '',
     method: 'GET',
     response: {} as RestResponse,
