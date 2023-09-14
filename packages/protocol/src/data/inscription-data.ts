@@ -11,6 +11,7 @@ import {
   InscriptionType,
   MailHeaders,
   SchemaKey,
+  SoapOperation,
   SoapWsProcessException,
   StartPermission,
   WfTask
@@ -41,5 +42,6 @@ export type SchemaKeys =
   | keyof DbSqlStatement
   | keyof Cache
   | keyof CacheArtifact
-  | keyof SoapWsProcessException;
+  | keyof SoapWsProcessException
+  | keyof SoapOperation;
 export type SchemaPath = Brand<string, 'SchemaPath'>;

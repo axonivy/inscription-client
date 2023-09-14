@@ -1,8 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { CaseTest, NameTest, ResultTest, StartTest, WsStartTaskTest, runTest } from '../../parts';
+import { CaseTest, NameTest, ResultTest, StartTest, WebServiceTest, WsStartTaskTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
-import { WebServiceTest } from '../../parts/web-service';
 
 test.describe('WS Start', () => {
   let view: InscriptionView;

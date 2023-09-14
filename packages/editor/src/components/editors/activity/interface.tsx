@@ -11,7 +11,8 @@ import {
   useNamePart,
   useOutputPart,
   useQueryPart,
-  useCachePart
+  useCachePart,
+  useWsRequestPart
 } from '../../../components/parts';
 
 const DatabaseEditor = memo(() => {
@@ -24,8 +25,9 @@ const DatabaseEditor = memo(() => {
 
 const WebServiceEditor = memo(() => {
   const name = useNamePart();
+  const request = useWsRequestPart();
   const cache = useCachePart();
-  return <InscriptionEditor icon={IvyIcons.WebService} parts={[name, cache]} />;
+  return <InscriptionEditor icon={IvyIcons.WebService} parts={[name, request, cache]} />;
 });
 
 const EMailEditor = memo(() => {

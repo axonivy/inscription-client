@@ -22,14 +22,14 @@ import {
   RestBody,
   JavaTimeout,
   JavaEventTimeout,
-  SoapOperation,
   RestResponse,
   RestTarget,
   ErrorThrowData,
   QueryData,
   CacheData,
   WebserviceStartData,
-  WebserviceProcessConfig
+  WebserviceProcessConfig,
+  WsRequestData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -171,14 +171,20 @@ export const DEFAULT_CACHE_DATA: CacheData = {
     group: { name: '', invalidation: 'NONE', time: '' },
     entry: { name: '', invalidation: 'NONE', time: '' }
   }
-};
+} as const;
 
 export const DEFAULT_WSPROCESS_DATA: WebserviceProcessConfig = {
   data: '',
-  permissions: { view: {allowed:true}},
+  permissions: { view: { allowed: true } },
   wsAuth: 'NONE',
   wsTypeName: ''
-};
+} as const;
+
+export const DEFAULT_WSREQUEST_DATA: WsRequestData = {
+  clientId: '',
+  operation: { name: '', port: '', parameters: {} },
+  properties: {}
+} as const;
 
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
@@ -203,6 +209,7 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_CACHE_DATA,
     ...DEFAULT_WEB_SERVICE_DATA,
     ...DEFAULT_WSPROCESS_DATA,
+    ...DEFAULT_WSREQUEST_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
     body: {} as RestBody,
     javaClass: '',
@@ -210,9 +217,6 @@ export const DEFAULT_DATA: ElementData = {
     timeout: {} as JavaTimeout & JavaEventTimeout,
     guid: '',
     link: '',
-    clientId: '',
-    operation: {} as SoapOperation,
-    properties: {},
     eventId: '',
     method: 'GET',
     response: {} as RestResponse,

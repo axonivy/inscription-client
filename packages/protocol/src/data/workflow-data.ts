@@ -52,5 +52,6 @@ export const IVY_SCRIPT_TYPES = {
   TIME: 'Time',
   BOOLEAN: 'Boolean',
   INT: 'Integer',
-  BPM_ERROR: 'ch.ivyteam.ivy.bpm.error.BpmError'
+  BPM_ERROR: 'ch.ivyteam.ivy.bpm.error.BpmError',
+  OBJECT: 'Object'
 } as const;

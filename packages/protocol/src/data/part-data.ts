@@ -42,3 +42,5 @@ export type QueryData = Pick<ConfigData, 'query' | 'exceptionHandler'>;
 export type CacheData = Pick<ConfigData, 'cache'>;
 
 export type WebserviceStartData = Pick<ConfigData, 'permission' | 'exception'>;
+
+export type WsRequestData = Pick<ConfigData, 'clientId' | 'operation' | 'properties'>;

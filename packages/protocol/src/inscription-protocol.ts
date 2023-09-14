@@ -11,7 +11,11 @@ import {
   InscriptionValidation,
   RoleMeta,
   ScriptingDataArgs,
-  VariableInfo
+  VariableInfo,
+  WebServiceClient,
+  WebServiceClientRequest,
+  WebServiceOperation,
+  WebServicePortRequest
 } from './data/inscription';
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -28,6 +32,11 @@ export interface InscriptionMetaRequestTypes {
   'meta/database/names': [InscriptionContext, string[]];
   'meta/database/tables': [DatabaseTablesRequest, string[]];
   'meta/database/columns': [DatabaseColumnRequest, DatabaseColumn[]];
+
+  'meta/webservice/clients': [InscriptionContext, WebServiceClient[]];
+  'meta/webservice/ports': [WebServiceClientRequest, string[]];
+  'meta/webservice/operations': [WebServicePortRequest, WebServiceOperation[]];
+  'meta/webservice/properties': [WebServiceClientRequest, string[]];
 
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
