@@ -16,6 +16,7 @@ export type QueryKind = "READ" | "WRITE" | "UPDATE" | "DELETE" | "ANY";
 export type IntermediateEventTimeoutAction = "NOTHING" | "DESTROY_TASK" | "CONTINUE_WITHOUT_EVENT";
 export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | "OPTIONS" | "JAX_RS";
 export type InputType = "ENTITY" | "FORM" | "RAW";
+export type WsAuth = "NONE" | "WS_SECURITY" | "HTTP_BASIC";
 export type Severity = "INFO" | "WARNING" | "ERROR";
 export type CustomFieldConfigType = "START" | "TASK" | "CASE";
 
@@ -33,11 +34,11 @@ export interface Inscription {
   errorMeta: ErrorMeta[];
   eventCodeMeta: EventCodeMeta[];
   roleMeta: RoleMeta[];
-  connectorRef: ConnectorRef[];
   string: string[];
   databaseColumnRequest: DatabaseColumnRequest;
   databaseColumn: DatabaseColumn[];
   databaseTablesRequest: DatabaseTablesRequest;
+  connectorRef: ConnectorRef[];
   schemaKey: SchemaKey;
   [k: string]: unknown;
 }
@@ -86,7 +87,9 @@ export interface Data {
     | ElementWaitEvent
     | ElementRestClientCall
     | ElementThirdPartyProgramStart
-    | ElementSignalStartEvent;
+    | ElementSignalStartEvent
+    | ProcessConfig
+    | WebserviceProcessConfig;
   description: string;
   docs: Document[];
   name: string;
@@ -438,6 +441,22 @@ export interface ElementSignalStartEvent {
   signalCode: string;
   attachToBusinessCase: boolean;
 }
+export interface ProcessConfig {
+  data: string;
+  permissions: RootPermissions;
+}
+export interface RootPermissions {
+  view: RootView;
+}
+export interface RootView {
+  allowed: boolean;
+}
+export interface WebserviceProcessConfig {
+  wsAuth: WsAuth;
+  data: string;
+  permissions: RootPermissions;
+  wsTypeName: string;
+}
 export interface Document {
   name: string;
   url: string;
@@ -495,7 +514,9 @@ export interface InscriptionType {
     | "ManualBpmnElement"
     | "ThirdPartyProgramStart"
     | "HtmlDialogEnd"
-    | "SignalStartEvent";
+    | "SignalStartEvent"
+    | "WebserviceProcess"
+    | "Process";
   impl?: string;
   label: string;
   shortLabel: string;
@@ -560,17 +581,6 @@ export interface RoleMeta {
   id: string;
   label: string;
 }
-export interface ConnectorRef {
-  name: string;
-  pid: PID;
-  source: NodeRef;
-  target: NodeRef;
-}
-export interface NodeRef {
-  name: string;
-  pid: PID;
-  type: InscriptionType;
-}
 export interface DatabaseColumnRequest {
   context: InscriptionContext;
   database: string;
@@ -585,6 +595,17 @@ export interface DatabaseTablesRequest {
   context: InscriptionContext;
   database: string;
 }
+export interface ConnectorRef {
+  name: string;
+  pid: PID;
+  source: NodeRef;
+  target: NodeRef;
+}
+export interface NodeRef {
+  name: string;
+  pid: PID;
+  type: InscriptionType;
+}
 export interface SchemaKey {
   Common: "output" | "exceptionHandler" | "code" | "map";
   Alternative: "conditions";
@@ -594,6 +615,7 @@ export interface SchemaKey {
   Database: "query";
   Error: "errorCode" | "throws";
   Mail: "headers" | "message" | "attachments" | "failIfMissingAttachments";
+  Process: "data" | "permissions";
   Programmed: "javaClass" | "userConfig" | "link" | "timeout" | "eventId";
   RestClient: {
     Common: "method" | "target" | "body" | "response";
@@ -604,5 +626,5 @@ export interface SchemaKey {
   Start: "request" | "permission" | "triggerable" | "persistOnStart";
   WebService: "clientId" | "operation" | "properties";
   Workflow: "task" | "tasks" | "case" | "page" | "customFields";
-  WsProcess: "exception";
+  WsProcess: "wsAuth" | "wsTypeName" | "exception";
 }
