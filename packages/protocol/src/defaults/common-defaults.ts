@@ -28,7 +28,8 @@ import {
   ErrorThrowData,
   QueryData,
   CacheData,
-  WebserviceStartData
+  WebserviceStartData,
+  WebserviceProcessConfig
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -172,6 +173,13 @@ export const DEFAULT_CACHE_DATA: CacheData = {
   }
 };
 
+export const DEFAULT_WSPROCESS_DATA: WebserviceProcessConfig = {
+  data: '',
+  permissions: { view: {allowed:true}},
+  wsAuth: 'NONE',
+  wsTypeName: ''
+};
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -194,6 +202,7 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_QUERY_DATA,
     ...DEFAULT_CACHE_DATA,
     ...DEFAULT_WEB_SERVICE_DATA,
+    ...DEFAULT_WSPROCESS_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
     body: {} as RestBody,
     javaClass: '',
