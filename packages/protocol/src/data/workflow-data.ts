@@ -1,4 +1,4 @@
-import { QueryKind, WfActivatorType, WfFieldType, WfLevel } from './inscription';
+import { QueryKind, WfActivatorType, WfFieldType, WfLevel, WsAuth } from './inscription';
 
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
@@ -56,3 +56,9 @@ export const IVY_SCRIPT_TYPES = {
   BPM_ERROR: 'ch.ivyteam.ivy.bpm.error.BpmError',
   OBJECT: 'Object'
 } as const;
+
+export const WS_AUTH_TYPE = {
+  NONE: 'None/Container',
+  WS_SECURITY: 'WS Security',
+  HTTP_BASIC: 'HTTP Basic'
+} as const satisfies Record<WsAuth, string>;

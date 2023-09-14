@@ -13,7 +13,7 @@ class Name extends PartObject {
   tagsSection: Section;
   tags: Tags;
 
-  constructor(part: Part, private readonly hasTags: boolean) {
+  constructor(part: Part, private readonly hasTags: boolean, private readonly nameDisabled?: boolean) {
     super(part);
     this.displayName = part.textArea('Display name');
     this.description = part.textArea('Description');
@@ -24,7 +24,9 @@ class Name extends PartObject {
   }
 
   async fill() {
-    await this.displayName.fill('test name');
+    if (!this.nameDisabled) {
+      await this.displayName.fill('test name');
+    }
     await this.description.fill('test desc');
     await this.meansDocumentsSection.toggle();
     const row = await this.documents.addRow();
@@ -36,7 +38,9 @@ class Name extends PartObject {
   }
 
   async assertFill() {
-    await this.displayName.expectValue('test name');
+    if (!this.nameDisabled) {
+      await this.displayName.expectValue('test name');
+    }
     await this.description.expectValue('test desc');
     await this.documents.expectRowCount(1);
     await this.documents.row(0).expectValues(['test doc', 'test url']);
@@ -45,7 +49,9 @@ class Name extends PartObject {
     }
   }
   async clear() {
-    await this.displayName.clear();
+    if (!this.nameDisabled) {
+      await this.displayName.clear();
+    }
     await this.description.clear();
     await this.documents.clear();
     if (this.hasTags) {
@@ -53,7 +59,9 @@ class Name extends PartObject {
     }
   }
   async assertClear() {
-    await this.displayName.expectEmpty();
+    if (!this.nameDisabled) {
+      await this.displayName.expectEmpty();
+    }
     await this.description.expectEmpty();
     await this.meansDocumentsSection.expectIsClosed();
     if (this.hasTags) {
@@ -63,10 +71,11 @@ class Name extends PartObject {
 }
 
 export class NameTester extends NewPartTest {
-  constructor(hasTags: boolean = true) {
-    super('Name', (part: Part) => new Name(part, hasTags));
+  constructor(hasTags: boolean = true, nameDisabled = false) {
+    super('Name', (part: Part) => new Name(part, hasTags, nameDisabled));
   }
 }
 
 export const NameTest = new NameTester();
 export const NameTestWithoutTags = new NameTester(false);
+export const NameTestWithDisabledName = new NameTester(false, true);

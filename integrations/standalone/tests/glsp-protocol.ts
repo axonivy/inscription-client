@@ -11,6 +11,7 @@ type Action<T = unknown> = {
 };
 type SelectAction = Action<{ selectedElementsIDs: string[] }>;
 type SetModelAction = Action<{ newRoot: { id: string } }>;
+type ProcessKind = 'NORMAL' | 'WEB_SERVICE' | 'CALLABLE_SUB' | 'HTML_DIALOG';
 
 export class GlspProtocol {
   private readonly client: Client;
@@ -19,13 +20,15 @@ export class GlspProtocol {
   private readonly appId: string;
   private readonly processUri: string;
   private readonly sessionId: string;
+  private readonly processUUID: string;
 
-  constructor() {
+  constructor(private readonly kind: ProcessKind = 'NORMAL') {
     const transport = new WebSocketTransport(`ws://${this.serverUrl()}/ivy-glsp-process`);
     this.client = new Client(new RequestManager([transport]));
     this.client.onError(error => console.error(error));
     this.appId = uuid();
-    this.processUri = `/processes/${uuid()}`;
+    this.processUUID = uuid();
+    this.processUri = `/processes/${this.kind}-${this.processUUID}`;
     this.sessionId = `${this.appId}_${this.processUri}`;
   }
 
@@ -72,6 +75,10 @@ export class GlspProtocol {
     });
     await this.untilTrue(() => processId.length > 0);
     return processId;
+  }
+
+  getProcessUUID() {
+    return this.processUUID;
   }
 
   async createElement(processId: string, type: string, location = { x: 200, y: 64 }) {
@@ -136,7 +143,7 @@ export class GlspProtocol {
   }
 }
 
-export type CreateProcessResult = { processId: string; elementId: string };
+export type CreateProcessResult = { processId: string; elementId: string; processUUID: string };
 
 export async function createProcess(
   type: ElementType | `ThirdPartyProgramInterface:${string}`,
@@ -145,9 +152,10 @@ export async function createProcess(
     connectTo?: ElementType[];
     additionalElements?: ElementType[];
     boundaryType?: 'error' | 'signal';
+    processKind?: ProcessKind;
   }
 ): Promise<CreateProcessResult> {
-  const glsp = new GlspProtocol();
+  const glsp = new GlspProtocol(options?.processKind);
   const processId = await glsp.initProcess();
   let elementId = await glsp.createElement(processId, type, options?.location);
   if (options?.connectTo) {
@@ -164,5 +172,5 @@ export async function createProcess(
   if (options?.boundaryType) {
     elementId = await glsp.attachBoundary(elementId, options.boundaryType);
   }
-  return { processId, elementId };
+  return { processId, elementId, processUUID: glsp.getProcessUUID() };
 }
