@@ -30,7 +30,8 @@ export const MAIL_TYPE = {
 export const IVY_EXCEPTIONS = {
   mail: 'ivy:error:email',
   security: 'ivy:security:forbidden',
-  database: 'ivy:error:database'
+  database: 'ivy:error:database',
+  webservice: 'ivy:error:webservice:exception'
 } as const;
 
 export const QUERY_KIND = {
