@@ -20,3 +20,4 @@ export * from './task';
 export * from './trigger';
 export * from './web-service';
 export * from './ws-request';
+export * from './ws-response';

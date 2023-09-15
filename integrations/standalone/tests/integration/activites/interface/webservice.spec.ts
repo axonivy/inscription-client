@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { NameTest, WsRequestTest, runTest } from '../../parts';
+import { NameTest, WsRequestTest, WsResponseTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 import { DataCacheTest } from '../../parts/db-cache';
 
@@ -27,6 +27,10 @@ test.describe('Web Service', () => {
 
   test('Request', async () => {
     await runTest(view, WsRequestTest);
+  });
+
+  test('Response', async () => {
+    await runTest(view, WsResponseTest);
   });
 
   test('Data Cache', async () => {
