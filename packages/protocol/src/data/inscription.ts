@@ -35,15 +35,15 @@ export interface Inscription {
   errorMeta: ErrorMeta[];
   eventCodeMeta: EventCodeMeta[];
   roleMeta: RoleMeta[];
+  connectorRef: ConnectorRef[];
   webServiceClientRequest: WebServiceClientRequest;
   string: string[];
-  webServiceClient: WebServiceClient[];
   webServicePortRequest: WebServicePortRequest;
   webServiceOperation: WebServiceOperation[];
-  connectorRef: ConnectorRef[];
+  webServiceClient: WebServiceClient[];
+  databaseTablesRequest: DatabaseTablesRequest;
   databaseColumnRequest: DatabaseColumnRequest;
   databaseColumn: DatabaseColumn[];
-  databaseTablesRequest: DatabaseTablesRequest;
   schemaKey: SchemaKey;
   [k: string]: unknown;
 }
@@ -532,7 +532,15 @@ export interface InscriptionValidation {
   severity: Severity;
 }
 export interface InscriptionActionArgs {
-  actionId: "openEndPage" | "newProcess" | "newHtmlDialog" | "openCustomField" | "openPage";
+  actionId:
+    | "openTestWs"
+    | "openEndPage"
+    | "newWebServiceClient"
+    | "newProcess"
+    | "newHtmlDialog"
+    | "openCustomField"
+    | "openConfig"
+    | "openPage";
   context: InscriptionContext;
   payload: string | OpenCustomField;
 }
@@ -586,23 +594,6 @@ export interface RoleMeta {
   id: string;
   label: string;
 }
-export interface WebServiceClientRequest {
-  clientId: string;
-  context: InscriptionContext;
-}
-export interface WebServiceClient {
-  clientId: string;
-  name: string;
-}
-export interface WebServicePortRequest {
-  clientId: string;
-  context: InscriptionContext;
-  port: string;
-}
-export interface WebServiceOperation {
-  name: string;
-  parameter: VariableInfo;
-}
 export interface ConnectorRef {
   name: string;
   pid: PID;
@@ -614,6 +605,27 @@ export interface NodeRef {
   pid: PID;
   type: InscriptionType;
 }
+export interface WebServiceClientRequest {
+  clientId: string;
+  context: InscriptionContext;
+}
+export interface WebServicePortRequest {
+  clientId: string;
+  context: InscriptionContext;
+  port: string;
+}
+export interface WebServiceOperation {
+  name: string;
+  parameter: VariableInfo;
+}
+export interface WebServiceClient {
+  clientId: string;
+  name: string;
+}
+export interface DatabaseTablesRequest {
+  context: InscriptionContext;
+  database: string;
+}
 export interface DatabaseColumnRequest {
   context: InscriptionContext;
   database: string;
@@ -623,10 +635,6 @@ export interface DatabaseColumn {
   ivyType: string;
   name: string;
   type: string;
-}
-export interface DatabaseTablesRequest {
-  context: InscriptionContext;
-  database: string;
 }
 export interface SchemaKey {
   Common: "output" | "exceptionHandler" | "code" | "map";

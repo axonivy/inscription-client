@@ -26,6 +26,7 @@ const Fieldset = ({ label, controls, message, children, ...labelProps }: Fieldse
                 icon={control.icon}
                 key={index}
                 aria-label={control.label}
+                title={control.label}
                 className='fieldset-control-button'
                 onClick={control.action}
                 data-state={control.active ? 'active' : 'inactive'}
