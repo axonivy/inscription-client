@@ -12,7 +12,9 @@ import {
   EventCodeMeta,
   InscriptionMetaRequestTypes,
   ScriptingDataArgs,
-  DatabaseColumn
+  DatabaseColumn,
+  WebServiceClient,
+  WebServiceOperation
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
@@ -45,6 +47,10 @@ type ContextHelperProps = {
     databases?: string[];
     tables?: string[];
     columns?: DatabaseColumn[];
+    wsClients?: WebServiceClient[];
+    wsPorts?: string[];
+    wsOperations?: WebServiceOperation[];
+    wsProperties?: string[];
   };
   editor?: { title?: string; readonly?: boolean };
 };
@@ -104,6 +110,14 @@ const ContextHelper = (
             return Promise.resolve(props.meta?.tables ?? []);
           case 'meta/database/columns':
             return Promise.resolve(props.meta?.columns ?? []);
+          case 'meta/webservice/clients':
+            return Promise.resolve(props.meta?.wsClients ?? []);
+          case 'meta/webservice/ports':
+            return Promise.resolve(props.meta?.wsPorts ?? []);
+          case 'meta/webservice/operations':
+            return Promise.resolve(props.meta?.wsOperations ?? []);
+          case 'meta/webservice/properties':
+            return Promise.resolve(props.meta?.wsProperties ?? []);
           default:
             throw Error('mock meta path not programmed');
         }

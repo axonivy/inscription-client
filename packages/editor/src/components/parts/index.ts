@@ -22,3 +22,5 @@ export * from './code/CodePart';
 export * from './error/ErrorThrowPart';
 export * from './query/QueryPart';
 export * from './cache/CachePart';
+export * from './ws-request/WsRequestPart';
+export * from './web-service/WebServicePart';

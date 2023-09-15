@@ -13,7 +13,7 @@ export class Select {
 
   async choose(value: string | RegExp) {
     await this.locator.getByRole('combobox').first().click();
-    await this.locator.getByRole('option', { name: value }).first().click();
+    await this.locator.getByRole('option', { name: value, exact: true }).first().click();
   }
 
   async expectValue(value: string | RegExp) {
