@@ -7,6 +7,7 @@
  */
 
 export type PID = string
+export type CustomFieldConfigType = "START" | "TASK" | "CASE";
 export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
 export type WfLevel = "EXCEPTION" | "HIGH" | "NORMAL" | "LOW" | "SCRIPT";
 export type WfActivatorType = "ROLE" | "ROLE_FROM_ATTRIBUTE" | "USER_FROM_ATTRIBUTE" | "DELETE_TASK";
@@ -19,38 +20,178 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | 
 export type InputType = "ENTITY" | "FORM" | "RAW";
 export type WsAuth = "NONE" | "WS_SECURITY" | "HTTP_BASIC";
 export type Severity = "INFO" | "WARNING" | "ERROR";
-export type CustomFieldConfigType = "START" | "TASK" | "CASE";
 
 export interface Inscription {
-  inscriptionContext: InscriptionContext;
-  inscriptionRequest: InscriptionRequest;
-  inscriptionValidation: InscriptionValidation[];
   boolean: boolean;
-  inscriptionActionArgs: InscriptionActionArgs;
-  void: Void;
-  inscriptionSaveRequest: InscriptionSaveRequest;
   callableStart: CallableStart[];
-  scriptingDataArgs: ScriptingDataArgs;
-  variableInfo: VariableInfo;
+  connectorRef: ConnectorRef[];
+  databaseColumn: DatabaseColumn[];
+  databaseColumnRequest: DatabaseColumnRequest;
+  databaseTablesRequest: DatabaseTablesRequest;
+  dataClass: DataClass[];
   errorMeta: ErrorMeta[];
   eventCodeMeta: EventCodeMeta[];
+  inscriptionActionArgs: InscriptionActionArgs;
+  inscriptionContext: InscriptionContext;
+  inscriptionRequest: InscriptionRequest;
+  inscriptionSaveRequest: InscriptionSaveRequest;
+  inscriptionValidation: InscriptionValidation[];
   roleMeta: RoleMeta[];
-  connectorRef: ConnectorRef[];
-  webServiceClientRequest: WebServiceClientRequest;
-  string: string[];
-  webServicePortRequest: WebServicePortRequest;
-  webServiceOperation: WebServiceOperation[];
-  webServiceClient: WebServiceClient[];
-  databaseTablesRequest: DatabaseTablesRequest;
-  databaseColumnRequest: DatabaseColumnRequest;
-  databaseColumn: DatabaseColumn[];
   schemaKey: SchemaKey;
+  scriptingDataArgs: ScriptingDataArgs;
+  string: string[];
+  variableInfo: VariableInfo;
+  void: Void;
+  webServiceClient: WebServiceClient[];
+  webServiceClientRequest: WebServiceClientRequest;
+  webServiceOperation: WebServiceOperation[];
+  webServicePortRequest: WebServicePortRequest;
   [k: string]: unknown;
+}
+export interface CallableStart {
+  callParameter: VariableInfo;
+  deprecated: boolean;
+  description: string;
+  id: string;
+  packageName: string;
+  process: string;
+  project: string;
+  startName: string;
+}
+export interface VariableInfo {
+  types: MapStringListVariable;
+  variables: Variable[];
+}
+export interface MapStringListVariable {
+  [k: string]: Variable[];
+}
+export interface Variable {
+  attribute: string;
+  description: string;
+  simpleType: string;
+  type: string;
+}
+export interface ConnectorRef {
+  name: string;
+  pid: PID;
+  source: NodeRef;
+  target: NodeRef;
+}
+export interface NodeRef {
+  name: string;
+  pid: PID;
+  type: InscriptionType;
+}
+export interface InscriptionType {
+  description: string;
+  iconId: string;
+  id:
+    | "TaskEndPage"
+    | "ServiceBpmnElement"
+    | "TaskSwitchGateway"
+    | "ReceiveBpmnElement"
+    | "ProcessAnnotation"
+    | "SubProcessCall"
+    | "EmbeddedEnd"
+    | "Database"
+    | "CallSubStart"
+    | "CallSubEnd"
+    | "Script"
+    | "Alternative"
+    | "SendBpmnElement"
+    | "ProgramInterface"
+    | "HtmlDialogExit"
+    | "ScriptBpmnElement"
+    | "HtmlDialogStart"
+    | "GenericActivity"
+    | "EmbeddedStart"
+    | "Split"
+    | "WebserviceEnd"
+    | "ErrorEnd"
+    | "UserBpmnElement"
+    | "RuleBpmnElement"
+    | "ErrorBoundaryEvent"
+    | "GenericBpmnElement"
+    | "HtmlDialogEventStart"
+    | "ProgramStart"
+    | "EmbeddedProcessElement"
+    | "WebServiceCall"
+    | "DialogCall"
+    | "TriggerCall"
+    | "ErrorStartEvent"
+    | "TaskEnd"
+    | "RequestStart"
+    | "WebserviceStart"
+    | "ThirdPartyWaitEvent"
+    | "UserTask"
+    | "Join"
+    | "SignalBoundaryEvent"
+    | "EMail"
+    | "TaskSwitchEvent"
+    | "HtmlDialogMethodStart"
+    | "ThirdPartyProgramInterface"
+    | "WaitEvent"
+    | "RestClientCall"
+    | "ManualBpmnElement"
+    | "ThirdPartyProgramStart"
+    | "HtmlDialogEnd"
+    | "SignalStartEvent"
+    | "Process"
+    | "WebserviceProcess";
+  impl?: string;
+  label: string;
+  shortLabel: string;
+}
+export interface DatabaseColumn {
+  ivyType: string;
+  name: string;
+  type: string;
+}
+export interface DatabaseColumnRequest {
+  context: InscriptionContext;
+  database: string;
+  table: string;
 }
 export interface InscriptionContext {
   app: string;
   pid: PID;
   pmv: string;
+}
+export interface DatabaseTablesRequest {
+  context: InscriptionContext;
+  database: string;
+}
+export interface DataClass {
+  name: string;
+  packageName: string;
+  path: string;
+}
+export interface ErrorMeta {
+  id: string;
+  label: string;
+}
+export interface EventCodeMeta {
+  eventCode: string;
+  process: string;
+  project: string;
+  usage: number;
+}
+export interface InscriptionActionArgs {
+  actionId:
+    | "openEndPage"
+    | "openTestWs"
+    | "newWebServiceClient"
+    | "newProcess"
+    | "newHtmlDialog"
+    | "openCustomField"
+    | "openConfig"
+    | "openPage";
+  context: InscriptionContext;
+  payload: string | OpenCustomField;
+}
+export interface OpenCustomField {
+  name: string;
+  type: CustomFieldConfigType;
 }
 export interface InscriptionRequest {
   context: InscriptionContext;
@@ -466,175 +607,18 @@ export interface Document {
   name: string;
   url: string;
 }
-export interface InscriptionType {
-  description: string;
-  iconId: string;
-  id:
-    | "TaskEndPage"
-    | "ServiceBpmnElement"
-    | "TaskSwitchGateway"
-    | "ReceiveBpmnElement"
-    | "ProcessAnnotation"
-    | "SubProcessCall"
-    | "EmbeddedEnd"
-    | "Database"
-    | "CallSubStart"
-    | "CallSubEnd"
-    | "Script"
-    | "Alternative"
-    | "SendBpmnElement"
-    | "ProgramInterface"
-    | "HtmlDialogExit"
-    | "ScriptBpmnElement"
-    | "HtmlDialogStart"
-    | "GenericActivity"
-    | "EmbeddedStart"
-    | "Split"
-    | "WebserviceEnd"
-    | "ErrorEnd"
-    | "UserBpmnElement"
-    | "RuleBpmnElement"
-    | "ErrorBoundaryEvent"
-    | "GenericBpmnElement"
-    | "HtmlDialogEventStart"
-    | "ProgramStart"
-    | "EmbeddedProcessElement"
-    | "WebServiceCall"
-    | "DialogCall"
-    | "TriggerCall"
-    | "ErrorStartEvent"
-    | "TaskEnd"
-    | "RequestStart"
-    | "WebserviceStart"
-    | "ThirdPartyWaitEvent"
-    | "UserTask"
-    | "Join"
-    | "SignalBoundaryEvent"
-    | "EMail"
-    | "TaskSwitchEvent"
-    | "HtmlDialogMethodStart"
-    | "ThirdPartyProgramInterface"
-    | "WaitEvent"
-    | "RestClientCall"
-    | "ManualBpmnElement"
-    | "ThirdPartyProgramStart"
-    | "HtmlDialogEnd"
-    | "SignalStartEvent"
-    | "Process"
-    | "WebserviceProcess";
-  impl?: string;
-  label: string;
-  shortLabel: string;
+export interface InscriptionSaveRequest {
+  context: InscriptionContext;
+  data: Data;
 }
 export interface InscriptionValidation {
   message: string;
   path: string;
   severity: Severity;
 }
-export interface InscriptionActionArgs {
-  actionId:
-    | "openTestWs"
-    | "openEndPage"
-    | "newWebServiceClient"
-    | "newProcess"
-    | "newHtmlDialog"
-    | "openCustomField"
-    | "openConfig"
-    | "openPage";
-  context: InscriptionContext;
-  payload: string | OpenCustomField;
-}
-export interface OpenCustomField {
-  name: string;
-  type: CustomFieldConfigType;
-}
-export interface Void {}
-export interface InscriptionSaveRequest {
-  context: InscriptionContext;
-  data: Data;
-}
-export interface CallableStart {
-  callParameter: VariableInfo;
-  deprecated: boolean;
-  description: string;
-  id: string;
-  packageName: string;
-  process: string;
-  project: string;
-  startName: string;
-}
-export interface VariableInfo {
-  types: MapStringListVariable;
-  variables: Variable[];
-}
-export interface MapStringListVariable {
-  [k: string]: Variable[];
-}
-export interface Variable {
-  attribute: string;
-  description: string;
-  simpleType: string;
-  type: string;
-}
-export interface ScriptingDataArgs {
-  context: InscriptionContext;
-  location: string;
-}
-export interface ErrorMeta {
-  id: string;
-  label: string;
-}
-export interface EventCodeMeta {
-  eventCode: string;
-  process: string;
-  project: string;
-  usage: number;
-}
 export interface RoleMeta {
   id: string;
   label: string;
-}
-export interface ConnectorRef {
-  name: string;
-  pid: PID;
-  source: NodeRef;
-  target: NodeRef;
-}
-export interface NodeRef {
-  name: string;
-  pid: PID;
-  type: InscriptionType;
-}
-export interface WebServiceClientRequest {
-  clientId: string;
-  context: InscriptionContext;
-}
-export interface WebServicePortRequest {
-  clientId: string;
-  context: InscriptionContext;
-  port: string;
-}
-export interface WebServiceOperation {
-  name: string;
-  parameter: VariableInfo;
-}
-export interface WebServiceClient {
-  clientId: string;
-  name: string;
-}
-export interface DatabaseTablesRequest {
-  context: InscriptionContext;
-  database: string;
-}
-export interface DatabaseColumnRequest {
-  context: InscriptionContext;
-  database: string;
-  table: string;
-}
-export interface DatabaseColumn {
-  ivyType: string;
-  name: string;
-  type: string;
 }
 export interface SchemaKey {
   Common: "output" | "exceptionHandler" | "code" | "map";
@@ -657,4 +641,26 @@ export interface SchemaKey {
   WebService: "clientId" | "operation" | "properties";
   Workflow: "task" | "tasks" | "case" | "page" | "customFields";
   WsProcess: "wsAuth" | "wsTypeName" | "exception";
+}
+export interface ScriptingDataArgs {
+  context: InscriptionContext;
+  location: string;
+}
+export interface Void {}
+export interface WebServiceClient {
+  clientId: string;
+  name: string;
+}
+export interface WebServiceClientRequest {
+  clientId: string;
+  context: InscriptionContext;
+}
+export interface WebServiceOperation {
+  name: string;
+  parameter: VariableInfo;
+}
+export interface WebServicePortRequest {
+  clientId: string;
+  context: InscriptionContext;
+  port: string;
 }
