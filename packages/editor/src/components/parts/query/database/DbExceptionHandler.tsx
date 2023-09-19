@@ -1,4 +1,4 @@
-import { ExceptionSelect, IGNROE_EXCEPTION, PathCollapsible, ValidationFieldset } from '../../common';
+import { ExceptionSelect, PathCollapsible, ValidationFieldset } from '../../common';
 import { useQueryData } from '../useQueryData';
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 
@@ -10,7 +10,7 @@ export const DbExceptionHandler = () => {
         <ExceptionSelect
           value={config.exceptionHandler}
           onChange={change => updateException(change)}
-          staticExceptions={[IVY_EXCEPTIONS.database, IGNROE_EXCEPTION]}
+          staticExceptions={[IVY_EXCEPTIONS.database, IVY_EXCEPTIONS.ignoreException]}
         />
       </ValidationFieldset>
     </PathCollapsible>

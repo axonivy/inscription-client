@@ -2,8 +2,6 @@ import { FieldsetInputProps, Select, SelectItem } from '../../../widgets';
 import { useEditorContext, useMeta } from '../../../../context';
 import { Consumer } from '../../../../types/lambda';
 
-export const IGNROE_EXCEPTION = '>> Ignore Exception' as const;
-
 type ExceptionSelectProps = {
   value: string;
   onChange: Consumer<string>;
@@ -17,7 +15,7 @@ const ExceptionSelect = ({ value, onChange, staticExceptions, inputProps }: Exce
     ...staticExceptions.map(ex => {
       return { label: ex, value: ex };
     }),
-    ...useMeta('meta/workflow/expiryErrors', context, []).data.map<SelectItem>(error => {
+    ...useMeta('meta/workflow/errorStarts', context, []).data.map<SelectItem>(error => {
       return { label: error.label, value: error.id };
     })
   ];

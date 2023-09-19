@@ -4,7 +4,7 @@ import { FieldsetProps } from '../../../widgets/fieldset/Fieldset';
 import { SchemaKeys } from '@axonivy/inscription-protocol';
 import { ValidationFieldset } from './validation/ValidationFieldset';
 
-type PathFieldsetProps = FieldsetProps & {
+export type PathFieldsetProps = FieldsetProps & {
   path: SchemaKeys;
   children: ReactNode;
 };

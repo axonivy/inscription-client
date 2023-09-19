@@ -3,7 +3,7 @@ import { useRequestData } from './useRequestData';
 import { IVY_EXCEPTIONS, RequestData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import { Checkbox, useFieldset } from '../../../components/widgets';
-import { ExceptionSelect, IGNROE_EXCEPTION, PathCollapsible, PathFieldset } from '../common';
+import { ExceptionSelect, PathCollapsible, PathFieldset } from '../common';
 import StartCustomFieldPart from '../common/customfield/StartCustomFieldPart';
 import RoleSelect from '../common/responsible/RoleSelect';
 import { deepEqual } from '../../../utils/equals';
@@ -60,7 +60,7 @@ const RequestPart = () => {
               <ExceptionSelect
                 value={config.permission.error}
                 onChange={change => updatePermission('error', change)}
-                staticExceptions={[IVY_EXCEPTIONS.security, IGNROE_EXCEPTION]}
+                staticExceptions={[IVY_EXCEPTIONS.security, IVY_EXCEPTIONS.ignoreException]}
                 inputProps={errorFieldset.inputProps}
               />
             </PathFieldset>

@@ -1,6 +1,6 @@
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { useWebServiceData } from './useWebServiceData';
-import { ExceptionSelect, IGNROE_EXCEPTION, PathCollapsible, PathFieldset } from '../common';
+import { ExceptionSelect, PathCollapsible, PathFieldset } from '../common';
 import RoleSelect from '../common/responsible/RoleSelect';
 import { useFieldset } from '../../widgets';
 import { deepEqual } from '../../../utils/equals';
@@ -24,7 +24,7 @@ export const Permission = () => {
         <ExceptionSelect
           value={config.permission.error}
           onChange={change => updatePermission('error', change)}
-          staticExceptions={[IVY_EXCEPTIONS.security, IGNROE_EXCEPTION]}
+          staticExceptions={[IVY_EXCEPTIONS.security, IVY_EXCEPTIONS.ignoreException]}
           inputProps={errorFieldset.inputProps}
         />
       </PathFieldset>

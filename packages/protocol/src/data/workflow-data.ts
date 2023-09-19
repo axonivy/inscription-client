@@ -31,7 +31,10 @@ export const IVY_EXCEPTIONS = {
   mail: 'ivy:error:email',
   security: 'ivy:security:forbidden',
   database: 'ivy:error:database',
-  webservice: 'ivy:error:webservice:exception'
+  webservice: 'ivy:error:webservice:exception',
+  rest: 'ivy:error:rest:client',
+  ignoreException: '>> Ignore Exception',
+  ignoreError: '>> Ignore error'
 } as const;
 
 export const QUERY_KIND = {

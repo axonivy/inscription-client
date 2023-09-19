@@ -5,6 +5,7 @@ import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ErrorCatchData } from '@axonivy/inscription-protocol';
 import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
+import { eventCodeInfo } from '../../../utils/event-code';
 
 export function useErrorCatchPart(): PartProps {
   const { config, defaultConfig, initConfig, updateError } = useErrorCatchData();
@@ -25,8 +26,8 @@ const ErrorCatchPart = () => {
   const { context } = useEditorContext();
   const errorCodes = [
     { value: '', eventCode: '<< Empty >>', info: 'Catches all errors' },
-    ...useMeta('meta/workflow/errorCodes', context, []).data.map<EventCodeItem>(code => {
-      return { ...code, value: code.eventCode, info: code.usage > 0 ? `${code.project} > ${code.process} (${code.usage})` : undefined };
+    ...useMeta('meta/workflow/errorCodes', { context, thrower: false }, []).data.map<EventCodeItem>(code => {
+      return { ...code, value: code.eventCode, info: eventCodeInfo(code) };
     })
   ];
 

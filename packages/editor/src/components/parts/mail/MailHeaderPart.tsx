@@ -3,7 +3,7 @@ import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
 import { IVY_EXCEPTIONS, MailData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import { ExceptionSelect, IGNROE_EXCEPTION, PathFieldset } from '../common';
+import { ExceptionSelect, PathFieldset } from '../common';
 
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetHeaders } = useMailData();
@@ -56,7 +56,7 @@ const MailHeaderPart = () => {
             value={config.exceptionHandler}
             onChange={change => update('exceptionHandler', change)}
             inputProps={exceptionFieldset.inputProps}
-            staticExceptions={[IVY_EXCEPTIONS.mail, IGNROE_EXCEPTION]}
+            staticExceptions={[IVY_EXCEPTIONS.mail, IVY_EXCEPTIONS.ignoreException]}
           />
         </PathFieldset>
         <Checkbox

@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { NameTest, runTest } from '../../parts';
+import { NameTest, RestResponseTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 
 test.describe('Rest Client', () => {
@@ -22,5 +22,9 @@ test.describe('Rest Client', () => {
 
   test('Name', async () => {
     await runTest(view, NameTest);
+  });
+
+  test('Response', async () => {
+    await runTest(view, RestResponseTest);
   });
 });

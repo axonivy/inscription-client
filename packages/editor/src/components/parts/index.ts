@@ -25,3 +25,4 @@ export * from './cache/CachePart';
 export * from './ws-request/WsRequestPart';
 export * from './ws-response/WsResponsePart';
 export * from './web-service/WebServicePart';
+export * from './rest-response/RestRequestPart';

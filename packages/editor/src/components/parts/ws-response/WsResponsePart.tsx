@@ -2,7 +2,7 @@ import { IVY_EXCEPTIONS, WsResponseData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useWsResponseData } from './useWsResponseData';
-import { ExceptionSelect, IGNROE_EXCEPTION, MappingPart, PathCollapsible, PathFieldset, ValidationFieldset } from '../common';
+import { ExceptionSelect, MappingPart, PathCollapsible, PathFieldset, ValidationFieldset } from '../common';
 import { ScriptArea, useFieldset } from '../../widgets';
 
 export function useWsResponsePart(): PartProps {
@@ -33,7 +33,7 @@ const WsResponsePart = () => {
           <ExceptionSelect
             value={config.exceptionHandler}
             onChange={change => update('exceptionHandler', change)}
-            staticExceptions={[IVY_EXCEPTIONS.webservice, IGNROE_EXCEPTION]}
+            staticExceptions={[IVY_EXCEPTIONS.webservice, IVY_EXCEPTIONS.ignoreException]}
           />
         </ValidationFieldset>
       </PathCollapsible>
