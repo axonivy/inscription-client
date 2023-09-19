@@ -46,3 +46,9 @@ export type WebserviceStartData = Pick<ConfigData, 'permission' | 'exception'>;
 export type WsRequestData = Pick<ConfigData, 'clientId' | 'operation' | 'properties'>;
 
 export type WsResponseData = Pick<ConfigData, 'output' | 'exceptionHandler'>;
+
+export type ProcessDataData = Pick<ConfigData, 'data'>;
+
+export type PermissionsData = Pick<ConfigData, 'permissions'>;
+
+export type WebServiceProcessData = Pick<ConfigData, 'wsAuth' | 'wsTypeName'>;

@@ -3,7 +3,7 @@ import DocumentTable from './document/DocumentTable';
 import { Collapsible, Fieldset, SummaryFieldset, SummaryTags, Tags, Textarea, useFieldset } from '../../widgets';
 import { useNameData } from './useNameData';
 
-export function useNamePart(options?: { hideTags?: boolean }): PartProps {
+export function useNamePart(options?: { hideTags?: boolean; disableName?: boolean }): PartProps {
   const { data, initData, resetData } = useNameData();
   const currentData = [data.name, data.description, data.docs, data.tags];
   const state = usePartState(['', '', [], []], currentData, []);
@@ -12,12 +12,12 @@ export function useNamePart(options?: { hideTags?: boolean }): PartProps {
     name: 'Name',
     state,
     reset: { dirty, action: () => resetData() },
-    content: <NamePart hideTags={options?.hideTags} />,
+    content: <NamePart hideTags={options?.hideTags} disableName={options?.disableName} />,
     summary: <NameSummary hideTags={options?.hideTags} />
   };
 }
 
-const NamePart = (props: { hideTags?: boolean }) => {
+const NamePart = (props: { hideTags?: boolean; disableName?: boolean }) => {
   const { data, update } = useNameData();
 
   const nameField = useFieldset();
@@ -25,7 +25,13 @@ const NamePart = (props: { hideTags?: boolean }) => {
   return (
     <>
       <Fieldset label='Display name' {...nameField.labelProps}>
-        <Textarea maxRows={3} value={data.name} onChange={change => update('name', change)} {...nameField.inputProps} />
+        <Textarea
+          maxRows={3}
+          disabled={!!props.disableName}
+          value={data.name}
+          onChange={change => update('name', change)}
+          {...nameField.inputProps}
+        />
       </Fieldset>
       <Fieldset label='Description' {...descriptionField.labelProps}>
         <Textarea

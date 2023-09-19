@@ -3,14 +3,14 @@ import { NameData } from '@axonivy/inscription-protocol';
 import { useNamePart } from './NamePart';
 import { PartStateFlag } from '../../editors';
 
-const Part = (props: { hideTags?: boolean }) => {
-  const part = useNamePart({ hideTags: props.hideTags });
+const Part = (props: { hideTags?: boolean; disableName?: boolean }) => {
+  const part = useNamePart({ hideTags: props.hideTags, disableName: props.disableName });
   return <>{part.content}</>;
 };
 
 describe('NamePart', () => {
-  function renderPart(data?: NameData, hideTags?: boolean) {
-    render(<Part hideTags={hideTags} />, { wrapperProps: { data } });
+  function renderPart(data?: NameData, hideTags?: boolean, disableName?: boolean) {
+    render(<Part hideTags={hideTags} disableName={disableName} />, { wrapperProps: { data } });
   }
 
   async function assertMainPart(name: string, description: string) {
@@ -29,6 +29,12 @@ describe('NamePart', () => {
     renderPart(undefined, true);
     await assertMainPart('', '');
     expect(screen.queryByText('Tags')).not.toBeInTheDocument();
+  });
+
+  test('disable name', async () => {
+    renderPart(undefined, undefined, true);
+    await assertMainPart('', '');
+    expect(await screen.findByLabelText('Display name')).toBeDisabled();
   });
 
   test('full data', async () => {
