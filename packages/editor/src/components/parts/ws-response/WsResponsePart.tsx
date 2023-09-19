@@ -1,9 +1,9 @@
 import { IVY_EXCEPTIONS, WsResponseData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
-import { useWsResponseData } from './useWsRequestData';
+import { useWsResponseData } from './useWsResponseData';
 import { ExceptionSelect, IGNROE_EXCEPTION, MappingPart, PathCollapsible, PathFieldset, ValidationFieldset } from '../common';
-import { ScriptArea, useFieldset } from '../../../components/widgets';
+import { ScriptArea, useFieldset } from '../../widgets';
 
 export function useWsResponsePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useWsResponseData();
@@ -11,10 +11,10 @@ export function useWsResponsePart(): PartProps {
   const compareData = (data: WsResponseData) => [data.output, data.exceptionHandler];
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Response', state: state, reset: { dirty, action: () => resetData() }, content: <WsRequestPart /> };
+  return { name: 'Response', state: state, reset: { dirty, action: () => resetData() }, content: <WsResponsePart /> };
 }
 
-const WsRequestPart = () => {
+const WsResponsePart = () => {
   const { config, defaultConfig, update, updateOutput } = useWsResponseData();
   const { context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'output' }, { variables: [], types: {} });
