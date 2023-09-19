@@ -1,14 +1,14 @@
 import { render, renderHook, DeepPartial, screen, TableUtil, CollapsableUtil, SelectUtil } from 'test-utils';
 import { ElementData, InscriptionValidation, WsResponseData } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../editors';
-import { useWsResponsePart } from './WsRequestPart';
+import { useWsResponsePart } from './WsResponsePart';
 
 const Part = () => {
   const part = useWsResponsePart();
   return <>{part.content}</>;
 };
 
-describe('WsRequestPart', () => {
+describe('WsResponsePart', () => {
   function renderPart(data?: DeepPartial<WsResponseData>) {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
