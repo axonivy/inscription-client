@@ -1,13 +1,13 @@
 import { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { TextArea } from '../../pageobjects/TextArea';
+import { Combobox } from '../../pageobjects/Combobox';
 
 class ProcessData extends PartObject {
-  dataClass: TextArea;
+  dataClass: Combobox;
 
   constructor(part: Part) {
     super(part);
-    this.dataClass = part.textArea('Data Class');
+    this.dataClass = part.combobox('Data Class');
   }
 
   async fill() {
@@ -19,11 +19,11 @@ class ProcessData extends PartObject {
   }
 
   async clear() {
-    await this.dataClass.clear();
+    await this.dataClass.choose('AddContactData');
   }
 
   async assertClear() {
-    await this.dataClass.expectEmpty();
+    await this.dataClass.expectValue('ch.ivyteam.documentation.project.AddContactData');
   }
 }
 
