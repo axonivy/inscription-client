@@ -7,7 +7,7 @@ import { PathFieldset } from '../common';
 
 export function useWebServiceProcessPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useWebServiceProcessData();
-  const compareData = (data: WebServiceProcessData) => [data];
+  const compareData = (data: WebServiceProcessData) => [data.wsAuth, data.wsTypeName];
   const validation = [...useValidations(['wsAuth']), ...useValidations(['wsTypeName'])];
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));

@@ -6,7 +6,7 @@ import { PermissionsData } from '@axonivy/inscription-protocol';
 
 export function usePermissionsPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = usePermissionsData();
-  const compareData = (data: PermissionsData) => [data];
+  const compareData = (data: PermissionsData) => [data.permissions];
   const validation = useValidations([]);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));

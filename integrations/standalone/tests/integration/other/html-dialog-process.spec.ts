@@ -1,14 +1,14 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { NameTestWithDisabledName, PermissionsTest, ProcessDataTest, runTest } from '../parts';
+import { NameTestWithDisabledName, PermissionsTest, runTest } from '../parts';
 import { CreateProcessResult, createProcess } from '../../glsp-protocol';
 
-test.describe('Business Process', () => {
+test.describe('HTML Dialog Process', () => {
   let view: InscriptionView;
   let testee: CreateProcessResult;
 
   test.beforeAll(async () => {
-    testee = await createProcess('Database');
+    testee = await createProcess('Database', { processKind: 'HTML_DIALOG' });
   });
 
   test.beforeEach(async ({ page }) => {
@@ -24,11 +24,7 @@ test.describe('Business Process', () => {
     await runTest(view, NameTestWithDisabledName);
   });
 
-  test('Process Data', async () => {
-    await runTest(view, ProcessDataTest);
-  });
-
   test('Permissions', async () => {
-    await runTest(view, PermissionsTest());
+    await runTest(view, PermissionsTest(false));
   });
 });
