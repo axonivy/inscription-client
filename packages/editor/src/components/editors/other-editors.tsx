@@ -24,8 +24,23 @@ const WebserviceProcessEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.Edit} parts={[name, webServiceProcess, processData, permissions]} />;
 });
 
+const CallableSubProcessEditor = memo(() => {
+  const name = useNamePart({ disableName: true, hideTags: true });
+  const processData = useProcessDataPart();
+  const permissions = usePermissionsPart();
+  return <InscriptionEditor icon={IvyIcons.Edit} parts={[name, processData, permissions]} />;
+});
+
+const HTMLDialogLogicEditor = memo(() => {
+  const name = useNamePart({ disableName: true, hideTags: true });
+  const permissions = usePermissionsPart();
+  return <InscriptionEditor icon={IvyIcons.Edit} parts={[name, permissions]} />;
+});
+
 export const otherEditors = new Map<ElementType, ReactNode>([
   ['ProcessAnnotation', <NameEditor icon={IvyIcons.Note} hideTags={true} />],
   ['Process', <BusinessProcessEditor />],
-  ['WebserviceProcess', <WebserviceProcessEditor />]
+  ['WebserviceProcess', <WebserviceProcessEditor />],
+  ['CallableSubProcess', <CallableSubProcessEditor />],
+  ['HtmlDialogProcess', <HTMLDialogLogicEditor />]
 ]);

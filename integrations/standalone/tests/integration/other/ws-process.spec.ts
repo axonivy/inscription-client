@@ -1,10 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { NameTestWithDisabledName, runTest } from '../parts';
+import { NameTestWithDisabledName, PermissionsTest, ProcessDataTest, WebServiceProcessTest, runTest } from '../parts';
 import { CreateProcessResult, createProcess } from '../../glsp-protocol';
-import { ProcessDataTest } from '../parts/process-data';
-import { PermissionsTest } from '../parts/permissions';
-import { WebServiceProcessTest } from '../parts/web-service-process';
 
 test.describe('Web Service Process', () => {
   let view: InscriptionView;
@@ -36,6 +33,6 @@ test.describe('Web Service Process', () => {
   });
 
   test('Permissions', async () => {
-    await runTest(view, PermissionsTest);
+    await runTest(view, PermissionsTest());
   });
 });
