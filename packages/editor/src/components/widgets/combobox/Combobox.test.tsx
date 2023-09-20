@@ -16,7 +16,7 @@ describe('Combobox', () => {
       <Combobox
         items={items}
         itemFilter={options.itemFilter}
-        comboboxItem={options.comboboxItem ? options.comboboxItem : item => <span>{item.value}</span>}
+        comboboxItem={options.comboboxItem}
         value={value}
         onChange={options.onChange ? options.onChange : () => {}}
       />
@@ -114,7 +114,7 @@ describe('Combobox', () => {
   });
 
   test('combobox support readonly mode', async () => {
-    render(<Combobox items={[{ value: 'test' }]} comboboxItem={item => <span>{item.value}</span>} value={'test'} onChange={() => {}} />, {
+    render(<Combobox items={[{ value: 'test' }]} value={'test'} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
 

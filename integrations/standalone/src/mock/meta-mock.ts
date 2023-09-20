@@ -1,4 +1,4 @@
-import { CallableStart, ConnectorRef, ErrorMeta, VariableInfo, NodeRef, RoleMeta } from '@axonivy/inscription-protocol';
+import { CallableStart, ConnectorRef, ErrorStartMeta, VariableInfo, NodeRef, RoleMeta } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
   const USER_INFO_TYPE = [
@@ -213,7 +213,7 @@ export namespace MetaMock {
     { id: 'Teamleader', label: '' }
   ];
 
-  export const EXPIRY_ERRORS: ErrorMeta[] = [
+  export const EXPIRY_ERRORS: ErrorStartMeta[] = [
     { label: 'ProcurementRequestParallel -> error:task', id: 'f29' },
     { label: 'ProcurementRequestParallel -> error:task:bla', id: 'f31' }
   ];

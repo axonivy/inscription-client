@@ -13,7 +13,8 @@ import {
   useQueryPart,
   useCachePart,
   useWsRequestPart,
-  useWsResponsePart
+  useWsResponsePart,
+  useRestResponsePart
 } from '../../../components/parts';
 
 const DatabaseEditor = memo(() => {
@@ -32,6 +33,12 @@ const WebServiceEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.WebService} parts={[name, request, response, cache]} />;
 });
 
+const RestEditor = memo(() => {
+  const name = useNamePart();
+  const response = useRestResponsePart();
+  return <InscriptionEditor icon={IvyIcons.RestClient} parts={[name, response]} />;
+});
+
 const EMailEditor = memo(() => {
   const name = useNamePart();
   const header = useMailHeaderPart();
@@ -43,7 +50,7 @@ const EMailEditor = memo(() => {
 export const interfaceActivityEditors = new Map<ElementType, ReactNode>([
   ['Database', <DatabaseEditor />],
   ['WebServiceCall', <WebServiceEditor />],
-  ['RestClientCall', <NameEditor icon={IvyIcons.RestClient} />],
+  ['RestClientCall', <RestEditor />],
   ['EMail', <EMailEditor />],
   // ['Rule', <NameEditor title='Rule Activity'/>],
   ['ProgramInterface', <NameEditor icon={IvyIcons.Program} />]

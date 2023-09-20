@@ -4,7 +4,7 @@ import {
   ConfigData,
   DEFAULT_DATA,
   CallableStart,
-  ErrorMeta,
+  ErrorStartMeta,
   InscriptionValidation,
   VariableInfo,
   RoleMeta,
@@ -38,7 +38,7 @@ type ContextHelperProps = {
   validations?: InscriptionValidation[];
   meta?: {
     roles?: RoleMeta[];
-    expiryErrors?: ErrorMeta[];
+    expiryErrors?: ErrorStartMeta[];
     callableStarts?: CallableStart[];
     eventCodes?: EventCodeMeta[];
     outScripting?: VariableInfo;
@@ -86,7 +86,7 @@ const ContextHelper = (
             return Promise.resolve(props.meta?.callableStarts ?? []);
           case 'meta/workflow/roles':
             return Promise.resolve(props.meta?.roles ?? []);
-          case 'meta/workflow/expiryErrors':
+          case 'meta/workflow/errorStarts':
             return Promise.resolve(props.meta?.expiryErrors ?? []);
           case 'meta/workflow/errorCodes':
           case 'meta/workflow/signalCodes':

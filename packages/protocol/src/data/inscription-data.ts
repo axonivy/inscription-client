@@ -11,6 +11,8 @@ import {
   InscriptionType,
   MailHeaders,
   ProcessConfig,
+  RestPayloadMapping,
+  RestResponse,
   SchemaKey,
   SoapOperation,
   SoapWsProcessException,
@@ -47,5 +49,7 @@ export type SchemaKeys =
   | keyof SoapWsProcessException
   | keyof SoapOperation
   | keyof ProcessConfig
-  | keyof WebserviceProcessConfig;
+  | keyof WebserviceProcessConfig
+  | keyof RestResponse
+  | keyof RestPayloadMapping;
 export type SchemaPath = Brand<string, 'SchemaPath'>;

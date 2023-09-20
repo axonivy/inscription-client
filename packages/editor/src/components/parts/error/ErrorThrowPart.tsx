@@ -5,6 +5,7 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { ErrorThrowData, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
 import { useErrorThrowData } from './useErrorThrowData';
+import { eventCodeInfo } from '../../../utils/event-code';
 
 export function useErrorThrowPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useErrorThrowData();
@@ -24,8 +25,8 @@ const ErrorThrowPart = () => {
   const { config, update } = useErrorThrowData();
   const { context } = useEditorContext();
   const errorCodes = [
-    ...useMeta('meta/workflow/errorCodes', context, []).data.map<EventCodeItem>(code => {
-      return { ...code, value: code.eventCode, info: code.usage > 0 ? `${code.project} > ${code.process} (${code.usage})` : undefined };
+    ...useMeta('meta/workflow/errorCodes', { context, thrower: true }, []).data.map<EventCodeItem>(code => {
+      return { ...code, value: code.eventCode, info: eventCodeInfo(code) };
     })
   ];
 

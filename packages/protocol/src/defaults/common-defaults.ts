@@ -22,14 +22,14 @@ import {
   RestBody,
   JavaTimeout,
   JavaEventTimeout,
-  RestResponse,
   RestTarget,
   ErrorThrowData,
   QueryData,
   CacheData,
   WebserviceStartData,
   WebserviceProcessConfig,
-  WsRequestData
+  WsRequestData,
+  RestResponseData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -186,6 +186,18 @@ export const DEFAULT_WSREQUEST_DATA: WsRequestData = {
   properties: {}
 } as const;
 
+export const DEFAULT_REST_RESPONSE_DATA: RestResponseData = {
+  response: {
+    entity: {
+      type: '',
+      map: {},
+      code: ''
+    },
+    clientError: IVY_EXCEPTIONS.rest,
+    statusError: IVY_EXCEPTIONS.rest
+  }
+} as const;
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -210,6 +222,7 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_WEB_SERVICE_DATA,
     ...DEFAULT_WSPROCESS_DATA,
     ...DEFAULT_WSREQUEST_DATA,
+    ...DEFAULT_REST_RESPONSE_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
     body: {} as RestBody,
     javaClass: '',
@@ -219,7 +232,6 @@ export const DEFAULT_DATA: ElementData = {
     link: '',
     eventId: '',
     method: 'GET',
-    response: {} as RestResponse,
     target: {} as RestTarget
   }
 } as const;

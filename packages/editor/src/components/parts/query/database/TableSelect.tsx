@@ -18,7 +18,6 @@ export const TableSelect = () => {
         <Combobox
           value={config.query.sql.table}
           onChange={change => updateSql('table', change)}
-          comboboxItem={item => <span>{item.value}</span>}
           items={tableItems}
           {...fieldset.inputProps}
         />

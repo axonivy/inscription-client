@@ -29,7 +29,8 @@ export interface Inscription {
   databaseColumnRequest: DatabaseColumnRequest;
   databaseTablesRequest: DatabaseTablesRequest;
   dataClass: DataClass[];
-  errorMeta: ErrorMeta[];
+  errorCodeRequest: ErrorCodeRequest;
+  errorStartMeta: ErrorStartMeta[];
   eventCodeMeta: EventCodeMeta[];
   inscriptionActionArgs: InscriptionActionArgs;
   inscriptionContext: InscriptionContext;
@@ -168,7 +169,11 @@ export interface DataClass {
   packageName: string;
   path: string;
 }
-export interface ErrorMeta {
+export interface ErrorCodeRequest {
+  context: InscriptionContext;
+  thrower: boolean;
+}
+export interface ErrorStartMeta {
   id: string;
   label: string;
 }

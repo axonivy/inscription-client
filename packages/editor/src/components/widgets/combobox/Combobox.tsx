@@ -12,7 +12,7 @@ export interface ComboboxItem {
 export type ComboboxProps<T extends ComboboxItem> = Omit<ComponentProps<'input'>, 'value' | 'onChange'> & {
   items: T[];
   itemFilter?: (item: T, input?: string) => boolean;
-  comboboxItem: (item: T) => ReactNode;
+  comboboxItem?: (item: T) => ReactNode;
   value: string;
   onChange: (change: string) => void;
 };
@@ -27,6 +27,7 @@ const Combobox = <T extends ComboboxItem>({ items, itemFilter, comboboxItem, val
         const filter = input.toLowerCase();
         return item.value.toLowerCase().includes(filter);
       };
+  const option = comboboxItem ? comboboxItem : (item: ComboboxItem) => <span>{item.value}</span>;
 
   const [filteredItems, setFilteredItems] = useState(items);
   useEffect(() => setFilteredItems(items), [items]);
@@ -88,7 +89,7 @@ const Combobox = <T extends ComboboxItem>({ items, itemFilter, comboboxItem, val
               key={`${item.value}${index}`}
               {...getItemProps({ item, index })}
             >
-              {comboboxItem(item)}
+              {option(item)}
             </li>
           ))}
       </ul>

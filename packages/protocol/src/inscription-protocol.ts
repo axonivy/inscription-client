@@ -4,7 +4,8 @@ import {
   DatabaseColumn,
   DatabaseColumnRequest,
   DatabaseTablesRequest,
-  ErrorMeta,
+  ErrorCodeRequest,
+  ErrorStartMeta,
   EventCodeMeta,
   InscriptionActionArgs,
   InscriptionContext,
@@ -25,8 +26,8 @@ export interface InscriptionMetaRequestTypes {
   'meta/start/calls': [InscriptionContext, CallableStart[]];
 
   'meta/workflow/roles': [InscriptionContext, RoleMeta[]];
-  'meta/workflow/expiryErrors': [InscriptionContext, ErrorMeta[]];
-  'meta/workflow/errorCodes': [InscriptionContext, EventCodeMeta[]];
+  'meta/workflow/errorStarts': [InscriptionContext, ErrorStartMeta[]];
+  'meta/workflow/errorCodes': [ErrorCodeRequest, EventCodeMeta[]];
   'meta/workflow/signalCodes': [InscriptionContext, EventCodeMeta[]];
 
   'meta/database/names': [InscriptionContext, string[]];

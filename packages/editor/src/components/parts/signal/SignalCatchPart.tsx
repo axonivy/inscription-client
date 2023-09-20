@@ -5,6 +5,7 @@ import { useSignalCatchData } from './useSignalCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { SignalCatchData } from '@axonivy/inscription-protocol';
 import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
+import { eventCodeInfo } from '../../../utils/event-code';
 
 export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useSignalCatchData();
@@ -26,7 +27,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
   const signalCodes = [
     { value: '', eventCode: '<< Empty >>', info: 'Receives every signal' },
     ...useMeta('meta/workflow/signalCodes', context, []).data.map<EventCodeItem>(code => {
-      return { ...code, value: code.eventCode, info: code.usage > 0 ? `${code.project} > ${code.process} (${code.usage})` : undefined };
+      return { ...code, value: code.eventCode, info: eventCodeInfo(code) };
     })
   ];
 
