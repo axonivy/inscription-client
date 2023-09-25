@@ -54,3 +54,5 @@ export type PermissionsData = Pick<ConfigData, 'permissions'>;
 export type WebServiceProcessData = Pick<ConfigData, 'wsAuth' | 'wsTypeName'>;
 
 export type RestResponseData = Pick<ConfigData, 'response'>;
+
+export type ProgramStartData = Pick<ConfigData, 'javaClass' | 'permission'>;

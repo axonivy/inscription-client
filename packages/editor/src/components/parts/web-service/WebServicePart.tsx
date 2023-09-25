@@ -2,10 +2,10 @@ import { WebserviceStartData } from '@axonivy/inscription-protocol';
 import { PartProps, usePartDirty, usePartState } from '../../../components/editors';
 import { useEditorContext, useValidations } from '../../../context';
 import { useWebServiceData } from './useWebServiceData';
-import { Permission } from './Permission';
 import { Exception } from './Exception';
 import { MessageText } from '../../../components/widgets';
 import { PID } from '../../../utils/pid';
+import { Permission } from '../common/permission/Permission';
 
 export function useWebServicePart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useWebServiceData();
@@ -18,6 +18,7 @@ export function useWebServicePart(): PartProps {
 
 const WebServicePart = () => {
   const { context } = useEditorContext();
+  const { config, defaultConfig, updatePermission } = useWebServiceData();
   const navigateToProcess = () => {
     const url = new URL(window.location.href);
     url.searchParams.set('pid', PID.processId(context.pid));
@@ -31,8 +32,13 @@ const WebServicePart = () => {
           process
         </a>
       </MessageText>
-      <Permission></Permission>
-      <Exception></Exception>
+      <Permission
+        anonymousFieldActive={false}
+        config={config.permission}
+        defaultConfig={defaultConfig.permission}
+        updatePermission={updatePermission}
+      />
+      <Exception />
     </>
   );
 };
