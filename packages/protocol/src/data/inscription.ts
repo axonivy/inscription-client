@@ -165,6 +165,7 @@ export interface DatabaseTablesRequest {
   database: string;
 }
 export interface DataClass {
+  fullQualifiedName: string;
   name: string;
   packageName: string;
   path: string;
