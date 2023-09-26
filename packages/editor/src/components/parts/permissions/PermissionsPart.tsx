@@ -1,5 +1,4 @@
 import { PartProps, usePartDirty, usePartState } from '../../../components/editors';
-import { useValidations } from '../../../context';
 import { Checkbox } from '../../../components/widgets';
 import { usePermissionsData } from './usePermissionsData';
 import { PermissionsData } from '@axonivy/inscription-protocol';
@@ -7,8 +6,7 @@ import { PermissionsData } from '@axonivy/inscription-protocol';
 export function usePermissionsPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = usePermissionsData();
   const compareData = (data: PermissionsData) => [data.permissions];
-  const validation = useValidations([]);
-  const state = usePartState(compareData(defaultConfig), compareData(config), validation);
+  const state = usePartState(compareData(defaultConfig), compareData(config), []);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Permissions', state, reset: { dirty, action: () => reset() }, content: <PermissionsPart /> };
 }
