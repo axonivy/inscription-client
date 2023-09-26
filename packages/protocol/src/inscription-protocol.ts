@@ -1,6 +1,7 @@
 import {
   CallableStart,
   ConnectorRef,
+  DataClass,
   DatabaseColumn,
   DatabaseColumnRequest,
   DatabaseTablesRequest,
@@ -41,6 +42,7 @@ export interface InscriptionMetaRequestTypes {
 
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
+  'meta/scripting/dataClasses': [InscriptionContext, DataClass[]];
 
   'meta/connector/out': [InscriptionContext, ConnectorRef[]];
 }

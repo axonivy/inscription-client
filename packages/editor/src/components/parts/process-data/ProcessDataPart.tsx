@@ -1,9 +1,10 @@
 import { PartProps, usePartDirty, usePartState } from '../../editors';
-import { Input, MessageText, useFieldset } from '../../widgets';
-import { useValidations } from '../../../context';
+import { MessageText, useFieldset } from '../../widgets';
+import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { useProcessDataData } from './useProcessDataData';
-import { IVY_SCRIPT_TYPES, ProcessDataData } from '@axonivy/inscription-protocol';
+import { ProcessDataData } from '@axonivy/inscription-protocol';
 import { PathFieldset } from '../common';
+import DataClassSelector, { DataClassItem } from './ClassSelectorPart';
 
 export function useProcessDataPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useProcessDataData();
@@ -21,17 +22,23 @@ export function useProcessDataPart(): PartProps {
 
 const ProcessDataPart = () => {
   const { config, update } = useProcessDataData();
+  const { context } = useEditorContext();
+  const dataClasses = [
+    ...useMeta('meta/scripting/dataClasses', context, []).data.map<DataClassItem>(dataClass => {
+      return { ...dataClass, value: dataClass.fullQualifiedName };
+    })
+  ];
 
   const dataClassField = useFieldset();
 
   return (
     <>
       <PathFieldset label='Data Class' {...dataClassField.labelProps} path='data'>
-        <Input
-          value={config.data}
+        <DataClassSelector
+          dataClass={config.data}
           onChange={change => update('data', change)}
-          type={IVY_SCRIPT_TYPES.STRING}
-          {...dataClassField.inputProps}
+          dataClasses={dataClasses}
+          comboboxInputProps={dataClassField.inputProps}
         />
       </PathFieldset>
       <MessageText
