@@ -1,9 +1,11 @@
 import { WebserviceStartData } from '@axonivy/inscription-protocol';
 import { PartProps, usePartDirty, usePartState } from '../../../components/editors';
-import { useValidations } from '../../../context';
+import { useEditorContext, useValidations } from '../../../context';
 import { useWebServiceData } from './useWebServiceData';
 import { Permission } from './Permission';
 import { Exception } from './Exception';
+import { MessageText } from '../../../components/widgets';
+import { PID } from '../../../utils/pid';
 
 export function useWebServicePart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useWebServiceData();
@@ -15,8 +17,20 @@ export function useWebServicePart(): PartProps {
 }
 
 const WebServicePart = () => {
+  const { context } = useEditorContext();
+  const navigateToProcess = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('pid', PID.processId(context.pid));
+    window.location.replace(url);
+  };
+
   return (
     <>
+      <MessageText message={{ message: 'Web service authentication on the', severity: 'INFO' }}>
+        <a href='#' onClick={navigateToProcess}>
+          process
+        </a>
+      </MessageText>
       <Permission></Permission>
       <Exception></Exception>
     </>
