@@ -5,6 +5,7 @@ import { MessageRow, ReorderRow, ReorderRowProps } from '../../../../widgets';
 type ValidationRowProps = {
   rowPathSuffix: string | number;
   children: ReactNode;
+  title?: string;
 };
 
 const useValidationRow = (rowPathSuffix: string | number) => {
@@ -14,9 +15,13 @@ const useValidationRow = (rowPathSuffix: string | number) => {
   return validations.find(val => val.path === rowPath);
 };
 
-export const ValidationRow = ({ rowPathSuffix, children }: ValidationRowProps) => {
+export const ValidationRow = ({ rowPathSuffix, children, title }: ValidationRowProps) => {
   const message = useValidationRow(rowPathSuffix);
-  return <MessageRow message={message}>{children}</MessageRow>;
+  return (
+    <MessageRow message={message} title={title}>
+      {children}
+    </MessageRow>
+  );
 };
 
 type ValidationReorderRowProps = ValidationRowProps & ReorderRowProps;

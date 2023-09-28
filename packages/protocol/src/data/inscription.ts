@@ -40,6 +40,12 @@ export interface Inscription {
   inscriptionValidation: InscriptionValidation[];
   programInterface: ProgramInterface[];
   programInterfacesRequest: ProgramInterfacesRequest;
+  restClient: RestClient[];
+  restClientRequest: RestClientRequest;
+  restContentTypeRequest: RestContentTypeRequest;
+  restResource: RestResource;
+  restResourceMeta: RestResourceMeta[];
+  restResourceRequest: RestResourceRequest;
   roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
@@ -191,6 +197,7 @@ export interface InscriptionActionArgs {
   actionId:
     | "newHtmlDialog"
     | "newProcess"
+    | "newRestClient"
     | "newWebServiceClient"
     | "openConfig"
     | "openCustomField"
@@ -635,6 +642,53 @@ export interface ProgramInterface {
 export interface ProgramInterfacesRequest {
   context: InscriptionContext;
   type: Type;
+}
+export interface RestClient {
+  clientId: string;
+  name: string;
+}
+export interface RestClientRequest {
+  clientId: string;
+  context: InscriptionContext;
+}
+export interface RestContentTypeRequest {
+  forBody: boolean;
+}
+export interface RestResource {
+  doc: string;
+  headers: RestParameter[];
+  method: RestMethod;
+  path: string;
+  pathParams: RestParameter[];
+  queryParams: RestParameter[];
+  tags: string[];
+}
+export interface RestParameter {
+  doc: string;
+  name: string;
+  properties: RestParameter[];
+  required: boolean;
+  type: QualifiedType;
+}
+export interface QualifiedType {
+  fullQualifiedName: string;
+}
+export interface RestMethod {
+  httpMethod: string;
+  inBody: RestPayload;
+  outResult: RestPayload;
+}
+export interface RestPayload {}
+export interface RestResourceMeta {
+  description: string;
+  method: string;
+  path: string;
+}
+export interface RestResourceRequest {
+  clientId: string;
+  context: InscriptionContext;
+  method: string;
+  path: string;
 }
 export interface RoleMeta {
   id: string;

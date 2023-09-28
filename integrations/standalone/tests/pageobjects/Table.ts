@@ -2,6 +2,7 @@ import { Locator, Page, expect } from '@playwright/test';
 import { Popover } from './Popover';
 import { ScriptCell } from './CodeEditor';
 import { Select } from './Select';
+import { Combobox } from './Combobox';
 
 export class Table {
   private readonly rows: Locator;
@@ -17,7 +18,7 @@ export class Table {
   }
 
   async addRow() {
-    var totalRows = await this.rows.count();
+    const totalRows = await this.rows.count();
     await this.locator.getByRole('row', { name: 'Add row' }).click();
     return this.row(totalRows);
   }
@@ -31,7 +32,7 @@ export class Table {
   }
 
   async clear() {
-    var totalRows = await this.rows.count();
+    let totalRows = await this.rows.count();
     while (totalRows > 0) {
       for (let row = 0; row < totalRows; row++) {
         await this.row(row).remove();
@@ -49,7 +50,7 @@ export class Table {
   }
 }
 
-export type ColumnType = 'label' | 'text' | 'expression' | 'select';
+export type ColumnType = 'label' | 'text' | 'expression' | 'select' | 'combobox';
 
 export class Row {
   public readonly locator: Locator;
@@ -97,11 +98,13 @@ export class Cell {
   private readonly locator: Locator;
   private readonly textbox: Locator;
   private readonly select: Select;
+  private readonly combobox: Combobox;
 
   constructor(readonly page: Page, rowLocator: Locator, column: number, readonly columnType: ColumnType) {
     this.locator = rowLocator.getByRole('cell').nth(column);
     this.textbox = this.locator.getByRole('textbox');
     this.select = new Select(page, this.locator);
+    this.combobox = new Combobox(page, this.locator);
   }
 
   async fill(value: string) {
@@ -115,7 +118,10 @@ export class Cell {
         await this.fillExpression(value);
         break;
       case 'select':
-        await this.choose(value);
+        await this.select.choose(value);
+        break;
+      case 'combobox':
+        await this.combobox.choose(value);
         break;
     }
   }
@@ -127,10 +133,15 @@ export class Cell {
   }
 
   async expectValue(value: string) {
-    if (this.columnType === 'select') {
-      await this.select.expectValue(value);
-    } else {
-      await expect(this.textbox).toHaveValue(value);
+    switch (this.columnType) {
+      case 'select':
+        await this.select.expectValue(value);
+        break;
+      case 'combobox':
+        await this.combobox.expectValue(value);
+        break;
+      default:
+        await expect(this.textbox).toHaveValue(value);
     }
   }
 
@@ -147,9 +158,5 @@ export class Cell {
   private async fillExpression(value: string) {
     await this.edit(value);
     await new Popover(this.page).close();
-  }
-
-  private async choose(value: string) {
-    await this.select.choose(value);
   }
 }

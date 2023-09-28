@@ -88,6 +88,11 @@ describe('Select', () => {
   });
 
   test('select support readonly mode', () => {
+    render(<Select items={items} value={items[0]} onChange={() => {}} disabled={true} />);
+    expect(screen.getByRole('combobox')).toBeDisabled();
+  });
+
+  test('select support readonly mode', () => {
     render(<Select items={items} value={items[0]} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });

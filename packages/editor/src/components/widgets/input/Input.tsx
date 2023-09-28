@@ -7,7 +7,7 @@ export type InputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'r
   onChange: (change: string) => void;
 };
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, ...props }, forwardedRef) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, disabled, ...props }, forwardedRef) => {
   const readonly = useReadonly();
 
   return (
@@ -17,7 +17,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, ...pr
       className={`input ${props.className ?? ''}`}
       value={value ?? ''}
       onChange={event => onChange(event.target.value)}
-      disabled={readonly}
+      disabled={readonly || disabled}
     />
   );
 });

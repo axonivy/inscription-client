@@ -8,15 +8,16 @@ interface Action {
   label: string;
   icon: IvyIcons;
   action: () => void;
+  disabled?: boolean;
 }
 
-export const ActionCell = (props: { actions: Action[] }) => {
+export const ActionCell = ({ actions }: { actions: Action[] }) => {
   const readonly = useReadonly();
   return (
     <TableCell>
       <span className='action-buttons'>
-        {props.actions.map((action, index) => (
-          <Button key={index} onClick={action.action} disabled={readonly} aria-label={action.label} icon={action.icon} />
+        {actions.map((action, index) => (
+          <Button key={index} onClick={action.action} disabled={readonly || action.disabled} aria-label={action.label} icon={action.icon} />
         ))}
       </span>
     </TableCell>

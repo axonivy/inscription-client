@@ -13,6 +13,7 @@ import {
   ProcessConfig,
   RestPayloadMapping,
   RestResponse,
+  RestTarget,
   SchemaKey,
   SoapOperation,
   SoapWsProcessException,
@@ -51,5 +52,6 @@ export type SchemaKeys =
   | keyof ProcessConfig
   | keyof WebserviceProcessConfig
   | keyof RestResponse
-  | keyof RestPayloadMapping;
+  | keyof RestPayloadMapping
+  | keyof RestTarget;
 export type SchemaPath = Brand<string, 'SchemaPath'>;

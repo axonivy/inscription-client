@@ -19,9 +19,10 @@ export type SelectProps = {
   onChange: (value: SelectItem) => void;
   items: SelectItem[];
   inputProps?: SelectInputProps;
+  disabled?: boolean;
 };
 
-const Select = ({ value, onChange, items, inputProps }: SelectProps) => {
+const Select = ({ value, onChange, items, inputProps, disabled }: SelectProps) => {
   const [selectItems, setSelectItems] = useState(items);
   useEffect(() => setSelectItems(items), [items]);
   const [selectedItem, setSelectedItem] = useState(value ?? EMPTY_SELECT_ITEM);
@@ -43,7 +44,7 @@ const Select = ({ value, onChange, items, inputProps }: SelectProps) => {
           type='button'
           {...getToggleButtonProps()}
           {...inputProps}
-          disabled={readonly}
+          disabled={readonly || disabled}
         >
           <span>{selectedItem ? selectedItem.label : ''}</span>
           <IvyIcon icon={IvyIcons.AngleDown} />

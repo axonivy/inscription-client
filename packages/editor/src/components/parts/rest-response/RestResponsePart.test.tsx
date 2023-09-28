@@ -1,14 +1,14 @@
 import { render, renderHook, DeepPartial, screen, TableUtil, CollapsableUtil, ComboboxUtil } from 'test-utils';
 import { ElementData, InscriptionValidation, RestResponseData } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../editors';
-import { useRestResponsePart } from './RestRequestPart';
+import { useRestResponsePart } from './RestResponsePart';
 
 const Part = () => {
   const part = useRestResponsePart();
   return <>{part.content}</>;
 };
 
-describe('RestRequestPart', () => {
+describe('RestResponsePart', () => {
   function renderPart(data?: DeepPartial<RestResponseData>) {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }

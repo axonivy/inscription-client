@@ -4,6 +4,7 @@ export * from './cell/ScriptCell';
 export * from './cell/MacroCell';
 export * from './cell/ExpandableCell';
 export * from './cell/SelectCell';
+export * from './cell/ComboCell';
 export * from './cell/TableCell';
 
 export * from './row/ReorderRow';

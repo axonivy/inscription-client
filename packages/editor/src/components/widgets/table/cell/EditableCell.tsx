@@ -10,15 +10,17 @@ declare module '@tanstack/react-table' {
   }
 }
 
-export function EditableCell<TData>(props: { cell: CellContext<TData, unknown> }) {
-  const initialValue = props.cell.getValue();
+type EditableCellProps<TData> = { cell: CellContext<TData, unknown>; disabled?: boolean };
+
+export function EditableCell<TData>({ cell, disabled }: EditableCellProps<TData>) {
+  const initialValue = cell.getValue();
   const [value, setValue] = useState(initialValue);
   const onBlur = () => {
-    props.cell.table.options.meta?.updateData(props.cell.row.id, props.cell.column.id, value);
+    cell.table.options.meta?.updateData(cell.row.id, cell.column.id, value);
   };
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
 
-  return <Input value={value as string} onChange={change => setValue(change)} onBlur={onBlur} />;
+  return <Input value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />;
 }

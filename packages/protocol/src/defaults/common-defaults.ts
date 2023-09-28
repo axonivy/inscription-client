@@ -19,17 +19,16 @@ import {
   TriggerData,
   RequestData,
   StartCustomStartField,
-  RestBody,
   JavaTimeout,
   JavaEventTimeout,
-  RestTarget,
   ErrorThrowData,
   QueryData,
   CacheData,
   WebserviceStartData,
   WebserviceProcessConfig,
   WsRequestData,
-  RestResponseData
+  RestResponseData,
+  RestRequestData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -198,6 +197,30 @@ export const DEFAULT_REST_RESPONSE_DATA: RestResponseData = {
   }
 } as const;
 
+export const DEFAULT_REST_REQUEST_DATA: RestRequestData = {
+  target: {
+    clientId: '',
+    path: '',
+    templateParams: {},
+    queryParams: {},
+    headers: { Accept: '*/*' },
+    properties: {}
+  },
+  body: {
+    type: 'ENTITY',
+    mediaType: 'application/json',
+    form: {},
+    raw: '',
+    entity: {
+      type: '',
+      map: {},
+      code: ''
+    }
+  },
+  method: 'GET',
+  code: ''
+} as const;
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -214,7 +237,6 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_MAIL_DATA,
     ...DEFAULT_TRIGGER_DATA,
     ...DEFAULT_REQUEST_DATA,
-    code: '',
     exceptionHandler: '',
     ...DEFAULT_ERROR_THROW_DATA,
     ...DEFAULT_QUERY_DATA,
@@ -223,15 +245,13 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_WSPROCESS_DATA,
     ...DEFAULT_WSREQUEST_DATA,
     ...DEFAULT_REST_RESPONSE_DATA,
+    ...DEFAULT_REST_REQUEST_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
-    body: {} as RestBody,
     javaClass: '',
     userConfig: '',
     timeout: {} as JavaTimeout & JavaEventTimeout,
     guid: '',
     link: '',
-    eventId: '',
-    method: 'GET',
-    target: {} as RestTarget
+    eventId: ''
   }
 } as const;

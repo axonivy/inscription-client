@@ -35,7 +35,7 @@ export abstract class Composite {
   }
 
   combobox(label: string) {
-    return new Combobox(this.page, this.locator, label);
+    return new Combobox(this.page, this.locator, { label });
   }
 
   responsibleSelect(label: string) {
@@ -62,7 +62,7 @@ export abstract class Composite {
     return new Table(this.page, this.locator, columns);
   }
 
-  tags(): any {
+  tags() {
     return new Tags(this.page, this.locator);
   }
 
