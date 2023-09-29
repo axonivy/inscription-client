@@ -15,9 +15,9 @@
     "src",
     "src-gen"
   ],
-  "main": "lib/ivy-icons",
-  "types": "src-gen/ivy-icons",
-  "module": "src-gen/ivy-icons",
+  "main": "lib",
+  "types": "lib",
+  "module": "src-gen",
   "devDependencies": {
     "fantasticon": "^1.2.3",
     "rimraf": "^5.0.1"
@@ -25,8 +25,8 @@
   "scripts": {
     "clean": "rimraf src-gen/ivy-icons.*",
     "build": "tsc && yarn build:copyfiles",
-    "build:clean": "yarn clean && yarn generate && yarn build",
+    "build:clean": "yarn clean && yarn generate",
     "build:copyfiles": "copyfiles -u 1 \"src-gen/**/*.css\" \"src-gen/**/*.ttf\" lib",
-    "generate": "fantasticon"
+    "generate": "fantasticon && yarn build"
   }
 }
