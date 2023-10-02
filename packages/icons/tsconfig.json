@@ -5,7 +5,9 @@
     "baseUrl": ".",
     "rootDir": "src-gen",
     "outDir": "lib",
-    "lib": ["DOM", "DOM.Iterable", "esnext"]
+    "lib": ["DOM", "DOM.Iterable", "esnext"],
+    "module": "Node16",
+    "moduleResolution": "Node16"
   },
   "include": ["src-gen"]
 }
