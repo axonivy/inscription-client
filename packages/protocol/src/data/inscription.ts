@@ -20,6 +20,7 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | 
 export type InputType = "ENTITY" | "FORM" | "RAW";
 export type WsAuth = "NONE" | "WS_SECURITY" | "HTTP_BASIC";
 export type Severity = "INFO" | "WARNING" | "ERROR";
+export type Type = "START" | "INTERMEDIATE" | "ACTIVITY";
 
 export interface Inscription {
   boolean: boolean;
@@ -37,6 +38,8 @@ export interface Inscription {
   inscriptionRequest: InscriptionRequest;
   inscriptionSaveRequest: InscriptionSaveRequest;
   inscriptionValidation: InscriptionValidation[];
+  programInterface: ProgramInterface[];
+  programInterfacesRequest: ProgramInterfacesRequest;
   roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
@@ -623,6 +626,15 @@ export interface InscriptionValidation {
   message: string;
   path: string;
   severity: Severity;
+}
+export interface ProgramInterface {
+  fullQualifiedName: string;
+  name: string;
+  packageName: string;
+}
+export interface ProgramInterfacesRequest {
+  context: InscriptionContext;
+  type: Type;
 }
 export interface RoleMeta {
   id: string;
