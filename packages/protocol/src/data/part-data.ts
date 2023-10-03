@@ -58,3 +58,7 @@ export type ProgramStartData = Pick<ConfigData, 'javaClass' | 'permission'>;
 export type RestResponseData = Pick<ConfigData, 'response'>;
 
 export type RestRequestData = Pick<ConfigData, 'method' | 'target' | 'body' | 'code'>;
+
+export type ProgramInterfaceStartData = Pick<ConfigData, 'javaClass' | 'exceptionHandler' | 'timeout'>;
+
+export type EventData = Pick<ConfigData, 'javaClass' | 'eventId' | 'timeout'>;

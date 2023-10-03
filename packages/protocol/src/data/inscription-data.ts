@@ -5,10 +5,14 @@ import {
   Data,
   DbQuery,
   DbSqlStatement,
+  ElementProgramInterface,
+  ElementWaitEvent,
   ErrorDefinition,
   InscriptionRequest,
   InscriptionSaveRequest,
   InscriptionType,
+  JavaEventTimeout,
+  JavaTimeout,
   MailHeaders,
   ProcessConfig,
   RestPayloadMapping,
@@ -53,5 +57,9 @@ export type SchemaKeys =
   | keyof WebserviceProcessConfig
   | keyof RestResponse
   | keyof RestPayloadMapping
-  | keyof RestTarget;
+  | keyof RestTarget
+  | keyof JavaTimeout
+  | keyof ElementProgramInterface
+  | keyof ElementWaitEvent
+  | keyof JavaEventTimeout;
 export type SchemaPath = Brand<string, 'SchemaPath'>;

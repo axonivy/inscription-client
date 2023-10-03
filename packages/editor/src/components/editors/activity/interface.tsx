@@ -3,7 +3,6 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
-import NameEditor from '../NameEditor';
 import {
   useMailAttachmentPart,
   useMailHeaderPart,
@@ -15,7 +14,8 @@ import {
   useWsRequestPart,
   useWsResponsePart,
   useRestResponsePart,
-  useRestRequestPart
+  useRestRequestPart,
+  useProgramInterfaceStartPart
 } from '../../../components/parts';
 
 const DatabaseEditor = memo(() => {
@@ -49,11 +49,17 @@ const EMailEditor = memo(() => {
   return <InscriptionEditor icon={IvyIcons.EMail} parts={[name, header, content, attachment]} />;
 });
 
+const ProgramInterfaceEditor = memo(() => {
+  const name = useNamePart();
+  const start = useProgramInterfaceStartPart();
+  return <InscriptionEditor icon={IvyIcons.Program} parts={[name, start]} />;
+});
+
 export const interfaceActivityEditors = new Map<ElementType, ReactNode>([
   ['Database', <DatabaseEditor />],
   ['WebServiceCall', <WebServiceEditor />],
   ['RestClientCall', <RestEditor />],
   ['EMail', <EMailEditor />],
   // ['Rule', <NameEditor title='Rule Activity'/>],
-  ['ProgramInterface', <NameEditor icon={IvyIcons.Program} />]
+  ['ProgramInterface', <ProgramInterfaceEditor />]
 ]);
