@@ -11,6 +11,12 @@ import {
   InscriptionActionArgs,
   InscriptionContext,
   InscriptionValidation,
+  RestClient,
+  RestClientRequest,
+  RestContentTypeRequest,
+  RestResource,
+  RestResourceMeta,
+  RestResourceRequest,
   RoleMeta,
   ScriptingDataArgs,
   VariableInfo,
@@ -39,6 +45,13 @@ export interface InscriptionMetaRequestTypes {
   'meta/webservice/ports': [WebServiceClientRequest, string[]];
   'meta/webservice/operations': [WebServicePortRequest, WebServiceOperation[]];
   'meta/webservice/properties': [WebServiceClientRequest, string[]];
+
+  'meta/rest/clients': [InscriptionContext, RestClient[]];
+  'meta/rest/resources': [RestClientRequest, RestResourceMeta[]];
+  'meta/rest/resource': [RestResourceRequest, RestResource];
+  'meta/rest/headers': [void, string[]];
+  'meta/rest/contentTypes': [RestContentTypeRequest, string[]];
+  'meta/rest/properties': [void, string[]];
 
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];

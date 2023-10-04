@@ -8,7 +8,7 @@ describe('ValidationRow', () => {
     render(
       <table>
         <tbody>
-          <ValidationRow rowPathSuffix={path}>
+          <ValidationRow rowPathSuffix={path} title='this is a title'>
             <td>content</td>
           </ValidationRow>
         </tbody>
@@ -20,6 +20,11 @@ describe('ValidationRow', () => {
   test('empty path', async () => {
     renderTable('');
     expect(screen.getByRole('row')).not.toHaveClass('row-error');
+  });
+
+  test('title', async () => {
+    renderTable('');
+    expect(screen.getByRole('row')).toHaveAttribute('title', 'this is a title');
   });
 
   test('not matching path', async () => {

@@ -1,6 +1,6 @@
 import { ScriptMappings } from '@axonivy/inscription-protocol';
 import { cloneObject } from 'test-utils';
-import { WsProperty } from './properties';
+import { Property } from './properties';
 
 describe('Properties', () => {
   const props: ScriptMappings = {
@@ -8,22 +8,22 @@ describe('Properties', () => {
     ssl: 'true'
   };
 
-  const properties: WsProperty[] = [
+  const properties: Property[] = [
     { name: 'cache', expression: '123' },
     { name: 'ssl', expression: 'true' }
   ];
 
   test('of', () => {
-    expect(WsProperty.of(props)).toEqual(properties);
+    expect(Property.of(props)).toEqual(properties);
   });
 
   test('update', () => {
     const expected = cloneObject(properties);
     expected[1].expression = 'test';
-    expect(WsProperty.update(cloneObject(properties), 1, 'expression', 'test')).toEqual(expected);
+    expect(Property.update(cloneObject(properties), 1, 'expression', 'test')).toEqual(expected);
   });
 
   test('to', () => {
-    expect(WsProperty.to(properties)).toEqual(props);
+    expect(Property.to(properties)).toEqual(props);
   });
 });

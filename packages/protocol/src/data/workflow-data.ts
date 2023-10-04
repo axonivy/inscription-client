@@ -1,4 +1,4 @@
-import { QueryKind, WfActivatorType, WfFieldType, WfLevel, WsAuth } from './inscription';
+import { HttpMethod, QueryKind, WfActivatorType, WfFieldType, WfLevel, WsAuth } from './inscription';
 
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
@@ -48,6 +48,22 @@ export const QUERY_KIND = {
 export const QUERY_ORDER = {
   ASCENDING: 'ASCENDING',
   DESCENDING: 'DESCENDING'
+} as const;
+
+export const HTTP_METHOD = {
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  HEAD: 'HEAD',
+  DELETE: 'DELETE',
+  PATCH: 'PATCH',
+  OPTIONS: 'OPTIONS',
+  JAX_RS: 'JAX_RS'
+} as const satisfies Record<HttpMethod, HttpMethod>;
+
+export const REST_PARAM_KIND = {
+  Query: 'Query',
+  Path: 'Path'
 } as const;
 
 export const IVY_SCRIPT_TYPES = {

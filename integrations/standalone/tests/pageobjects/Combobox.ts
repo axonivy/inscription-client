@@ -4,8 +4,12 @@ export class Combobox {
   private readonly locator: Locator;
   private readonly combobox: Locator;
 
-  constructor(page: Page, parentLocator: Locator, label: string) {
-    this.locator = parentLocator.locator('.combobox', { has: page.getByLabel(label) }).first();
+  constructor(page: Page, parentLocator: Locator, options?: { label?: string; nth?: number }) {
+    if (options?.label) {
+      this.locator = parentLocator.locator('.combobox', { has: page.getByLabel(options.label) }).first();
+    } else {
+      this.locator = parentLocator.locator('.combobox').nth(options?.nth ?? 0);
+    }
     this.combobox = this.locator.getByRole('combobox');
   }
 

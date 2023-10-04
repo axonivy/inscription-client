@@ -1,0 +1,10 @@
+.rest-method-input {
+  display: flex;
+  gap: var(--size-4);
+}
+.rest-method-input .select:first-child {
+  flex: 0 0 8rem;
+}
+.rest-method-input .script-input {
+  width: calc(100% - 8rem - var(--size-4));
+}

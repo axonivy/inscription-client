@@ -18,7 +18,7 @@ class WsRequest extends PartObject {
     this.port = part.select('Port');
     this.operation = part.select('Operation');
     this.propertiesSection = part.section('Properties');
-    this.properties = this.propertiesSection.table(['select', 'expression']);
+    this.properties = this.propertiesSection.table(['combobox', 'expression']);
     this.mapping = part.table(['label', 'label', 'expression']);
   }
 
