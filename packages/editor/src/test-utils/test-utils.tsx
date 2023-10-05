@@ -56,6 +56,7 @@ type ContextHelperProps = {
     wsOperations?: WebServiceOperation[];
     wsProperties?: string[];
     restClients?: RestClient[];
+    restClientUri?: string;
     restHeaders?: string[];
     restContentTypes?: string[];
     restResource?: DeepPartial<RestResource>;
@@ -130,6 +131,8 @@ const ContextHelper = (
             return Promise.resolve(props.meta?.wsProperties ?? []);
           case 'meta/rest/clients':
             return Promise.resolve(props.meta?.restClients ?? []);
+          case 'meta/rest/clientUri':
+            return Promise.resolve(props.meta?.restClientUri ?? '');
           case 'meta/rest/headers':
             return Promise.resolve(props.meta?.restHeaders ?? []);
           case 'meta/rest/contentTypes':

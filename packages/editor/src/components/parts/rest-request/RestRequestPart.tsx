@@ -7,6 +7,7 @@ import { RestMethodSelect } from './rest-target/RestMethodSelect';
 import { RestProperties } from './rest-target/RestProperties';
 import { RestHeaders } from './rest-target/RestHeaders';
 import { RestParameters } from './rest-target/RestParameters';
+import { RestTargetUrl } from './rest-target/RestTargetUrl';
 
 export function useRestRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestRequestData();
@@ -25,6 +26,7 @@ export function useRestRequestPart(): PartProps {
 const RestRequestPart = () => {
   return (
     <PathContext path='target'>
+      <RestTargetUrl />
       <RestClientSelect />
       <RestMethodSelect />
       <RestParameters />

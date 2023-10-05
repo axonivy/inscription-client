@@ -20,9 +20,11 @@ RestClients:
   #- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
   pet:
     UUID: 765ebcdd-aa37-41af-9727-964bd201b5eb
-    Url: file:/api/v3
+    Url: ${ivy.app.baseurl}/{api}/{apiVersion}
     Features:
     - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
+    Properties:
+      PATH.apiVersion: v1
+      PATH.api: ${ivy.var.myVar}
     OpenAPI:
-      SpecUrl: file:/Users/lli/GitWorkspace/core/workspace/ch.ivyteam.ivy.lsp.inscription.tests/test/ch/ivyteam/ivy/lsp/inscription/meta/rest/petstore-oas3.json
       Namespace: api.v3.client

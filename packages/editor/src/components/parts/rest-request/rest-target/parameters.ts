@@ -12,7 +12,7 @@ export type Parameter = {
 };
 
 export namespace Parameter {
-  export function of(parameters: RestParameter[], configs: ScriptMappings, kind: ParameterKind): Parameter[] {
+  export function of(parameters: RestParameter[], foundParams: string[], configs: ScriptMappings, kind: ParameterKind): Parameter[] {
     const params = parameters.map<Parameter>(param => {
       return {
         kind,
@@ -23,6 +23,12 @@ export namespace Parameter {
         type: param.type.fullQualifiedName
       };
     });
+
+    for (const found of foundParams) {
+      if (params.find(p => p.name === found) === undefined) {
+        params.push({ kind, name: found, expression: '', known: true });
+      }
+    }
 
     Object.entries(configs).forEach(([key, value]) => {
       for (const p of params) {

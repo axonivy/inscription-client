@@ -19,19 +19,21 @@ import { useEffect, useMemo, useState } from 'react';
 import { IVY_SCRIPT_TYPES, REST_PARAM_KIND } from '@axonivy/inscription-protocol';
 import { Parameter } from './parameters';
 import { useRestResourceMeta } from '../useRestResourceMeta';
+import { useFindPathParams } from './usePathParams';
 
 export const RestParameters = () => {
   const { config, updateParameters } = useRestRequestData();
 
   const [data, setData] = useState<Parameter[]>([]);
+  const foundPathParams = useFindPathParams();
   const restResource = useRestResourceMeta();
   useEffect(() => {
     const restResourceQueryParams = restResource.queryParams ?? [];
     const restResourcePathParams = restResource.pathParams ?? [];
-    const queryParams = Parameter.of(restResourceQueryParams, config.target.queryParams, 'Query');
-    const pathParams = Parameter.of(restResourcePathParams, config.target.templateParams, 'Path');
+    const queryParams = Parameter.of(restResourceQueryParams, [], config.target.queryParams, 'Query');
+    const pathParams = Parameter.of(restResourcePathParams, foundPathParams, config.target.templateParams, 'Path');
     setData([...pathParams, ...queryParams]);
-  }, [restResource.queryParams, restResource.pathParams, config.target.queryParams, config.target.templateParams]);
+  }, [foundPathParams, restResource.queryParams, restResource.pathParams, config.target.queryParams, config.target.templateParams]);
 
   const onChange = (props: Parameter[]) =>
     updateParameters({ queryParams: Parameter.to(props, 'Query'), templateParams: Parameter.to(props, 'Path') });
