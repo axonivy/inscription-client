@@ -1,5 +1,5 @@
 import { Collapsible as CollapsibleRoot, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
-import { memo, ReactNode, useState } from 'react';
+import { memo, ReactNode, useEffect, useState } from 'react';
 import './Collapsible.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
@@ -9,6 +9,11 @@ export type CollapsibleProps = MessageTextProps & { label: string; defaultOpen?:
 
 const Collapsible = ({ label, defaultOpen, message, children }: CollapsibleProps) => {
   const [open, setOpen] = useState(defaultOpen ?? false);
+  useEffect(() => {
+    if (defaultOpen) {
+      setOpen(defaultOpen);
+    }
+  }, [defaultOpen]);
   return (
     <CollapsibleRoot className='collapsible-root' open={open} onOpenChange={setOpen}>
       <div className='collapsible-header'>

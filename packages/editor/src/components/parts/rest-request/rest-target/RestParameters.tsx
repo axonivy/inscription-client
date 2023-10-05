@@ -1,6 +1,5 @@
 import { PathCollapsible, ValidationRow } from '../../common';
 import { useRestRequestData } from '../useRestRequestData';
-import { deepEqual } from '../../../../utils/equals';
 import {
   ActionCell,
   EditableCell,
@@ -22,7 +21,7 @@ import { Parameter } from './parameters';
 import { useRestResourceMeta } from '../useRestResourceMeta';
 
 export const RestParameters = () => {
-  const { config, defaultConfig, updateParameters } = useRestRequestData();
+  const { config, updateParameters } = useRestRequestData();
 
   const [data, setData] = useState<Parameter[]>([]);
   const restResource = useRestResourceMeta();
@@ -32,7 +31,7 @@ export const RestParameters = () => {
     const queryParams = Parameter.of(restResourceQueryParams, config.target.queryParams, 'Query');
     const pathParams = Parameter.of(restResourcePathParams, config.target.templateParams, 'Path');
     setData([...pathParams, ...queryParams]);
-  }, [restResource, config.target.queryParams, config.target.templateParams]);
+  }, [restResource.queryParams, restResource.pathParams, config.target.queryParams, config.target.templateParams]);
 
   const onChange = (props: Parameter[]) =>
     updateParameters({ queryParams: Parameter.to(props, 'Query'), templateParams: Parameter.to(props, 'Path') });
@@ -93,14 +92,7 @@ export const RestParameters = () => {
   });
 
   return (
-    <PathCollapsible
-      label='Parameters'
-      path='parameters'
-      defaultOpen={
-        !deepEqual(config.target.queryParams, defaultConfig.target.queryParams) ||
-        !deepEqual(config.target.templateParams, defaultConfig.target.templateParams)
-      }
-    >
+    <PathCollapsible label='Parameters' path='parameters' defaultOpen={data.length > 0}>
       <Table>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (

@@ -22,6 +22,7 @@ export * from './web-service';
 export * from './ws-request';
 export * from './ws-response';
 export * from './rest-response';
+export * from './rest-request';
 export * from './permissions';
 export * from './process-data';
 export * from './web-service-process';

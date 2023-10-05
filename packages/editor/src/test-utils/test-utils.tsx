@@ -14,7 +14,11 @@ import {
   ScriptingDataArgs,
   DatabaseColumn,
   WebServiceClient,
-  WebServiceOperation
+  WebServiceOperation,
+  RestClient,
+  RestResource,
+  RestResourceMeta,
+  RestClientRequest
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
@@ -51,6 +55,12 @@ type ContextHelperProps = {
     wsPorts?: string[];
     wsOperations?: WebServiceOperation[];
     wsProperties?: string[];
+    restClients?: RestClient[];
+    restHeaders?: string[];
+    restContentTypes?: string[];
+    restResource?: DeepPartial<RestResource>;
+    restResources?: RestResourceMeta[];
+    restProperties?: string[];
   };
   editor?: { title?: string; readonly?: boolean };
 };
@@ -118,6 +128,18 @@ const ContextHelper = (
             return Promise.resolve(props.meta?.wsOperations ?? []);
           case 'meta/webservice/properties':
             return Promise.resolve(props.meta?.wsProperties ?? []);
+          case 'meta/rest/clients':
+            return Promise.resolve(props.meta?.restClients ?? []);
+          case 'meta/rest/headers':
+            return Promise.resolve(props.meta?.restHeaders ?? []);
+          case 'meta/rest/contentTypes':
+            return Promise.resolve(props.meta?.restContentTypes ?? []);
+          case 'meta/rest/resource':
+            return Promise.resolve((props.meta?.restResource ?? {}) as RestResource);
+          case 'meta/rest/resources':
+            return (args as RestClientRequest).clientId !== '' ? Promise.resolve(props.meta?.restResources ?? []) : Promise.resolve([]);
+          case 'meta/rest/properties':
+            return Promise.resolve(props.meta?.restProperties ?? []);
           default:
             throw Error('mock meta path not programmed');
         }

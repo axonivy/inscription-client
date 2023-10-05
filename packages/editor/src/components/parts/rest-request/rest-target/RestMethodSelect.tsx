@@ -43,8 +43,8 @@ export const RestMethodSelect = () => {
 
   const fieldset = useFieldset();
   return (
-    <PathFieldset label='Method' path='path' {...fieldset.labelProps} controls={items.length > 0 ? [openApiControl] : []}>
-      {openApi ? (
+    <PathFieldset label='Resource' path='path' {...fieldset.labelProps} controls={items.length > 0 ? [openApiControl] : []}>
+      {items.length > 0 && openApi ? (
         <Combobox
           value={`${config.method}:${config.target.path}`}
           onChange={value => updateMethod(value)}
@@ -58,9 +58,13 @@ export const RestMethodSelect = () => {
             value={{ label: config.method, value: config.method }}
             onChange={item => update('method', item.value as HttpMethod)}
             items={methodItems}
-            inputProps={fieldset.inputProps}
           />
-          <ScriptInput value={config.target.path} onChange={change => updateTarget('path', change)} type={IVY_SCRIPT_TYPES.STRING} />
+          <ScriptInput
+            value={config.target.path}
+            onChange={change => updateTarget('path', change)}
+            type={IVY_SCRIPT_TYPES.STRING}
+            {...fieldset.inputProps}
+          />
         </div>
       )}
     </PathFieldset>
