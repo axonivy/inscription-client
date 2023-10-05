@@ -1,7 +1,7 @@
-import { DeepPartial, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, DeepPartial, SelectUtil, render, renderHook, screen } from 'test-utils';
 import { ElementData, InscriptionValidation, ProgramStartData } from '@axonivy/inscription-protocol';
-import { PartStateFlag } from '../../editors';
-import { useProgramStartPart } from './StartPart';
+import { PartStateFlag } from '../../../editors';
+import { useProgramStartPart } from './ProgramStartPart';
 
 const Part = () => {
   const part = useProgramStartPart();
@@ -17,7 +17,9 @@ describe('StartPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    expect(screen.queryByText('Permission')).toBeInTheDocument();
+    await SelectUtil.assertEmpty();
+    //await SelectUtil.assertOptionsCount(1);
+    await CollapsableUtil.assertClosed('Permission');
   });
 
   test('full data', async () => {
@@ -30,6 +32,10 @@ describe('StartPart', () => {
       }
     });
     expect(screen.getByLabelText('Java Class')).toHaveValue('Test');
+    await CollapsableUtil.assertOpen('Permission');
+    expect(screen.getByRole('checkbox')).not.toBeChecked();
+    await SelectUtil.assertValue('SYSTEM', { index: 1 });
+    await SelectUtil.assertValue('>> Ignore Exception', { index: 2 });
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProgramStartData>, validation?: InscriptionValidation) {
@@ -41,19 +47,15 @@ describe('StartPart', () => {
 
   test('configured', async () => {
     assertState('empty');
-    assertState('configured', {
-      javaClass: 'Bla'
-    });
-
+    assertState('configured', { javaClass: 'Bla' });
+    assertState('configured', { permission: { anonymous: false } });
     assertState('error', undefined, { path: 'javaClass.cause', message: '', severity: 'ERROR' });
     assertState('warning', undefined, { path: 'javaClass.error', message: '', severity: 'WARNING' });
   });
 
   test('reset', () => {
     let data: DeepPartial<ElementData> = {
-      config: {
-        javaClass: 'Test'
-      }
+      config: { javaClass: 'Test', permission: { error: 'bla', role: 'Tester' } }
     };
     const view = renderHook(() => useProgramStartPart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
@@ -62,5 +64,7 @@ describe('StartPart', () => {
 
     view.result.current.reset.action();
     expect(data.config?.javaClass).toEqual('');
+    expect(data.config?.permission?.error).toEqual('ivy:security:forbidden');
+    expect(data.config?.permission?.role).toEqual('Everyone');
   });
 });

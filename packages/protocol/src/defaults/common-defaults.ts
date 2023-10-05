@@ -19,8 +19,6 @@ import {
   TriggerData,
   RequestData,
   StartCustomStartField,
-  JavaTimeout,
-  JavaEventTimeout,
   ErrorThrowData,
   QueryData,
   CacheData,
@@ -28,7 +26,8 @@ import {
   WebserviceProcessConfig,
   WsRequestData,
   RestResponseData,
-  RestRequestData
+  RestRequestData,
+  ProgramInterfaceStartData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -135,8 +134,8 @@ export const DEFAULT_ERROR_THROW_DATA: ErrorThrowData = {
 export const DEFAULT_WEB_SERVICE_DATA: WebserviceStartData = {
   permission: {
     anonymous: true,
-    error: 'Everyone',
-    role: IVY_EXCEPTIONS.security
+    error: IVY_EXCEPTIONS.security,
+    role: 'Everyone'
   },
   exception: {
     enabled: false,
@@ -221,6 +220,17 @@ export const DEFAULT_REST_REQUEST_DATA: RestRequestData = {
   code: ''
 } as const;
 
+export const DEFAULT_PROGRAM_INTERFACE_START_DATA: ProgramInterfaceStartData = {
+  javaClass: '',
+  exceptionHandler: '',
+  timeout: {
+    seconds: '',
+    error: IVY_EXCEPTIONS.programTimeout,
+    action: 'NOTHING',
+    duration: ''
+  }
+} as const;
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -237,7 +247,6 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_MAIL_DATA,
     ...DEFAULT_TRIGGER_DATA,
     ...DEFAULT_REQUEST_DATA,
-    exceptionHandler: '',
     ...DEFAULT_ERROR_THROW_DATA,
     ...DEFAULT_QUERY_DATA,
     ...DEFAULT_CACHE_DATA,
@@ -247,9 +256,9 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_REST_RESPONSE_DATA,
     ...DEFAULT_REST_REQUEST_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
-    javaClass: '',
+    ...DEFAULT_PROGRAM_INTERFACE_START_DATA,
+    // Other defaults, not implemented yet, but needed to satisfy TS
     userConfig: '',
-    timeout: {} as JavaTimeout & JavaEventTimeout,
     guid: '',
     link: '',
     eventId: ''

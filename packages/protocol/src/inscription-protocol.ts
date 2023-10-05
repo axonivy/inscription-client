@@ -17,6 +17,8 @@ import {
   RestResource,
   RestResourceMeta,
   RestResourceRequest,
+  ProgramInterface,
+  ProgramInterfacesRequest,
   RoleMeta,
   ScriptingDataArgs,
   VariableInfo,
@@ -56,6 +58,8 @@ export interface InscriptionMetaRequestTypes {
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/dataClasses': [InscriptionContext, DataClass[]];
+
+  'meta/program/types': [ProgramInterfacesRequest, ProgramInterface[]];
 
   'meta/connector/out': [InscriptionContext, ConnectorRef[]];
 }

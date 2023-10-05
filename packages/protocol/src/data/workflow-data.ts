@@ -1,4 +1,4 @@
-import { HttpMethod, QueryKind, WfActivatorType, WfFieldType, WfLevel, WsAuth } from './inscription';
+import { IntermediateEventTimeoutAction, HttpMethod, QueryKind, WfActivatorType, WfFieldType, WfLevel, WsAuth } from './inscription';
 
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
@@ -34,7 +34,10 @@ export const IVY_EXCEPTIONS = {
   webservice: 'ivy:error:webservice:exception',
   rest: 'ivy:error:rest:client',
   ignoreException: '>> Ignore Exception',
-  ignoreError: '>> Ignore error'
+  ignoreError: '>> Ignore error',
+  programException: 'ivy:error:program:exception',
+  programTimeout: 'ivy:error:program:timeout',
+  intermediate: 'ivy:expiry:intermediate'
 } as const;
 
 export const QUERY_KIND = {
@@ -81,3 +84,9 @@ export const WS_AUTH_TYPE = {
   WS_SECURITY: 'WS Security',
   HTTP_BASIC: 'HTTP Basic'
 } as const satisfies Record<WsAuth, string>;
+
+export const EVENT_ACTION_TYPE = {
+  NOTHING: 'Do nothing',
+  DESTROY_TASK: 'Delete the Task',
+  CONTINUE_WITHOUT_EVENT: 'Continue without waiting'
+} as const satisfies Record<IntermediateEventTimeoutAction, string>;

@@ -1,9 +1,9 @@
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
+import { ConfigDataContext, useConfigDataContext } from '../../../../context';
 import { ProgramStartData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { DataUpdater } from '../../../types/lambda';
+import { DataUpdater } from '../../../../types/lambda';
 
-export function useStartData(): ConfigDataContext<ProgramStartData> & {
+export function useProgramStartData(): ConfigDataContext<ProgramStartData> & {
   update: DataUpdater<ProgramStartData>;
   updatePermission: DataUpdater<ProgramStartData['permission']>;
   reset: () => void;

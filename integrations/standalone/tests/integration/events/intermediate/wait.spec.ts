@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import { NameTest, OutputTest, TaskTester, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
+import { EventTest } from '../../parts/event';
 
 test.describe('Wait', () => {
   let view: InscriptionView;
@@ -22,6 +23,10 @@ test.describe('Wait', () => {
 
   test('Name', async () => {
     await runTest(view, NameTest);
+  });
+
+  test('Event', async () => {
+    await runTest(view, EventTest);
   });
 
   test('Output', async () => {
