@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { NameTest, RestResponseTest, runTest } from '../../parts';
+import { NameTest, RestRequestOpenApiTest, RestRequestTest, RestResponseTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 
 test.describe('Rest Client', () => {
@@ -22,6 +22,14 @@ test.describe('Rest Client', () => {
 
   test('Name', async () => {
     await runTest(view, NameTest);
+  });
+
+  test('Request', async () => {
+    await runTest(view, RestRequestTest);
+  });
+
+  test('Request - OpenApi', async () => {
+    await runTest(view, RestRequestOpenApiTest);
   });
 
   test('Response', async () => {

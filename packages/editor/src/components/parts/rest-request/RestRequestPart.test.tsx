@@ -16,7 +16,7 @@ describe('RestRequestPart', () => {
   test('empty', async () => {
     renderPart();
     expect(screen.getByLabelText('Client')).toBeInTheDocument();
-    expect(screen.getByLabelText('Method')).toBeInTheDocument();
+    expect(screen.getByLabelText('Resource')).toBeInTheDocument();
     expect(screen.getByText('Parameters')).toBeInTheDocument();
     expect(screen.getByText('Headers')).toBeInTheDocument();
     expect(screen.getByText('Properties')).toBeInTheDocument();

@@ -121,7 +121,7 @@ export class Cell {
         await this.select.choose(value);
         break;
       case 'combobox':
-        await this.combobox.choose(value);
+        await this.combobox.fill(value);
         break;
     }
   }

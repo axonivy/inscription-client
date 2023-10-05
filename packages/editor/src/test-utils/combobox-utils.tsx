@@ -2,12 +2,16 @@ import { screen, userEvent, waitFor } from 'test-utils';
 
 type ComboboxUtilOptions = {
   label?: string;
+  nth?: number;
 };
 
 export namespace ComboboxUtil {
   export function select(options?: ComboboxUtilOptions) {
     if (options?.label) {
       return screen.getByRole('combobox', { name: options.label });
+    }
+    if (options?.nth) {
+      return screen.getAllByRole('combobox').at(options.nth)!;
     }
     return screen.getByRole('combobox');
   }
