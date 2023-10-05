@@ -15,7 +15,8 @@ import {
   useWsResponsePart,
   useRestResponsePart,
   useRestRequestPart,
-  useProgramInterfaceStartPart
+  useProgramInterfaceStartPart,
+  useEditorPart
 } from '../../../components/parts';
 
 const DatabaseEditor = memo(() => {
@@ -52,7 +53,8 @@ const EMailEditor = memo(() => {
 const ProgramInterfaceEditor = memo(() => {
   const name = useNamePart();
   const start = useProgramInterfaceStartPart();
-  return <InscriptionEditor icon={IvyIcons.Program} parts={[name, start]} />;
+  const editor = useEditorPart();
+  return <InscriptionEditor icon={IvyIcons.Program} parts={[name, start, editor]} />;
 });
 
 export const interfaceActivityEditors = new Map<ElementType, ReactNode>([

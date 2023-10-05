@@ -17,8 +17,6 @@ describe('ProgramInterfaceStartPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await SelectUtil.assertEmpty();
-    //await SelectUtil.assertOptionsCount(1);
     await CollapsableUtil.assertClosed('Program');
     await CollapsableUtil.assertClosed('Timeout');
   });

@@ -3,7 +3,15 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
-import { useCasePart, useEndPagePart, useEventPart, useNamePart, useOutputPart, useTaskPart } from '../../../components/parts';
+import {
+  useCasePart,
+  useEditorPart,
+  useEndPagePart,
+  useEventPart,
+  useNamePart,
+  useOutputPart,
+  useTaskPart
+} from '../../../components/parts';
 
 const TaskSwitchEventEditor = memo(() => {
   const name = useNamePart();
@@ -17,9 +25,10 @@ const TaskSwitchEventEditor = memo(() => {
 const WaitEventEditor = memo(() => {
   const name = useNamePart();
   const event = useEventPart();
+  const editor = useEditorPart();
   const task = useTaskPart({ type: 'wait' });
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.Wait} parts={[name, event, task, output]} />;
+  return <InscriptionEditor icon={IvyIcons.Wait} parts={[name, event, editor, task, output]} />;
 });
 
 export const intermediateEventEditors = new Map<ElementType, ReactNode>([

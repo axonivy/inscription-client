@@ -30,3 +30,4 @@ export * from './rest-request/RestRequestPart';
 export * from './program/event/ProgramStartPart';
 export * from './program/activity/ProgramInterfaceStartPart';
 export * from './program/intermediate/EventPart';
+export * from './program/editor/EditorPart';

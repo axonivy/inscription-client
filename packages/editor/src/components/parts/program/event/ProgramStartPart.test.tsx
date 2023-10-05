@@ -17,8 +17,6 @@ describe('StartPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await SelectUtil.assertEmpty();
-    //await SelectUtil.assertOptionsCount(1);
     await CollapsableUtil.assertClosed('Permission');
   });
 

@@ -25,7 +25,9 @@ import {
   WebServiceClient,
   WebServiceClientRequest,
   WebServiceOperation,
-  WebServicePortRequest
+  WebServicePortRequest,
+  ProgramEditorRequest,
+  Widget
 } from './data/inscription';
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -61,6 +63,7 @@ export interface InscriptionMetaRequestTypes {
   'meta/scripting/dataClasses': [InscriptionContext, DataClass[]];
 
   'meta/program/types': [ProgramInterfacesRequest, ProgramInterface[]];
+  'meta/program/editor': [ProgramEditorRequest, Widget[]];
 
   'meta/connector/out': [InscriptionContext, ConnectorRef[]];
 }
