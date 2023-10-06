@@ -5,10 +5,18 @@ import { useCodeEditorOnFocus, useModifyEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
 
-const ScriptInput = ({ value, onChange, type, editorOptions, keyActions, ...props }: CodeEditorInputProps & { type: string }) => {
+const ScriptInput = ({
+  value,
+  onChange,
+  type,
+  editorOptions,
+  keyActions,
+  modifyAction,
+  ...props
+}: CodeEditorInputProps & { type: string }) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useCodeEditorOnFocus(value, onChange);
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useModifyEditor();
+  const { setEditor, modifyEditor } = useModifyEditor(modifyAction);
   const path = usePath();
 
   return (

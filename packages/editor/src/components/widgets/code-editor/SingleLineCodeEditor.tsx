@@ -13,6 +13,7 @@ type EditorOptions = {
     tab?: () => void;
     escape?: () => void;
   };
+  modifyAction?: (value: string) => string;
 };
 
 export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs' | 'context'> &
