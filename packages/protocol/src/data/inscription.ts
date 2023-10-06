@@ -683,14 +683,10 @@ export interface QualifiedType {
 }
 export interface RestMethod {
   httpMethod: string;
-  inBody: DefaultRestPayload;
-  outResult: DefaultRestPayload1;
+  inBody: RestPayload;
+  outResult: RestPayload;
 }
-export interface DefaultRestPayload {
-  media: string;
-  param: RestParameter;
-}
-export interface DefaultRestPayload1 {
+export interface RestPayload {
   media: string;
   param: RestParameter;
 }
