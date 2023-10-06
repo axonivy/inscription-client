@@ -38,6 +38,7 @@ export interface Inscription {
   inscriptionRequest: InscriptionRequest;
   inscriptionSaveRequest: InscriptionSaveRequest;
   inscriptionValidation: InscriptionValidation[];
+  programEditorRequest: ProgramEditorRequest;
   programInterface: ProgramInterface[];
   programInterfacesRequest: ProgramInterfacesRequest;
   restClient: RestClient[];
@@ -56,6 +57,7 @@ export interface Inscription {
   webServiceClientRequest: WebServiceClientRequest;
   webServiceOperation: WebServiceOperation[];
   webServicePortRequest: WebServicePortRequest;
+  widget: Widget[];
   [k: string]: unknown;
 }
 export interface CallableStart {
@@ -197,6 +199,7 @@ export interface InscriptionActionArgs {
   actionId:
     | "newHtmlDialog"
     | "newProcess"
+    | "newProgram"
     | "newRestClient"
     | "newWebServiceClient"
     | "openConfig"
@@ -634,6 +637,10 @@ export interface InscriptionValidation {
   path: string;
   severity: Severity;
 }
+export interface ProgramEditorRequest {
+  context: InscriptionContext;
+  type: string;
+}
 export interface ProgramInterface {
   fullQualifiedName: string;
   name: string;
@@ -675,10 +682,17 @@ export interface QualifiedType {
 }
 export interface RestMethod {
   httpMethod: string;
-  inBody: RestPayload;
-  outResult: RestPayload;
+  inBody: DefaultRestPayload;
+  outResult: DefaultRestPayload1;
 }
-export interface RestPayload {}
+export interface DefaultRestPayload {
+  media: string;
+  param: RestParameter;
+}
+export interface DefaultRestPayload1 {
+  media: string;
+  param: RestParameter;
+}
 export interface RestResourceMeta {
   description: string;
   method: string;
@@ -738,3 +752,4 @@ export interface WebServicePortRequest {
   context: InscriptionContext;
   port: string;
 }
+export interface Widget {}
