@@ -49,6 +49,7 @@ export interface InscriptionMetaRequestTypes {
   'meta/webservice/properties': [WebServiceClientRequest, string[]];
 
   'meta/rest/clients': [InscriptionContext, RestClient[]];
+  'meta/rest/clientUri': [RestClientRequest, string];
   'meta/rest/resources': [RestClientRequest, RestResourceMeta[]];
   'meta/rest/resource': [RestResourceRequest, RestResource];
   'meta/rest/headers': [void, string[]];

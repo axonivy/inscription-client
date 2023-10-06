@@ -8,17 +8,17 @@ describe('Parameters', () => {
   ];
 
   test('of - empty', () => {
-    expect(Parameter.of([], {}, 'Path')).toEqual([]);
+    expect(Parameter.of([], [], {}, 'Path')).toEqual([]);
   });
 
   test('of - unknown prop', () => {
     const result: Parameter = { name: 'test', expression: '123', known: false, kind: 'Path' };
-    expect(Parameter.of([], { test: '123' }, 'Path')).toEqual([result]);
+    expect(Parameter.of([], [], { test: '123' }, 'Path')).toEqual([result]);
   });
 
   test('of - unknown prop query', () => {
     const result: Parameter = { name: 'test', expression: '123', known: false, kind: 'Query' };
-    expect(Parameter.of([], { test: '123' }, 'Query')).toEqual([result]);
+    expect(Parameter.of([], [], { test: '123' }, 'Query')).toEqual([result]);
   });
 
   test('of - known prop', () => {
@@ -26,6 +26,7 @@ describe('Parameters', () => {
     expect(
       Parameter.of(
         [{ name: 'petId', type: { fullQualifiedName: 'Number' }, required: false, properties: [], doc: 'description' }],
+        [],
         {},
         'Path'
       )
@@ -37,6 +38,7 @@ describe('Parameters', () => {
     expect(
       Parameter.of(
         [{ name: 'petId', type: { fullQualifiedName: 'Number' }, required: true, properties: [], doc: 'description' }],
+        [],
         {},
         'Path'
       )
@@ -47,10 +49,11 @@ describe('Parameters', () => {
     expect(
       Parameter.of(
         [{ name: 'petId', type: { fullQualifiedName: 'Number' }, required: true, properties: [], doc: 'description' }],
+        ['petId', 'api'],
         { test: '123', petId: '4' },
         'Path'
       )
-    ).toEqual(params);
+    ).toEqual([params[0], { name: 'api', kind: 'Path', known: true, expression: '' }, params[1]]);
   });
 
   test('update', () => {

@@ -5,8 +5,10 @@ import { Select } from '../../pageobjects/Select';
 import { Table } from '../../pageobjects/Table';
 import { ScriptInput } from '../../pageobjects/CodeEditor';
 import { Combobox } from '../../pageobjects/Combobox';
+import { Locator, expect } from '@playwright/test';
 
 class RestRequest extends PartObject {
+  targetUrl: Locator;
   client: Select;
   resource: Combobox;
   method: Select;
@@ -21,6 +23,7 @@ class RestRequest extends PartObject {
 
   constructor(part: Part) {
     super(part);
+    this.targetUrl = this.part.currentLocator().locator('.rest-target-url');
     this.client = part.select('Client');
     this.resource = part.combobox('Resource');
     this.method = new Select(part.page, part.currentLocator(), { nth: 1 });
@@ -35,13 +38,15 @@ class RestRequest extends PartObject {
   }
 
   async fill() {
+    await expect(this.targetUrl).toBeEmpty();
     await this.client.choose('stock');
     await this.method.choose('POST');
-    await this.path.fill('path');
+    await this.path.fill('/{myParam}');
 
-    await this.parametersSection.toggle();
+    await this.parameters.expectRowCount(4);
+    await this.parameters.row(3).column(3).fill('123');
     const paramRow = await this.parameters.addRow();
-    await paramRow.fill(['Path', 'myParam', '123']);
+    await paramRow.fill(['Query', 'query', 'bla']);
 
     await this.headersSection.toggle();
     await this.acceptHeader.choose('application/json');
@@ -54,12 +59,16 @@ class RestRequest extends PartObject {
   }
 
   async assertFill() {
+    await expect(this.targetUrl).toHaveText(
+      'http://acme.stock/api/{request.kind}/{product.number}:{product.quantity}/update/{myParam}?query=bla'
+    );
     await this.client.expectValue('stock');
     await this.method.expectValue('POST');
-    await this.path.expectValue('path');
+    await this.path.expectValue('/{myParam}');
 
     await this.parametersSection.expectIsOpen();
-    await this.parameters.row(0).expectValues(['Path', 'myParam', '123']);
+    await this.parameters.row(3).column(3).expectValue('123');
+    await this.parameters.row(4).expectValues(['Query', 'query', 'bla']);
 
     await this.headersSection.expectIsOpen();
     await this.acceptHeader.expectValue('application/json');
@@ -73,7 +82,8 @@ class RestRequest extends PartObject {
     await this.method.choose('GET');
     await this.path.clear();
 
-    await this.parameters.clear();
+    await this.parameters.row(4).remove();
+    await this.parameters.row(3).remove();
 
     await this.acceptHeader.fill('*/*');
     await this.headers.clear();
@@ -82,10 +92,12 @@ class RestRequest extends PartObject {
   }
 
   async assertClear() {
+    await expect(this.targetUrl).toHaveText('http://acme.stock/api/{request.kind}/{product.number}:{product.quantity}/update');
     await this.method.expectValue('GET');
     await this.path.expectEmpty();
 
-    await this.parametersSection.expectIsClosed();
+    await this.parametersSection.expectIsOpen();
+    await this.parameters.expectRowCount(3);
 
     await this.headersSection.expectIsClosed();
 
@@ -98,6 +110,7 @@ class RestRequestOpenApi extends RestRequest {
     await this.client.choose('pet');
     await this.resource.choose('DELETE');
 
+    await this.parameters.expectRowCount(1);
     await this.parameters.row(0).column(3).fill('123');
 
     await this.headersSection.toggle();
