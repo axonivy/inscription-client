@@ -21,6 +21,7 @@ export type InputType = "ENTITY" | "FORM" | "RAW";
 export type WsAuth = "NONE" | "WS_SECURITY" | "HTTP_BASIC";
 export type Severity = "INFO" | "WARNING" | "ERROR";
 export type Type = "START" | "INTERMEDIATE" | "ACTIVITY";
+export type Widget = Script | Label | Text;
 
 export interface Inscription {
   boolean: boolean;
@@ -752,4 +753,14 @@ export interface WebServicePortRequest {
   context: InscriptionContext;
   port: string;
 }
-export interface Widget {}
+export interface Script {
+  multiline: boolean;
+  requiredType: string;
+}
+export interface Label {
+  multiline: boolean;
+  text: string;
+}
+export interface Text {
+  multiline: boolean;
+}
