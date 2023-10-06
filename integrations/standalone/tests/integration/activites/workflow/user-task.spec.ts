@@ -1,8 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { CaseTest, DialogCallTest, NameTest, TaskTester, runTest } from '../../parts';
+import { CaseTest, DialogCallTest, NameTest, TaskTester, runTest, OutputTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
-import { OutputTest } from '../../parts';
 
 test.describe('User Task', () => {
   let view: InscriptionView;
@@ -13,8 +12,7 @@ test.describe('User Task', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = new InscriptionView(page);
-    await view.selectElement(testee.elementId);
+    view = await InscriptionView.selectElement(page, testee.elementId);
   });
 
   test('Header', async () => {

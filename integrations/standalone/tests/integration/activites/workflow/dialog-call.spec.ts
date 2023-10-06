@@ -1,8 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { DialogCallTest, NameTest, runTest } from '../../parts';
+import { DialogCallTest, NameTest, runTest, OutputTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
-import { OutputTest } from '../../parts';
 
 test.describe('Dialog Call', () => {
   let view: InscriptionView;
@@ -13,8 +12,7 @@ test.describe('Dialog Call', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = new InscriptionView(page);
-    await view.selectElement(testee.elementId);
+    view = await InscriptionView.selectElement(page, testee.elementId);
   });
 
   test('Header', async () => {

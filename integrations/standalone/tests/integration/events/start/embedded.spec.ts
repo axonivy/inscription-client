@@ -12,8 +12,7 @@ test.describe('Embedded Start', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = new InscriptionView(page);
-    await view.selectElement(`${testee.elementId}-g0`);
+    view = await InscriptionView.selectElement(page, `${testee.elementId}-g0`);
   });
 
   test('Header', async () => {

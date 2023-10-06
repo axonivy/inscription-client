@@ -3,8 +3,7 @@ import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Script browser', () => {
   test('browser add to input', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
+    const inscriptionView = await InscriptionView.mock(page);
     const task = inscriptionView.accordion('Task');
     await task.toggle();
 
@@ -18,8 +17,7 @@ test.describe('Script browser', () => {
   });
 
   test('browser replace selection', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
+    const inscriptionView = await InscriptionView.mock(page);
     const task = inscriptionView.accordion('Task');
     await task.toggle();
 

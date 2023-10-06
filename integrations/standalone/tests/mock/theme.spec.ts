@@ -6,13 +6,13 @@ test.describe('Theme mode dark', () => {
     colorScheme: 'dark'
   });
 
-  test('dark browser', async ({ page, colorScheme: dark }) => {
-    await new InscriptionView(page).mock();
+  test('dark browser', async ({ page }) => {
+    await InscriptionView.mock(page);
     await assertThemeMode(page, 'dark');
   });
 
   test('light param', async ({ page }) => {
-    await new InscriptionView(page).mock({ theme: 'light' });
+    await InscriptionView.mock(page, { theme: 'light' });
     await assertThemeMode(page, 'light');
   });
 });
@@ -22,13 +22,13 @@ test.describe('Theme mode light', () => {
     colorScheme: 'light'
   });
 
-  test('light browser', async ({ page, colorScheme: dark }) => {
-    await new InscriptionView(page).mock();
+  test('light browser', async ({ page }) => {
+    await InscriptionView.mock(page);
     await assertThemeMode(page, 'light');
   });
 
   test('dark param', async ({ page }) => {
-    await new InscriptionView(page).mock({ theme: 'dark' });
+    await InscriptionView.mock(page, { theme: 'dark' });
     await assertThemeMode(page, 'dark');
   });
 });

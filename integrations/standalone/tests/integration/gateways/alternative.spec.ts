@@ -12,8 +12,7 @@ test.describe('Alternative', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = new InscriptionView(page);
-    await view.selectElement(testee.elementId);
+    view = await InscriptionView.selectElement(page, testee.elementId);
   });
 
   test('Header', async () => {

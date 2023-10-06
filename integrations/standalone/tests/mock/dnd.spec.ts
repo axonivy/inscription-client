@@ -3,8 +3,7 @@ import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Drag and drop features', () => {
   test('Alternative condition reorder', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock({ type: 'Alternative' });
+    const inscriptionView = await InscriptionView.mock(page, { type: 'Alternative' });
     const conditions = inscriptionView.accordion('Condition');
     await conditions.toggle();
 

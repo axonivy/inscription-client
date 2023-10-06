@@ -3,7 +3,7 @@ import { InscriptionView } from '../../pageobjects/InscriptionView';
 import { NameTestWithDisabledName, PermissionsTest, ProcessDataTest, runTest } from '../parts';
 import { CreateProcessResult, createProcess } from '../../glsp-protocol';
 
-test.describe('HTML Dialog Process', () => {
+test.describe('Callable Sub Process', () => {
   let view: InscriptionView;
   let testee: CreateProcessResult;
 
@@ -12,8 +12,7 @@ test.describe('HTML Dialog Process', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = new InscriptionView(page);
-    await view.selectElement(testee.processId);
+    view = await InscriptionView.selectElement(page, testee.processId);
   });
 
   test('Header', async () => {

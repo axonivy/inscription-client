@@ -4,16 +4,14 @@ import { MacroEditor, ScriptInput } from '../pageobjects/CodeEditor';
 
 test.describe('Code Editor Input', () => {
   test('MacroInput - no new line', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
+    const inscriptionView = await InscriptionView.mock(page);
     const taskPart = inscriptionView.accordion('Case');
     await taskPart.toggle();
     await assertNoNewLine(page, taskPart.macroInput('Name'));
   });
 
   test('ScriptInput - no new line', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
+    const inscriptionView = await InscriptionView.mock(page);
     const taskPart = inscriptionView.accordion('Task');
     await taskPart.toggle();
     const expirySection = taskPart.section('Expiry');
@@ -43,8 +41,7 @@ test.describe('Code Editor Input', () => {
   }
 
   async function assertAcceptScriptCellValue(page: Page, key?: string) {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
+    const inscriptionView = await InscriptionView.mock(page);
     const taskPart = inscriptionView.accordion('Output');
     await taskPart.toggle();
     const popover = inscriptionView.popover();
