@@ -3,8 +3,7 @@ import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Part states', () => {
   test('different states on different parts', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
+    const inscriptionView = await InscriptionView.mock(page);
     const casePart = inscriptionView.accordion('Case');
     const callPart = inscriptionView.accordion('Call');
 

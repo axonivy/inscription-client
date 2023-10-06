@@ -11,8 +11,7 @@ test.describe('Code Editor', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = new InscriptionView(page);
-    await view.selectElement(testee.elementId);
+    view = await InscriptionView.selectElement(page, testee.elementId);
   });
 
   test('MacroInput', async () => {
@@ -41,7 +40,7 @@ test.describe('Code Editor', () => {
     await code.expectContentAssistContains('in');
   });
 
-  test('ScriptInput', async ({ page }) => {
+  test('ScriptInput', async () => {
     const taskPart = view.accordion('Task');
     await taskPart.toggle();
     const expirySection = taskPart.section('Expiry');

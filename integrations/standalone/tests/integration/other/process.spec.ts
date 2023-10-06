@@ -12,8 +12,7 @@ test.describe('Business Process', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = new InscriptionView(page);
-    await view.selectElement(testee.processId);
+    view = await InscriptionView.selectElement(page, testee.processId);
   });
 
   test('Header', async () => {

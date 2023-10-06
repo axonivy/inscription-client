@@ -3,8 +3,7 @@ import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Reset part', () => {
   test('reset button', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
+    const inscriptionView = await InscriptionView.mock(page);
     const part = inscriptionView.accordion('Name');
     await part.toggle();
 

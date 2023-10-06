@@ -3,8 +3,7 @@ import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Mappings', () => {
   test('DialogCall change will update mapping tree', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock();
+    const inscriptionView = await InscriptionView.mock(page);
     const callPart = inscriptionView.accordion('Call');
     await callPart.toggle();
 
@@ -18,8 +17,7 @@ test.describe('Mappings', () => {
   });
 
   test('SubStart result param change will update mapping tree', async ({ page }) => {
-    const inscriptionView = new InscriptionView(page);
-    await inscriptionView.mock({ type: 'CallSubStart' });
+    const inscriptionView = await InscriptionView.mock(page, { type: 'CallSubStart' });
     const resultPart = inscriptionView.accordion('Result');
     await resultPart.toggle();
 

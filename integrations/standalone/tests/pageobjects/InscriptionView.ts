@@ -7,17 +7,20 @@ export class InscriptionView {
 
   constructor(page: Page) {
     this.page = page;
-    page.emulateMedia({ reducedMotion: 'reduce' });
   }
 
-  async selectElement(pid: string) {
+  static async selectElement(page: Page, pid: string) {
+    const view = new InscriptionView(page);
     const server = process.env.BASE_URL ?? 'localhost:8081';
-    var serverUrl = server.replace(/^https?:\/\//, '');
-    var url = `?server=${serverUrl}&pid=${pid}`;
-    await this.page.goto(url);
+    const serverUrl = server.replace(/^https?:\/\//, '');
+    const url = `?server=${serverUrl}&pid=${pid}`;
+    await page.goto(url);
+    await this.initPage(page);
+    return view;
   }
 
-  async mock(options?: { type?: string; readonly?: boolean; theme?: string }) {
+  static async mock(page: Page, options?: { type?: string; readonly?: boolean; theme?: string }) {
+    const view = new InscriptionView(page);
     let url = 'mock.html';
     if (options) {
       url += '?';
@@ -31,7 +34,14 @@ export class InscriptionView {
         url += `theme=${options.theme}&`;
       }
     }
-    await this.page.goto(url);
+    await page.goto(url);
+    await this.initPage(page);
+    return view;
+  }
+
+  static async initPage(page: Page) {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.addStyleTag({ content: `.ReactQueryDevtools { display: none; }` });
   }
 
   accordion(partName: string) {
