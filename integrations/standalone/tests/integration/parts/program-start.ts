@@ -3,10 +3,10 @@ import { NewPartTest, PartObject } from './part-tester';
 import { Checkbox } from '../../pageobjects/Checkbox';
 import { Section } from '../../pageobjects/Section';
 import { Select } from '../../pageobjects/Select';
-import { TextArea } from '../../pageobjects/TextArea';
+import { Combobox } from '../../pageobjects/Combobox';
 
 class ProgramStart extends PartObject {
-  javaClass: TextArea;
+  javaClass: Combobox;
   permissionSection: Section;
   anonymousAllow: Checkbox;
   role: Select;
@@ -14,7 +14,7 @@ class ProgramStart extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.javaClass = part.textArea('Java Class');
+    this.javaClass = part.combobox('Java Class');
 
     this.permissionSection = part.section('Permission');
     this.anonymousAllow = this.permissionSection.checkbox('Allow anonymous');
@@ -23,7 +23,7 @@ class ProgramStart extends PartObject {
   }
 
   async fill() {
-    await this.javaClass.fill('test');
+    await this.javaClass.choose('ch.ivyteam.ivy.process.eventstart.AbstractProcessStartEventBean');
 
     await this.permissionSection.toggle();
 
@@ -33,7 +33,7 @@ class ProgramStart extends PartObject {
   }
 
   async assertFill() {
-    await this.javaClass.expectValue('test');
+    await this.javaClass.expectValue('ch.ivyteam.ivy.process.eventstart.AbstractProcessStartEventBean');
 
     await this.permissionSection.expectIsOpen();
     await this.anonymousAllow.expectUnchecked();
@@ -42,15 +42,13 @@ class ProgramStart extends PartObject {
   }
 
   async clear() {
-    await this.javaClass.clear();
-
     await this.role.choose('Everybody');
     await this.error.choose('ivy:security:forbidden');
     await this.anonymousAllow.click();
   }
 
   async assertClear() {
-    await this.javaClass.expectEmpty();
+    await this.javaClass.expectValue('ch.ivyteam.ivy.process.eventstart.AbstractProcessStartEventBean');
 
     await this.permissionSection.expectIsClosed();
   }

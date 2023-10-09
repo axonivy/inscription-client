@@ -2,12 +2,12 @@ import { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 import { Section } from '../../pageobjects/Section';
 import { Select } from '../../pageobjects/Select';
-import { TextArea } from '../../pageobjects/TextArea';
 import { ScriptInput } from '../../pageobjects/CodeEditor';
 import { RadioGroup } from '../../pageobjects/RadioGroup';
+import { Combobox } from '../../pageobjects/Combobox';
 
 class Event extends PartObject {
-  javaClass: TextArea;
+  javaClass: Combobox;
   eventId: ScriptInput;
 
   expirySection: Section;
@@ -17,7 +17,7 @@ class Event extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.javaClass = part.textArea('Java Class');
+    this.javaClass = part.combobox('Java Class');
     this.eventId = part.scriptInput('Event ID');
 
     this.expirySection = part.section('Expiry');
@@ -27,7 +27,7 @@ class Event extends PartObject {
   }
 
   async fill() {
-    await this.javaClass.fill('test');
+    await this.javaClass.choose('ch.ivyteam.ivy.process.intermediateevent.AbstractProcessIntermediateEventBean');
     await this.eventId.fill('123');
 
     await this.expirySection.toggle();
@@ -37,7 +37,7 @@ class Event extends PartObject {
   }
 
   async assertFill() {
-    await this.javaClass.expectValue('test');
+    await this.javaClass.expectValue('ch.ivyteam.ivy.process.intermediateevent.AbstractProcessIntermediateEventBean');
     await this.eventId.expectValue('123');
 
     await this.expirySection.expectIsOpen();
@@ -47,7 +47,6 @@ class Event extends PartObject {
   }
 
   async clear() {
-    await this.javaClass.clear();
     await this.eventId.clear();
 
     await this.duration.clear();
@@ -56,7 +55,7 @@ class Event extends PartObject {
   }
 
   async assertClear() {
-    await this.javaClass.expectEmpty();
+    await this.javaClass.expectValue('ch.ivyteam.ivy.process.intermediateevent.AbstractProcessIntermediateEventBean');
     await this.eventId.expectEmpty();
 
     await this.expirySection.expectIsClosed();

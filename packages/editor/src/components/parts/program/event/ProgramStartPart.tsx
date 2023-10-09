@@ -24,7 +24,7 @@ const ProgramStartPart = () => {
 
   return (
     <>
-      <JavaClassSelector config={config.javaClass} onChange={change => update('javaClass', change)} type='START' />
+      <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='START' />
       <Permission
         anonymousFieldActive={true}
         config={config.permission}
