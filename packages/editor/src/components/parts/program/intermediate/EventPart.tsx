@@ -37,7 +37,7 @@ const EventPart = () => {
 
   return (
     <>
-      <JavaClassSelector config={config.javaClass} onChange={change => update('javaClass', change)} type='INTERMEDIATE' />
+      <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='INTERMEDIATE' />
 
       <PathFieldset label='Event ID' path='eventId' {...eventIdFieldset.labelProps}>
         <ScriptInput

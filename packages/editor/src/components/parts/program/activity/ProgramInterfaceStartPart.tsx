@@ -30,7 +30,7 @@ const ProgramInterfaceStartPart = () => {
 
   return (
     <>
-      <JavaClassSelector config={config.javaClass} onChange={change => update('javaClass', change)} type='ACTIVITY' />
+      <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='ACTIVITY' />
 
       <PathCollapsible label='Program' path='exceptionHandler' defaultOpen={config.exceptionHandler !== defaultConfig.exceptionHandler}>
         <PathFieldset label='Error' path='error' {...errorFieldset.labelProps}>

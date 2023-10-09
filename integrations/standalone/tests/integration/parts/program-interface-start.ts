@@ -2,11 +2,11 @@ import { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 import { Section } from '../../pageobjects/Section';
 import { Select } from '../../pageobjects/Select';
-import { TextArea } from '../../pageobjects/TextArea';
 import { ScriptInput } from '../../pageobjects/CodeEditor';
+import { Combobox } from '../../pageobjects/Combobox';
 
 class ProgramInterfaceStart extends PartObject {
-  javaClass: TextArea;
+  javaClass: Combobox;
   programSection: Section;
   errorProgram: Select;
 
@@ -16,7 +16,7 @@ class ProgramInterfaceStart extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.javaClass = part.textArea('Java Class');
+    this.javaClass = part.combobox('Java Class');
 
     this.programSection = part.section('Program');
     this.errorProgram = this.programSection.select('Error');
@@ -27,7 +27,7 @@ class ProgramInterfaceStart extends PartObject {
   }
 
   async fill() {
-    await this.javaClass.fill('test');
+    await this.javaClass.choose('ch.ivyteam.ivy.process.extension.impl.AbstractUserProcessExtension');
 
     await this.programSection.toggle();
     await this.errorProgram.choose('>> Ignore Exception');
@@ -38,7 +38,7 @@ class ProgramInterfaceStart extends PartObject {
   }
 
   async assertFill() {
-    await this.javaClass.expectValue('test');
+    await this.javaClass.expectValue('ch.ivyteam.ivy.process.extension.impl.AbstractUserProcessExtension');
 
     await this.programSection.expectIsOpen();
     await this.errorProgram.expectValue('>> Ignore Exception');
@@ -49,8 +49,6 @@ class ProgramInterfaceStart extends PartObject {
   }
 
   async clear() {
-    await this.javaClass.clear();
-
     await this.errorProgram.choose('ivy:error:program:exception');
 
     await this.seconds.clear();
@@ -58,7 +56,7 @@ class ProgramInterfaceStart extends PartObject {
   }
 
   async assertClear() {
-    await this.javaClass.expectEmpty();
+    await this.javaClass.expectValue('ch.ivyteam.ivy.process.extension.impl.AbstractUserProcessExtension');
     await this.programSection.expectIsClosed();
     await this.timeoutSection.expectIsClosed();
   }
