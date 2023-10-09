@@ -207,6 +207,7 @@ export interface InscriptionActionArgs {
     | "openCustomField"
     | "openEndPage"
     | "openPage"
+    | "openProgram"
     | "openTestWs";
   context: InscriptionContext;
   payload: string | OpenCustomField;
