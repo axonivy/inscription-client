@@ -20,7 +20,9 @@ export const monacoAutoFocus = (editor: monaco.editor.IStandaloneCodeEditor) => 
   editor.focus();
 };
 
-export const useModifyEditor = () => {
+export type ModifyAction = (value: string) => string;
+
+export const useModifyEditor = (modifyAction?: ModifyAction) => {
   const [editor, setEditor] = useState<monaco.editor.IStandaloneCodeEditor>();
   const modifyEditor = (value: string) => {
     if (!editor) {
@@ -32,7 +34,7 @@ export const useModifyEditor = () => {
       console.log('No selection found on editor');
       return;
     }
-    editor.executeEdits('browser', [{ range: selection, text: value, forceMoveMarkers: true }]);
+    editor.executeEdits('browser', [{ range: selection, text: modifyAction ? modifyAction(value) : value, forceMoveMarkers: true }]);
   };
   return { setEditor, modifyEditor };
 };
