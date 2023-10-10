@@ -18,7 +18,9 @@ import {
   RestClient,
   RestResource,
   RestResourceMeta,
-  RestClientRequest
+  RestClientRequest,
+  Widget,
+  ProgramInterface
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
@@ -62,6 +64,8 @@ type ContextHelperProps = {
     restResource?: DeepPartial<RestResource>;
     restResources?: RestResourceMeta[];
     restProperties?: string[];
+    javaClasses?: ProgramInterface[];
+    widgets?: Widget[];
   };
   editor?: { title?: string; readonly?: boolean };
 };
@@ -143,6 +147,10 @@ const ContextHelper = (
             return (args as RestClientRequest).clientId !== '' ? Promise.resolve(props.meta?.restResources ?? []) : Promise.resolve([]);
           case 'meta/rest/properties':
             return Promise.resolve(props.meta?.restProperties ?? []);
+          case 'meta/program/types':
+            return Promise.resolve(props.meta?.javaClasses ?? []);
+          case 'meta/program/editor':
+            return Promise.resolve(props.meta?.widgets ?? []);
           default:
             throw Error('mock meta path not programmed');
         }

@@ -1,0 +1,11 @@
+.info-text {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--size-1);
+  gap: var(--size-1);
+  font-size: 12px;
+}
+
+.info-text p {
+  margin: 0;
+}
