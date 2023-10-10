@@ -3,6 +3,8 @@
 const { exit } = require('process');
 const fs = require('fs');
 const tsGen = require('json-schema-to-typescript');
+const http = require('https');
+const path = require('path');
 
 tsGen.DEFAULT_OPTIONS.bannerComment = `
 /* eslint-disable */
@@ -14,7 +16,7 @@ tsGen.DEFAULT_OPTIONS.bannerComment = `
  */
 `;
 
-const tsOut = './src/data/inscription.ts';
+const tsOut = path.resolve('./src/data/inscription.ts');
 var schemaUri = 'https://json-schema.ivyteam.ch/process/11.2.1/inscription.json';
 
 const args = process.argv.slice(2);
@@ -30,7 +32,6 @@ if (args.length > 0) {
 }
 
 function loadJson(uri) {
-  const http = require('https');
   console.log(`loading ${uri}`);
   const download = new Promise(result =>
     http.get(uri, res => {
