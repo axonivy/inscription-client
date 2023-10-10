@@ -7,6 +7,7 @@
  */
 
 export type PID = string
+export type ContentObjectType = "STRING" | "FILE" | "FOLDER";
 export type CustomFieldConfigType = "START" | "TASK" | "CASE";
 export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
 export type WfLevel = "EXCEPTION" | "HIGH" | "NORMAL" | "LOW" | "SCRIPT";
@@ -26,7 +27,9 @@ export type Widget = Script | Label | Text;
 export interface Inscription {
   boolean: boolean;
   callableStart: CallableStart[];
+  cmsMetaRequest: CmsMetaRequest;
   connectorRef: ConnectorRef[];
+  contentObject: ContentObject[];
   databaseColumn: DatabaseColumn[];
   databaseColumnRequest: DatabaseColumnRequest;
   databaseTablesRequest: DatabaseTablesRequest;
@@ -84,6 +87,15 @@ export interface Variable {
   description: string;
   simpleType: string;
   type: string;
+}
+export interface CmsMetaRequest {
+  context: InscriptionContext;
+  requiredProjects: boolean;
+}
+export interface InscriptionContext {
+  app: string;
+  pid: PID;
+  pmv: string;
 }
 export interface ConnectorRef {
   name: string;
@@ -158,6 +170,16 @@ export interface InscriptionType {
   label: string;
   shortLabel: string;
 }
+export interface ContentObject {
+  children: ContentObject[];
+  fullPath: string;
+  name: string;
+  type: ContentObjectType;
+  values: MapStringString;
+}
+export interface MapStringString {
+  [k: string]: string;
+}
 export interface DatabaseColumn {
   ivyType: string;
   name: string;
@@ -167,11 +189,6 @@ export interface DatabaseColumnRequest {
   context: InscriptionContext;
   database: string;
   table: string;
-}
-export interface InscriptionContext {
-  app: string;
-  pid: PID;
-  pmv: string;
 }
 export interface DatabaseTablesRequest {
   context: InscriptionContext;

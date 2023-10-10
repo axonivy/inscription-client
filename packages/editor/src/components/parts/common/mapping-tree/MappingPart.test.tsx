@@ -112,7 +112,7 @@ describe('MappingPart', () => {
     await userEvent.click(rowExpander);
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
     await userEvent.click(rowExpander);
-    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
   });
 
   test('tree can edit expression', async () => {
