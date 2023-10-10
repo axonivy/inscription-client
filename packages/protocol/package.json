@@ -20,7 +20,7 @@
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc",
     "build:clean": "yarn clean && yarn generate && yarn build",
-    "generate": "./schemaCodegen.js",
+    "generate": "node ./schemaCodegen.js",
     "type": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src"
