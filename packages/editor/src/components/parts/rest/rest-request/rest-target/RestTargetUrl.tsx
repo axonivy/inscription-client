@@ -1,6 +1,6 @@
 import './RestTargetUrl.css';
-import { useEditorContext, useMeta } from '../../../../context';
-import { useRestRequestData } from '../useRestRequestData';
+import { useEditorContext, useMeta } from '../../../../../context';
+import { useRestRequestData } from '../../useRestRequestData';
 import { Fragment } from 'react';
 import { useTargetPathSplit } from './usePathParams';
 

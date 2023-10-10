@@ -45,13 +45,14 @@ export interface Inscription {
   restClient: RestClient[];
   restClientRequest: RestClientRequest;
   restContentTypeRequest: RestContentTypeRequest;
+  restEntityInfoRequest: RestEntityInfoRequest;
   restResource: RestResource;
   restResourceMeta: RestResourceMeta[];
   restResourceRequest: RestResourceRequest;
   roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
-  string: string[];
+  string: string;
   variableInfo: VariableInfo;
   void: Void;
   webServiceClient: WebServiceClient[];
@@ -662,6 +663,10 @@ export interface RestClientRequest {
 }
 export interface RestContentTypeRequest {
   forBody: boolean;
+}
+export interface RestEntityInfoRequest {
+  context: InscriptionContext;
+  fullQualifiedName: string;
 }
 export interface RestResource {
   doc: string;

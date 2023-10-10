@@ -255,7 +255,6 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_WSREQUEST_DATA,
     ...DEFAULT_REST_RESPONSE_DATA,
     ...DEFAULT_REST_REQUEST_DATA,
-    // Other defaults, not implemented yet, but needed to satisfy TS
     ...DEFAULT_PROGRAM_INTERFACE_START_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
     userConfig: '',

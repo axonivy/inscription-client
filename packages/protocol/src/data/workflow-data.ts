@@ -1,4 +1,13 @@
-import { IntermediateEventTimeoutAction, HttpMethod, QueryKind, WfActivatorType, WfFieldType, WfLevel, WsAuth } from './inscription';
+import {
+  IntermediateEventTimeoutAction,
+  HttpMethod,
+  QueryKind,
+  WfActivatorType,
+  WfFieldType,
+  WfLevel,
+  WsAuth,
+  InputType
+} from './inscription';
 
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
@@ -63,6 +72,12 @@ export const HTTP_METHOD = {
   OPTIONS: 'OPTIONS',
   JAX_RS: 'JAX_RS'
 } as const satisfies Record<HttpMethod, HttpMethod>;
+
+export const REST_INPUT_TYPES = {
+  ENTITY: 'Entity',
+  FORM: 'Form',
+  RAW: 'Raw'
+} as const satisfies Record<InputType, string>;
 
 export const REST_PARAM_KIND = {
   Query: 'Query',

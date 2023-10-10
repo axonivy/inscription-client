@@ -1,52 +1,43 @@
-import { PathCollapsible, ValidationRow } from '../../common';
-import { useRestRequestData } from '../useRestRequestData';
+import { ValidationRow } from '../../../common';
+import { useRestRequestData } from '../../useRestRequestData';
 import {
   ActionCell,
   EditableCell,
   ScriptCell,
-  SelectCell,
-  SelectItem,
   SortableHeader,
   Table,
   TableAddRow,
   TableCell,
   TableFooter,
   TableHeader
-} from '../../../../components/widgets';
+} from '../../../../widgets';
 import { ColumnDef, SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEffect, useMemo, useState } from 'react';
-import { IVY_SCRIPT_TYPES, REST_PARAM_KIND } from '@axonivy/inscription-protocol';
-import { Parameter } from './parameters';
-import { useRestResourceMeta } from '../useRestResourceMeta';
-import { useFindPathParams } from './usePathParams';
+import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
+import { useRestResourceMeta } from '../../useRestResourceMeta';
+import { RestParam, restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
+import { PathContext } from '../../../../../context';
 
-export const RestParameters = () => {
-  const { config, updateParameters } = useRestRequestData();
+export const RestForm = () => {
+  const { config, updateBody } = useRestRequestData();
 
-  const [data, setData] = useState<Parameter[]>([]);
-  const foundPathParams = useFindPathParams();
+  const [data, setData] = useState<RestParam[]>([]);
   const restResource = useRestResourceMeta();
   useEffect(() => {
-    const restResourceQueryParams = restResource.queryParams ?? [];
-    const restResourcePathParams = restResource.pathParams ?? [];
-    const queryParams = Parameter.of(restResourceQueryParams, [], config.target.queryParams, 'Query');
-    const pathParams = Parameter.of(restResourcePathParams, foundPathParams, config.target.templateParams, 'Path');
-    setData([...pathParams, ...queryParams]);
-  }, [foundPathParams, restResource.queryParams, restResource.pathParams, config.target.queryParams, config.target.templateParams]);
+    const restResourceParam = restResource.method?.inBody.param;
+    const params = restParamBuilder()
+      .openApiParams(restResourceParam ? [restResourceParam] : [])
+      .restMap(config.body.form)
+      .build();
+    setData(params);
+  }, [restResource.method?.inBody.param, config.body.form]);
 
-  const onChange = (props: Parameter[]) =>
-    updateParameters({ queryParams: Parameter.to(props, 'Query'), templateParams: Parameter.to(props, 'Path') });
-  const kindItems = useMemo<SelectItem[]>(() => Object.entries(REST_PARAM_KIND).map(([value, label]) => ({ label, value })), []);
+  const onChange = (params: RestParam[]) => updateBody('form', toRestMap(params));
 
   const [sorting, setSorting] = useState<SortingState>([]);
-  const columns = useMemo<ColumnDef<Parameter>[]>(
+  const columns = useMemo<ColumnDef<RestParam>[]>(
     () => [
-      {
-        accessorKey: 'kind',
-        header: header => <SortableHeader header={header} name='Kind' />,
-        cell: cell => <SelectCell cell={cell} items={kindItems} disabled={cell.row.original.known} />
-      },
       {
         accessorKey: 'name',
         header: header => <SortableHeader header={header} name='Name' />,
@@ -63,12 +54,12 @@ export const RestParameters = () => {
         cell: cell => <ScriptCell cell={cell} type={cell.row.original.type ?? IVY_SCRIPT_TYPES.OBJECT} />
       }
     ],
-    [kindItems]
+    []
   );
 
   const addRow = () => {
     const newData = [...data];
-    newData.push({ kind: 'Query', name: '', expression: '', known: false });
+    newData.push({ name: '', expression: '', known: false });
     onChange(newData);
   };
 
@@ -88,13 +79,13 @@ export const RestParameters = () => {
     meta: {
       updateData: (rowId: string, columnId: string, value: unknown) => {
         const rowIndex = parseInt(rowId);
-        onChange(Parameter.update(data, rowIndex, columnId, value as string));
+        onChange(updateRestParams(data, rowIndex, columnId, value as string));
       }
     }
   });
 
   return (
-    <PathCollapsible label='Parameters' path='parameters' defaultOpen={data.length > 0}>
+    <PathContext path='form'>
       <Table>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
@@ -131,6 +122,6 @@ export const RestParameters = () => {
           <TableAddRow colSpan={4} addRow={addRow} />
         </TableFooter>
       </Table>
-    </PathCollapsible>
+    </PathContext>
   );
 };

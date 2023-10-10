@@ -20,6 +20,20 @@ describe('RestRequestPart', () => {
     expect(screen.getByText('Parameters')).toBeInTheDocument();
     expect(screen.getByText('Headers')).toBeInTheDocument();
     expect(screen.getByText('Properties')).toBeInTheDocument();
+    expect(screen.queryByText('Body')).not.toBeInTheDocument();
+    expect(screen.queryByText('JAX-RS')).not.toBeInTheDocument();
+  });
+
+  test('post', async () => {
+    renderPart({ method: 'POST' });
+    expect(screen.getByText('Body')).toBeInTheDocument();
+    expect(screen.queryByText('JAX-RS')).not.toBeInTheDocument();
+  });
+
+  test('jax-rs', async () => {
+    renderPart({ method: 'JAX_RS' });
+    expect(screen.queryByText('Body')).not.toBeInTheDocument();
+    expect(screen.getByText('JAX-RS')).toBeInTheDocument();
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<RestRequestData>, validation?: InscriptionValidation) {

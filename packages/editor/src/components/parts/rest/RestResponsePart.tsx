@@ -3,8 +3,9 @@ import { PathContext, useEditorContext, useMeta, useValidations } from '../../..
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useRestResponseData } from './useRestResponseData';
 import { MappingPart, PathFieldset } from '../common';
-import { Collapsible, Input, ScriptArea, useFieldset } from '../../widgets';
-import { RestError } from './RestError';
+import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
+import { RestError } from './rest-response/RestError';
+import { RestEntityTypeCombobox } from './RestEntityTypeCombobox';
 
 export function useRestResponsePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestResponseData();
@@ -26,7 +27,12 @@ const RestResponsePart = () => {
     <PathContext path='response'>
       <PathContext path='entity'>
         <PathFieldset label='Read body as type (result variable)' {...typeFieldset.labelProps} path='type'>
-          <Input value={config.response.entity.type} onChange={change => updateEntity('type', change)} {...typeFieldset.inputProps} />
+          <RestEntityTypeCombobox
+            value={config.response.entity.type}
+            onChange={change => updateEntity('type', change)}
+            location='result'
+            {...typeFieldset.inputProps}
+          />
         </PathFieldset>
         <MappingPart data={config.response.entity.map} variableInfo={variableInfo} onChange={change => updateEntity('map', change)} />
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>

@@ -15,6 +15,7 @@ import {
   JavaTimeout,
   MailHeaders,
   ProcessConfig,
+  RestBody,
   RestPayloadMapping,
   RestResponse,
   RestTarget,
@@ -58,6 +59,7 @@ export type SchemaKeys =
   | keyof RestResponse
   | keyof RestPayloadMapping
   | keyof RestTarget
+  | keyof RestBody
   | keyof JavaTimeout
   | keyof ElementProgramInterface
   | keyof ElementWaitEvent

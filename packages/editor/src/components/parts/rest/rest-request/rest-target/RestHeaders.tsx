@@ -1,10 +1,10 @@
-import { Combobox, ComboboxItem, Fieldset, useFieldset } from '../../../../components/widgets';
-import { useMeta } from '../../../../context';
-import { PathCollapsible } from '../../common';
-import { useRestRequestData } from '../useRestRequestData';
-import { deepEqual } from '../../../../utils/equals';
-import { PropertyTable } from '../../common/properties/PropertyTable';
-import { useRestResourceMeta } from '../useRestResourceMeta';
+import { Combobox, ComboboxItem, Fieldset, useFieldset } from '../../../../widgets';
+import { useMeta } from '../../../../../context';
+import { PathCollapsible } from '../../../common';
+import { useRestRequestData } from '../../useRestRequestData';
+import { deepEqual } from '../../../../../utils/equals';
+import { PropertyTable } from '../../../common/properties/PropertyTable';
+import { useRestResourceMeta } from '../../useRestResourceMeta';
 
 export const RestHeaders = () => {
   const { config, defaultConfig, updateTarget, updateAcceptHeader } = useRestRequestData();
