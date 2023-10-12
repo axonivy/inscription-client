@@ -1,12 +1,15 @@
 import { MacroArea } from '../../../../../components/widgets';
 import { useRestRequestData } from '../../useRestRequestData';
 import { PathContext } from '../../../../../context';
+import { ValidationFieldset } from '../../../../../components/parts/common';
 
 export const RestBodyRaw = () => {
   const { config, updateBody } = useRestRequestData();
   return (
     <PathContext path='raw'>
-      <MacroArea value={config.body.raw} onChange={change => updateBody('raw', change)} />
+      <ValidationFieldset>
+        <MacroArea value={config.body.raw} onChange={change => updateBody('raw', change)} />
+      </ValidationFieldset>
     </PathContext>
   );
 };
