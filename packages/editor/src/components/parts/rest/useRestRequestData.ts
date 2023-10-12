@@ -6,6 +6,7 @@ import { ConfigDataContext, useConfigDataContext } from '../../../context';
 export function useRestRequestData(): ConfigDataContext<RestRequestData> & {
   update: DataUpdater<RestRequestData>;
   updateBody: DataUpdater<RestRequestData['body']>;
+  updateEntity: DataUpdater<RestRequestData['body']['entity']>;
   updateMethod: Consumer<string>;
   updateTarget: DataUpdater<RestRequestData['target']>;
   updateAcceptHeader: Consumer<string>;
@@ -26,6 +27,14 @@ export function useRestRequestData(): ConfigDataContext<RestRequestData> & {
     setConfig(
       produce(draft => {
         draft.body[field] = value;
+      })
+    );
+  };
+
+  const updateEntity: DataUpdater<RestRequestData['body']['entity']> = (field, value) => {
+    setConfig(
+      produce(draft => {
+        draft.body.entity[field] = value;
       })
     );
   };
@@ -79,6 +88,7 @@ export function useRestRequestData(): ConfigDataContext<RestRequestData> & {
     ...config,
     update,
     updateBody,
+    updateEntity,
     updateMethod,
     updateTarget,
     updateAcceptHeader,

@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
-import { useEditorContext, useMeta } from '../../../../context';
-import { Combobox, ComboboxItem, FieldsetControl, IvyIcon, ScriptInput, Select, SelectItem, useFieldset } from '../../../widgets';
-import { PathFieldset } from '../../common';
-import { useRestRequestData } from '../useRestRequestData';
+import { useEditorContext, useMeta } from '../../../../../context';
+import { Combobox, ComboboxItem, FieldsetControl, IvyIcon, ScriptInput, Select, SelectItem, useFieldset } from '../../../../widgets';
+import { PathFieldset } from '../../../common';
+import { useRestRequestData } from '../../useRestRequestData';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { HttpMethod, IVY_SCRIPT_TYPES, HTTP_METHOD, RestResourceMeta } from '@axonivy/inscription-protocol';
 import './RestMethodSelect.css';

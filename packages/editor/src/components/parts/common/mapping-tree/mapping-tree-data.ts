@@ -37,7 +37,7 @@ export namespace MappingTreeData {
     })) ?? [];
 
   export function update(paramInfo: VariableInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
-    if (mappingPath.length >= 2 && mappingPath[0] === 'param') {
+    if (mappingPath.length >= 2 && mappingPath[0] === 'param' && tree.find(n => n.attribute.includes('.'))) {
       mappingPath.shift();
       mappingPath[0] = 'param.' + mappingPath[0];
     }

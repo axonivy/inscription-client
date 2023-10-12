@@ -5,6 +5,7 @@
 }
 .radio-group-root[data-orientation='horizontal'] {
   flex-direction: row;
+  gap: var(--size-4);
 }
 
 .radio-group-item {

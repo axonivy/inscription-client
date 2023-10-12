@@ -1,8 +1,8 @@
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
-import { useFieldset } from '../../../components/widgets';
-import { ExceptionCombobox, ExceptionItem, PathFieldset, PathFieldsetProps } from '../common';
-import { useEditorContext, useMeta } from '../../../context';
-import { eventCodeInfo } from '../../../utils/event-code';
+import { useFieldset } from '../../../widgets';
+import { ExceptionCombobox, ExceptionItem, PathFieldset, PathFieldsetProps } from '../../common';
+import { useEditorContext, useMeta } from '../../../../context';
+import { eventCodeInfo } from '../../../../utils/event-code';
 
 type RestErrorProps = Omit<PathFieldsetProps, 'value' | 'onChange' | 'children'> & {
   value: string;

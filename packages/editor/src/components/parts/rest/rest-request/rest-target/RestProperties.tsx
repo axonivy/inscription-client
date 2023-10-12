@@ -1,8 +1,8 @@
-import { deepEqual } from '../../../../utils/equals';
-import { useMeta } from '../../../../context';
-import { PathCollapsible } from '../../common';
-import { PropertyTable } from '../../common/properties/PropertyTable';
-import { useRestRequestData } from '../useRestRequestData';
+import { deepEqual } from '../../../../../utils/equals';
+import { useMeta } from '../../../../../context';
+import { PathCollapsible } from '../../../common';
+import { PropertyTable } from '../../../common/properties/PropertyTable';
+import { useRestRequestData } from '../../useRestRequestData';
 
 export const RestProperties = () => {
   const { config, defaultConfig, updateTarget } = useRestRequestData();

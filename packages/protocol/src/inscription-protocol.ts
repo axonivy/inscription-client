@@ -27,7 +27,8 @@ import {
   WebServiceOperation,
   WebServicePortRequest,
   ProgramEditorRequest,
-  Widget
+  Widget,
+  RestEntityInfoRequest
 } from './data/inscription';
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -57,6 +58,9 @@ export interface InscriptionMetaRequestTypes {
   'meta/rest/headers': [void, string[]];
   'meta/rest/contentTypes': [RestContentTypeRequest, string[]];
   'meta/rest/properties': [void, string[]];
+  'meta/rest/entityTypes': [RestResourceRequest, string[]];
+  'meta/rest/resultTypes': [RestResourceRequest, string[]];
+  'meta/rest/entityInfo': [RestEntityInfoRequest, VariableInfo];
 
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];

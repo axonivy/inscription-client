@@ -64,6 +64,8 @@ type ContextHelperProps = {
     restResource?: DeepPartial<RestResource>;
     restResources?: RestResourceMeta[];
     restProperties?: string[];
+    restEntityTypes?: string[];
+    restEntityInfo?: VariableInfo;
     javaClasses?: ProgramInterface[];
     widgets?: Widget[];
   };
@@ -147,6 +149,11 @@ const ContextHelper = (
             return (args as RestClientRequest).clientId !== '' ? Promise.resolve(props.meta?.restResources ?? []) : Promise.resolve([]);
           case 'meta/rest/properties':
             return Promise.resolve(props.meta?.restProperties ?? []);
+          case 'meta/rest/entityTypes':
+          case 'meta/rest/resultTypes':
+            return Promise.resolve(props.meta?.restEntityTypes ?? []);
+          case 'meta/rest/entityInfo':
+            return Promise.resolve(props.meta?.restEntityInfo ?? { types: {}, variables: [] });
           case 'meta/program/types':
             return Promise.resolve(props.meta?.javaClasses ?? []);
           case 'meta/program/editor':

@@ -217,6 +217,35 @@ describe('MappingTreeData', () => {
     expect(treeData).toEqual(expectTree);
   });
 
+  test('update with single param', () => {
+    const variableInfoParam: VariableInfo = {
+      variables: [
+        {
+          attribute: 'param',
+          type: 'ch.User',
+          simpleType: 'User',
+          description: ''
+        }
+      ],
+      types: {
+        'ch.User': [
+          {
+            attribute: 'name',
+            type: 'java.String',
+            simpleType: 'String',
+            description: ''
+          }
+        ]
+      }
+    };
+    const tree = MappingTreeData.of(variableInfoParam);
+    MappingTreeData.update(variableInfo, tree, ['param', 'name'], 'Hans');
+    const expectedTree = cloneObject(tree);
+    expectedTree[0].children[0].value = 'Hans';
+    expect(tree).toHaveLength(1);
+    expect(tree).toEqual(expectedTree);
+  });
+
   test('update deep', () => {
     const resultTree = mappingTreeMultiRootData();
     let tree = cloneObject(resultTree);
