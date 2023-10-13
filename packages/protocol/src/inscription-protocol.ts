@@ -28,7 +28,9 @@ import {
   WebServicePortRequest,
   ProgramEditorRequest,
   Widget,
-  RestEntityInfoRequest
+  RestEntityInfoRequest,
+  CmsMetaRequest,
+  ContentObject
 } from './data/inscription';
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -68,6 +70,8 @@ export interface InscriptionMetaRequestTypes {
 
   'meta/program/types': [ProgramInterfacesRequest, ProgramInterface[]];
   'meta/program/editor': [ProgramEditorRequest, Widget[]];
+
+  'meta/cms/tree': [CmsMetaRequest, ContentObject[]];
 
   'meta/connector/out': [InscriptionContext, ConnectorRef[]];
 }

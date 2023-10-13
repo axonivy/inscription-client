@@ -9,7 +9,7 @@ import { ElementRef, useRef } from 'react';
 const MacroArea = ({ value, onChange, ...props }: CodeEditorAreaProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useCodeEditorOnFocus(value, onChange);
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useModifyEditor();
+  const { setEditor, modifyEditor } = useModifyEditor(value => `<%=${value}%>`);
   const path = usePath();
   const areaRef = useRef<ElementRef<'output'>>(null);
 
@@ -26,7 +26,7 @@ const MacroArea = ({ value, onChange, ...props }: CodeEditorAreaProps) => {
             macro={true}
             initHeight={areaRef.current?.offsetHeight}
           />
-          <Browser {...browser} types={['attr', 'cms']} accept={value => modifyEditor(`<%=${value}%>`)} location={path} />
+          <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} location={path} />
         </>
       ) : (
         <CardArea value={value} {...props} ref={areaRef} />

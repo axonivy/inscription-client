@@ -39,6 +39,11 @@
   background-color: var(--input-bg);
   border: 1px solid var(--editor-bg);
   padding: var(--input-padding);
+  overflow: auto;
+  max-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
 }
 
 .dialog-title {

@@ -34,7 +34,8 @@ export const useModifyEditor = (modifyAction?: ModifyAction) => {
       console.log('No selection found on editor');
       return;
     }
-    editor.executeEdits('browser', [{ range: selection, text: modifyAction ? modifyAction(value) : value, forceMoveMarkers: true }]);
+    const text = value.length > 0 && modifyAction ? modifyAction(value) : value;
+    editor.executeEdits('browser', [{ range: selection, text, forceMoveMarkers: true }]);
   };
   return { setEditor, modifyEditor };
 };
