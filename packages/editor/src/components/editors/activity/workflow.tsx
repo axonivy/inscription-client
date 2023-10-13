@@ -33,7 +33,7 @@ const UserTaskEditor = memo(() => {
 
 const ScriptEditor = memo(() => {
   const name = useNamePart();
-  const output = useOutputPart({ hideCode: true });
+  const output = useOutputPart({ hideCode: true, additionalBrowsers: ['cms'] });
   const code = useOutputCodePart();
   return <InscriptionEditor icon={IvyIcons.Script} parts={[name, output, code]} />;
 });

@@ -15,6 +15,7 @@ const TaskListPart = () => {
           value={task.delay}
           onChange={change => update('delay', change)}
           {...delayFieldset.inputProps}
+          browsers={['attr', 'func', 'datatype']}
           type={IVY_SCRIPT_TYPES.DURATION}
         />
       </ValidationFieldset>

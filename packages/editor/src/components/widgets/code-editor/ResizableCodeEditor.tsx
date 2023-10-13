@@ -2,8 +2,11 @@ import './ResizableCodeEditor.css';
 import { useState } from 'react';
 import { useMove } from 'react-aria';
 import CodeEditor, { CodeEditorProps } from './CodeEditor';
+import { BrowserType } from '../../../components/browser';
 
-export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'options' | 'onMount' | 'location'>;
+export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'options' | 'onMount' | 'location'> & {
+  browsers: BrowserType[];
+};
 
 type ResizableCodeEditorProps = Omit<CodeEditorProps, 'height' | 'context'> & {
   location: string;

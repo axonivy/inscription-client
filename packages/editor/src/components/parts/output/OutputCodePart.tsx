@@ -21,7 +21,12 @@ const OutputCodePart = () => {
   return (
     <PathContext path='output'>
       <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
-        <ScriptArea value={config.output.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
+        <ScriptArea
+          value={config.output.code}
+          onChange={change => update('code', change)}
+          browsers={['attr', 'func', 'datatype', 'cms']}
+          {...codeFieldset.inputProps}
+        />
       </PathFieldset>
       <Checkbox label='Disable Permission Checks (Execute this Script Step as SYSTEM)' value={config.sudo} onChange={updateSudo} />
     </PathContext>

@@ -24,7 +24,7 @@ const DatabaseEditor = memo(() => {
   const name = useNamePart();
   const query = useQueryPart();
   const cache = useCachePart();
-  const output = useOutputPart();
+  const output = useOutputPart({ additionalBrowsers: ['tablecol'] });
   return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, cache, output]} />;
 });
 

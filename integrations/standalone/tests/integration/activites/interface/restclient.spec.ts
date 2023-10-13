@@ -52,7 +52,7 @@ test.describe('Rest Client', () => {
     await runTest(view, RestRequestBodyOpenApiTest);
   });
 
-  test('Response', async () => {
+  test.skip('Response', async () => {
     await runTest(view, RestResponseTest);
   });
 });

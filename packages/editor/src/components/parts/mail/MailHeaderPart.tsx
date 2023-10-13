@@ -4,6 +4,7 @@ import { useMailData } from './useMailData';
 import { IVY_EXCEPTIONS, MailData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import { ExceptionSelect, PathFieldset } from '../common';
+import { BrowserType } from '../../../components/browser';
 
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetHeaders } = useMailData();
@@ -25,26 +26,58 @@ const MailHeaderPart = () => {
   const bccFieldset = useFieldset();
   const exceptionFieldset = useFieldset();
 
+  const borwserTypes: BrowserType[] = ['attr', 'func', 'cms'];
+
   return (
     <>
       <PathContext path='headers'>
         <PathFieldset label='Subject' {...subjectFieldset.labelProps} path='subject'>
-          <MacroInput value={config.headers.subject} onChange={change => updateHeader('subject', change)} {...subjectFieldset.inputProps} />
+          <MacroInput
+            value={config.headers.subject}
+            onChange={change => updateHeader('subject', change)}
+            browsers={borwserTypes}
+            {...subjectFieldset.inputProps}
+          />
         </PathFieldset>
         <PathFieldset label='From' {...fromFieldset.labelProps} path='from'>
-          <MacroInput value={config.headers.from} onChange={change => updateHeader('from', change)} {...fromFieldset.inputProps} />
+          <MacroInput
+            value={config.headers.from}
+            onChange={change => updateHeader('from', change)}
+            browsers={borwserTypes}
+            {...fromFieldset.inputProps}
+          />
         </PathFieldset>
         <PathFieldset label='Reply to' {...replyToFieldset.labelProps} path='replyTo'>
-          <MacroInput value={config.headers.replyTo} onChange={change => updateHeader('replyTo', change)} {...replyToFieldset.inputProps} />
+          <MacroInput
+            value={config.headers.replyTo}
+            onChange={change => updateHeader('replyTo', change)}
+            browsers={borwserTypes}
+            {...replyToFieldset.inputProps}
+          />
         </PathFieldset>
         <PathFieldset label='To' {...toFieldset.labelProps} path='to'>
-          <MacroInput value={config.headers.to} onChange={change => updateHeader('to', change)} {...toFieldset.inputProps} />
+          <MacroInput
+            value={config.headers.to}
+            onChange={change => updateHeader('to', change)}
+            browsers={borwserTypes}
+            {...toFieldset.inputProps}
+          />
         </PathFieldset>
         <PathFieldset label='CC' {...ccFieldset.labelProps} path='cc'>
-          <MacroInput value={config.headers.cc} onChange={change => updateHeader('cc', change)} {...ccFieldset.inputProps} />
+          <MacroInput
+            value={config.headers.cc}
+            onChange={change => updateHeader('cc', change)}
+            browsers={borwserTypes}
+            {...ccFieldset.inputProps}
+          />
         </PathFieldset>
         <PathFieldset label='BCC' {...bccFieldset.labelProps} path='bcc'>
-          <MacroInput value={config.headers.bcc} onChange={change => updateHeader('bcc', change)} {...bccFieldset.inputProps} />
+          <MacroInput
+            value={config.headers.bcc}
+            onChange={change => updateHeader('bcc', change)}
+            browsers={borwserTypes}
+            {...bccFieldset.inputProps}
+          />
         </PathFieldset>
       </PathContext>
       <Collapsible

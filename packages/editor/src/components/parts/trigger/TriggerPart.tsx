@@ -41,6 +41,7 @@ const TriggerPart = () => {
                 value={config.task.delay}
                 onChange={change => updateDelay(change)}
                 type={IVY_SCRIPT_TYPES.DURATION}
+                browsers={['attr', 'func', 'datatype']}
                 {...delayFieldset.inputProps}
               />
             </PathFieldset>

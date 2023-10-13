@@ -28,7 +28,12 @@ const PrioritySelect = ({ priority, updatePriority }: { priority?: WfPriority; u
           inputProps={selectFieldset.inputProps}
         />
         {(selectedLevel.value as WfLevel) === 'SCRIPT' && (
-          <ScriptInput type={IVY_SCRIPT_TYPES.INT} value={priority?.script ?? ''} onChange={change => updatePriority('script', change)} />
+          <ScriptInput
+            type={IVY_SCRIPT_TYPES.INT}
+            value={priority?.script ?? ''}
+            onChange={change => updatePriority('script', change)}
+            browsers={['attr', 'func', 'datatype']}
+          />
         )}
       </div>
     </PathFieldset>

@@ -34,7 +34,7 @@ const MailAttachmentTable = () => {
         id: 'attachment',
         accessorFn: row => row,
         header: () => <span>Attachments</span>,
-        cell: cell => <ScriptCell cell={cell} type='Attachment' />
+        cell: cell => <ScriptCell cell={cell} type='Attachment' browsers={['attr', 'func', 'datatype', 'cms']} />
       }
     ],
     []

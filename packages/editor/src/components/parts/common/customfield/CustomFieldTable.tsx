@@ -42,7 +42,9 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
       {
         accessorKey: 'value',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} />
+        cell: cell => (
+          <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} browsers={['attr', 'func', 'datatype', 'cms']} />
+        )
       }
     ],
     [items]

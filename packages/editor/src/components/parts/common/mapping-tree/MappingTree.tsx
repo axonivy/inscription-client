@@ -22,7 +22,7 @@ type MappingTreeProps = MappingPartProps & {
   onlyInscribedFilter: TableFilter<ColumnFiltersState>;
 };
 
-const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribedFilter }: MappingTreeProps) => {
+const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribedFilter, browsers }: MappingTreeProps) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
 
   useEffect(() => {
@@ -66,12 +66,12 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
         accessorFn: row => row.value,
         id: 'value',
         header: () => <span>Expression</span>,
-        cell: cell => <ScriptCell cell={cell} type={cell.row.original.type} />,
+        cell: cell => <ScriptCell cell={cell} type={cell.row.original.type} browsers={browsers} />,
         footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
       }
     ],
-    [loadChildren]
+    [browsers, loadChildren]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);

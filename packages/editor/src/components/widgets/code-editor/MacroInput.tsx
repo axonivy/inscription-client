@@ -7,7 +7,7 @@ import { CardText } from '../output/CardText';
 
 type MacroInputProps = Omit<CodeEditorInputProps, 'context'>;
 
-const MacroInput = ({ value, onChange, ...props }: MacroInputProps) => {
+const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useCodeEditorOnFocus(value, onChange);
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useModifyEditor(value => `<%=${value}%>`);
@@ -19,7 +19,7 @@ const MacroInput = ({ value, onChange, ...props }: MacroInputProps) => {
       {isFocusWithin || browser.open ? (
         <>
           <SingleLineCodeEditor {...focusValue} {...props} context={{ location: path }} macro={true} onMountFuncs={[setEditor]} />
-          <Browser {...browser} types={['attr']} accept={modifyEditor} location={path} />
+          <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
         </>
       ) : (
         <CardText value={value} {...props} />

@@ -3,6 +3,7 @@ import { SINGLE_LINE_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import CodeEditor, { CodeEditorProps } from './CodeEditor';
 import { monacoAutoFocus } from './useCodeEditor';
+import { BrowserType } from '../../../components/browser';
 
 type EditorOptions = {
   editorOptions?: {
@@ -17,7 +18,7 @@ type EditorOptions = {
 };
 
 export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs' | 'context'> &
-  EditorOptions;
+  EditorOptions & { browsers: BrowserType[] };
 
 const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyActions, ...props }: CodeEditorProps & EditorOptions) => {
   const mountFuncs = onMountFuncs ? onMountFuncs : [];

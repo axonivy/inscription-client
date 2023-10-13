@@ -12,6 +12,7 @@ const ScriptInput = ({
   editorOptions,
   keyActions,
   modifyAction,
+  browsers,
   ...props
 }: CodeEditorInputProps & { type: string }) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useCodeEditorOnFocus(value, onChange);
@@ -32,7 +33,7 @@ const ScriptInput = ({
             editorOptions={editorOptions}
             keyActions={keyActions}
           />
-          <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} location={path} />
+          <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
         </>
       ) : (
         <Input value={value} onChange={onChange} {...props} />

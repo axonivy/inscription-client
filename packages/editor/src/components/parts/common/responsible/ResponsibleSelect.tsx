@@ -23,6 +23,7 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
           value={props.responsible?.activator ?? ''}
           onChange={change => props.updateResponsible('activator', change)}
           type={IVY_SCRIPT_TYPES.STRING}
+          browsers={['attr', 'func', 'datatype']}
         />
       );
     case 'DELETE_TASK':

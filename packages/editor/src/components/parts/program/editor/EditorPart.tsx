@@ -54,7 +54,14 @@ const EditorPart = () => {
       }
     }
     if (isScript(widget)) {
-      return <ScriptInput type={widget.requiredType} value={config.userConfig} onChange={change => update('userConfig', change)} />;
+      return (
+        <ScriptInput
+          type={widget.requiredType}
+          value={config.userConfig}
+          onChange={change => update('userConfig', change)}
+          browsers={['attr', 'func', 'datatype', 'cms']}
+        />
+      );
     }
     if (isText(widget)) {
       return <Input value={config.userConfig} onChange={change => update('userConfig', change)} />;

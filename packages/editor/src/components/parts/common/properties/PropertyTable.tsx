@@ -45,7 +45,7 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
       {
         accessorKey: 'expression',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.OBJECT} />
+        cell: cell => <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'datatype', 'cms']} />
       }
     ],
     [knownPropertyItems]

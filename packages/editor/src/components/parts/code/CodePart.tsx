@@ -20,7 +20,12 @@ const CodePart = () => {
 
   return (
     <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
-      <ScriptArea value={config.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
+      <ScriptArea
+        value={config.code}
+        onChange={change => update('code', change)}
+        browsers={['attr', 'func', 'datatype', 'cms']}
+        {...codeFieldset.inputProps}
+      />
     </PathFieldset>
   );
 };
