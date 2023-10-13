@@ -5,7 +5,8 @@ import { useRestResponseData } from './useRestResponseData';
 import { MappingPart, PathFieldset } from '../common';
 import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
 import { RestError } from './rest-response/RestError';
-import { RestEntityTypeCombobox } from './RestEntityTypeCombobox';
+import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox';
+import { useRestEntityTypeMeta, useRestResourceMeta } from './useRestResourceMeta';
 
 export function useRestResponsePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestResponseData();
@@ -16,24 +17,32 @@ export function useRestResponsePart(): PartProps {
   return { name: 'Response', state: state, reset: { dirty, action: () => resetData() }, content: <RestResponsePart /> };
 }
 
+const useShowResultTypeCombo = (types: string[], currentType: string) => {
+  const resource = useRestResourceMeta();
+  return useShowRestEntityTypeCombo(types, currentType, resource?.method?.outResult);
+};
+
 const RestResponsePart = () => {
   const { config, defaultConfig, update, updateEntity } = useRestResponseData();
   const { context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'response' }, { variables: [], types: {} });
-
+  const resultTypes = useRestEntityTypeMeta('result');
+  const showResultType = useShowResultTypeCombo(resultTypes, config.response.entity.type);
   const typeFieldset = useFieldset();
   const codeFieldset = useFieldset();
   return (
     <PathContext path='response'>
       <PathContext path='entity'>
-        <PathFieldset label='Read body as type (result variable)' {...typeFieldset.labelProps} path='type'>
-          <RestEntityTypeCombobox
-            value={config.response.entity.type}
-            onChange={change => updateEntity('type', change)}
-            location='result'
-            {...typeFieldset.inputProps}
-          />
-        </PathFieldset>
+        {showResultType && (
+          <PathFieldset label='Read body as type (result variable)' {...typeFieldset.labelProps} path='type'>
+            <RestEntityTypeCombobox
+              value={config.response.entity.type}
+              onChange={change => updateEntity('type', change)}
+              items={resultTypes}
+              {...typeFieldset.inputProps}
+            />
+          </PathFieldset>
+        )}
         <MappingPart data={config.response.entity.map} variableInfo={variableInfo} onChange={change => updateEntity('map', change)} />
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
           <ScriptArea value={config.response.entity.code} onChange={change => updateEntity('code', change)} {...codeFieldset.inputProps} />

@@ -6,3 +6,4 @@ export * from './useTheme';
 export * from './useAction';
 export * from './usePath';
 export * from './useMeta';
+export * from './useOpenApi';

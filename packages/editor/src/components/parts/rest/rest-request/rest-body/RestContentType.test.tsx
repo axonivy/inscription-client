@@ -1,11 +1,23 @@
-import { RestRequestData } from '@axonivy/inscription-protocol';
-import { ComboboxUtil, DeepPartial, render } from 'test-utils';
+import { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
+import { ComboboxUtil, DeepPartial, render, screen, waitFor } from 'test-utils';
 import { RestContentType } from './RestContentType';
 
 describe('RestContentType', () => {
-  function renderPart(data?: DeepPartial<RestRequestData>) {
-    render(<RestContentType />, { wrapperProps: { data: data && { config: data }, meta: { restContentTypes: ['test', 'other'] } } });
+  function renderPart(data?: DeepPartial<RestRequestData>, restResource?: DeepPartial<RestResource>) {
+    render(<RestContentType />, {
+      wrapperProps: { data: data && { config: data }, meta: { restContentTypes: ['test', 'other'], restResource } }
+    });
   }
+
+  test('hide', async () => {
+    renderPart(undefined, { method: {} });
+    await waitFor(() => expect(screen.queryByRole('combobox')).not.toBeInTheDocument());
+  });
+
+  test('show', async () => {
+    renderPart({ body: { type: 'RAW' } }, { method: {} });
+    await waitFor(() => expect(screen.getByRole('combobox')).toBeInTheDocument());
+  });
 
   test('empty', async () => {
     renderPart();

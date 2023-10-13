@@ -1,6 +1,21 @@
-.rest-target-url {
+.rest-target {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 12px;
   padding-inline: var(--size-1);
+}
+.rest-target button {
+  border-radius: var(--border-radius);
+  padding: 3px;
+  &:hover {
+    cursor: pointer;
+    background-color: var(--button-bg);
+  }
+  &:where(:focus-visible, .active) {
+    background-color: var(--button-bg);
+    box-shadow: var(--focus-shadow);
+  }
 }
 .rest-target-url .path-param,
 .rest-target-url .query-value {

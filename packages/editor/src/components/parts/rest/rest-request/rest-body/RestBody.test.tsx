@@ -1,6 +1,6 @@
-import { RestRequestData } from '@axonivy/inscription-protocol';
-import { CollapsableUtil, DeepPartial, render, screen } from 'test-utils';
-import { RestBody } from './RestBody';
+import { InputType, RestRequestData, RestResource } from '@axonivy/inscription-protocol';
+import { CollapsableUtil, DeepPartial, render, renderHook, screen, waitFor } from 'test-utils';
+import { RestBody, useBodyTypes } from './RestBody';
 
 describe('RestBody', () => {
   function renderPart(data?: DeepPartial<RestRequestData>) {
@@ -32,4 +32,31 @@ describe('RestBody', () => {
     expect(screen.getByRole('radio', { name: 'Raw' })).toBeChecked();
     expect(screen.queryByLabelText('Entity-Type')).not.toBeInTheDocument();
   });
+});
+
+describe('useBodyTypes', () => {
+  function renderTypesHook(currentType: InputType, restResource?: DeepPartial<RestResource>) {
+    const view = renderHook(() => useBodyTypes(currentType), { wrapperProps: { meta: { restResource } } });
+    return view.result;
+  }
+
+  test('no openapi', async () => {
+    expect(renderTypesHook('ENTITY').current).toHaveLength(3);
+  });
+
+  test('form body', async () => {
+    const restResource: DeepPartial<RestResource> = { method: { inBody: { media: 'multipart/form-data' } } };
+    let result = renderTypesHook('FORM', restResource);
+    await waitFor(() => expect(result.current).toHaveLength(0));
+    result = renderTypesHook('RAW', restResource);
+    await waitFor(() => expect(result.current).toHaveLength(3));
+  }, 1000);
+
+  test('entity body', async () => {
+    const restResource: DeepPartial<RestResource> = { method: { inBody: { media: 'other' } } };
+    let result = renderTypesHook('ENTITY', restResource);
+    await waitFor(() => expect(result.current).toHaveLength(2));
+    result = renderTypesHook('FORM', restResource);
+    await waitFor(() => expect(result.current).toHaveLength(3));
+  }, 1000);
 });

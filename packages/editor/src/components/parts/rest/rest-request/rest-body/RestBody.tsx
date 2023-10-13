@@ -7,9 +7,32 @@ import { RestContentType } from './RestContentType';
 import { RestForm } from './RestForm';
 import { RestEntity } from './RestEntity';
 import { deepEqual } from '../../../../../utils/equals';
+import { useOpenApi } from '../../../../../context';
+import { RadioItemProps } from '../../../../../components/widgets/radio/Radio';
+import { useRestResourceMeta } from '../../useRestResourceMeta';
+import { isFormMedia } from '../../known-types';
+
+export const useBodyTypes = (currentType: InputType): RadioItemProps<InputType>[] => {
+  const { openApi } = useOpenApi();
+  const resource = useRestResourceMeta();
+  let types = Object.entries(REST_INPUT_TYPES);
+  if (openApi && resource.method) {
+    const isFormSelected = currentType === 'FORM';
+    const isFormSpec = isFormMedia(resource.method?.inBody?.media);
+    if (isFormSelected && isFormSpec) {
+      // no other type is valid
+      return [];
+    }
+    if (!isFormSelected) {
+      types = types.filter(entry => entry[1] !== 'Form');
+    }
+  }
+  return types.map(([key, value]) => ({ label: value, value: key as InputType }));
+};
 
 export const RestBody = () => {
   const { config, defaultConfig, updateBody } = useRestRequestData();
+  const radioItems = useBodyTypes(config.body.type);
 
   const bodyType = (type: InputType) => {
     switch (type) {
@@ -24,12 +47,9 @@ export const RestBody = () => {
 
   return (
     <PathCollapsible label='Body' path='body' defaultOpen={!deepEqual(config.body, defaultConfig.body)}>
-      <Radio
-        value={config.body.type}
-        onChange={change => updateBody('type', change)}
-        items={Object.entries(REST_INPUT_TYPES).map(([key, value]) => ({ label: value, value: key as InputType }))}
-        orientation='horizontal'
-      />
+      {radioItems.length > 0 && (
+        <Radio value={config.body.type} onChange={change => updateBody('type', change)} items={radioItems} orientation='horizontal' />
+      )}
       {bodyType(config.body.type)}
       <RestContentType />
     </PathCollapsible>

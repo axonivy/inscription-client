@@ -17,7 +17,6 @@ import {
   WebServiceOperation,
   RestClient,
   RestResource,
-  RestResourceMeta,
   RestClientRequest,
   Widget,
   ProgramInterface,
@@ -33,7 +32,8 @@ import {
   DataContext,
   DataContextInstance,
   DEFAULT_EDITOR_CONTEXT,
-  EditorContextInstance
+  EditorContextInstance,
+  OpenApiContextProvider
 } from '../context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -63,7 +63,7 @@ type ContextHelperProps = {
     restHeaders?: string[];
     restContentTypes?: string[];
     restResource?: DeepPartial<RestResource>;
-    restResources?: RestResourceMeta[];
+    restResources?: DeepPartial<RestResource[]>;
     restProperties?: string[];
     restEntityTypes?: string[];
     restEntityInfo?: VariableInfo;
@@ -148,7 +148,9 @@ const ContextHelper = (
           case 'meta/rest/resource':
             return Promise.resolve((props.meta?.restResource ?? {}) as RestResource);
           case 'meta/rest/resources':
-            return (args as RestClientRequest).clientId !== '' ? Promise.resolve(props.meta?.restResources ?? []) : Promise.resolve([]);
+            return (args as RestClientRequest).clientId !== ''
+              ? Promise.resolve((props.meta?.restResources ?? []) as RestResource[])
+              : Promise.resolve([]);
           case 'meta/rest/properties':
             return Promise.resolve(props.meta?.restProperties ?? []);
           case 'meta/rest/entityTypes':
@@ -183,8 +185,10 @@ const ContextHelper = (
       <EditorContextInstance.Provider value={editorContext}>
         <ClientContextInstance.Provider value={client}>
           <QueryClientProvider client={queryClient}>
-            <DataContextInstance.Provider value={data}>{props.children}</DataContextInstance.Provider>
-          </QueryClientProvider>{' '}
+            <DataContextInstance.Provider value={data}>
+              <OpenApiContextProvider>{props.children}</OpenApiContextProvider>
+            </DataContextInstance.Provider>
+          </QueryClientProvider>
         </ClientContextInstance.Provider>
       </EditorContextInstance.Provider>
     </div>

@@ -25,13 +25,13 @@ export const RestForm = () => {
   const [data, setData] = useState<RestParam[]>([]);
   const restResource = useRestResourceMeta();
   useEffect(() => {
-    const restResourceParam = restResource.method?.inBody.param;
+    const restResourceParam = restResource.method?.inBody.type;
     const params = restParamBuilder()
       .openApiParams(restResourceParam ? [restResourceParam] : [])
       .restMap(config.body.form)
       .build();
     setData(params);
-  }, [restResource.method?.inBody.param, config.body.form]);
+  }, [restResource.method?.inBody.type, config.body.form]);
 
   const onChange = (params: RestParam[]) => updateBody('form', toRestMap(params));
 
