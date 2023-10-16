@@ -26,10 +26,7 @@ export const RestForm = () => {
   const restResource = useRestResourceMeta();
   useEffect(() => {
     const restResourceParam = restResource.method?.inBody.type;
-    const params = restParamBuilder()
-      .openApiParams(restResourceParam ? [restResourceParam] : [])
-      .restMap(config.body.form)
-      .build();
+    const params = restParamBuilder().openApiParam(restResourceParam).restMap(config.body.form).build();
     setData(params);
   }, [restResource.method?.inBody.type, config.body.form]);
 

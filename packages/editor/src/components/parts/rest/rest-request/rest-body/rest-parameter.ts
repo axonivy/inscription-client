@@ -1,4 +1,4 @@
-import { RestMultiValuedMap, RestParameter, ScriptMappings } from '@axonivy/inscription-protocol';
+import { RestMultiValuedMap, RestParameter } from '@axonivy/inscription-protocol';
 
 export type RestParam = {
   name: string;
@@ -11,47 +11,33 @@ export type RestParam = {
 export function restParamBuilder() {
   let params: RestParam[] = [];
   const builder = {
-    openApiParams(parameters: RestParameter[]) {
-      params = parameters.map<RestParam>(param => {
-        return {
+    openApiParam(parameter?: RestParameter) {
+      params =
+        parameter?.properties?.map<RestParam>(param => ({
           name: param.name,
           expression: '',
           known: true,
           doc: `${param.required ? '* required\n' : ''}${param.doc}`,
           type: param.type.fullQualifiedName
-        };
-      });
-      return builder;
-    },
-    foundParams(foundParams: string[]) {
-      for (const found of foundParams) {
-        if (params.find(p => p.name === found) === undefined) {
-          params.push({ name: found, expression: '', known: true });
-        }
-      }
-      return builder;
-    },
-    mappings(mappings: ScriptMappings) {
-      Object.entries(mappings).forEach(([key, value]) => {
-        for (const p of params) {
-          if (p.name === key) {
-            p.expression = value;
-            return;
-          }
-        }
-        params.push({ name: key, expression: value, known: false });
-      });
+        })) ?? [];
       return builder;
     },
     restMap(map: RestMultiValuedMap) {
-      Object.entries(map).forEach(([key, value]) => {
-        for (const p of params) {
-          if (p.name === key) {
-            p.expression = value[0] ?? '';
-            return;
+      Object.entries(map).forEach(([key, values]) => {
+        values.forEach(value => {
+          const foundParam = params.find(p => p.name === key);
+          if (foundParam) {
+            if (foundParam.expression === '') {
+              foundParam.expression = value;
+            } else {
+              const index = params.indexOf(foundParam);
+              params.splice(index, 0, structuredClone(foundParam));
+              params[index + 1].expression = value;
+            }
+          } else {
+            params.push({ name: key, expression: value, known: false });
           }
-        }
-        params.push({ name: key, expression: value[0] ?? '', known: false });
+        });
       });
       return builder;
     },
@@ -74,14 +60,11 @@ export function updateRestParams(params: RestParam[], rowIndex: number, columnId
   });
 }
 
-export function toMappings(props: RestParam[]): Record<string, string> {
-  const mappings: Record<string, string> = {};
-  props.forEach(p => (mappings[p.name] = p.expression));
-  return mappings;
-}
-
-export function toRestMap(props: RestParam[]): RestMultiValuedMap {
+export function toRestMap(params: RestParam[]): RestMultiValuedMap {
   const mappings: RestMultiValuedMap = {};
-  props.forEach(p => (mappings[p.name] = [p.expression]));
+  params.forEach(p => {
+    const values = mappings[p.name];
+    mappings[p.name] = values ? [...values, p.expression] : [p.expression];
+  });
   return mappings;
 }
