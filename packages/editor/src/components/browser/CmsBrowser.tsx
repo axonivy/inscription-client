@@ -100,8 +100,8 @@ const CmsBrowser = ({ value, onChange }: { value: string; onChange: (value: stri
 
   return (
     <>
+      <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
       <Table search={{ value: globalFilter, onChange: setGlobalFilter }}>
-        <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
         <tbody>
           {table.getRowModel().rows.map(row => (
             <SelectRow key={row.id} row={row} isNotSelectable={row.original.type === 'FOLDER'}>
