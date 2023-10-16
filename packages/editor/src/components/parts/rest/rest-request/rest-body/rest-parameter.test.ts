@@ -1,11 +1,27 @@
 import { cloneObject } from 'test-utils';
-import { RestParam, restParamBuilder, toMappings, updateRestParams } from './rest-parameter';
+import { RestParam, restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
+import { RestParameter } from '@axonivy/inscription-protocol';
 
 describe('RestParam', () => {
   const params: RestParam[] = [
-    { name: 'petId', expression: '4', known: true, type: 'Number', doc: '* required\ndescription' },
-    { name: 'test', expression: '123', known: false }
+    { name: 'file', expression: '', known: true, type: 'java.io.File', doc: 'file' },
+    { name: 'ownerId', expression: '', known: true, type: 'java.lang.Long', doc: '* required\nowner' }
   ];
+
+  const expressionParams = cloneObject(params);
+  expressionParams[0].expression = '123';
+  expressionParams[1].expression = '4';
+
+  const restParam: RestParameter = {
+    name: 'para',
+    type: { fullQualifiedName: 'FormPara' },
+    required: false,
+    properties: [
+      { name: 'file', type: { fullQualifiedName: 'java.io.File' }, properties: [], required: false, doc: 'file' },
+      { name: 'ownerId', type: { fullQualifiedName: 'java.lang.Long' }, properties: [], required: true, doc: 'owner' }
+    ],
+    doc: 'form params'
+  };
 
   test('of - empty', () => {
     expect(restParamBuilder().build()).toEqual([]);
@@ -13,35 +29,39 @@ describe('RestParam', () => {
 
   test('of - unknown prop', () => {
     const result: RestParam = { name: 'test', expression: '123', known: false };
-    expect(restParamBuilder().mappings({ test: '123' }).build()).toEqual([result]);
+    expect(
+      restParamBuilder()
+        .restMap({ test: ['123'] })
+        .build()
+    ).toEqual([result]);
+  });
+
+  test('of - multiple same props', () => {
+    const result: RestParam[] = [
+      { name: 'test', expression: '123', known: false },
+      { name: 'test', expression: 'blabla', known: false }
+    ];
+    expect(
+      restParamBuilder()
+        .restMap({ test: ['123', 'blabla'] })
+        .build()
+    ).toEqual(result);
   });
 
   test('of - known prop', () => {
-    const result: RestParam = { name: 'petId', expression: '', known: true, type: 'Number', doc: 'description' };
-    expect(
-      restParamBuilder()
-        .openApiParams([{ name: 'petId', type: { fullQualifiedName: 'Number' }, required: false, properties: [], doc: 'description' }])
-        .build()
-    ).toEqual([result]);
-  });
-
-  test('of - known requried prop', () => {
-    const result: RestParam = { name: 'petId', expression: '', known: true, type: 'Number', doc: '* required\ndescription' };
-    expect(
-      restParamBuilder()
-        .openApiParams([{ name: 'petId', type: { fullQualifiedName: 'Number' }, required: true, properties: [], doc: 'description' }])
-        .build()
-    ).toEqual([result]);
+    expect(restParamBuilder().openApiParam(restParam).build()).toEqual(params);
   });
 
   test('of - mixed', () => {
+    const expectedParams = cloneObject(params);
+    expectedParams[1].expression = '4';
+    expectedParams.push({ name: 'test', known: false, expression: '123' });
     expect(
       restParamBuilder()
-        .openApiParams([{ name: 'petId', type: { fullQualifiedName: 'Number' }, required: true, properties: [], doc: 'description' }])
-        .foundParams(['petId', 'api'])
-        .mappings({ test: '123', petId: '4' })
+        .openApiParam(restParam)
+        .restMap({ ownerId: ['4'], test: ['123'] })
         .build()
-    ).toEqual([params[0], { name: 'api', known: true, expression: '' }, params[1]]);
+    ).toEqual(expectedParams);
   });
 
   test('update', () => {
@@ -51,6 +71,14 @@ describe('RestParam', () => {
   });
 
   test('to', () => {
-    expect(toMappings(params)).toEqual({ test: '123', petId: '4' });
+    expect(toRestMap(expressionParams)).toEqual({ file: ['123'], ownerId: ['4'] });
+  });
+
+  //Rest forms support multiple values for the same key
+  test('to - multiple same attributes', () => {
+    const sameParams = cloneObject(expressionParams);
+    sameParams.push(params[0]);
+    sameParams[2].expression = 'blabla';
+    expect(toRestMap(sameParams)).toEqual({ file: ['123', 'blabla'], ownerId: ['4'] });
   });
 });

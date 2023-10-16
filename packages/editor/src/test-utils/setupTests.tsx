@@ -4,6 +4,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+import { cloneObject } from './object-utils';
 
 global.ResizeObserver = class ResizeObserver {
   [x: string]: any;
@@ -16,6 +17,8 @@ global.ResizeObserver = class ResizeObserver {
   unobserve() {}
   disconnect() {}
 };
+
+global.structuredClone = cloneObject;
 
 const CodeEditorMock = ({ id, value, onChange }: { id: string; value: string; onChange: (value: string) => void }) => {
   return <input data-testid='code-editor' id={id} value={value} onChange={e => onChange(e.target.value)} />;
