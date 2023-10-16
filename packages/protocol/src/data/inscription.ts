@@ -49,13 +49,12 @@ export interface Inscription {
   restClientRequest: RestClientRequest;
   restContentTypeRequest: RestContentTypeRequest;
   restEntityInfoRequest: RestEntityInfoRequest;
-  restResource: RestResource;
-  restResourceMeta: RestResourceMeta[];
+  restResource: RestResource[];
   restResourceRequest: RestResourceRequest;
   roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
-  string: string;
+  string: string[];
   variableInfo: VariableInfo;
   void: Void;
   webServiceClient: WebServiceClient[];
@@ -711,12 +710,7 @@ export interface RestMethod {
 }
 export interface RestPayload {
   media: string;
-  param: RestParameter;
-}
-export interface RestResourceMeta {
-  description: string;
-  method: string;
-  path: string;
+  type: RestParameter;
 }
 export interface RestResourceRequest {
   clientId: string;
@@ -741,7 +735,7 @@ export interface SchemaKey {
   Programmed: "javaClass" | "userConfig" | "link" | "timeout" | "eventId";
   RestClient: {
     Common: "method" | "target" | "body" | "response";
-    Body: "form" | "entity";
+    Body: "form" | "entity" | "raw";
   };
   Script: "sudo";
   Signal: "signalCode" | "attachToBusinessCase";

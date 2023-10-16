@@ -1,27 +1,21 @@
-import { useMemo, useState } from 'react';
-import { useEditorContext, useMeta } from '../../../../../context';
-import { Combobox, ComboboxItem, FieldsetControl, IvyIcon, ScriptInput, Select, SelectItem, useFieldset } from '../../../../widgets';
+import { useMemo } from 'react';
+import { useEditorContext, useMeta, useOpenApi } from '../../../../../context';
+import { Combobox, ComboboxItem, ScriptInput, Select, SelectItem, useFieldset } from '../../../../widgets';
 import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import { IvyIcons } from '@axonivy/editor-icons';
-import { HttpMethod, IVY_SCRIPT_TYPES, HTTP_METHOD, RestResourceMeta } from '@axonivy/inscription-protocol';
+import { HttpMethod, IVY_SCRIPT_TYPES, HTTP_METHOD, RestResource } from '@axonivy/inscription-protocol';
 import './RestMethodSelect.css';
+import { useUpdateRestResource } from '../../useUpdateRestResource';
 
-type RestMethodItem = ComboboxItem & RestResourceMeta;
+type RestMethodItem = ComboboxItem & RestResource;
 
 export const RestMethodSelect = () => {
-  const { config, update, updateMethod, updateTarget } = useRestRequestData();
-  const [openApi, setOpenApi] = useState(true);
-  const openApiControl: FieldsetControl = {
-    label: 'Toggle OpenApi',
-    icon: IvyIcons.RestClient,
-    action: () => setOpenApi(value => !value),
-    active: openApi
-  };
+  const { config, update, updateTarget } = useRestRequestData();
+  const { updateResource } = useUpdateRestResource();
 
   const { context } = useEditorContext();
   const items = useMeta('meta/rest/resources', { context, clientId: config.target.clientId }, []).data.map<RestMethodItem>(res => {
-    return { ...res, value: `${res.method}:${res.path}` };
+    return { ...res, value: `${res.method.httpMethod}:${res.path}` };
   });
   const methodItems = useMemo<SelectItem[]>(() => Object.entries(HTTP_METHOD).map(([value, label]) => ({ label, value })), []);
 
@@ -29,25 +23,31 @@ export const RestMethodSelect = () => {
     return (
       <>
         <div>
-          <IvyIcon icon={IvyIcons.RestClient} />
-          {item.path} - {item.method}
+          <span className='combobox-method'>{item.method.httpMethod}</span>
+          {item.path}
         </div>
-        {item.description && item.description.length > 0 && (
+        {item.doc && item.doc.length > 0 && (
           <div>
-            <span className='combobox-menu-entry-additional'>{item.description}</span>
+            <span className='combobox-menu-entry-additional'>{item.doc}</span>
           </div>
         )}
       </>
     );
   };
 
+  const { openApi } = useOpenApi();
   const fieldset = useFieldset();
   return (
-    <PathFieldset label='Resource' path='path' {...fieldset.labelProps} controls={items.length > 0 ? [openApiControl] : []}>
+    <PathFieldset label='Resource' path='path' {...fieldset.labelProps}>
       {items.length > 0 && openApi ? (
         <Combobox
           value={`${config.method}:${config.target.path}`}
-          onChange={value => updateMethod(value)}
+          onChange={value =>
+            updateResource(
+              value,
+              items.find(i => i.value === value)
+            )
+          }
           items={items}
           comboboxItem={comboboxItem}
           {...fieldset.inputProps}

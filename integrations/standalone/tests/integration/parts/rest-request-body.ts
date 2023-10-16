@@ -7,6 +7,7 @@ import { MacroEditor, ScriptArea } from '../../pageobjects/CodeEditor';
 import { Combobox } from '../../pageobjects/Combobox';
 import { RadioGroup } from '../../pageobjects/RadioGroup';
 import { InputType } from '@axonivy/inscription-protocol';
+import { expect } from '@playwright/test';
 
 class EntityPart extends PartObject {
   bodyType: RadioGroup;
@@ -14,7 +15,7 @@ class EntityPart extends PartObject {
   mapping: Table;
   code: ScriptArea;
 
-  constructor(part: Part, body: Section) {
+  constructor(part: Part, body: Section, readonly openApiMode = false) {
     super(part);
     this.bodyType = body.radioGroup();
     this.entityType = body.combobox('Entity-Type');
@@ -25,6 +26,7 @@ class EntityPart extends PartObject {
   async fill() {
     await this.bodyType.expectSelected('Entity');
     await this.entityType.fill('ch.ivyteam.test.Person');
+    await expect(this.mapping.row(0).locator).toHaveText('paramPerson');
     await this.mapping.row(2).fill(['CH']);
     await this.code.fill('code');
   }
@@ -35,6 +37,24 @@ class EntityPart extends PartObject {
   }
   async clear() {
     await this.entityType.choose('');
+    await this.mapping.row(1).fill(['']);
+    await this.code.clear();
+  }
+  async assertClear() {}
+}
+
+class EntityOpenApiPart extends EntityPart {
+  async fill() {
+    await this.bodyType.expectSelected('Entity');
+    await expect(this.mapping.row(0).locator).toHaveText('paramPet');
+    await this.mapping.row(2).fill(['CH']);
+    await this.code.fill('code');
+  }
+  async assertFill() {
+    await this.mapping.row(2).expectValues(['CH']);
+    await this.code.expectValue('code');
+  }
+  async clear() {
     await this.mapping.row(1).fill(['']);
     await this.code.clear();
   }
@@ -178,10 +198,15 @@ class RestRequestBodyJaxRs extends RestRequestBody {
 }
 
 class RestRequestBodyOpenApi extends RestRequestBody {
+  constructor(part: Part) {
+    super(part);
+    this.entityPart = new EntityOpenApiPart(part, this.bodySection);
+  }
+
   async fill() {
     await this.client.choose('pet');
     await this.resource.choose('POST');
-    await this.bodySection.toggle();
+    await this.bodySection.expectIsOpen();
     await this.entityPart.fill();
   }
 
@@ -197,7 +222,7 @@ class RestRequestBodyOpenApi extends RestRequestBody {
   }
 
   async assertClear() {
-    await this.bodySection.expectIsClosed();
+    await this.bodySection.expectIsOpen();
   }
 }
 

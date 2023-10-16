@@ -8,3 +8,9 @@
 .rest-method-input .script-input {
   width: calc(100% - 8rem - var(--size-4));
 }
+
+.combobox .combobox-method {
+  border: 1px solid var(--input-color);
+  border-radius: var(--border-radius);
+  padding: 1px;
+}

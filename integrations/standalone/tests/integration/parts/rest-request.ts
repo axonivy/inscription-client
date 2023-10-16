@@ -38,7 +38,7 @@ class RestRequest extends PartObject {
   }
 
   async fill() {
-    await expect(this.targetUrl).toBeEmpty();
+    await expect(this.targetUrl).toBeHidden();
     await this.client.choose('stock');
     await this.method.choose('POST');
     await this.path.fill('/{myParam}');
@@ -128,7 +128,7 @@ class RestRequestOpenApi extends RestRequest {
   }
 
   async clear() {
-    await this.part.currentLocator().getByRole('button', { name: 'Toggle OpenApi' }).click();
+    await this.part.currentLocator().getByRole('button', { name: 'OpenAPI' }).click();
     await this.path.fill('/pet');
 
     await this.parameters.clear();

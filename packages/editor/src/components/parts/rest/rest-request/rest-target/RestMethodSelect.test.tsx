@@ -1,16 +1,22 @@
-import { HTTP_METHOD, RestRequestData, RestResourceMeta } from '@axonivy/inscription-protocol';
+import { HTTP_METHOD, RestRequestData, RestResource } from '@axonivy/inscription-protocol';
 import { RestMethodSelect } from './RestMethodSelect';
 import { ComboboxUtil, DeepPartial, SelectUtil, render, screen } from 'test-utils';
+import { OpenApiContextProvider } from '../../../../../context';
 
 describe('RestMethodSelect', () => {
   function renderMethodSelect(data?: DeepPartial<RestRequestData>) {
-    const restResources: RestResourceMeta[] = [
-      { method: 'GET', path: '/pet', description: 'Get a random pet' },
-      { method: 'DELETE', path: '/pet/{petId}', description: 'Delete a pet with given id' }
+    const restResources: DeepPartial<RestResource>[] = [
+      { method: { httpMethod: 'GET' }, path: '/pet', doc: 'Get a random pet' },
+      { method: { httpMethod: 'DELETE' }, path: '/pet/{petId}', doc: 'Delete a pet with given id' }
     ];
-    render(<RestMethodSelect />, {
-      wrapperProps: { data: data && { config: data }, meta: { restResources } }
-    });
+    render(
+      <OpenApiContextProvider>
+        <RestMethodSelect />
+      </OpenApiContextProvider>,
+      {
+        wrapperProps: { data: data && { config: data }, meta: { restResources } }
+      }
+    );
   }
 
   test('empty', async () => {

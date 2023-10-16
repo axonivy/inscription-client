@@ -18,6 +18,7 @@ import {
   useProgramInterfaceStartPart,
   useEditorPart
 } from '../../../components/parts';
+import { OpenApiContextProvider } from '../../../context/useOpenApi';
 
 const DatabaseEditor = memo(() => {
   const name = useNamePart();
@@ -39,7 +40,11 @@ const RestEditor = memo(() => {
   const name = useNamePart();
   const request = useRestRequestPart();
   const response = useRestResponsePart();
-  return <InscriptionEditor icon={IvyIcons.RestClient} parts={[name, request, response]} />;
+  return (
+    <OpenApiContextProvider>
+      <InscriptionEditor icon={IvyIcons.RestClient} parts={[name, request, response]} />
+    </OpenApiContextProvider>
+  );
 });
 
 const EMailEditor = memo(() => {

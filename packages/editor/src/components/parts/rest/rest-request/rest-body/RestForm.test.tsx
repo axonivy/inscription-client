@@ -20,7 +20,7 @@ describe('RestForm', () => {
   test('openapi', async () => {
     renderPart(
       { body: { form: { test: ['123'] } } },
-      { method: { inBody: { param: { name: 'test', type: { fullQualifiedName: 'Boolean' }, doc: 'test desc' } } } }
+      { method: { inBody: { type: { name: 'test', type: { fullQualifiedName: 'Boolean' }, doc: 'test desc' } } } }
     );
     await screen.findByText('Boolean');
     TableUtil.assertRows(['test desc']);

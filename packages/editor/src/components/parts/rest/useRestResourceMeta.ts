@@ -15,3 +15,13 @@ export const useRestResourceMeta = (): Partial<RestResource> => {
   }
   return resource;
 };
+
+export const useRestEntityTypeMeta = (location: 'entity' | 'result') => {
+  const { config } = useRestRequestData();
+  const { context } = useEditorContext();
+  return useMeta(
+    `meta/rest/${location}Types`,
+    { context, clientId: config.target.clientId, method: config.method, path: config.target.path },
+    []
+  ).data;
+};

@@ -1,5 +1,5 @@
 import './RestTargetUrl.css';
-import { useEditorContext, useMeta } from '../../../../../context';
+import { useEditorContext, useMeta, useOpenApi } from '../../../../../context';
 import { useRestRequestData } from '../../useRestRequestData';
 import { Fragment } from 'react';
 import { useTargetPathSplit } from './usePathParams';
@@ -55,12 +55,25 @@ const RestTargetPath = ({ path }: { path: string }) => {
 
 export const RestTargetUrl = () => {
   const { config } = useRestRequestData();
+  const { openApi, setOpenApi } = useOpenApi();
   const { context } = useEditorContext();
   const clientUri = useMeta('meta/rest/clientUri', { context, clientId: config.target.clientId }, '').data;
+  const resources = useMeta('meta/rest/resources', { context, clientId: config.target.clientId }, []).data;
   return (
-    <div className='rest-target-url'>
-      <RestTargetPath path={`${clientUri}${config.target.path}`} />
-      <RestTargetQueryParams queryParams={Object.entries(config.target.queryParams)} />
-    </div>
+    <>
+      {config.target.clientId?.length > 0 && (
+        <div className='rest-target'>
+          <div className='rest-target-url'>
+            <RestTargetPath path={`${clientUri}${config.target.path}`} />
+            <RestTargetQueryParams queryParams={Object.entries(config.target.queryParams)} />
+          </div>
+          {resources.length > 0 && (
+            <button className={openApi ? 'active' : ''} onClick={() => setOpenApi(old => !old)}>
+              OpenAPI
+            </button>
+          )}
+        </div>
+      )}
+    </>
   );
 };

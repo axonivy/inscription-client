@@ -15,7 +15,6 @@ import {
   RestClientRequest,
   RestContentTypeRequest,
   RestResource,
-  RestResourceMeta,
   RestResourceRequest,
   ProgramInterface,
   ProgramInterfacesRequest,
@@ -55,7 +54,7 @@ export interface InscriptionMetaRequestTypes {
 
   'meta/rest/clients': [InscriptionContext, RestClient[]];
   'meta/rest/clientUri': [RestClientRequest, string];
-  'meta/rest/resources': [RestClientRequest, RestResourceMeta[]];
+  'meta/rest/resources': [RestClientRequest, RestResource[]];
   'meta/rest/resource': [RestResourceRequest, RestResource];
   'meta/rest/headers': [void, string[]];
   'meta/rest/contentTypes': [RestContentTypeRequest, string[]];
