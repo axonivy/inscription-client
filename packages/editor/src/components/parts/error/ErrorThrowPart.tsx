@@ -48,6 +48,7 @@ const ErrorThrowPart = () => {
           value={config.throws.cause}
           onChange={change => update('cause', change)}
           type={IVY_SCRIPT_TYPES.BPM_ERROR}
+          browsers={['attr', 'func', 'datatype']}
           {...causeField.inputProps}
         />
       </PathFieldset>

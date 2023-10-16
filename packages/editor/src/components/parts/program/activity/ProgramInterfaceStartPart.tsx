@@ -49,6 +49,7 @@ const ProgramInterfaceStartPart = () => {
             value={config.timeout.seconds}
             onChange={change => updateTimeout('seconds', change)}
             type={IVY_SCRIPT_TYPES.DURATION}
+            browsers={['attr', 'func', 'datatype']}
             {...timeoutSecondsFieldset.inputProps}
           />
         </PathFieldset>

@@ -9,7 +9,7 @@ import { useEditorContext, usePath } from '../../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { Input } from '../../input';
 import { SingleLineCodeEditor } from '../../code-editor';
-import { Browser, useBrowser } from '../../../browser';
+import { Browser, BrowserType, useBrowser } from '../../../browser';
 import { useModifyEditor } from '../../code-editor/useCodeEditor';
 
 declare module '@tanstack/react-table' {
@@ -23,9 +23,10 @@ type CodeEditorCellProps<TData> = {
   cell: CellContext<TData, unknown>;
   makro: boolean;
   type?: string;
+  browsers: BrowserType[];
 };
 
-export function CodeEditorCell<TData>({ cell, makro, type }: CodeEditorCellProps<TData>) {
+export function CodeEditorCell<TData>({ cell, makro, type, browsers }: CodeEditorCellProps<TData>) {
   const initialValue = cell.getValue() as string;
   const [value, setValue] = useState(initialValue);
   useEffect(() => {
@@ -84,7 +85,7 @@ export function CodeEditorCell<TData>({ cell, makro, type }: CodeEditorCellProps
                     }}
                     {...codeFieldset.inputProps}
                   />
-                  <Browser {...browser} types={['attr', 'cms']} accept={modifyEditor} location={path} />
+                  <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
                 </div>
               </Fieldset>
               <PopoverClose className='popover-close' aria-label='Close' ref={closeRef}>

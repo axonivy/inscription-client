@@ -8,7 +8,7 @@ export const RestBodyRaw = () => {
   return (
     <PathContext path='raw'>
       <ValidationFieldset>
-        <MacroArea value={config.body.raw} onChange={change => updateBody('raw', change)} />
+        <MacroArea value={config.body.raw} onChange={change => updateBody('raw', change)} browsers={['attr', 'func', 'cms']} />
       </ValidationFieldset>
     </PathContext>
   );

@@ -23,9 +23,19 @@ const WsResponsePart = () => {
   return (
     <>
       <PathContext path='output'>
-        <MappingPart data={config.output.map} variableInfo={variableInfo} onChange={change => updateOutput('map', change)} />
+        <MappingPart
+          data={config.output.map}
+          variableInfo={variableInfo}
+          onChange={change => updateOutput('map', change)}
+          browsers={['attr', 'func', 'datatype']}
+        />
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
-          <ScriptArea value={config.output.code} onChange={change => updateOutput('code', change)} {...codeFieldset.inputProps} />
+          <ScriptArea
+            value={config.output.code}
+            onChange={change => updateOutput('code', change)}
+            browsers={['attr', 'func', 'datatype']}
+            {...codeFieldset.inputProps}
+          />
         </PathFieldset>
       </PathContext>
       <PathCollapsible label='Error' defaultOpen={config.exceptionHandler !== defaultConfig.exceptionHandler} path='exceptionHandler'>

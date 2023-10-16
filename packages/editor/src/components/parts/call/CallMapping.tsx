@@ -15,9 +15,19 @@ const CallMapping = ({ variableInfo }: { variableInfo: VariableInfo }) => {
 
   return (
     <PathContext path='call'>
-      <MappingPart data={config.call.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
+      <MappingPart
+        data={config.call.map}
+        variableInfo={variableInfo}
+        onChange={change => update('map', change)}
+        browsers={['attr', 'func', 'datatype']}
+      />
       <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
-        <ScriptArea value={config.call.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
+        <ScriptArea
+          value={config.call.code}
+          onChange={change => update('code', change)}
+          browsers={['attr', 'func', 'datatype']}
+          {...codeFieldset.inputProps}
+        />
       </PathFieldset>
     </PathContext>
   );

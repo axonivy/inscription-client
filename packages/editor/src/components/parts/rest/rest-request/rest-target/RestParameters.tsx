@@ -60,7 +60,9 @@ export const RestParameters = () => {
       {
         accessorKey: 'expression',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => <ScriptCell cell={cell} type={cell.row.original.type ?? IVY_SCRIPT_TYPES.OBJECT} />
+        cell: cell => (
+          <ScriptCell cell={cell} type={cell.row.original.type ?? IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'datatype', 'cms']} />
+        )
       }
     ],
     [kindItems]

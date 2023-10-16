@@ -8,7 +8,12 @@ export const RestJaxRsCode = () => {
   const fieldset = useFieldset();
   return (
     <PathFieldset label='JAX-RS' path='code' {...fieldset.labelProps}>
-      <ScriptArea value={config.code} onChange={change => update('code', change)} {...fieldset.inputProps} />
+      <ScriptArea
+        value={config.code}
+        onChange={change => update('code', change)}
+        browsers={['attr', 'func', 'datatype']}
+        {...fieldset.inputProps}
+      />
     </PathFieldset>
   );
 };

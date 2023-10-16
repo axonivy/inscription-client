@@ -7,6 +7,11 @@ import { useState } from 'react';
 import { useAttributeBrowser } from './AttributeBrowser';
 import { useCmsBrowser } from './CmsBrowser';
 import { BrowserType, UseBrowserReturnValue } from './useBrowser';
+import { useFuncBrowser } from './FunctionBrowser';
+import { useDataTypeBrowser } from './DataTypeBrowser';
+import { useTableColBrowser } from './TableColBrowser';
+import { useSqlOpBrowser } from './SqlOperationBrowser';
+import { useCatPathChooserBrowser } from './CatPathChooser';
 
 type BrowserProps = UseBrowserReturnValue & {
   types: BrowserType[];
@@ -20,7 +25,13 @@ const Browser = ({ open, onOpenChange, types, accept, location }: BrowserProps) 
 
   const attrBrowser = useAttributeBrowser(location);
   const cmsBrowser = useCmsBrowser();
-  const allBrowsers = [attrBrowser, cmsBrowser];
+  const funcBrowser = useFuncBrowser();
+  const dataTypeBrowser = useDataTypeBrowser();
+  const catPathChooserBrowser = useCatPathChooserBrowser();
+  const tableColBrowser = useTableColBrowser();
+  const sqlOpBrowser = useSqlOpBrowser();
+
+  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, dataTypeBrowser, catPathChooserBrowser, tableColBrowser, sqlOpBrowser];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
   const acceptBrowser = () => accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? '');

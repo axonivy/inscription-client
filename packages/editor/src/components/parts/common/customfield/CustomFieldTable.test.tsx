@@ -69,7 +69,9 @@ describe('CustomFieldTable', () => {
   });
 
   test('table support readonly mode', async () => {
-    render(<CustomFieldTable data={customFields} onChange={() => {}} type='CASE' />, { wrapperProps: { editor: { readonly: true } } });
+    render(<CustomFieldTable data={customFields} onChange={() => {}} type='CASE' />, {
+      wrapperProps: { editor: { readonly: true } }
+    });
     TableUtil.assertReadonly();
     expect(screen.getByDisplayValue(/field1/)).toBeDisabled();
     expect(screen.getAllByRole('combobox')[0]).toBeDisabled();

@@ -64,6 +64,7 @@ export const RestMethodSelect = () => {
             onChange={change => updateTarget('path', change)}
             type={IVY_SCRIPT_TYPES.STRING}
             modifyAction={value => `{${value}}`}
+            browsers={['attr']}
             {...fieldset.inputProps}
           />
         </div>

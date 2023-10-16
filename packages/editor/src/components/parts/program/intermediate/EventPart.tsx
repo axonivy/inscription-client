@@ -44,6 +44,7 @@ const EventPart = () => {
           value={config.eventId}
           onChange={change => update('eventId', change)}
           type={IVY_SCRIPT_TYPES.NUMBER}
+          browsers={['attr', 'func', 'datatype']}
           {...eventIdFieldset.inputProps}
         />
       </PathFieldset>
@@ -54,6 +55,7 @@ const EventPart = () => {
             value={config.timeout.duration}
             onChange={change => updateTimeout('duration', change)}
             type={IVY_SCRIPT_TYPES.DURATION}
+            browsers={['attr', 'func', 'datatype']}
             {...timeoutDurationFieldset.inputProps}
           />
         </PathFieldset>

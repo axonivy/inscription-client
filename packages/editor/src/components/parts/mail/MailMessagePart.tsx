@@ -25,7 +25,12 @@ const MailMessagePart = () => {
   return (
     <>
       <PathFieldset label='Message' {...messageFieldset.labelProps} path='message'>
-        <MacroArea value={config.message.body} onChange={change => updateMessage('body', change)} {...messageFieldset.inputProps} />
+        <MacroArea
+          value={config.message.body}
+          onChange={change => updateMessage('body', change)}
+          browsers={['attr', 'func', 'cms']}
+          {...messageFieldset.inputProps}
+        />
       </PathFieldset>
       <Fieldset label='Type' {...typeFieldset.labelProps}>
         <Select

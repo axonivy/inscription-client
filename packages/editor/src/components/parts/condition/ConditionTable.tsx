@@ -15,7 +15,7 @@ const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
 
 const ConditionExpressionCell = ({ cell, removeCell }: { cell: CellContext<Condition, unknown>; removeCell: (id: string) => void }) => {
   if (cell.row.original.target) {
-    return <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.BOOLEAN} />;
+    return <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.BOOLEAN} browsers={['attr', 'func', 'datatype']} />;
   }
   return (
     <span style={{ display: 'flex' }}>

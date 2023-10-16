@@ -37,9 +37,19 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
       <Collapsible label='Result parameters'>
         <ParameterTable data={config.result.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
       </Collapsible>
-      <MappingPart data={config.result.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
+      <MappingPart
+        data={config.result.map}
+        variableInfo={variableInfo}
+        onChange={change => update('map', change)}
+        browsers={['attr', 'func', 'datatype']}
+      />
       <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
-        <ScriptArea value={config.result.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
+        <ScriptArea
+          value={config.result.code}
+          onChange={change => update('code', change)}
+          browsers={['attr', 'func', 'datatype']}
+          {...codeFieldset.inputProps}
+        />
       </PathFieldset>
     </PathContext>
   );

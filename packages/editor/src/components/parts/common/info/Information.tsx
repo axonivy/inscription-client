@@ -21,13 +21,28 @@ const Information = <T extends InformationConfig>({ config, update }: Informatio
   return (
     <>
       <PathFieldset label='Name' {...nameFieldset.labelProps} path='name'>
-        <MacroInput value={config.name} onChange={change => update('name', change)} {...nameFieldset.inputProps} />
+        <MacroInput
+          value={config.name}
+          browsers={['attr', 'func', 'cms']}
+          onChange={change => update('name', change)}
+          {...nameFieldset.inputProps}
+        />
       </PathFieldset>
       <PathFieldset label='Description' {...descFieldset.labelProps} path='description'>
-        <MacroArea value={config.description} onChange={change => update('description', change)} {...descFieldset.inputProps} />
+        <MacroArea
+          value={config.description}
+          browsers={['attr', 'func', 'cms']}
+          onChange={change => update('description', change)}
+          {...descFieldset.inputProps}
+        />
       </PathFieldset>
       <PathFieldset label='Category' {...catFieldset.labelProps} path='category'>
-        <MacroInput value={config.category} onChange={change => update('category', change)} {...catFieldset.inputProps} />
+        <MacroInput
+          value={config.category}
+          browsers={['attr', 'catPath']}
+          onChange={change => update('category', change)}
+          {...catFieldset.inputProps}
+        />
       </PathFieldset>
     </>
   );

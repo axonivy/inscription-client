@@ -21,6 +21,7 @@ export const CacheLifetime = ({ description, config, updater, cacheMode, ...prop
           value={config.name}
           onChange={change => updater('name', change)}
           type={IVY_SCRIPT_TYPES.STRING}
+          browsers={['attr', 'func', 'datatype', 'cms']}
           {...cacheLifetimeFieldset.inputProps}
         />
       </PathFieldset>
@@ -41,6 +42,7 @@ export const CacheLifetime = ({ description, config, updater, cacheMode, ...prop
               value={config.time}
               onChange={change => updater('time', change)}
               type={config.invalidation === 'FIXED_TIME' ? IVY_SCRIPT_TYPES.TIME : IVY_SCRIPT_TYPES.NUMBER}
+              browsers={['attr', 'func', 'datatype', 'cms']}
               {...timeFieldset.inputProps}
             />
           )}

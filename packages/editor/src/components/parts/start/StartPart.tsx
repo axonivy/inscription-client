@@ -44,9 +44,19 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
         <PathCollapsible label='Input parameters' path='params'>
           <ParameterTable data={config.input.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
         </PathCollapsible>
-        <MappingPart data={config.input.map} variableInfo={variableInfo} onChange={change => update('map', change)} />
+        <MappingPart
+          data={config.input.map}
+          variableInfo={variableInfo}
+          onChange={change => update('map', change)}
+          browsers={['attr', 'func', 'datatype']}
+        />
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
-          <ScriptArea value={config.input.code} onChange={change => update('code', change)} {...codeFieldset.inputProps} />
+          <ScriptArea
+            value={config.input.code}
+            onChange={change => update('code', change)}
+            browsers={['attr', 'func', 'datatype']}
+            {...codeFieldset.inputProps}
+          />
         </PathFieldset>
       </PathContext>
     </>

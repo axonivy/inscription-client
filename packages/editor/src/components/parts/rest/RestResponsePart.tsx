@@ -43,9 +43,19 @@ const RestResponsePart = () => {
             />
           </PathFieldset>
         )}
-        <MappingPart data={config.response.entity.map} variableInfo={variableInfo} onChange={change => updateEntity('map', change)} />
+        <MappingPart
+          data={config.response.entity.map}
+          variableInfo={variableInfo}
+          browsers={['attr', 'func', 'datatype']}
+          onChange={change => updateEntity('map', change)}
+        />
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
-          <ScriptArea value={config.response.entity.code} onChange={change => updateEntity('code', change)} {...codeFieldset.inputProps} />
+          <ScriptArea
+            value={config.response.entity.code}
+            onChange={change => updateEntity('code', change)}
+            browsers={['attr', 'func', 'datatype']}
+            {...codeFieldset.inputProps}
+          />
         </PathFieldset>
       </PathContext>
 

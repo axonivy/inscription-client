@@ -9,7 +9,11 @@ export const Condition = () => {
     <PathContext path='sql'>
       <PathCollapsible label='Condition' defaultOpen={config.query.sql.condition !== defaultConfig.query.sql.condition} path='condition'>
         <ValidationFieldset>
-          <MacroArea value={config.query.sql.condition} onChange={change => updateSql('condition', change)} />
+          <MacroArea
+            value={config.query.sql.condition}
+            onChange={change => updateSql('condition', change)}
+            browsers={['tablecol', 'sqlOp', 'attr']}
+          />
         </ValidationFieldset>
       </PathCollapsible>
     </PathContext>

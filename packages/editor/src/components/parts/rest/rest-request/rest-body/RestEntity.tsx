@@ -34,9 +34,19 @@ export const RestEntity = () => {
           />
         </PathFieldset>
       )}
-      <MappingPart data={config.body.entity.map} onChange={change => updateEntity('map', change)} variableInfo={variableInfo} />
+      <MappingPart
+        browsers={['attr', 'func', 'datatype']}
+        data={config.body.entity.map}
+        onChange={change => updateEntity('map', change)}
+        variableInfo={variableInfo}
+      />
       <PathFieldset label='Code' path='code' {...codeFieldset.labelProps}>
-        <ScriptArea value={config.body.entity.code} onChange={change => updateEntity('code', change)} {...codeFieldset.inputProps} />
+        <ScriptArea
+          value={config.body.entity.code}
+          onChange={change => updateEntity('code', change)}
+          browsers={['attr', 'func', 'datatype']}
+          {...codeFieldset.inputProps}
+        />
       </PathFieldset>
     </PathContext>
   );
