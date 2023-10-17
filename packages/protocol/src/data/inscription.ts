@@ -49,12 +49,12 @@ export interface Inscription {
   restClientRequest: RestClientRequest;
   restContentTypeRequest: RestContentTypeRequest;
   restEntityInfoRequest: RestEntityInfoRequest;
-  restResource: RestResource[];
+  restResource: RestResource;
   restResourceRequest: RestResourceRequest;
   roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
-  string: string[];
+  string: string;
   variableInfo: VariableInfo;
   void: Void;
   webServiceClient: WebServiceClient[];
