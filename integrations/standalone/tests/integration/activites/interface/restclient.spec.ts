@@ -1,8 +1,16 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { NameTest, RestRequestOpenApiTest, RestRequestTest, RestResponseTest, runTest } from '../../parts';
+import {
+  NameTest,
+  RestRequestBodyEntityTest,
+  RestRequestBodyFormTest,
+  RestRequestBodyJaxRsTest,
+  RestRequestBodyRawTest,
+  RestRequestTest,
+  RestResponseTest,
+  runTest
+} from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
-import { RestRequestBodyEntityTest, RestRequestBodyFormTest, RestRequestBodyJaxRsTest, RestRequestBodyOpenApiTest, RestRequestBodyRawTest } from '../../parts/rest-request-body';
 
 test.describe('Rest Client', () => {
   let view: InscriptionView;
@@ -28,10 +36,6 @@ test.describe('Rest Client', () => {
     await runTest(view, RestRequestTest);
   });
 
-  test('Request - OpenApi', async () => {
-    await runTest(view, RestRequestOpenApiTest);
-  });
-
   test('RequestBody - Entity', async () => {
     await runTest(view, RestRequestBodyEntityTest);
   });
@@ -48,11 +52,7 @@ test.describe('Rest Client', () => {
     await runTest(view, RestRequestBodyJaxRsTest);
   });
 
-  test('RequestBody - OpenApi', async () => {
-    await runTest(view, RestRequestBodyOpenApiTest);
-  });
-
-  test.skip('Response', async () => {
+  test('Response', async () => {
     await runTest(view, RestResponseTest);
   });
 });

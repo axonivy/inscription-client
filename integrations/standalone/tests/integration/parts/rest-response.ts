@@ -3,11 +3,10 @@ import { NewPartTest, PartObject } from './part-tester';
 import { Section } from '../../pageobjects/Section';
 import { Table } from '../../pageobjects/Table';
 import { ScriptArea } from '../../pageobjects/CodeEditor';
-import { TextArea } from '../../pageobjects/TextArea';
 import { Combobox } from '../../pageobjects/Combobox';
 
 class RestResponse extends PartObject {
-  type: TextArea;
+  type: Combobox;
   mapping: Table;
   code: ScriptArea;
   errorSection: Section;
@@ -16,7 +15,7 @@ class RestResponse extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.type = part.textArea('Read body as type (result variable)');
+    this.type = part.combobox('Read body as type (result variable)');
     this.mapping = part.table(['label', 'label', 'expression']);
     this.code = part.scriptArea();
     this.errorSection = part.section('Error');
@@ -43,7 +42,7 @@ class RestResponse extends PartObject {
   }
 
   async clear() {
-    await this.type.clear();
+    await this.type.fill('');
     await this.mapping.row(1).column(2).fill('');
     await this.code.clear();
     await this.clientError.choose('ivy:error:rest:client');
@@ -51,7 +50,7 @@ class RestResponse extends PartObject {
   }
 
   async assertClear() {
-    await this.type.expectEmpty();
+    await this.type.expectValue('');
     await this.mapping.row(1).column(2).expectValue('');
     await this.code.expectValue('');
     await this.errorSection.expectIsClosed();
