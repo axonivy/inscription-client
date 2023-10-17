@@ -5,26 +5,27 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { useEditorContext } from '../../context';
 import { useState } from 'react';
 import { useAttributeBrowser } from './AttributeBrowser';
-import { useCmsBrowser } from './CmsBrowser';
 import { BrowserType, UseBrowserReturnValue } from './useBrowser';
 import { useFuncBrowser } from './FunctionBrowser';
 import { useDataTypeBrowser } from './DataTypeBrowser';
 import { useTableColBrowser } from './TableColBrowser';
 import { useSqlOpBrowser } from './SqlOperationBrowser';
 import { useCatPathChooserBrowser } from './CatPathChooser';
+import { CmsOptions, useCmsBrowser } from './CmsBrowser';
 
 type BrowserProps = UseBrowserReturnValue & {
   types: BrowserType[];
   accept: (value: string) => void;
   location: string;
+  cmsOptions?: CmsOptions;
 };
 
-const Browser = ({ open, onOpenChange, types, accept, location }: BrowserProps) => {
+const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: BrowserProps) => {
   const { editorRef } = useEditorContext();
   const [active, setActive] = useState<BrowserType>(types[0]);
 
   const attrBrowser = useAttributeBrowser(location);
-  const cmsBrowser = useCmsBrowser();
+  const cmsBrowser = useCmsBrowser(cmsOptions);
   const funcBrowser = useFuncBrowser();
   const dataTypeBrowser = useDataTypeBrowser();
   const catPathChooserBrowser = useCatPathChooserBrowser();

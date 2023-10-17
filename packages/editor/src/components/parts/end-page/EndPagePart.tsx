@@ -1,10 +1,11 @@
-import { FieldsetControl, Input, useFieldset } from '../../widgets';
+import { FieldsetControl, useFieldset } from '../../widgets';
 import { PartProps, usePartDirty, usePartState } from '../../editors';
 import { useEndPageData } from './useEndPageData';
 import { EndPageData } from '@axonivy/inscription-protocol';
 import { useAction, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { PathFieldset } from '../common';
+import InputWithBrowser from '../../../components/widgets/input/InputWithBrowser';
 
 export function useEndPagePart(): PartProps {
   const { config, initConfig, defaultConfig, update } = useEndPageData();
@@ -23,7 +24,13 @@ const EndPagePart = () => {
   const pageFieldset = useFieldset();
   return (
     <PathFieldset label='Display the following page' {...pageFieldset.labelProps} controls={[openFile]} path='page'>
-      <Input value={config.page} onChange={change => update('page', change)} {...pageFieldset.inputProps} />
+      <InputWithBrowser
+        browsers={['cms']}
+        typeFilter={'FILE'}
+        value={config.page}
+        onChange={change => update('page', change)}
+        {...pageFieldset.inputProps}
+      />
     </PathFieldset>
   );
 };

@@ -1,13 +1,14 @@
 import './ScriptArea.css';
 import { Browser, useBrowser } from '../../../components/browser';
 import ResizableCodeEditor, { CodeEditorAreaProps } from './ResizableCodeEditor';
-import { monacoAutoFocus, useCodeEditorOnFocus, useModifyEditor } from './useCodeEditor';
+import { monacoAutoFocus, useModifyEditor } from './useCodeEditor';
 import { usePath } from '../../../context';
 import { CardArea } from '../output/CardText';
 import { ElementRef, useRef } from 'react';
+import { useOnFocus } from '../../../components/browser/useOnFocus';
 
 const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps) => {
-  const { isFocusWithin, focusWithinProps, focusValue } = useCodeEditorOnFocus(value, onChange);
+  const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useModifyEditor(value => `<%=${value}%>`);
   const path = usePath();

@@ -22,7 +22,7 @@ const ParameterTable = ({ data, onChange, hideDesc }: ParameterTableProps) => {
       {
         accessorKey: 'type',
         header: header => <SortableHeader header={header} name='Type' />,
-        cell: cell => <EditableCell cell={cell} />
+        cell: cell => <EditableCell cell={cell} withBrowser={true} />
       }
     ];
     if (hideDesc === undefined || !hideDesc) {
