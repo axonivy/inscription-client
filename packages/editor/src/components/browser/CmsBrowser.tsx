@@ -4,40 +4,52 @@ import { UseBrowserImplReturnValue } from './useBrowser';
 import { useEditorContext, useMeta } from '../../context';
 import {
   ColumnDef,
+  ColumnFiltersState,
   ExpandedState,
   RowSelectionState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { ContentObject } from '@axonivy/inscription-protocol';
+import { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 
-export const useCmsBrowser = (): UseBrowserImplReturnValue => {
+export type CmsTypeFilter = 'STRING' | 'FILE' | 'NONE';
+
+export type CmsOptions = {
+  noApiCall?: boolean;
+  typeFilter?: CmsTypeFilter;
+};
+
+export const useCmsBrowser = (options?: CmsOptions): UseBrowserImplReturnValue => {
   const [value, setValue] = useState('');
 
   return {
     id: CMS_BROWSER_ID,
     name: 'CMS',
-    content: <CmsBrowser value={value} onChange={setValue} />,
-    accept: () => addIvyPathToValue(value)
+    content: <CmsBrowser value={value} onChange={setValue} noApiCall={options?.noApiCall} typeFilter={options?.typeFilter} />,
+    accept: () => value
   };
 };
 
-export const addIvyPathToValue = (value: string) => {
-  const fullPath = value.length === 0 ? '' : `ivy.cms.co("${value}")`;
-  return fullPath;
-};
+interface CmsBrowserProps {
+  value: string;
+  onChange: (value: string) => void;
+  noApiCall?: boolean;
+  typeFilter?: CmsTypeFilter;
+}
 
-const CmsBrowser = ({ value, onChange }: { value: string; onChange: (value: string) => void }) => {
+const CmsBrowser = ({ value, onChange, noApiCall, typeFilter }: CmsBrowserProps) => {
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
   const tree = useMeta('meta/cms/tree', { context, requiredProjects: requiredProject }, []).data;
+
   const [selectedContentObject, setSelectedContentObject] = useState<ContentObject | undefined>();
   const [showHelper, setShowHelper] = useState<boolean>(false);
 
@@ -55,6 +67,16 @@ const CmsBrowser = ({ value, onChange }: { value: string; onChange: (value: stri
             />
           );
         }
+      },
+      {
+        accessorFn: row => row.type,
+        id: 'type',
+        cell: cell => <span title={cell.row.original.type}>{cell.getValue() as string}</span>
+      },
+      {
+        accessorFn: row => JSON.stringify(row.values),
+        id: 'values',
+        cell: cell => <span title={JSON.stringify(cell.row.original.values)}>{JSON.stringify(cell.getValue())}</span>
       }
     ],
     []
@@ -63,6 +85,20 @@ const CmsBrowser = ({ value, onChange }: { value: string; onChange: (value: stri
   const [expanded, setExpanded] = useState<ExpandedState>(false as ExpandedState);
   const [globalFilter, setGlobalFilter] = useState('');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({ type: false, values: false });
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+    typeFilter === 'NONE' || typeFilter === undefined ? [] : [{ id: 'type', value: typeFilter }]
+  );
+
+  const addIvyPathToValue = (value: string, type: ContentObjectType, noApiCall?: boolean) => {
+    if (noApiCall || value.length === 0) {
+      return value;
+    }
+    if (type === 'FILE') {
+      return `ivy.cms.cr("${value}")`;
+    }
+    return `ivy.cms.co("${value}")`;
+  };
 
   const table = useReactTable({
     data: tree,
@@ -70,7 +106,9 @@ const CmsBrowser = ({ value, onChange }: { value: string; onChange: (value: stri
     state: {
       expanded,
       globalFilter,
-      rowSelection
+      rowSelection,
+      columnFilters,
+      columnVisibility
     },
     filterFromLeafRows: true,
     enableRowSelection: true,
@@ -78,11 +116,13 @@ const CmsBrowser = ({ value, onChange }: { value: string; onChange: (value: stri
     enableSubRowSelection: false,
     onExpandedChange: setExpanded,
     onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
     getSubRows: row => row.children,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
-    getFilteredRowModel: getFilteredRowModel()
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility
   });
 
   useEffect(() => {
@@ -95,13 +135,21 @@ const CmsBrowser = ({ value, onChange }: { value: string; onChange: (value: stri
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setSelectedContentObject(selectedRow.original);
     setShowHelper(true);
-    onChange(selectedRow.original.fullPath);
-  }, [onChange, rowSelection, table]);
+    onChange(addIvyPathToValue(selectedRow.original.fullPath, selectedRow.original.type, noApiCall));
+  }, [onChange, rowSelection, noApiCall, table]);
 
   return (
     <>
       <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
-      <Table search={{ value: globalFilter, onChange: setGlobalFilter }}>
+      <Table
+        search={{
+          value: globalFilter,
+          onChange: newFilterValue => {
+            setGlobalFilter(newFilterValue);
+            setExpanded(true);
+          }
+        }}
+      >
         <tbody>
           {table.getRowModel().rows.map(row => (
             <SelectRow key={row.id} row={row} isNotSelectable={row.original.type === 'FOLDER'}>

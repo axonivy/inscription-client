@@ -11,3 +11,14 @@
 .table-cell .code-editor .input {
   background-color: var(--input-bg);
 }
+
+.editableCell-with-browser {
+  display: flex;
+  gap: var(--size-1);
+  align-items: center;
+}
+
+.editableCell-with-browser .input {
+  flex: auto;
+  width: 100%;
+}

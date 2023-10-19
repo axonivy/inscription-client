@@ -1,7 +1,11 @@
 import './EditableCell.css';
+import '../../code-editor/ScriptInput.css';
 import { CellContext, RowData } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { Input } from '../../input';
+import { Browser, useBrowser } from '../../../../components/browser';
+import { usePath } from '../../../../context';
+import { useOnFocus } from '../../../../components/browser/useOnFocus';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -10,11 +14,15 @@ declare module '@tanstack/react-table' {
   }
 }
 
-type EditableCellProps<TData> = { cell: CellContext<TData, unknown>; disabled?: boolean };
+type EditableCellProps<TData> = { cell: CellContext<TData, unknown>; disabled?: boolean; withBrowser?: boolean };
 
-export function EditableCell<TData>({ cell, disabled }: EditableCellProps<TData>) {
+export function EditableCell<TData>({ cell, disabled, withBrowser: propWithBrowser }: EditableCellProps<TData>) {
   const initialValue = cell.getValue();
   const [value, setValue] = useState(initialValue);
+  const browser = useBrowser();
+  const path = usePath();
+  const withBrowser = propWithBrowser || false;
+  const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value as string, change => setValue(change));
   const onBlur = () => {
     cell.table.options.meta?.updateData(cell.row.id, cell.column.id, value);
   };
@@ -22,5 +30,18 @@ export function EditableCell<TData>({ cell, disabled }: EditableCellProps<TData>
     setValue(initialValue);
   }, [initialValue]);
 
-  return <Input value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />;
+  return withBrowser ? (
+    <div className='editableCell-with-browser' {...focusWithinProps} tabIndex={1}>
+      {isFocusWithin || browser.open ? (
+        <>
+          <Input {...focusValue} value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />
+          <Browser {...browser} types={['datatype']} accept={change => setValue(change)} location={path} />
+        </>
+      ) : (
+        <Input value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />
+      )}
+    </div>
+  ) : (
+    <Input value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />
+  );
 }
