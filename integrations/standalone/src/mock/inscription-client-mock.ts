@@ -96,6 +96,8 @@ export class InscriptionClientMock implements InscriptionClient {
         return Promise.resolve(JSON.parse(JSON.stringify(MetaMock.IN_VAR_INFO)));
       case 'meta/connector/out':
         return Promise.resolve(MetaMock.CONNECTORS_OUT);
+      case 'meta/cms/tree':
+        return Promise.resolve(MetaMock.CMS_TYPE);
       default:
         throw Error('mock meta path not programmed');
     }
