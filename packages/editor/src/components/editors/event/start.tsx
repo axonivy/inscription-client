@@ -15,7 +15,7 @@ import {
   useTriggerPart,
   useRequestPart,
   useProgramStartPart,
-  useEditorPart
+  useConfigurationPart
 } from '../../../components/parts';
 
 const RequestStartEditor = memo(() => {
@@ -45,8 +45,8 @@ const ErrorStartEventEditor = memo(() => {
 const ProgramStartEditor = memo(() => {
   const name = useNamePart();
   const start = useProgramStartPart();
-  const editor = useEditorPart();
-  return <InscriptionEditor icon={IvyIcons.StartProgram} parts={[name, start, editor]} />;
+  const configuration = useConfigurationPart();
+  return <InscriptionEditor icon={IvyIcons.StartProgram} parts={[name, start, configuration]} />;
 });
 
 export const startEventEditors = new Map<ElementType, ReactNode>([

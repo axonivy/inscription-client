@@ -5,7 +5,7 @@ import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import {
   useCasePart,
-  useEditorPart,
+  useConfigurationPart,
   useEndPagePart,
   useEventPart,
   useNamePart,
@@ -25,10 +25,10 @@ const TaskSwitchEventEditor = memo(() => {
 const WaitEventEditor = memo(() => {
   const name = useNamePart();
   const event = useEventPart();
-  const editor = useEditorPart();
+  const configuration = useConfigurationPart();
   const task = useTaskPart({ type: 'wait' });
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.Wait} parts={[name, event, editor, task, output]} />;
+  return <InscriptionEditor icon={IvyIcons.Wait} parts={[name, event, configuration, task, output]} />;
 });
 
 export const intermediateEventEditors = new Map<ElementType, ReactNode>([

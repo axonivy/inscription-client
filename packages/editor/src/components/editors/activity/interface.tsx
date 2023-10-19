@@ -16,7 +16,7 @@ import {
   useRestResponsePart,
   useRestRequestPart,
   useProgramInterfaceStartPart,
-  useEditorPart
+  useConfigurationPart
 } from '../../../components/parts';
 import { OpenApiContextProvider } from '../../../context/useOpenApi';
 
@@ -58,8 +58,8 @@ const EMailEditor = memo(() => {
 const ProgramInterfaceEditor = memo(() => {
   const name = useNamePart();
   const start = useProgramInterfaceStartPart();
-  const editor = useEditorPart();
-  return <InscriptionEditor icon={IvyIcons.Program} parts={[name, start, editor]} />;
+  const configuration = useConfigurationPart();
+  return <InscriptionEditor icon={IvyIcons.Program} parts={[name, start, configuration]} />;
 });
 
 export const interfaceActivityEditors = new Map<ElementType, ReactNode>([
