@@ -12,7 +12,7 @@ test.describe('Script browser', () => {
     await description.focus();
     await assertCodeVisible(page);
 
-    await applyBrowser(page, 'in.bla');
+    await applyBrowser(page, 'in.bla', 'Attribute', 2);
     await expect(code(page).getByRole('textbox')).toHaveValue('<%=in.bla%>');
   });
 
@@ -29,8 +29,36 @@ test.describe('Script browser', () => {
     await page.keyboard.type('test 123 zag');
     await code(page).dblclick();
 
-    await applyBrowser(page, 'in.bla');
+    await applyBrowser(page, 'in.bla', 'Attribute', 2);
     await expect(code(page).getByRole('textbox')).toHaveValue('test 123 <%=in.bla%>');
+  });
+
+  test('browser add cms string', async ({ page }) => {
+    const inscriptionView = await InscriptionView.mock(page);
+    const task = inscriptionView.accordion('Task');
+    await task.toggle();
+
+    const description = task.macroArea('Description');
+    await assertCodeHidden(page);
+    await description.focus();
+    await assertCodeVisible(page);
+
+    await applyBrowser(page, 'ivy.cms.co("/hallo")en: hello', 'CMS', 2);
+    await expect(code(page).getByRole('textbox')).toHaveValue('<%=ivy.cms.co("/hallo")%>');
+  });
+
+  test('browser add cms file', async ({ page }) => {
+    const inscriptionView = await InscriptionView.mock(page);
+    const task = inscriptionView.accordion('Task');
+    await task.toggle();
+
+    const description = task.macroArea('Description');
+    await assertCodeHidden(page);
+    await description.focus();
+    await assertCodeVisible(page);
+
+    await applyBrowser(page, 'ivy.cms.cr("/BlaFile")', 'CMS', 1);
+    await expect(code(page).getByRole('textbox')).toHaveValue('<%=ivy.cms.cr("/BlaFile")%>');
   });
 
   async function assertCodeHidden(page: Page) {
@@ -43,11 +71,13 @@ test.describe('Script browser', () => {
     await expect(browserBtn(page)).toBeVisible();
   }
 
-  async function applyBrowser(page: Page, expectedSelection: string) {
+  async function applyBrowser(page: Page, expectedSelection: string, browser: string, rowToCheck: number) {
     await browserBtn(page).click();
     await expect(page.getByRole('dialog')).toBeVisible();
 
-    await page.getByRole('row').nth(2).click();
+    await page.getByText(browser).first().click();
+
+    await page.getByRole('row').nth(rowToCheck).click();
     await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
     await page.getByRole('button', { name: 'Insert' }).click();
 

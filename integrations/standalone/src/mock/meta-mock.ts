@@ -1,4 +1,4 @@
-import { CallableStart, ConnectorRef, ErrorStartMeta, VariableInfo, NodeRef, RoleMeta } from '@axonivy/inscription-protocol';
+import { CallableStart, ConnectorRef, ErrorStartMeta, VariableInfo, NodeRef, RoleMeta, ContentObject } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
   const USER_INFO_TYPE = [
@@ -117,6 +117,34 @@ export namespace MetaMock {
     ],
     types: MAP_INFO_TYPES
   };
+
+  export const CMS_TYPE: ContentObject[] = [
+    {
+      name: 'Macro',
+      fullPath: '/Macro',
+      type: 'STRING',
+      values: {
+        en: '<%=ivy.html.get("in.date")%> <%=ivy.cms.co("/ProcessPages/test/Panel1")%>'
+      },
+      children: []
+    },
+    {
+      name: 'BlaFile',
+      fullPath: '/BlaFile',
+      type: 'FILE',
+      values: {},
+      children: []
+    },
+    {
+      name: 'hallo',
+      fullPath: '/hallo',
+      type: 'STRING',
+      values: {
+        en: 'hello'
+      },
+      children: []
+    }
+  ];
 
   export const RESULT_VAR_INFO: VariableInfo = {
     variables: [
