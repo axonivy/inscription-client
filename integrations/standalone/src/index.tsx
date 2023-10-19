@@ -15,8 +15,8 @@ export async function start(): Promise<void> {
   const pid = URLParams.pid();
   const theme = URLParams.themeMode();
 
-  MonacoEditorUtil.initMonaco(monaco, theme);
-  MonacoUtil.initStandalone();
+  await MonacoUtil.initStandalone();
+  await MonacoEditorUtil.initMonaco(monaco, theme);
   const root = createRoot(document.getElementById('root')!);
 
   try {

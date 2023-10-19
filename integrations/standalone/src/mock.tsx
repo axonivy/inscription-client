@@ -15,8 +15,8 @@ export async function start(): Promise<void> {
   const readonly = URLParams.parameter('readonly') ? true : false;
   const type = (URLParams.parameter('type') as ElementType) ?? undefined;
 
-  MonacoEditorUtil.initMonaco(monaco, theme);
-  MonacoUtil.initStandalone();
+  await MonacoUtil.initStandalone();
+  await MonacoEditorUtil.initMonaco(monaco, theme);
   const root = createRoot(document.getElementById('root')!);
 
   const inscriptionClient = new InscriptionClientMock(readonly, type);

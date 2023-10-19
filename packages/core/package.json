@@ -15,12 +15,12 @@
   ],
   "dependencies": {
     "@axonivy/inscription-protocol": "11.2.0-next",
-    "monaco-editor": "^0.34.1",
-    "monaco-editor-workers": "^0.34.2",
-    "monaco-languageclient": "^4.0.3",
+    "monaco-editor": "^0.44.0",
+    "monaco-editor-workers": "^0.44.0",
+    "monaco-languageclient": "^6.6.0",
     "vscode-jsonrpc": "^8.0.2",
     "vscode-languageserver-protocol": "^3.17.2",
-    "vscode-ws-jsonrpc": "^2.0.1"
+    "vscode-ws-jsonrpc": "^3.0.0"
   },
   "main": "lib/index",
   "types": "src/index",
