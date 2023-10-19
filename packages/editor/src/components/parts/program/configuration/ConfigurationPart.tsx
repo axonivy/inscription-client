@@ -1,26 +1,26 @@
-import { EditorData, Label, Script, Text, Widget } from '@axonivy/inscription-protocol';
+import { ConfigurationData, Label, Script, Text, Widget } from '@axonivy/inscription-protocol';
 import { PartProps, usePartDirty, usePartState } from '../../../editors';
 import { useEditorContext, useMeta, useValidations } from '../../../../context';
-import { useEditorData } from './useEditorData';
-import { Input, MessageText, ScriptInput } from '../../../../components/widgets';
-import './Editor.css';
+import { useConfigurationData } from './useConfigurationData';
+import { Input, MessageText, ScriptInput } from '../../../widgets';
+import './Configuration.css';
 
-export function useEditorPart(): PartProps {
-  const { config, defaultConfig, initConfig, reset } = useEditorData();
-  const compareData = (data: EditorData) => [data.userConfig];
+export function useConfigurationPart(): PartProps {
+  const { config, defaultConfig, initConfig, reset } = useConfigurationData();
+  const compareData = (data: ConfigurationData) => [data.userConfig];
   const validation = useValidations(['userConfig']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Editor',
+    name: 'Configuration',
     state,
     reset: { dirty, action: () => reset() },
-    content: <EditorPart />
+    content: <ConfigurationPart />
   };
 }
 
-const EditorPart = () => {
-  const { config, update } = useEditorData();
+const ConfigurationPart = () => {
+  const { config, update } = useConfigurationData();
   const { context } = useEditorContext();
   const editorItems = useMeta('meta/program/editor', { context, type: config.javaClass }, []).data;
 
@@ -70,7 +70,7 @@ const EditorPart = () => {
   };
 
   if (editorItems.length === 0) {
-    return <MessageText message={{ severity: 'WARNING', message: 'There is no editor for this bean' }} />;
+    return <MessageText message={{ severity: 'INFO', message: 'No configuration needed' }} />;
   }
 
   return (

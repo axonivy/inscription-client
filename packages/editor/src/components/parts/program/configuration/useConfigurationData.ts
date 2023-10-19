@@ -1,17 +1,17 @@
 import { ConfigDataContext, useConfigDataContext } from '../../../../context';
-import { EditorData } from '@axonivy/inscription-protocol';
+import { ConfigurationData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { DataUpdater } from '../../../../types/lambda';
 
-export function useEditorData(): ConfigDataContext<EditorData> & {
-  update: DataUpdater<EditorData>;
+export function useConfigurationData(): ConfigDataContext<ConfigurationData> & {
+  update: DataUpdater<ConfigurationData>;
   reset: () => void;
 } {
   const { setConfig, ...config } = useConfigDataContext();
 
-  const update: DataUpdater<EditorData> = (field, value) => {
+  const update: DataUpdater<ConfigurationData> = (field, value) => {
     setConfig(
-      produce((draft: EditorData) => {
+      produce((draft: ConfigurationData) => {
         draft[field] = value;
       })
     );

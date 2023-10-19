@@ -1,15 +1,15 @@
 import { DeepPartial, render, renderHook, screen } from 'test-utils';
-import { EditorData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import { ConfigurationData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../../editors';
-import { useEditorPart } from './EditorPart';
+import { useConfigurationPart } from './ConfigurationPart';
 
 const Part = () => {
-  const part = useEditorPart();
+  const part = useConfigurationPart();
   return <>{part.content}</>;
 };
 
-describe('EditorPart', () => {
-  function renderPart(data?: DeepPartial<EditorData>) {
+describe('ConfigurationPart', () => {
+  function renderPart(data?: DeepPartial<ConfigurationData>) {
     render(<Part />, {
       wrapperProps: {
         data: data && { config: data },
@@ -26,7 +26,7 @@ describe('EditorPart', () => {
 
   test('empty data', async () => {
     render(<Part />);
-    expect(screen.getByTitle('There is no editor for this bean')).toBeInTheDocument();
+    expect(screen.getByTitle('No configuration needed')).toBeInTheDocument();
   });
 
   test('full data', async () => {
@@ -37,8 +37,8 @@ describe('EditorPart', () => {
     expect(screen.getByDisplayValue('123')).toBeInTheDocument();
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<EditorData>, validation?: InscriptionValidation) {
-    const { result } = renderHook(() => useEditorPart(), {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ConfigurationData>, validation?: InscriptionValidation) {
+    const { result } = renderHook(() => useConfigurationPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -57,7 +57,7 @@ describe('EditorPart', () => {
         userConfig: 'test'
       }
     };
-    const view = renderHook(() => useEditorPart(), {
+    const view = renderHook(() => useConfigurationPart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
     });
     expect(view.result.current.reset.dirty).toEqual(true);
