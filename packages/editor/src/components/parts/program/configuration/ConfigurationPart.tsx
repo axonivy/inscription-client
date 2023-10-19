@@ -70,7 +70,7 @@ const ConfigurationPart = () => {
   };
 
   if (editorItems.length === 0) {
-    return <MessageText message={{ severity: 'WARNING', message: 'No configuration needed' }} />;
+    return <MessageText message={{ severity: 'INFO', message: 'No configuration needed' }} />;
   }
 
   return (
