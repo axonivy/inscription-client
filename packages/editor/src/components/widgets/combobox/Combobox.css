@@ -50,3 +50,14 @@
 .combobox-menu-entry .ivy {
   font-size: 1rem;
 }
+
+.combobox-with-browser {
+  display: flex;
+  gap: var(--size-1);
+  align-items: center;
+}
+
+.combobox-with-browser .combobox {
+  flex: auto;
+  width: 100%;
+}
