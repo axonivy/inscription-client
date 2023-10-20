@@ -42,6 +42,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
           eventCodes={signalCodes}
           eventIcon={IvyIcons.Signal}
           comboboxInputProps={signalField.inputProps}
+          withBrowser={true}
         />
       </PathFieldset>
       {!makroSupport && (

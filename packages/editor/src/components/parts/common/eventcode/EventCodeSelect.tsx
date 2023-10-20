@@ -1,6 +1,7 @@
 import { EventCodeMeta } from '@axonivy/inscription-protocol';
 import { Combobox, ComboboxItem, FieldsetInputProps, IvyIcon } from '../../../widgets';
 import { IvyIcons } from '@axonivy/editor-icons';
+import ComboboxWithBrowser from '../../../../components/widgets/combobox/ComboboxWithBrowser';
 
 export type EventCodeItem = Pick<EventCodeMeta, 'eventCode'> & { info?: string } & ComboboxItem;
 
@@ -10,9 +11,10 @@ type EventCodeSelectProps = {
   eventCodes: EventCodeItem[];
   eventIcon: IvyIcons;
   comboboxInputProps?: FieldsetInputProps;
+  withBrowser?: boolean;
 };
 
-const EventCodeSelect = ({ eventCode, onChange, eventCodes, eventIcon, comboboxInputProps }: EventCodeSelectProps) => {
+const EventCodeSelect = ({ eventCode, onChange, eventCodes, eventIcon, comboboxInputProps, withBrowser }: EventCodeSelectProps) => {
   const comboboxItem = (item: EventCodeItem) => {
     return (
       <>
@@ -29,7 +31,18 @@ const EventCodeSelect = ({ eventCode, onChange, eventCodes, eventIcon, comboboxI
     );
   };
 
-  return <Combobox value={eventCode} onChange={onChange} items={eventCodes} comboboxItem={comboboxItem} {...comboboxInputProps} />;
+  return withBrowser ? (
+    <ComboboxWithBrowser
+      browsers={['attr']}
+      value={eventCode}
+      onChange={onChange}
+      items={eventCodes}
+      comboboxItem={comboboxItem}
+      {...comboboxInputProps}
+    />
+  ) : (
+    <Combobox value={eventCode} onChange={onChange} items={eventCodes} comboboxItem={comboboxItem} {...comboboxInputProps} />
+  );
 };
 
 export default EventCodeSelect;
