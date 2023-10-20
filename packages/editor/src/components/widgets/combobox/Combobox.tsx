@@ -89,8 +89,8 @@ const Combobox = <T extends ComboboxItem>({
 
   return (
     <div className='combobox'>
-      <div className='combobox-input' {...(macro !== undefined ? { ...focusWithinProps, tabIndex: 1 } : {})}>
-        {macro === true ? (
+      <div className='combobox-input' {...(macro ? { ...focusWithinProps, tabIndex: 1 } : {})}>
+        {macro ? (
           isFocusWithin || browser.open ? (
             <SingleLineCodeEditor
               {...focusValue}
@@ -113,13 +113,8 @@ const Combobox = <T extends ComboboxItem>({
           {...getToggleButtonProps()}
           disabled={readonly}
         />
-        {browserTypes !== undefined || (macro !== undefined && browserTypes === undefined) ? (
-          <Browser
-            {...browser}
-            types={browserTypes === undefined ? ['attr'] : browserTypes}
-            accept={macro !== undefined ? modifyEditor : onChange}
-            location={path}
-          />
+        {browserTypes || (macro && browserTypes!) ? (
+          <Browser {...browser} types={browserTypes ? browserTypes : ['attr']} accept={macro ? modifyEditor : onChange} location={path} />
         ) : null}
       </div>
       <ul {...getMenuProps()} className='combobox-menu'>
