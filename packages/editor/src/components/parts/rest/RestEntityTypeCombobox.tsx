@@ -1,8 +1,7 @@
 import { useOpenApi } from '../../../context';
-import { ComboboxItem, FieldsetInputProps } from '../../../components/widgets';
+import { Combobox, ComboboxItem, FieldsetInputProps } from '../../../components/widgets';
 import { RestPayload } from '@axonivy/inscription-protocol';
 import { typesSupportBinary } from './known-types';
-import ComboboxWithBrowser from '../../../components/widgets/combobox/ComboboxWithBrowser';
 
 type RestEntityTypeComboboxProps = FieldsetInputProps & {
   value: string;
@@ -31,11 +30,11 @@ export const RestEntityTypeCombobox = ({ value, onChange, items, ...props }: Res
   }
   const typeItems = items.map<EntityComboboxItem>(type => ({ value: type, label: type === '[B' ? 'Array<byte>' : type }));
   return (
-    <ComboboxWithBrowser
+    <Combobox
       value={value}
       onChange={onChange}
       items={typeItems}
-      browsers={['datatype']}
+      browserTypes={['datatype']}
       {...props}
       comboboxItem={item => <span>{item.label}</span>}
     />

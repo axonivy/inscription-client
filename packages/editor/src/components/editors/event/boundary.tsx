@@ -14,7 +14,7 @@ const ErrorBoundaryEventEditor = memo(() => {
 
 const SignalBoundaryEventEditor = memo(() => {
   const name = useNamePart();
-  const signal = useSignalCatchPart({ makroSupport: true });
+  const signal = useSignalCatchPart({ makroSupport: true, withBrowser: true });
   const output = useOutputPart();
   return <InscriptionEditor icon={IvyIcons.Signal} parts={[name, signal, output]} />;
 });
