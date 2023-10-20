@@ -1,7 +1,6 @@
 import { EventCodeMeta } from '@axonivy/inscription-protocol';
 import { Combobox, ComboboxItem, FieldsetInputProps, IvyIcon } from '../../../widgets';
 import { IvyIcons } from '@axonivy/editor-icons';
-import ComboboxWithBrowser from '../../../../components/widgets/combobox/ComboboxWithBrowser';
 
 export type EventCodeItem = Pick<EventCodeMeta, 'eventCode'> & { info?: string } & ComboboxItem;
 
@@ -31,17 +30,20 @@ const EventCodeSelect = ({ eventCode, onChange, eventCodes, eventIcon, comboboxI
     );
   };
 
-  return withBrowser ? (
-    <ComboboxWithBrowser
-      browsers={['attr']}
+  return (
+    <Combobox
       value={eventCode}
       onChange={onChange}
       items={eventCodes}
       comboboxItem={comboboxItem}
       {...comboboxInputProps}
+      {...(withBrowser
+        ? {
+            browserTypes: ['attr'],
+            macro: true
+          }
+        : {})}
     />
-  ) : (
-    <Combobox value={eventCode} onChange={onChange} items={eventCodes} comboboxItem={comboboxItem} {...comboboxInputProps} />
   );
 };
 

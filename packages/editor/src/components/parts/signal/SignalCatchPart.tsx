@@ -7,7 +7,7 @@ import { SignalCatchData } from '@axonivy/inscription-protocol';
 import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
 import { eventCodeInfo } from '../../../utils/event-code';
 
-export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartProps {
+export function useSignalCatchPart(options?: { makroSupport?: boolean; withBrowser?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useSignalCatchData();
   const compareData = (data: SignalCatchData) => [data.signalCode, options?.makroSupport ? '' : data.attachToBusinessCase];
   const validations = useValidations(['signalCode']);
@@ -17,11 +17,11 @@ export function useSignalCatchPart(options?: { makroSupport?: boolean }): PartPr
     name: 'Signal',
     state,
     reset: { dirty, action: () => resetData() },
-    content: <SignalCatchPart makroSupport={options?.makroSupport} />
+    content: <SignalCatchPart makroSupport={options?.makroSupport} withBrowser={options?.withBrowser} />
   };
 }
 
-const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
+const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean; withBrowser?: boolean }) => {
   const { config, update, updateSignal } = useSignalCatchData();
   const { context } = useEditorContext();
   const signalCodes = [
@@ -42,7 +42,7 @@ const SignalCatchPart = ({ makroSupport }: { makroSupport?: boolean }) => {
           eventCodes={signalCodes}
           eventIcon={IvyIcons.Signal}
           comboboxInputProps={signalField.inputProps}
-          withBrowser={true}
+          withBrowser={withBrowser}
         />
       </PathFieldset>
       {!makroSupport && (

@@ -1,9 +1,14 @@
 import { useCombobox } from 'downshift';
 import { ComponentProps, memo, ReactNode, useEffect, useState } from 'react';
 import './Combobox.css';
-import { useReadonly } from '../../../context';
+import { usePath, useReadonly } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import Button from '../button/Button';
+import { SingleLineCodeEditor } from '../code-editor';
+import { useModifyEditor } from '../code-editor/useCodeEditor';
+import { Browser, BrowserType, useBrowser } from '../../../components/browser';
+import { CardText } from '../output/CardText';
+import { useOnFocus } from '../../../components/browser/useOnFocus';
 
 export interface ComboboxItem {
   value: string;
@@ -15,9 +20,20 @@ export type ComboboxProps<T extends ComboboxItem> = Omit<ComponentProps<'input'>
   comboboxItem?: (item: T) => ReactNode;
   value: string;
   onChange: (change: string) => void;
+  macro?: boolean;
+  browserTypes?: BrowserType[];
 };
 
-const Combobox = <T extends ComboboxItem>({ items, itemFilter, comboboxItem, value, onChange, ...inputProps }: ComboboxProps<T>) => {
+const Combobox = <T extends ComboboxItem>({
+  items,
+  itemFilter,
+  comboboxItem,
+  value,
+  onChange,
+  macro,
+  browserTypes,
+  ...inputProps
+}: ComboboxProps<T>) => {
   const filter = itemFilter
     ? itemFilter
     : (item: ComboboxItem, input?: string) => {
@@ -66,11 +82,30 @@ const Combobox = <T extends ComboboxItem>({ items, itemFilter, comboboxItem, val
   }, [items, selectItem, value]);
 
   const readonly = useReadonly();
+  const { setEditor, modifyEditor } = useModifyEditor(value => `<%=${value}%>`);
+  const path = usePath();
+  const browser = useBrowser();
+  const { isFocusWithin, focusValue, focusWithinProps } = useOnFocus(value, onChange);
 
   return (
     <div className='combobox'>
-      <div className='combobox-input'>
-        <input className='input' {...getInputProps()} {...inputProps} disabled={readonly} />
+      <div className='combobox-input' {...(macro !== undefined ? { ...focusWithinProps, tabIndex: 1 } : {})}>
+        {macro === true ? (
+          isFocusWithin || browser.open ? (
+            <SingleLineCodeEditor
+              {...focusValue}
+              value={value}
+              onChange={onChange}
+              context={{ location: path }}
+              macro={true}
+              onMountFuncs={[setEditor]}
+            />
+          ) : (
+            <CardText value={value} {...inputProps} />
+          )
+        ) : (
+          <input className='input' {...getInputProps()} {...inputProps} disabled={readonly} />
+        )}
         <Button
           className='combobox-button'
           icon={IvyIcons.AngleDown}
@@ -78,6 +113,14 @@ const Combobox = <T extends ComboboxItem>({ items, itemFilter, comboboxItem, val
           {...getToggleButtonProps()}
           disabled={readonly}
         />
+        {browserTypes !== undefined || (macro !== undefined && browserTypes === undefined) ? (
+          <Browser
+            {...browser}
+            types={browserTypes === undefined ? ['attr'] : browserTypes}
+            accept={macro !== undefined ? modifyEditor : onChange}
+            location={path}
+          />
+        ) : null}
       </div>
       <ul {...getMenuProps()} className='combobox-menu'>
         {isOpen &&

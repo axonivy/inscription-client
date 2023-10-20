@@ -1,9 +1,13 @@
 .combobox-input {
   display: flex;
+  gap: var(--size-1);
+  align-items: center;
 }
-.combobox-input .input {
+.combobox-input .input,
+.combobox-input .code-editor {
   flex: 1 1 auto;
 }
+
 .combobox-input .combobox-button {
   font-size: 20px;
   height: unset;
@@ -49,15 +53,4 @@
 }
 .combobox-menu-entry .ivy {
   font-size: 1rem;
-}
-
-.combobox-with-browser {
-  display: flex;
-  gap: var(--size-1);
-  align-items: center;
-}
-
-.combobox-with-browser .combobox {
-  flex: auto;
-  width: 100%;
 }
