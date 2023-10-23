@@ -27,7 +27,6 @@
 }
 .dialog-content .tabs-content {
   gap: var(--size-1);
-  margin-block: var(--size-2);
 }
 .dialog-content .table-root {
   overflow: auto;
@@ -48,6 +47,7 @@
 
 .dialog-title {
   margin: 0;
+  margin-bottom: var(--size-2);
   font-weight: 500;
   color: var(--text-color);
   font-size: 17px;

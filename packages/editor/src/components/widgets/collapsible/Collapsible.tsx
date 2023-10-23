@@ -5,15 +5,21 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
 import { MessageText, MessageTextProps } from '../message/Message';
 
-export type CollapsibleProps = MessageTextProps & { label: string; defaultOpen?: boolean; children: ReactNode };
+export type CollapsibleProps = MessageTextProps & { label: string; defaultOpen?: boolean; autoClosable?: boolean; children: ReactNode };
 
-const Collapsible = ({ label, defaultOpen, message, children }: CollapsibleProps) => {
+const Collapsible = ({ label, defaultOpen, message, children, autoClosable }: CollapsibleProps) => {
   const [open, setOpen] = useState(defaultOpen ?? false);
   useEffect(() => {
-    if (defaultOpen) {
-      setOpen(defaultOpen);
+    if (autoClosable) {
+      if (defaultOpen !== undefined) {
+        setOpen(defaultOpen);
+      }
+    } else {
+      if (defaultOpen) {
+        setOpen(defaultOpen);
+      }
     }
-  }, [defaultOpen]);
+  }, [autoClosable, defaultOpen]);
   return (
     <CollapsibleRoot className='collapsible-root' open={open} onOpenChange={setOpen}>
       <div className='collapsible-header'>
