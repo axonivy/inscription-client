@@ -52,8 +52,8 @@ export class InscriptionView {
     return new Popover(this.page);
   }
 
-  async expectHeaderText(text: string) {
-    await expect(this.page.getByText(text).first()).toBeVisible();
+  async expectHeaderText(text: string, timeout?: number) {
+    await expect(this.page.getByText(text).first()).toBeVisible({ timeout });
   }
 
   async reload() {

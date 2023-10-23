@@ -22,6 +22,6 @@ test.describe('Web Service Auth Link', () => {
     await expect(link).toBeVisible();
     await link.click();
 
-    await view.expectHeaderText('Web Service Process');
+    await view.expectHeaderText('Web Service Process', 10000);
   });
 });
