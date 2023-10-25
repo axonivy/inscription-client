@@ -12,7 +12,7 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { useEditorContext, useMeta } from '../../context';
-import { DataClass, JavaType } from '@axonivy/inscription-protocol';
+import { JavaType } from '@axonivy/inscription-protocol';
 export const DATATYPE_BROWSER_ID = 'datatype' as const;
 
 export const useDataTypeBrowser = (): UseBrowserImplReturnValue => {
@@ -29,27 +29,15 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
   const { context } = useEditorContext();
 
   const [datatypeList, setDatatypeList] = useState<JavaType[]>([]);
-  const [mainFilter, setMainFilter] = useState<string>('');
-  const allDatatypes: JavaType[] = useMeta('meta/scripting/allTypes', { context, type: mainFilter }, []).data;
-  const dataClasses: DataClass[] = useMeta('meta/scripting/dataClasses', context, []).data;
+  const [mainFilter, setMainFilter] = useState('');
+  const allDatatypes = useMeta('meta/scripting/allTypes', { context, type: mainFilter }, []).data;
+  const dataClasses = useMeta('meta/scripting/dataClasses', context, []).data;
 
   const [typeAsList, setTypeAsList] = useState(false);
-  const [listtypeSelected, setListtypeSelected] = useState(false);
 
   const [selectedDataType, setSelectedDataType] = useState<JavaType | undefined>();
   const [showHelper, setShowHelper] = useState(false);
 
-  // Shorter useEffect for merging useMeta's (unfortunately i noticed that in the megat "allTypes" there are also types from the meta "dataClasses", so i created a new useEffect which removes these duplicates.)
-  //  useEffect(() => {
-  //    const mappedDataClasses: JavaType[] = dataClasses.map<JavaType>(dataClass => ({ simpleName: dataClass.name, ...dataClass }));
-  //    if (mainFilter.length === 0) {
-  //      setDatatypeList(mappedDataClasses);
-  //    } else {
-  //      setDatatypeList(allDatatypes.concat(mappedDataClasses));
-  //   }
-  //  }, [allDatatypes, dataClasses, mainFilter]);
-
-  //new useEffect, which removes duplicates
   useEffect(() => {
     const mappedDataClasses: JavaType[] = dataClasses.map<JavaType>(dataClass => ({
       simpleName: dataClass.name,
@@ -73,13 +61,8 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
       return accumulator;
     }, []);
 
-    if (typeAsList) {
-      const uniqueListNoListElements: JavaType[] = uniqueList.filter(item => item.simpleName !== 'List');
-      setDatatypeList(uniqueListNoListElements);
-    } else {
-      setDatatypeList(uniqueList);
-    }
-  }, [allDatatypes, dataClasses, mainFilter, typeAsList]);
+    setDatatypeList(uniqueList);
+  }, [allDatatypes, dataClasses, mainFilter]);
 
   useEffect(() => {
     setSelectedDataType(undefined);
@@ -135,7 +118,7 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
 
   const addListGeneric = (value: JavaType, typeAsList: boolean) => {
     if (typeAsList) {
-      return 'java.util.List<' + value.simpleName + '>';
+      return 'java.util.List<' + value.fullQualifiedName + '>';
     } else {
       return value.fullQualifiedName;
     }
@@ -151,11 +134,6 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setSelectedDataType(selectedRow.original);
     setShowHelper(true);
-    if (selectedRow.original.simpleName === 'List') {
-      setListtypeSelected(true);
-    } else {
-      setListtypeSelected(false);
-    }
     props.onChange(addListGeneric(selectedRow.original, typeAsList));
   }, [props, props.onChange, rowSelection, table, typeAsList]);
 
@@ -181,23 +159,7 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
           ))}
         </tbody>
       </Table>
-      {!listtypeSelected && (
-        <>
-          {(props.value.length !== 0 && selectedDataType) || mainFilter === 'List' ? (
-            <>
-              {mainFilter === 'List' && typeAsList && (
-                <MessageText
-                  message={{
-                    severity: 'WARNING',
-                    message: `The "Use Type as List" checkmark is still enabled, causing lists not to be displayed.`
-                  }}
-                />
-              )}
-              <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
-            </>
-          ) : null}
-        </>
-      )}
+      <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
 
       <Collapsible label='Helper Text' defaultOpen={showHelper} autoClosable={true}>
         {props.value.length !== 0 && selectedDataType ? (

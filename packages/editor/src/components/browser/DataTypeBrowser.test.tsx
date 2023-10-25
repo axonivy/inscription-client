@@ -55,9 +55,8 @@ describe('DataTypeBrowser', () => {
 
   test('renderCombinedDatatype', async () => {
     renderBrowser();
-    await userEvent.click(await screen.findByPlaceholderText('Search'));
+    await userEvent.click(screen.getByPlaceholderText('Search'));
     await userEvent.keyboard('Person');
-    screen.debug();
     await TableUtil.assertRowCount(1);
   });
 
@@ -65,7 +64,7 @@ describe('DataTypeBrowser', () => {
     let data = '';
     renderBrowser({ accept: value => (data = value) });
     await userEvent.click(await screen.findByRole('cell', { name: 'AddContactData' }));
-    await userEvent.click(screen.getByTestId('accept'));
+    await userEvent.click(screen.getByRole('button', { name: '' }));
     expect(data).toEqual('ch.ivyteam.documentation.project.AddContactData');
   });
 
@@ -74,7 +73,7 @@ describe('DataTypeBrowser', () => {
     renderBrowser({ accept: value => (data = value) });
     await userEvent.click(await screen.findByRole('cell', { name: 'AddContactData' }));
     await userEvent.click(await screen.findByRole('cell', { name: 'AddContactData' }));
-    await userEvent.click(screen.getByTestId('accept'));
+    await userEvent.click(screen.getByRole('button', { name: '' }));
     expect(data).toEqual('');
     await userEvent.click(await screen.findByText('Helper Text'));
     expect(screen.getByTitle(`No element selected.`)).toBeInTheDocument();
@@ -85,19 +84,7 @@ describe('DataTypeBrowser', () => {
     renderBrowser({ accept: value => (data = value) });
     await userEvent.click(await screen.findByRole('cell', { name: 'AddContactData' }));
     await userEvent.click(await screen.findByText('Use Type as List'));
-    await userEvent.click(screen.getByTestId('accept'));
-    expect(data).toEqual('java.util.List<AddContactData>');
-  });
-
-  test('listGenericWithList', async () => {
-    renderBrowser();
-    await userEvent.click(await screen.findByRole('cell', { name: 'AddContactData' }));
-    await userEvent.click(await screen.findByText('Use Type as List'));
-    await userEvent.click(await screen.findByRole('cell', { name: 'AddContactData' }));
-    await userEvent.click(await screen.findByPlaceholderText('Search'));
-    await userEvent.keyboard('List');
-    expect(screen.getByTitle('The "Use Type as List" checkmark is still enabled, causing lists not to be displayed.')).toBeInTheDocument();
-    await userEvent.click(await screen.findByText('Use Type as List'));
-    await TableUtil.assertRowCount(1);
+    await userEvent.click(screen.getByRole('button', { name: '' }));
+    expect(data).toEqual('java.util.List<ch.ivyteam.documentation.project.AddContactData>');
   });
 });

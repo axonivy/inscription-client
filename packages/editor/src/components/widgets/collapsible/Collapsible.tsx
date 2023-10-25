@@ -11,9 +11,7 @@ const Collapsible = ({ label, defaultOpen, message, children, autoClosable }: Co
   const [open, setOpen] = useState(defaultOpen ?? false);
   useEffect(() => {
     if (autoClosable) {
-      if (defaultOpen !== undefined) {
-        setOpen(defaultOpen);
-      }
+      setOpen(!!defaultOpen);
     } else {
       if (defaultOpen) {
         setOpen(defaultOpen);
