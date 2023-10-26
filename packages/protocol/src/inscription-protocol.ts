@@ -29,7 +29,9 @@ import {
   Widget,
   RestEntityInfoRequest,
   CmsMetaRequest,
-  ContentObject
+  ContentObject,
+  TypeSearchRequest,
+  JavaType
 } from './data/inscription';
 import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -66,6 +68,7 @@ export interface InscriptionMetaRequestTypes {
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/dataClasses': [InscriptionContext, DataClass[]];
+  'meta/scripting/allTypes': [TypeSearchRequest, JavaType[]];
 
   'meta/program/types': [ProgramInterfacesRequest, ProgramInterface[]];
   'meta/program/editor': [ProgramEditorRequest, Widget[]];

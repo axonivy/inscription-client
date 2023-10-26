@@ -52,6 +52,7 @@ describe('CmsBrowser', () => {
     await userEvent.click(await screen.findByRole('cell', { name: 'Macro' }));
     await userEvent.click(screen.getByTestId('accept'));
     expect(data).toEqual('');
+    await userEvent.click(await screen.findByText('Helper Text'));
     expect(screen.getByTitle(`No element selected.`)).toBeInTheDocument();
   });
 });

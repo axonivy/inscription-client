@@ -42,6 +42,7 @@ export interface Inscription {
   inscriptionRequest: InscriptionRequest;
   inscriptionSaveRequest: InscriptionSaveRequest;
   inscriptionValidation: InscriptionValidation[];
+  javaType: JavaType[];
   programEditorRequest: ProgramEditorRequest;
   programInterface: ProgramInterface[];
   programInterfacesRequest: ProgramInterfacesRequest;
@@ -55,6 +56,7 @@ export interface Inscription {
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   string: string;
+  typeSearchRequest: TypeSearchRequest;
   variableInfo: VariableInfo;
   void: Void;
   webServiceClient: WebServiceClient[];
@@ -656,6 +658,11 @@ export interface InscriptionValidation {
   path: string;
   severity: Severity;
 }
+export interface JavaType {
+  fullQualifiedName: string;
+  packageName: string;
+  simpleName: string;
+}
 export interface ProgramEditorRequest {
   context: InscriptionContext;
   type: string;
@@ -747,6 +754,10 @@ export interface SchemaKey {
 export interface ScriptingDataArgs {
   context: InscriptionContext;
   location: string;
+}
+export interface TypeSearchRequest {
+  context: InscriptionContext;
+  type: string;
 }
 export interface Void {}
 export interface WebServiceClient {

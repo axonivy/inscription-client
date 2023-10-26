@@ -161,7 +161,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter }: CmsBrowserProps)
         </tbody>
       </Table>
 
-      <Collapsible label='Helper Text' defaultOpen={showHelper}>
+      <Collapsible label='Helper Text' defaultOpen={showHelper} autoClosable={true}>
         {value.length !== 0 && selectedContentObject ? (
           <pre className='browser-helptext'>
             <b>{value}</b>
