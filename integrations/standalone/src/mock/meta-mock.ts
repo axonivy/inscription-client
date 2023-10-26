@@ -1,4 +1,13 @@
-import { CallableStart, ConnectorRef, ErrorStartMeta, VariableInfo, NodeRef, RoleMeta, ContentObject } from '@axonivy/inscription-protocol';
+import {
+  CallableStart,
+  ConnectorRef,
+  ErrorStartMeta,
+  VariableInfo,
+  NodeRef,
+  RoleMeta,
+  ContentObject,
+  DataClass
+} from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
   const USER_INFO_TYPE = [
@@ -143,6 +152,21 @@ export namespace MetaMock {
         en: 'hello'
       },
       children: []
+    }
+  ];
+
+  export const DATACLASS: DataClass[] = [
+    {
+      name: 'Person',
+      fullQualifiedName: 'ch.ivyteam.test.Person',
+      packageName: 'ch.ivyteam.test',
+      path: 'dataclasses/ch/ivyteam/test/Person.ivyClass'
+    },
+    {
+      name: 'List',
+      packageName: 'java.util',
+      fullQualifiedName: 'java.util.List',
+      path: 'thisisaTest'
     }
   ];
 
