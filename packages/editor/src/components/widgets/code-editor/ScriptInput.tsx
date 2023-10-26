@@ -18,7 +18,7 @@ const ScriptInput = ({
 }: CodeEditorInputProps & { type: string }) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useModifyEditor(modifyAction);
+  const { setEditor, modifyEditor } = useModifyEditor({ modifyAction: modifyAction });
   const path = usePath();
 
   return (

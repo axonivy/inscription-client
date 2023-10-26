@@ -82,7 +82,7 @@ const Combobox = <T extends ComboboxItem>({
   }, [items, selectItem, value]);
 
   const readonly = useReadonly();
-  const { setEditor, modifyEditor } = useModifyEditor(value => `<%=${value}%>`);
+  const { setEditor, modifyEditor } = useModifyEditor({ modifyAction: value => `<%=${value}%>` });
   const path = usePath();
   const browser = useBrowser();
   const { isFocusWithin, focusValue, focusWithinProps } = useOnFocus(value, onChange);
