@@ -61,6 +61,36 @@ test.describe('Script browser', () => {
     await expect(code(page).getByRole('textbox')).toHaveValue('<%=ivy.cms.cr("/BlaFile")%>');
   });
 
+  test('browser add datatype', async ({ page }) => {
+    const inscriptionView = await InscriptionView.mock(page);
+    const task = inscriptionView.accordion('Task');
+    await task.toggle();
+
+    await page.getByText('Expiry').click();
+    const timeout = task.macroArea('Timeout');
+    await assertCodeHidden(page);
+    await timeout.focus();
+    await assertCodeVisible(page);
+
+    await applyBrowser(page, 'ch.ivyteam.test.Person', 'Datatype', 0);
+    await expect(code(page).getByRole('textbox')).toHaveValue('ch.ivyteam.test.Person');
+  });
+
+  test('browser add datatype as list', async ({ page }) => {
+    const inscriptionView = await InscriptionView.mock(page);
+    const task = inscriptionView.accordion('Task');
+    await task.toggle();
+
+    await page.getByText('Expiry').click();
+    const timeout = task.macroArea('Timeout');
+    await assertCodeHidden(page);
+    await timeout.focus();
+    await assertCodeVisible(page);
+
+    await applyBrowser(page, 'ch.ivyteam.test.Person', 'Datatype', 0, true);
+    await expect(code(page).getByRole('textbox')).toHaveValue('java.util.List<ch.ivyteam.test.Person>');
+  });
+
   async function assertCodeHidden(page: Page) {
     await expect(code(page)).toBeHidden();
     await expect(browserBtn(page)).toBeHidden();
@@ -71,14 +101,19 @@ test.describe('Script browser', () => {
     await expect(browserBtn(page)).toBeVisible();
   }
 
-  async function applyBrowser(page: Page, expectedSelection: string, browser: string, rowToCheck: number) {
+  async function applyBrowser(page: Page, expectedSelection: string, browser: string, rowToCheck: number, checkListGeneric?: boolean) {
     await browserBtn(page).click();
     await expect(page.getByRole('dialog')).toBeVisible();
 
     await page.getByText(browser).first().click();
 
     await page.getByRole('row').nth(rowToCheck).click();
-    await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
+    if (checkListGeneric && browser === 'Datatype') {
+      await page.getByLabel('Use Type as List').click();
+      await expect(page.locator('.browser-helptext')).toHaveText('java.util.List<' + expectedSelection + '>');
+    } else {
+      await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
+    }
     await page.getByRole('button', { name: 'Insert' }).click();
 
     await expect(page.getByRole('dialog')).toBeHidden();

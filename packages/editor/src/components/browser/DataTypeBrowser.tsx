@@ -165,11 +165,6 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
         {props.value.length !== 0 && selectedDataType ? (
           <pre className='browser-helptext'>
             <b>{props.value}</b>
-            <code>
-              <div>
-                {selectedDataType.simpleName} - {selectedDataType.packageName}
-              </div>
-            </code>
           </pre>
         ) : (
           <pre className='browser-helptext'>
