@@ -10,7 +10,7 @@ import { useOnFocus } from '../../../components/browser/useOnFocus';
 const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useModifyEditor(value => `<%=${value}%>`);
+  const { setEditor, modifyEditor } = useModifyEditor({ modifyAction: value => `<%=${value}%>` });
   const path = usePath();
   const areaRef = useRef<ElementRef<'output'>>(null);
 

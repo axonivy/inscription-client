@@ -11,7 +11,7 @@ type MacroInputProps = Omit<CodeEditorInputProps, 'context'>;
 const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useModifyEditor(value => `<%=${value}%>`);
+  const { setEditor, modifyEditor } = useModifyEditor({ modifyAction: value => `<%=${value}%>` });
   const path = usePath();
 
   return (

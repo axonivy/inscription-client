@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Combobox, { ComboboxItem } from './Combobox';
 import { render, screen, userEvent } from 'test-utils';
+import { BrowserType } from '../../../components/browser';
 
 describe('Combobox', () => {
   function renderCombobox(
@@ -9,6 +10,8 @@ describe('Combobox', () => {
       itemFilter?: (item: ComboboxItem, input?: string) => boolean;
       comboboxItem?: (item: ComboboxItem) => ReactNode;
       onChange?: (change: string) => void;
+      macro?: boolean;
+      browserTypes?: BrowserType[];
     } = {}
   ) {
     const items: ComboboxItem[] = [{ value: 'test' }, { value: 'bla' }];

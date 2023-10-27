@@ -15,7 +15,7 @@ import { CmsOptions, useCmsBrowser } from './CmsBrowser';
 
 type BrowserProps = UseBrowserReturnValue & {
   types: BrowserType[];
-  accept: (value: string) => void;
+  accept: (value: string, type: BrowserType) => void;
   location: string;
   cmsOptions?: CmsOptions;
 };
@@ -35,7 +35,9 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
   const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, dataTypeBrowser, catPathChooserBrowser, tableColBrowser, sqlOpBrowser];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
-  const acceptBrowser = () => accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? '');
+  const acceptBrowser = () => {
+    accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? '', active);
+  };
 
   return (
     <>
