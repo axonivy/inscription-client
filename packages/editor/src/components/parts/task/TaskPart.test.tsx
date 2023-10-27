@@ -39,6 +39,7 @@ describe('TaskPart', () => {
     assertState('configured', { priority: { level: 'LOW', script: '' } });
 
     assertState('configured', { skipTasklist: true });
+    assertState('configured', { notification: {suppress: true} });
     assertState('configured', { delay: 'delay' });
     assertState('configured', undefined, { persistOnStart: true }, 'request');
 
@@ -58,6 +59,7 @@ describe('TaskPart', () => {
           responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: '' },
           priority: { level: 'LOW', script: '' },
           skipTasklist: true,
+          notification: {suppress: true},
           delay: 'delay',
           expiry: { timeout: 'asf' },
           customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }],

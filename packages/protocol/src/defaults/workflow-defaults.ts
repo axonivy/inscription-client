@@ -18,6 +18,7 @@ export const DEFAULT_TASK: WfTask = {
   responsible: DEFAULT_RESPONSIBLE,
   priority: DEFAULT_PRIORITY,
   skipTasklist: false,
+  notification: {suppress: false},
   delay: '',
   expiry: {
     timeout: '',
