@@ -18,7 +18,7 @@ import { deepmerge } from 'deepmerge-ts';
 import { DataMock } from './data-mock';
 import { ValidationMock } from './validation-mock';
 import { MetaMock } from './meta-mock';
-import { deepEqual } from '@axonivy/inscription-editor/src/utils/equals';
+import { deepEqual } from '../../../../packages/editor/src/utils/equals';
 
 export class InscriptionClientMock implements InscriptionClient {
   private elementData = {} as ElementData;

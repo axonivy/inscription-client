@@ -10,5 +10,9 @@
       "test-utils": ["./src/test-utils/test-utils"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    { "path": "../icons" },
+    { "path": "../protocol" },
+  ]
 }

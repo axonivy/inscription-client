@@ -6,7 +6,7 @@ module.exports = (path, options) => {
       return {
         ...pkg,
         // Set the main to module for axonivy packages (use src instead of lib)
-        main: pkg.name?.startsWith('@axonivy') ? pkg.module : pkg.main
+        main: pkg.name?.startsWith('@axonivy') ? pkg.source : pkg.main
       };
     }
   });

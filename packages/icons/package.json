@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/editor-icons",
-  "version": "11.2.0-next",
+  "version": "11.2.1-next",
   "fontVersion": "1.0",
   "description": "The icon font for the Axon Ivy Editors",
   "private": false,
@@ -15,16 +15,16 @@
     "src",
     "src-gen"
   ],
-  "main": "lib",
   "types": "lib",
-  "module": "src-gen",
+  "module": "lib",
+  "source": "src-gen",
   "devDependencies": {
     "fantasticon": "^1.2.3",
     "rimraf": "^5.0.1"
   },
   "scripts": {
     "clean": "rimraf src-gen/ivy-icons.*",
-    "build": "tsc && yarn build:copyfiles",
+    "build": "tsc --build && yarn build:copyfiles",
     "build:clean": "yarn clean && yarn generate",
     "build:copyfiles": "copyfiles -u 1 \"src-gen/**/*.css\" \"src-gen/**/*.ttf\" lib",
     "generate": "fantasticon && yarn build"
