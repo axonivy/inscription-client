@@ -1,4 +1,4 @@
-export * from './name/NamePart';
+export * from './name/GeneralPart';
 export * from './output/OutputPart';
 export * from './output/OutputCodePart';
 export * from './start/StartPart';

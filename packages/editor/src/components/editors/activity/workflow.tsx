@@ -8,7 +8,7 @@ import {
   useCasePart,
   useOutputCodePart,
   useDialogCallPart,
-  useNamePart,
+  useGeneralPart,
   useOutputPart,
   useTaskPart,
   useSubCallPart,
@@ -16,14 +16,14 @@ import {
 } from '../../../components/parts';
 
 const DialogCallEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const call = useDialogCallPart();
   const output = useOutputPart();
   return <InscriptionEditor icon={IvyIcons.UserDialog} parts={[name, call, output]} />;
 });
 
 const UserTaskEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const call = useDialogCallPart();
   const task = useTaskPart();
   const casePart = useCasePart();
@@ -32,21 +32,21 @@ const UserTaskEditor = memo(() => {
 });
 
 const ScriptEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const output = useOutputPart({ hideCode: true, additionalBrowsers: ['cms'] });
   const code = useOutputCodePart();
   return <InscriptionEditor icon={IvyIcons.Script} parts={[name, output, code]} />;
 });
 
 const SubProcessCallEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const call = useSubCallPart();
   const output = useOutputPart();
   return <InscriptionEditor icon={IvyIcons.Sub} parts={[name, call, output]} />;
 });
 
 const TriggerEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const call = useTriggerCallPart();
   const output = useOutputPart();
   return <InscriptionEditor icon={IvyIcons.Trigger} parts={[name, call, output]} />;

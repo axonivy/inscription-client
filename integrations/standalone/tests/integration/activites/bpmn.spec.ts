@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { NameTestWithoutTags, runTest } from '../parts';
+import { GeneralTestWithoutTags, runTest } from '../parts';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
 import { createProcess } from '../../glsp-protocol';
 
@@ -8,7 +8,7 @@ test.describe('BPMN Activities', () => {
     const testee = await createProcess('GenericBpmnElement');
     const view = await InscriptionView.selectElement(page, testee.elementId);
     await view.expectHeaderText('Generic');
-    await runTest(view, NameTestWithoutTags);
+    await runTest(view, GeneralTestWithoutTags);
   });
 
   test('User', async ({ page }) => {

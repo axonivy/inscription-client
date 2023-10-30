@@ -3,13 +3,13 @@
   width: 0.5rem;
   border-radius: 0.5rem;
   margin-right: 0.25rem;
-  background-color: var(--button-color);
+  background-color: var(--transparent);
+  display: flex;
+  justify-content: space-between;
 }
+
 .accordion-trigger .accordion-state[data-state='configured'] {
-  background-color: var(--info-color);
-}
-.accordion-trigger .accordion-state[data-state='configured'][data-dirty='true'] {
-  background-color: var(--success-color);
+  background-color: var(--N400);
 }
 .accordion-trigger .accordion-state[data-state='warning'] {
   background-color: var(--warning-color);
@@ -19,4 +19,8 @@
 }
 .accordion-content .accordion-summary-data {
   gap: var(--size-2);
+}
+
+.part-header-left {
+  flex: 1;
 }

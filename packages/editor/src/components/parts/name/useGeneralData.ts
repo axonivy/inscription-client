@@ -1,19 +1,19 @@
 import { useDataContext } from '../../../context';
-import { NameData } from '@axonivy/inscription-protocol';
+import { GeneralData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { DataUpdater } from '../../../types/lambda';
 
-export function useNameData(): {
-  data: NameData;
-  initData: NameData;
-  update: DataUpdater<NameData>;
+export function useGeneralData(): {
+  data: GeneralData;
+  initData: GeneralData;
+  update: DataUpdater<GeneralData>;
   resetData: () => void;
 } {
   const { data, initData, setData } = useDataContext();
 
-  const update: DataUpdater<NameData> = (field, value) =>
+  const update: DataUpdater<GeneralData> = (field, value) =>
     setData(
-      produce((draft: NameData) => {
+      produce((draft: GeneralData) => {
         draft[field] = value;
       })
     );

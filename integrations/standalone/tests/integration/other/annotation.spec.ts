@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { NameTestWithoutTags, runTest } from '../parts';
+import { GeneralTestWithoutTags, runTest } from '../parts';
 import { CreateProcessResult, createProcess } from '../../glsp-protocol';
 
 test.describe('Annotation', () => {
@@ -19,7 +19,7 @@ test.describe('Annotation', () => {
     await view.expectHeaderText('Note');
   });
 
-  test('Name', async () => {
-    await runTest(view, NameTestWithoutTags);
+  test('General', async () => {
+    await runTest(view, GeneralTestWithoutTags);
   });
 });

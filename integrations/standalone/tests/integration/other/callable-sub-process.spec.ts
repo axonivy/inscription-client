@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { NameTestWithDisabledName, PermissionsTest, ProcessDataTest, runTest } from '../parts';
+import { GeneralTestWithDisabledName, PermissionsTest, ProcessDataTest, runTest } from '../parts';
 import { CreateProcessResult, createProcess } from '../../glsp-protocol';
 
 test.describe('Callable Sub Process', () => {
@@ -19,8 +19,8 @@ test.describe('Callable Sub Process', () => {
     await view.expectHeaderText(testee.processUUID);
   });
 
-  test('Name', async () => {
-    await runTest(view, NameTestWithDisabledName);
+  test('General', async () => {
+    await runTest(view, GeneralTestWithDisabledName);
   });
 
   test('Process Data', async () => {

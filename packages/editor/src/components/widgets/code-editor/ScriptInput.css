@@ -2,9 +2,21 @@
   display: flex;
   gap: var(--size-1);
   align-items: center;
+  position: relative;
 }
-.script-input .input,
-.script-input .code-editor {
+.script-input .input {
   flex: auto;
   width: 100%;
+}
+
+.script-input .code-editor {
+  flex: 1;
+  position: relative;
+}
+
+.script-input .button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: var(--size-2);
 }

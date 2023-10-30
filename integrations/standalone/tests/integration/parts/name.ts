@@ -5,7 +5,7 @@ import { Tags } from '../../pageobjects/Tags';
 import { TextArea } from '../../pageobjects/TextArea';
 import { NewPartTest, PartObject } from './part-tester';
 
-class Name extends PartObject {
+class General extends PartObject {
   displayName: TextArea;
   description: TextArea;
   meansDocumentsSection: Section;
@@ -70,12 +70,12 @@ class Name extends PartObject {
   }
 }
 
-export class NameTester extends NewPartTest {
+export class GeneralTester extends NewPartTest {
   constructor(hasTags: boolean = true, nameDisabled = false) {
-    super('Name', (part: Part) => new Name(part, hasTags, nameDisabled));
+    super('General', (part: Part) => new General(part, hasTags, nameDisabled));
   }
 }
 
-export const NameTest = new NameTester();
-export const NameTestWithoutTags = new NameTester(false);
-export const NameTestWithDisabledName = new NameTester(false, true);
+export const GeneralTest = new GeneralTester();
+export const GeneralTestWithoutTags = new GeneralTester(false);
+export const GeneralTestWithDisabledName = new GeneralTester(false, true);

@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { NameTestWithDisabledName, PermissionsTest, runTest } from '../parts';
+import { GeneralTestWithDisabledName, PermissionsTest, runTest } from '../parts';
 import { CreateProcessResult, createProcess } from '../../glsp-protocol';
 
 test.describe('HTML Dialog Process', () => {
@@ -19,8 +19,8 @@ test.describe('HTML Dialog Process', () => {
     await view.expectHeaderText(testee.processUUID);
   });
 
-  test('Name', async () => {
-    await runTest(view, NameTestWithDisabledName);
+  test('General', async () => {
+    await runTest(view, GeneralTestWithDisabledName);
   });
 
   test('Permissions', async () => {

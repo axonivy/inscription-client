@@ -7,7 +7,7 @@ import InscriptionEditor from '../InscriptionEditor';
 import {
   useCasePart,
   useSignalCatchPart,
-  useNamePart,
+  useGeneralPart,
   useOutputPart,
   useTaskPart,
   useStartPart,
@@ -19,7 +19,7 @@ import {
 } from '../../../components/parts';
 
 const RequestStartEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const start = useStartPart();
   const request = useRequestPart();
   const trigger = useTriggerPart();
@@ -29,21 +29,21 @@ const RequestStartEditor = memo(() => {
 });
 
 const SignalStartEventEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const signal = useSignalCatchPart();
   const output = useOutputPart();
   return <InscriptionEditor icon={IvyIcons.Signal} parts={[name, signal, output]} />;
 });
 
 const ErrorStartEventEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const error = useErrorCatchPart();
   const output = useOutputPart();
   return <InscriptionEditor icon={IvyIcons.ErrorEvent} parts={[name, error, output]} />;
 });
 
 const ProgramStartEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const start = useProgramStartPart();
   const configuration = useConfigurationPart();
   return <InscriptionEditor icon={IvyIcons.StartProgram} parts={[name, start, configuration]} />;

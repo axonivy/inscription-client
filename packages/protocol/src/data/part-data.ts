@@ -1,7 +1,7 @@
 import { Data } from './inscription';
 import { ConfigData } from './inscription-data';
 
-export type NameData = Omit<Data, 'config'>;
+export type GeneralData = Omit<Data, 'config'>;
 
 export type ProcessCallData = Pick<ConfigData, 'processCall'>;
 

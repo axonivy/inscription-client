@@ -1,13 +1,17 @@
 .popover-content {
   border-radius: var(--border-radius);
-  padding: var(--size-3);
   width: min(90vw, 400px);
-  background-color: var(--editor-bg);
-  box-shadow: var(--editor-shadow);
+  background-color: var(--N25);
+  box-shadow: var(--popover-shadow);
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
-  color: var(--text-color);
+  color: var(--body);
+  padding: var(--size-2);
+}
+.popover-content .script-input .code-editor .code-input .monaco-editor .view-lines,
+.popover-content .script-input .code-editor .code-input {
+  background-color: var(--background);
 }
 .popover-content:focus {
   box-shadow: var(--focus-shadow);
@@ -26,7 +30,7 @@
 }
 
 .popover-arrow {
-  fill: var(--editor-bg);
+  fill: var(--N25);
 }
 
 .popover-close {
@@ -40,15 +44,12 @@
   justify-content: center;
   color: var(--text-color);
   position: absolute;
-  top: var(--size-3);
-  right: var(--size-3);
+  top: var(--size-2);
+  right: var(--size-2);
 }
 .popover-close:hover {
   cursor: pointer;
-  background-color: var(--editor-header-bg);
-}
-.popover-close:focus-visible {
-  box-shadow: var(--focus-shadow);
+  background-color: var(--N100);
 }
 
 @keyframes slideUpAndFade {

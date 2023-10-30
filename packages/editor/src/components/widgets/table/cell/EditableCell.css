@@ -9,7 +9,7 @@
 }
 .table-cell .input:where(:hover, :focus),
 .table-cell .code-editor .input {
-  background-color: var(--input-bg);
+  background-color: var(--background);
 }
 
 .editableCell-with-browser {

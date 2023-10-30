@@ -4,10 +4,10 @@ import { InscriptionView } from '../pageobjects/InscriptionView';
 test.describe('Reset part', () => {
   test('reset button', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page);
-    const part = inscriptionView.accordion('Name');
+    const part = inscriptionView.accordion('General');
     await part.toggle();
 
-    const resetBtn = part.resetButton();
+    const resetBtn = part.resetButton('General');
     await expect(resetBtn).not.toBeVisible();
     const name = part.textArea('Display name');
     await name.fill('bla');

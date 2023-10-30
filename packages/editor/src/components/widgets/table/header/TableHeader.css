@@ -2,8 +2,8 @@
   padding: var(--size-2);
   text-align: start;
   font-size: 12px;
-  background-color: var(--table-header-bg);
   height: 20px;
+  border-bottom: var(--thick-border);
 }
 
 .table .table-column-header :where(.column-sort, .column-expand) {

@@ -1,15 +1,15 @@
 import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
-import { NameData } from '@axonivy/inscription-protocol';
-import { useNamePart } from './NamePart';
+import { GeneralData } from '@axonivy/inscription-protocol';
 import { PartStateFlag } from '../../editors';
+import { useGeneralPart } from './GeneralPart';
 
 const Part = (props: { hideTags?: boolean; disableName?: boolean }) => {
-  const part = useNamePart({ hideTags: props.hideTags, disableName: props.disableName });
+  const part = useGeneralPart({ hideTags: props.hideTags, disableName: props.disableName });
   return <>{part.content}</>;
 };
 
 describe('NamePart', () => {
-  function renderPart(data?: NameData, hideTags?: boolean, disableName?: boolean) {
+  function renderPart(data?: GeneralData, hideTags?: boolean, disableName?: boolean) {
     render(<Part hideTags={hideTags} disableName={disableName} />, { wrapperProps: { data } });
   }
 
@@ -44,8 +44,8 @@ describe('NamePart', () => {
     await CollapsableUtil.assertOpen('Tags');
   });
 
-  function assertState(expectedState: PartStateFlag, data?: Partial<NameData>) {
-    const { result } = renderHook(() => useNamePart(), { wrapperProps: { data } });
+  function assertState(expectedState: PartStateFlag, data?: Partial<GeneralData>) {
+    const { result } = renderHook(() => useGeneralPart(), { wrapperProps: { data } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -59,7 +59,7 @@ describe('NamePart', () => {
 
   test('reset', () => {
     let data = { name: 'name', description: 'description', docs: [{ name: 'doc', url: 'url' }], tags: ['tag1'] };
-    const view = renderHook(() => useNamePart(), {
+    const view = renderHook(() => useGeneralPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { name: 'initName' } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

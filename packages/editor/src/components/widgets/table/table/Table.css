@@ -1,5 +1,4 @@
 .table-root {
-  background: var(--table-bg);
   border-radius: var(--border-radius);
 }
 .table-root .icon-input {
@@ -7,20 +6,12 @@
 }
 .table {
   width: 100%;
-  border-spacing: 0 var(--size-1);
-  margin-block: calc(-1 * var(--size-1));
+  border: var(--basic-border);
+  border-radius: var(--border-radius);
+  border-spacing: 0;
+  background: var(--background);
 }
-.table tr :where(th, td) {
-  border-top: var(--row-border);
-  border-bottom: var(--row-border);
-}
-.table tr :where(th, td):first-child {
-  border-left: var(--row-border);
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-}
-.table tr :where(th, td):last-child {
-  border-right: var(--row-border);
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
+
+.table tr :where(td) {
+  border-top: var(--seperator-border);
 }

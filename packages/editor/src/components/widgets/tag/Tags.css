@@ -4,15 +4,16 @@
   font-size: 12px;
 }
 .tag {
-  background: var(--editor-bg);
+  background: var(--background);
   border-radius: 1rem;
   padding: 6px 10px;
+  border: var(--basic-border);
 }
 .tag span {
   margin-left: var(--size-1);
 }
 .tag-add {
-  border: 1px dashed var(--button-color);
+  border: var(--dashed-border);
   padding: 4px 10px;
 }
 .tag-remove .ivy {

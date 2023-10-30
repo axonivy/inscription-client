@@ -10,7 +10,7 @@ const GENERIC_PID = {
 
 test.describe('Generic Tabs', () => {
   test('Name Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.SCRIPT, 'Name', 'tab-name.png');
+    await screenshotTab(page, GENERIC_PID.SCRIPT, 'General', 'tab-name.png');
   });
 
   test('Output Tab', async ({ page }) => {

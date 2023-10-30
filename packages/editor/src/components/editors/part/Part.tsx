@@ -8,6 +8,7 @@ import { PartProps } from './usePart';
 const Part = ({ part }: { part: PartProps }) => {
   const summaryItem = `${part.name}Summary`;
   const [value, setValue] = useState(summaryItem);
+  const isAccordionOpen = value !== summaryItem;
 
   return (
     <AccordionRoot value={value} onChange={newValue => setValue(newValue === '' ? summaryItem : newValue)}>
@@ -15,9 +16,12 @@ const Part = ({ part }: { part: PartProps }) => {
         <AccordionHeader
           control={part.reset.dirty ? { icon: IvyIcons.Undo, label: `Reset ${part.name}`, action: part.reset.action } : undefined}
           title={part.state.validations.map(val => val.message).join('\n')}
+          isOpen={isAccordionOpen}
         >
-          <span className='accordion-state' data-state={part.state.state} data-dirty={part.reset.dirty} />
-          {part.name}
+          <div className='part-header-left'>{part.name}</div>
+          <div className='part-header-right'>
+            <span className='accordion-state' data-state={part.state.state} data-dirty={part.reset.dirty} />
+          </div>
         </AccordionHeader>
         <AccordionContent>
           <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[part]}>

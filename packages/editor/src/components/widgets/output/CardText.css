@@ -1,10 +1,10 @@
 .card-text {
   border-radius: var(--border-radius);
-  border: var(--input-border);
-  background: var(--input-bg);
+  border: var(--basic-border);
+  background: var(--background);
   font-size: 12px;
   line-height: 12px;
-  color: var(--input-color);
+  color: var(--body);
   text-align: start;
   padding: var(--input-padding);
   width: 100%;
@@ -18,12 +18,13 @@
 }
 
 .card-text .card {
-  color: var(--text-color);
+  color: var(--body);
   padding: 2px 0.24em;
-  background-color: var(--editor-bg);
+  background-color: var(--background);
   border-radius: var(--border-radius);
-  box-shadow: var(--card-shadow);
   user-select: none;
+  background-color: var(--N75);
+  border: var(--basic-border);
 }
 .card-text .card .card-icon {
   margin-right: var(--size-1);

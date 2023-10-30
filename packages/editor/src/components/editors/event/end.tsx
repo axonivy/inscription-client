@@ -4,16 +4,16 @@ import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useCodePart, useEndPagePart, useNamePart, useErrorThrowPart } from '../../../components/parts';
+import { useCodePart, useEndPagePart, useGeneralPart, useErrorThrowPart } from '../../../components/parts';
 
 const TaskEndPageEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const endPage = useEndPagePart();
   return <InscriptionEditor icon={IvyIcons.EndPage} parts={[name, endPage]} />;
 });
 
 const ErrorEndEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const error = useErrorThrowPart();
   const code = useCodePart();
   return <InscriptionEditor icon={IvyIcons.ErrorEvent} parts={[name, error, code]} />;
