@@ -1,29 +1,29 @@
 .dialog-overlay {
-  background-color: rgba(0, 0, 0, 0.44);
   position: fixed;
   inset: 0;
-  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dialog-content {
-  background-color: var(--accordion-bg);
-  border-radius: var(--border-radius);
+  background-color: var(--N25);
+  color: var(--body);
   box-shadow: var(--editor-shadow);
-  color: var(--text-color);
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  width: 90vw;
-  max-width: 450px;
-  max-height: 85vh;
-  padding: var(--size-4);
-  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  right: 0;
+  top: 0;
+  padding: var(--input-padding);
+  animation: contentShow 200ms cubic-bezier(0.27, 0, 0.33, 1);
+  animation-fill-mode: forwards;
   border-end-end-radius: 0;
   border-end-start-radius: 0;
+  width: calc(100vw - 2 * var(--input-padding));
 }
 .dialog-content:focus {
   outline: none;
+}
+.dialog-content-exit {
+  animation: contentExit 200ms cubic-bezier(0.73, 0, 0.67, 0);
+  animation-fill-mode: forwards;
 }
 .dialog-content .tabs-content {
   gap: var(--size-1);
@@ -35,21 +35,23 @@
 }
 .dialog-content .browser-helptext {
   font-size: 12px;
-  background-color: var(--input-bg);
-  border: 1px solid var(--editor-bg);
+  background-color: var(--background);
+  border: var(--basic-border);
   padding: var(--input-padding);
   overflow: auto;
   max-height: 50vh;
   display: flex;
   flex-direction: column;
   gap: var(--size-1);
+  border-radius: var(--border-radius);
+  margin: 0;
 }
 
 .dialog-title {
   margin: 0;
   margin-bottom: var(--size-2);
   font-weight: 500;
-  color: var(--text-color);
+  color: var(--body);
   font-size: 17px;
   display: flex;
   gap: var(--size-4);
@@ -72,22 +74,30 @@
   width: unset;
 }
 
-@keyframes overlayShow {
+@keyframes contentShow {
   from {
-    opacity: 0;
+    opacity: 1;
+    right: -100%;
   }
   to {
     opacity: 1;
+    right: 0;
   }
 }
 
-@keyframes contentShow {
+@keyframes contentExit {
   from {
-    opacity: 0;
-    transform: translate(-50%, 50%) scale(0.96);
+    opacity: 1;
+    right: 0;
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0%) scale(1);
+    right: -100%;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .accordion-content {
+    animation: none !important;
   }
 }

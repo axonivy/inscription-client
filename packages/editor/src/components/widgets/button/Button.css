@@ -8,9 +8,9 @@
 }
 .button:hover {
   cursor: pointer;
-  background-color: var(--button-bg);
+  background-color: var(--N200);
 }
 .button:focus-visible {
-  background-color: var(--button-bg);
+  background-color: var(--N200);
   box-shadow: var(--focus-shadow);
 }

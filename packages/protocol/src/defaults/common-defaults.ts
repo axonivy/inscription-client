@@ -5,7 +5,7 @@ import {
   Document,
   ElementScript,
   EndPageData,
-  NameData,
+  GeneralData,
   ProcessCallData,
   ConditionData,
   StartData,
@@ -31,7 +31,7 @@ import {
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
-export const DEFAULT_NAME_DATA: NameData = {
+export const DEFAULT_NAME_DATA: GeneralData = {
   name: '',
   description: '',
   docs: [] as Document[],

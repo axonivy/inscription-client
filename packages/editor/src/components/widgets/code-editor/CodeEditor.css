@@ -1,10 +1,10 @@
 .code-editor .code-input {
   border-radius: var(--border-radius);
-  border: var(--input-border);
-  background: var(--input-bg);
+  border: var(--basic-border) !important;
+  background: var(--background);
   font-size: 12px;
   line-height: 12px;
-  color: var(--input-color);
+  color: var(--body);
   text-align: start;
   padding: var(--input-padding);
 }

@@ -4,10 +4,10 @@ import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useCasePart, useNamePart, useResultPart, useStartPart, useTaskPart, useWebServicePart } from '../../../components/parts';
+import { useCasePart, useGeneralPart, useResultPart, useStartPart, useTaskPart, useWebServicePart } from '../../../components/parts';
 
 const WebserviceStartEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const start = useStartPart({ synchParams: true });
   const result = useResultPart();
   const webService = useWebServicePart();

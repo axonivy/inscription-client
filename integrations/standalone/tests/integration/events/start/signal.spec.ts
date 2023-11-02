@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { NameTest, OutputTest, SignalCatchTest, runTest } from '../../parts';
+import { GeneralTest, OutputTest, SignalCatchTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 
 test.describe('Signal Start', () => {
@@ -19,8 +19,8 @@ test.describe('Signal Start', () => {
     await view.expectHeaderText('Signal Start');
   });
 
-  test('Name', async () => {
-    await runTest(view, NameTest);
+  test('General', async () => {
+    await runTest(view, GeneralTest);
   });
 
   test('SignalCatch', async () => {

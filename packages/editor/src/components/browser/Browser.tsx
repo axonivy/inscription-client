@@ -47,7 +47,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
         </DialogTrigger>
         <DialogPortal container={editorRef.current}>
           <DialogOverlay className='dialog-overlay' />
-          <DialogContent className='dialog-content'>
+          <DialogContent className={`dialog-content ${!open ? 'dialog-content-exit' : ''}`}>
             <TabRoot tabs={tabs} value={active} onChange={change => setActive(change as BrowserType)}>
               <DialogTitle className='dialog-title'>
                 <TabList tabs={tabs} />

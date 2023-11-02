@@ -27,8 +27,8 @@ export class Accordion extends Part {
     return new Tab(this.page, this.locator, label);
   }
 
-  resetButton() {
-    return this.page.locator('.accordion-header-group button');
+  resetButton(tab: string) {
+    return this.page.locator(`button[aria-label="Reset ${tab}"]`);
   }
 
   async expectState(state: PartStateFlag) {

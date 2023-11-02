@@ -7,7 +7,7 @@
 }
 .table-cell .select-button:hover,
 .table-cell .select-button:focus {
-  background-color: var(--input-bg);
+  background-color: var(--background);
 }
 .table-cell .select-menu {
   top: unset;

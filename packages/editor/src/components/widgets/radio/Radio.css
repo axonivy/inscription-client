@@ -10,19 +10,21 @@
 
 .radio-group-item {
   all: unset;
-  background-color: var(--input-bg);
+  background-color: var(--background);
   width: 15px;
   height: 15px;
   border-radius: 100%;
-  border: var(--radio-border);
+  border: var(--basic-border);
 }
 .radio-group-item:hover {
-  background-color: var(--focus-shadow);
+  background-color: var(--N25);
 }
 .radio-group-item:focus {
-  box-shadow: var(--focus-shadow);
+  box-shadow: var(--N25);
 }
-
+.radio-group-item[data-state='checked'] {
+  background-color: var(--N25);
+}
 .radio-group-indicator {
   display: flex;
   align-items: center;
@@ -37,11 +39,11 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: var(--input-color);
+  background-color: var(--body);
 }
 
 .radio-group-label {
-  color: var(--text-color);
+  color: var(--body);
   font-size: 12px;
   line-height: 1;
   padding-left: var(--size-3);

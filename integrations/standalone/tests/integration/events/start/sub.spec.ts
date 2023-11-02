@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { NameTest, ResultTest, StartTest, runTest } from '../../parts';
+import { GeneralTest, ResultTest, StartTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 
 test.describe('Sub Start', () => {
@@ -19,8 +19,8 @@ test.describe('Sub Start', () => {
     await view.expectHeaderText('Sub Start');
   });
 
-  test('Name', async () => {
-    await runTest(view, NameTest);
+  test('General', async () => {
+    await runTest(view, GeneralTest);
   });
 
   test('Start', async () => {

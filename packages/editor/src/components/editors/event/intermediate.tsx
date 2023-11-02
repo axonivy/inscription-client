@@ -8,13 +8,13 @@ import {
   useConfigurationPart,
   useEndPagePart,
   useEventPart,
-  useNamePart,
+  useGeneralPart,
   useOutputPart,
   useTaskPart
 } from '../../../components/parts';
 
 const TaskSwitchEventEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const output = useOutputPart();
   const task = useTaskPart();
   const casePart = useCasePart();
@@ -23,7 +23,7 @@ const TaskSwitchEventEditor = memo(() => {
 });
 
 const WaitEventEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const event = useEventPart();
   const configuration = useConfigurationPart();
   const task = useTaskPart({ type: 'wait' });

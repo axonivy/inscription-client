@@ -6,13 +6,14 @@
   display: flex;
   align-items: center;
   margin: 0;
-  background-color: var(--accordion-header-bg);
-  border-radius: var(--border-radius);
+  background-color: var(--background);
+  border-bottom: var(--basic-border);
 }
-.accordion-root:has(.accordion-item[data-state='open']) .accordion-header {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: 1px solid var(--editor-bg);
+.accordion-root:has(.accordion-item[data-state='open']) .accordion-header,
+.accordion-root:has(.accordion-item[data-state='open']) .accordion-trigger {
+  background-color: var(--N25);
+  border-bottom: none;
+  font-weight: 600;
 }
 .accordion-header .accordion-header-group {
   display: flex;
@@ -22,13 +23,17 @@
   height: 20px;
 }
 .accordion-header .ivy-angle-down {
+  transform: rotate(270deg);
   transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
 }
-.accordion-header[data-state='open'] .ivy-angle-down {
-  transform: rotate(180deg);
+.accordion-header[data-state='open'] .accordion-header-group .ivy-angle-down {
+  transform: rotate(360deg);
+}
+.accordion-header[data-state='open'] .accordion-trigger .accordion-state {
+  background-color: var(--transparent);
 }
 .accordion-trigger {
-  padding: var(--size-3);
+  padding: var(--size-3) var(--size-3) var(--size-3) 0;
   height: 16px;
   flex: 1;
   display: flex;
@@ -38,6 +43,7 @@
   font-weight: 400;
   line-height: 1;
 }
+
 .accordion-trigger:hover {
   cursor: pointer;
 }
@@ -46,9 +52,7 @@
 }
 .accordion-content {
   overflow: hidden;
-  background-color: var(--accordion-bg);
-  border-bottom-left-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
+  background-color: var(--N25);
 }
 .accordion-content[data-state='open'] {
   animation: accordionSlideDown 200ms cubic-bezier(0.87, 0, 0.13, 1);
@@ -61,6 +65,7 @@
   flex-direction: column;
   gap: var(--size-3);
   padding: var(--size-3) var(--size-2);
+  border-bottom: var(--basic-border);
 }
 .accordion-content .accordion-content-data:not(:has(*)) {
   padding-block: 0;

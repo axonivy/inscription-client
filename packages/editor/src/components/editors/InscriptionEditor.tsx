@@ -8,8 +8,7 @@ import { gatewayEditors } from './gateway/all-gateway-editors';
 import { IvyIcon, MessageText } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
-import DropdownMenu from './menu/HeaderMenu';
-import { useNameData } from '../parts/name/useNameData';
+import { useGeneralData } from '../parts/name/useGeneralData';
 import Part from './part/Part';
 import { PartProps } from './part/usePart';
 import { otherEditors } from './other-editors';
@@ -29,7 +28,7 @@ export interface EditorProps {
 }
 
 const Header = (props: EditorProps) => {
-  const { data } = useNameData();
+  const { data } = useGeneralData();
   const validations = useDataContext().validations.filter(val => val.path.length === 0);
   const editorContext = useEditorContext();
   return (
@@ -41,13 +40,6 @@ const Header = (props: EditorProps) => {
             {editorContext.type.shortLabel}
             {data.name.length > 0 && ` - ${data.name}`}
           </div>
-        </div>
-        <div className='header-right'>
-          <div className='header-search'>
-            <IvyIcon icon={IvyIcons.Search} />
-            <span>Search</span>
-          </div>
-          <DropdownMenu />
         </div>
       </div>
       {validations.length > 0 && (

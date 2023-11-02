@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { MailAttachmentTest, MailContentTest, MailHeaderTest, NameTest, runTest } from '../../parts';
+import { MailAttachmentTest, MailContentTest, MailHeaderTest, GeneralTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 
 test.describe('EMail', () => {
@@ -19,8 +19,8 @@ test.describe('EMail', () => {
     await view.expectHeaderText('E-Mail');
   });
 
-  test('Name', async () => {
-    await runTest(view, NameTest);
+  test('General', async () => {
+    await runTest(view, GeneralTest);
   });
 
   test('MailHeader', async () => {

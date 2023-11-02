@@ -4,24 +4,24 @@ import { ElementType } from '@axonivy/inscription-protocol';
 import { memo, ReactNode } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useNamePart, useOutputPart, useResultPart, useStartPart } from '../../../components/parts';
+import { useGeneralPart, useOutputPart, useResultPart, useStartPart } from '../../../components/parts';
 
 const HtmlDialogStartEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const start = useStartPart({ synchParams: true });
   const result = useResultPart();
   return <InscriptionEditor icon={IvyIcons.InitStart} parts={[name, start, result]} />;
 });
 
 const HtmlDialogMethodStartEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const start = useStartPart({ hideParamDesc: true, synchParams: true });
   const result = useResultPart({ hideParamDesc: true });
   return <InscriptionEditor icon={IvyIcons.MethodStart} parts={[name, start, result]} />;
 });
 
 const HtmlDialogEventStartEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const output = useOutputPart();
   return <InscriptionEditor icon={IvyIcons.EventStart} parts={[name, output]} />;
 });
