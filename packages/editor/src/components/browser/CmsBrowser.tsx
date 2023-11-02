@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useState } from 'react';
-import { Checkbox, Collapsible, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../widgets';
+import { ActionCell, Checkbox, Collapsible, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../widgets';
 import { UseBrowserImplReturnValue } from './useBrowser';
-import { useEditorContext, useMeta } from '../../context';
+import { useAction, useEditorContext, useMeta } from '../../context';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -52,6 +52,8 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter }: CmsBrowserProps)
 
   const [selectedContentObject, setSelectedContentObject] = useState<ContentObject | undefined>();
   const [showHelper, setShowHelper] = useState<boolean>(false);
+
+  const newAction = useAction('newCmsString');
 
   const columns = useMemo<ColumnDef<ContentObject>[]>(
     () => [
@@ -156,6 +158,13 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter }: CmsBrowserProps)
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}
+              {row.original.type === 'FOLDER' ? (
+                <ActionCell
+                  actions={[{ label: 'Create new CMS-String', icon: IvyIcons.Add, action: () => newAction(row.original.fullPath) }]}
+                />
+              ) : (
+                <TableCell> </TableCell>
+              )}
             </SelectRow>
           ))}
         </tbody>

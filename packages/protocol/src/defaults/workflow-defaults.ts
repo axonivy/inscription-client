@@ -1,4 +1,4 @@
-import { WfActivator, WfPriority, WfTask, WfCustomField, TaskData, CaseData } from '../data';
+import { WfActivator, WfPriority, WfTask, WfCustomField, TaskData, CaseData, WfNotification } from '../data';
 
 const DEFAULT_RESPONSIBLE: WfActivator = {
   type: 'ROLE',
@@ -10,6 +10,10 @@ const DEFAULT_PRIORITY: WfPriority = {
   script: ''
 } as const;
 
+const DEFAULT_WFNOTIFICATION: WfNotification = {
+  suppress: false
+} as const;
+
 export const DEFAULT_TASK: WfTask = {
   id: '',
   name: '',
@@ -19,6 +23,7 @@ export const DEFAULT_TASK: WfTask = {
   priority: DEFAULT_PRIORITY,
   skipTasklist: false,
   delay: '',
+  notification: DEFAULT_WFNOTIFICATION,
   expiry: {
     timeout: '',
     error: '',
