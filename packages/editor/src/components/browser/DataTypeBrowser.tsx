@@ -4,6 +4,7 @@ import { UseBrowserImplReturnValue } from './useBrowser';
 import {
   ColumnDef,
   ExpandedState,
+  FilterFn,
   RowSelectionState,
   flexRender,
   getCoreRowModel,
@@ -28,10 +29,13 @@ export const useDataTypeBrowser = (): UseBrowserImplReturnValue => {
 const DataTypeBrowser = (props: { value: string; onChange: (value: string) => void }) => {
   const { context } = useEditorContext();
 
-  const [datatypeList, setDatatypeList] = useState<JavaType[]>([]);
   const [mainFilter, setMainFilter] = useState('');
-  const allDatatypes = useMeta('meta/scripting/allTypes', { context, type: mainFilter }, []).data;
+  const { data: allDatatypes, isFetching } = useMeta('meta/scripting/allTypes', { context, type: mainFilter }, []);
   const dataClasses = useMeta('meta/scripting/dataClasses', context, []).data;
+  const ivyTypes = useMeta('meta/scripting/ivyTypes', undefined, []).data;
+
+  const [staticTypes, setStaticTypes] = useState<JavaType[]>([]);
+  const [dynamicTypes, setDynamicTypes] = useState<JavaType[]>([]);
 
   const [typeAsList, setTypeAsList] = useState(false);
 
@@ -44,49 +48,34 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
       ...dataClass
     }));
 
-    let combinedList: JavaType[] = [];
+    setStaticTypes(ivyTypes.concat(mappedDataClasses));
 
-    if (mainFilter.length === 0) {
-      combinedList = mappedDataClasses;
+    if (mainFilter.length !== 0) {
+      const filteredDynamicTypes = allDatatypes.filter(datatype => {
+        const isDuplicate =
+          ivyTypes.some(ivyType => ivyType.fullQualifiedName === datatype.fullQualifiedName) ||
+          dataClasses.some(dataClass => dataClass.fullQualifiedName === datatype.fullQualifiedName);
+        return !isDuplicate;
+      });
+      setDynamicTypes(filteredDynamicTypes);
     } else {
-      combinedList = allDatatypes.concat(mappedDataClasses);
+      setDynamicTypes([]);
     }
-
-    // Remove duplicates based on 'fullQualifiedName'
-    const uniqueList: JavaType[] = combinedList.reduce((accumulator: JavaType[], current: JavaType) => {
-      const existingItem = accumulator.find(item => item.fullQualifiedName === current.fullQualifiedName);
-      if (!existingItem) {
-        accumulator.push(current);
-      }
-      return accumulator;
-    }, []);
-
-    setDatatypeList(uniqueList);
-  }, [allDatatypes, dataClasses, mainFilter]);
+  }, [allDatatypes, dataClasses, ivyTypes, mainFilter]);
 
   useEffect(() => {
     setSelectedDataType(undefined);
     setRowSelection({});
-  }, [mainFilter]);
+  }, [dynamicTypes.length, mainFilter]);
 
   const columns = useMemo<ColumnDef<JavaType>[]>(
     () => [
       {
-        accessorFn: row => row.simpleName,
+        accessorFn: row => `${row.simpleName} - ${row.packageName}`,
         id: 'simpleName',
         cell: cell => {
           return <ExpandableCell cell={cell} title={cell.row.original.simpleName} />;
         }
-      },
-      {
-        accessorFn: row => row.packageName,
-        id: 'packageName',
-        cell: cell => <span title={cell.row.original.packageName}>{cell.getValue() as string}</span>
-      },
-      {
-        accessorFn: row => row.fullQualifiedName,
-        id: 'fullQualifiedName',
-        cell: cell => <span title={cell.row.original.fullQualifiedName}>{cell.getValue() as string}</span>
       }
     ],
     []
@@ -96,18 +85,48 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
   const [globalFilter, setGlobalFilter] = useState(mainFilter);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-  const table = useReactTable({
-    data: datatypeList,
+  const regexFilter: FilterFn<JavaType> = (row, columnId, filterValue) => {
+    const cellValue = row.original.simpleName || '';
+    const regexPattern = new RegExp(filterValue.replace(/\*/g, '.*'), 'i'); // Convert * to .*
+    return regexPattern.test(cellValue);
+  };
+
+  const tableStatic = useReactTable({
+    data: staticTypes,
     columns: columns,
     state: {
       expanded,
       globalFilter,
       rowSelection
     },
+    globalFilterFn: regexFilter,
     filterFromLeafRows: true,
     enableRowSelection: true,
     enableMultiRowSelection: false,
     enableSubRowSelection: false,
+    enableFilters: true,
+    onExpandedChange: setExpanded,
+    onGlobalFilterChange: setGlobalFilter,
+    onRowSelectionChange: setRowSelection,
+    getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+    getFilteredRowModel: getFilteredRowModel()
+  });
+
+  const tableDynamic = useReactTable({
+    data: dynamicTypes,
+    columns: columns,
+    state: {
+      expanded,
+      globalFilter,
+      rowSelection
+    },
+    globalFilterFn: regexFilter,
+    filterFromLeafRows: true,
+    enableRowSelection: true,
+    enableMultiRowSelection: false,
+    enableSubRowSelection: false,
+    enableFilters: true,
     onExpandedChange: setExpanded,
     onGlobalFilterChange: setGlobalFilter,
     onRowSelectionChange: setRowSelection,
@@ -131,11 +150,38 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
       setShowHelper(false);
       return;
     }
-    const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
+    let selectedRow = undefined;
+    if (tableStatic.getRowModel().rowsById[Object.keys(rowSelection)[0]]) {
+      selectedRow = tableStatic.getRowModel().rowsById[Object.keys(rowSelection)[0]];
+    } else {
+      selectedRow = tableDynamic.getRowModel().rowsById[Object.keys(rowSelection)[0]];
+    }
+
     setSelectedDataType(selectedRow.original);
     setShowHelper(true);
     props.onChange(addListGeneric(selectedRow.original, typeAsList));
-  }, [props, props.onChange, rowSelection, table, typeAsList]);
+  }, [props, props.onChange, rowSelection, tableDynamic, tableStatic, typeAsList]);
+
+  const [debouncedFilterValue, setDebouncedFilterValue] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedFilterValue(globalFilter);
+    }, 250);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [globalFilter]);
+
+  useEffect(() => {
+    if (debouncedFilterValue.length === 0 || debouncedFilterValue.length >= 2) {
+      setMainFilter(debouncedFilterValue);
+    } else {
+      setMainFilter('');
+    }
+    setExpanded(true);
+  }, [debouncedFilterValue]);
 
   return (
     <>
@@ -144,23 +190,33 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
           value: globalFilter,
           onChange: newFilterValue => {
             setGlobalFilter(newFilterValue);
-            setMainFilter(newFilterValue);
-            setExpanded(true);
           }
         }}
       >
         <tbody>
-          {table.getRowModel().rows.map(row => (
+          {tableStatic.getRowModel().rows.map(row => (
             <SelectRow key={row.id} row={row}>
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}
             </SelectRow>
           ))}
+          {!isFetching &&
+            tableDynamic.getRowModel().rows.map(row => (
+              <SelectRow key={row.id} row={row}>
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                ))}
+              </SelectRow>
+            ))}
         </tbody>
       </Table>
+      {isFetching && (
+        <div className='loader'>
+          <p>loading more types...</p>
+        </div>
+      )}
       <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
-
       <Collapsible label='Helper Text' defaultOpen={showHelper} autoClosable={true}>
         {props.value.length !== 0 && selectedDataType ? (
           <pre className='browser-helptext'>

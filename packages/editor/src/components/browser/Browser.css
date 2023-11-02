@@ -30,7 +30,7 @@
 }
 .dialog-content .table-root {
   overflow: auto;
-  max-height: 50vh;
+  max-height: 80vh;
   padding: 1px;
 }
 .dialog-content .browser-helptext {
@@ -72,6 +72,27 @@
   gap: var(--size-1);
   padding-inline: var(--size-1);
   width: unset;
+}
+
+.loader {
+  text-align: center;
+  font-size: 14px;
+}
+
+.loader p {
+  display: inline-block;
+  opacity: 0;
+  animation: load-fade 1.5s infinite;
+}
+
+@keyframes load-fade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes contentShow {
