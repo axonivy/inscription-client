@@ -28,10 +28,10 @@ describe('Part', () => {
     rerender: () => void;
   } {
     const part = partProps;
-    const view = render(<Part part={part} />);
+    const view = render(<Part parts={[part]} />);
     return {
       data: () => part,
-      rerender: () => view.rerender(<Part part={part} />)
+      rerender: () => view.rerender(<Part parts={[part]} />)
     };
   }
 
@@ -75,20 +75,6 @@ describe('Part', () => {
     assertExpanded('General', true);
     await userEvent.click(trigger);
     assertExpanded('General', false);
-  });
-
-  test('summary section', async () => {
-    renderAccordion(resultPart);
-    const summary = screen.getByRole('region');
-    expect(summary).toHaveAttribute('data-state', 'open');
-    expect(summary).toHaveTextContent('summary');
-
-    await userEvent.click(screen.getByText('summary'));
-    expect(summary).toHaveAttribute('data-state', 'closed');
-    expect(summary).toBeEmptyDOMElement();
-    const content = screen.getByRole('region');
-    expect(content).toHaveAttribute('data-state', 'open');
-    expect(content).toHaveTextContent('Result');
   });
 
   test('open section by keyboard', async () => {

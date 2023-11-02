@@ -58,9 +58,7 @@ const InscriptionEditor = (props: EditorProps) => {
     <div className='editor'>
       <Header {...props} />
       <div className='content'>
-        {props.parts.map((part, index) => (
-          <Part key={`${index}-${part.name}`} part={part} />
-        ))}
+        <Part parts={props.parts} />
       </div>
     </div>
   );

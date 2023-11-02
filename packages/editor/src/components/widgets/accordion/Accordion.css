@@ -9,8 +9,8 @@
   background-color: var(--background);
   border-bottom: var(--basic-border);
 }
-.accordion-root:has(.accordion-item[data-state='open']) .accordion-header,
-.accordion-root:has(.accordion-item[data-state='open']) .accordion-trigger {
+.accordion-item:has([data-state='open']) .accordion-header,
+.accordion-item:has([data-state='open']) .accordion-trigger {
   background-color: var(--N25);
   border-bottom: none;
   font-weight: 600;
