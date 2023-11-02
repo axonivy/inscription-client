@@ -48,6 +48,7 @@ describe('Task', () => {
       responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: 'bla' },
       priority: { level: 'EXCEPTION', script: '' },
       skipTasklist: true,
+      notification: {suppress: true},
       delay: 'delay',
       customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }],
       code: 'code'
