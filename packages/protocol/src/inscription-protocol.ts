@@ -69,6 +69,7 @@ export interface InscriptionMetaRequestTypes {
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/dataClasses': [InscriptionContext, DataClass[]];
   'meta/scripting/allTypes': [TypeSearchRequest, JavaType[]];
+  'meta/scripting/ivyTypes': [void, JavaType[]];
 
   'meta/program/types': [ProgramInterfacesRequest, ProgramInterface[]];
   'meta/program/editor': [ProgramEditorRequest, Widget[]];
