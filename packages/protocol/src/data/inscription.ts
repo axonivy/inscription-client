@@ -217,6 +217,7 @@ export interface EventCodeMeta {
 }
 export interface InscriptionActionArgs {
   actionId:
+    | "newCmsString"
     | "newHtmlDialog"
     | "newProcess"
     | "newProgram"
@@ -320,6 +321,7 @@ export interface WfTask {
   expiry: WfExpiry;
   id: string;
   name: string;
+  notification: WfNotification;
   priority: WfPriority;
   responsible: WfActivator;
   skipTasklist: boolean;
@@ -337,6 +339,9 @@ export interface WfPriority {
 export interface WfActivator {
   activator: string;
   type: WfActivatorType;
+}
+export interface WfNotification {
+  suppress: boolean;
 }
 export interface ElementSubProcessCall {
   call: ScriptMapCode;
