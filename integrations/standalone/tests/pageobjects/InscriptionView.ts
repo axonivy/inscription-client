@@ -9,11 +9,12 @@ export class InscriptionView {
     this.page = page;
   }
 
-  static async selectElement(page: Page, pid: string) {
+  static async selectElement(page: Page, pid: string, pmv = 'inscription-integration') {
     const view = new InscriptionView(page);
     const server = process.env.BASE_URL ?? 'localhost:8081';
+    const app = process.env.TEST_APP ?? 'designer';
     const serverUrl = server.replace(/^https?:\/\//, '');
-    const url = `?server=${serverUrl}&pid=${pid}`;
+    const url = `?server=${serverUrl}&app=${app}&pmv=${pmv}&pid=${pid}`;
     await page.goto(url);
     await this.initPage(page);
     return view;

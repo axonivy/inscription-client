@@ -30,7 +30,7 @@ import { ReactElement, ReactNode, useRef } from 'react';
 import { DeepPartial } from './type-utils';
 import {
   ClientContext,
-  ClientContextInstance,
+  ClientContextProvider,
   DataContext,
   DataContextInstance,
   DEFAULT_EDITOR_CONTEXT,
@@ -191,13 +191,13 @@ const ContextHelper = (
   return (
     <div ref={editorRef}>
       <EditorContextInstance.Provider value={editorContext}>
-        <ClientContextInstance.Provider value={client}>
+        <ClientContextProvider client={client.client}>
           <QueryClientProvider client={queryClient}>
             <DataContextInstance.Provider value={data}>
               <OpenApiContextProvider>{props.children}</OpenApiContextProvider>
             </DataContextInstance.Provider>
           </QueryClientProvider>
-        </ClientContextInstance.Provider>
+        </ClientContextProvider>
       </EditorContextInstance.Provider>
     </div>
   );
