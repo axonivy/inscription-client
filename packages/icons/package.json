@@ -23,7 +23,7 @@
     "rimraf": "^5.0.1"
   },
   "scripts": {
-    "clean": "rimraf src-gen/ivy-icons.*",
+    "clean": "rimraf src-gen/ivy-icons.* tsconfig.tsbuildinfo",
     "build": "tsc --build && yarn build:copyfiles",
     "build:clean": "yarn clean && yarn generate",
     "build:copyfiles": "copyfiles -u 1 \"src-gen/**/*.css\" \"src-gen/**/*.ttf\" lib",
