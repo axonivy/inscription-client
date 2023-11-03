@@ -30,7 +30,7 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
   const { context } = useEditorContext();
 
   const [mainFilter, setMainFilter] = useState('');
-  const { data: allDatatypes, isFetching } = useMeta('meta/scripting/allTypes', { context, type: mainFilter }, []);
+  const { data: allDatatypes, isFetching } = useMeta('meta/scripting/allTypes', { context, limit: 100, type: mainFilter }, []);
   const dataClasses = useMeta('meta/scripting/dataClasses', context, []).data;
   const ivyTypes = useMeta('meta/scripting/ivyTypes', undefined, []).data;
 
@@ -167,7 +167,7 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedFilterValue(globalFilter);
-    }, 250);
+    }, 150);
 
     return () => {
       clearTimeout(timer);
