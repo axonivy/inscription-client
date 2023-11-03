@@ -762,6 +762,7 @@ export interface ScriptingDataArgs {
 }
 export interface TypeSearchRequest {
   context: InscriptionContext;
+  limit: number;
   type: string;
 }
 export interface Void {}
