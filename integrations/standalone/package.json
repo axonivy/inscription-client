@@ -28,7 +28,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "scripts": {
-    "clean": "rimraf build",
+    "clean": "rimraf build tsconfig.tsbuildinfo",
     "build": "tsc --build",
     "build:clean": "yarn clean && yarn build",
     "build:production": "vite build",
