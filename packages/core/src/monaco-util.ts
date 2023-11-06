@@ -11,6 +11,7 @@ export namespace MonacoUtil {
 
     if (worker) {
       self.MonacoEnvironment = {
+        ...self.MonacoEnvironment,
         getWorker() {
           return new worker();
         }
