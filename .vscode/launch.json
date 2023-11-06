@@ -8,11 +8,23 @@
       "name": "Chrome",
       "type": "chrome",
       "request": "launch",
+      "url": "http://localhost:3000?server=localhost:8081&app=designer&pmv=workflow-demos&pid=15254DC87A1B183B-f3",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      },
+      "preLaunchTask": "Start Dev Server",
+      "postDebugTask": "Terminate All Tasks"
+    },
+    {
+      "name": "Chrome Mock",
+      "type": "chrome",
+      "request": "launch",
       "url": "http://localhost:3000/mock.html",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       },
-      "preLaunchTask": "Start Dev Server"
+      "preLaunchTask": "Start Dev Server",
+      "postDebugTask": "Terminate All Tasks"
     }
   ]
 }
