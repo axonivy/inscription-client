@@ -16,7 +16,7 @@
   gap: var(--size-1);
 }
 .fieldset-label .fieldset-controls .button[data-state='active'] {
-  background-color: var(--button-bg);
+  background-color: var(--background);
 }
 
 .fieldset-input {

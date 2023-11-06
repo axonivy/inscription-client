@@ -10,10 +10,10 @@
   padding: 3px;
   &:hover {
     cursor: pointer;
-    background-color: var(--button-bg);
+    background-color: var(--background);
   }
   &:where(:focus-visible, .active) {
-    background-color: var(--button-bg);
+    background-color: var(--background);
     box-shadow: var(--focus-shadow);
   }
 }

@@ -10,7 +10,7 @@
 }
 
 .combobox .combobox-method {
-  border: 1px solid var(--input-color);
+  border: 1px solid var(--background);
   border-radius: var(--border-radius);
   padding: 1px;
 }

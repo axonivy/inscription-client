@@ -41,9 +41,7 @@ export const AccordionHeader = ({ title, control, children, isOpen }: AccordionH
       <IvyIcon icon={IvyIcons.AngleDown} />
     </div>
     <Trigger className='accordion-trigger'>{children}</Trigger>
-    {isOpen && control && (
-      <Button icon={control.icon} onClick={control.action} aria-label={control.label} style={{ paddingRight: 'var(--size-3)' }} />
-    )}
+    {isOpen && control && <Button icon={control.icon} onClick={control.action} aria-label={control.label} />}
   </Header>
 );
 

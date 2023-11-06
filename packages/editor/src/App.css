@@ -40,13 +40,6 @@
   --size-3: 0.75rem;
   --size-4: 1rem;
   --input-padding: 10px;
-
-  /* ------remove------*/
-  --input-color: #202020;
-
-  --button-bg: #f5f5f5;
-
-  --table-bg: #fcfcfc;
 }
 
 .editor-root {
@@ -71,15 +64,11 @@
   --N800: #a3a3a3;
   --N900: #a3a3a3;
 
-  --basic-border: 0.75px solid var(--N200);
-  --thick-border: 1.25px solid var(--N200);
-  --dotted-border: 0.75px dotted var(--N200);
-
-  --input-color: white;
-
-  --button-bg: #2c2c2c;
-
-  --table-bg: #202020;
+  --basic-border: 1px solid var(--N200);
+  --thick-border: 2px solid var(--N200);
+  --dashed-border: 1px dashed var(--N400);
+  --border-radius: 5px;
+  --seperator-border: var(--basic-border);
 }
 
 .editor-state {
