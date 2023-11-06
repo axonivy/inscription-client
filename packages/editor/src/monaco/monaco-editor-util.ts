@@ -76,7 +76,7 @@ export namespace MonacoEditorUtil {
         colors: {
           'editor.foreground': '#FFFFFF',
           'editorCursor.foreground': '#FFFFFF',
-          'editor.background': '#1b1b1b'
+          'editor.background': '#2c2c2c'
         },
         inherit: true,
         rules: []
