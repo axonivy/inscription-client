@@ -1,39 +1,44 @@
-.dialog-overlay {
+.browser-overlay {
   position: fixed;
   inset: 0;
 }
 
-.dialog-content {
+.browser-dialog {
   background-color: var(--N25);
   color: var(--body);
   box-shadow: var(--editor-shadow);
-  position: fixed;
+  position: absolute;
   bottom: 0;
   right: 0;
   top: 0;
   padding: var(--input-padding);
   animation: contentShow 200ms cubic-bezier(0.27, 0, 0.33, 1);
   animation-fill-mode: forwards;
-  border-end-end-radius: 0;
-  border-end-start-radius: 0;
-  width: calc(100vw - 2 * var(--input-padding));
+  width: calc(100% - 2 * var(--input-padding));
 }
-.dialog-content:focus {
-  outline: none;
+.browser-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--size-2);
+  height: 100%;
 }
-.dialog-content-exit {
+.browser-content-exit {
   animation: contentExit 200ms cubic-bezier(0.73, 0, 0.67, 0);
   animation-fill-mode: forwards;
 }
-.dialog-content .tabs-content {
+.browser-content .tabs-root {
+  flex: 1 0 auto;
+}
+.browser-content .tabs-content {
   gap: var(--size-1);
 }
-.dialog-content .table-root {
+.browser-content .table-root {
   overflow: auto;
-  max-height: 80vh;
+  max-height: calc(100vh - 200px);
   padding: 1px;
 }
-.dialog-content .browser-helptext {
+.browser-content .browser-helptext {
   font-size: 12px;
   background-color: var(--background);
   border: var(--basic-border);
@@ -47,7 +52,7 @@
   margin: 0;
 }
 
-.dialog-title {
+.browser-title {
   margin: 0;
   margin-bottom: var(--size-2);
   font-weight: 500;
@@ -56,16 +61,16 @@
   display: flex;
   gap: var(--size-4);
 }
-.dialog-title .button {
+.browser-title .button {
   border-radius: 100%;
 }
 
-.dialog-footer {
+.browser-footer {
   display: flex;
   justify-content: flex-end;
   gap: var(--size-1);
 }
-.dialog-footer .button {
+.browser-footer .button {
   font-size: 12px;
   display: flex;
   align-items: center;

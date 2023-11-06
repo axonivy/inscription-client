@@ -46,30 +46,32 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
           <Button icon={IvyIcons.WsEvent} aria-label='Browser' />
         </DialogTrigger>
         <DialogPortal container={editorRef.current}>
-          <DialogOverlay className='dialog-overlay' />
-          <DialogContent className={`dialog-content ${!open ? 'dialog-content-exit' : ''}`}>
-            <TabRoot tabs={tabs} value={active} onChange={change => setActive(change as BrowserType)}>
-              <DialogTitle className='dialog-title'>
-                <TabList tabs={tabs} />
+          <DialogOverlay className='browser-overlay' />
+          <DialogContent className={`browser-dialog ${!open ? 'browser-content-exit' : ''}`}>
+            <div className='browser-content'>
+              <TabRoot tabs={tabs} value={active} onChange={change => setActive(change as BrowserType)}>
+                <DialogTitle className='browser-title'>
+                  <TabList tabs={tabs} />
+                  <DialogClose asChild>
+                    <Button icon={IvyIcons.Add} rotate={45} aria-label='Close' />
+                  </DialogClose>
+                </DialogTitle>
+
+                <TabContent tabs={tabs} />
+              </TabRoot>
+
+              <div className='browser-footer'>
                 <DialogClose asChild>
-                  <Button icon={IvyIcons.Add} rotate={45} aria-label='Close' />
+                  <Button icon={IvyIcons.Add} rotate={45} aria-label='Cancel'>
+                    Cancel
+                  </Button>
                 </DialogClose>
-              </DialogTitle>
-
-              <TabContent tabs={tabs} />
-            </TabRoot>
-
-            <div className='dialog-footer'>
-              <DialogClose asChild>
-                <Button icon={IvyIcons.Add} rotate={45} aria-label='Cancel'>
-                  Cancel
-                </Button>
-              </DialogClose>
-              <DialogClose asChild>
-                <Button icon={IvyIcons.Add} aria-label='Insert' onClick={() => acceptBrowser()}>
-                  Insert
-                </Button>
-              </DialogClose>
+                <DialogClose asChild>
+                  <Button icon={IvyIcons.Add} aria-label='Insert' onClick={() => acceptBrowser()}>
+                    Insert
+                  </Button>
+                </DialogClose>
+              </div>
             </div>
           </DialogContent>
         </DialogPortal>
