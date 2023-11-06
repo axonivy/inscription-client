@@ -52,7 +52,7 @@
 .editor-root {
   color-scheme: light;
   background: var(--background);
-  min-height: 100vh;
+  height: 100%;
 }
 
 .editor-root[data-theme='dark'] {
