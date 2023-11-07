@@ -408,9 +408,12 @@ export interface AlternativeConditions {
 }
 export interface ElementProgramInterface {
   javaClass: string;
-  userConfig: string;
+  userConfig: JavaProgramConfig;
   exceptionHandler: string;
   timeout: JavaTimeout;
+}
+export interface JavaProgramConfig {
+  [k: string]: string;
 }
 export interface JavaTimeout {
   error: string;
@@ -445,7 +448,7 @@ export interface ElementProgramStart {
   javaClass: string;
   link: string;
   permission: StartPermission;
-  userConfig: string;
+  userConfig: JavaProgramConfig;
 }
 export interface StartPermission {
   anonymous: boolean;
@@ -521,7 +524,7 @@ export interface ElementThirdPartyWaitEvent {
   eventId: string;
   task: WfTask;
   javaClass: string;
-  userConfig: string;
+  userConfig: JavaProgramConfig;
   timeout: JavaEventTimeout;
 }
 export interface JavaEventTimeout {
@@ -576,7 +579,7 @@ export interface ElementHtmlDialogMethodStart {
 }
 export interface ElementThirdPartyProgramInterface {
   javaClass: string;
-  userConfig: string;
+  userConfig: JavaProgramConfig;
   exceptionHandler: string;
   timeout: JavaTimeout;
 }
@@ -585,7 +588,7 @@ export interface ElementWaitEvent {
   eventId: string;
   task: WfTask;
   javaClass: string;
-  userConfig: string;
+  userConfig: JavaProgramConfig;
   timeout: JavaEventTimeout;
 }
 export interface ElementRestClientCall {
@@ -627,7 +630,7 @@ export interface ElementThirdPartyProgramStart {
   javaClass: string;
   link: string;
   permission: StartPermission;
-  userConfig: string;
+  userConfig: JavaProgramConfig;
 }
 export interface ElementSignalStartEvent {
   output: ScriptMapCode;
@@ -784,6 +787,7 @@ export interface WebServicePortRequest {
   port: string;
 }
 export interface Script {
+  configKey: string;
   multiline: boolean;
   requiredType: string;
 }
@@ -792,5 +796,6 @@ export interface Label {
   text: string;
 }
 export interface Text {
+  configKey: string;
   multiline: boolean;
 }

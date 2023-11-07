@@ -4,15 +4,15 @@ import { produce } from 'immer';
 import { DataUpdater } from '../../../../types/lambda';
 
 export function useConfigurationData(): ConfigDataContext<ConfigurationData> & {
-  update: DataUpdater<ConfigurationData>;
+  updateUserConfig: DataUpdater<ConfigurationData['userConfig']>;
   reset: () => void;
 } {
   const { setConfig, ...config } = useConfigDataContext();
 
-  const update: DataUpdater<ConfigurationData> = (field, value) => {
+  const updateUserConfig: DataUpdater<ConfigurationData['userConfig']> = (field, value) => {
     setConfig(
-      produce((draft: ConfigurationData) => {
-        draft[field] = value;
+      produce(draft => {
+        draft.userConfig[field] = value;
       })
     );
   };
@@ -26,7 +26,7 @@ export function useConfigurationData(): ConfigDataContext<ConfigurationData> & {
 
   return {
     ...config,
-    update,
+    updateUserConfig,
     reset
   };
 }
