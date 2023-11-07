@@ -1,3 +1,8 @@
+.configuration-widget {
+  display: flex;
+  flex-direction: column;
+}
+
 .info-text {
   display: flex;
   flex-direction: column;

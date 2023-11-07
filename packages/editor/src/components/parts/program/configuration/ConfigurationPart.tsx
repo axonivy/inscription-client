@@ -82,7 +82,9 @@ const ConfigurationPart = () => {
   return (
     <>
       {editorItems.map((widget, index) => (
-        <div key={index}>{renderWidgetComponent(widget)}</div>
+        <div className='configuration-widget' key={index}>
+          {renderWidgetComponent(widget)}
+        </div>
       ))}
     </>
   );
