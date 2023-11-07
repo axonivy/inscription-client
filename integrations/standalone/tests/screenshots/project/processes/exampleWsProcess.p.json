@@ -4,7 +4,6 @@
   "kind" : "WEB_SERVICE",
   "config" : {
     "data" : "screenshot.project.Order",
-    "wsAuth" : "NONE",
     "wsTypeName" : "screenshot.project.exampleWsCall"
   },
   "elements" : [ {
