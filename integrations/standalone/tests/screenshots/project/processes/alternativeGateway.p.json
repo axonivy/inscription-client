@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.2.1/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
   "id" : "16B9DA1B2A591E8C",
   "config" : {
     "data" : "screenshot.project.Order"
@@ -29,8 +29,7 @@
       "config" : {
         "conditions" : {
           "f6" : "in.quantity >= 100",
-          "f7" : "in.quantity >= 50",
-          "f8" : ""
+          "f7" : "in.quantity >= 50"
         }
       },
       "visual" : {
