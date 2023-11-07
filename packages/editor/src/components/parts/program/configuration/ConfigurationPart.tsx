@@ -64,7 +64,13 @@ const ConfigurationPart = () => {
       );
     }
     if (isText(widget)) {
-      return <Input value={config.userConfig[widget.configKey]} onChange={change => updateUserConfig(widget.configKey, change)} />;
+      return (
+        <Input
+          value={config.userConfig[widget.configKey]}
+          aria-label={widget.configKey}
+          onChange={change => updateUserConfig(widget.configKey, change)}
+        />
+      );
     }
     return null;
   };

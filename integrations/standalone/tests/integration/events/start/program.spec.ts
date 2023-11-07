@@ -3,6 +3,7 @@ import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import { GeneralTest, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 import { ProgramStartTest } from '../../parts/program-start';
+import { ConfigTimerBeanTest, ConfigFilePickupStartEventBeanTest } from '../../parts/configuration';
 
 test.describe('Program Start', () => {
   let view: InscriptionView;
@@ -26,5 +27,20 @@ test.describe('Program Start', () => {
 
   test('Start', async () => {
     await runTest(view, ProgramStartTest);
+  });
+
+  test('Configuration FilePickupBean', async () => {
+    const start = view.accordion('Start');
+    await start.toggle();
+    await start.combobox('Java Class').choose('ch.ivyteam.ivy.process.eventstart.beans.FilePickupStartEventBean');
+
+    await runTest(view, ConfigFilePickupStartEventBeanTest);
+  });
+
+  test('Configuration TimerBean', async () => {
+    const start = view.accordion('Start');
+    await start.toggle();
+    await start.combobox('Java Class').choose('ch.ivyteam.ivy.process.eventstart.beans.TimerBean');
+    await runTest(view, ConfigTimerBeanTest);
   });
 });
