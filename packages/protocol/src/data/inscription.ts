@@ -787,6 +787,7 @@ export interface WebServicePortRequest {
   port: string;
 }
 export interface Script {
+  configKey: string;
   multiline: boolean;
   requiredType: string;
 }
@@ -795,5 +796,6 @@ export interface Label {
   text: string;
 }
 export interface Text {
+  configKey: string;
   multiline: boolean;
 }

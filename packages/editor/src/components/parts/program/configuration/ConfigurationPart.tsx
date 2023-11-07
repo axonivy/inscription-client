@@ -20,7 +20,7 @@ export function useConfigurationPart(): PartProps {
 }
 
 const ConfigurationPart = () => {
-  const { config, update } = useConfigurationData();
+  const { config, updateUserConfig } = useConfigurationData();
   const { context } = useEditorContext();
   const editorItems = useMeta('meta/program/editor', { context, type: config.javaClass }, []).data;
 
@@ -57,14 +57,14 @@ const ConfigurationPart = () => {
       return (
         <ScriptInput
           type={widget.requiredType}
-          value={config.userConfig}
-          onChange={change => update('userConfig', change)}
+          value={config.userConfig[widget.configKey]}
+          onChange={change => updateUserConfig(widget.configKey, change)}
           browsers={['attr', 'func', 'datatype', 'cms']}
         />
       );
     }
     if (isText(widget)) {
-      return <Input value={config.userConfig} onChange={change => update('userConfig', change)} />;
+      return <Input value={config.userConfig[widget.configKey]} onChange={change => updateUserConfig(widget.configKey, change)} />;
     }
     return null;
   };

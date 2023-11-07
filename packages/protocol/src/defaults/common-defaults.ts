@@ -27,7 +27,8 @@ import {
   WsRequestData,
   RestResponseData,
   RestRequestData,
-  ProgramInterfaceStartData
+  ProgramInterfaceStartData,
+  ConfigurationData
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
@@ -231,6 +232,11 @@ export const DEFAULT_PROGRAM_INTERFACE_START_DATA: ProgramInterfaceStartData = {
   }
 } as const;
 
+export const DEFAULT_CONFIGURATION_DATA: ConfigurationData = {
+  javaClass: '',
+  userConfig: {}
+} as const;
+
 export const DEFAULT_DATA: ElementData = {
   ...DEFAULT_NAME_DATA,
   config: {
@@ -256,8 +262,8 @@ export const DEFAULT_DATA: ElementData = {
     ...DEFAULT_REST_RESPONSE_DATA,
     ...DEFAULT_REST_REQUEST_DATA,
     ...DEFAULT_PROGRAM_INTERFACE_START_DATA,
+    ...DEFAULT_CONFIGURATION_DATA,
     // Other defaults, not implemented yet, but needed to satisfy TS
-    userConfig: '',
     guid: '',
     link: '',
     eventId: ''
