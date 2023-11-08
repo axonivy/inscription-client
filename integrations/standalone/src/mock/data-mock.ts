@@ -27,7 +27,8 @@ export namespace DataMock {
         code: 'ivy.log.info("Hello World")'
       },
       task: {
-        name: 'user task'
+        name: 'user task',
+        notification: false,
       },
       case: {
         name: 'case <%=ivy.cms.co("/Case/name")%> bla <%= in.name %>',

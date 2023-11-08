@@ -59,6 +59,7 @@ class Task extends PartObject {
   priority: Select;
   optionsSection: Section;
   skipTasklist: Checkbox;
+  notification: Checkbox;
   delay: ScriptInput;
   persist: Checkbox;
   expirySection: Section;
@@ -85,6 +86,7 @@ class Task extends PartObject {
     this.priority = part.select('Priority');
     this.optionsSection = part.section('Options');
     this.skipTasklist = this.optionsSection.checkbox('Skip Tasklist');
+    this.notification = this.optionsSection.checkbox('Suppress Notification');
     this.delay = this.optionsSection.scriptInput('Delay');
     this.persist = this.optionsSection.checkbox('Persist task on creation');
     this.expirySection = part.section('Expiry');
@@ -118,6 +120,7 @@ class Task extends PartObject {
         await this.persist.click();
       } else {
         await this.skipTasklist.click();
+        await this.notification.click();
         await this.delay.fill('delay');
       }
     }
@@ -158,6 +161,7 @@ class Task extends PartObject {
         await this.persist.click();
       } else {
         await this.skipTasklist.expectChecked();
+        await this.notification.expectChecked();
         await this.delay.expectValue('delay');
       }
     }
@@ -192,6 +196,7 @@ class Task extends PartObject {
     if (this.options.options) {
       if (this.options.options === 'list') {
         await this.skipTasklist.click();
+        await this.notification.click();
         await this.delay.clear();
       }
     }
