@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/inscription-standalone",
-  "version": "11.2.0-next",
+  "version": "11.2.1-next",
   "private": true,
   "author": "Axon Ivy AG",
   "homepage": "https://developer.axonivy.com/",
@@ -9,17 +9,17 @@
     "url": "https://github.com/axonivy/next-gen-inscription"
   },
   "dependencies": {
-    "@axonivy/inscription-core": "11.2.0-next",
-    "@axonivy/inscription-editor": "11.2.0-next",
+    "@axonivy/inscription-core": "11.2.1-next",
+    "@axonivy/inscription-editor": "11.2.1-next",
     "path-browserify": "^1.0.1"
   },
   "devDependencies": {
     "@open-rpc/client-js": "1.8.1",
-    "@types/uuid": "^9.0.0",
-    "@types/node": "^18.11.9",
     "@playwright/test": "^1.36.1",
+    "@types/node": "^18.11.9",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/uuid": "^9.0.0",
     "@vitejs/plugin-react": "^4.0.4",
     "deepmerge-ts": "^5.1.0",
     "react": "^18.2.0",
@@ -28,8 +28,8 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "scripts": {
-    "clean": "rimraf build",
-    "build": "vite build --mode development",
+    "clean": "rimraf build tsconfig.tsbuildinfo",
+    "build": "tsc --build",
     "build:clean": "yarn clean && yarn build",
     "build:production": "vite build",
     "type": "tsc --noEmit",

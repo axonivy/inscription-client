@@ -32,15 +32,16 @@ type AccordionHeaderProps = {
   title?: string;
   control?: { label: string; icon: IvyIcons; action: () => void };
   children: ReactNode;
+  isOpen: boolean;
 };
 
-export const AccordionHeader = ({ title, control, children }: AccordionHeaderProps) => (
+export const AccordionHeader = ({ title, control, children, isOpen }: AccordionHeaderProps) => (
   <Header className='accordion-header' title={title}>
-    <Trigger className='accordion-trigger'>{children}</Trigger>
-    <div className='accordion-header-group'>
-      {control && <Button icon={control.icon} onClick={control.action} aria-label={control.label} />}
+    <Trigger className='accordion-trigger'>
       <IvyIcon icon={IvyIcons.AngleDown} />
-    </div>
+      {children}
+    </Trigger>
+    {isOpen && control && <Button icon={control.icon} onClick={control.action} aria-label={control.label} />}
   </Header>
 );
 

@@ -1,4 +1,4 @@
-import { NameData } from './part-data';
+import { GeneralData } from './part-data';
 import {
   Cache,
   CacheArtifact,
@@ -30,7 +30,7 @@ import { Brand, UnionToIntersection, ValuesAsUnionDeep } from '../utils/type-hel
 
 export type ConfigData = UnionToIntersection<Data['config']>;
 
-export type ElementData = NameData & { config: ConfigData };
+export type ElementData = GeneralData & { config: ConfigData };
 
 export type InscriptionData = Omit<InscriptionRequest, 'data' | 'defaults'> & {
   data: ElementData;

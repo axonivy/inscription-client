@@ -15,7 +15,7 @@ import { CmsOptions, useCmsBrowser } from './CmsBrowser';
 
 type BrowserProps = UseBrowserReturnValue & {
   types: BrowserType[];
-  accept: (value: string) => void;
+  accept: (value: string, type: BrowserType) => void;
   location: string;
   cmsOptions?: CmsOptions;
 };
@@ -35,7 +35,9 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
   const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, dataTypeBrowser, catPathChooserBrowser, tableColBrowser, sqlOpBrowser];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
-  const acceptBrowser = () => accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? '');
+  const acceptBrowser = () => {
+    accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? '', active);
+  };
 
   return (
     <>
@@ -44,30 +46,32 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
           <Button icon={IvyIcons.WsEvent} aria-label='Browser' />
         </DialogTrigger>
         <DialogPortal container={editorRef.current}>
-          <DialogOverlay className='dialog-overlay' />
-          <DialogContent className='dialog-content'>
-            <TabRoot tabs={tabs} value={active} onChange={change => setActive(change as BrowserType)}>
-              <DialogTitle className='dialog-title'>
-                <TabList tabs={tabs} />
+          <DialogOverlay className='browser-overlay' />
+          <DialogContent className={`browser-dialog ${!open ? 'browser-content-exit' : ''}`}>
+            <div className='browser-content'>
+              <TabRoot tabs={tabs} value={active} onChange={change => setActive(change as BrowserType)}>
+                <DialogTitle className='browser-title'>
+                  <TabList tabs={tabs} />
+                  <DialogClose asChild>
+                    <Button icon={IvyIcons.Add} rotate={45} aria-label='Close' />
+                  </DialogClose>
+                </DialogTitle>
+
+                <TabContent tabs={tabs} />
+              </TabRoot>
+
+              <div className='browser-footer'>
                 <DialogClose asChild>
-                  <Button icon={IvyIcons.Add} rotate={45} aria-label='Close' />
+                  <Button icon={IvyIcons.Add} rotate={45} aria-label='Cancel'>
+                    Cancel
+                  </Button>
                 </DialogClose>
-              </DialogTitle>
-
-              <TabContent tabs={tabs} />
-            </TabRoot>
-
-            <div className='dialog-footer'>
-              <DialogClose asChild>
-                <Button icon={IvyIcons.Add} rotate={45} aria-label='Cancel'>
-                  Cancel
-                </Button>
-              </DialogClose>
-              <DialogClose asChild>
-                <Button icon={IvyIcons.Add} aria-label='Insert' onClick={() => acceptBrowser()}>
-                  Insert
-                </Button>
-              </DialogClose>
+                <DialogClose asChild>
+                  <Button icon={IvyIcons.Add} aria-label='Insert' onClick={() => acceptBrowser()}>
+                    Insert
+                  </Button>
+                </DialogClose>
+              </div>
             </div>
           </DialogContent>
         </DialogPortal>

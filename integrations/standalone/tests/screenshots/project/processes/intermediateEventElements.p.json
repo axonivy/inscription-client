@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.2.1/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
   "id" : "16C70B87DCB65433",
   "config" : {
     "data" : "screenshot.project.Invoice"
@@ -10,10 +10,10 @@
       "name" : "read address",
       "config" : {
         "javaClass" : "ch.ivyteam.ivy.process.intermediateevent.beans.FileIntermediateEventBean",
-        "userConfig" : [
-          "/shared/company/addresses",
-          "customerId"
-        ],
+        "userConfig" : {
+          "eventId" : "customerId",
+          "directory" : "/shared/company/addresses"
+        },
         "eventId" : "in.customerId",
         "timeout" : {
           "duration" : "'2H30M'",
@@ -71,10 +71,10 @@
       "name" : "erpUpdate",
       "config" : {
         "javaClass" : "com.axonivy.wf.custom.ErpInvoice",
-        "userConfig" : [
-          "interval=30",
-          "path=/tmp/myErp"
-        ],
+        "userConfig" : {
+          "path" : "/tmp/myErp",
+          "interval" : "30"
+        },
         "link" : "eventLink.ivp"
       },
       "visual" : {
@@ -91,7 +91,9 @@
       "name" : "load ERP",
       "config" : {
         "javaClass" : "com.axonivy.wf.custom.ErpLoader",
-        "userConfig" : "path=in.creditStats",
+        "userConfig" : {
+          "path" : "in.creditStats"
+        },
         "timeout" : {
           "seconds" : "10"
         }
@@ -108,10 +110,10 @@
       "name" : "ERP print",
       "config" : {
         "javaClass" : "com.axonivy.wf.custom.ErpPrintJob",
-        "userConfig" : [
-          "interval=5",
-          "path=/tmp/spooler/userReports"
-        ],
+        "userConfig" : {
+          "path" : "/tmp/spooler/userReports",
+          "interval" : "5"
+        },
         "eventId" : "\"erp-print\"+ivy.case.getId()",
         "output" : {
           "map" : {

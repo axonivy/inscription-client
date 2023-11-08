@@ -40,9 +40,17 @@ Simply start the `Chrome` launch config to get debug and breakpoint support.
 
 To run tests you can ether start a script above or start Playwright or Jest with the recommended workspace extensions.
 
+### Protocol changes
+
+If you make protocol changes in the server and this causes to type errors on the build, you need to update the protocol in the client.
+
+- Run `yarn protocol generate` to update the [inscription.ts](packages/protocol/src/data/inscription.ts) to the newest schema
+- Run `yarn type` to check for typeing issues
+- Fix typing issues
+- Create a PR with your changes
+
 ## Windows
 
 Windows has some known issues we need to fix:
 
-- fix icons generate
 - fix mock vite start

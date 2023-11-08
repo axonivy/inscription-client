@@ -3,11 +3,11 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { ReactNode, memo } from 'react';
 import NameEditor from '../NameEditor';
 import { ElementType } from '@axonivy/inscription-protocol';
-import { useNamePart, useResultPart, useStartPart } from '../../../components/parts';
+import { useGeneralPart, useResultPart, useStartPart } from '../../../components/parts';
 import InscriptionEditor from '../InscriptionEditor';
 
 const CallSubStartEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const start = useStartPart({ synchParams: true });
   const result = useResultPart();
   return <InscriptionEditor icon={IvyIcons.SubStart} parts={[name, start, result]} />;

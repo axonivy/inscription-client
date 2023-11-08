@@ -8,4 +8,10 @@
 
 .info-text p {
   margin: 0;
+  white-space: pre;
+}
+
+.configuration-widget {
+  display: flex;
+  flex-direction: column;
 }

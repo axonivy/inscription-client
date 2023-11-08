@@ -16,7 +16,7 @@
   gap: var(--size-1);
 }
 .fieldset-label .fieldset-controls .button[data-state='active'] {
-  background-color: var(--button-bg);
+  background-color: var(--background);
 }
 
 .fieldset-input {
@@ -25,10 +25,10 @@
   gap: var(--size-2);
 }
 .fieldset-input.fieldset-error {
-  --input-border: 1px solid var(--error-color);
+  --basic-border: 1px solid var(--error-color);
 }
 .fieldset-input.fieldset-warning {
-  --input-border: 1px solid var(--warning-color);
+  --basic-border: 1px solid var(--warning-color);
 }
 
 .fieldset-message {

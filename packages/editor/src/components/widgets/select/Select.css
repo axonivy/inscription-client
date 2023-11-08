@@ -8,10 +8,10 @@
   cursor: pointer;
   padding: var(--input-padding);
   font-size: 12px;
-  color: var(--input-color);
+  color: var(--body);
   border-radius: var(--border-radius);
-  border: var(--input-border);
-  background: var(--input-bg);
+  border: var(--basic-border);
+  background: var(--background);
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
@@ -32,20 +32,31 @@
   overflow: auto;
   max-height: 20rem;
   position: absolute;
+  left: var(--size-2);
+  width: calc(100% - var(--size-4));
   list-style: none;
   font-size: 12px;
   text-align: start;
-  background-color: var(--input-bg);
+  background-color: var(--background);
   padding: 0;
-  margin: 0;
+  margin: var(--size-1) 0 0 0;
   z-index: 10;
   box-shadow: var(--editor-shadow);
+  border-radius: var(--border-radius);
 }
 .select-menu-entry {
   padding: var(--size-2);
   min-height: 1em;
   cursor: pointer;
+  border-bottom: var(--basic-border);
 }
-.select-menu-entry:where(.hover, .selected) {
-  background: var(--editor-bg);
+.select-menu-entry:last-child {
+  border-bottom: none; /* Remove the border from the last entry */
+}
+.select-menu-entry.hover {
+  background: var(--N50);
+}
+
+.select-menu-entry.selected {
+  background: var(--N100);
 }

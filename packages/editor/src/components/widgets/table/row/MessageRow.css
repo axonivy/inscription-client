@@ -1,9 +1,9 @@
 .table-root .row.row-error {
-  --row-border: 1px solid var(--error-color);
+  --basic-border: 1px solid var(--error-color);
 }
 .table-root .row.row-warning {
-  --row-border: 1px solid var(--warning-color);
+  --basic-border: 1px solid var(--warning-color);
 }
 .table-root .row.row-message {
-  --row-border: none;
+  --basic-border: none;
 }

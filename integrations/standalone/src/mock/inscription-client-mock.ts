@@ -18,7 +18,7 @@ import { deepmerge } from 'deepmerge-ts';
 import { DataMock } from './data-mock';
 import { ValidationMock } from './validation-mock';
 import { MetaMock } from './meta-mock';
-import { deepEqual } from '@axonivy/inscription-editor/src/utils/equals';
+import { deepEqual } from '../../../../packages/editor/src/utils/equals';
 
 export class InscriptionClientMock implements InscriptionClient {
   private elementData = {} as ElementData;
@@ -98,6 +98,8 @@ export class InscriptionClientMock implements InscriptionClient {
         return Promise.resolve(MetaMock.CONNECTORS_OUT);
       case 'meta/cms/tree':
         return Promise.resolve(MetaMock.CMS_TYPE);
+      case 'meta/scripting/dataClasses':
+        return Promise.resolve(MetaMock.DATACLASS);
       default:
         throw Error('mock meta path not programmed');
     }

@@ -1,8 +1,9 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { NameTest, OutputTest, TaskTester, runTest } from '../../parts';
+import { GeneralTest, OutputTest, TaskTester, runTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 import { EventTest } from '../../parts/event';
+import { ConfigFileIntermediateEventBeanTest } from '../../parts/configuration';
 
 test.describe('Wait', () => {
   let view: InscriptionView;
@@ -20,12 +21,20 @@ test.describe('Wait', () => {
     await view.expectHeaderText('Wait');
   });
 
-  test('Name', async () => {
-    await runTest(view, NameTest);
+  test('General', async () => {
+    await runTest(view, GeneralTest);
   });
 
   test('Event', async () => {
     await runTest(view, EventTest);
+  });
+
+  test('Configuration FileIntermediateBean', async () => {
+    const start = view.accordion('Event');
+    await start.toggle();
+    await start.combobox('Java Class').choose('ch.ivyteam.ivy.process.intermediateevent.beans.FileIntermediateEventBean');
+
+    await runTest(view, ConfigFileIntermediateEventBeanTest);
   });
 
   test('Output', async () => {

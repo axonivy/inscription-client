@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "incremental": true,
     "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["vite/client", "node"],
@@ -15,8 +16,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve"
   },
   "include": ["src", "tests"],
-  "exclude": ["**/playwright.config.ts"]
+  "exclude": ["**/playwright.config.ts"],
+  "references": [
+    { "path": "../../packages/core" },
+    { "path": "../../packages/editor" },
+    { "path": "../../packages/protocol" },
+  ]
 }

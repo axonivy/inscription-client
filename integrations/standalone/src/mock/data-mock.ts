@@ -1,8 +1,8 @@
-import { DEFAULT_TASK, ElementType, NameData } from '@axonivy/inscription-protocol';
+import { DEFAULT_TASK, ElementType, GeneralData } from '@axonivy/inscription-protocol';
 import { deepmerge } from 'deepmerge-ts';
 
 export namespace DataMock {
-  export const NAME: NameData = {
+  export const NAME: GeneralData = {
     name: 'test name',
     description: 'test desc',
     docs: [

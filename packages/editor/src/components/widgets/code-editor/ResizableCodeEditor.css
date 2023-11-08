@@ -12,5 +12,5 @@
   height: 2px;
 }
 .resizable-code-editor .resize-line:where(:hover, [data-resize-active='true']) {
-  background-color: var(--seperator-color);
+  background-color: var(--body);
 }

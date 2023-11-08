@@ -4,13 +4,13 @@ import { CellContext, RowData } from '@tanstack/react-table';
 import { useEffect, useRef, useState } from 'react';
 import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover';
 import { Fieldset, useFieldset } from '../../fieldset';
-import IvyIcon from '../../IvyIcon';
 import { useEditorContext, usePath } from '../../../../context';
-import { IvyIcons } from '@axonivy/editor-icons';
 import { Input } from '../../input';
 import { SingleLineCodeEditor } from '../../code-editor';
 import { Browser, BrowserType, useBrowser } from '../../../browser';
 import { useModifyEditor } from '../../code-editor/useCodeEditor';
+import IvyIcon from '../../IvyIcon';
+import { IvyIcons } from '@axonivy/editor-icons';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

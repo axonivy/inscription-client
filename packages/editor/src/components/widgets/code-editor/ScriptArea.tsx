@@ -6,7 +6,7 @@ import { usePath } from '../../../context';
 
 const ScriptArea = (props: CodeEditorAreaProps) => {
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useModifyEditor();
+  const { setEditor, modifyEditor } = useModifyEditor({ scriptAreaDatatypeEditor: true });
   const path = usePath();
 
   return (

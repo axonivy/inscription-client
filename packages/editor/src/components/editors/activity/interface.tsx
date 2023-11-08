@@ -7,7 +7,7 @@ import {
   useMailAttachmentPart,
   useMailHeaderPart,
   useMailMessagePart,
-  useNamePart,
+  useGeneralPart,
   useOutputPart,
   useQueryPart,
   useCachePart,
@@ -21,7 +21,7 @@ import {
 import { OpenApiContextProvider } from '../../../context/useOpenApi';
 
 const DatabaseEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const query = useQueryPart();
   const cache = useCachePart();
   const output = useOutputPart({ additionalBrowsers: ['tablecol'] });
@@ -29,7 +29,7 @@ const DatabaseEditor = memo(() => {
 });
 
 const WebServiceEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const request = useWsRequestPart();
   const response = useWsResponsePart();
   const cache = useCachePart();
@@ -37,7 +37,7 @@ const WebServiceEditor = memo(() => {
 });
 
 const RestEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const request = useRestRequestPart();
   const response = useRestResponsePart();
   return (
@@ -48,7 +48,7 @@ const RestEditor = memo(() => {
 });
 
 const EMailEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const header = useMailHeaderPart();
   const content = useMailMessagePart();
   const attachment = useMailAttachmentPart();
@@ -56,7 +56,7 @@ const EMailEditor = memo(() => {
 });
 
 const ProgramInterfaceEditor = memo(() => {
-  const name = useNamePart();
+  const name = useGeneralPart();
   const start = useProgramInterfaceStartPart();
   const configuration = useConfigurationPart();
   return <InscriptionEditor icon={IvyIcons.Program} parts={[name, start, configuration]} />;

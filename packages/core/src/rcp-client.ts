@@ -1,6 +1,5 @@
-import { Disposable } from 'vscode-jsonrpc';
-import { MessageConnection } from 'vscode-languageserver-protocol';
-import { DisposableCollection, Message } from 'vscode-ws-jsonrpc';
+import { Disposable, Message, MessageConnection } from 'vscode-jsonrpc';
+import { DisposableCollection } from 'vscode-ws-jsonrpc';
 
 // eslint-disable-next-line no-shadow
 export enum ClientState {

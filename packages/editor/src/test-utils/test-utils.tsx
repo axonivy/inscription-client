@@ -20,7 +20,9 @@ import {
   RestClientRequest,
   Widget,
   ProgramInterface,
-  ContentObject
+  ContentObject,
+  JavaType,
+  DataClass
 } from '@axonivy/inscription-protocol';
 import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
@@ -28,7 +30,7 @@ import { ReactElement, ReactNode, useRef } from 'react';
 import { DeepPartial } from './type-utils';
 import {
   ClientContext,
-  ClientContextInstance,
+  ClientContextProvider,
   DataContext,
   DataContextInstance,
   DEFAULT_EDITOR_CONTEXT,
@@ -70,6 +72,8 @@ type ContextHelperProps = {
     javaClasses?: ProgramInterface[];
     widgets?: Widget[];
     contentObject?: ContentObject[];
+    datatypes?: JavaType[];
+    dataClasses?: DataClass[];
   };
   editor?: { title?: string; readonly?: boolean };
 };
@@ -164,6 +168,10 @@ const ContextHelper = (
             return Promise.resolve(props.meta?.widgets ?? []);
           case 'meta/cms/tree':
             return Promise.resolve(props.meta?.contentObject ?? []);
+          case 'meta/scripting/allTypes':
+            return Promise.resolve(props.meta?.javaClasses ?? []);
+          case 'meta/scripting/dataClasses':
+            return Promise.resolve(props.meta?.dataClasses ?? []);
           default:
             throw Error('mock meta path not programmed');
         }
@@ -183,13 +191,13 @@ const ContextHelper = (
   return (
     <div ref={editorRef}>
       <EditorContextInstance.Provider value={editorContext}>
-        <ClientContextInstance.Provider value={client}>
+        <ClientContextProvider client={client.client}>
           <QueryClientProvider client={queryClient}>
             <DataContextInstance.Provider value={data}>
               <OpenApiContextProvider>{props.children}</OpenApiContextProvider>
             </DataContextInstance.Provider>
           </QueryClientProvider>
-        </ClientContextInstance.Provider>
+        </ClientContextProvider>
       </EditorContextInstance.Provider>
     </div>
   );

@@ -56,7 +56,7 @@ pipeline {
                 unzip -j process.zip
                 yarn protocol generate $PWD/inscription.json
 
-                yarn lint:ci && yarn type
+                yarn build && yarn lint:ci
               '''
             }
           }

@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { DialogCallTest, NameTest, runTest, OutputTest } from '../../parts';
+import { DialogCallTest, GeneralTest, runTest, OutputTest } from '../../parts';
 import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
 
 test.describe('Dialog Call', () => {
@@ -19,8 +19,8 @@ test.describe('Dialog Call', () => {
     await view.expectHeaderText('User Dialog');
   });
 
-  test('Name', async () => {
-    await runTest(view, NameTest);
+  test('General', async () => {
+    await runTest(view, GeneralTest);
   });
 
   test('DialogCall', async () => {

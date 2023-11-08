@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import {
-  NameTest,
+  GeneralTest,
   RestRequestBodyEntityTest,
   RestRequestBodyFormTest,
   RestRequestBodyJaxRsTest,
@@ -28,8 +28,8 @@ test.describe('Rest Client', () => {
     await view.expectHeaderText('Rest Client');
   });
 
-  test('Name', async () => {
-    await runTest(view, NameTest);
+  test('General', async () => {
+    await runTest(view, GeneralTest);
   });
 
   test('Request', async () => {

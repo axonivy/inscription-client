@@ -1,12 +1,19 @@
 import './index.css';
-import { MonacoUtil, IvyScriptLanguage, InscriptionClientJsonRpc } from '@axonivy/inscription-core';
-import { App, AppStateView, ClientContextInstance, MonacoEditorUtil, ThemeContextProvider } from '@axonivy/inscription-editor';
+import { IvyScriptLanguage, InscriptionClientJsonRpc , MonacoUtil } from '@axonivy/inscription-core';
+import {
+  App,
+  AppStateView,
+  ClientContextProvider,
+  MonacoEditorUtil,
+  QueryProvider,
+  ThemeContextProvider,
+  initQueryClient
+} from '@axonivy/inscription-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { URLParams } from './url-helper';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 
 export async function start(): Promise<void> {
   const server = URLParams.webSocketBase();
@@ -15,24 +22,23 @@ export async function start(): Promise<void> {
   const pid = URLParams.pid();
   const theme = URLParams.themeMode();
 
-  MonacoEditorUtil.initMonaco(monaco, theme);
-  MonacoUtil.initStandalone();
+  await MonacoUtil.initStandalone(editorWorker);
+  await MonacoEditorUtil.initMonaco(monaco, theme);
   const root = createRoot(document.getElementById('root')!);
 
   try {
     await IvyScriptLanguage.startWebSocketClient(`${server}/ivy-script-lsp`);
     const client = await InscriptionClientJsonRpc.startWebSocketClient(`${server}/ivy-inscription-lsp`);
-    const queryClient = new QueryClient();
+    const queryClient = initQueryClient();
 
     root.render(
       <React.StrictMode>
         <ThemeContextProvider theme={theme}>
-          <ClientContextInstance.Provider value={{ client: client }}>
-            <QueryClientProvider client={queryClient}>
+          <ClientContextProvider client={client}>
+            <QueryProvider client={queryClient}>
               <App app={app} pmv={pmv} pid={pid} />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
-          </ClientContextInstance.Provider>
+            </QueryProvider>
+          </ClientContextProvider>
         </ThemeContextProvider>
       </React.StrictMode>
     );

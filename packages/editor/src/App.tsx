@@ -46,7 +46,6 @@ function App(props: InscriptionContext) {
 
   useEffect(() => {
     if (isSuccess) {
-      setContext(data.context);
       setInitData(initData => (initData ? initData : data.data));
     }
   }, [data, isSuccess]);

@@ -9,8 +9,7 @@ import {
   InscriptionContext,
   InscriptionMetaRequestTypes
 } from '@axonivy/inscription-protocol';
-import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
-import { Disposable } from 'vscode-ws-jsonrpc';
+import { createMessageConnection, Emitter, Disposable } from 'vscode-jsonrpc';
 import { ConnectionUtil } from './connection-util';
 import { BaseRcpClient } from './rcp-client';
 
