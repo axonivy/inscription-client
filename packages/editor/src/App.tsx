@@ -10,10 +10,9 @@ import { Unary } from './types/lambda';
 
 function App(props: InscriptionContext) {
   const [context, setContext] = useState(props);
-  const [initData, setInitData] = useState<ElementData>();
+  const [initData, setInitData] = useState<Record<string, ElementData>>({});
   useEffect(() => {
     setContext(props);
-    setInitData(undefined);
   }, [props]);
 
   const client = useClient();
@@ -45,10 +44,13 @@ function App(props: InscriptionContext) {
   });
 
   useEffect(() => {
-    if (isSuccess) {
-      setInitData(initData => (initData ? initData : data.data));
+    if (isSuccess && !initData[context.pid]) {
+      setInitData(initData => {
+        initData[context.pid] = data.data;
+        return initData;
+      });
     }
-  }, [data, isSuccess]);
+  }, [context.pid, data, initData, isSuccess]);
 
   const { data: validations } = useQuery({
     queryKey: queryKeys.validation(),
@@ -97,7 +99,7 @@ function App(props: InscriptionContext) {
             data: data.data,
             setData: mutation.mutate,
             defaultData: data.defaults,
-            initData: initData ? initData : data.data,
+            initData: initData[context.pid] ?? data.data,
             validations
           }}
         >
