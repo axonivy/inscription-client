@@ -48,10 +48,11 @@
   border-bottom: none;
 }
 .combobox-menu-entry.hover {
-  background: var(--N50);
+  background: var(--A50);
 }
 .combobox-menu-entry.selected {
-  background: var(--N100);
+  background: var(--A400);
+  color: var(--background);
 }
 .combobox-menu-entry-additional {
   color: var(--seperator-color);

@@ -5,11 +5,11 @@ import MappingPart from './MappingPart';
 describe('MappingPart', () => {
   const ATTRIBUTES = /Attribute/;
   const PARAMS = /param.procurementRequest/;
-  const NODE_PARAMS = /🔵 param.procurementRequest/;
-  const NODE_BOOLEAN = /🔵 acceptedBoolean/;
-  const NODE_NUMBER = /🔵 amountNumber/;
+  const NODE_PARAMS = /param.procurementRequest/;
+  const NODE_BOOLEAN = /acceptedBoolean/;
+  const NODE_NUMBER = /amountNumber/;
   const USER = /requesterUser/;
-  const NODE_STRING = /🔵 emailString/;
+  const NODE_STRING = /emailString/;
 
   const variableInfo: VariableInfo = {
     variables: [
@@ -94,7 +94,7 @@ describe('MappingPart', () => {
 
   test('tree will render unknown values', () => {
     renderTree({ bla: 'unknown value' });
-    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, /⛔ bla/]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, /⛔bla/]);
   });
 
   test('tree will render description title', () => {

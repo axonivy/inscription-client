@@ -14,7 +14,7 @@
   cursor: not-allowed !important;
 }
 .input:focus {
-  box-shadow: var(--focus-shadow);
+  border: var(--activ-border);
 }
 textarea.input {
   resize: vertical;

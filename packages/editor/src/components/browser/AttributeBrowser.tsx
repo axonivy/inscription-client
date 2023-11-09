@@ -18,17 +18,27 @@ import { calcFullPathId } from '../parts/common/mapping-tree/useMappingTree';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
-export const useAttributeBrowser = (location: string): UseBrowserImplReturnValue => {
+export const useAttributeBrowser = (onDoubleClick: () => void, location: string): UseBrowserImplReturnValue => {
   const [value, setValue] = useState('');
   return {
     id: ATTRIBUTE_BROWSER_ID,
     name: 'Attribute',
-    content: <AttributeBrowser value={value} onChange={setValue} location={location} />,
+    content: <AttributeBrowser value={value} onChange={setValue} location={location} onDoubleClick={onDoubleClick} />,
     accept: () => value
   };
 };
 
-const AttributeBrowser = ({ value, onChange, location }: { value: string; onChange: (value: string) => void; location: string }) => {
+const AttributeBrowser = ({
+  value,
+  onChange,
+  location,
+  onDoubleClick
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  location: string;
+  onDoubleClick: () => void;
+}) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
   const [varInfo, setVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
@@ -125,7 +135,7 @@ const AttributeBrowser = ({ value, onChange, location }: { value: string; onChan
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <SelectRow key={row.id} row={row}>
+            <SelectRow key={row.id} row={row} onDoubleClick={onDoubleClick}>
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}

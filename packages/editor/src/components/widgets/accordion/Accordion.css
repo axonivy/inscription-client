@@ -11,7 +11,7 @@
 }
 .accordion-item:has([data-state='open']) .accordion-header,
 .accordion-item:has([data-state='open']) .accordion-trigger {
-  background-color: var(--N25);
+  background-color: var(--N75);
   border-bottom: none;
   font-weight: 600;
 }
@@ -45,11 +45,11 @@
   cursor: pointer;
 }
 .accordion-trigger:focus-visible {
-  box-shadow: var(--focus-shadow);
+  border: var(--activ-border);
 }
 .accordion-content {
   overflow: hidden;
-  background-color: var(--N25);
+  background-color: var(--N75);
 }
 .accordion-content[data-state='open'] {
   animation: accordionSlideDown 200ms cubic-bezier(0.87, 0, 0.13, 1);

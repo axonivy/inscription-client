@@ -21,7 +21,7 @@ describe('RestEntity', () => {
   test('empty', async () => {
     renderPart();
     await screen.findByText('param');
-    TableUtil.assertRows(['🔵 param String']);
+    TableUtil.assertRows(['param String']);
     expect(screen.getByLabelText('Code')).toHaveValue('');
   });
 

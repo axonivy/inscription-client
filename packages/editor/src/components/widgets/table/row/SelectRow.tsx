@@ -6,13 +6,22 @@ type SelectRowProps<TData> = {
   row: Row<TData>;
   children: ReactNode;
   isNotSelectable?: boolean;
+  onDoubleClick?: () => void;
 };
 
-export const SelectRow = <TData extends object>({ row, children, isNotSelectable }: SelectRowProps<TData>) => (
+export const SelectRow = <TData extends object>({ row, children, isNotSelectable, onDoubleClick }: SelectRowProps<TData>) => (
   <tr
     className={isNotSelectable ? '' : 'selectable-row'}
     data-state={row.getIsSelected() ? 'selected' : ''}
-    onClick={isNotSelectable ? undefined : row.getToggleSelectedHandler()}
+    onClick={event => {
+      if (!isNotSelectable) {
+        if (event.detail === 1) {
+          row.getToggleSelectedHandler()(event);
+        } else if (onDoubleClick) {
+          onDoubleClick();
+        }
+      }
+    }}
   >
     {children}
   </tr>

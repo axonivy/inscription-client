@@ -16,17 +16,17 @@ import { useEditorContext, useMeta } from '../../context';
 import { JavaType } from '@axonivy/inscription-protocol';
 export const DATATYPE_BROWSER_ID = 'datatype' as const;
 
-export const useDataTypeBrowser = (): UseBrowserImplReturnValue => {
+export const useDataTypeBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
   const [value, setValue] = useState('datatype');
   return {
     id: DATATYPE_BROWSER_ID,
     name: 'Datatype',
-    content: <DataTypeBrowser value={value} onChange={setValue} />,
+    content: <DataTypeBrowser value={value} onChange={setValue} onDoubleClick={onDoubleClick} />,
     accept: () => value
   };
 };
 
-const DataTypeBrowser = (props: { value: string; onChange: (value: string) => void }) => {
+const DataTypeBrowser = (props: { value: string; onChange: (value: string) => void; onDoubleClick: () => void }) => {
   const { context } = useEditorContext();
 
   const [mainFilter, setMainFilter] = useState('');
@@ -71,10 +71,10 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
   const columns = useMemo<ColumnDef<JavaType>[]>(
     () => [
       {
-        accessorFn: row => `${row.simpleName} - ${row.packageName}`,
+        accessorFn: row => row.simpleName,
         id: 'simpleName',
         cell: cell => {
-          return <ExpandableCell cell={cell} title={cell.row.original.simpleName} />;
+          return <ExpandableCell cell={cell} title={cell.row.original.simpleName} additionalInfo={cell.row.original.packageName} />;
         }
       }
     ],
@@ -195,7 +195,7 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
       >
         <tbody>
           {tableStatic.getRowModel().rows.map(row => (
-            <SelectRow key={row.id} row={row}>
+            <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}
