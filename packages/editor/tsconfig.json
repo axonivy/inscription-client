@@ -1,7 +1,6 @@
 {
-  "extends": "../../config/tsconfig.json",
+  "extends": "../../config/tsconfig.package.json",
   "compilerOptions": {
-    "composite": true,
     "baseUrl": ".",
     "rootDir": "src",
     "outDir": "lib",
@@ -10,8 +9,5 @@
     }
   },
   "include": ["src"],
-  "references": [
-    { "path": "../icons/tsconfig.json" },
-    { "path": "../protocol/tsconfig.json" },
-  ]
+  "references": [{ "path": "../icons/tsconfig.json" }, { "path": "../protocol/tsconfig.json" }]
 }
