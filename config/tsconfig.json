@@ -26,7 +26,7 @@
     "esModuleInterop": true,
     "target": "ESNext",
     "jsx": "react-jsx",
-    "lib": ["ESNext", "dom"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "sourceMap": true
   }
 }
