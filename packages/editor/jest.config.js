@@ -22,5 +22,5 @@ module.exports = {
       }
     ]
   ],
-  resolver: '<rootDir>/resolver.js'
+  resolver: '<rootDir>/jest/resolver.js'
 };
