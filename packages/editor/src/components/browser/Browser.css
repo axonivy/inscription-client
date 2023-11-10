@@ -1,8 +1,3 @@
-.browser-overlay {
-  position: fixed;
-  inset: 0;
-}
-
 .browser-dialog {
   background-color: var(--N75);
   color: var(--body);
@@ -11,10 +6,10 @@
   bottom: 0;
   right: 0;
   top: 0;
-  padding: var(--input-padding);
+  padding: var(--border-padding);
   animation: contentShow 200ms cubic-bezier(0.27, 0, 0.33, 1);
   animation-fill-mode: forwards;
-  width: calc(100% - 2 * var(--input-padding));
+  width: calc(100% - 2 * var(--border-padding));
 }
 .browser-content {
   display: flex;
@@ -27,8 +22,24 @@
   animation: contentExit 200ms cubic-bezier(0.73, 0, 0.67, 0);
   animation-fill-mode: forwards;
 }
-.browser-content .tabs-root {
-  flex: 1 0 auto;
+
+.browser-content .browser-footer .button {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: var(--size-1);
+  padding-inline: var(--size-1);
+  width: unset;
+}
+
+.insert {
+  color: var(--A400);
+}
+
+.browser-content .browser-footer .vertical-spacer-line {
+  border-left: var(--icon-seperator-line);
+  text-align: right;
+  height: 22px;
 }
 .browser-content .tabs-content {
   gap: var(--size-1);
@@ -37,7 +48,7 @@
   overflow: hidden;
 }
 .browser-content .table-root .table-container {
-  max-height: calc(100vh - 300px); /* Adjust the height as needed */
+  max-height: calc(100vh - 300px);
   overflow: auto;
 }
 .browser-content .table-root .table-container .table {
@@ -60,15 +71,14 @@
 
 .browser-title {
   margin: 0;
-  margin-bottom: var(--size-2);
   font-weight: 500;
   color: var(--body);
   font-size: 17px;
   display: flex;
   gap: var(--size-4);
-}
-.browser-title .button {
-  border-radius: 100%;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: var(--border-padding);
 }
 
 .browser-footer {
@@ -77,7 +87,8 @@
   gap: var(--size-1);
 }
 .browser-footer .button {
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 17px;
   display: flex;
   align-items: center;
   gap: var(--size-1);

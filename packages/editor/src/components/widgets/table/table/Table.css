@@ -1,5 +1,6 @@
 .table-root {
   border-radius: var(--border-radius);
+  overflow: hidden;
 }
 .table-root .icon-input {
   margin-bottom: var(--size-1);
@@ -7,7 +8,15 @@
   top: 0;
   z-index: 1;
 }
+
+.table-root .table-container {
+  max-height: 50vh;
+  overflow: auto;
+}
+
 .table {
+  overflow: auto;
+  max-height: 100%;
   width: 100%;
   border: var(--basic-border);
   border-radius: var(--border-radius);

@@ -115,7 +115,7 @@ test.describe('Script browser', () => {
     } else {
       await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
     }
-    await page.getByRole('button', { name: 'Insert' }).click();
+    await page.getByRole('button', { name: 'Apply' }).click();
 
     await expect(page.getByRole('dialog')).toBeHidden();
     await expect(browserBtn(page)).toBeVisible();
