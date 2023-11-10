@@ -2,7 +2,6 @@
   "compilerOptions": {
     "incremental": true,
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["vite/client", "node"],
     "allowJs": true,
     "skipLibCheck": true,
