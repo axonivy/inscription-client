@@ -26,13 +26,21 @@ export type CmsOptions = {
   typeFilter?: CmsTypeFilter;
 };
 
-export const useCmsBrowser = (options?: CmsOptions): UseBrowserImplReturnValue => {
+export const useCmsBrowser = (onDoubleClick: () => void, options?: CmsOptions): UseBrowserImplReturnValue => {
   const [value, setValue] = useState('');
 
   return {
     id: CMS_BROWSER_ID,
     name: 'CMS',
-    content: <CmsBrowser value={value} onChange={setValue} noApiCall={options?.noApiCall} typeFilter={options?.typeFilter} />,
+    content: (
+      <CmsBrowser
+        value={value}
+        onChange={setValue}
+        noApiCall={options?.noApiCall}
+        typeFilter={options?.typeFilter}
+        onDoubleClick={onDoubleClick}
+      />
+    ),
     accept: () => value
   };
 };
@@ -42,9 +50,10 @@ interface CmsBrowserProps {
   onChange: (value: string) => void;
   noApiCall?: boolean;
   typeFilter?: CmsTypeFilter;
+  onDoubleClick: () => void;
 }
 
-const CmsBrowser = ({ value, onChange, noApiCall, typeFilter }: CmsBrowserProps) => {
+const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: CmsBrowserProps) => {
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
@@ -154,7 +163,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter }: CmsBrowserProps)
       >
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <SelectRow key={row.id} row={row} isNotSelectable={row.original.type === 'FOLDER'}>
+            <SelectRow key={row.id} row={row} isNotSelectable={row.original.type === 'FOLDER'} onDoubleClick={onDoubleClick}>
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}

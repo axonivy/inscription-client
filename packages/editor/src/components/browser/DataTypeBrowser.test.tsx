@@ -2,7 +2,7 @@ import { TableUtil, render, screen, userEvent } from 'test-utils';
 import { useDataTypeBrowser } from './DataTypeBrowser';
 
 const Browser = (props: { location: string; accept: (value: string) => void }) => {
-  const browser = useDataTypeBrowser();
+  const browser = useDataTypeBrowser(() => {});
   return (
     <>
       {browser.content}

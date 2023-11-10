@@ -9,3 +9,12 @@
 .table-cell .row-expand-button[data-state='collapsed'] .ivy-angle-down {
   transform: rotate(-90deg);
 }
+
+.table-cell .row-expand-label {
+  font-weight: bold;
+}
+
+.table-cell .row-expand-label-info {
+  font-style: italic;
+  color: var(--N700);
+}

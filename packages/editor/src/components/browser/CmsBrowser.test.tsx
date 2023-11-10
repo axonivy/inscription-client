@@ -2,7 +2,7 @@ import { TableUtil, render, screen, userEvent } from 'test-utils';
 import { useCmsBrowser } from './CmsBrowser';
 
 const Browser = (props: { location: string; accept: (value: string) => void }) => {
-  const browser = useCmsBrowser();
+  const browser = useCmsBrowser(() => {});
   return (
     <>
       {browser.content}

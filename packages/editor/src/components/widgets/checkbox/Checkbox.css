@@ -19,17 +19,18 @@ button {
 }
 .checkbox-root:hover {
   cursor: pointer;
-  background-color: var(--N25);
+  background-color: var(--A50);
 }
 .checkbox-root[data-state='checked'] {
-  background-color: var(--N25);
+  background-color: var(--A50);
+  border: var(--activ-border);
 }
 .checkbox-root:focus-visible {
   box-shadow: var(--focus-shadow);
 }
 
 .checkbox-indicator svg path {
-  fill: var(--body);
+  fill: var(--A400);
 }
 
 .checkbox-label {

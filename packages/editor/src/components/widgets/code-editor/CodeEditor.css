@@ -1,10 +1,14 @@
 .code-editor .code-input {
   border-radius: var(--border-radius);
-  border: var(--basic-border) !important;
+  border: var(--basic-border);
   background: var(--background);
   font-size: 12px;
   line-height: 12px;
   color: var(--body);
   text-align: start;
   padding: var(--input-padding);
+}
+
+.code-editor .code-input:focus-within {
+  border: var(--activ-border);
 }

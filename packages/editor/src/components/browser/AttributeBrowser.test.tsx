@@ -64,7 +64,7 @@ const OUT_VAR_INFO: VariableInfo = {
 };
 
 const Browser = (props: { location: string; accept: (value: string) => void }) => {
-  const browser = useAttributeBrowser(props.location);
+  const browser = useAttributeBrowser(() => {}, props.location);
   return (
     <>
       {browser.content}

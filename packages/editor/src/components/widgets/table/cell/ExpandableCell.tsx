@@ -11,9 +11,18 @@ type ExpandableCellProps<TData> = {
   isUnknown?: boolean;
   icon?: IvyIcons;
   title?: string;
+  additionalInfo?: string;
 };
 
-export function ExpandableCell<TData>({ cell, isLoaded, loadChildren, isUnknown, icon, title }: ExpandableCellProps<TData>) {
+export function ExpandableCell<TData>({
+  cell,
+  isLoaded,
+  loadChildren,
+  isUnknown,
+  icon,
+  title,
+  additionalInfo
+}: ExpandableCellProps<TData>) {
   const row = cell.row;
   const onClick = () => {
     if (isLoaded === false && loadChildren) {
@@ -22,7 +31,7 @@ export function ExpandableCell<TData>({ cell, isLoaded, loadChildren, isUnknown,
     row.toggleExpanded(true);
   };
   return (
-    <div className='row-expand' style={{ paddingLeft: `${row.depth}rem` }} title={title}>
+    <div className='row-expand' style={{ paddingLeft: `calc(${row.depth}*(var(--tree-gap))` }} title={title}>
       {row.getCanExpand() ? (
         <>
           <Button
@@ -39,12 +48,10 @@ export function ExpandableCell<TData>({ cell, isLoaded, loadChildren, isUnknown,
       ) : isUnknown === true ? (
         '⛔'
       ) : (
-        <>
-          🔵
-          {icon && <IvyIcon icon={icon} />}
-        </>
-      )}{' '}
-      <span className='row-expand-label'>{cell.getValue() as string}</span>
+        <>{icon && <IvyIcon icon={icon} />}</>
+      )}
+      <span className={additionalInfo ? 'row-expand-label' : ''}>{cell.getValue() as string}</span>
+      {additionalInfo && <span className='row-expand-label-info'>- {additionalInfo}</span>}
     </div>
   );
 }

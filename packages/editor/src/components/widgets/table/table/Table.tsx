@@ -8,6 +8,8 @@ type TableProps = { search?: { value: string; onChange: (value: string) => void 
 export const Table = ({ search, children }: TableProps) => (
   <div className='table-root'>
     {search && <IconInput icon={IvyIcons.Search} placeholder='Search' {...search} />}
-    <table className='table'>{children}</table>
+    <div className='table-container'>
+      <table className='table'>{children}</table>
+    </div>
   </div>
 );

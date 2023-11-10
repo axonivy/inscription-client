@@ -4,7 +4,7 @@
 }
 
 .browser-dialog {
-  background-color: var(--N25);
+  background-color: var(--N75);
   color: var(--body);
   box-shadow: var(--editor-shadow);
   position: absolute;
@@ -34,9 +34,15 @@
   gap: var(--size-1);
 }
 .browser-content .table-root {
+  overflow: hidden;
+}
+.browser-content .table-root .table-container {
+  max-height: calc(100vh - 300px); /* Adjust the height as needed */
   overflow: auto;
-  max-height: calc(100vh - 200px);
-  padding: 1px;
+}
+.browser-content .table-root .table-container .table {
+  overflow: auto;
+  max-height: 100%;
 }
 .browser-content .browser-helptext {
   font-size: 12px;
@@ -44,7 +50,7 @@
   border: var(--basic-border);
   padding: var(--input-padding);
   overflow: auto;
-  max-height: 50vh;
+  max-height: 80px;
   display: flex;
   flex-direction: column;
   gap: var(--size-1);

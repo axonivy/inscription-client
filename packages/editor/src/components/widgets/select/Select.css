@@ -18,8 +18,11 @@
   gap: var(--size-1);
   width: 100%;
 }
+.select-button:focus {
+  border: var(--activ-border);
+}
 .select-button:focus-visible {
-  box-shadow: var(--focus-shadow);
+  border: var(--activ-border);
 }
 .select-button .ivy-angle-down {
   font-size: 16px;
@@ -48,15 +51,16 @@
   padding: var(--size-2);
   min-height: 1em;
   cursor: pointer;
-  border-bottom: var(--basic-border);
+  border-bottom: var(--seperator-border);
 }
 .select-menu-entry:last-child {
   border-bottom: none; /* Remove the border from the last entry */
 }
 .select-menu-entry.hover {
-  background: var(--N50);
+  background: var(--A50);
 }
 
 .select-menu-entry.selected {
-  background: var(--N100);
+  background: var(--A400);
+  color: var(--background);
 }

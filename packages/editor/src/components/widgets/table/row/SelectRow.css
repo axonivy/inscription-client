@@ -2,9 +2,16 @@
   cursor: pointer;
 }
 .selectable-row:where(:hover) {
-  background-color: var(--N50);
+  background-color: var(--A50);
 }
 
-.selectable-row:where([data-state='selected']) {
-  background-color: var(--N100);
+.selectable-row:where([data-state='selected']),
+.selectable-row:where([data-state='selected']) .table-cell .row-expand .row-expand-label-info {
+  background-color: var(--A400);
+  color: var(--background);
+}
+
+.selectable-row:where([data-state='selected']) .table-cell .row-expand .row-expand-button:hover {
+  background-color: var(--background);
+  color: var(--A400);
 }

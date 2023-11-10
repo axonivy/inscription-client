@@ -15,6 +15,13 @@
   --N800: #757575;
   --N900: #4a4a4a;
 
+  --A50: #edf1ff;
+  --A75: #cbd6ff;
+  --A200: #95acff;
+  --A300: #6788ff;
+  --A400: #4870ff;
+  --A500: #2c449c;
+
   --error-color: #ee4a52;
   --warning-color: #ffac5e;
   --success-color: #47c46b;
@@ -22,7 +29,8 @@
 
   /* ------borders------*/
   --basic-border: 1px solid var(--N200);
-  --thick-border: 2px solid var(--N200);
+  --activ-border: 1px solid var(--A200);
+  --thick-border: 1px solid var(--N200);
   --dashed-border: 1px dashed var(--N400);
   --border-radius: 5px;
   --seperator-border: var(--basic-border);
@@ -40,6 +48,7 @@
   --size-3: 0.75rem;
   --size-4: 1rem;
   --input-padding: 10px;
+  --tree-gap: calc((20px + var(--size-1)));
 }
 
 .editor-root {
@@ -63,6 +72,9 @@
   --N500: #757575;
   --N800: #a3a3a3;
   --N900: #a3a3a3;
+
+  --A50: var(--A500);
+  --A75: var(--A300);
 
   --basic-border: 1px solid var(--N200);
   --thick-border: 2px solid var(--N200);

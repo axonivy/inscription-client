@@ -17,13 +17,14 @@
   border: var(--basic-border);
 }
 .radio-group-item:hover {
-  background-color: var(--N25);
+  background-color: var(--A50);
 }
 .radio-group-item:focus {
-  box-shadow: var(--N25);
+  box-shadow: var(--A50);
 }
 .radio-group-item[data-state='checked'] {
-  background-color: var(--N25);
+  background-color: var(--A50);
+  border: var(--activ-border);
 }
 .radio-group-indicator {
   display: flex;
@@ -39,7 +40,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: var(--body);
+  background-color: var(--A400);
 }
 
 .radio-group-label {

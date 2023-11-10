@@ -24,10 +24,19 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
   const { editorRef } = useEditorContext();
   const [active, setActive] = useState<BrowserType>(types[0]);
 
-  const attrBrowser = useAttributeBrowser(location);
-  const cmsBrowser = useCmsBrowser(cmsOptions);
+  const acceptBrowser = () => {
+    accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? '', active);
+  };
+
+  const onRowDoubleClick = () => {
+    onOpenChange(false);
+    acceptBrowser();
+  };
+
+  const attrBrowser = useAttributeBrowser(onRowDoubleClick, location);
+  const cmsBrowser = useCmsBrowser(onRowDoubleClick, cmsOptions);
   const funcBrowser = useFuncBrowser();
-  const dataTypeBrowser = useDataTypeBrowser();
+  const dataTypeBrowser = useDataTypeBrowser(onRowDoubleClick);
   const catPathChooserBrowser = useCatPathChooserBrowser();
   const tableColBrowser = useTableColBrowser();
   const sqlOpBrowser = useSqlOpBrowser();
@@ -35,9 +44,6 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
   const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, dataTypeBrowser, catPathChooserBrowser, tableColBrowser, sqlOpBrowser];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
-  const acceptBrowser = () => {
-    accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? '', active);
-  };
 
   return (
     <>

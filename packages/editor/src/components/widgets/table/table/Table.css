@@ -6,7 +6,6 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  border-bottom: var(--size-1) solid var(--N25);
 }
 .table {
   width: 100%;
@@ -18,4 +17,16 @@
 
 .table tr :where(td) {
   border-top: var(--seperator-border);
+}
+
+.table tr:last-child td:first-child {
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.table tr:last-child td:last-child {
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.table tr:first-child td {
+  border-top: none;
 }
