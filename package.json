@@ -6,10 +6,12 @@
     "node": ">=18.16.1"
   },
   "scripts": {
-    "ci": "yarn ci:prepare && yarn build && yarn lint:ci && yarn test:ci && yarn standalone build:production",
+    "ci": "yarn ci:prepare && yarn build:production && yarn lint:ci && yarn test:ci",
     "ci:prepare": "yarn install && yarn icons:generate",
     "clean": "lerna run clean",
-    "build": "lerna run build",
+    "build": "tsc --build && tscp --build",
+    "build:production": "lerna run build:production",
+    "watch": "concurrently 'tsc --build --watch' 'tscp --build --watch'",
     "build:clean": "lerna run build:clean",
     "type": "lerna run type",
     "lint": "lerna run lint --",
@@ -26,17 +28,18 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
-    "copyfiles": "2.4.1",
-    "eslint": "^8.42.0",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "@typescript-eslint/parser": "^6.6.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.42.0",
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "lerna": "^6.6.2",
     "rimraf": "^5.0.1",
-    "typescript": "~5.2.2"
+    "typescript": "~5.2.2",
+    "typescript-cp": "^0.1.9"
   },
   "workspaces": [
     "packages/*",

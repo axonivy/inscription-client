@@ -1,5 +1,5 @@
 import './index.css';
-import { IvyScriptLanguage, InscriptionClientJsonRpc , MonacoUtil } from '@axonivy/inscription-core';
+import { IvyScriptLanguage, InscriptionClientJsonRpc, MonacoUtil } from '@axonivy/inscription-core';
 import {
   App,
   AppStateView,

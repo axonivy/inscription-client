@@ -1,0 +1,14 @@
+{
+  "extends": "./config/tsconfig.json",
+  "files": [],
+  "compilerOptions": {
+    "noEmit": true,
+  },
+  "references": [
+    { "path": "integrations/standalone/tsconfig.json" },
+    { "path": "packages/core/tsconfig.json" },
+    { "path": "packages/editor/tsconfig.json" },
+    { "path": "packages/icons/tsconfig.json" },
+    { "path": "packages/protocol/tsconfig.json" },
+  ]
+}

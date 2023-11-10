@@ -12,7 +12,7 @@
   },
   "include": ["src"],
   "references": [
-    { "path": "../icons" },
-    { "path": "../protocol" },
+    { "path": "../icons/tsconfig.json" },
+    { "path": "../protocol/tsconfig.json" },
   ]
 }
