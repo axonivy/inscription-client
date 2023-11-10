@@ -16,13 +16,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "rootDir": ".",
+    "outDir": "lib",
+    "baseUrl": "."
   },
   "include": ["src", "tests"],
   "exclude": ["**/playwright.config.ts"],
   "references": [
-    { "path": "../../packages/core" },
-    { "path": "../../packages/editor/tsconfig.build.json" },
-    { "path": "../../packages/protocol" }
+    { "path": "../../packages/core/tsconfig.json" },
+    { "path": "../../packages/editor/tsconfig.json" },
+    { "path": "../../packages/protocol/tsconfig.json" }
   ]
 }
