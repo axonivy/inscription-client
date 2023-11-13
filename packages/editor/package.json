@@ -53,6 +53,7 @@
     "jest-resolve": "^29.6.4",
     "jest-watch-typeahead": "^2.2.2"
   },
+  "type": "module",
   "module": "lib/index",
   "types": "lib/index",
   "source": "src/index",

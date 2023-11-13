@@ -44,6 +44,7 @@
     "webtest:engine": "yarn webtest -c ./tests/integration",
     "webtest:screenshot": "yarn webtest -c ./tests/screenshots"
   },
+  "type": "module",
   "browserslist": {
     "production": [
       ">0.2%",

@@ -1,5 +1,5 @@
 import { ElementType } from '@axonivy/inscription-protocol';
-import Client, { RequestManager, WebSocketTransport } from '@open-rpc/client-js';
+import { Client, RequestManager, WebSocketTransport } from '@open-rpc/client-js';
 import { v4 as uuid } from 'uuid';
 
 const SELECT_KIND = 'elementSelected';
