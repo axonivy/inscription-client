@@ -108,9 +108,9 @@ const Combobox = <T extends ComboboxItem>({
         )}
         <Button
           className='combobox-button'
+          {...getToggleButtonProps()}
           icon={IvyIcons.AngleDown}
           aria-label='toggle menu'
-          {...getToggleButtonProps()}
           disabled={readonly}
         />
         {browserTypes || (macro && browserTypes!) ? (
