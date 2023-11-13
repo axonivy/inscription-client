@@ -51,7 +51,7 @@ export function ExpandableCell<TData>({
         <>{icon && <IvyIcon icon={icon} />}</>
       )}
       <span className={additionalInfo ? 'row-expand-label' : ''}>{cell.getValue() as string}</span>
-      {additionalInfo && <span className='row-expand-label-info'>- {additionalInfo}</span>}
+      {additionalInfo && <span className='row-expand-label-info'> : {additionalInfo}</span>}
     </div>
   );
 }

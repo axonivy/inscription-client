@@ -3,30 +3,36 @@
   flex-direction: column;
 }
 .tabs-list {
-  flex-shrink: 0;
   display: flex;
-  gap: 4px;
   flex-wrap: wrap;
-  flex: 1 1 0;
+  width: 100%;
 }
 .tabs-trigger {
   font-family: inherit;
-  padding: var(--size-2);
+  padding: var(--size-2) var(--size-4) var(--size-2) var(--size-4);
   height: var(--size-3);
   display: flex;
-  flex: 1 0 0;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1;
-  color: var(--button-color);
+  color: var(--N500);
   user-select: none;
   cursor: pointer;
+  border-bottom: 2px solid var(--N500);
+  flex: 1;
 }
-.tabs-trigger:where(:hover, [data-state='active']) {
-  border-bottom: 1.5px solid var(--body);
+.tabs-trigger:hover {
+  border-bottom: 2px solid var(--body);
+  color: var(--body);
 }
+
+.tabs-trigger[data-state='active'] {
+  border-bottom: 2px solid var(--body);
+  color: var(--body);
+}
+
 .tabs-trigger:focus-visible {
   position: relative;
   box-shadow: var(--focus-shadow);

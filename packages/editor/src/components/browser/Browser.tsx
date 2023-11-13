@@ -1,5 +1,5 @@
 import './Browser.css';
-import { Dialog, DialogClose, DialogContent, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '@radix-ui/react-dialog';
+import { Dialog, DialogClose, DialogContent, DialogPortal, DialogTitle, DialogTrigger } from '@radix-ui/react-dialog';
 import { Button, TabContent, TabList, TabRoot } from '../widgets';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEditorContext } from '../../context';
@@ -53,29 +53,23 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
           <Button icon={IvyIcons.WsEvent} aria-label='Browser' />
         </DialogTrigger>
         <DialogPortal container={editorRef.current}>
-          <DialogOverlay className='browser-overlay' />
           <DialogContent className={`browser-dialog ${!open ? 'browser-content-exit' : ''}`}>
             <div className='browser-content'>
               <TabRoot tabs={tabs} value={active} onChange={change => setActive(change as BrowserType)}>
                 <DialogTitle className='browser-title'>
                   <TabList tabs={tabs} />
-                  <DialogClose asChild>
-                    <Button icon={IvyIcons.Add} rotate={45} aria-label='Close' />
-                  </DialogClose>
                 </DialogTitle>
 
                 <TabContent tabs={tabs} />
               </TabRoot>
-
               <div className='browser-footer'>
                 <DialogClose asChild>
-                  <Button icon={IvyIcons.Add} rotate={45} aria-label='Cancel'>
-                    Cancel
-                  </Button>
+                  <Button aria-label='Cancel'>Cancel</Button>
                 </DialogClose>
+                <div className='vertical-spacer-line' />
                 <DialogClose asChild>
-                  <Button icon={IvyIcons.Add} aria-label='Insert' onClick={() => acceptBrowser()}>
-                    Insert
+                  <Button className='insert' aria-label='Apply' onClick={() => acceptBrowser()}>
+                    Apply
                   </Button>
                 </DialogClose>
               </div>

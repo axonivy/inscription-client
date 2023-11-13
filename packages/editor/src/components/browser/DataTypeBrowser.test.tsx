@@ -71,8 +71,6 @@ describe('DataTypeBrowser', () => {
   test('acceptEmpty', async () => {
     let data = '';
     renderBrowser({ accept: value => (data = value) });
-    await userEvent.click(await screen.findByRole('cell', { name: 'AddContactData' }));
-    await userEvent.click(await screen.findByRole('cell', { name: 'AddContactData' }));
     await userEvent.click(screen.getByRole('button', { name: '' }));
     expect(data).toEqual('');
     await userEvent.click(await screen.findByText('Helper Text'));

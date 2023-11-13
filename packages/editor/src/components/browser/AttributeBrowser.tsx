@@ -1,17 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow } from '../widgets';
+import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow, Collapsible, MessageText } from '../widgets';
 import type { UseBrowserImplReturnValue } from './useBrowser';
-import type {
-  ColumnDef,
-  ExpandedState,
-  RowSelectionState} from '@tanstack/react-table';
-import {
-  flexRender,
-  getCoreRowModel,
-  getExpandedRowModel,
-  getFilteredRowModel,
-  useReactTable
-} from '@tanstack/react-table';
+import type { ColumnDef, ExpandedState, RowSelectionState } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import { MappingTreeData } from '../parts/common/mapping-tree/mapping-tree-data';
 import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { useEditorContext, useMeta } from '../../context';
@@ -47,6 +38,8 @@ const AttributeBrowser = ({
   const { data: inVarInfo } = useMeta('meta/scripting/in', { context, location }, { variables: [], types: {} });
   const { data: outVarInfo } = useMeta('meta/scripting/out', { context, location }, { variables: [], types: {} });
 
+  const [showHelper, setShowHelper] = useState(false);
+
   useEffect(() => {
     location.endsWith('code')
       ? setVarInfo({ variables: [...inVarInfo.variables, ...outVarInfo.variables], types: { ...inVarInfo.types, ...outVarInfo.types } })
@@ -74,14 +67,9 @@ const AttributeBrowser = ({
             isLoaded={cell.row.original.isLoaded}
             loadChildren={() => loadChildren(cell.row.original)}
             title={cell.row.original.description}
+            additionalInfo={cell.row.original.simpleType}
           />
         )
-      },
-      {
-        accessorFn: row => row.simpleType,
-        id: 'simpleType',
-        header: () => <span>Type</span>,
-        cell: cell => <span title={cell.row.original.type}>{cell.getValue() as string}</span>
       }
     ],
     [loadChildren]
@@ -117,6 +105,7 @@ const AttributeBrowser = ({
       return;
     }
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
+    setShowHelper(true);
     onChange(calcFullPathId(selectedRow));
   }, [onChange, rowSelection, table]);
 
@@ -144,9 +133,22 @@ const AttributeBrowser = ({
           ))}
         </tbody>
       </Table>
-      <pre className='browser-helptext'>
-        <code>{value}</code>
-      </pre>
+      <Collapsible label='Helper Text' defaultOpen={showHelper} autoClosable={true}>
+        {value.length !== 0 && value ? (
+          <pre className='browser-helptext'>
+            <code>{value}</code>
+          </pre>
+        ) : (
+          <pre className='browser-helptext'>
+            <MessageText
+              message={{
+                severity: 'INFO',
+                message: `No element selected.`
+              }}
+            />
+          </pre>
+        )}
+      </Collapsible>
     </>
   );
 };

@@ -82,20 +82,20 @@ describe('AttributeBrowser', () => {
 
   test('render', async () => {
     renderBrowser();
-    TableUtil.assertHeaders(['Attribute', 'Type']);
+    TableUtil.assertHeaders(['Attribute']);
     await TableUtil.assertRowCount(4);
   });
 
   test('render code location', async () => {
     renderBrowser({ location: 'something.code' });
-    TableUtil.assertHeaders(['Attribute', 'Type']);
+    TableUtil.assertHeaders(['Attribute']);
     await TableUtil.assertRowCount(7);
   });
 
   test('accept', async () => {
     let data = '';
     renderBrowser({ accept: value => (data = value) });
-    await userEvent.click(await screen.findByRole('cell', { name: 'user' }));
+    await userEvent.click(await screen.findByText('user', { selector: 'span.row-expand-label' }));
     await userEvent.click(screen.getByTestId('accept'));
     expect(data).toEqual('in.user');
   });

@@ -16,7 +16,9 @@ export const SelectRow = <TData extends object>({ row, children, isNotSelectable
     onClick={event => {
       if (!isNotSelectable) {
         if (event.detail === 1) {
-          row.getToggleSelectedHandler()(event);
+          if (!row.getIsSelected()) {
+            row.getToggleSelectedHandler()(event);
+          }
         } else if (onDoubleClick) {
           onDoubleClick();
         }
