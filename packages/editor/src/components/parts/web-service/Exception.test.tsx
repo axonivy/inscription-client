@@ -1,5 +1,6 @@
 import { CollapsableUtil, render, screen } from 'test-utils';
 import { Exception } from './Exception';
+import { describe, test, expect } from 'vitest';
 
 describe('Exception', () => {
   test('data', async () => {

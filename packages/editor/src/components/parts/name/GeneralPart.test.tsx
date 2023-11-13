@@ -2,6 +2,7 @@ import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-uti
 import type { GeneralData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useGeneralPart } from './GeneralPart';
+import { describe, test, expect } from 'vitest';
 
 const Part = (props: { hideTags?: boolean; disableName?: boolean }) => {
   const part = useGeneralPart({ hideTags: props.hideTags, disableName: props.disableName });

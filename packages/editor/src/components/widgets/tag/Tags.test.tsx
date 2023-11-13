@@ -1,5 +1,6 @@
 import Tags from './Tags';
 import { render, screen, userEvent, waitFor } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('Tags', () => {
   function renderTags(): {

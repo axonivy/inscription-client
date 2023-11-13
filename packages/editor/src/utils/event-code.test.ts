@@ -1,4 +1,5 @@
 import { eventCodeInfo } from './event-code';
+import { describe, test, expect } from 'vitest';
 
 describe('event code info', () => {
   test('info', () => {

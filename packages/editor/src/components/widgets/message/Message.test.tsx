@@ -1,5 +1,6 @@
 import { render, screen } from 'test-utils';
 import { MessageText } from './Message';
+import { describe, test, expect } from 'vitest';
 
 describe('MessageText', () => {
   test('error', () => {

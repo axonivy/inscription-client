@@ -1,5 +1,6 @@
 import { render, screen } from 'test-utils';
 import SummaryFieldset from './SummaryFieldset';
+import { describe, test, expect } from 'vitest';
 
 describe('SummaryFieldset', () => {
   function renderFieldset(data: string, weight?: 'normal' | 'bold') {

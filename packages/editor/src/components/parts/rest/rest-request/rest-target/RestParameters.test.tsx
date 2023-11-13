@@ -1,7 +1,8 @@
 import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
 import { RestParameters } from './RestParameters';
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, SelectUtil, TableUtil, render, screen } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('RestParameters', () => {
   function renderParameters(data?: DeepPartial<RestRequestData>, restResource?: DeepPartial<RestResource>) {
@@ -34,7 +35,7 @@ describe('RestParameters', () => {
       queryParams: [{ name: 'queryParam', type: { fullQualifiedName: 'String' }, doc: 'query param', required: false }]
     });
     await screen.findByText('Kind');
-    TableUtil.assertRows(['* required\npath param', 'query param']);
+    TableUtil.assertRows(['pathParam Number', 'queryParam String']);
     expect(SelectUtil.select({ index: 0 })).toBeDisabled();
     expect(screen.getAllByRole('textbox')[0]).toHaveValue('pathParam');
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();

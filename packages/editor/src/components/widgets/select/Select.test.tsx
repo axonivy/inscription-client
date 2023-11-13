@@ -1,6 +1,7 @@
 import type { SelectItem } from './Select';
 import Select from './Select';
 import { render, screen, userEvent } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('Select', () => {
   const items: SelectItem[] = [

@@ -1,5 +1,6 @@
 import { CardArea, CardText } from './CardText';
 import { render, screen } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('CardText', () => {
   function renderText(text: string) {

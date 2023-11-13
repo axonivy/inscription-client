@@ -1,6 +1,7 @@
 import type { Message } from '../message/Message';
 import Collapsible from './Collapsible';
 import { render, screen, userEvent } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('Collapsible', () => {
   const COLLAPSE_DATA = /collapsible data/i;

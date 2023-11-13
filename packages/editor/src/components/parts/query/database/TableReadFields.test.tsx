@@ -1,5 +1,6 @@
 import { CollapsableUtil, TableUtil, render, screen } from 'test-utils';
 import { TableReadFields } from './TableReadFields';
+import { describe, test, expect } from 'vitest';
 
 describe('TableReadFields', () => {
   test('all', async () => {

@@ -1,10 +1,11 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { renderHook, screen, render, cloneObject } from 'test-utils';
 import type { WfTask, TaskData, ElementData } from '@axonivy/inscription-protocol';
 import { DEFAULT_TASK } from '@axonivy/inscription-protocol';
-import type { TaskPartProps} from './TaskPart';
+import type { TaskPartProps } from './TaskPart';
 import { useTaskPart } from './TaskPart';
 import type { PartStateFlag } from '../../editors';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useTaskPart();
@@ -42,7 +43,7 @@ describe('TaskPart', () => {
     assertState('configured', { priority: { level: 'LOW', script: '' } });
 
     assertState('configured', { skipTasklist: true });
-    assertState('configured', { notification: {suppress: true} });
+    assertState('configured', { notification: { suppress: true } });
     assertState('configured', { delay: 'delay' });
     assertState('configured', undefined, { persistOnStart: true }, 'request');
 
@@ -62,7 +63,7 @@ describe('TaskPart', () => {
           responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: '' },
           priority: { level: 'LOW', script: '' },
           skipTasklist: true,
-          notification: {suppress: true},
+          notification: { suppress: true },
           delay: 'delay',
           expiry: { timeout: 'asf' },
           customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }],

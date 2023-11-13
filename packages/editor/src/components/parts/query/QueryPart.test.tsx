@@ -1,8 +1,9 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
 import type { InscriptionValidation, QueryData } from '@axonivy/inscription-protocol';
 import { useQueryPart } from './QueryPart';
 import type { PartStateFlag } from '../../editors';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useQueryPart();

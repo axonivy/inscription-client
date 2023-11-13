@@ -1,4 +1,5 @@
 import { screen, userEvent, waitFor } from 'test-utils';
+import { expect } from 'vitest';
 
 type SelectUtilOptions = {
   label?: string;

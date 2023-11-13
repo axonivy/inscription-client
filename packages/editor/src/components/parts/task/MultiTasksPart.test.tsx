@@ -5,6 +5,7 @@ import { DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useMultiTasksPart } from './MultiTasksPart';
 import { deepmerge } from 'deepmerge-ts';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useMultiTasksPart();

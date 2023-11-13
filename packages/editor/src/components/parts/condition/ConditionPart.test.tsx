@@ -3,6 +3,7 @@ import { render, TableUtil, renderHook, screen } from 'test-utils';
 import type { ConditionData, ConnectorRef, ElementData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useConditionPart } from './ConditionPart';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useConditionPart();

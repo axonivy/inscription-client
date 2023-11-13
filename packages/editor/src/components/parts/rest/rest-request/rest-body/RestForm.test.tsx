@@ -1,7 +1,8 @@
 import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { TableUtil, render, screen } from 'test-utils';
 import { RestForm } from './RestForm';
+import { describe, test, expect } from 'vitest';
 
 describe('RestForm', () => {
   function renderPart(data?: DeepPartial<RestRequestData>, restResource?: DeepPartial<RestResource>) {
@@ -28,7 +29,7 @@ describe('RestForm', () => {
       }
     );
     await screen.findByText('Boolean');
-    TableUtil.assertRows(['test desc']);
+    TableUtil.assertRows(['test Boolean 123']);
     expect(screen.getAllByRole('textbox')[0]).toHaveValue('test');
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();
     expect(screen.getAllByRole('button', { name: 'Remove row' })[0]).toBeDisabled();

@@ -1,5 +1,6 @@
 import { CollapsableUtil, TableUtil, render, screen } from 'test-utils';
 import { TableFields } from './TableFields';
+import { describe, test } from 'vitest';
 
 describe('TableFields', () => {
   const renderTable = async (fields: Record<string, string>) => {

@@ -1,9 +1,10 @@
 import { OpenApiContextProvider } from '../../../context';
 import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox';
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { ComboboxUtil, render } from 'test-utils';
 import { renderHook } from '@testing-library/react';
 import type { RestPayload } from '@axonivy/inscription-protocol';
+import { describe, test, expect } from 'vitest';
 
 describe('RestEntityTypeCombobox', () => {
   function renderCombo(value: string, restEntityTypes?: string[]) {

@@ -3,6 +3,7 @@ import { render, renderHook, screen } from 'test-utils';
 import type { ConfigurationData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { useConfigurationPart } from './ConfigurationPart';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useConfigurationPart();
