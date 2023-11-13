@@ -1,4 +1,4 @@
-import { VariableInfo } from '@axonivy/inscription-protocol';
+import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { MappingTreeData } from './mapping-tree-data';
 import { cloneObject } from 'test-utils';
 

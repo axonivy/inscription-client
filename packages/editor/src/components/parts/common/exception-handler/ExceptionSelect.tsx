@@ -1,6 +1,7 @@
-import { FieldsetInputProps, Select, SelectItem } from '../../../widgets';
+import type { FieldsetInputProps, SelectItem } from '../../../widgets';
+import { Select } from '../../../widgets';
 import { useEditorContext, useMeta } from '../../../../context';
-import { Consumer } from '../../../../types/lambda';
+import type { Consumer } from '../../../../types/lambda';
 
 type ExceptionSelectProps = {
   value: string;

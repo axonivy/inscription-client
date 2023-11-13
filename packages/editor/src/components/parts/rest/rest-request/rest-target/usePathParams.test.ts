@@ -1,6 +1,7 @@
-import { DeepPartial, renderHook, waitFor } from 'test-utils';
+import type { DeepPartial} from 'test-utils';
+import { renderHook, waitFor } from 'test-utils';
 import { useFindPathParams, useTargetPathSplit } from './usePathParams';
-import { RestRequestData } from '@axonivy/inscription-protocol';
+import type { RestRequestData } from '@axonivy/inscription-protocol';
 
 describe('useTargetPathSplit', () => {
   test('empty', () => {

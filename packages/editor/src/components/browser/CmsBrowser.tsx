@@ -1,20 +1,21 @@
 import { useMemo, useEffect, useState } from 'react';
 import { ActionCell, Checkbox, Collapsible, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../widgets';
-import { UseBrowserImplReturnValue } from './useBrowser';
+import type { UseBrowserImplReturnValue } from './useBrowser';
 import { useAction, useEditorContext, useMeta } from '../../context';
-import {
+import type {
   ColumnDef,
   ColumnFiltersState,
   ExpandedState,
   RowSelectionState,
-  VisibilityState,
+  VisibilityState} from '@tanstack/react-table';
+import {
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
+import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 export const CMS_BROWSER_ID = 'cms' as const;

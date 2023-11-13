@@ -1,6 +1,7 @@
 import { useOpenApi } from '../../../context';
-import { Combobox, ComboboxItem, FieldsetInputProps } from '../../../components/widgets';
-import { RestPayload } from '@axonivy/inscription-protocol';
+import type { ComboboxItem, FieldsetInputProps } from '../../../components/widgets';
+import { Combobox } from '../../../components/widgets';
+import type { RestPayload } from '@axonivy/inscription-protocol';
 import { typesSupportBinary } from './known-types';
 
 type RestEntityTypeComboboxProps = FieldsetInputProps & {

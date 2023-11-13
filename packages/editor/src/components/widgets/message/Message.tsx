@@ -1,7 +1,7 @@
 import './Message.css';
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { InscriptionValidation } from '@axonivy/inscription-protocol';
 import IvyIcon from '../IvyIcon';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export type Message = Omit<InscriptionValidation, 'path'>;
 

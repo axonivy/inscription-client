@@ -1,4 +1,4 @@
-import { VariableInfo } from '@axonivy/inscription-protocol';
+import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 import MappingPart from './MappingPart';
 

@@ -1,4 +1,5 @@
-import { Locator, Page, expect } from '@playwright/test';
+import type { Locator, Page} from '@playwright/test';
+import { expect } from '@playwright/test';
 
 export class Tags {
   constructor(readonly page: Page, readonly locator: Locator) {}

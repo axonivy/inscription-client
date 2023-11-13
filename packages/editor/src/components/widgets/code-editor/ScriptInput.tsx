@@ -1,6 +1,7 @@
 import './ScriptInput.css';
 import { Input } from '../input';
-import SingleLineCodeEditor, { CodeEditorInputProps } from './SingleLineCodeEditor';
+import type { CodeEditorInputProps } from './SingleLineCodeEditor';
+import SingleLineCodeEditor from './SingleLineCodeEditor';
 import { useModifyEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';

@@ -1,4 +1,5 @@
-import { Combobox, ComboboxItem, Fieldset, useFieldset } from '../../../../widgets';
+import type { ComboboxItem} from '../../../../widgets';
+import { Combobox, Fieldset, useFieldset } from '../../../../widgets';
 import { useMeta } from '../../../../../context';
 import { PathCollapsible } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';

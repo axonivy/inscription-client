@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, ErrorFallback } from '../../../components/widgets';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ErrorBoundary } from 'react-error-boundary';
-import { PartProps } from './usePart';
+import type { PartProps } from './usePart';
 
 const Part = ({ parts }: { parts: PartProps[] }) => {
   const [value, setValue] = useState('k');

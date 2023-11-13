@@ -1,7 +1,9 @@
-import { PathCollapsible, PathCollapsibleProps, PathFieldset } from '../common';
+import type { PathCollapsibleProps} from '../common';
+import { PathCollapsible, PathFieldset } from '../common';
 import { Radio, ScriptInput, useFieldset } from '../../../components/widgets';
-import { CacheArtifact, CacheMode, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { DataUpdater } from '../../../types/lambda';
+import type { CacheArtifact, CacheMode} from '@axonivy/inscription-protocol';
+import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
+import type { DataUpdater } from '../../../types/lambda';
 
 type CacheLifetimeProps = Omit<PathCollapsibleProps, 'children'> & {
   description: string;

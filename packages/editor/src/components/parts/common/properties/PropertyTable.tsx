@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ValidationRow } from '../';
-import { ColumnDef, SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type {
+  ComboboxItem} from '../../../../components/widgets';
 import {
   ActionCell,
   ComboCell,
-  ComboboxItem,
   ScriptCell,
   SortableHeader,
   Table,
@@ -15,7 +17,8 @@ import {
 } from '../../../../components/widgets';
 import { Property } from './properties';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { IVY_SCRIPT_TYPES, ScriptMappings } from '@axonivy/inscription-protocol';
+import type { ScriptMappings } from '@axonivy/inscription-protocol';
+import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 
 type PropertyTableProps = {
   properties: ScriptMappings;

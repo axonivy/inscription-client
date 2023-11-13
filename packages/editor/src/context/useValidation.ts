@@ -1,4 +1,4 @@
-import { InscriptionValidation, SchemaKeys } from '@axonivy/inscription-protocol';
+import type { InscriptionValidation, SchemaKeys } from '@axonivy/inscription-protocol';
 import { useDataContext } from './useDataContext';
 import { useFullPath, usePath } from './usePath';
 

@@ -1,4 +1,4 @@
-import { WfActivator, WfPriority, WfTask, WfCustomField, TaskData, CaseData } from '../data';
+import type { WfActivator, WfPriority, WfTask, WfCustomField, TaskData, CaseData } from '../data';
 
 const DEFAULT_RESPONSIBLE: WfActivator = {
   type: 'ROLE',

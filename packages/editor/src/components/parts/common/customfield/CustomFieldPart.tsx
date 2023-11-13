@@ -1,4 +1,4 @@
-import { CustomFieldConfigType, WfCustomField } from '@axonivy/inscription-protocol';
+import type { CustomFieldConfigType, WfCustomField } from '@axonivy/inscription-protocol';
 import CustomFieldTable from './CustomFieldTable';
 import { PathCollapsible } from '../path/PathCollapsible';
 

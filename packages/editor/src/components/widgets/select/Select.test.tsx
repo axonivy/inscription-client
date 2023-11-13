@@ -1,4 +1,5 @@
-import Select, { SelectItem } from './Select';
+import type { SelectItem } from './Select';
+import Select from './Select';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('Select', () => {

@@ -1,5 +1,6 @@
-import { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
-import { ComboboxUtil, DeepPartial, render, screen, waitFor } from 'test-utils';
+import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { ComboboxUtil, render, screen, waitFor } from 'test-utils';
 import { RestContentType } from './RestContentType';
 
 describe('RestContentType', () => {

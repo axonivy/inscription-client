@@ -1,4 +1,4 @@
-import { InscriptionActionArgs } from '@axonivy/inscription-protocol';
+import type { InscriptionActionArgs } from '@axonivy/inscription-protocol';
 import { useClient } from './useClient';
 import { useEditorContext } from './useEditorContext';
 

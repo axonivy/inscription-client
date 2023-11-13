@@ -1,7 +1,8 @@
-import { QueryData } from '@axonivy/inscription-protocol';
+import type { QueryData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { Consumer, DataUpdater } from '../../../types/lambda';
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
+import type { Consumer, DataUpdater } from '../../../types/lambda';
+import type { ConfigDataContext} from '../../../context';
+import { useConfigDataContext } from '../../../context';
 
 export function useQueryData(): ConfigDataContext<QueryData> & {
   update: DataUpdater<QueryData['query']>;

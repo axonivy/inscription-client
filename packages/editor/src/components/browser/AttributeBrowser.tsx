@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow } from '../widgets';
-import { UseBrowserImplReturnValue } from './useBrowser';
-import {
+import type { UseBrowserImplReturnValue } from './useBrowser';
+import type {
   ColumnDef,
   ExpandedState,
-  RowSelectionState,
+  RowSelectionState} from '@tanstack/react-table';
+import {
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
@@ -12,7 +13,7 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { MappingTreeData } from '../parts/common/mapping-tree/mapping-tree-data';
-import { VariableInfo } from '@axonivy/inscription-protocol';
+import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { useEditorContext, useMeta } from '../../context';
 import { calcFullPathId } from '../parts/common/mapping-tree/useMappingTree';
 

@@ -1,7 +1,8 @@
 import { useReadonly } from '../../../context';
 import { useFieldset } from '../fieldset';
 import './Radio.css';
-import { RadioGroup, RadioGroupProps, RadioGroupItem, RadioGroupIndicator } from '@radix-ui/react-radio-group';
+import type { RadioGroupProps} from '@radix-ui/react-radio-group';
+import { RadioGroup, RadioGroupItem, RadioGroupIndicator } from '@radix-ui/react-radio-group';
 
 export type RadioItemProps<T> = { value: T; label: string; description?: string };
 

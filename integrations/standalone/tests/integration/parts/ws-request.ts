@@ -1,8 +1,8 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Section } from '../../pageobjects/Section';
-import { Select } from '../../pageobjects/Select';
-import { Table } from '../../pageobjects/Table';
+import type { Section } from '../../pageobjects/Section';
+import type { Select } from '../../pageobjects/Select';
+import type { Table } from '../../pageobjects/Table';
 
 class WsRequest extends PartObject {
   client: Select;

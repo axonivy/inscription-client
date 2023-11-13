@@ -1,6 +1,6 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Combobox } from '../../pageobjects/Combobox';
+import type { Combobox } from '../../pageobjects/Combobox';
 
 class ProcessData extends PartObject {
   dataClass: Combobox;

@@ -1,10 +1,11 @@
-import { OutputData } from '@axonivy/inscription-protocol';
+import type { OutputData } from '@axonivy/inscription-protocol';
 import { ScriptArea, useFieldset } from '../../widgets';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useOutputData } from './useOutputData';
 import { MappingPart, PathFieldset } from '../common';
-import { BrowserType } from '../../../components/browser';
+import type { BrowserType } from '../../../components/browser';
 
 export function useOutputPart(options?: { hideCode?: boolean; additionalBrowsers?: BrowserType[] }): PartProps {
   const { config, defaultConfig, initConfig, resetOutput } = useOutputData();

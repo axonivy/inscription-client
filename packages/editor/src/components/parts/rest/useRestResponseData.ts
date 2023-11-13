@@ -1,7 +1,8 @@
-import { RestResponseData } from '@axonivy/inscription-protocol';
+import type { RestResponseData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { DataUpdater } from '../../../types/lambda';
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
+import type { DataUpdater } from '../../../types/lambda';
+import type { ConfigDataContext} from '../../../context';
+import { useConfigDataContext } from '../../../context';
 
 export function useRestResponseData(): ConfigDataContext<RestResponseData> & {
   update: DataUpdater<RestResponseData['response']>;

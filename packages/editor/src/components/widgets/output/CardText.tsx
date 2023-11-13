@@ -2,8 +2,9 @@ import './CardText.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
 import { splitMacroExpressions, splitNewLine } from '../../../utils/utils';
-import { FieldsetInputProps } from '../fieldset';
-import { ElementRef, forwardRef } from 'react';
+import type { FieldsetInputProps } from '../fieldset';
+import type { ElementRef} from 'react';
+import { forwardRef } from 'react';
 
 export type CardTextProps = Partial<FieldsetInputProps> & {
   value?: string;

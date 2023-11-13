@@ -1,5 +1,6 @@
-import { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
-import { DeepPartial, TableUtil, render, screen } from 'test-utils';
+import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { TableUtil, render, screen } from 'test-utils';
 import { RestForm } from './RestForm';
 
 describe('RestForm', () => {

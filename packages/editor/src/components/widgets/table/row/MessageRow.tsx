@@ -1,6 +1,8 @@
 import './MessageRow.css';
-import { ComponentProps, forwardRef } from 'react';
-import { MessageText, MessageTextProps } from '../../message/Message';
+import type { ComponentProps} from 'react';
+import { forwardRef } from 'react';
+import type { MessageTextProps } from '../../message/Message';
+import { MessageText } from '../../message/Message';
 
 export type MessageRowProps = MessageTextProps & ComponentProps<'tr'>;
 

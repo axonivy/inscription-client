@@ -1,7 +1,8 @@
-import { ReactNode } from 'react';
-import Combobox, { ComboboxItem } from './Combobox';
+import type { ReactNode } from 'react';
+import type { ComboboxItem } from './Combobox';
+import Combobox from './Combobox';
 import { render, screen, userEvent } from 'test-utils';
-import { BrowserType } from '../../../components/browser';
+import type { BrowserType } from '../../../components/browser';
 
 describe('Combobox', () => {
   function renderCombobox(

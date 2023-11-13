@@ -1,6 +1,7 @@
-import { DeepPartial, render, renderHook, screen } from 'test-utils';
-import { WebServiceProcessData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
-import { PartStateFlag } from '../../editors';
+import type { DeepPartial} from 'test-utils';
+import { render, renderHook, screen } from 'test-utils';
+import type { WebServiceProcessData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
 import { useWebServiceProcessPart } from './WebServiceProcessPart';
 
 const Part = () => {

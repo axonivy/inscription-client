@@ -1,4 +1,4 @@
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { render, screen } from 'test-utils';
 import { PathFieldset } from './PathFieldset';
 

@@ -1,7 +1,8 @@
-import { DeepPartial, render, renderHook, screen } from 'test-utils';
-import { CacheData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { render, renderHook, screen } from 'test-utils';
+import type { CacheData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useCachePart } from './CachePart';
-import { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useCachePart();

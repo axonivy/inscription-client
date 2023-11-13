@@ -1,6 +1,6 @@
 import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
-import { GeneralData } from '@axonivy/inscription-protocol';
-import { PartStateFlag } from '../../editors';
+import type { GeneralData } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
 import { useGeneralPart } from './GeneralPart';
 
 const Part = (props: { hideTags?: boolean; disableName?: boolean }) => {

@@ -1,11 +1,12 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Checkbox, Collapsible, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../widgets';
-import { UseBrowserImplReturnValue } from './useBrowser';
-import {
+import type { UseBrowserImplReturnValue } from './useBrowser';
+import type {
   ColumnDef,
   ExpandedState,
   FilterFn,
-  RowSelectionState,
+  RowSelectionState} from '@tanstack/react-table';
+import {
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
@@ -13,7 +14,7 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { useEditorContext, useMeta } from '../../context';
-import { JavaType } from '@axonivy/inscription-protocol';
+import type { JavaType } from '@axonivy/inscription-protocol';
 export const DATATYPE_BROWSER_ID = 'datatype' as const;
 
 export const useDataTypeBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {

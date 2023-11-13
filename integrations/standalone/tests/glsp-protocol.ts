@@ -1,4 +1,5 @@
-import { ElementType } from '@axonivy/inscription-protocol';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { ElementType } from '@axonivy/inscription-protocol';
 import { Client, RequestManager, WebSocketTransport } from '@open-rpc/client-js';
 import { v4 as uuid } from 'uuid';
 

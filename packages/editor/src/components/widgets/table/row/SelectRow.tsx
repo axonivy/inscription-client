@@ -1,6 +1,6 @@
 import './SelectRow.css';
-import { Row } from '@tanstack/react-table';
-import { ReactNode } from 'react';
+import type { Row } from '@tanstack/react-table';
+import type { ReactNode } from 'react';
 
 type SelectRowProps<TData> = {
   row: Row<TData>;

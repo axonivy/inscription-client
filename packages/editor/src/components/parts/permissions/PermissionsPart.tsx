@@ -1,7 +1,8 @@
-import { PartProps, usePartDirty, usePartState } from '../../../components/editors';
+import type { PartProps} from '../../../components/editors';
+import { usePartDirty, usePartState } from '../../../components/editors';
 import { Checkbox } from '../../../components/widgets';
 import { usePermissionsData } from './usePermissionsData';
-import { PermissionsData } from '@axonivy/inscription-protocol';
+import type { PermissionsData } from '@axonivy/inscription-protocol';
 
 export function usePermissionsPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = usePermissionsData();

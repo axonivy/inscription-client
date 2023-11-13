@@ -1,9 +1,11 @@
 import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableFooter, TableHeader } from '../../widgets';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
-import { MailData } from '@axonivy/inscription-protocol';
+import type { MailData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ValidationRow } from '../common';

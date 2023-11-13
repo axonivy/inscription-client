@@ -1,6 +1,6 @@
 import { render, screen, userEvent } from 'test-utils';
 import Part from './Part';
-import { PartProps, PartStateFlag } from './usePart';
+import type { PartProps, PartStateFlag } from './usePart';
 
 describe('Part', () => {
   const generalPart: PartProps = {

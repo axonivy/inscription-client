@@ -1,4 +1,4 @@
-import {
+import type {
   InscriptionActionArgs,
   InscriptionClient,
   InscriptionData,
@@ -9,7 +9,8 @@ import {
   InscriptionContext,
   InscriptionMetaRequestTypes
 } from '@axonivy/inscription-protocol';
-import { createMessageConnection, Emitter, Disposable } from 'vscode-jsonrpc';
+import type { Disposable } from 'vscode-jsonrpc';
+import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
 import { ConnectionUtil } from './connection-util';
 import { BaseRcpClient } from './rcp-client';
 

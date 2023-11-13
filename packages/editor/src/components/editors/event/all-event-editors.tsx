@@ -1,5 +1,5 @@
-import { ElementType } from '@axonivy/inscription-protocol';
-import { ReactNode } from 'react';
+import type { ElementType } from '@axonivy/inscription-protocol';
+import type { ReactNode } from 'react';
 import { boundaryEventEditors } from './boundary';
 import { callSubEventEditors } from './call-sub';
 import { embeddedEventEditors } from './embedded';

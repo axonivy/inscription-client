@@ -11,12 +11,14 @@ import {
   TableFooter,
   TableHeader
 } from '../../../../widgets';
-import { ColumnDef, SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEffect, useMemo, useState } from 'react';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { useRestResourceMeta } from '../../useRestResourceMeta';
-import { RestParam, restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
+import type { RestParam} from './rest-parameter';
+import { restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
 import { PathContext } from '../../../../../context';
 
 export const RestForm = () => {

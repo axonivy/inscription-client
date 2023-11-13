@@ -1,8 +1,7 @@
 /* eslint-disable import/export */
-import {
+import type {
   ElementData,
   ConfigData,
-  DEFAULT_DATA,
   CallableStart,
   ErrorStartMeta,
   InscriptionValidation,
@@ -24,14 +23,20 @@ import {
   JavaType,
   DataClass
 } from '@axonivy/inscription-protocol';
-import { queries, Queries, render, renderHook, RenderHookOptions, RenderOptions } from '@testing-library/react';
-import { deepmerge } from 'deepmerge-ts';
-import { ReactElement, ReactNode, useRef } from 'react';
-import { DeepPartial } from './type-utils';
 import {
+  DEFAULT_DATA
+} from '@axonivy/inscription-protocol';
+import type { queries, Queries, RenderHookOptions, RenderOptions } from '@testing-library/react';
+import { render, renderHook } from '@testing-library/react';
+import { deepmerge } from 'deepmerge-ts';
+import type { ReactElement, ReactNode} from 'react';
+import { useRef } from 'react';
+import type { DeepPartial } from './type-utils';
+import type {
   ClientContext,
+  DataContext} from '../context';
+import {
   ClientContextProvider,
-  DataContext,
   DataContextInstance,
   DEFAULT_EDITOR_CONTEXT,
   EditorContextInstance,

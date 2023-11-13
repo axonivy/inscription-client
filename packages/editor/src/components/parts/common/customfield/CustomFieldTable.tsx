@@ -1,9 +1,12 @@
-import { WfCustomField, CUSTOM_FIELD_TYPE, CustomFieldConfigType } from '@axonivy/inscription-protocol';
+import type { WfCustomField, CustomFieldConfigType } from '@axonivy/inscription-protocol';
+import { CUSTOM_FIELD_TYPE } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
+import type {
+  SelectItem} from '../../../../components/widgets';
 import {
-  SelectItem,
   EditableCell,
   SelectCell,
   Table,

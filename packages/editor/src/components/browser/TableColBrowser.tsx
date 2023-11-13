@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Input } from '../widgets';
-import { UseBrowserImplReturnValue } from './useBrowser';
+import type { UseBrowserImplReturnValue } from './useBrowser';
 export const TABLE_COL_BROWSER_ID = 'tablecol' as const;
 
 export const useTableColBrowser = (): UseBrowserImplReturnValue => {

@@ -1,5 +1,5 @@
 import TaskListPart from './TaskListOptions';
-import { WfTask } from '@axonivy/inscription-protocol';
+import type { WfTask } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('TaskListOption', () => {

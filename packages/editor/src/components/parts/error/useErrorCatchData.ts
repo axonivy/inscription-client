@@ -1,7 +1,8 @@
-import { ConfigDataContext, useConfigDataContext, useDataContext } from '../../../context';
-import { ErrorCatchData } from '@axonivy/inscription-protocol';
+import type { ConfigDataContext} from '../../../context';
+import { useConfigDataContext, useDataContext } from '../../../context';
+import type { ErrorCatchData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { Consumer } from '../../../types/lambda';
+import type { Consumer } from '../../../types/lambda';
 
 export function useErrorCatchData(): ConfigDataContext<ErrorCatchData> & {
   updateError: Consumer<string>;

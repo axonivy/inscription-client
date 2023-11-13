@@ -1,4 +1,4 @@
-import { WfTask } from '@axonivy/inscription-protocol';
+import type { WfTask } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 import RequestTask from './RequestTask';
 

@@ -1,6 +1,7 @@
-import { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
+import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
 import { RestTargetUrl } from './RestTargetUrl';
-import { DeepPartial, render, screen } from 'test-utils';
+import type { DeepPartial} from 'test-utils';
+import { render, screen } from 'test-utils';
 
 describe('RestTargetUrl', () => {
   const REST_CLIENT_URI = 'http://127.0.0.1:8081/designer/{ivy.var.myVar}/v1';

@@ -1,7 +1,7 @@
 import { NewPartTest, PartObject } from './part-tester';
-import { Part } from '../../pageobjects/Part';
-import { ScriptArea } from '../../pageobjects/CodeEditor';
-import { Checkbox } from '../../pageobjects/Checkbox';
+import type { Part } from '../../pageobjects/Part';
+import type { ScriptArea } from '../../pageobjects/CodeEditor';
+import type { Checkbox } from '../../pageobjects/Checkbox';
 
 class Code extends PartObject {
   code: ScriptArea;

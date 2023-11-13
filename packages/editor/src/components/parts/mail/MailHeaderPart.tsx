@@ -1,10 +1,12 @@
 import { Checkbox, Collapsible, MacroInput, useFieldset } from '../../widgets';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
-import { IVY_EXCEPTIONS, MailData } from '@axonivy/inscription-protocol';
+import type { MailData } from '@axonivy/inscription-protocol';
+import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import { ExceptionSelect, PathFieldset } from '../common';
-import { BrowserType } from '../../../components/browser';
+import type { BrowserType } from '../../../components/browser';
 
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetHeaders } = useMailData();

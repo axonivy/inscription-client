@@ -1,8 +1,8 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { MacroEditor } from '../../pageobjects/CodeEditor';
-import { Section } from '../../pageobjects/Section';
-import { Table } from '../../pageobjects/Table';
+import type { MacroEditor } from '../../pageobjects/CodeEditor';
+import type { Section } from '../../pageobjects/Section';
+import type { Table } from '../../pageobjects/Table';
 
 class Case extends PartObject {
   name: MacroEditor;

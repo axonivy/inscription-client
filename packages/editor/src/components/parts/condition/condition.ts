@@ -1,4 +1,4 @@
-import { AlternativeConditions, ConnectorRef, NodeRef } from '@axonivy/inscription-protocol';
+import type { AlternativeConditions, ConnectorRef, NodeRef } from '@axonivy/inscription-protocol';
 import { PID } from '../../../utils/pid';
 import { arraymove, indexOf } from '../../../utils/array';
 

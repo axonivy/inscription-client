@@ -1,5 +1,6 @@
-import { InscriptionClient } from '@axonivy/inscription-protocol';
-import { ReactNode, createContext, useContext } from 'react';
+import type { InscriptionClient } from '@axonivy/inscription-protocol';
+import type { ReactNode} from 'react';
+import { createContext, useContext } from 'react';
 
 export interface ClientContext {
   client: InscriptionClient;

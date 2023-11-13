@@ -3,7 +3,7 @@ import { Content, Header, Item, Root, Trigger } from '@radix-ui/react-accordion'
 import IvyIcon from '../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
 import Button from '../button/Button';
-import { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
 type AccordionRootProps = {
   value: string;

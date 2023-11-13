@@ -1,6 +1,6 @@
-import { CellContext } from '@tanstack/react-table';
+import type { CellContext } from '@tanstack/react-table';
 import { CodeEditorCell } from './CodeEditorCell';
-import { BrowserType } from '../../../../components/browser';
+import type { BrowserType } from '../../../../components/browser';
 
 export const ScriptCell = <TData,>({
   cell,

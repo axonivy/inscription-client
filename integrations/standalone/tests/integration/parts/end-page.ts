@@ -1,6 +1,6 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { TextArea } from '../../pageobjects/TextArea';
+import type { TextArea } from '../../pageobjects/TextArea';
 
 class EndPage extends PartObject {
   endPage: TextArea;

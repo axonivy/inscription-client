@@ -1,4 +1,4 @@
-import { ScriptVariable } from '@axonivy/inscription-protocol';
+import type { ScriptVariable } from '@axonivy/inscription-protocol';
 import ParameterTable from './ParameterTable';
 import { render, screen, userEvent, TableUtil } from 'test-utils';
 

@@ -1,4 +1,4 @@
-import { VariableInfo, Variable } from '@axonivy/inscription-protocol';
+import type { VariableInfo, Variable } from '@axonivy/inscription-protocol';
 
 export interface MappingTreeData extends Variable {
   value: string;

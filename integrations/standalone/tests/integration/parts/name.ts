@@ -1,8 +1,8 @@
-import { Part } from '../../pageobjects/Part';
-import { Section } from '../../pageobjects/Section';
-import { Table } from '../../pageobjects/Table';
-import { Tags } from '../../pageobjects/Tags';
-import { TextArea } from '../../pageobjects/TextArea';
+import type { Part } from '../../pageobjects/Part';
+import type { Section } from '../../pageobjects/Section';
+import type { Table } from '../../pageobjects/Table';
+import type { Tags } from '../../pageobjects/Tags';
+import type { TextArea } from '../../pageobjects/TextArea';
 import { NewPartTest, PartObject } from './part-tester';
 
 class General extends PartObject {

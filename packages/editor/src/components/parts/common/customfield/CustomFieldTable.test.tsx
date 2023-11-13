@@ -1,4 +1,4 @@
-import { WfCustomField } from '@axonivy/inscription-protocol';
+import type { WfCustomField } from '@axonivy/inscription-protocol';
 import CustomFieldTable from './CustomFieldTable';
 import { render, screen, userEvent, TableUtil } from 'test-utils';
 

@@ -1,4 +1,4 @@
-import { StartCustomStartField } from '@axonivy/inscription-protocol';
+import type { StartCustomStartField } from '@axonivy/inscription-protocol';
 import { render, TableUtil, CollapsableUtil } from 'test-utils';
 import StartCustomFieldPart from './StartCustomFieldPart';
 

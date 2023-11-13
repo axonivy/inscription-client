@@ -1,8 +1,9 @@
-import { Locator, Page } from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { MacroEditor, ScriptArea, ScriptInput } from './CodeEditor';
 import { ResponsibleSelect } from './ResponsibleSelect';
 import { Select } from './Select';
-import { ColumnType, Table } from './Table';
+import type { ColumnType} from './Table';
+import { Table } from './Table';
 import { Checkbox } from './Checkbox';
 import { TextArea } from './TextArea';
 import { Tags } from './Tags';

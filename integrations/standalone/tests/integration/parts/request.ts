@@ -1,10 +1,10 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Checkbox } from '../../pageobjects/Checkbox';
-import { MacroEditor } from '../../pageobjects/CodeEditor';
-import { Section } from '../../pageobjects/Section';
-import { Table } from '../../pageobjects/Table';
-import { Select } from '../../pageobjects/Select';
+import type { Checkbox } from '../../pageobjects/Checkbox';
+import type { MacroEditor } from '../../pageobjects/CodeEditor';
+import type { Section } from '../../pageobjects/Section';
+import type { Table } from '../../pageobjects/Table';
+import type { Select } from '../../pageobjects/Select';
 
 class Request extends PartObject {
   httpable: Checkbox;

@@ -1,6 +1,6 @@
 import './EditableCell.css';
 import '../../code-editor/ScriptInput.css';
-import { CellContext, RowData } from '@tanstack/react-table';
+import type { CellContext, RowData } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { Input } from '../../input';
 import { Browser, useBrowser } from '../../../../components/browser';

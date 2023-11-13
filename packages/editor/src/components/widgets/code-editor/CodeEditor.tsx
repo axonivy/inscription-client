@@ -2,7 +2,7 @@ import './CodeEditor.css';
 import { Editor } from '@monaco-editor/react';
 import { useEditorContext } from '../../../context';
 import { MONACO_OPTIONS, MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
 export type CodeEditorProps = {
   value: string;

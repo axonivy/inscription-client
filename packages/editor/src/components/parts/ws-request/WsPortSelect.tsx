@@ -1,5 +1,6 @@
 import { PathContext, useEditorContext, useMeta } from '../../../context';
-import { Select, SelectItem, useFieldset } from '../../widgets';
+import type { SelectItem} from '../../widgets';
+import { Select, useFieldset } from '../../widgets';
 import { PathFieldset } from '../common';
 import { useWsRequestData } from './useWsRequestData';
 

@@ -1,9 +1,9 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Section } from '../../pageobjects/Section';
-import { Select } from '../../pageobjects/Select';
-import { Table } from '../../pageobjects/Table';
-import { ScriptArea } from '../../pageobjects/CodeEditor';
+import type { Section } from '../../pageobjects/Section';
+import type { Select } from '../../pageobjects/Select';
+import type { Table } from '../../pageobjects/Table';
+import type { ScriptArea } from '../../pageobjects/CodeEditor';
 
 class WsResponse extends PartObject {
   mapping: Table;

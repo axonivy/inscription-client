@@ -1,8 +1,9 @@
-import { TriggerData } from '@axonivy/inscription-protocol';
+import type { TriggerData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { DataUpdater } from '../../../types/lambda';
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
-import { ResponsibleUpdater } from '../common/responsible/ResponsibleSelect';
+import type { DataUpdater } from '../../../types/lambda';
+import type { ConfigDataContext} from '../../../context';
+import { useConfigDataContext } from '../../../context';
+import type { ResponsibleUpdater } from '../common/responsible/ResponsibleSelect';
 
 export function useTriggerData(): ConfigDataContext<TriggerData> & {
   update: DataUpdater<TriggerData>;

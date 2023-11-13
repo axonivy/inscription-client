@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Input } from '../widgets';
-import { UseBrowserImplReturnValue } from './useBrowser';
+import type { UseBrowserImplReturnValue } from './useBrowser';
 export const CAT_PATH_CHOOSER_BROWSER_ID = 'catPath' as const;
 
 export const useCatPathChooserBrowser = (): UseBrowserImplReturnValue => {

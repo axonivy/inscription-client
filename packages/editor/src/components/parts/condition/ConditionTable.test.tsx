@@ -1,7 +1,7 @@
 import { cloneObject, render, screen, userEvent } from 'test-utils';
-import { Condition } from './condition';
+import type { Condition } from './condition';
 import ConditionTable from './ConditionTable';
-import { InscriptionType } from '@axonivy/inscription-protocol';
+import type { InscriptionType } from '@axonivy/inscription-protocol';
 
 describe('ConditionTable', () => {
   const type: InscriptionType = { label: '', description: '', iconId: '', id: 'TaskEnd', impl: '', shortLabel: '' };

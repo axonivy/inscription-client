@@ -1,5 +1,6 @@
-import { RestRequestData } from '@axonivy/inscription-protocol';
-import { DeepPartial, render, screen } from 'test-utils';
+import type { RestRequestData } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { render, screen } from 'test-utils';
 import { RestJaxRsCode } from './RestJaxRsCode';
 
 describe('RestEntityTypeCombobox', () => {

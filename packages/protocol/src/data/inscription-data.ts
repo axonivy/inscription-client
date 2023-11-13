@@ -1,5 +1,5 @@
-import { GeneralData } from './part-data';
-import {
+import type { GeneralData } from './part-data';
+import type {
   Cache,
   CacheArtifact,
   Data,
@@ -26,7 +26,7 @@ import {
   WebserviceProcessConfig,
   WfTask
 } from './inscription';
-import { Brand, UnionToIntersection, ValuesAsUnionDeep } from '../utils/type-helper';
+import type { Brand, UnionToIntersection, ValuesAsUnionDeep } from '../utils/type-helper';
 
 export type ConfigData = UnionToIntersection<Data['config']>;
 

@@ -1,4 +1,4 @@
-import { AlternativeConditions, ConnectorRef, InscriptionType } from '@axonivy/inscription-protocol';
+import type { AlternativeConditions, ConnectorRef, InscriptionType } from '@axonivy/inscription-protocol';
 import { Condition } from './condition';
 import { cloneObject } from 'test-utils';
 

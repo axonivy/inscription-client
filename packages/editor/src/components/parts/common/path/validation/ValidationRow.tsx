@@ -1,6 +1,7 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { mergePaths, usePath, useValidations } from '../../../../../context';
-import { MessageRow, ReorderRow, ReorderRowProps } from '../../../../widgets';
+import type { ReorderRowProps } from '../../../../widgets';
+import { MessageRow, ReorderRow } from '../../../../widgets';
 
 type ValidationRowProps = {
   rowPathSuffix: string | number;

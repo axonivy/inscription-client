@@ -1,7 +1,8 @@
-import { render, screen, renderHook, DeepPartial } from 'test-utils';
+import type { DeepPartial } from 'test-utils';
+import { render, screen, renderHook } from 'test-utils';
 import { useCodePart } from './CodePart';
-import { PartStateFlag } from '../../editors';
-import { CodeData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
+import type { CodeData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
 
 const Part = () => {
   const part = useCodePart();

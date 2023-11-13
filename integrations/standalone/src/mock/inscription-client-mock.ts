@@ -1,5 +1,4 @@
-import {
-  DEFAULT_DATA,
+import type {
   InscriptionClient,
   InscriptionData,
   InscriptionSaveData,
@@ -12,6 +11,9 @@ import {
   InscriptionMetaRequestTypes,
   ScriptingDataArgs,
   Variable
+} from '@axonivy/inscription-protocol';
+import {
+  DEFAULT_DATA
 } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';

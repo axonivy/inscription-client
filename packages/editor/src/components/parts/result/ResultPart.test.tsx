@@ -1,7 +1,8 @@
-import { CollapsableUtil, DeepPartial, render, renderHook, screen, TableUtil } from 'test-utils';
-import { ElementData, ResultData, VariableInfo } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
+import type { ElementData, ResultData, VariableInfo } from '@axonivy/inscription-protocol';
 import { useResultPart } from './ResultPart';
-import { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useResultPart();

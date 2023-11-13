@@ -1,5 +1,5 @@
 import Task from './Task';
-import { WfTask } from '@axonivy/inscription-protocol';
+import type { WfTask } from '@axonivy/inscription-protocol';
 import { CollapsableUtil, render, screen, SelectUtil, userEvent } from 'test-utils';
 
 describe('Task', () => {

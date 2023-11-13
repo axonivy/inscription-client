@@ -1,9 +1,11 @@
-import { PartProps, usePartDirty, usePartState } from '../../editors';
-import { TaskPersistData, useTaskPersistData } from './options/usePersistOptionsData';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
+import type { TaskPersistData} from './options/usePersistOptionsData';
+import { useTaskPersistData } from './options/usePersistOptionsData';
 import Task from './task/Task';
 import { useTaskData } from './useTaskData';
 import { EmptyWidget } from '../../widgets';
-import { WfTask } from '@axonivy/inscription-protocol';
+import type { WfTask } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import RequestTask from './task/RequestTask';
 import WaitTask from './task/WaitTask';

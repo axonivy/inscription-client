@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Input } from '../widgets';
-import { UseBrowserImplReturnValue } from './useBrowser';
+import type { UseBrowserImplReturnValue } from './useBrowser';
 export const FUNCTION_BROWSER_ID = 'func' as const;
 
 export const useFuncBrowser = (): UseBrowserImplReturnValue => {

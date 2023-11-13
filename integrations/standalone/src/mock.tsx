@@ -12,7 +12,7 @@ import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { URLParams } from './url-helper';
-import { ElementType } from '@axonivy/inscription-protocol';
+import type { ElementType } from '@axonivy/inscription-protocol';
 import { InscriptionClientMock } from './mock/inscription-client-mock';
 
 export async function start(): Promise<void> {

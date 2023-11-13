@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 import { SINGLE_LINE_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import CodeEditor, { CodeEditorProps } from './CodeEditor';
+import type { CodeEditorProps } from './CodeEditor';
+import CodeEditor from './CodeEditor';
 import { monacoAutoFocus } from './useCodeEditor';
-import { BrowserType } from '../../../components/browser';
+import type { BrowserType } from '../../../components/browser';
 
 type EditorOptions = {
   editorOptions?: {

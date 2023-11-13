@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { PathContext } from '../../../../context';
-import { CollapsibleProps } from '../../../widgets/collapsible/Collapsible';
-import { SchemaKeys } from '@axonivy/inscription-protocol';
+import type { CollapsibleProps } from '../../../widgets/collapsible/Collapsible';
+import type { SchemaKeys } from '@axonivy/inscription-protocol';
 import { ValidationCollapsible } from './validation/ValidationCollapsible';
 
 export type PathCollapsibleProps = CollapsibleProps & {

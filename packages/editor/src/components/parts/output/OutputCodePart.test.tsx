@@ -1,7 +1,8 @@
-import { render, screen, renderHook, DeepPartial } from 'test-utils';
+import type { DeepPartial } from 'test-utils';
+import { render, screen, renderHook } from 'test-utils';
 import { useOutputCodePart } from './OutputCodePart';
-import { PartStateFlag } from '../../editors';
-import { ElementData, OutputData } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
+import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
 
 const Part = () => {
   const part = useOutputCodePart();

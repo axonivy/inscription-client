@@ -1,5 +1,5 @@
 import { render, screen } from 'test-utils';
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { ValidationRow } from './ValidationRow';
 
 describe('ValidationRow', () => {

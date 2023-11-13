@@ -1,12 +1,14 @@
 import { useMemo } from 'react';
 import { useAction, useEditorContext, useMeta, useValidations } from '../../../../context';
-import { PartProps, usePartDirty, usePartState } from '../../../editors';
-import { CallData, ProcessCallData, VariableInfo } from '@axonivy/inscription-protocol';
+import type { PartProps} from '../../../editors';
+import { usePartDirty, usePartState } from '../../../editors';
+import type { CallData, ProcessCallData, VariableInfo } from '@axonivy/inscription-protocol';
 import CallMapping, { useCallPartValidation } from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { FieldsetControl, useFieldset } from '../../../../components/widgets';
+import type { FieldsetControl} from '../../../../components/widgets';
+import { useFieldset } from '../../../../components/widgets';
 import { PathFieldset } from '../../common';
 
 export function useTriggerCallPart(): PartProps {

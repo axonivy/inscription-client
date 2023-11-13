@@ -1,8 +1,8 @@
-import { Checkbox } from '../../pageobjects/Checkbox';
-import { MacroEditor } from '../../pageobjects/CodeEditor';
-import { Part } from '../../pageobjects/Part';
-import { Section } from '../../pageobjects/Section';
-import { Select } from '../../pageobjects/Select';
+import type { Checkbox } from '../../pageobjects/Checkbox';
+import type { MacroEditor } from '../../pageobjects/CodeEditor';
+import type { Part } from '../../pageobjects/Part';
+import type { Section } from '../../pageobjects/Section';
+import type { Select } from '../../pageobjects/Select';
 import { NewPartTest, PartObject } from './part-tester';
 
 class MailHeader extends PartObject {

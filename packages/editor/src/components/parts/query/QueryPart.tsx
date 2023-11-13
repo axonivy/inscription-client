@@ -1,8 +1,9 @@
 import { useQueryData } from './useQueryData';
-import { QueryData } from '@axonivy/inscription-protocol';
+import type { QueryData } from '@axonivy/inscription-protocol';
 import { DatabaseSelect } from './database/DatabaseSelect';
 import { QueryKindSelect } from './database/QueryKindSelect';
-import { PartProps, usePartDirty, usePartState } from '../../../components/editors';
+import type { PartProps} from '../../../components/editors';
+import { usePartDirty, usePartState } from '../../../components/editors';
 import { PathContext, useValidations } from '../../../context';
 import { QueryRead } from './db-query/QueryRead';
 import { QueryWrite } from './db-query/QueryWrite';

@@ -5,13 +5,14 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import { useEditorContext } from '../../context';
 import { useState } from 'react';
 import { useAttributeBrowser } from './AttributeBrowser';
-import { BrowserType, UseBrowserReturnValue } from './useBrowser';
+import type { BrowserType, UseBrowserReturnValue } from './useBrowser';
 import { useFuncBrowser } from './FunctionBrowser';
 import { useDataTypeBrowser } from './DataTypeBrowser';
 import { useTableColBrowser } from './TableColBrowser';
 import { useSqlOpBrowser } from './SqlOperationBrowser';
 import { useCatPathChooserBrowser } from './CatPathChooser';
-import { CmsOptions, useCmsBrowser } from './CmsBrowser';
+import type { CmsOptions} from './CmsBrowser';
+import { useCmsBrowser } from './CmsBrowser';
 
 type BrowserProps = UseBrowserReturnValue & {
   types: BrowserType[];

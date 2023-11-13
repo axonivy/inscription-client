@@ -2,9 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { PathContext, useEditorContext, useMeta } from '../../../../context';
 import { PathCollapsible, ValidationRow } from '../../common';
 import { useQueryData } from '../useQueryData';
-import { ColumnDef, SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { ScriptCell, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
-import { DatabaseColumn } from '@axonivy/inscription-protocol';
+import type { DatabaseColumn } from '@axonivy/inscription-protocol';
 
 type Column = DatabaseColumn & {
   expression: string;

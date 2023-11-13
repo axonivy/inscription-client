@@ -1,5 +1,6 @@
-import { render, DeepPartial, CollapsableUtil, TableUtil, ComboboxUtil } from 'test-utils';
-import { WsRequestData } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { render, CollapsableUtil, TableUtil, ComboboxUtil } from 'test-utils';
+import type { WsRequestData } from '@axonivy/inscription-protocol';
 import { WsProperties } from './WsProperties';
 
 describe('WsProperties', () => {

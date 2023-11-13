@@ -1,9 +1,10 @@
-import { TaskData, WfTask } from '@axonivy/inscription-protocol';
+import type { TaskData, WfTask } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { DataUpdater } from '../../../types/lambda';
-import { ConfigDataContext, TaskDataContext, useConfigDataContext, useTaskDataContext } from '../../../context';
-import { ResponsibleUpdater } from '../common/responsible/ResponsibleSelect';
-import { PriorityUpdater } from './priority/PrioritySelect';
+import type { DataUpdater } from '../../../types/lambda';
+import type { ConfigDataContext, TaskDataContext} from '../../../context';
+import { useConfigDataContext, useTaskDataContext } from '../../../context';
+import type { ResponsibleUpdater } from '../common/responsible/ResponsibleSelect';
+import type { PriorityUpdater } from './priority/PrioritySelect';
 
 export function useTaskData(): TaskDataContext & {
   update: DataUpdater<WfTask>;

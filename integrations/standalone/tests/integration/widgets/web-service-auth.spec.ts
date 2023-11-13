@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { CreateProcessResult, createProcess } from '../../glsp-protocol';
+import type { CreateProcessResult} from '../../glsp-protocol';
+import { createProcess } from '../../glsp-protocol';
 
 test.describe('Web Service Auth Link', () => {
   let view: InscriptionView;

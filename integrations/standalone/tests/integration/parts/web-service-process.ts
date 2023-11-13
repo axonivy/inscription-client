@@ -1,6 +1,6 @@
-import { Part } from '../../pageobjects/Part';
-import { RadioGroup } from '../../pageobjects/RadioGroup';
-import { TextArea } from '../../pageobjects/TextArea';
+import type { Part } from '../../pageobjects/Part';
+import type { RadioGroup } from '../../pageobjects/RadioGroup';
+import type { TextArea } from '../../pageobjects/TextArea';
 import { NewPartTest, PartObject } from './part-tester';
 
 class WsProcessPart extends PartObject {

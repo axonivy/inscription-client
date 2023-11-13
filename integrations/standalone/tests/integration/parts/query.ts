@@ -1,12 +1,12 @@
-import { QueryKind } from '@axonivy/inscription-protocol';
-import { Combobox } from '../../pageobjects/Combobox';
-import { Part } from '../../pageobjects/Part';
-import { Select } from '../../pageobjects/Select';
+import type { QueryKind } from '@axonivy/inscription-protocol';
+import type { Combobox } from '../../pageobjects/Combobox';
+import type { Part } from '../../pageobjects/Part';
+import type { Select } from '../../pageobjects/Select';
 import { NewPartTest, PartObject } from './part-tester';
-import { Section } from '../../pageobjects/Section';
-import { Checkbox } from '../../pageobjects/Checkbox';
-import { Table } from '../../pageobjects/Table';
-import { MacroEditor, ScriptInput } from '../../pageobjects/CodeEditor';
+import type { Section } from '../../pageobjects/Section';
+import type { Checkbox } from '../../pageobjects/Checkbox';
+import type { Table } from '../../pageobjects/Table';
+import type { MacroEditor, ScriptInput } from '../../pageobjects/CodeEditor';
 
 class TablePart extends PartObject {
   table: Combobox;

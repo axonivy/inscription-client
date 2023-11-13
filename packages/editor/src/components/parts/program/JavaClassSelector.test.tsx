@@ -1,5 +1,5 @@
 import { SelectUtil, render } from 'test-utils';
-import { ProgramStartData } from '@axonivy/inscription-protocol';
+import type { ProgramStartData } from '@axonivy/inscription-protocol';
 import JavaClassSelector from './JavaClassSelector';
 
 describe('StartPart', () => {

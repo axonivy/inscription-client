@@ -1,6 +1,7 @@
-import { Page, test } from '@playwright/test';
+import type { Page} from '@playwright/test';
+import { test } from '@playwright/test';
 import { InscriptionView } from '../pageobjects/InscriptionView';
-import { MacroEditor, ScriptInput } from '../pageobjects/CodeEditor';
+import type { MacroEditor, ScriptInput } from '../pageobjects/CodeEditor';
 
 test.describe('Code Editor Input', () => {
   test('MacroInput - no new line', async ({ page }) => {

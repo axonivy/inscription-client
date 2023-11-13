@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useResultData } from './useResultData';
-import { ResultData } from '@axonivy/inscription-protocol';
+import type { ResultData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { MappingPart, ParameterTable, PathFieldset } from '../common';
 import { useQueryClient } from '@tanstack/react-query';

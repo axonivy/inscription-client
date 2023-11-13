@@ -1,5 +1,5 @@
 import { render, screen } from 'test-utils';
-import { Message } from '../../message/Message';
+import type { Message } from '../../message/Message';
 import { ReorderRow } from './ReorderRow';
 
 describe('ReorderRow', () => {

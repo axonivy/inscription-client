@@ -1,9 +1,10 @@
 import './Input.css';
-import { Browser, BrowserType, useBrowser } from '../../../components/browser';
+import type { BrowserType} from '../../../components/browser';
+import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
-import { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 import Input from './Input';
-import { CmsTypeFilter } from '../../../components/browser/CmsBrowser';
+import type { CmsTypeFilter } from '../../../components/browser/CmsBrowser';
 
 type InputWithBrowserProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'ref'> & {
   value?: string;
