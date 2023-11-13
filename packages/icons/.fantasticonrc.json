@@ -1,0 +1,21 @@
+{
+  "name": "ivy-icons",
+  "prefix": "ivy",
+  "inputDir": "./src/icons",
+  "outputDir": "./src-gen",
+  "fontTypes": ["ttf"],
+  "normalize": true,
+  "assetTypes": ["ts", "css", "html"],
+  "templates": {
+    "html": "./src/templates/preview.hbs",
+    "css": "./src/templates/styles.hbs"
+  },
+  "formatOptions": {
+    "ttf": {
+      "url": "https://github.com/axonivy/inscription-client",
+      "description": "The icon font for the Axon Ivy Editors",
+      "version": "1.0",
+      "metadata": "Licence by Streamline Icons (https://streamlinehq.com/), Provided by Axon Ivy AG"
+    }
+  }
+}

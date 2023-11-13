@@ -1,20 +1,20 @@
 {
   "name": "@axonivy/editor-icons",
   "version": "11.2.1-next",
-  "fontVersion": "1.0",
   "description": "The icon font for the Axon Ivy Editors",
   "private": false,
   "author": "Axon Ivy AG",
   "homepage": "https://developer.axonivy.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/axonivy/next-gen-inscription"
+    "url": "https://github.com/axonivy/inscription-client"
   },
   "files": [
     "lib",
     "src",
     "src-gen"
   ],
+  "type": "module",
   "types": "lib",
   "module": "lib",
   "source": "src-gen",

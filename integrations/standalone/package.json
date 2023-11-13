@@ -6,7 +6,7 @@
   "homepage": "https://developer.axonivy.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/axonivy/next-gen-inscription"
+    "url": "https://github.com/axonivy/inscription-client"
   },
   "dependencies": {
     "@axonivy/inscription-core": "11.2.1-next",
