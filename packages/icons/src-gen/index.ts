@@ -1,1 +1,1 @@
-export * from './ivy-icons';
+export * from './ivy-icons.js';
