@@ -1,7 +1,8 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import { GeneralTest, WsRequestTest, WsResponseTest, runTest } from '../../parts';
-import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
+import type { CreateProcessResult} from '../../../glsp-protocol';
+import { createProcess } from '../../../glsp-protocol';
 import { DataCacheTest } from '../../parts/db-cache';
 
 test.describe('Web Service', () => {

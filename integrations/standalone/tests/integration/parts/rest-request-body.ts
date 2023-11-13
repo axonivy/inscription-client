@@ -1,12 +1,12 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Section } from '../../pageobjects/Section';
+import type { Section } from '../../pageobjects/Section';
 import { Select } from '../../pageobjects/Select';
-import { Table } from '../../pageobjects/Table';
-import { MacroEditor, ScriptArea } from '../../pageobjects/CodeEditor';
-import { Combobox } from '../../pageobjects/Combobox';
-import { RadioGroup } from '../../pageobjects/RadioGroup';
-import { InputType } from '@axonivy/inscription-protocol';
+import type { Table } from '../../pageobjects/Table';
+import type { MacroEditor, ScriptArea } from '../../pageobjects/CodeEditor';
+import type { Combobox } from '../../pageobjects/Combobox';
+import type { RadioGroup } from '../../pageobjects/RadioGroup';
+import type { InputType } from '@axonivy/inscription-protocol';
 import { expect } from '@playwright/test';
 
 class EntityPart extends PartObject {

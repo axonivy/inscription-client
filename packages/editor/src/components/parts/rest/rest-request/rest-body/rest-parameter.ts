@@ -1,4 +1,4 @@
-import { RestMultiValuedMap, RestParameter } from '@axonivy/inscription-protocol';
+import type { RestMultiValuedMap, RestParameter } from '@axonivy/inscription-protocol';
 
 export type RestParam = {
   name: string;

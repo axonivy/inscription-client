@@ -1,6 +1,7 @@
-import { loader, Monaco } from '@monaco-editor/react';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import { ThemeMode } from '../context/useTheme';
+import type { Monaco } from '@monaco-editor/react';
+import { loader } from '@monaco-editor/react';
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import type { ThemeMode } from '../context/useTheme';
 import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
 import { ivyMacroConf, ivyMacroLang } from './ivy-macro-language';
 

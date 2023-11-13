@@ -1,9 +1,12 @@
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { ScriptInput, useFieldset } from '../../widgets';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { ErrorThrowData, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
+import type { ErrorThrowData} from '@axonivy/inscription-protocol';
+import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
+import type { EventCodeItem} from '../common';
+import { EventCodeSelect, PathFieldset } from '../common';
 import { useErrorThrowData } from './useErrorThrowData';
 import { eventCodeInfo } from '../../../utils/event-code';
 

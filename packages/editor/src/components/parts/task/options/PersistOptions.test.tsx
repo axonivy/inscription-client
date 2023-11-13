@@ -1,5 +1,5 @@
 import PersistOptions from './PersistOptions';
-import { TaskData } from '@axonivy/inscription-protocol';
+import type { TaskData } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('PersistOptions', () => {

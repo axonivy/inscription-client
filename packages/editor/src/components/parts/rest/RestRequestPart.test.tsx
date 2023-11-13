@@ -1,6 +1,7 @@
-import { render, renderHook, DeepPartial, screen } from 'test-utils';
-import { ElementData, InscriptionValidation, RestRequestData } from '@axonivy/inscription-protocol';
-import { PartStateFlag } from '../../editors';
+import type { DeepPartial} from 'test-utils';
+import { render, renderHook, screen } from 'test-utils';
+import type { ElementData, InscriptionValidation, RestRequestData } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
 import { useRestRequestPart } from './RestRequestPart';
 
 const Part = () => {

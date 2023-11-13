@@ -1,4 +1,4 @@
-import { InscriptionMetaRequestTypes } from '@axonivy/inscription-protocol';
+import type { InscriptionMetaRequestTypes } from '@axonivy/inscription-protocol';
 import { useClient } from './useClient';
 import { useQuery } from '@tanstack/react-query';
 

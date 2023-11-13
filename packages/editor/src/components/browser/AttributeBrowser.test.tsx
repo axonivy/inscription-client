@@ -1,4 +1,4 @@
-import { VariableInfo } from '@axonivy/inscription-protocol';
+import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { TableUtil, render, screen, userEvent } from 'test-utils';
 import { useAttributeBrowser } from './AttributeBrowser';
 

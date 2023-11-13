@@ -1,7 +1,9 @@
 import { Checkbox, Collapsible, ScriptInput, useFieldset } from '../../widgets';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useTriggerData } from './useTriggerData';
-import { IVY_SCRIPT_TYPES, TriggerData } from '@axonivy/inscription-protocol';
+import type { TriggerData } from '@axonivy/inscription-protocol';
+import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import ResponsibleSelect from '../common/responsible/ResponsibleSelect';
 import { PathFieldset } from '../common';

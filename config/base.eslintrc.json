@@ -2,7 +2,6 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 6,
     "ecmaFeatures": {
       "jsx": true
     }
@@ -32,13 +31,13 @@
   },
   "env": {
     "browser": true,
-    "mocha": true,
-    "es6": true
+    "es2022": true
   },
   "ignorePatterns": ["node_modules", "lib", "*.d.ts", ".eslintrc.js"],
   "rules": {
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-namespace": "off",
     "react/display-name": "off"
   }

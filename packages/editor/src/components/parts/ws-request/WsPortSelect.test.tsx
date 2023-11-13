@@ -1,5 +1,6 @@
-import { render, DeepPartial, SelectUtil } from 'test-utils';
-import { WsRequestData } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { render, SelectUtil } from 'test-utils';
+import type { WsRequestData } from '@axonivy/inscription-protocol';
 import { WsPortSelect } from './WsPortSelect';
 
 describe('WsPortSelect', () => {

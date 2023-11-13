@@ -1,4 +1,4 @@
-import { Document } from '@axonivy/inscription-protocol';
+import type { Document } from '@axonivy/inscription-protocol';
 import DocumentTable from './DocumentTable';
 import { render, screen, TableUtil, userEvent } from 'test-utils';
 

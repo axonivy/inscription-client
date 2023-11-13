@@ -1,4 +1,4 @@
-import { ThemeMode } from '@axonivy/inscription-editor';
+import type { ThemeMode } from '@axonivy/inscription-editor';
 
 export namespace URLParams {
   export function parameter(key: string): string | undefined {

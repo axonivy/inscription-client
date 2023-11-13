@@ -1,7 +1,8 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import { DialogCallTest, GeneralTest, runTest, OutputTest } from '../../parts';
-import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
+import type { CreateProcessResult} from '../../../glsp-protocol';
+import { createProcess } from '../../../glsp-protocol';
 
 test.describe('Dialog Call', () => {
   let view: InscriptionView;

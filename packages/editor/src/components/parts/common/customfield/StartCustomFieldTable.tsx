@@ -1,6 +1,7 @@
-import { StartCustomStartField } from '@axonivy/inscription-protocol';
+import type { StartCustomStartField } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
 import {
   EditableCell,

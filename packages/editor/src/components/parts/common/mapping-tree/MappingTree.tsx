@@ -1,20 +1,22 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import {
+import type {
   ColumnDef,
   ColumnFiltersState,
   ExpandedState,
+  SortingState} from '@tanstack/react-table';
+import {
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable
 } from '@tanstack/react-table';
 import { MappingTreeData } from './mapping-tree-data';
 import { ScriptCell, ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
-import { MappingPartProps } from './MappingPart';
-import { TableFilter, calcFullPathId } from './useMappingTree';
+import type { MappingPartProps } from './MappingPart';
+import type { TableFilter} from './useMappingTree';
+import { calcFullPathId } from './useMappingTree';
 import { ValidationRow } from '../path/validation/ValidationRow';
 
 type MappingTreeProps = MappingPartProps & {

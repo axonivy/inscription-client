@@ -1,6 +1,6 @@
 import CallSelect from './CallSelect';
 import { render, screen, userEvent } from 'test-utils';
-import { CallableStart } from '@axonivy/inscription-protocol';
+import type { CallableStart } from '@axonivy/inscription-protocol';
 
 describe('CallSelect', () => {
   const DEPRECATED_STYLE = 'text-decoration: line-through';

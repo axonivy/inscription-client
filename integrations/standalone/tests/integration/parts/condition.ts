@@ -1,5 +1,5 @@
-import { Part } from '../../pageobjects/Part';
-import { Row } from '../../pageobjects/Table';
+import type { Part } from '../../pageobjects/Part';
+import type { Row } from '../../pageobjects/Table';
 import { NewPartTest, PartObject } from './part-tester';
 
 class Condition extends PartObject {

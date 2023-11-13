@@ -1,5 +1,6 @@
-import { CodeData } from '@axonivy/inscription-protocol';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { CodeData } from '@axonivy/inscription-protocol';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { ScriptArea, useFieldset } from '../../widgets';
 import { useCodeData } from './useCodeData';
 import { useValidations } from '../../../context';

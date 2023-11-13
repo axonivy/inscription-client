@@ -1,13 +1,14 @@
 import './CodeEditorCell.css';
 import '../../popover/Popover.css';
-import { CellContext, RowData } from '@tanstack/react-table';
+import type { CellContext, RowData } from '@tanstack/react-table';
 import { useEffect, useRef, useState } from 'react';
 import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover';
 import { Fieldset, useFieldset } from '../../fieldset';
 import { useEditorContext, usePath } from '../../../../context';
 import { Input } from '../../input';
 import { SingleLineCodeEditor } from '../../code-editor';
-import { Browser, BrowserType, useBrowser } from '../../../browser';
+import type { BrowserType} from '../../../browser';
+import { Browser, useBrowser } from '../../../browser';
 import { useModifyEditor } from '../../code-editor/useCodeEditor';
 import IvyIcon from '../../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';

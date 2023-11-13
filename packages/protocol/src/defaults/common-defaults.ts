@@ -1,4 +1,4 @@
-import {
+import type {
   CallData,
   ElementData,
   DialogCallData,
@@ -14,8 +14,6 @@ import {
   ErrorCatchData,
   SignalCatchData,
   MailData,
-  MAIL_TYPE,
-  IVY_EXCEPTIONS,
   TriggerData,
   RequestData,
   StartCustomStartField,
@@ -29,6 +27,10 @@ import {
   RestRequestData,
   ProgramInterfaceStartData,
   ConfigurationData
+} from '../data';
+import {
+  MAIL_TYPE,
+  IVY_EXCEPTIONS
 } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 

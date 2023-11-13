@@ -1,7 +1,8 @@
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
-import { CacheData } from '@axonivy/inscription-protocol';
+import type { ConfigDataContext} from '../../../context';
+import { useConfigDataContext } from '../../../context';
+import type { CacheData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { DataUpdater } from '../../../types/lambda';
+import type { DataUpdater } from '../../../types/lambda';
 
 export function useCacheData(): ConfigDataContext<CacheData> & {
   update: DataUpdater<CacheData['cache']>;

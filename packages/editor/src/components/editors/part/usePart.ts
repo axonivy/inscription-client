@@ -1,5 +1,6 @@
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
-import { ReactNode, useMemo } from 'react';
+import type { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ReactNode} from 'react';
+import { useMemo } from 'react';
 import { deepEqual } from '../../../utils/equals';
 
 export type PartStateFlag = 'empty' | 'configured' | 'warning' | 'error';

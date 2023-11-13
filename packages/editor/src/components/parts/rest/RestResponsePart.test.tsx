@@ -1,6 +1,7 @@
-import { render, renderHook, DeepPartial, screen, TableUtil, CollapsableUtil, ComboboxUtil } from 'test-utils';
-import { ElementData, InscriptionValidation, RestResponseData } from '@axonivy/inscription-protocol';
-import { PartStateFlag } from '../../editors';
+import type { DeepPartial} from 'test-utils';
+import { render, renderHook, screen, TableUtil, CollapsableUtil, ComboboxUtil } from 'test-utils';
+import type { ElementData, InscriptionValidation, RestResponseData } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
 import { useRestResponsePart } from './RestResponsePart';
 
 const Part = () => {

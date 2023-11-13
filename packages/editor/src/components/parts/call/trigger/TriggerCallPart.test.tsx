@@ -1,7 +1,8 @@
 import { useTriggerCallPart } from './TriggerCallPart';
-import { render, screen, TableUtil, renderHook, DeepPartial } from 'test-utils';
-import { CallData, ElementData, ProcessCallData } from '@axonivy/inscription-protocol';
-import { PartStateFlag } from '../../../editors';
+import type { DeepPartial } from 'test-utils';
+import { render, screen, TableUtil, renderHook } from 'test-utils';
+import type { CallData, ElementData, ProcessCallData } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../../editors';
 
 const Part = () => {
   const part = useTriggerCallPart();

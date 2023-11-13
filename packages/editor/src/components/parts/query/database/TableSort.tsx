@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import { PathCollapsible } from '../../common';
 import { useQueryData } from '../useQueryData';
-import { ColumnDef, SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type {
+  SelectItem} from '../../../../components/widgets';
 import {
   ActionCell,
   ReorderRow,
   SelectCell,
-  SelectItem,
   SortableHeader,
   Table,
   TableAddRow,

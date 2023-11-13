@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import './Table.css';
 import { IconInput } from '../../input';
 import { IvyIcons } from '@axonivy/editor-icons';

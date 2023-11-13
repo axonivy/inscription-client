@@ -1,6 +1,6 @@
-import { ScriptInput } from '../../pageobjects/CodeEditor';
-import { Part } from '../../pageobjects/Part';
-import { RadioGroup } from '../../pageobjects/RadioGroup';
+import type { ScriptInput } from '../../pageobjects/CodeEditor';
+import type { Part } from '../../pageobjects/Part';
+import type { RadioGroup } from '../../pageobjects/RadioGroup';
 import { NewPartTest, PartObject } from './part-tester';
 
 class DbCache extends PartObject {

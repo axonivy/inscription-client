@@ -1,4 +1,4 @@
-import { InputType, RestPayload } from '@axonivy/inscription-protocol';
+import type { InputType, RestPayload } from '@axonivy/inscription-protocol';
 
 const BYTE_TYPE = '[B' as const;
 const BINARY_INPUTS = ['java.io.File', 'java.io.InputStream', BYTE_TYPE] as const;

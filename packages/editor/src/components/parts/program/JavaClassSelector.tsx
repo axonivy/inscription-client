@@ -1,8 +1,9 @@
-import { Combobox, ComboboxItem, FieldsetControl, useFieldset } from '../../../components/widgets';
+import type { ComboboxItem, FieldsetControl} from '../../../components/widgets';
+import { Combobox, useFieldset } from '../../../components/widgets';
 import { useAction, useEditorContext, useMeta } from '../../../context';
-import { Consumer } from '../../../types/lambda';
+import type { Consumer } from '../../../types/lambda';
 import { PathFieldset } from '../common';
-import { Type } from '@axonivy/inscription-protocol';
+import type { Type } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 type JavaClassSelectorProps = {

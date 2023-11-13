@@ -1,5 +1,6 @@
-import { InputType, RestRequestData, RestResource } from '@axonivy/inscription-protocol';
-import { CollapsableUtil, DeepPartial, render, renderHook, screen, waitFor } from 'test-utils';
+import type { InputType, RestRequestData, RestResource } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { CollapsableUtil, render, renderHook, screen, waitFor } from 'test-utils';
 import { RestBody, useBodyTypes } from './RestBody';
 
 describe('RestBody', () => {

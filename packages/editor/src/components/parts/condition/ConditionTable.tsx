@@ -1,7 +1,8 @@
 import { Button, ScriptCell, EditableCell, Table, TableCell, TableHeader } from '../../widgets';
 import { useCallback, useMemo } from 'react';
 import { Condition } from './condition';
-import { CellContext, ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import type { CellContext, ColumnDef} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { ValidationReorderRow } from '../common';

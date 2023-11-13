@@ -1,6 +1,6 @@
-import { ScriptArea } from '../../pageobjects/CodeEditor';
-import { Part } from '../../pageobjects/Part';
-import { Table } from '../../pageobjects/Table';
+import type { ScriptArea } from '../../pageobjects/CodeEditor';
+import type { Part } from '../../pageobjects/Part';
+import type { Table } from '../../pageobjects/Table';
 import { NewPartTest, PartObject } from './part-tester';
 
 class Output extends PartObject {

@@ -1,8 +1,10 @@
 import './ResponsibleSelect.css';
 import { useMemo } from 'react';
-import { WfActivator, WfActivatorType, RESPONSIBLE_TYPE, WfTask, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { ScriptInput, Select, SelectItem, useFieldset } from '../../../widgets';
-import { DataUpdater } from '../../../../types/lambda';
+import type { WfActivator, WfActivatorType, WfTask} from '@axonivy/inscription-protocol';
+import { RESPONSIBLE_TYPE, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
+import type { SelectItem} from '../../../widgets';
+import { ScriptInput, Select, useFieldset } from '../../../widgets';
+import type { DataUpdater } from '../../../../types/lambda';
 import { PathFieldset } from '..';
 import RoleSelect from './RoleSelect';
 

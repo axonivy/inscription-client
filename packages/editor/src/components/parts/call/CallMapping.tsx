@@ -1,4 +1,4 @@
-import { InscriptionValidation, VariableInfo } from '@axonivy/inscription-protocol';
+import type { InscriptionValidation, VariableInfo } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
 import { ScriptArea, useFieldset } from '../../widgets';
 import { useCallData } from './useCallData';

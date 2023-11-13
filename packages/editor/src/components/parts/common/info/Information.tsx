@@ -1,4 +1,4 @@
-import { DataUpdater } from '../../../../types/lambda';
+import type { DataUpdater } from '../../../../types/lambda';
 import { MacroArea, MacroInput, useFieldset } from '../../../../components/widgets';
 import { PathFieldset } from '../path/PathFieldset';
 

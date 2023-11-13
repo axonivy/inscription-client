@@ -1,4 +1,4 @@
-import { Message } from '../message/Message';
+import type { Message } from '../message/Message';
 import Collapsible from './Collapsible';
 import { render, screen, userEvent } from 'test-utils';
 

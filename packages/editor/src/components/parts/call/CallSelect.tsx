@@ -1,6 +1,7 @@
-import { Combobox, ComboboxItem, FieldsetInputProps, IvyIcon } from '../../widgets';
-import { IvyIcons } from '@axonivy/editor-icons';
-import { CallableStart } from '@axonivy/inscription-protocol';
+import type { ComboboxItem, FieldsetInputProps} from '../../widgets';
+import { Combobox, IvyIcon } from '../../widgets';
+import type { IvyIcons } from '@axonivy/editor-icons';
+import type { CallableStart } from '@axonivy/inscription-protocol';
 import { useMemo } from 'react';
 
 export type CallableStartItem = CallableStart & ComboboxItem;

@@ -1,11 +1,12 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Section } from '../../pageobjects/Section';
+import type { Section } from '../../pageobjects/Section';
 import { Select } from '../../pageobjects/Select';
-import { Table } from '../../pageobjects/Table';
-import { ScriptInput } from '../../pageobjects/CodeEditor';
-import { Combobox } from '../../pageobjects/Combobox';
-import { Locator, expect } from '@playwright/test';
+import type { Table } from '../../pageobjects/Table';
+import type { ScriptInput } from '../../pageobjects/CodeEditor';
+import type { Combobox } from '../../pageobjects/Combobox';
+import type { Locator} from '@playwright/test';
+import { expect } from '@playwright/test';
 
 class RestRequest extends PartObject {
   targetUrl: Locator;

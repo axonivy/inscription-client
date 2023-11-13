@@ -1,7 +1,8 @@
-import { render, screen, TableUtil, renderHook, waitFor, DeepPartial } from 'test-utils';
+import type { DeepPartial } from 'test-utils';
+import { render, screen, TableUtil, renderHook, waitFor } from 'test-utils';
 import { useOutputPart } from './OutputPart';
-import { PartStateFlag } from '../../editors';
-import { ElementData, OutputData } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
+import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
 
 const Part = (props: { hideCode?: boolean }) => {
   const part = useOutputPart({ hideCode: props.hideCode });

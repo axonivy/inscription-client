@@ -1,5 +1,6 @@
-import { Locator, Page, expect } from '@playwright/test';
-import { RESPONSIBLE_TYPE, ValuesAsUnion } from '@axonivy/inscription-protocol';
+import type { Locator, Page} from '@playwright/test';
+import { expect } from '@playwright/test';
+import type { RESPONSIBLE_TYPE, ValuesAsUnion } from '@axonivy/inscription-protocol';
 import { ScriptInput } from './CodeEditor';
 import { Select } from './Select';
 

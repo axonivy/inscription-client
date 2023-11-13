@@ -1,4 +1,4 @@
-import { REST_PARAM_KIND, RestParameter, ScriptMappings } from '@axonivy/inscription-protocol';
+import type { REST_PARAM_KIND, RestParameter, ScriptMappings } from '@axonivy/inscription-protocol';
 
 export type ParameterKind = keyof typeof REST_PARAM_KIND;
 

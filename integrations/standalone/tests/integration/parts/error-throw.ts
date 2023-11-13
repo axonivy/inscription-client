@@ -1,6 +1,6 @@
-import { ScriptInput } from '../../pageobjects/CodeEditor';
-import { Combobox } from '../../pageobjects/Combobox';
-import { Part } from '../../pageobjects/Part';
+import type { ScriptInput } from '../../pageobjects/CodeEditor';
+import type { Combobox } from '../../pageobjects/Combobox';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 
 class ErrorThrow extends PartObject {

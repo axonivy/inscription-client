@@ -1,10 +1,11 @@
-import { ColumnDef, Row, SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, Row, SortingState} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { Checkbox, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
 import { useEditorContext, useMeta } from '../../../../context';
 import { PathCollapsible } from '../../common';
 import { useQueryData } from '../useQueryData';
 import { useEffect, useMemo, useState } from 'react';
-import { DatabaseColumn } from '@axonivy/inscription-protocol';
+import type { DatabaseColumn } from '@axonivy/inscription-protocol';
 
 type Column = Omit<DatabaseColumn, 'ivyType'> & {
   selected: boolean;

@@ -1,5 +1,6 @@
-import { RestRequestData, VariableInfo } from '@axonivy/inscription-protocol';
-import { ComboboxUtil, DeepPartial, TableUtil, render, screen } from 'test-utils';
+import type { RestRequestData, VariableInfo } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { ComboboxUtil, TableUtil, render, screen } from 'test-utils';
 import { RestEntity } from './RestEntity';
 
 describe('RestEntity', () => {

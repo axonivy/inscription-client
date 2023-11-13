@@ -1,7 +1,10 @@
-import { Fieldset, MacroArea, Select, SelectItem, useFieldset } from '../../widgets';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { SelectItem} from '../../widgets';
+import { Fieldset, MacroArea, Select, useFieldset } from '../../widgets';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
-import { MAIL_TYPE, MailData } from '@axonivy/inscription-protocol';
+import type { MailData } from '@axonivy/inscription-protocol';
+import { MAIL_TYPE } from '@axonivy/inscription-protocol';
 import { useValidations } from '../../../context';
 import { PathFieldset } from '../common';
 import { useMemo } from 'react';

@@ -1,9 +1,9 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Section } from '../../pageobjects/Section';
-import { Select } from '../../pageobjects/Select';
-import { ScriptInput } from '../../pageobjects/CodeEditor';
-import { Combobox } from '../../pageobjects/Combobox';
+import type { Section } from '../../pageobjects/Section';
+import type { Select } from '../../pageobjects/Select';
+import type { ScriptInput } from '../../pageobjects/CodeEditor';
+import type { Combobox } from '../../pageobjects/Combobox';
 
 class ProgramInterfaceStart extends PartObject {
   javaClass: Combobox;

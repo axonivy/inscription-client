@@ -1,4 +1,4 @@
-import { RestResource } from '@axonivy/inscription-protocol';
+import type { RestResource } from '@axonivy/inscription-protocol';
 import { useEditorContext, useMeta } from '../../../context';
 import { useRestRequestData } from './useRestRequestData';
 

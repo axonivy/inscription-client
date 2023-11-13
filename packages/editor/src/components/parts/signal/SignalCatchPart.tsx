@@ -1,10 +1,12 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { Checkbox, useFieldset } from '../../widgets';
 import { useSignalCatchData } from './useSignalCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
-import { SignalCatchData } from '@axonivy/inscription-protocol';
-import { EventCodeItem, EventCodeSelect, PathFieldset } from '../common';
+import type { SignalCatchData } from '@axonivy/inscription-protocol';
+import type { EventCodeItem} from '../common';
+import { EventCodeSelect, PathFieldset } from '../common';
 import { eventCodeInfo } from '../../../utils/event-code';
 
 export function useSignalCatchPart(options?: { makroSupport?: boolean; withBrowser?: boolean }): PartProps {

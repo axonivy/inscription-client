@@ -1,6 +1,7 @@
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { useFieldset } from '../../../widgets';
-import { ExceptionCombobox, ExceptionItem, PathFieldset, PathFieldsetProps } from '../../common';
+import type { ExceptionItem, PathFieldsetProps } from '../../common';
+import { ExceptionCombobox, PathFieldset } from '../../common';
 import { useEditorContext, useMeta } from '../../../../context';
 import { eventCodeInfo } from '../../../../utils/event-code';
 

@@ -1,6 +1,7 @@
-import { render, renderHook, DeepPartial, screen, TableUtil, CollapsableUtil, SelectUtil } from 'test-utils';
-import { ElementData, InscriptionValidation, WsResponseData } from '@axonivy/inscription-protocol';
-import { PartStateFlag } from '../../editors';
+import type { DeepPartial} from 'test-utils';
+import { render, renderHook, screen, TableUtil, CollapsableUtil, SelectUtil } from 'test-utils';
+import type { ElementData, InscriptionValidation, WsResponseData } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
 import { useWsResponsePart } from './WsResponsePart';
 
 const Part = () => {

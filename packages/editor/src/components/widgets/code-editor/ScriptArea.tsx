@@ -1,5 +1,6 @@
 import './ScriptArea.css';
-import ResizableCodeEditor, { CodeEditorAreaProps } from './ResizableCodeEditor';
+import type { CodeEditorAreaProps } from './ResizableCodeEditor';
+import ResizableCodeEditor from './ResizableCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { useModifyEditor } from './useCodeEditor';
 import { usePath } from '../../../context';

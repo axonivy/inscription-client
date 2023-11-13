@@ -1,4 +1,5 @@
-import { Tab, Tabs } from './Tab';
+import type { Tab} from './Tab';
+import { Tabs } from './Tab';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('Tabs', () => {

@@ -1,9 +1,9 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Section } from '../../pageobjects/Section';
-import { Table } from '../../pageobjects/Table';
-import { ScriptArea } from '../../pageobjects/CodeEditor';
-import { TextArea } from '../../pageobjects/TextArea';
+import type { Section } from '../../pageobjects/Section';
+import type { Table } from '../../pageobjects/Table';
+import type { ScriptArea } from '../../pageobjects/CodeEditor';
+import type { TextArea } from '../../pageobjects/TextArea';
 
 class Start extends PartObject {
   signature: TextArea;

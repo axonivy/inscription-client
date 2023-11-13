@@ -1,12 +1,14 @@
 import { useCombobox } from 'downshift';
-import { ComponentProps, memo, ReactNode, useEffect, useState } from 'react';
+import type { ComponentProps, ReactNode} from 'react';
+import { memo, useEffect, useState } from 'react';
 import './Combobox.css';
 import { usePath, useReadonly } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import Button from '../button/Button';
 import { SingleLineCodeEditor } from '../code-editor';
 import { useModifyEditor } from '../code-editor/useCodeEditor';
-import { Browser, BrowserType, useBrowser } from '../../../components/browser';
+import type { BrowserType} from '../../../components/browser';
+import { Browser, useBrowser } from '../../../components/browser';
 import { CardText } from '../output/CardText';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 

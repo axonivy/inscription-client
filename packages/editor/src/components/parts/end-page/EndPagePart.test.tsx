@@ -1,7 +1,7 @@
 import { render, renderHook, screen } from 'test-utils';
-import { EndPageData } from '@axonivy/inscription-protocol';
+import type { EndPageData } from '@axonivy/inscription-protocol';
 import { useEndPagePart } from './EndPagePart';
-import { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useEndPagePart();

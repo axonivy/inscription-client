@@ -1,9 +1,11 @@
 import { Collapsible as CollapsibleRoot, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
-import { memo, ReactNode, useEffect, useState } from 'react';
+import type { ReactNode} from 'react';
+import { memo, useEffect, useState } from 'react';
 import './Collapsible.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
-import { MessageText, MessageTextProps } from '../message/Message';
+import type { MessageTextProps } from '../message/Message';
+import { MessageText } from '../message/Message';
 
 export type CollapsibleProps = MessageTextProps & { label: string; defaultOpen?: boolean; autoClosable?: boolean; children: ReactNode };
 

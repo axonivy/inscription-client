@@ -1,5 +1,6 @@
 import './Input.css';
-import { ComponentProps, useMemo } from 'react';
+import type { ComponentProps} from 'react';
+import { useMemo } from 'react';
 import { useReadonly } from '../../../context';
 
 export type TextareaProps = Omit<ComponentProps<'textarea'>, 'value' | 'onChange'> & {

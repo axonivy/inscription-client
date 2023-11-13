@@ -1,4 +1,4 @@
-import {
+import type {
   CallableStart,
   ConnectorRef,
   DataClass,
@@ -33,7 +33,7 @@ import {
   TypeSearchRequest,
   JavaType
 } from './data/inscription';
-import { InscriptionData, InscriptionSaveData } from './data/inscription-data';
+import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
 export interface InscriptionMetaRequestTypes {
   'meta/start/dialogs': [InscriptionContext, CallableStart[]];

@@ -1,7 +1,8 @@
-import Fieldset, { FieldsetProps } from './Fieldset';
+import type { FieldsetProps } from './Fieldset';
+import Fieldset from './Fieldset';
 import { render, screen, userEvent } from 'test-utils';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { FieldsetControl } from './fieldset-control';
+import type { FieldsetControl } from './fieldset-control';
 
 describe('Fieldset', () => {
   function renderFieldset({ label, controls, message }: FieldsetProps) {

@@ -1,4 +1,4 @@
-import { EventCodeMeta } from '@axonivy/inscription-protocol';
+import type { EventCodeMeta } from '@axonivy/inscription-protocol';
 
 export const eventCodeInfo = (code: EventCodeMeta) => {
   if (code.usage > 0) {

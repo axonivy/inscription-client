@@ -1,5 +1,5 @@
-import { Part } from '../../pageobjects/Part';
-import { Table } from '../../pageobjects/Table';
+import type { Part } from '../../pageobjects/Part';
+import type { Table } from '../../pageobjects/Table';
 import { NewPartTest, PartObject } from './part-tester';
 
 class Attachements extends PartObject {

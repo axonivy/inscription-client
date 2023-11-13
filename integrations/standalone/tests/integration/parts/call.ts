@@ -1,8 +1,8 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Table } from '../../pageobjects/Table';
-import { ScriptArea } from '../../pageobjects/CodeEditor';
-import { Combobox } from '../../pageobjects/Combobox';
+import type { Table } from '../../pageobjects/Table';
+import type { ScriptArea } from '../../pageobjects/CodeEditor';
+import type { Combobox } from '../../pageobjects/Combobox';
 
 class Call extends PartObject {
   call: Combobox;

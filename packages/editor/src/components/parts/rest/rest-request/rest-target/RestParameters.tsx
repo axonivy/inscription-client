@@ -1,11 +1,12 @@
 import { PathCollapsible, ValidationRow } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
+import type {
+  SelectItem} from '../../../../widgets';
 import {
   ActionCell,
   EditableCell,
   ScriptCell,
   SelectCell,
-  SelectItem,
   SortableHeader,
   Table,
   TableAddRow,
@@ -13,7 +14,8 @@ import {
   TableFooter,
   TableHeader
 } from '../../../../widgets';
-import { ColumnDef, SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEffect, useMemo, useState } from 'react';
 import { IVY_SCRIPT_TYPES, REST_PARAM_KIND } from '@axonivy/inscription-protocol';

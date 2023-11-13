@@ -1,7 +1,8 @@
-import { ConfigDataContext, useConfigDataContext, useDataContext } from '../../../context';
-import { SignalCatchData } from '@axonivy/inscription-protocol';
+import type { ConfigDataContext} from '../../../context';
+import { useConfigDataContext, useDataContext } from '../../../context';
+import type { SignalCatchData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { Consumer, DataUpdater } from '../../../types/lambda';
+import type { Consumer, DataUpdater } from '../../../types/lambda';
 
 export function useSignalCatchData(): ConfigDataContext<SignalCatchData> & {
   update: DataUpdater<SignalCatchData>;

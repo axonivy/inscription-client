@@ -1,4 +1,4 @@
-import { MessageReader, MessageWriter } from 'vscode-jsonrpc';
+import type { MessageReader, MessageWriter } from 'vscode-jsonrpc';
 import { toSocket, WebSocketMessageReader, WebSocketMessageWriter } from 'vscode-ws-jsonrpc';
 
 export interface MessageConnection {

@@ -1,12 +1,13 @@
-import { Accordion } from '../../pageobjects/Accordion';
-import { NewPartTest, PartObject, PartTest } from './part-tester';
-import { Part } from '../../pageobjects/Part';
-import { MacroEditor, ScriptArea, ScriptInput } from '../../pageobjects/CodeEditor';
-import { Section } from '../../pageobjects/Section';
-import { ResponsibleSelect } from '../../pageobjects/ResponsibleSelect';
-import { Select } from '../../pageobjects/Select';
-import { Table } from '../../pageobjects/Table';
-import { Checkbox } from '../../pageobjects/Checkbox';
+import type { Accordion } from '../../pageobjects/Accordion';
+import type { PartTest } from './part-tester';
+import { NewPartTest, PartObject } from './part-tester';
+import type { Part } from '../../pageobjects/Part';
+import type { MacroEditor, ScriptArea, ScriptInput } from '../../pageobjects/CodeEditor';
+import type { Section } from '../../pageobjects/Section';
+import type { ResponsibleSelect } from '../../pageobjects/ResponsibleSelect';
+import type { Select } from '../../pageobjects/Select';
+import type { Table } from '../../pageobjects/Table';
+import type { Checkbox } from '../../pageobjects/Checkbox';
 
 export class TasksTester implements PartTest {
   private tasks: { tab: string; test: PartTest }[];

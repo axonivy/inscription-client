@@ -1,5 +1,5 @@
 import ResponsibleSelect from './ResponsibleSelect';
-import { WfActivator, WfActivatorType } from '@axonivy/inscription-protocol';
+import type { WfActivator, WfActivatorType } from '@axonivy/inscription-protocol';
 import { render, screen, SelectUtil } from 'test-utils';
 
 describe('ResponsibleSelect', () => {

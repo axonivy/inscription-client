@@ -1,5 +1,5 @@
-import { IvyIcons } from '@axonivy/editor-icons';
-import { Severity } from '@axonivy/inscription-protocol';
+import type { IvyIcons } from '@axonivy/editor-icons';
+import type { Severity } from '@axonivy/inscription-protocol';
 
 export type IvyIconProps = {
   icon: IvyIcons | Severity;

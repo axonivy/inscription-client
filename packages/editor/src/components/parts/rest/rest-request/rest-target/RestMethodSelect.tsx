@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
 import { useEditorContext, useMeta, useOpenApi } from '../../../../../context';
-import { Combobox, ComboboxItem, ScriptInput, Select, SelectItem, useFieldset } from '../../../../widgets';
+import type { ComboboxItem, SelectItem} from '../../../../widgets';
+import { Combobox, ScriptInput, Select, useFieldset } from '../../../../widgets';
 import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import { HttpMethod, IVY_SCRIPT_TYPES, HTTP_METHOD, RestResource } from '@axonivy/inscription-protocol';
+import type { HttpMethod, RestResource } from '@axonivy/inscription-protocol';
+import { IVY_SCRIPT_TYPES, HTTP_METHOD } from '@axonivy/inscription-protocol';
 import './RestMethodSelect.css';
 import { useUpdateRestResource } from '../../useUpdateRestResource';
 

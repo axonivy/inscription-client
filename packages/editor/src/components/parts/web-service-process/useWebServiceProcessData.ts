@@ -1,7 +1,8 @@
-import { ConfigDataContext, useConfigDataContext } from '../../../context';
-import { WebServiceProcessData } from '@axonivy/inscription-protocol';
+import type { ConfigDataContext} from '../../../context';
+import { useConfigDataContext } from '../../../context';
+import type { WebServiceProcessData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import { DataUpdater } from '../../../types/lambda';
+import type { DataUpdater } from '../../../types/lambda';
 
 export function useWebServiceProcessData(): ConfigDataContext<WebServiceProcessData> & {
   update: DataUpdater<WebServiceProcessData>;

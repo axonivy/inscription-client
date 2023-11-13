@@ -1,5 +1,6 @@
-import { OutputData } from '@axonivy/inscription-protocol';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { OutputData } from '@axonivy/inscription-protocol';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { Checkbox, ScriptArea, useFieldset } from '../../widgets';
 import { useOutputData } from './useOutputData';
 import { PathContext, useValidations } from '../../../context';

@@ -1,6 +1,6 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Checkbox } from '../../pageobjects/Checkbox';
+import type { Checkbox } from '../../pageobjects/Checkbox';
 
 class Permissions extends PartObject {
   viewable: Checkbox;

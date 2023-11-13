@@ -1,6 +1,7 @@
-import Collapsible, { CollapsibleProps } from '../../../../widgets/collapsible/Collapsible';
+import type { CollapsibleProps } from '../../../../widgets/collapsible/Collapsible';
+import Collapsible from '../../../../widgets/collapsible/Collapsible';
 import { useValidations } from '../../../../../context';
-import { SchemaKeys } from '@axonivy/inscription-protocol';
+import type { SchemaKeys } from '@axonivy/inscription-protocol';
 import { useMemo } from 'react';
 
 export const ValidationCollapsible = ({ paths, children, ...props }: CollapsibleProps & { paths?: SchemaKeys[] }) => {

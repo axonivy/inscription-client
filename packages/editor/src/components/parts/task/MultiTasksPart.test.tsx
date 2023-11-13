@@ -1,6 +1,8 @@
-import { render, screen, renderHook, userEvent, DeepPartial } from 'test-utils';
-import { TaskData, DEFAULT_TASK, DEFAULT_TASK_DATA, ElementData } from '@axonivy/inscription-protocol';
-import { PartStateFlag } from '../../editors';
+import type { DeepPartial } from 'test-utils';
+import { render, screen, renderHook, userEvent } from 'test-utils';
+import type { TaskData, ElementData } from '@axonivy/inscription-protocol';
+import { DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
 import { useMultiTasksPart } from './MultiTasksPart';
 import { deepmerge } from 'deepmerge-ts';
 

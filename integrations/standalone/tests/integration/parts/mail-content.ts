@@ -1,6 +1,6 @@
-import { MacroEditor } from '../../pageobjects/CodeEditor';
-import { Part } from '../../pageobjects/Part';
-import { Select } from '../../pageobjects/Select';
+import type { MacroEditor } from '../../pageobjects/CodeEditor';
+import type { Part } from '../../pageobjects/Part';
+import type { Select } from '../../pageobjects/Select';
 import { NewPartTest, PartObject } from './part-tester';
 
 class MailContent extends PartObject {

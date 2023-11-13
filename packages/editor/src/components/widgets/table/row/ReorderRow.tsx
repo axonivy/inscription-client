@@ -1,10 +1,12 @@
 import './ReorderRow.css';
-import { ReactNode, useRef } from 'react';
-import { TextDropItem, useDrag, useDrop } from 'react-aria';
+import type { ReactNode} from 'react';
+import { useRef } from 'react';
+import type { TextDropItem} from 'react-aria';
+import { useDrag, useDrop } from 'react-aria';
 import IvyIcon from '../../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { MessageRow } from './MessageRow';
-import { MessageTextProps } from '../../message/Message';
+import type { MessageTextProps } from '../../message/Message';
 
 export type ReorderRowProps = {
   id: string;

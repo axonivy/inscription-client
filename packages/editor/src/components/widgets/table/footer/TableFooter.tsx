@@ -1,7 +1,7 @@
 import './TableFooter.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useReadonly } from '../../../../context';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import Button from '../../button/Button';
 
 export const TableFooter = (props: { children: ReactNode }) => {

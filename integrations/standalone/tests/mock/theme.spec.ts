@@ -1,4 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Theme mode dark', () => {

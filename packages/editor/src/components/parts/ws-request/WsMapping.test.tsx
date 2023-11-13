@@ -1,5 +1,6 @@
-import { render, DeepPartial, TableUtil } from 'test-utils';
-import { WsRequestData } from '@axonivy/inscription-protocol';
+import type { DeepPartial} from 'test-utils';
+import { render, TableUtil } from 'test-utils';
+import type { WsRequestData } from '@axonivy/inscription-protocol';
 import { WsMapping } from './WsMapping';
 
 describe('WsMapping', () => {

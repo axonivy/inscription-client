@@ -1,14 +1,15 @@
 import { Radio } from '../../../../../components/widgets';
 import { PathCollapsible } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import { InputType, REST_INPUT_TYPES } from '@axonivy/inscription-protocol';
+import type { InputType} from '@axonivy/inscription-protocol';
+import { REST_INPUT_TYPES } from '@axonivy/inscription-protocol';
 import { RestBodyRaw } from './RestBodyRaw';
 import { RestContentType } from './RestContentType';
 import { RestForm } from './RestForm';
 import { RestEntity } from './RestEntity';
 import { deepEqual } from '../../../../../utils/equals';
 import { useOpenApi } from '../../../../../context';
-import { RadioItemProps } from '../../../../../components/widgets/radio/Radio';
+import type { RadioItemProps } from '../../../../../components/widgets/radio/Radio';
 import { useRestResourceMeta } from '../../useRestResourceMeta';
 import { isFormMedia } from '../../known-types';
 

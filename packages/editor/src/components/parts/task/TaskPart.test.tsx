@@ -1,7 +1,10 @@
-import { renderHook, screen, render, DeepPartial, cloneObject } from 'test-utils';
-import { WfTask, TaskData, DEFAULT_TASK, ElementData } from '@axonivy/inscription-protocol';
-import { TaskPartProps, useTaskPart } from './TaskPart';
-import { PartStateFlag } from '../../editors';
+import type { DeepPartial} from 'test-utils';
+import { renderHook, screen, render, cloneObject } from 'test-utils';
+import type { WfTask, TaskData, ElementData } from '@axonivy/inscription-protocol';
+import { DEFAULT_TASK } from '@axonivy/inscription-protocol';
+import type { TaskPartProps} from './TaskPart';
+import { useTaskPart } from './TaskPart';
+import type { PartStateFlag } from '../../editors';
 
 const Part = () => {
   const part = useTaskPart();

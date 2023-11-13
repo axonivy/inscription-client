@@ -1,4 +1,4 @@
-import { ScriptMappings } from '@axonivy/inscription-protocol';
+import type { ScriptMappings } from '@axonivy/inscription-protocol';
 import { cloneObject } from 'test-utils';
 import { Property } from './properties';
 

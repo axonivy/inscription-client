@@ -1,7 +1,9 @@
-import { Select, SelectItem, useFieldset } from '../../../widgets';
+import type { SelectItem} from '../../../widgets';
+import { Select, useFieldset } from '../../../widgets';
 import { useQueryData } from '../useQueryData';
 import { PathFieldset } from '../../common';
-import { QUERY_KIND, QueryKind } from '@axonivy/inscription-protocol';
+import type { QueryKind } from '@axonivy/inscription-protocol';
+import { QUERY_KIND } from '@axonivy/inscription-protocol';
 import { PathContext } from '../../../../context';
 import { useMemo } from 'react';
 

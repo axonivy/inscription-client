@@ -1,4 +1,5 @@
-import { forwardRef, ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
+import { forwardRef } from 'react';
 import { useReadonly } from '../../../context';
 import './Input.css';
 

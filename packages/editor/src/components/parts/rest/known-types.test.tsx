@@ -1,4 +1,4 @@
-import { RestPayload } from '@axonivy/inscription-protocol';
+import type { RestPayload } from '@axonivy/inscription-protocol';
 import { evalBodyType, evalInputType, isFormMedia, typesSupportBinary } from './known-types';
 
 describe('Known Types', () => {

@@ -1,6 +1,7 @@
 import { cloneObject } from 'test-utils';
-import { RestParam, restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
-import { RestParameter } from '@axonivy/inscription-protocol';
+import type { RestParam} from './rest-parameter';
+import { restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
+import type { RestParameter } from '@axonivy/inscription-protocol';
 
 describe('RestParam', () => {
   const params: RestParam[] = [

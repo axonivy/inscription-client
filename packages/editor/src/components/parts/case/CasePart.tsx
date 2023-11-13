@@ -1,6 +1,7 @@
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useCaseData } from './useCaseData';
-import { CaseData } from '@axonivy/inscription-protocol';
+import type { CaseData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import { CustomFieldPart } from '../common';
 import Information from '../common/info/Information';

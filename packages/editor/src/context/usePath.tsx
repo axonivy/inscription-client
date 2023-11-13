@@ -1,5 +1,6 @@
-import { SchemaPath, SchemaKeys } from '@axonivy/inscription-protocol';
-import { ReactNode, createContext, useContext } from 'react';
+import type { SchemaPath, SchemaKeys } from '@axonivy/inscription-protocol';
+import type { ReactNode} from 'react';
+import { createContext, useContext } from 'react';
 
 const PathContextInstance = createContext<SchemaPath | SchemaKeys | ''>('');
 

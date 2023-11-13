@@ -1,6 +1,6 @@
 import './TableHeader.css';
-import { HeaderContext } from '@tanstack/react-table';
-import { ReactNode } from 'react';
+import type { HeaderContext } from '@tanstack/react-table';
+import type { ReactNode } from 'react';
 import Button from '../../button/Button';
 import { IvyIcons } from '@axonivy/editor-icons';
 

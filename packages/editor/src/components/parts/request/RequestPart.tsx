@@ -1,6 +1,8 @@
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useRequestData } from './useRequestData';
-import { IVY_EXCEPTIONS, RequestData } from '@axonivy/inscription-protocol';
+import type { RequestData } from '@axonivy/inscription-protocol';
+import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import { Checkbox, useFieldset } from '../../../components/widgets';
 import { ExceptionSelect, PathCollapsible, PathFieldset } from '../common';

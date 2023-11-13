@@ -1,8 +1,8 @@
-import { ScriptInput } from '../../pageobjects/CodeEditor';
-import { Part } from '../../pageobjects/Part';
-import { ResponsibleSelect } from '../../pageobjects/ResponsibleSelect';
-import { Section } from '../../pageobjects/Section';
-import { Checkbox } from '../../pageobjects/Checkbox';
+import type { ScriptInput } from '../../pageobjects/CodeEditor';
+import type { Part } from '../../pageobjects/Part';
+import type { ResponsibleSelect } from '../../pageobjects/ResponsibleSelect';
+import type { Section } from '../../pageobjects/Section';
+import type { Checkbox } from '../../pageobjects/Checkbox';
 import { NewPartTest, PartObject } from './part-tester';
 
 class Trigger extends PartObject {

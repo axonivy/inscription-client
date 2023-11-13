@@ -1,4 +1,5 @@
-import { DEFAULT_TASK, ElementType, GeneralData } from '@axonivy/inscription-protocol';
+import type { ElementType, GeneralData } from '@axonivy/inscription-protocol';
+import { DEFAULT_TASK } from '@axonivy/inscription-protocol';
 import { deepmerge } from 'deepmerge-ts';
 
 export namespace DataMock {

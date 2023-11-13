@@ -1,5 +1,6 @@
 import { PathContext, useEditorContext, useMeta } from '../../../../context';
-import { Combobox, ComboboxItem, useFieldset } from '../../../widgets';
+import type { ComboboxItem} from '../../../widgets';
+import { Combobox, useFieldset } from '../../../widgets';
 import { PathFieldset } from '../../common';
 import { useQueryData } from '../useQueryData';
 

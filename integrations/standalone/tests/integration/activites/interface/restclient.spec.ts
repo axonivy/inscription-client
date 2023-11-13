@@ -10,7 +10,8 @@ import {
   RestResponseTest,
   runTest
 } from '../../parts';
-import { CreateProcessResult, createProcess } from '../../../glsp-protocol';
+import type { CreateProcessResult} from '../../../glsp-protocol';
+import { createProcess } from '../../../glsp-protocol';
 
 test.describe('Rest Client', () => {
   let view: InscriptionView;

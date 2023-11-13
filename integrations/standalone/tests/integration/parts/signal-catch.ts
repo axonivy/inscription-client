@@ -1,8 +1,8 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Combobox } from '../../pageobjects/Combobox';
-import { Checkbox } from '../../pageobjects/Checkbox';
-import { MacroEditor } from '../../pageobjects/CodeEditor';
+import type { Combobox } from '../../pageobjects/Combobox';
+import type { Checkbox } from '../../pageobjects/Checkbox';
+import type { MacroEditor } from '../../pageobjects/CodeEditor';
 
 class SignalCatch extends PartObject {
   signal: Combobox;

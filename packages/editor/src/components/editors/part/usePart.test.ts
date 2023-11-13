@@ -1,6 +1,7 @@
 import { renderHook } from 'test-utils';
-import { PartStateFlag, usePartState } from './usePart';
-import { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { PartStateFlag} from './usePart';
+import { usePartState } from './usePart';
+import type { InscriptionValidation } from '@axonivy/inscription-protocol';
 
 describe('PartState', () => {
   function assertState(expectedState: PartStateFlag, data?: unknown, message?: InscriptionValidation[]) {

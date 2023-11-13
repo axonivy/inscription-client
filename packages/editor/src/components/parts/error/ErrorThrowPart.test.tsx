@@ -1,6 +1,7 @@
-import { ComboboxUtil, DeepPartial, render, renderHook } from 'test-utils';
-import { ElementData, ErrorThrowData, InscriptionValidation } from '@axonivy/inscription-protocol';
-import { PartStateFlag } from '../../editors';
+import type { DeepPartial} from 'test-utils';
+import { ComboboxUtil, render, renderHook } from 'test-utils';
+import type { ElementData, ErrorThrowData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { PartStateFlag } from '../../editors';
 import { useErrorThrowPart } from './ErrorThrowPart';
 
 const Part = () => {

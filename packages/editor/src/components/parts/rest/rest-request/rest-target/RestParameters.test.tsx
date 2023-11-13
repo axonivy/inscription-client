@@ -1,6 +1,7 @@
-import { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
+import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
 import { RestParameters } from './RestParameters';
-import { CollapsableUtil, DeepPartial, SelectUtil, TableUtil, render, screen } from 'test-utils';
+import type { DeepPartial} from 'test-utils';
+import { CollapsableUtil, SelectUtil, TableUtil, render, screen } from 'test-utils';
 
 describe('RestParameters', () => {
   function renderParameters(data?: DeepPartial<RestRequestData>, restResource?: DeepPartial<RestResource>) {

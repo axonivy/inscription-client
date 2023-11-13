@@ -1,6 +1,7 @@
-import { WsRequestData } from '@axonivy/inscription-protocol';
+import type { WsRequestData } from '@axonivy/inscription-protocol';
 import { useValidations } from '../../../context';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useWsRequestData } from './useWsRequestData';
 import { WsClientSelect } from './WsClientSelect';
 import { WsPortSelect } from './WsPortSelect';

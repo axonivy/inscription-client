@@ -1,4 +1,4 @@
-import { ElementData, ElementType, InscriptionSaveData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ElementData, ElementType, InscriptionSaveData, InscriptionValidation } from '@axonivy/inscription-protocol';
 
 export namespace ValidationMock {
   export function validateData(type: ElementType, data: InscriptionSaveData): InscriptionValidation[] {

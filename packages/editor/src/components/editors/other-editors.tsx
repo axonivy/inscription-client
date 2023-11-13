@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
-import { ElementType } from '@axonivy/inscription-protocol';
-import { ReactNode, memo } from 'react';
+import type { ElementType } from '@axonivy/inscription-protocol';
+import type { ReactNode} from 'react';
+import { memo } from 'react';
 import NameEditor from './NameEditor';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useGeneralPart } from '../parts';

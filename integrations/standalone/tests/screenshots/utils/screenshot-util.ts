@@ -1,4 +1,5 @@
-import { Locator, Page, expect } from '@playwright/test';
+import type { Locator, Page} from '@playwright/test';
+import { expect } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
 
 export async function screenshotTab(page: Page, pid: string, part: string, screenshotName: string) {

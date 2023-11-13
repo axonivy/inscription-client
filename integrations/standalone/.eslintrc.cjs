@@ -4,6 +4,6 @@ module.exports = {
   ignorePatterns: ['playwright.config.ts'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: 'dev.tsconfig.json'
+    project: 'tsconfig.json'
   }
 };

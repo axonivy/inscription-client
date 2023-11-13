@@ -1,5 +1,5 @@
-import { InscriptionView } from '../../pageobjects/InscriptionView';
-import { Part } from '../../pageobjects/Part';
+import type { InscriptionView } from '../../pageobjects/InscriptionView';
+import type { Part } from '../../pageobjects/Part';
 
 export abstract class PartObject {
   constructor(readonly part: Part) {}

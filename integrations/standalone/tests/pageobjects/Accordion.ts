@@ -1,7 +1,8 @@
-import { Locator, Page, expect } from '@playwright/test';
+import type { Locator, Page} from '@playwright/test';
+import { expect } from '@playwright/test';
 import { Part } from './Part';
 import { Tab } from './Tab';
-import { PartStateFlag } from '@axonivy/inscription-editor/src/components/editors/part/usePart';
+import type { PartStateFlag } from '@axonivy/inscription-editor/src/components/editors/part/usePart';
 
 export class Accordion extends Part {
   private readonly toggleButtonLocator: Locator;

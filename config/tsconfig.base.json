@@ -23,6 +23,7 @@
     "esModuleInterop": true,
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "sourceMap": true
+    "sourceMap": true,
+    "verbatimModuleSyntax": true
   }
 }

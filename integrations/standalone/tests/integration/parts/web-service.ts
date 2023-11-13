@@ -1,9 +1,9 @@
-import { Part } from '../../pageobjects/Part';
+import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
-import { Checkbox } from '../../pageobjects/Checkbox';
-import { Section } from '../../pageobjects/Section';
-import { Select } from '../../pageobjects/Select';
-import { ScriptInput } from '../../pageobjects/CodeEditor';
+import type { Checkbox } from '../../pageobjects/Checkbox';
+import type { Section } from '../../pageobjects/Section';
+import type { Select } from '../../pageobjects/Select';
+import type { ScriptInput } from '../../pageobjects/CodeEditor';
 
 class WebService extends PartObject {
   permissionSection: Section;

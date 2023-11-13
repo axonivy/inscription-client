@@ -1,6 +1,7 @@
-import { HttpMethod, RestRequestData } from '@axonivy/inscription-protocol';
+import type { HttpMethod, RestRequestData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useRestRequestData } from './useRestRequestData';
 import { RestClientSelect } from './rest-request/rest-target/RestClientSelect';
 import { RestMethodSelect } from './rest-request/rest-target/RestMethodSelect';

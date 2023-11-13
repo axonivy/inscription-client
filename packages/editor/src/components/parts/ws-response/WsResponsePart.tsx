@@ -1,6 +1,8 @@
-import { IVY_EXCEPTIONS, WsResponseData } from '@axonivy/inscription-protocol';
+import type { WsResponseData } from '@axonivy/inscription-protocol';
+import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { PartProps, usePartDirty, usePartState } from '../../editors';
+import type { PartProps} from '../../editors';
+import { usePartDirty, usePartState } from '../../editors';
 import { useWsResponseData } from './useWsResponseData';
 import { ExceptionSelect, MappingPart, PathCollapsible, PathFieldset, ValidationFieldset } from '../common';
 import { ScriptArea, useFieldset } from '../../widgets';

@@ -1,6 +1,7 @@
-import { ScriptVariable } from '@axonivy/inscription-protocol';
+import type { ScriptVariable } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
 import { EditableCell, Table, TableHeader, TableCell, ActionCell, TableFooter, TableAddRow, SortableHeader } from '../../../widgets';
 import { ValidationRow } from '../path/validation/ValidationRow';

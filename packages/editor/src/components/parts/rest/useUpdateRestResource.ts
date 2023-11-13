@@ -1,4 +1,4 @@
-import { HttpMethod, RestRequestData, RestResource, RestResponseData } from '@axonivy/inscription-protocol';
+import type { HttpMethod, RestRequestData, RestResource, RestResponseData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { useConfigDataContext } from '../../../context';
 import { evalBodyType, evalInputType } from './known-types';

@@ -1,4 +1,4 @@
-import { Disposable, Message, MessageConnection } from 'vscode-jsonrpc';
+import type { Disposable, Message, MessageConnection } from 'vscode-jsonrpc';
 import { DisposableCollection } from 'vscode-ws-jsonrpc';
 
 // eslint-disable-next-line no-shadow

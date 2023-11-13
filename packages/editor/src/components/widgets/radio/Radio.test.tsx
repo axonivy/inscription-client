@@ -1,5 +1,6 @@
 import { render, screen, userEvent } from 'test-utils';
-import Radio, { RadioItemProps } from './Radio';
+import type { RadioItemProps } from './Radio';
+import Radio from './Radio';
 
 describe('Radio', () => {
   const items: RadioItemProps<string>[] = [
