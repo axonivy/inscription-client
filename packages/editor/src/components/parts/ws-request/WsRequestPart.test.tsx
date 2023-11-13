@@ -1,8 +1,9 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { render, renderHook, screen } from 'test-utils';
 import type { ElementData, InscriptionValidation, WsRequestData } from '@axonivy/inscription-protocol';
 import { useWsRequestPart } from './WsRequestPart';
 import type { PartStateFlag } from '../../editors';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useWsRequestPart();

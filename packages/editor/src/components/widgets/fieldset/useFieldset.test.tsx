@@ -1,5 +1,6 @@
 import { renderHook } from 'test-utils';
 import { useFieldset } from './useFieldset';
+import { describe, test, expect } from 'vitest';
 
 describe('useFieldset', () => {
   test('unique ids', () => {

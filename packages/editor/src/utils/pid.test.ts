@@ -1,4 +1,5 @@
 import { PID } from './pid';
+import { describe, test, expect } from 'vitest';
 
 describe('PID', () => {
   const pid = '1478B7E447CD01B2';

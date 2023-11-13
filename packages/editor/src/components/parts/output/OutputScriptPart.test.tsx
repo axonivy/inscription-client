@@ -3,6 +3,7 @@ import { render, screen, renderHook } from 'test-utils';
 import { useOutputScriptPart } from './OutputScriptPart';
 import type { PartStateFlag } from '../../editors';
 import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useOutputScriptPart();

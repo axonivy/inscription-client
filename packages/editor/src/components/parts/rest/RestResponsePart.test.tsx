@@ -1,8 +1,9 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { render, renderHook, screen, TableUtil, CollapsableUtil, ComboboxUtil } from 'test-utils';
 import type { ElementData, InscriptionValidation, RestResponseData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useRestResponsePart } from './RestResponsePart';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useRestResponsePart();

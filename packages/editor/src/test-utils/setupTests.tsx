@@ -3,8 +3,12 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
+import { cleanup } from '@testing-library/react';
+import { afterEach, vi } from 'vitest';
 import { cloneObject } from './object-utils';
+
+afterEach(() => cleanup());
 
 global.ResizeObserver = class ResizeObserver {
   [x: string]: any;
@@ -24,7 +28,7 @@ const CodeEditorMock = ({ id, value, onChange }: { id: string; value: string; on
   return <input data-testid='code-editor' id={id} value={value} onChange={e => onChange(e.target.value)} />;
 };
 
-jest.mock('../components/widgets/code-editor', () => ({
+vi.mock('../components/widgets/code-editor', () => ({
   __esModule: true,
   ScriptArea: CodeEditorMock,
   ScriptInput: CodeEditorMock,

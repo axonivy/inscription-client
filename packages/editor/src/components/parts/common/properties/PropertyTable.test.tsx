@@ -1,6 +1,7 @@
 import { ComboboxUtil, render, TableUtil } from 'test-utils';
 import { PropertyTable } from './PropertyTable';
 import type { ScriptMappings } from '@axonivy/inscription-protocol';
+import { describe, test } from 'vitest';
 
 describe('PropertyTable', () => {
   function renderPart(data: ScriptMappings, hide?: string[]) {

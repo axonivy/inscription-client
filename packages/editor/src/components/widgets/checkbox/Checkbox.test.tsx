@@ -1,5 +1,6 @@
 import Checkbox from './Checkbox';
 import { render, screen, userEvent } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('Checkbox', () => {
   function renderCheckbox(): {

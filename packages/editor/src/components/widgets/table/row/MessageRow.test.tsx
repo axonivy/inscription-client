@@ -1,6 +1,7 @@
 import { render, screen } from 'test-utils';
 import { MessageRow } from './MessageRow';
 import type { Message } from '../../message/Message';
+import { describe, test, expect } from 'vitest';
 
 describe('MessageRow', () => {
   function renderTable(message?: Message) {

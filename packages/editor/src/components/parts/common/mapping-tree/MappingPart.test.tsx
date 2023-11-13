@@ -1,6 +1,7 @@
 import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 import MappingPart from './MappingPart';
+import { describe, test, expect } from 'vitest';
 
 describe('MappingPart', () => {
   const ATTRIBUTES = /Attribute/;
@@ -100,7 +101,7 @@ describe('MappingPart', () => {
   test('tree will render description title', () => {
     renderTree({ 'workflow.humantask.Description': 'value' });
     expect(screen.getAllByRole('row')[1]).toHaveTextContent('param.procurementRequestProcurementRequest');
-    expect(screen.getAllByRole('row')[1]).toHaveAccessibleName('this is a description workflow.humantask.ProcurementRequest');
+    expect(screen.getAllByRole('row')[1]).toHaveAccessibleName('param.procurementRequest ProcurementRequest');
   });
 
   test('tree can expand / collapse', async () => {

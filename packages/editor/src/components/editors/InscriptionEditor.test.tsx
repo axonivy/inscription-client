@@ -3,6 +3,7 @@ import type { PartProps } from './part/usePart';
 import type { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { render, screen, userEvent } from 'test-utils';
+import { describe, test, expect, afterEach, beforeEach, vi } from 'vitest';
 
 describe('Editor', () => {
   const ErrorWidget = () => {
@@ -46,7 +47,7 @@ describe('Editor', () => {
     const original = console.error;
 
     beforeEach(() => {
-      console.error = jest.fn();
+      console.error = vi.fn();
     });
 
     afterEach(() => {

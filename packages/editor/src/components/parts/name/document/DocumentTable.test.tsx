@@ -1,6 +1,7 @@
 import type { Document } from '@axonivy/inscription-protocol';
 import DocumentTable from './DocumentTable';
 import { render, screen, TableUtil, userEvent } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('DocumentTable', () => {
   const documents: Document[] = [

@@ -1,9 +1,10 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { SelectUtil, render, renderHook, screen } from 'test-utils';
 import type { MailData } from '@axonivy/inscription-protocol';
 import { MAIL_TYPE } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useMailMessagePart } from './MailMessagePart';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useMailMessagePart();

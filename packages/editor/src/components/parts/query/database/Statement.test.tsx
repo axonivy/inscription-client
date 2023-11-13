@@ -1,5 +1,6 @@
 import { CollapsableUtil, render, screen } from 'test-utils';
 import { Statement } from './Statement';
+import { describe, test, expect } from 'vitest';
 
 describe('Statement', () => {
   test('data', async () => {

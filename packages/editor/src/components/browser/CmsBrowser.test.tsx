@@ -1,5 +1,6 @@
 import { TableUtil, render, screen, userEvent } from 'test-utils';
 import { useCmsBrowser } from './CmsBrowser';
+import { describe, test, expect } from 'vitest';
 
 const Browser = (props: { location: string; accept: (value: string) => void }) => {
   const browser = useCmsBrowser(() => {});

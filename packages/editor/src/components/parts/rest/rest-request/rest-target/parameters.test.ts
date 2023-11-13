@@ -1,5 +1,6 @@
 import { cloneObject } from 'test-utils';
 import { Parameter } from './parameters';
+import { describe, test, expect } from 'vitest';
 
 describe('Parameters', () => {
   const params: Parameter[] = [

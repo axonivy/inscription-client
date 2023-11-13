@@ -1,6 +1,7 @@
 import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { TableUtil, render, screen, userEvent } from 'test-utils';
 import { useAttributeBrowser } from './AttributeBrowser';
+import { describe, test, expect } from 'vitest';
 
 const TYPES = {
   'mock.Test': [

@@ -1,5 +1,6 @@
 import { render, screen } from 'test-utils';
 import { CacheLifetime } from './CacheLifetime';
+import { describe, test, expect } from 'vitest';
 
 describe('CacheLifetime', () => {
   test('data', async () => {

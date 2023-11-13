@@ -3,6 +3,7 @@ import { render, screen, TableUtil, renderHook, waitFor } from 'test-utils';
 import { useOutputPart } from './OutputPart';
 import type { PartStateFlag } from '../../editors';
 import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
+import { describe, test, expect } from 'vitest';
 
 const Part = (props: { hideCode?: boolean }) => {
   const part = useOutputPart({ hideCode: props.hideCode });

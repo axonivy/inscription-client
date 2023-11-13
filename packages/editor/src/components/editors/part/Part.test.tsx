@@ -1,6 +1,7 @@
 import { render, screen, userEvent } from 'test-utils';
 import Part from './Part';
 import type { PartProps, PartStateFlag } from './usePart';
+import { describe, test, expect } from 'vitest';
 
 describe('Part', () => {
   const generalPart: PartProps = {

@@ -1,6 +1,7 @@
 import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { MappingTreeData } from './mapping-tree-data';
 import { cloneObject } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('MappingTreeData', () => {
   const variableInfo: VariableInfo = {

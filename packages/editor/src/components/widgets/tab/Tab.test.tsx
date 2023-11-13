@@ -1,6 +1,7 @@
-import type { Tab} from './Tab';
+import type { Tab } from './Tab';
 import { Tabs } from './Tab';
 import { render, screen, userEvent } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('Tabs', () => {
   const tabs: Tab[] = [

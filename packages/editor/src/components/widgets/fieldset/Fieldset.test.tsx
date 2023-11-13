@@ -3,6 +3,7 @@ import Fieldset from './Fieldset';
 import { render, screen, userEvent } from 'test-utils';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { FieldsetControl } from './fieldset-control';
+import { describe, test, expect } from 'vitest';
 
 describe('Fieldset', () => {
   function renderFieldset({ label, controls, message }: FieldsetProps) {
