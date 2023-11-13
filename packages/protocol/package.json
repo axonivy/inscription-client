@@ -13,6 +13,7 @@
     "lib",
     "src"
   ],
+  "type": "module",
   "types": "lib/index",
   "module": "lib/index",
   "source": "src/index",
