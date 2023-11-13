@@ -7,7 +7,7 @@
   "homepage": "https://developer.axonivy.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/axonivy/next-gen-inscription"
+    "url": "https://github.com/axonivy/inscription-client"
   },
   "files": [
     "lib",
