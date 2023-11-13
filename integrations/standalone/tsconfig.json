@@ -2,7 +2,6 @@
   "extends": "../../config/tsconfig.integration.json",
   "compilerOptions": {
     "types": ["vite/client", "node"],
-    "noImplicitOverride": false,
     "jsx": "preserve",
     "rootDir": ".",
     "outDir": "lib",

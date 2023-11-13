@@ -44,21 +44,21 @@ class EntityPart extends PartObject {
 }
 
 class EntityOpenApiPart extends EntityPart {
-  async fill() {
+  override async fill() {
     await this.bodyType.expectSelected('Entity');
     await expect(this.mapping.row(0).locator).toHaveText('paramPet');
     await this.mapping.row(2).fill(['CH']);
     await this.code.fill('code');
   }
-  async assertFill() {
+  override async assertFill() {
     await this.mapping.row(2).expectValues(['CH']);
     await this.code.expectValue('code');
   }
-  async clear() {
+  override async clear() {
     await this.mapping.row(1).fill(['']);
     await this.code.clear();
   }
-  async assertClear() {}
+  override async assertClear() {}
 }
 
 class FormPart extends PartObject {
@@ -176,23 +176,23 @@ class RestRequestBody extends PartObject {
 }
 
 class RestRequestBodyJaxRs extends RestRequestBody {
-  async fill() {
+  override async fill() {
     await this.client.choose('stock');
     await this.method.choose('JAX_RS');
     await this.jaxRs.fill('jax');
   }
 
-  async assertFill() {
+  override async assertFill() {
     await this.client.expectValue('stock');
     await this.method.expectValue('JAX_RS');
     await this.jaxRs.expectValue('jax');
   }
 
-  async clear() {
+  override async clear() {
     await this.jaxRs.clear();
   }
 
-  async assertClear() {
+  override async assertClear() {
     await this.jaxRs.expectEmpty();
   }
 }
@@ -203,25 +203,25 @@ class RestRequestBodyOpenApi extends RestRequestBody {
     this.entityPart = new EntityOpenApiPart(part, this.bodySection);
   }
 
-  async fill() {
+  override async fill() {
     await this.client.choose('pet');
     await this.resource.choose('POST');
     await this.bodySection.expectIsOpen();
     await this.entityPart.fill();
   }
 
-  async assertFill() {
+  override async assertFill() {
     await this.client.expectValue('pet');
     await this.resource.expectValue('POST:/pet');
     await this.bodySection.expectIsOpen();
     await this.entityPart.assertFill();
   }
 
-  async clear() {
+  override async clear() {
     await this.entityPart.clear();
   }
 
-  async assertClear() {
+  override async assertClear() {
     await this.bodySection.expectIsOpen();
   }
 }

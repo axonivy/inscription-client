@@ -84,7 +84,7 @@ export class MacroEditor extends CodeEditor {
     super(page, locator, locator, parentLocator);
   }
 
-  async expectValue(value: string) {
+  override async expectValue(value: string) {
     await expect(this.value).toHaveText(value.replace('\n', ''));
   }
 }
@@ -94,7 +94,7 @@ export class ScriptCell extends CodeEditor {
     super(page, locator, locator, parentLocator);
   }
 
-  async fill(value: string) {
+  override async fill(value: string) {
     await this.focus();
     await this.clearContent();
     await this.page.keyboard.type(value);

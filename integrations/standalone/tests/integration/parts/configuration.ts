@@ -43,26 +43,26 @@ class TimerBean extends FilePickupStartEventBean {
     this.time = part.textArea('time');
   }
 
-  async fill() {
+  override async fill() {
     await this.time.fill('10');
   }
 
-  async assertFill() {
+  override async assertFill() {
     await this.time.expectValue('10');
   }
 
-  async clear() {
+  override async clear() {
     await this.time.clear();
   }
 
-  async assertClear() {
+  override async assertClear() {
     await this.time.expectEmpty();
   }
 }
 
 class FileIntermediateEventBean extends FilePickupStartEventBean {
-  infoText: TextArea;
-  path: TextArea;
+  override infoText: TextArea;
+  override path: TextArea;
   eventId: TextArea;
 
   constructor(part: Part) {
@@ -72,22 +72,22 @@ class FileIntermediateEventBean extends FilePickupStartEventBean {
     this.eventId = part.textArea('eventId');
   }
 
-  async fill() {
+  override async fill() {
     await this.path.fill('/test/hello');
     await this.eventId.fill('testhello');
   }
 
-  async assertFill() {
+  override async assertFill() {
     await this.path.expectValue('/test/hello');
     await this.eventId.expectValue('testhello');
   }
 
-  async clear() {
+  override async clear() {
     await this.path.clear();
     await this.eventId.clear();
   }
 
-  async assertClear() {
+  override async assertClear() {
     await this.path.expectEmpty();
     await this.eventId.expectEmpty();
   }
