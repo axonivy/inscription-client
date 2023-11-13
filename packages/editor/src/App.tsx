@@ -37,7 +37,7 @@ function App(props: InscriptionContext) {
     };
   }, [client, context, queryClient, queryKeys]);
 
-  const { data, isSuccess, isLoading, isError, error } = useQuery({
+  const { data, isSuccess, isPending, isError, error } = useQuery({
     queryKey: queryKeys.data(),
     queryFn: () => client.data(context),
     structuralSharing: false
@@ -76,7 +76,7 @@ function App(props: InscriptionContext) {
     onSuccess: (data: InscriptionValidation[]) => queryClient.setQueryData(queryKeys.validation(), data)
   });
 
-  if (isLoading) {
+  if (isPending) {
     return <AppStateView>Loading...</AppStateView>;
   }
 
