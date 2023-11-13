@@ -23,6 +23,7 @@ button:disabled {
   padding: var(--size-3) var(--size-4);
   gap: var(--size-2);
   border-bottom: var(--basic-border);
+  height: 24px; /* need to be full height 48px to be same with process editor*/
 }
 .header-left {
   display: flex;
