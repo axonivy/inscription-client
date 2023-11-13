@@ -106,7 +106,7 @@ class RestRequest extends PartObject {
 }
 
 class RestRequestOpenApi extends RestRequest {
-  async fill() {
+  override async fill() {
     await this.client.choose('pet');
     await this.resource.choose('DELETE');
 
@@ -118,7 +118,7 @@ class RestRequestOpenApi extends RestRequest {
     await headerRow.fill(['api_key', 'abc']);
   }
 
-  async assertFill() {
+  override async assertFill() {
     await this.client.expectValue('pet');
     await this.resource.expectValue('DELETE:/pet/{petId}');
 
@@ -127,14 +127,14 @@ class RestRequestOpenApi extends RestRequest {
     await this.headers.row(0).expectValues(['api_key', 'abc']);
   }
 
-  async clear() {
+  override async clear() {
     await this.part.currentLocator().getByRole('button', { name: 'OpenAPI' }).click();
     await this.path.fill('/pet');
 
     await this.parameters.clear();
   }
 
-  async assertClear() {
+  override async assertClear() {
     await this.client.expectValue('pet');
     await this.resource.expectValue('DELETE:/pet');
 
