@@ -22,7 +22,7 @@
     "rimraf": "^5.0.1"
   },
   "scripts": {
-    "clean": "rimraf src-gen/ivy-icons.* tsconfig.tsbuildinfo",
+    "clean": "rimraf lib src-gen/ivy-icons.* tsconfig.tsbuildinfo",
     "build": "tsc --build && tscp",
     "build:production": "tsc && tscp",
     "build:clean": "yarn clean && yarn generate",
