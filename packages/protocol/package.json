@@ -22,7 +22,7 @@
     "build": "tsc --build",
     "build:production": "tsc",
     "build:clean": "yarn clean && yarn generate && yarn build",
-    "generate": "node ./schemaCodegen.js",
+    "generate": "node ./schemaCodegen.cjs",
     "type": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src"
