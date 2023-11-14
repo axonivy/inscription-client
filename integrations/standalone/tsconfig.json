@@ -4,6 +4,7 @@
     "types": ["vite/client", "node"],
     "jsx": "preserve",
     "rootDir": ".",
+    "rootDirs": ["src", "tests"],
     "outDir": "lib",
     "baseUrl": "."
   },

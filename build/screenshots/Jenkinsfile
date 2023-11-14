@@ -25,11 +25,11 @@ pipeline {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
             }
           }
-          archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: '**/standalone/**/target/**/ivy.log', allowEmptyArchive: true
-          archiveArtifacts artifacts: '**/standalone/**/target/screenshots/*.png', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'integrations/standalone/test-results/**', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'integrations/standalone/**/target/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'integrations/standalone/**/target/screenshots/*.png', allowEmptyArchive: true
           withChecks('Screenshots') {
-            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'integrations/**/report.xml'
           }
         }
       }

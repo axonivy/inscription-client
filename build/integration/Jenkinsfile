@@ -29,10 +29,10 @@ pipeline {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
             }
           }
-          archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: '**/standalone/**/target/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'integrations/standalone/test-results/**', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'integrations/standalone/**/target/**/ivy.log', allowEmptyArchive: true
           withChecks('Integration WebTest') {
-            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: '**/node_modules/**/report.xml'
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'integrations/**/report.xml'
           }
         }
       }
@@ -62,7 +62,7 @@ pipeline {
             }
           }
           withChecks('Integration Protocol ESLint') {
-            recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(id: 'latest', pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+            recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(id: 'latest', pattern: 'packages/**/eslint.xml,integrations/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
           }
         }
       }
