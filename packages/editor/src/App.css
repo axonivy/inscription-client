@@ -32,11 +32,13 @@
   /* ------borders------*/
   --basic-border: 1px solid var(--N200);
   --activ-border: 1px solid var(--A200);
-  --thick-border: 1px solid var(--N200);
   --dashed-border: 1px dashed var(--N400);
-  --border-radius: 5px;
+  --waring-border: 1px solid var(--warning-color);
+  --error-border: 1px solid var(--error-color);
   --seperator-border: var(--basic-border);
   --icon-seperator-line: 1px solid var(--N300);
+
+  --border-radius: 5px;
 
   /* ------box-shadow------*/
   --editor-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),

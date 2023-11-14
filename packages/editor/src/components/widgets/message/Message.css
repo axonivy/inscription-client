@@ -1,6 +1,6 @@
 .message {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--size-1);
   padding-inline: var(--size-1);
   font-size: 12px;
@@ -11,4 +11,8 @@
 }
 .message[data-state='warning'] {
   color: var(--warning-color);
+}
+
+.message i {
+  margin-top: var(--size-1);
 }

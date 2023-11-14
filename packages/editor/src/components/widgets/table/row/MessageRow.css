@@ -1,9 +1,25 @@
-.table-root .row.row-error {
-  --basic-border: 1px solid var(--error-color);
+.table-root .row-warning .table-cell {
+  border-top: var(--warning-border);
+  border-bottom: var(--warning-border);
 }
-.table-root .row.row-warning {
-  --basic-border: 1px solid var(--warning-color);
+
+.row-warning .table-cell:first-child {
+  border-left: var(--warning-border);
 }
-.table-root .row.row-message {
-  --basic-border: none;
+
+.row-warning .table-cell:last-child {
+  border-right: var(--warning-border);
+}
+
+.table-root .row-error .table-cell {
+  border-top: var(--error-border);
+  border-bottom: var(--error-border);
+}
+
+.row-error .table-cell:first-child {
+  border-left: var(--error-border);
+}
+
+.row-error .table-cell:last-child {
+  border-right: var(--error-border);
 }
