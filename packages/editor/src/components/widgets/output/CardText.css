@@ -24,7 +24,7 @@
   border-radius: var(--border-radius);
   user-select: none;
   background-color: var(--N75);
-  border: var(--basic-border);
+  border: var(--seperator-border);
 }
 .card-text .card .card-icon {
   margin-right: var(--size-1);

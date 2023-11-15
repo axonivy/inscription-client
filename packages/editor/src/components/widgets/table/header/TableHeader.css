@@ -3,7 +3,7 @@
   text-align: start;
   font-size: 12px;
   height: 20px;
-  border-bottom: var(--thick-border);
+  border-bottom: var(--basic-border);
 }
 
 .table .table-column-header :where(.column-sort, .column-expand) {
