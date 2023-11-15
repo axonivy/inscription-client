@@ -1,4 +1,5 @@
-.table-root .row-warning .table-cell {
+.table-root .row-warning .table-cell,
+.table-root .row-warning .dnd-row-handle {
   border-top: var(--warning-border);
   border-bottom: var(--warning-border);
 }
@@ -7,11 +8,13 @@
   border-left: var(--warning-border);
 }
 
-.row-warning .table-cell:last-child {
+.row-warning .table-cell:last-child,
+.row-warning .dnd-row-handle {
   border-right: var(--warning-border);
 }
 
-.table-root .row-error .table-cell {
+.table-root .row-error .table-cell,
+.table-root .row-error .dnd-row-handle {
   border-top: var(--error-border);
   border-bottom: var(--error-border);
 }
@@ -20,6 +23,7 @@
   border-left: var(--error-border);
 }
 
-.row-error .table-cell:last-child {
+.row-error .table-cell:last-child,
+.row-error .dnd-row-handle {
   border-right: var(--error-border);
 }

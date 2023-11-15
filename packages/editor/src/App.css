@@ -33,7 +33,7 @@
   --basic-border: 1px solid var(--N200);
   --activ-border: 1px solid var(--A200);
   --dashed-border: 1px dashed var(--N400);
-  --waring-border: 1px solid var(--warning-color);
+  --warning-border: 1px solid var(--warning-color);
   --error-border: 1px solid var(--error-color);
   --seperator-border: var(--basic-border);
   --icon-seperator-line: 1px solid var(--N300);

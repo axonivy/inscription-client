@@ -6,6 +6,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  padding-bottom: var(--size-2);
 }
 .tabs-trigger {
   font-family: inherit;
@@ -15,21 +16,21 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1;
   color: var(--N500);
   user-select: none;
   cursor: pointer;
-  border-bottom: 2px solid var(--N500);
+  border-bottom: 1.5px solid var(--N500);
   flex: 1;
 }
 .tabs-trigger:hover {
-  border-bottom: 2px solid var(--body);
+  border-bottom: 1.5px solid var(--body);
   color: var(--body);
 }
 
 .tabs-trigger[data-state='active'] {
-  border-bottom: 2px solid var(--body);
+  border-bottom: 1.5px solid var(--body);
   color: var(--body);
 }
 

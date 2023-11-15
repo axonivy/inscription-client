@@ -73,12 +73,18 @@
   margin: 0;
   font-weight: 500;
   color: var(--body);
-  font-size: 17px;
+  font-size: 16px;
   display: flex;
   gap: var(--size-4);
   align-items: center;
-  padding-top: 0;
+}
+
+.browser-title .tabs-list {
   padding-bottom: var(--border-padding);
+}
+
+.browser-title .tabs-list .tabs-trigger {
+  font-size: 14px;
 }
 
 .browser-footer {
