@@ -17,4 +17,8 @@
   top: 0;
   right: 0;
   margin: var(--size-2);
+  background-color: var(--background);
+}
+.script-area .button:hover {
+  background-color: var(--N200);
 }
