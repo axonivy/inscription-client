@@ -12,9 +12,7 @@ import type {
   ScriptingDataArgs,
   Variable
 } from '@axonivy/inscription-protocol';
-import {
-  DEFAULT_DATA
-} from '@axonivy/inscription-protocol';
+import { DEFAULT_DATA } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
 import { DataMock } from './data-mock';
@@ -102,6 +100,8 @@ export class InscriptionClientMock implements InscriptionClient {
         return Promise.resolve(MetaMock.CMS_TYPE);
       case 'meta/scripting/dataClasses':
         return Promise.resolve(MetaMock.DATACLASS);
+      case 'meta/scripting/allTypes':
+        return Promise.resolve(MetaMock.DATATYPE);
       default:
         throw Error('mock meta path not programmed');
     }

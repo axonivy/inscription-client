@@ -103,6 +103,18 @@
   width: unset;
 }
 
+.browser-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.browser-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .loader {
   text-align: center;
   font-size: 14px;

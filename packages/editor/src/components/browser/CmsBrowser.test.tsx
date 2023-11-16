@@ -44,13 +44,4 @@ describe('CmsBrowser', () => {
     await userEvent.click(screen.getByTestId('accept'));
     expect(data).toEqual('ivy.cms.co("/Macro")');
   });
-
-  test('acceptEmpty', async () => {
-    let data = '';
-    renderBrowser({ accept: value => (data = value) });
-    await userEvent.click(screen.getByTestId('accept'));
-    expect(data).toEqual('');
-    await userEvent.click(await screen.findByText('Helper Text'));
-    expect(screen.getByTitle(`No element selected.`)).toBeInTheDocument();
-  });
 });

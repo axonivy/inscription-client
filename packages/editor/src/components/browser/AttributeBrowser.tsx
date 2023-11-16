@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow, Collapsible, MessageText } from '../widgets';
+import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow } from '../widgets';
 import type { UseBrowserImplReturnValue } from './useBrowser';
 import type { ColumnDef, ExpandedState, RowSelectionState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
@@ -133,22 +133,11 @@ const AttributeBrowser = ({
           ))}
         </tbody>
       </Table>
-      <Collapsible label='Helper Text' defaultOpen={showHelper} autoClosable={true}>
-        {value.length !== 0 && value ? (
-          <pre className='browser-helptext'>
-            <code>{value}</code>
-          </pre>
-        ) : (
-          <pre className='browser-helptext'>
-            <MessageText
-              message={{
-                severity: 'INFO',
-                message: `No element selected.`
-              }}
-            />
-          </pre>
-        )}
-      </Collapsible>
+      {showHelper && (
+        <pre className='browser-helptext'>
+          <code>{value}</code>
+        </pre>
+      )}
     </>
   );
 };
