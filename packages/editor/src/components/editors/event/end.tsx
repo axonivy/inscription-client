@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import { memo } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useCodePart, useEndPagePart, useGeneralPart, useErrorThrowPart } from '../../../components/parts';
+import { useScriptPart, useEndPagePart, useGeneralPart, useErrorThrowPart } from '../../../components/parts';
 
 const TaskEndPageEditor = memo(() => {
   const name = useGeneralPart();
@@ -16,7 +16,7 @@ const TaskEndPageEditor = memo(() => {
 const ErrorEndEditor = memo(() => {
   const name = useGeneralPart();
   const error = useErrorThrowPart();
-  const code = useCodePart();
+  const code = useScriptPart();
   return <InscriptionEditor icon={IvyIcons.ErrorEvent} parts={[name, error, code]} />;
 });
 

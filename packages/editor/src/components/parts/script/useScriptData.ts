@@ -1,16 +1,16 @@
-import type { ConfigDataContext} from '../../../context';
+import type { ConfigDataContext } from '../../../context';
 import { useConfigDataContext } from '../../../context';
-import type { CodeData } from '@axonivy/inscription-protocol';
+import type { ScriptData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import type { DataUpdater } from '../../../types/lambda';
 
-export function useCodeData(): ConfigDataContext<CodeData> & {
-  update: DataUpdater<CodeData>;
+export function useScriptData(): ConfigDataContext<ScriptData> & {
+  update: DataUpdater<ScriptData>;
   reset: () => void;
 } {
   const { setConfig, ...config } = useConfigDataContext();
 
-  const update: DataUpdater<CodeData> = (field, value) => {
+  const update: DataUpdater<ScriptData> = (field, value) => {
     setConfig(
       produce(draft => {
         draft[field] = value;

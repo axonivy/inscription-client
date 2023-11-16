@@ -3,7 +3,7 @@ import type { Part } from '../../pageobjects/Part';
 import type { ScriptArea } from '../../pageobjects/CodeEditor';
 import type { Checkbox } from '../../pageobjects/Checkbox';
 
-class Code extends PartObject {
+class Script extends PartObject {
   code: ScriptArea;
   sudo: Checkbox;
 
@@ -42,5 +42,5 @@ class Code extends PartObject {
   }
 }
 
-export const OutputCodeTest = new NewPartTest('Code', (part: Part) => new Code(part));
-export const CodeTest = new NewPartTest('Code', (part: Part) => new Code(part, false));
+export const OutputScriptTest = new NewPartTest('Script', (part: Part) => new Script(part));
+export const ScriptTest = new NewPartTest('Script', (part: Part) => new Script(part, false));

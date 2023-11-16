@@ -1,15 +1,15 @@
 import type { DeepPartial } from 'test-utils';
 import { render, screen, renderHook } from 'test-utils';
-import { useOutputCodePart } from './OutputCodePart';
+import { useOutputScriptPart } from './OutputScriptPart';
 import type { PartStateFlag } from '../../editors';
 import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
 
 const Part = () => {
-  const part = useOutputCodePart();
+  const part = useOutputScriptPart();
   return <>{part.content}</>;
 };
 
-describe('OutputCodePart', () => {
+describe('OutputScriptPart', () => {
   function renderPart(data?: OutputData) {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
@@ -36,7 +36,7 @@ describe('OutputCodePart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<OutputData>) {
-    const { result } = renderHook(() => useOutputCodePart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = renderHook(() => useOutputScriptPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -51,7 +51,7 @@ describe('OutputCodePart', () => {
     let data: DeepPartial<ElementData> = {
       config: { output: { code: 'code', map: {} }, sudo: true }
     };
-    const view = renderHook(() => useOutputCodePart(), {
+    const view = renderHook(() => useOutputScriptPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { output: { code: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

@@ -1,22 +1,22 @@
-import type { CodeData } from '@axonivy/inscription-protocol';
-import type { PartProps} from '../../editors';
+import type { ScriptData } from '@axonivy/inscription-protocol';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { ScriptArea, useFieldset } from '../../widgets';
-import { useCodeData } from './useCodeData';
+import { useScriptData } from './useScriptData';
 import { useValidations } from '../../../context';
 import { PathFieldset } from '../common';
 
-export function useCodePart(): PartProps {
-  const { config, defaultConfig, initConfig, reset } = useCodeData();
-  const compareData = (data: CodeData) => [data.code];
+export function useScriptPart(): PartProps {
+  const { config, defaultConfig, initConfig, reset } = useScriptData();
+  const compareData = (data: ScriptData) => [data.code];
   const validation = useValidations(['code']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Code', state, reset: { dirty, action: () => reset() }, content: <CodePart /> };
+  return { name: 'Script', state, reset: { dirty, action: () => reset() }, content: <ScriptPart /> };
 }
 
-const CodePart = () => {
-  const { config, update } = useCodeData();
+const ScriptPart = () => {
+  const { config, update } = useScriptData();
   const codeFieldset = useFieldset();
 
   return (
