@@ -6,8 +6,8 @@ import type {
   InscriptionRequestTypes,
   InscriptionSaveData,
   InscriptionValidation,
-  InscriptionContext,
-  InscriptionMetaRequestTypes
+  InscriptionMetaRequestTypes,
+  InscriptionElementContext
 } from '@axonivy/inscription-protocol';
 import type { Disposable } from 'vscode-jsonrpc';
 import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
@@ -32,7 +32,7 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('initialize', undefined);
   }
 
-  data(context: InscriptionContext): Promise<InscriptionData> {
+  data(context: InscriptionElementContext): Promise<InscriptionData> {
     return this.sendRequest('data', { ...context });
   }
 
@@ -40,7 +40,7 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
     return this.sendRequest('saveData', { ...saveData });
   }
 
-  validate(context: InscriptionContext): Promise<InscriptionValidation[]> {
+  validate(context: InscriptionElementContext): Promise<InscriptionValidation[]> {
     return this.sendRequest('validate', { ...context });
   }
 

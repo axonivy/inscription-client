@@ -4,6 +4,7 @@ import { ScriptArea, useFieldset } from '../../../../widgets';
 import { PathContext, useEditorContext, useMeta } from '../../../../../context';
 import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from '../../RestEntityTypeCombobox';
 import { useRestEntityTypeMeta, useRestResourceMeta } from '../../useRestResourceMeta';
+import { EMPTY_VAR_INFO } from '@axonivy/inscription-protocol';
 
 const useShowEntityTypeCombo = (types: string[], currentType: string) => {
   const resource = useRestResourceMeta();
@@ -13,11 +14,7 @@ const useShowEntityTypeCombo = (types: string[], currentType: string) => {
 export const RestEntity = () => {
   const { config, updateEntity } = useRestRequestData();
   const { context } = useEditorContext();
-  const variableInfo = useMeta(
-    'meta/rest/entityInfo',
-    { context, fullQualifiedName: config.body.entity.type },
-    { types: {}, variables: [] }
-  ).data;
+  const variableInfo = useMeta('meta/rest/entityInfo', { context, fullQualifiedName: config.body.entity.type }, EMPTY_VAR_INFO).data;
   const entityTypes = useRestEntityTypeMeta('entity');
   const showEntityType = useShowEntityTypeCombo(entityTypes, config.body.entity.type);
   const typeFieldset = useFieldset();

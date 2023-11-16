@@ -31,7 +31,9 @@ import type {
   CmsMetaRequest,
   ContentObject,
   TypeSearchRequest,
-  JavaType
+  JavaType,
+  InscriptionElementContext,
+  SignalCodeRequest
 } from './data/inscription';
 import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -40,10 +42,11 @@ export interface InscriptionMetaRequestTypes {
   'meta/start/triggers': [InscriptionContext, CallableStart[]];
   'meta/start/calls': [InscriptionContext, CallableStart[]];
 
-  'meta/workflow/roles': [InscriptionContext, RoleMeta[]];
-  'meta/workflow/errorStarts': [InscriptionContext, ErrorStartMeta[]];
+  'meta/workflow/roleTree': [InscriptionContext, RoleMeta];
+  'meta/workflow/taskRoles': [InscriptionElementContext, RoleMeta[]];
+  'meta/workflow/errorStarts': [InscriptionElementContext, ErrorStartMeta[]];
   'meta/workflow/errorCodes': [ErrorCodeRequest, EventCodeMeta[]];
-  'meta/workflow/signalCodes': [InscriptionContext, EventCodeMeta[]];
+  'meta/workflow/signalCodes': [SignalCodeRequest, EventCodeMeta[]];
 
   'meta/database/names': [InscriptionContext, string[]];
   'meta/database/tables': [DatabaseTablesRequest, string[]];
@@ -76,7 +79,7 @@ export interface InscriptionMetaRequestTypes {
 
   'meta/cms/tree': [CmsMetaRequest, ContentObject[]];
 
-  'meta/connector/out': [InscriptionContext, ConnectorRef[]];
+  'meta/connector/out': [InscriptionElementContext, ConnectorRef[]];
 }
 
 export interface InscriptionRequestTypes extends InscriptionMetaRequestTypes {

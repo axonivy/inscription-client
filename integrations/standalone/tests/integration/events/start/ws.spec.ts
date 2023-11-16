@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import { CaseTest, GeneralTest, ResultTest, StartTest, WebServiceTest, WsStartTaskTest, runTest } from '../../parts';
-import type { CreateProcessResult} from '../../../glsp-protocol';
+import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 
 test.describe('WS Start', () => {
@@ -9,7 +9,7 @@ test.describe('WS Start', () => {
   let testee: CreateProcessResult;
 
   test.beforeAll(async () => {
-    testee = await createProcess('WebserviceStart');
+    testee = await createProcess('WebserviceStart', { processKind: 'WEB_SERVICE' });
   });
 
   test.beforeEach(async ({ page }) => {

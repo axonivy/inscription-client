@@ -1,6 +1,6 @@
 import './App.css';
 import '@axonivy/editor-icons/src-gen/ivy-icons.css';
-import type { ElementData, InscriptionContext, InscriptionData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ElementData, InscriptionData, InscriptionElementContext, InscriptionValidation } from '@axonivy/inscription-protocol';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
@@ -8,7 +8,7 @@ import AppStateView from './AppStateView';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Unary } from './types/lambda';
 
-function App(props: InscriptionContext) {
+function App(props: InscriptionElementContext) {
   const [context, setContext] = useState(props);
   const [initData, setInitData] = useState<Record<string, ElementData>>({});
   useEffect(() => {

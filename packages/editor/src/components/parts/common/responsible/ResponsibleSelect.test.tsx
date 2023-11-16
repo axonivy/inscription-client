@@ -1,17 +1,24 @@
 import ResponsibleSelect from './ResponsibleSelect';
-import type { WfActivator, WfActivatorType } from '@axonivy/inscription-protocol';
+import type { RoleMeta, WfActivator, WfActivatorType } from '@axonivy/inscription-protocol';
 import { render, screen, SelectUtil } from 'test-utils';
 
 describe('ResponsibleSelect', () => {
   function renderSelect(options?: { type?: WfActivatorType; activator?: string; optionsFilter?: WfActivatorType[] }) {
     const responsible: WfActivator = { type: options?.type as WfActivatorType, activator: options?.activator ?? '' };
-    const roles = [
-      { id: 'Everybody', label: 'In this role is everyone' },
-      { id: 'Employee', label: '' },
-      { id: 'Teamleader', label: '' }
+    const roleTree: RoleMeta = {
+      id: 'Everybody',
+      label: 'In this role is everyone',
+      children: [
+        { id: 'Employee', label: '', children: [] },
+        { id: 'Teamleader', label: '', children: [] }
+      ]
+    };
+    const taskRoles: RoleMeta[] = [
+      { id: 'CREATOR', label: 'CREATOR', children: [] },
+      { id: 'SYSTEM', label: 'SYSTEM', children: [] }
     ];
     render(<ResponsibleSelect responsible={responsible} updateResponsible={() => {}} optionFilter={options?.optionsFilter} />, {
-      wrapperProps: { meta: { roles } }
+      wrapperProps: { meta: { roleTree, taskRoles } }
     });
   }
 
@@ -30,6 +37,7 @@ describe('ResponsibleSelect', () => {
     renderSelect({ type: 'ROLE', activator: 'Teamleader' });
     await SelectUtil.assertValue('Role', { label: 'Responsible' });
     await SelectUtil.assertValue('Teamleader', { index: 1 });
+    await SelectUtil.assertOptionsCount(5, { index: 1 });
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 

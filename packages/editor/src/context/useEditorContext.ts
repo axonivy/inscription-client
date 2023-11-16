@@ -1,8 +1,8 @@
-import type { InscriptionContext, InscriptionType } from '@axonivy/inscription-protocol';
+import type { InscriptionElementContext, InscriptionType } from '@axonivy/inscription-protocol';
 import { createContext, useContext } from 'react';
 
 export type EditorContext = {
-  context: InscriptionContext;
+  context: InscriptionElementContext;
   readonly: boolean;
   editorRef: React.MutableRefObject<HTMLElement | null>;
   type: InscriptionType;

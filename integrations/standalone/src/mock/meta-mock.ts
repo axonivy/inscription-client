@@ -259,11 +259,14 @@ export namespace MetaMock {
     }
   ];
 
-  export const ROLES: RoleMeta[] = [
-    { id: 'Everybody', label: 'In this role is everyone' },
-    { id: 'Employee', label: '' },
-    { id: 'Teamleader', label: '' }
-  ];
+  export const ROLES: RoleMeta = {
+    id: 'Everybody',
+    label: 'In this role is everyone',
+    children: [
+      { id: 'Employee', label: '', children: [] },
+      { id: 'Teamleader', label: '', children: [] }
+    ]
+  };
 
   export const EXPIRY_ERRORS: ErrorStartMeta[] = [
     { label: 'ProcurementRequestParallel -> error:task', id: 'f29' },

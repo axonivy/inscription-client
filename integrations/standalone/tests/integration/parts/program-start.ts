@@ -28,7 +28,7 @@ class ProgramStart extends PartObject {
     await this.permissionSection.toggle();
 
     await this.anonymousAllow.click();
-    await this.role.choose('SYSTEM');
+    await this.role.choose('Support');
     await this.error.choose('>> Ignore Exception');
   }
 
@@ -37,7 +37,7 @@ class ProgramStart extends PartObject {
 
     await this.permissionSection.expectIsOpen();
     await this.anonymousAllow.expectUnchecked();
-    await this.role.expectValue('SYSTEM');
+    await this.role.expectValue('Support');
     await this.error.expectValue('>> Ignore Exception');
   }
 

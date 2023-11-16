@@ -6,7 +6,10 @@ import type {
   WfFieldType,
   WfLevel,
   WsAuth,
-  InputType
+  InputType,
+  RoleMeta,
+  VariableInfo,
+  Variable
 } from './inscription';
 
 export const RESPONSIBLE_TYPE = {
@@ -105,3 +108,6 @@ export const EVENT_ACTION_TYPE = {
   DESTROY_TASK: 'Delete the Task',
   CONTINUE_WITHOUT_EVENT: 'Continue without waiting'
 } as const satisfies Record<IntermediateEventTimeoutAction, string>;
+
+export const EMPTY_ROLE: RoleMeta = { id: 'Everybody', label: 'Everybody', children: [] as RoleMeta[] } as const;
+export const EMPTY_VAR_INFO: VariableInfo = { types: {}, variables: [] as Variable[] } as const;

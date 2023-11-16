@@ -1,15 +1,19 @@
 import { render, SelectUtil } from 'test-utils';
 import RoleSelect from './RoleSelect';
+import type { RoleMeta } from '@axonivy/inscription-protocol';
 
 describe('RoleSelect', () => {
   function renderSelect(activator?: string) {
-    const roles = [
-      { id: 'Everybody', label: 'In this role is everyone' },
-      { id: 'Employee', label: '' },
-      { id: 'Teamleader', label: '' }
-    ];
+    const roleTree: RoleMeta = {
+      id: 'Everybody',
+      label: 'In this role is everyone',
+      children: [
+        { id: 'Employee', label: '', children: [] },
+        { id: 'Teamleader', label: '', children: [] }
+      ]
+    };
     render(<RoleSelect value={activator} onChange={() => {}} />, {
-      wrapperProps: { meta: { roles } }
+      wrapperProps: { meta: { roleTree } }
     });
   }
 

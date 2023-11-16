@@ -1,8 +1,8 @@
 import './ResponsibleSelect.css';
 import { useMemo } from 'react';
-import type { WfActivator, WfActivatorType, WfTask} from '@axonivy/inscription-protocol';
+import type { WfActivator, WfActivatorType, WfTask } from '@axonivy/inscription-protocol';
 import { RESPONSIBLE_TYPE, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import type { SelectItem} from '../../../widgets';
+import type { SelectItem } from '../../../widgets';
 import { ScriptInput, Select, useFieldset } from '../../../widgets';
 import type { DataUpdater } from '../../../../types/lambda';
 import { PathFieldset } from '..';
@@ -16,7 +16,13 @@ type ActivatorProps = ResponsibleProps & { selectedType?: WfActivatorType };
 const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
   switch (selectedType) {
     case 'ROLE':
-      return <RoleSelect value={props.responsible?.activator} onChange={change => props.updateResponsible('activator', change)} />;
+      return (
+        <RoleSelect
+          value={props.responsible?.activator}
+          onChange={change => props.updateResponsible('activator', change)}
+          showtaskRoles={true}
+        />
+      );
     case 'ROLE_FROM_ATTRIBUTE':
     case 'USER_FROM_ATTRIBUTE':
       return (

@@ -7,14 +7,12 @@ import type {
   ElementType,
   ElementData,
   InscriptionActionArgs,
-  InscriptionContext,
+  InscriptionElementContext,
   InscriptionMetaRequestTypes,
   ScriptingDataArgs,
   Variable
 } from '@axonivy/inscription-protocol';
-import {
-  DEFAULT_DATA
-} from '@axonivy/inscription-protocol';
+import { DEFAULT_DATA } from '@axonivy/inscription-protocol';
 import { Emitter } from 'vscode-jsonrpc';
 import { deepmerge } from 'deepmerge-ts';
 import { DataMock } from './data-mock';
@@ -35,7 +33,7 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(true);
   }
 
-  data(context: InscriptionContext): Promise<InscriptionData> {
+  data(context: InscriptionElementContext): Promise<InscriptionData> {
     const inscriptionType: InscriptionType = {
       id: this.type,
       label: this.type,
@@ -59,7 +57,7 @@ export class InscriptionClientMock implements InscriptionClient {
     return Promise.resolve(ValidationMock.validateData(this.type, saveData));
   }
 
-  validate(context: InscriptionContext): Promise<InscriptionValidation[]> {
+  validate(context: InscriptionElementContext): Promise<InscriptionValidation[]> {
     return Promise.resolve(ValidationMock.validateData(this.type, { context, data: this.elementData }));
   }
 
@@ -72,7 +70,7 @@ export class InscriptionClientMock implements InscriptionClient {
       case 'meta/start/triggers':
       case 'meta/start/calls':
         return Promise.resolve(MetaMock.CALLABLE_STARTS);
-      case 'meta/workflow/roles':
+      case 'meta/workflow/roleTree':
         return Promise.resolve(MetaMock.ROLES);
       case 'meta/workflow/errorStarts':
         return Promise.resolve(MetaMock.EXPIRY_ERRORS);

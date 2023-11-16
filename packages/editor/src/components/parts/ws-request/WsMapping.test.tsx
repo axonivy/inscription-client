@@ -1,6 +1,6 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { render, TableUtil } from 'test-utils';
-import type { WsRequestData } from '@axonivy/inscription-protocol';
+import { EMPTY_VAR_INFO, type WsRequestData } from '@axonivy/inscription-protocol';
 import { WsMapping } from './WsMapping';
 
 describe('WsMapping', () => {
@@ -10,8 +10,8 @@ describe('WsMapping', () => {
         data: data && { config: data },
         meta: {
           wsOperations: [
-            { name: 'Super', parameter: { types: {}, variables: [] } },
-            { name: 'soaper', parameter: { types: {}, variables: [] } }
+            { name: 'Super', parameter: EMPTY_VAR_INFO },
+            { name: 'soaper', parameter: EMPTY_VAR_INFO }
           ]
         }
       }

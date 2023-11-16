@@ -1,4 +1,4 @@
-import type { InscriptionActionArgs, InscriptionContext, InscriptionData, InscriptionSaveData, InscriptionValidation } from './data';
+import type { InscriptionActionArgs, InscriptionData, InscriptionElementContext, InscriptionSaveData, InscriptionValidation } from './data';
 import type { InscriptionMetaRequestTypes } from './inscription-protocol';
 
 export interface Event<T> {
@@ -11,10 +11,10 @@ export interface Disposable {
 
 export interface InscriptionClient {
   initialize(): Promise<boolean>;
-  data(context: InscriptionContext): Promise<InscriptionData>;
+  data(context: InscriptionElementContext): Promise<InscriptionData>;
   saveData(saveData: InscriptionSaveData): Promise<InscriptionValidation[]>;
 
-  validate(context: InscriptionContext): Promise<InscriptionValidation[]>;
+  validate(context: InscriptionElementContext): Promise<InscriptionValidation[]>;
 
   meta<TMeta extends keyof InscriptionMetaRequestTypes>(
     path: TMeta,
