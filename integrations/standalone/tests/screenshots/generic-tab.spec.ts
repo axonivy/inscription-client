@@ -18,7 +18,7 @@ test.describe('Generic Tabs', () => {
   });
 
   test('Code Tab', async ({ page }) => {
-    await screenshotTab(page, GENERIC_PID.SCRIPT, 'Code', 'tab-code.png');
+    await screenshotTab(page, GENERIC_PID.SCRIPT, 'Script', 'tab-code.png');
   });
 
   test.skip('Start Tab', async ({ page }) => {
