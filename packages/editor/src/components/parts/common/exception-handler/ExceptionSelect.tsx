@@ -11,12 +11,12 @@ type ExceptionSelectProps = {
 };
 
 const ExceptionSelect = ({ value, onChange, staticExceptions, inputProps }: ExceptionSelectProps) => {
-  const { context } = useEditorContext();
+  const { elementContext } = useEditorContext();
   const items = [
     ...staticExceptions.map(ex => {
       return { label: ex, value: ex };
     }),
-    ...useMeta('meta/workflow/errorStarts', context, []).data.map<SelectItem>(error => {
+    ...useMeta('meta/workflow/errorStarts', elementContext, []).data.map<SelectItem>(error => {
       return { label: error.label, value: error.id };
     })
   ];

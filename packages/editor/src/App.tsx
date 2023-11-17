@@ -88,7 +88,8 @@ function App(props: InscriptionElementContext) {
     <div ref={editorRef} className='editor-root' data-theme={theme}>
       <EditorContextInstance.Provider
         value={{
-          context,
+          context: { app: context.app, pmv: context.pmv },
+          elementContext: context,
           readonly: data.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
           editorRef,
           type: data.type ?? DEFAULT_EDITOR_CONTEXT.type,

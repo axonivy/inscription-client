@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useResultData } from './useResultData';
 import type { ResultData } from '@axonivy/inscription-protocol';
@@ -25,7 +25,7 @@ export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
 const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   const { config, update } = useResultData();
 
-  const { context } = useEditorContext();
+  const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'result' }, { variables: [], types: {} });
   const queryClient = useQueryClient();
   useEffect(() => {

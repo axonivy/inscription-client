@@ -1,5 +1,5 @@
 import { PathContext, useEditorContext, useMeta } from '../../../../context';
-import type { ComboboxItem} from '../../../widgets';
+import type { ComboboxItem } from '../../../widgets';
 import { Combobox, useFieldset } from '../../../widgets';
 import { PathFieldset } from '../../common';
 import { useQueryData } from '../useQueryData';
@@ -7,7 +7,7 @@ import { useQueryData } from '../useQueryData';
 export const TableSelect = () => {
   const { config, updateSql } = useQueryData();
 
-  const { context } = useEditorContext();
+  const { elementContext: context } = useEditorContext();
   const tableItems = useMeta('meta/database/tables', { context, database: config.query.dbName }, []).data.map<ComboboxItem>(table => {
     return { value: table };
   });

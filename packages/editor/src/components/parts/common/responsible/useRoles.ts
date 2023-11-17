@@ -5,9 +5,9 @@ import { EMPTY_ROLE, type RoleMeta } from '@axonivy/inscription-protocol';
 
 export const useRoles = (showTaskRoles = false) => {
   const [roles, setRoles] = useState<SelectItem[]>([]);
-  const { context } = useEditorContext();
+  const { context, elementContext } = useEditorContext();
   const roleTree = useMeta('meta/workflow/roleTree', context, EMPTY_ROLE).data;
-  const taskRoles = useMeta('meta/workflow/taskRoles', context, []).data;
+  const taskRoles = useMeta('meta/workflow/taskRoles', elementContext, []).data;
 
   useEffect(() => {
     const flatRoles: SelectItem[] = [];

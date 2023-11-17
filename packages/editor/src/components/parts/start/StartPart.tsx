@@ -1,5 +1,5 @@
 import { Input, ScriptArea, useFieldset } from '../../../components/widgets';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useStartData } from './useStartData';
 import type { StartData } from '@axonivy/inscription-protocol';
@@ -31,7 +31,7 @@ export function useStartPart(props?: StartPartProps): PartProps {
 const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
   const { config, updateSignature, update } = useStartData(synchParams);
 
-  const { context } = useEditorContext();
+  const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'input' }, { variables: [], types: {} });
 
   const signatureFieldset = useFieldset();

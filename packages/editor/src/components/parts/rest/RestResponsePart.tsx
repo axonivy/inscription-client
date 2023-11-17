@@ -1,6 +1,6 @@
 import type { RestResponseData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useRestResponseData } from './useRestResponseData';
 import { MappingPart, PathFieldset } from '../common';
@@ -25,7 +25,7 @@ const useShowResultTypeCombo = (types: string[], currentType: string) => {
 
 const RestResponsePart = () => {
   const { config, defaultConfig, update, updateEntity } = useRestResponseData();
-  const { context } = useEditorContext();
+  const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'response' }, { variables: [], types: {} });
   const resultTypes = useRestEntityTypeMeta('result');
   const showResultType = useShowResultTypeCombo(resultTypes, config.response.entity.type);
