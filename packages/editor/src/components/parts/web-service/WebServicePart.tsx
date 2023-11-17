@@ -1,5 +1,5 @@
 import type { WebserviceStartData } from '@axonivy/inscription-protocol';
-import type { PartProps} from '../../../components/editors';
+import type { PartProps } from '../../../components/editors';
 import { usePartDirty, usePartState } from '../../../components/editors';
 import { useEditorContext, useValidations } from '../../../context';
 import { useWebServiceData } from './useWebServiceData';
@@ -18,13 +18,9 @@ export function useWebServicePart(): PartProps {
 }
 
 const WebServicePart = () => {
-  const { context } = useEditorContext();
+  const { context, navigateTo } = useEditorContext();
   const { config, defaultConfig, updatePermission } = useWebServiceData();
-  const navigateToProcess = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set('pid', PID.processId(context.pid));
-    window.location.replace(url);
-  };
+  const navigateToProcess = () => navigateTo(PID.processId(context.pid));
 
   return (
     <>

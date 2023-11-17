@@ -1,6 +1,6 @@
 import './App.css';
 import '@axonivy/editor-icons/src-gen/ivy-icons.css';
-import type { ElementData, InscriptionData, InscriptionElementContext, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ElementData, InscriptionData, InscriptionElementContext, InscriptionValidation, PID } from '@axonivy/inscription-protocol';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
@@ -91,7 +91,8 @@ function App(props: InscriptionElementContext) {
           context,
           readonly: data.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
           editorRef,
-          type: data.type ?? DEFAULT_EDITOR_CONTEXT.type
+          type: data.type ?? DEFAULT_EDITOR_CONTEXT.type,
+          navigateTo: (pid: PID) => setContext(old => ({ ...old, pid }))
         }}
       >
         <DataContextInstance.Provider
