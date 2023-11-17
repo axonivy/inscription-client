@@ -1,4 +1,4 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { render, screen, renderHook, TableUtil, SelectUtil, CollapsableUtil } from 'test-utils';
 import type { ElementData, InscriptionValidation, RequestData } from '@axonivy/inscription-protocol';
 import { useRequestPart } from './RequestPart';
@@ -24,7 +24,7 @@ describe('RequestPart', () => {
       expect(screen.getByLabelText('Category')).toHaveValue(data?.request?.category);
       TableUtil.assertRows(['field value']);
       await CollapsableUtil.assertOpen('Permission');
-      expect(screen.getByLabelText('Anonymous')).not.toBeChecked();
+      expect(screen.getByLabelText('Allow anonymous')).not.toBeChecked();
       SelectUtil.assertValue('Test', { label: 'Role' });
       SelectUtil.assertValue('>> Ignore Exception', { label: 'Violation error' });
     } else {

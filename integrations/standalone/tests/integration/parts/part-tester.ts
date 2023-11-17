@@ -47,7 +47,6 @@ export async function runTest(view: InscriptionView, test: PartTest) {
 
   await accordion.toggle();
   await test.fill(accordion);
-  await view.page.waitForLoadState('networkidle');
   await view.reload();
 
   await accordion.toggle();
@@ -56,7 +55,6 @@ export async function runTest(view: InscriptionView, test: PartTest) {
 
   await accordion.toggle();
   await test.clear(accordion);
-  await view.page.waitForLoadState('networkidle');
   await view.reload();
 
   await accordion.toggle();

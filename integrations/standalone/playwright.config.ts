@@ -18,7 +18,7 @@ const browsers = () => {
 
 const config = defineConfig({
   testDir: './tests',
-  timeout: 120 * 1000,
+  timeout: 1000 * (process.env.CI ? 120 : 30),
   expect: {
     timeout: 5000
   },

@@ -29,7 +29,7 @@ class Request extends PartObject {
     this.customFieldSection = part.section('Custom Fields');
     this.customFields = this.customFieldSection.table(['text', 'expression']);
     this.permissionSection = part.section('Permission');
-    this.anonym = this.permissionSection.checkbox('Anonymous');
+    this.anonym = this.permissionSection.checkbox('Allow anonymous');
     this.role = this.permissionSection.select('Role');
     this.error = this.permissionSection.select('Violation error');
   }
@@ -44,7 +44,7 @@ class Request extends PartObject {
     await customField.fill(['field', 'value']);
     await this.permissionSection.toggle();
     await this.anonym.click();
-    await this.role.choose('SYSTEM');
+    await this.role.choose('Support');
     await this.error.choose('>> Ignore Exception');
     await this.httpable.click();
   }
@@ -60,7 +60,7 @@ class Request extends PartObject {
     await this.customFields.row(0).expectValues(['field', 'value']);
     await this.permissionSection.expectIsOpen();
     await this.anonym.expectUnchecked();
-    await this.role.expectValue('SYSTEM');
+    await this.role.expectValue('Support');
     await this.error.expectValue('>> Ignore Exception');
   }
 

@@ -1,15 +1,12 @@
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useRequestData } from './useRequestData';
 import type { RequestData } from '@axonivy/inscription-protocol';
-import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import { Checkbox, useFieldset } from '../../../components/widgets';
-import { ExceptionSelect, PathCollapsible, PathFieldset } from '../common';
+import { Checkbox } from '../../../components/widgets';
 import StartCustomFieldPart from '../common/customfield/StartCustomFieldPart';
-import RoleSelect from '../common/responsible/RoleSelect';
-import { deepEqual } from '../../../utils/equals';
 import Information from '../common/info/Information';
+import { Permission } from '../common/permission/Permission';
 
 export function useRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRequestData();
@@ -23,8 +20,6 @@ export function useRequestPart(): PartProps {
 
 const RequestPart = () => {
   const { config, defaultConfig, updateRequest, updatePermission } = useRequestData();
-  const roleFieldset = useFieldset();
-  const errorFieldset = useFieldset();
   return (
     <>
       <Checkbox
@@ -47,26 +42,12 @@ const RequestPart = () => {
               updateCustomFields={change => updateRequest('customFields', change)}
             />
           </PathContext>
-          <PathCollapsible label='Permission' path='permission' defaultOpen={!deepEqual(config.permission, defaultConfig.permission)}>
-            <Checkbox value={config.permission.anonymous} onChange={change => updatePermission('anonymous', change)} label='Anonymous' />
-            {!config.permission.anonymous && (
-              <PathFieldset label='Role' path='role' {...roleFieldset.labelProps}>
-                <RoleSelect
-                  value={config.permission.role}
-                  onChange={change => updatePermission('role', change)}
-                  inputProps={roleFieldset.inputProps}
-                />
-              </PathFieldset>
-            )}
-            <PathFieldset label='Violation error' path='error' {...errorFieldset.labelProps}>
-              <ExceptionSelect
-                value={config.permission.error}
-                onChange={change => updatePermission('error', change)}
-                staticExceptions={[IVY_EXCEPTIONS.security, IVY_EXCEPTIONS.ignoreException]}
-                inputProps={errorFieldset.inputProps}
-              />
-            </PathFieldset>
-          </PathCollapsible>
+          <Permission
+            config={config.permission}
+            defaultConfig={defaultConfig.permission}
+            updatePermission={updatePermission}
+            anonymousFieldActive={true}
+          />
         </>
       )}
     </>

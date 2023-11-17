@@ -23,18 +23,14 @@ import type {
   JavaType,
   DataClass
 } from '@axonivy/inscription-protocol';
-import {
-  DEFAULT_DATA
-} from '@axonivy/inscription-protocol';
+import { DEFAULT_DATA, EMPTY_ROLE, EMPTY_VAR_INFO } from '@axonivy/inscription-protocol';
 import type { queries, Queries, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { render, renderHook } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
-import type { ReactElement, ReactNode} from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import { useRef } from 'react';
 import type { DeepPartial } from './type-utils';
-import type {
-  ClientContext,
-  DataContext} from '../context';
+import type { ClientContext, DataContext } from '../context';
 import {
   ClientContextProvider,
   DataContextInstance,
@@ -51,7 +47,8 @@ type ContextHelperProps = {
   initData?: DeepPartial<ElementData>;
   validations?: InscriptionValidation[];
   meta?: {
-    roles?: RoleMeta[];
+    roleTree?: RoleMeta;
+    taskRoles?: RoleMeta[];
     expiryErrors?: ErrorStartMeta[];
     callableStarts?: CallableStart[];
     eventCodes?: EventCodeMeta[];
@@ -112,8 +109,10 @@ const ContextHelper = (
           case 'meta/start/triggers':
           case 'meta/start/calls':
             return Promise.resolve(props.meta?.callableStarts ?? []);
-          case 'meta/workflow/roles':
-            return Promise.resolve(props.meta?.roles ?? []);
+          case 'meta/workflow/roleTree':
+            return Promise.resolve(props.meta?.roleTree ?? EMPTY_ROLE);
+          case 'meta/workflow/taskRoles':
+            return Promise.resolve(props.meta?.taskRoles ?? []);
           case 'meta/workflow/errorStarts':
             return Promise.resolve(props.meta?.expiryErrors ?? []);
           case 'meta/workflow/errorCodes':
@@ -126,10 +125,10 @@ const ContextHelper = (
             return Promise.resolve(
               (args as ScriptingDataArgs).location === 'result'
                 ? { types: {}, variables: [{ attribute: 'result', description: '', type: '<>', simpleType: '<>' }] }
-                : { types: {}, variables: [] }
+                : EMPTY_VAR_INFO
             );
           case 'meta/scripting/in':
-            return Promise.resolve(props.meta?.inScripting ?? { types: {}, variables: [] });
+            return Promise.resolve(props.meta?.inScripting ?? EMPTY_VAR_INFO);
           case 'meta/connector/out':
             return Promise.resolve(props.meta?.connectors ? (props.meta.connectors as ConnectorRef[]) : []);
           case 'meta/database/names':
@@ -166,7 +165,7 @@ const ContextHelper = (
           case 'meta/rest/resultTypes':
             return Promise.resolve(props.meta?.restEntityTypes ?? []);
           case 'meta/rest/entityInfo':
-            return Promise.resolve(props.meta?.restEntityInfo ?? { types: {}, variables: [] });
+            return Promise.resolve(props.meta?.restEntityInfo ?? EMPTY_VAR_INFO);
           case 'meta/program/types':
             return Promise.resolve(props.meta?.javaClasses ?? []);
           case 'meta/program/editor':

@@ -39,6 +39,7 @@ export interface Inscription {
   eventCodeMeta: EventCodeMeta[];
   inscriptionActionArgs: InscriptionActionArgs;
   inscriptionContext: InscriptionContext;
+  inscriptionElementContext: InscriptionElementContext;
   inscriptionRequest: InscriptionRequest;
   inscriptionSaveRequest: InscriptionSaveRequest;
   inscriptionValidation: InscriptionValidation[];
@@ -50,12 +51,13 @@ export interface Inscription {
   restClientRequest: RestClientRequest;
   restContentTypeRequest: RestContentTypeRequest;
   restEntityInfoRequest: RestEntityInfoRequest;
-  restResource: RestResource;
+  restResource: RestResource[];
   restResourceRequest: RestResourceRequest;
   roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
-  string: string;
+  signalCodeRequest: SignalCodeRequest;
+  string: string[];
   typeSearchRequest: TypeSearchRequest;
   variableInfo: VariableInfo;
   void: Void;
@@ -95,7 +97,6 @@ export interface CmsMetaRequest {
 }
 export interface InscriptionContext {
   app: string;
-  pid: PID;
   pmv: string;
 }
 export interface ConnectorRef {
@@ -187,12 +188,17 @@ export interface DatabaseColumn {
   type: string;
 }
 export interface DatabaseColumnRequest {
-  context: InscriptionContext;
+  context: InscriptionElementContext;
   database: string;
   table: string;
 }
+export interface InscriptionElementContext {
+  app: string;
+  pid: PID;
+  pmv: string;
+}
 export interface DatabaseTablesRequest {
-  context: InscriptionContext;
+  context: InscriptionElementContext;
   database: string;
 }
 export interface DataClass {
@@ -229,7 +235,7 @@ export interface InscriptionActionArgs {
     | "openPage"
     | "openProgram"
     | "openTestWs";
-  context: InscriptionContext;
+  context: InscriptionElementContext;
   payload: string | OpenCustomField;
 }
 export interface OpenCustomField {
@@ -237,7 +243,7 @@ export interface OpenCustomField {
   type: CustomFieldConfigType;
 }
 export interface InscriptionRequest {
-  context: InscriptionContext;
+  context: InscriptionElementContext;
   data: Data;
   defaults: unknown;
   readonly: boolean;
@@ -658,7 +664,7 @@ export interface Document {
   url: string;
 }
 export interface InscriptionSaveRequest {
-  context: InscriptionContext;
+  context: InscriptionElementContext;
   data: Data;
 }
 export interface InscriptionValidation {
@@ -734,6 +740,7 @@ export interface RestResourceRequest {
   path: string;
 }
 export interface RoleMeta {
+  children: RoleMeta[];
   id: string;
   label: string;
 }
@@ -760,8 +767,12 @@ export interface SchemaKey {
   WsProcess: "wsAuth" | "wsTypeName" | "exception";
 }
 export interface ScriptingDataArgs {
-  context: InscriptionContext;
+  context: InscriptionElementContext;
   location: string;
+}
+export interface SignalCodeRequest {
+  context: InscriptionContext;
+  macro: boolean;
 }
 export interface TypeSearchRequest {
   context: InscriptionContext;

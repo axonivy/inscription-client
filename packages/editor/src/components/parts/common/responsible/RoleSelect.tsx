@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import type { FieldsetInputProps, SelectItem } from '../../../widgets';
 import { Select } from '../../../widgets';
-import { useEditorContext, useMeta } from '../../../../context';
+import { useRoles } from './useRoles';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
 
@@ -9,13 +9,11 @@ type RoleSelectProps = {
   value?: string;
   onChange: (change: string) => void;
   inputProps?: FieldsetInputProps;
+  showtaskRoles?: boolean;
 };
 
-const RoleSelect = ({ value, onChange, inputProps }: RoleSelectProps) => {
-  const { context } = useEditorContext();
-  const roleItems = useMeta('meta/workflow/roles', context, []).data.map<SelectItem>(role => {
-    return { label: role.id, value: role.id };
-  });
+const RoleSelect = ({ value, onChange, inputProps, showtaskRoles }: RoleSelectProps) => {
+  const roleItems = useRoles(showtaskRoles);
   const selectedRole = useMemo<SelectItem | undefined>(() => {
     if (value) {
       return roleItems.find(e => e.value === value) ?? { label: value, value };
