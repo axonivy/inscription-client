@@ -15,17 +15,17 @@ export type CodeEditorProps = {
 };
 
 const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, ...props }: CodeEditorProps) => {
-  const editorContext = useEditorContext();
+  const { elementContext, readonly } = useEditorContext();
 
   const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
     onMountFuncs?.forEach(func => func(editor));
   };
 
   const monacoOptions = options ?? MONACO_OPTIONS;
-  monacoOptions.readOnly = editorContext.readonly;
+  monacoOptions.readOnly = readonly;
   const language = macro ? 'ivyMacro' : 'ivyScript';
 
-  const contextPath = `${editorContext.context.app}/${editorContext.context.pmv}/${editorContext.context.pid}`;
+  const contextPath = `${elementContext.app}/${elementContext.pmv}/${elementContext.pid}`;
 
   return (
     <div className='code-editor'>

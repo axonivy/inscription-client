@@ -1,4 +1,4 @@
-import type { ColumnDef, Row, SortingState} from '@tanstack/react-table';
+import type { ColumnDef, Row, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { Checkbox, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
 import { useEditorContext, useMeta } from '../../../../context';
@@ -15,7 +15,7 @@ export const TableReadFields = () => {
   const { config, updateSql } = useQueryData();
   const selectAll = config.query.sql.select?.length === 1 && config.query.sql.select[0] === '*';
 
-  const { context } = useEditorContext();
+  const { elementContext: context } = useEditorContext();
   const columnMetas = useMeta('meta/database/columns', { context, database: config.query.dbName, table: config.query.sql.table }, []).data;
 
   const [data, setData] = useState<Column[]>([]);

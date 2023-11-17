@@ -3,7 +3,7 @@ import { useClient } from './useClient';
 import { useEditorContext } from './useEditorContext';
 
 export function useAction(actionId: InscriptionActionArgs['actionId']) {
-  const { context } = useEditorContext();
+  const { elementContext: context } = useEditorContext();
   const client = useClient();
 
   return (content?: InscriptionActionArgs['payload']) => {

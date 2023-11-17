@@ -1,7 +1,7 @@
 import type { WsResponseData } from '@axonivy/inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useWsResponseData } from './useWsResponseData';
 import { ExceptionSelect, MappingPart, PathCollapsible, PathFieldset, ValidationFieldset } from '../common';
@@ -18,7 +18,7 @@ export function useWsResponsePart(): PartProps {
 
 const WsResponsePart = () => {
   const { config, defaultConfig, update, updateOutput } = useWsResponseData();
-  const { context } = useEditorContext();
+  const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'output' }, { variables: [], types: {} });
 
   const codeFieldset = useFieldset();

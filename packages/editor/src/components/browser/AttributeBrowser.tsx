@@ -34,7 +34,7 @@ const AttributeBrowser = ({
   const [tree, setTree] = useState<MappingTreeData[]>([]);
   const [varInfo, setVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
-  const { context } = useEditorContext();
+  const { elementContext: context } = useEditorContext();
   const { data: inVarInfo } = useMeta('meta/scripting/in', { context, location }, { variables: [], types: {} });
   const { data: outVarInfo } = useMeta('meta/scripting/out', { context, location }, { variables: [], types: {} });
 

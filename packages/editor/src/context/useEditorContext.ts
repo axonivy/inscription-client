@@ -1,8 +1,9 @@
-import type { InscriptionElementContext, InscriptionType, PID } from '@axonivy/inscription-protocol';
+import type { InscriptionContext, InscriptionElementContext, InscriptionType, PID } from '@axonivy/inscription-protocol';
 import { createContext, useContext } from 'react';
 
 export type EditorContext = {
-  context: InscriptionElementContext;
+  context: InscriptionContext;
+  elementContext: InscriptionElementContext;
   readonly: boolean;
   editorRef: React.MutableRefObject<HTMLElement | null>;
   type: InscriptionType;
@@ -10,7 +11,8 @@ export type EditorContext = {
 };
 
 export const DEFAULT_EDITOR_CONTEXT: EditorContext = {
-  context: { app: '', pmv: '', pid: '' },
+  context: { app: '', pmv: '' },
+  elementContext: { app: '', pmv: '', pid: '' },
   readonly: false,
   editorRef: { current: null },
   type: {

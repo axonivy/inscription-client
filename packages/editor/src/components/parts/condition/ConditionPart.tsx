@@ -1,4 +1,4 @@
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useConditionData } from './useConditionData';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
@@ -25,8 +25,8 @@ const ConditionPart = () => {
   const { config, update } = useConditionData();
   const [conditions, setConditions] = useState<Condition[]>([]);
 
-  const { context } = useEditorContext();
-  const { data: outConnectors } = useMeta('meta/connector/out', context, []);
+  const { elementContext } = useEditorContext();
+  const { data: outConnectors } = useMeta('meta/connector/out', elementContext, []);
   useEffect(() => {
     setConditions(Condition.of(config.conditions));
     outConnectors.forEach(connector => setConditions(conditions => Condition.replace(conditions, connector)));

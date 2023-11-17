@@ -1,7 +1,7 @@
 import type { OutputData } from '@axonivy/inscription-protocol';
 import { ScriptArea, useFieldset } from '../../widgets';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useOutputData } from './useOutputData';
 import { MappingPart, PathFieldset } from '../common';
@@ -24,7 +24,7 @@ export function useOutputPart(options?: { hideCode?: boolean; additionalBrowsers
 const OutputPart = (props: { showCode?: boolean; additionalBrowsers?: BrowserType[] }) => {
   const { config, update } = useOutputData();
 
-  const { context } = useEditorContext();
+  const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'output' }, { variables: [], types: {} });
 
   const browsers: BrowserType[] = ['attr', 'func', 'datatype', ...(props.additionalBrowsers ?? [])];

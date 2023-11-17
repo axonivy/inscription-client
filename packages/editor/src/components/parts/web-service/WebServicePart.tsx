@@ -18,9 +18,9 @@ export function useWebServicePart(): PartProps {
 }
 
 const WebServicePart = () => {
-  const { context, navigateTo } = useEditorContext();
+  const { elementContext, navigateTo } = useEditorContext();
   const { config, defaultConfig, updatePermission } = useWebServiceData();
-  const navigateToProcess = () => navigateTo(PID.processId(context.pid));
+  const navigateToProcess = () => navigateTo(PID.processId(elementContext.pid));
 
   return (
     <>
