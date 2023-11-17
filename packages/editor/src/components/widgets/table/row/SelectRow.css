@@ -7,11 +7,11 @@
 
 .selectable-row:where([data-state='selected']),
 .selectable-row:where([data-state='selected']) .table-cell .row-expand .row-expand-label-info {
-  background-color: var(--A400);
+  background-color: var(--A300);
   color: var(--selected-text);
 }
 
 .selectable-row:where([data-state='selected']) .table-cell .row-expand .row-expand-button:hover {
-  background-color: var(--A400);
+  background-color: var(--A300);
   color: var(--selected-text);
 }

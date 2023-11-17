@@ -61,6 +61,6 @@
 }
 
 .select-menu-entry.selected {
-  background: var(--A400);
+  background: var(--A300);
   color: var(--background);
 }

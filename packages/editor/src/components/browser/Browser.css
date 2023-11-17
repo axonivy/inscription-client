@@ -34,7 +34,12 @@
 }
 
 .insert {
-  color: var(--A400);
+  color: white;
+  background-color: var(--A300);
+}
+
+.insert:hover {
+  background-color: var(--A500);
 }
 
 .browser-content .browser-footer .vertical-spacer-line {
@@ -93,13 +98,13 @@
   justify-content: flex-end;
   gap: var(--size-1);
 }
-.browser-footer .button {
+.browser-dialog .browser-footer .button {
   font-weight: 500;
-  font-size: 17px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   gap: var(--size-1);
-  padding-inline: var(--size-1);
+  padding: var(--size-1) var(--size-2) var(--size-1) var(--size-2);
   width: unset;
 }
 

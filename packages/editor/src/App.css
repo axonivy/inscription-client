@@ -15,12 +15,11 @@
   --N800: #757575;
   --N900: #4a4a4a;
 
-  --A50: #edf1ff;
-  --A75: #cbd6ff;
-  --A200: #95acff;
-  --A300: #6788ff;
-  --A400: #4870ff;
-  --A500: #2c449c;
+  --A50: #e6f0ff;
+  --A75: #96c0ff;
+  --A200: #6ba6ff;
+  --A300: #0065ff;
+  --A500: #003e9c;
 
   --error-color: #ee4a52;
   --warning-color: #ffac5e;
@@ -28,10 +27,11 @@
   --transparent: rgba(0, 0, 0, 0);
 
   --selected-text: #ffffff;
+  --background-radio-checkbox: var(--A50);
 
   /* ------borders------*/
   --basic-border: 1px solid var(--N200);
-  --activ-border: 1px solid var(--A200);
+  --activ-border: 1px solid var(--A300);
   --dashed-border: 1px dashed var(--N400);
   --warning-border: 1px solid var(--warning-color);
   --error-border: 1px solid var(--error-color);
@@ -80,7 +80,8 @@
   --N900: #a3a3a3;
 
   --A50: var(--A500);
-  --A75: var(--A300);
+
+  --background-radio-checkbox: var(--background);
 
   --basic-border: 1px solid var(--N200);
   --thick-border: 2px solid var(--N200);
