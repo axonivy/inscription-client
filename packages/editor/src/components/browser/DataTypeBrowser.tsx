@@ -137,7 +137,7 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
           }
         }}
       >
-        {mainFilter.length > 0 && (
+        {mainFilter.length > 0 ? (
           <tbody>
             {!isFetching &&
               tableDynamic.getRowModel().rows.map(row => (
@@ -148,6 +148,10 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
                 </SelectRow>
               ))}
           </tbody>
+        ) : (
+          <tbody>
+            <TableCell>Please enter a search term to see results</TableCell>
+          </tbody>
         )}
       </Table>
       {isFetching && (
@@ -155,12 +159,12 @@ const DataTypeBrowser = (props: { value: string; onChange: (value: string) => vo
           <p>loading more types...</p>
         </div>
       )}
-      <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
       {showHelper && (
         <pre className='browser-helptext'>
           <b>{props.value}</b>
         </pre>
       )}
+      <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
     </>
   );
 };

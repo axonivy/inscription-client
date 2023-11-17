@@ -11,7 +11,7 @@ import { useDataTypeBrowser } from './DataTypeBrowser';
 import { useTableColBrowser } from './TableColBrowser';
 import { useSqlOpBrowser } from './SqlOperationBrowser';
 import { useCatPathChooserBrowser } from './CatPathChooser';
-import type { CmsOptions} from './CmsBrowser';
+import type { CmsOptions } from './CmsBrowser';
 import { useCmsBrowser } from './CmsBrowser';
 
 type BrowserProps = UseBrowserReturnValue & {
@@ -66,7 +66,6 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
                 <DialogClose asChild>
                   <Button aria-label='Cancel'>Cancel</Button>
                 </DialogClose>
-                <div className='vertical-spacer-line' />
                 <DialogClose asChild>
                   <Button className='insert' aria-label='Apply' onClick={() => acceptBrowser()}>
                     Apply

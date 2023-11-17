@@ -51,7 +51,7 @@
   background: var(--A50);
 }
 .combobox-menu-entry.selected {
-  background: var(--A400);
+  background: var(--A300);
   color: var(--background);
 }
 .combobox-menu-entry-additional {
