@@ -1,4 +1,4 @@
-import type { Page} from '@playwright/test';
+import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
 import { InscriptionView } from '../pageobjects/InscriptionView';
 
@@ -107,8 +107,12 @@ test.describe('Script browser', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
 
     await page.getByText(browser).first().click();
-
+    if (browser === 'Datatype') {
+      await page.click('.icon-input input');
+      await page.keyboard.insertText('Per');
+    }
     await page.getByRole('row').nth(rowToCheck).click();
+
     if (checkListGeneric && browser === 'Datatype') {
       await page.getByLabel('Use Type as List').click();
       await expect(page.locator('.browser-helptext')).toHaveText('java.util.List<' + expectedSelection + '>');

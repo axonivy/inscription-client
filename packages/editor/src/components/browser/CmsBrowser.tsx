@@ -1,20 +1,9 @@
 import { useMemo, useEffect, useState } from 'react';
-import { ActionCell, Checkbox, Collapsible, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../widgets';
+import { ActionCell, Button, Checkbox, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../widgets';
 import type { UseBrowserImplReturnValue } from './useBrowser';
 import { useAction, useEditorContext, useMeta } from '../../context';
-import type {
-  ColumnDef,
-  ColumnFiltersState,
-  ExpandedState,
-  RowSelectionState,
-  VisibilityState} from '@tanstack/react-table';
-import {
-  flexRender,
-  getCoreRowModel,
-  getExpandedRowModel,
-  getFilteredRowModel,
-  useReactTable
-} from '@tanstack/react-table';
+import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, VisibilityState } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 
@@ -58,7 +47,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
-  const tree = useMeta('meta/cms/tree', { context, requiredProjects: requiredProject }, []).data;
+  const { data: tree, refetch } = useMeta('meta/cms/tree', { context, requiredProjects: requiredProject }, []);
 
   const [selectedContentObject, setSelectedContentObject] = useState<ContentObject | undefined>();
   const [showHelper, setShowHelper] = useState<boolean>(false);
@@ -152,7 +141,10 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
 
   return (
     <>
-      <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
+      <div className='browser-table-header'>
+        <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
+        <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Undo} />
+      </div>
       <Table
         search={{
           value: globalFilter,
@@ -179,9 +171,8 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
           ))}
         </tbody>
       </Table>
-
-      <Collapsible label='Helper Text' defaultOpen={showHelper} autoClosable={true}>
-        {value.length !== 0 && selectedContentObject ? (
+      {showHelper &&
+        (value.length !== 0 && selectedContentObject ? (
           <pre className='browser-helptext'>
             <b>{value}</b>
             <code>
@@ -202,8 +193,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
               }}
             />
           </pre>
-        )}
-      </Collapsible>
+        ))}
     </>
   );
 };

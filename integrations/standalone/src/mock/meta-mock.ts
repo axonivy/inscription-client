@@ -6,7 +6,8 @@ import type {
   NodeRef,
   RoleMeta,
   ContentObject,
-  DataClass
+  DataClass,
+  JavaType
 } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
@@ -193,6 +194,24 @@ export namespace MetaMock {
     ],
     types: IN_INFO_TYPES
   };
+
+  export const DATATYPE: JavaType[] = [
+    {
+      simpleName: 'AddContactData',
+      fullQualifiedName: 'ch.ivyteam.documentation.project.AddContactData',
+      packageName: 'ch.ivyteam.documentation.project'
+    },
+    {
+      simpleName: 'Person',
+      fullQualifiedName: 'ch.ivyteam.test.Person',
+      packageName: 'ch.ivyteam.test'
+    },
+    {
+      simpleName: 'List',
+      packageName: 'java.util',
+      fullQualifiedName: 'java.util.List'
+    }
+  ];
 
   export const CALLABLE_STARTS: CallableStart[] = [
     {
