@@ -6,6 +6,10 @@ button:disabled {
   cursor: not-allowed !important;
 }
 
+a {
+  color: var(--A300);
+}
+
 .editor {
   color: var(--body);
   display: flex;

@@ -1,4 +1,4 @@
-import type { InscriptionElementContext, InscriptionType } from '@axonivy/inscription-protocol';
+import type { InscriptionElementContext, InscriptionType, PID } from '@axonivy/inscription-protocol';
 import { createContext, useContext } from 'react';
 
 export type EditorContext = {
@@ -6,6 +6,7 @@ export type EditorContext = {
   readonly: boolean;
   editorRef: React.MutableRefObject<HTMLElement | null>;
   type: InscriptionType;
+  navigateTo: (pid: PID) => void;
 };
 
 export const DEFAULT_EDITOR_CONTEXT: EditorContext = {
@@ -18,7 +19,8 @@ export const DEFAULT_EDITOR_CONTEXT: EditorContext = {
     shortLabel: 'Unknown',
     description: 'This is an Inscription Editor for an unknown element type',
     iconId: 'unknown'
-  }
+  },
+  navigateTo: () => {}
 };
 
 export const EditorContextInstance = createContext<EditorContext>(DEFAULT_EDITOR_CONTEXT);
