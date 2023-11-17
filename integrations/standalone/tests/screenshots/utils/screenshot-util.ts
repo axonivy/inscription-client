@@ -1,13 +1,28 @@
-import type { Locator, Page} from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
 
-export async function screenshotTab(page: Page, pid: string, part: string, screenshotName: string) {
+export async function screenshotAccordion(page: Page, pid: string, accordionName: string, screenshotName: string, fullView = false) {
   const view = await InscriptionView.selectElement(page, pid, 'inscription-screenshot');
   await page.addStyleTag({ content: 'body { overflow: hidden; }' });
-  const accordion = view.accordion(part);
+  const accordion = view.accordion(accordionName);
   await accordion.toggle();
-  await screenshot(accordion.currentLocator(), screenshotName);
+  if (fullView) {
+    await screenshot(view.page.locator('.editor .content'), screenshotName);
+  } else {
+    await screenshot(accordion.currentLocator(), screenshotName);
+  }
+  await accordion.toggle();
+}
+
+export async function screenshotSection(page: Page, pid: string, accordionName: string, sectionName: string, screenshotName: string) {
+  const view = await InscriptionView.selectElement(page, pid, 'inscription-screenshot');
+  await page.addStyleTag({ content: 'body { overflow: hidden; }' });
+  const accordion = view.accordion(accordionName);
+  await accordion.toggle();
+  const section = accordion.section(sectionName);
+  await section.open();
+  await screenshot(section.currentLocator(), screenshotName);
   await accordion.toggle();
 }
 

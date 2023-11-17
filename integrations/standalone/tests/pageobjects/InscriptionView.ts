@@ -1,4 +1,4 @@
-import type { Page} from '@playwright/test';
+import type { Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { Accordion } from './Accordion';
 import { Popover } from './Popover';
@@ -43,7 +43,7 @@ export class InscriptionView {
 
   static async initPage(page: Page) {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.addStyleTag({ content: `.ReactQueryDevtools { display: none; }` });
+    await InscriptionView.hideQueryDevTools(page);
   }
 
   accordion(partName: string) {
@@ -59,6 +59,11 @@ export class InscriptionView {
   }
 
   async reload() {
-    this.page.reload();
+    await this.page.reload();
+    await InscriptionView.hideQueryDevTools(this.page);
+  }
+
+  static async hideQueryDevTools(page: Page) {
+    await page.addStyleTag({ content: `.tsqd-parent-container { display: none; }` });
   }
 }

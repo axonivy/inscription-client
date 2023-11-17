@@ -8,7 +8,7 @@ config.projects = [
     name: 'chromium',
     use: {
       ...devices['Desktop Chrome'],
-      viewport: { width: 800, height: 300 },
+      viewport: { width: 500, height: 1000 },
       contextOptions: { reducedMotion: 'reduce' }
     }
   }
