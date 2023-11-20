@@ -3,6 +3,7 @@ import defaultConfig from '../../playwright.config';
 
 const config: PlaywrightTestConfig = defaultConfig;
 config.testDir = './';
+config.timeout = 1000 * 30;
 config.use!.baseURL = 'http://localhost:3000/mock.html';
 config.retries = process.env.CI ? 1 : 0;
 config.webServer = {
