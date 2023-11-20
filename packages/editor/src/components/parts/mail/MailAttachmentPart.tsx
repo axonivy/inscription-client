@@ -1,10 +1,10 @@
 import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableFooter, TableHeader } from '../../widgets';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import type { ColumnDef} from '@tanstack/react-table';
+import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { IvyIcons } from '@axonivy/editor-icons';
@@ -36,7 +36,7 @@ const MailAttachmentTable = () => {
         id: 'attachment',
         accessorFn: row => row,
         header: () => <span>Attachments</span>,
-        cell: cell => <ScriptCell cell={cell} type='Attachment' browsers={['attr', 'func', 'datatype', 'cms']} />
+        cell: cell => <ScriptCell cell={cell} type='Attachment' browsers={['attr', 'func', 'type', 'cms']} />
       }
     ],
     []

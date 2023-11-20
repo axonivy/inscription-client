@@ -18,7 +18,7 @@ const ExpiryPart = () => {
           value={expiry.timeout}
           onChange={change => update('timeout', change)}
           type={IVY_SCRIPT_TYPES.DURATION}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
           {...timeoutFieldset.inputProps}
         />
       </PathFieldset>

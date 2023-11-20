@@ -1,5 +1,5 @@
 import { Checkbox, Collapsible, ScriptInput, useFieldset } from '../../widgets';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useTriggerData } from './useTriggerData';
 import type { TriggerData } from '@axonivy/inscription-protocol';
@@ -43,7 +43,7 @@ const TriggerPart = () => {
                 value={config.task.delay}
                 onChange={change => updateDelay(change)}
                 type={IVY_SCRIPT_TYPES.DURATION}
-                browsers={['attr', 'func', 'datatype']}
+                browsers={['attr', 'func', 'type']}
                 {...delayFieldset.inputProps}
               />
             </PathFieldset>

@@ -1,5 +1,5 @@
 import type { ConfigurationData, Label, Script, Text, Widget } from '@axonivy/inscription-protocol';
-import type { PartProps} from '../../../editors';
+import type { PartProps } from '../../../editors';
 import { usePartDirty, usePartState } from '../../../editors';
 import { useEditorContext, useMeta, useValidations } from '../../../../context';
 import { useConfigurationData } from './useConfigurationData';
@@ -60,7 +60,7 @@ const ConfigurationPart = () => {
           type={widget.requiredType}
           value={config.userConfig[widget.configKey]}
           onChange={change => updateUserConfig(widget.configKey, change)}
-          browsers={['attr', 'func', 'datatype', 'cms']}
+          browsers={['attr', 'func', 'type', 'cms']}
         />
       );
     }

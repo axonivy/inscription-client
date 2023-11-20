@@ -10,13 +10,17 @@ const TaskListPart = () => {
   return (
     <PathCollapsible label='Options' defaultOpen={task.skipTasklist} path='delay'>
       <Checkbox label='Skip Tasklist' value={task.skipTasklist} onChange={change => update('skipTasklist', change)} />
-      <Checkbox label='Suppress Notification' value={task.notification.suppress} onChange={change => update('notification', {suppress: change})} />
+      <Checkbox
+        label='Suppress Notification'
+        value={task.notification.suppress}
+        onChange={change => update('notification', { suppress: change })}
+      />
       <ValidationFieldset label='Delay' {...delayFieldset.labelProps}>
         <ScriptInput
           value={task.delay}
           onChange={change => update('delay', change)}
           {...delayFieldset.inputProps}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
           type={IVY_SCRIPT_TYPES.DURATION}
         />
       </ValidationFieldset>

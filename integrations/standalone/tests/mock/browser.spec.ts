@@ -62,7 +62,7 @@ test.describe('Script browser', () => {
     await expect(code(page).getByRole('textbox')).toHaveValue('<%=ivy.cms.cr("/BlaFile")%>');
   });
 
-  test('browser add datatype', async ({ page }) => {
+  test('browser add type', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page);
     const task = inscriptionView.accordion('Task');
     await task.toggle();
@@ -73,11 +73,11 @@ test.describe('Script browser', () => {
     await timeout.focus();
     await assertCodeVisible(page);
 
-    await applyBrowser(page, 'ch.ivyteam.test.Person', 'Datatype', 0);
+    await applyBrowser(page, 'ch.ivyteam.test.Person', 'Type', 0);
     await expect(code(page).getByRole('textbox')).toHaveValue('ch.ivyteam.test.Person');
   });
 
-  test('browser add datatype as list', async ({ page }) => {
+  test('browser add type as list', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page);
     const task = inscriptionView.accordion('Task');
     await task.toggle();
@@ -88,7 +88,7 @@ test.describe('Script browser', () => {
     await timeout.focus();
     await assertCodeVisible(page);
 
-    await applyBrowser(page, 'ch.ivyteam.test.Person', 'Datatype', 0, true);
+    await applyBrowser(page, 'ch.ivyteam.test.Person', 'Type', 0, true);
     await expect(code(page).getByRole('textbox')).toHaveValue('java.util.List<ch.ivyteam.test.Person>');
   });
 
@@ -107,13 +107,13 @@ test.describe('Script browser', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
 
     await page.getByText(browser).first().click();
-    if (browser === 'Datatype') {
+    if (browser === 'Type') {
       await page.click('.icon-input input');
       await page.keyboard.insertText('Per');
     }
     await page.getByRole('row').nth(rowToCheck).click();
 
-    if (checkListGeneric && browser === 'Datatype') {
+    if (checkListGeneric && browser === 'Type') {
       await page.getByLabel('Use Type as List').click();
       await expect(page.locator('.browser-helptext')).toHaveText('java.util.List<' + expectedSelection + '>');
     } else {

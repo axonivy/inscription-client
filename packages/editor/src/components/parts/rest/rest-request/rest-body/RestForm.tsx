@@ -11,13 +11,13 @@ import {
   TableFooter,
   TableHeader
 } from '../../../../widgets';
-import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEffect, useMemo, useState } from 'react';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { useRestResourceMeta } from '../../useRestResourceMeta';
-import type { RestParam} from './rest-parameter';
+import type { RestParam } from './rest-parameter';
 import { restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
 import { PathContext } from '../../../../../context';
 
@@ -51,7 +51,7 @@ export const RestForm = () => {
         accessorKey: 'expression',
         header: header => <SortableHeader header={header} name='Expression' />,
         cell: cell => (
-          <ScriptCell cell={cell} type={cell.row.original.type ?? IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'datatype', 'cms']} />
+          <ScriptCell cell={cell} type={cell.row.original.type ?? IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'type', 'cms']} />
         )
       }
     ],

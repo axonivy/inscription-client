@@ -11,7 +11,7 @@ export const RestJaxRsCode = () => {
       <ScriptArea
         value={config.code}
         onChange={change => update('code', change)}
-        browsers={['attr', 'func', 'datatype']}
+        browsers={['attr', 'func', 'type']}
         {...fieldset.inputProps}
       />
     </PathFieldset>

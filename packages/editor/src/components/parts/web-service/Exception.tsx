@@ -18,7 +18,7 @@ export const Exception = () => {
           value={config.exception.condition}
           onChange={change => updateException('condition', change)}
           type={IVY_SCRIPT_TYPES.BOOLEAN}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
           {...conditionFieldset.inputProps}
         />
       </PathFieldset>
@@ -27,7 +27,7 @@ export const Exception = () => {
           value={config.exception.message}
           onChange={change => updateException('message', change)}
           type={IVY_SCRIPT_TYPES.STRING}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
           {...messageFieldset.inputProps}
         />
       </PathFieldset>

@@ -42,13 +42,13 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
         data={config.result.map}
         variableInfo={variableInfo}
         onChange={change => update('map', change)}
-        browsers={['attr', 'func', 'datatype']}
+        browsers={['attr', 'func', 'type']}
       />
       <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
         <ScriptArea
           value={config.result.code}
           onChange={change => update('code', change)}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
           {...codeFieldset.inputProps}
         />
       </PathFieldset>

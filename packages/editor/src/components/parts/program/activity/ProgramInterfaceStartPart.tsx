@@ -1,6 +1,6 @@
 import type { ProgramInterfaceStartData } from '@axonivy/inscription-protocol';
 import { IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import type { PartProps} from '../../../editors';
+import type { PartProps } from '../../../editors';
 import { usePartDirty, usePartState } from '../../../editors';
 import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common';
 import { useProgramInterfaceStartData } from './useProgramInterfaceStartData';
@@ -51,7 +51,7 @@ const ProgramInterfaceStartPart = () => {
             value={config.timeout.seconds}
             onChange={change => updateTimeout('seconds', change)}
             type={IVY_SCRIPT_TYPES.DURATION}
-            browsers={['attr', 'func', 'datatype']}
+            browsers={['attr', 'func', 'type']}
             {...timeoutSecondsFieldset.inputProps}
           />
         </PathFieldset>

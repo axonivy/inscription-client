@@ -18,7 +18,7 @@ export const WsMapping = () => {
         onChange={change => updateOperation('parameters', change)}
         variableInfo={variableInfo}
         path='parameters'
-        browsers={['attr', 'func', 'datatype', 'cms']}
+        browsers={['attr', 'func', 'type', 'cms']}
       />
     </PathContext>
   );

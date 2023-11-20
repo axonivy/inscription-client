@@ -27,7 +27,7 @@ const OutputPart = (props: { showCode?: boolean; additionalBrowsers?: BrowserTyp
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'output' }, { variables: [], types: {} });
 
-  const browsers: BrowserType[] = ['attr', 'func', 'datatype', ...(props.additionalBrowsers ?? [])];
+  const browsers: BrowserType[] = ['attr', 'func', 'type', ...(props.additionalBrowsers ?? [])];
 
   const codeFieldset = useFieldset();
   return (

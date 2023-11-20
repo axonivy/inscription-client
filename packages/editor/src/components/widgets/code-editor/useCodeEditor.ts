@@ -25,7 +25,7 @@ export const useModifyEditor = (options?: { modifyAction?: ModifyAction; scriptA
       return;
     }
 
-    if (type === 'datatype' && options?.scriptAreaDatatypeEditor) {
+    if (type === 'type' && options?.scriptAreaDatatypeEditor) {
       const textWithLineBreak = 'import ' + value + ';\n';
       const parts = value.split('.');
       const shortValue = parts.length > 1 ? parts.pop() : value;

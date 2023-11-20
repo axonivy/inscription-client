@@ -49,13 +49,13 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
           data={config.input.map}
           variableInfo={variableInfo}
           onChange={change => update('map', change)}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
         />
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
           <ScriptArea
             value={config.input.code}
             onChange={change => update('code', change)}
-            browsers={['attr', 'func', 'datatype']}
+            browsers={['attr', 'func', 'type']}
             {...codeFieldset.inputProps}
           />
         </PathFieldset>

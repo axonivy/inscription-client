@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useAttributeBrowser } from './AttributeBrowser';
 import type { BrowserType, UseBrowserReturnValue } from './useBrowser';
 import { useFuncBrowser } from './FunctionBrowser';
-import { useDataTypeBrowser } from './DataTypeBrowser';
+import { useTypeBrowser } from './TypeBrowser';
 import { useTableColBrowser } from './TableColBrowser';
 import { useSqlOpBrowser } from './SqlOperationBrowser';
 import { useCatPathChooserBrowser } from './CatPathChooser';
@@ -37,12 +37,12 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
   const attrBrowser = useAttributeBrowser(onRowDoubleClick, location);
   const cmsBrowser = useCmsBrowser(onRowDoubleClick, cmsOptions);
   const funcBrowser = useFuncBrowser();
-  const dataTypeBrowser = useDataTypeBrowser(onRowDoubleClick);
+  const typeBrowser = useTypeBrowser(onRowDoubleClick);
   const catPathChooserBrowser = useCatPathChooserBrowser();
   const tableColBrowser = useTableColBrowser();
   const sqlOpBrowser = useSqlOpBrowser();
 
-  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, dataTypeBrowser, catPathChooserBrowser, tableColBrowser, sqlOpBrowser];
+  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, catPathChooserBrowser, tableColBrowser, sqlOpBrowser];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
 
