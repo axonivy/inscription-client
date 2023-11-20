@@ -62,5 +62,5 @@
 
 .select-menu-entry.selected {
   background: var(--A300);
-  color: var(--background);
+  color: var(--selected-row-text-color);
 }
