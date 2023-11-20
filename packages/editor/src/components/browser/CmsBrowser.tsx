@@ -57,7 +57,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
   const columns = useMemo<ColumnDef<ContentObject>[]>(
     () => [
       {
-        accessorFn: row => `${row.name} (${row.type})`,
+        accessorFn: row => row.name,
         id: 'name',
         cell: cell => {
           return (
@@ -65,6 +65,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
               cell={cell}
               title={cell.row.original.name}
               icon={cell.row.original.type === 'FOLDER' ? IvyIcons.GoToSource : undefined}
+              additionalInfo={cell.row.original.type}
             />
           );
         }
@@ -143,7 +144,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
     <>
       <div className='browser-table-header'>
         <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
-        <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Undo} />
+        <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
       </div>
       <Table
         search={{
