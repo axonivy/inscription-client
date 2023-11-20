@@ -7,7 +7,7 @@ const TaskCode = () => {
   return (
     <PathCollapsible label='Code' defaultOpen={task.code.length > 0} path='code'>
       <ValidationFieldset>
-        <ScriptArea value={task.code} onChange={change => update('code', change)} browsers={['attr', 'func', 'datatype']} />
+        <ScriptArea value={task.code} onChange={change => update('code', change)} browsers={['attr', 'func', 'type']} />
       </ValidationFieldset>
     </PathCollapsible>
   );

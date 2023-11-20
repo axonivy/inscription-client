@@ -35,7 +35,7 @@ export function EditableCell<TData>({ cell, disabled, withBrowser: propWithBrows
       {isFocusWithin || browser.open ? (
         <>
           <Input {...focusValue} value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />
-          <Browser {...browser} types={['datatype']} accept={change => setValue(change)} location={path} />
+          <Browser {...browser} types={['type']} accept={change => setValue(change)} location={path} />
         </>
       ) : (
         <Input value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />

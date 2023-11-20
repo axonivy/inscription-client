@@ -35,7 +35,7 @@ export const RestEntityTypeCombobox = ({ value, onChange, items, ...props }: Res
       value={value}
       onChange={onChange}
       items={typeItems}
-      browserTypes={['datatype']}
+      browserTypes={['type']}
       {...props}
       comboboxItem={item => <span>{item.label}</span>}
     />

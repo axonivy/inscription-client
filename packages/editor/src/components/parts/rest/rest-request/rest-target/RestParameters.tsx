@@ -1,7 +1,6 @@
 import { PathCollapsible, ValidationRow } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import type {
-  SelectItem} from '../../../../widgets';
+import type { SelectItem } from '../../../../widgets';
 import {
   ActionCell,
   EditableCell,
@@ -14,7 +13,7 @@ import {
   TableFooter,
   TableHeader
 } from '../../../../widgets';
-import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEffect, useMemo, useState } from 'react';
@@ -63,7 +62,7 @@ export const RestParameters = () => {
         accessorKey: 'expression',
         header: header => <SortableHeader header={header} name='Expression' />,
         cell: cell => (
-          <ScriptCell cell={cell} type={cell.row.original.type ?? IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'datatype', 'cms']} />
+          <ScriptCell cell={cell} type={cell.row.original.type ?? IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'type', 'cms']} />
         )
       }
     ],

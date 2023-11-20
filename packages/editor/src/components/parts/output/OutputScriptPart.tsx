@@ -25,7 +25,7 @@ const OutputScriptPart = () => {
         <ScriptArea
           value={config.output.code}
           onChange={change => update('code', change)}
-          browsers={['attr', 'func', 'datatype', 'cms']}
+          browsers={['attr', 'func', 'type', 'cms']}
           {...codeFieldset.inputProps}
         />
       </PathFieldset>

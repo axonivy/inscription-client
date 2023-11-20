@@ -1,13 +1,6 @@
-import type {
-  EventData,
-  IntermediateEventTimeoutAction
-} from '@axonivy/inscription-protocol';
-import {
-  EVENT_ACTION_TYPE,
-  IVY_EXCEPTIONS,
-  IVY_SCRIPT_TYPES
-} from '@axonivy/inscription-protocol';
-import type { PartProps} from '../../../editors';
+import type { EventData, IntermediateEventTimeoutAction } from '@axonivy/inscription-protocol';
+import { EVENT_ACTION_TYPE, IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
+import type { PartProps } from '../../../editors';
 import { usePartDirty, usePartState } from '../../../editors';
 import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common';
 import { ScriptInput, useFieldset, Radio } from '../../../widgets';
@@ -47,7 +40,7 @@ const EventPart = () => {
           value={config.eventId}
           onChange={change => update('eventId', change)}
           type={IVY_SCRIPT_TYPES.NUMBER}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
           {...eventIdFieldset.inputProps}
         />
       </PathFieldset>
@@ -58,7 +51,7 @@ const EventPart = () => {
             value={config.timeout.duration}
             onChange={change => updateTimeout('duration', change)}
             type={IVY_SCRIPT_TYPES.DURATION}
-            browsers={['attr', 'func', 'datatype']}
+            browsers={['attr', 'func', 'type']}
             {...timeoutDurationFieldset.inputProps}
           />
         </PathFieldset>

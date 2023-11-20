@@ -29,13 +29,13 @@ const WsResponsePart = () => {
           data={config.output.map}
           variableInfo={variableInfo}
           onChange={change => updateOutput('map', change)}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
         />
         <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
           <ScriptArea
             value={config.output.code}
             onChange={change => updateOutput('code', change)}
-            browsers={['attr', 'func', 'datatype']}
+            browsers={['attr', 'func', 'type']}
             {...codeFieldset.inputProps}
           />
         </PathFieldset>

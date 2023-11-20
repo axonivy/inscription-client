@@ -45,7 +45,7 @@ export const TableFields = () => {
       {
         accessorKey: 'expression',
         header: header => <SortableHeader header={header} name='Value' />,
-        cell: cell => <ScriptCell cell={cell} type={cell.row.original.ivyType} browsers={['attr', 'func', 'datatype', 'cms']} />
+        cell: cell => <ScriptCell cell={cell} type={cell.row.original.ivyType} browsers={['attr', 'func', 'type', 'cms']} />
       }
     ],
     []

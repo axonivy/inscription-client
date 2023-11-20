@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ValidationRow } from '../';
-import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import type {
-  ComboboxItem} from '../../../../components/widgets';
+import type { ComboboxItem } from '../../../../components/widgets';
 import {
   ActionCell,
   ComboCell,
@@ -48,7 +47,7 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
       {
         accessorKey: 'expression',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'datatype', 'cms']} />
+        cell: cell => <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'type', 'cms']} />
       }
     ],
     [knownPropertyItems]

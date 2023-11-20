@@ -1,7 +1,7 @@
-import type { PathCollapsibleProps} from '../common';
+import type { PathCollapsibleProps } from '../common';
 import { PathCollapsible, PathFieldset } from '../common';
 import { Radio, ScriptInput, useFieldset } from '../../../components/widgets';
-import type { CacheArtifact, CacheMode} from '@axonivy/inscription-protocol';
+import type { CacheArtifact, CacheMode } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import type { DataUpdater } from '../../../types/lambda';
 
@@ -23,7 +23,7 @@ export const CacheLifetime = ({ description, config, updater, cacheMode, ...prop
           value={config.name}
           onChange={change => updater('name', change)}
           type={IVY_SCRIPT_TYPES.STRING}
-          browsers={['attr', 'func', 'datatype', 'cms']}
+          browsers={['attr', 'func', 'type', 'cms']}
           {...cacheLifetimeFieldset.inputProps}
         />
       </PathFieldset>
@@ -44,7 +44,7 @@ export const CacheLifetime = ({ description, config, updater, cacheMode, ...prop
               value={config.time}
               onChange={change => updater('time', change)}
               type={config.invalidation === 'FIXED_TIME' ? IVY_SCRIPT_TYPES.TIME : IVY_SCRIPT_TYPES.NUMBER}
-              browsers={['attr', 'func', 'datatype', 'cms']}
+              browsers={['attr', 'func', 'type', 'cms']}
               {...timeFieldset.inputProps}
             />
           )}

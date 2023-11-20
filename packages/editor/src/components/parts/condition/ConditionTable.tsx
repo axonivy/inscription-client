@@ -1,7 +1,7 @@
 import { Button, ScriptCell, EditableCell, Table, TableCell, TableHeader } from '../../widgets';
 import { useCallback, useMemo } from 'react';
 import { Condition } from './condition';
-import type { CellContext, ColumnDef} from '@tanstack/react-table';
+import type { CellContext, ColumnDef } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
@@ -16,7 +16,7 @@ const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
 
 const ConditionExpressionCell = ({ cell, removeCell }: { cell: CellContext<Condition, unknown>; removeCell: (id: string) => void }) => {
   if (cell.row.original.target) {
-    return <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.BOOLEAN} browsers={['attr', 'func', 'datatype']} />;
+    return <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.BOOLEAN} browsers={['attr', 'func', 'type']} />;
   }
   return (
     <span style={{ display: 'flex' }}>

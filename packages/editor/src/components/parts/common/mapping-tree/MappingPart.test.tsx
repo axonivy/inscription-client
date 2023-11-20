@@ -59,7 +59,7 @@ describe('MappingPart', () => {
     let data = initData ?? { 'param.procurementRequest': 'in' };
     render(
       <MappingPart
-        browsers={['attr', 'func', 'datatype']}
+        browsers={['attr', 'func', 'type']}
         data={data}
         variableInfo={variableInfo}
         onChange={(change: Record<string, string>) => (data = change)}
@@ -176,7 +176,7 @@ describe('MappingPart', () => {
   });
 
   test('tree support readonly mode', async () => {
-    render(<MappingPart browsers={['attr', 'func', 'datatype']} data={{}} variableInfo={variableInfo} onChange={() => {}} />, {
+    render(<MappingPart browsers={['attr', 'func', 'type']} data={{}} variableInfo={variableInfo} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();

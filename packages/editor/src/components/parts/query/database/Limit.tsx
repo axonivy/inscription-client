@@ -19,7 +19,7 @@ export const Limit = () => {
           value={config.query.limit}
           onChange={change => update('limit', change)}
           type={IVY_SCRIPT_TYPES.NUMBER}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
           {...limitFieldset.inputProps}
         />
       </PathFieldset>
@@ -28,7 +28,7 @@ export const Limit = () => {
           value={config.query.offset}
           onChange={change => update('offset', change)}
           type={IVY_SCRIPT_TYPES.NUMBER}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
           {...offsetFieldset.inputProps}
         />
       </PathFieldset>

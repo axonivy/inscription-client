@@ -1,11 +1,10 @@
 import type { WfCustomField, CustomFieldConfigType } from '@axonivy/inscription-protocol';
 import { CUSTOM_FIELD_TYPE } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
-import type {
-  SelectItem} from '../../../../components/widgets';
+import type { SelectItem } from '../../../../components/widgets';
 import {
   EditableCell,
   SelectCell,
@@ -45,9 +44,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
       {
         accessorKey: 'value',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => (
-          <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} browsers={['attr', 'func', 'datatype', 'cms']} />
-        )
+        cell: cell => <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} browsers={['attr', 'func', 'type', 'cms']} />
       }
     ],
     [items]

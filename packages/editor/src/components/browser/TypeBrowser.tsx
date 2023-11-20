@@ -5,19 +5,19 @@ import type { ColumnDef, ExpandedState, FilterFn, RowSelectionState } from '@tan
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import { useEditorContext, useMeta } from '../../context';
 import type { JavaType } from '@axonivy/inscription-protocol';
-export const DATATYPE_BROWSER_ID = 'datatype' as const;
+export const TYPE_BROWSER_ID = 'type' as const;
 
-export const useDataTypeBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
-  const [value, setValue] = useState('datatype');
+export const useTypeBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
+  const [value, setValue] = useState('type');
   return {
-    id: DATATYPE_BROWSER_ID,
-    name: 'Datatype',
-    content: <DataTypeBrowser value={value} onChange={setValue} onDoubleClick={onDoubleClick} />,
+    id: TYPE_BROWSER_ID,
+    name: 'Type',
+    content: <TypeBrowser value={value} onChange={setValue} onDoubleClick={onDoubleClick} />,
     accept: () => value
   };
 };
 
-const DataTypeBrowser = (props: { value: string; onChange: (value: string) => void; onDoubleClick: () => void }) => {
+const TypeBrowser = (props: { value: string; onChange: (value: string) => void; onDoubleClick: () => void }) => {
   const { context } = useEditorContext();
 
   const [mainFilter, setMainFilter] = useState('');

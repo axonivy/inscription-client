@@ -3,7 +3,7 @@ import type { ATTRIBUTE_BROWSER_ID } from './AttributeBrowser';
 import type { CMS_BROWSER_ID } from './CmsBrowser';
 import type { Tab } from '../widgets';
 import type { FUNCTION_BROWSER_ID } from './FunctionBrowser';
-import type { DATATYPE_BROWSER_ID } from './DataTypeBrowser';
+import type { TYPE_BROWSER_ID } from './TypeBrowser';
 import type { TABLE_COL_BROWSER_ID } from './TableColBrowser';
 import type { SQL_OPERATION_BROWSER_ID } from './SqlOperationBrowser';
 import type { CAT_PATH_CHOOSER_BROWSER_ID } from './CatPathChooser';
@@ -12,7 +12,7 @@ export type BrowserType =
   | typeof ATTRIBUTE_BROWSER_ID
   | typeof CMS_BROWSER_ID
   | typeof FUNCTION_BROWSER_ID
-  | typeof DATATYPE_BROWSER_ID
+  | typeof TYPE_BROWSER_ID
   | typeof CAT_PATH_CHOOSER_BROWSER_ID
   | typeof TABLE_COL_BROWSER_ID
   | typeof SQL_OPERATION_BROWSER_ID;

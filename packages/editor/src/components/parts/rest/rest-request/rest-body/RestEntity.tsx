@@ -32,7 +32,7 @@ export const RestEntity = () => {
         </PathFieldset>
       )}
       <MappingPart
-        browsers={['attr', 'func', 'datatype']}
+        browsers={['attr', 'func', 'type']}
         data={config.body.entity.map}
         onChange={change => updateEntity('map', change)}
         variableInfo={variableInfo}
@@ -41,7 +41,7 @@ export const RestEntity = () => {
         <ScriptArea
           value={config.body.entity.code}
           onChange={change => updateEntity('code', change)}
-          browsers={['attr', 'func', 'datatype']}
+          browsers={['attr', 'func', 'type']}
           {...codeFieldset.inputProps}
         />
       </PathFieldset>
