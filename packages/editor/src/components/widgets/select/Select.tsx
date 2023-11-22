@@ -61,7 +61,7 @@ const Select = ({ value, onChange, items, inputProps, disabled }: SelectProps) =
           disabled={readonly || disabled}
         >
           <span>{selectedItem ? selectedItem.label : ''}</span>
-          <IvyIcon icon={IvyIcons.AngleDown} />
+          <IvyIcon icon={IvyIcons.Chevron} />
         </button>
       </div>
       <ul {...getMenuProps({ ref: selectMenuRef })} className='select-menu'>

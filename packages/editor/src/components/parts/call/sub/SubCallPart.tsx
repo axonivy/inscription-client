@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 import { useAction, useEditorContext, useMeta, useValidations } from '../../../../context';
-import type { PartProps} from '../../../editors';
+import type { PartProps } from '../../../editors';
 import { usePartDirty, usePartState } from '../../../editors';
 import type { CallData, VariableInfo, ProcessCallData } from '@axonivy/inscription-protocol';
 import CallMapping, { useCallPartValidation } from '../CallMapping';
 import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { FieldsetControl} from '../../../../components/widgets';
+import type { FieldsetControl } from '../../../../components/widgets';
 import { useFieldset } from '../../../../components/widgets';
 import { PathFieldset } from '../../common';
 
@@ -38,7 +38,7 @@ const SubCallPart = () => {
   );
 
   const action = useAction('newProcess');
-  const createProcess: FieldsetControl = { label: 'Create new Sub Process', icon: IvyIcons.Add, action: () => action() };
+  const createProcess: FieldsetControl = { label: 'Create new Sub Process', icon: IvyIcons.Plus, action: () => action() };
   const callField = useFieldset();
   return (
     <>

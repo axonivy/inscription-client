@@ -33,7 +33,7 @@ describe('Fieldset', () => {
     let btnTrigger = false;
     const action = () => (btnTrigger = true);
     const control1: FieldsetControl = { label: 'Btn1', icon: IvyIcons.ActivitiesGroup, action };
-    const control2: FieldsetControl = { label: 'Btn2', icon: IvyIcons.Add, action, active: true };
+    const control2: FieldsetControl = { label: 'Btn2', icon: IvyIcons.Plus, action, active: true };
 
     renderFieldset({ label: 'label', controls: [control1, control2] });
     const btn1 = screen.getByRole('button', { name: 'Btn1' });

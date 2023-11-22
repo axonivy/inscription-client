@@ -17,11 +17,11 @@ const ErrorEndEditor = memo(() => {
   const name = useGeneralPart();
   const error = useErrorThrowPart();
   const code = useScriptPart();
-  return <InscriptionEditor icon={IvyIcons.ErrorEvent} parts={[name, error, code]} />;
+  return <InscriptionEditor icon={IvyIcons.ErrorEnd} parts={[name, error, code]} />;
 });
 
 export const endEventEditors = new Map<ElementType, ReactNode>([
-  ['TaskEnd', <NameEditor icon={IvyIcons.End} />],
+  ['TaskEnd', <NameEditor icon={IvyIcons.ProcessEnd} />],
   ['TaskEndPage', <TaskEndPageEditor />],
   ['ErrorEnd', <ErrorEndEditor />]
 ]);

@@ -1,6 +1,6 @@
 import type { ScriptVariable } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
 import { EditableCell, Table, TableHeader, TableCell, ActionCell, TableFooter, TableAddRow, SortableHeader } from '../../../widgets';
@@ -95,7 +95,7 @@ const ParameterTable = ({ data, onChange, hideDesc }: ParameterTableProps) => {
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}
-            <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Delete, action: () => removeTableRow(row.index) }]} />
+            <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Trash, action: () => removeTableRow(row.index) }]} />
           </ValidationRow>
         ))}
       </tbody>

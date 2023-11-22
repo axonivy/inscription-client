@@ -43,7 +43,7 @@ const SubProcessCallEditor = memo(() => {
   const name = useGeneralPart();
   const call = useSubCallPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.Sub} parts={[name, call, output]} />;
+  return <InscriptionEditor icon={IvyIcons.SubActivities} parts={[name, call, output]} />;
 });
 
 const TriggerEditor = memo(() => {
@@ -57,7 +57,7 @@ export const workflowActivityEditors = new Map<ElementType, ReactNode>([
   ['DialogCall', <DialogCallEditor />],
   ['UserTask', <UserTaskEditor />],
   ['Script', <ScriptEditor />],
-  ['EmbeddedProcessElement', <NameEditor icon={IvyIcons.Sub} hideTags={true} />],
+  ['EmbeddedProcessElement', <NameEditor icon={IvyIcons.SubActivities} hideTags={true} />],
   ['SubProcessCall', <SubProcessCallEditor />],
   ['TriggerCall', <TriggerEditor />]
 ]);

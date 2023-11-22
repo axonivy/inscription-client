@@ -163,7 +163,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
               ))}
               {row.original.type === 'FOLDER' ? (
                 <ActionCell
-                  actions={[{ label: 'Create new CMS-String', icon: IvyIcons.Add, action: () => newAction(row.original.fullPath) }]}
+                  actions={[{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(row.original.fullPath) }]}
                 />
               ) : (
                 <TableCell> </TableCell>

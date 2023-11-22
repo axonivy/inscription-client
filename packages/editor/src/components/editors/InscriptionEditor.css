@@ -45,7 +45,7 @@ a {
   text-overflow: ellipsis;
 }
 .header-left .ivy {
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
 .header-right {
   display: flex;

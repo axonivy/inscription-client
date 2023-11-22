@@ -110,7 +110,7 @@ export const RestForm = () => {
                 actions={[
                   {
                     label: 'Remove row',
-                    icon: IvyIcons.Delete,
+                    icon: IvyIcons.Trash,
                     action: () => removeTableRow(row.index),
                     disabled: row.original.known
                   }

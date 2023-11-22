@@ -13,7 +13,7 @@ export const TableAddRow = (props: { colSpan: number; addRow: () => void }) => {
   return (
     <tr>
       <th colSpan={props.colSpan} className='add-row'>
-        <Button icon={IvyIcons.Add} onClick={props.addRow} disabled={readonly} aria-label='Add row' />
+        <Button icon={IvyIcons.Plus} onClick={props.addRow} disabled={readonly} aria-label='Add row' />
       </th>
     </tr>
   );

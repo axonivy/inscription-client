@@ -86,7 +86,7 @@ const MailAttachmentTable = () => {
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}
-            <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Delete, action: () => removeTableRow(row.index) }]} />
+            <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Trash, action: () => removeTableRow(row.index) }]} />
           </ValidationRow>
         ))}
       </tbody>

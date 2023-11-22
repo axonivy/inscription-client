@@ -20,7 +20,7 @@ export function SortableHeader<TData>(props: { header: HeaderContext<TData, unkn
         aria-label={`Sort by ${props.name}`}
         onClick={header.column.getToggleSortingHandler()}
         data-state={header.column.getIsSorted() || 'unsorted'}
-        icon={header.column.getIsSorted() ? IvyIcons.AngleDown : IvyIcons.Straighten}
+        icon={header.column.getIsSorted() ? IvyIcons.Chevron : IvyIcons.Straighten}
       />
     </div>
   );
@@ -31,7 +31,7 @@ export function ExpandableHeader<TData>(props: { header: HeaderContext<TData, un
   return (
     <div className='column-expand'>
       <Button
-        icon={IvyIcons.AngleDown}
+        icon={IvyIcons.Chevron}
         className='column-expand-button'
         aria-label={table.getIsAllRowsExpanded() ? 'Collapse tree' : 'Expand tree'}
         data-state={table.getIsAllRowsExpanded() ? 'expanded' : 'collapsed'}

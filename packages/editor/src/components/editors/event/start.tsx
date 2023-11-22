@@ -33,14 +33,14 @@ const SignalStartEventEditor = memo(() => {
   const name = useGeneralPart();
   const signal = useSignalCatchPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.Signal} parts={[name, signal, output]} />;
+  return <InscriptionEditor icon={IvyIcons.StartSignalOutline} parts={[name, signal, output]} />;
 });
 
 const ErrorStartEventEditor = memo(() => {
   const name = useGeneralPart();
   const error = useErrorCatchPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.ErrorEvent} parts={[name, error, output]} />;
+  return <InscriptionEditor icon={IvyIcons.ErrorStart} parts={[name, error, output]} />;
 });
 
 const ProgramStartEditor = memo(() => {

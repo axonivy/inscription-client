@@ -60,7 +60,7 @@ const ProgramInterfaceEditor = memo(() => {
   const name = useGeneralPart();
   const start = useProgramInterfaceStartPart();
   const configuration = useConfigurationPart();
-  return <InscriptionEditor icon={IvyIcons.Program} parts={[name, start, configuration]} />;
+  return <InscriptionEditor icon={IvyIcons.ProgramOutline} parts={[name, start, configuration]} />;
 });
 
 export const interfaceActivityEditors = new Map<ElementType, ReactNode>([

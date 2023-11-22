@@ -42,7 +42,7 @@ const ErrorThrowPart = () => {
           eventCode={config.throws.error}
           onChange={change => update('error', change)}
           eventCodes={errorCodes}
-          eventIcon={IvyIcons.ErrorEvent}
+          eventIcon={IvyIcons.Error}
           comboboxInputProps={errorField.inputProps}
         />
       </PathFieldset>

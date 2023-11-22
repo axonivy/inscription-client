@@ -10,14 +10,14 @@ const ErrorBoundaryEventEditor = memo(() => {
   const name = useGeneralPart();
   const error = useErrorCatchPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.ErrorEvent} parts={[name, error, output]} />;
+  return <InscriptionEditor icon={IvyIcons.ErrorStart} parts={[name, error, output]} />;
 });
 
 const SignalBoundaryEventEditor = memo(() => {
   const name = useGeneralPart();
   const signal = useSignalCatchPart({ makroSupport: true, withBrowser: true });
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.Signal} parts={[name, signal, output]} />;
+  return <InscriptionEditor icon={IvyIcons.StartSignalOutline} parts={[name, signal, output]} />;
 });
 
 export const boundaryEventEditors = new Map<ElementType, ReactNode>([

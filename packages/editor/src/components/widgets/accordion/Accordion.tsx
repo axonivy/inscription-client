@@ -38,7 +38,7 @@ type AccordionHeaderProps = {
 export const AccordionHeader = ({ title, control, children, isOpen }: AccordionHeaderProps) => (
   <Header className='accordion-header' title={title}>
     <Trigger className='accordion-trigger'>
-      <IvyIcon icon={IvyIcons.AngleDown} />
+      <IvyIcon icon={IvyIcons.Chevron} />
       {children}
     </Trigger>
     {isOpen && control && <Button icon={control.icon} onClick={control.action} aria-label={control.label} />}

@@ -3,7 +3,7 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
 import { splitMacroExpressions, splitNewLine } from '../../../utils/utils';
 import type { FieldsetInputProps } from '../fieldset';
-import type { ElementRef} from 'react';
+import type { ElementRef } from 'react';
 import { forwardRef } from 'react';
 
 export type CardTextProps = Partial<FieldsetInputProps> & {
@@ -15,7 +15,7 @@ const Card = ({ part }: { part: string }) => {
   return (
     <span className='card'>
       <span className='card-icon'>
-        <IvyIcon icon={IvyIcons.Program} />
+        <IvyIcon icon={IvyIcons.StartProgram} />
       </span>
       {text}
     </span>

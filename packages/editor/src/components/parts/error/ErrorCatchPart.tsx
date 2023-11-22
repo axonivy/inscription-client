@@ -1,11 +1,11 @@
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useFieldset } from '../../widgets';
 import { useErrorCatchData } from './useErrorCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { ErrorCatchData } from '@axonivy/inscription-protocol';
-import type { EventCodeItem} from '../common';
+import type { EventCodeItem } from '../common';
 import { EventCodeSelect, PathFieldset } from '../common';
 import { eventCodeInfo } from '../../../utils/event-code';
 
@@ -40,7 +40,7 @@ const ErrorCatchPart = () => {
         eventCode={config.errorCode}
         onChange={change => updateError(change)}
         eventCodes={errorCodes}
-        eventIcon={IvyIcons.ErrorEvent}
+        eventIcon={IvyIcons.Error}
         comboboxInputProps={errorField.inputProps}
       />
     </PathFieldset>

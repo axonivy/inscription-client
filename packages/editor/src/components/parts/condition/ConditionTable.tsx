@@ -21,7 +21,7 @@ const ConditionExpressionCell = ({ cell, removeCell }: { cell: CellContext<Condi
   return (
     <span style={{ display: 'flex' }}>
       <EditableCell cell={cell} />
-      <Button aria-label='Remove unknown condition' icon={IvyIcons.Delete} onClick={() => removeCell(cell.row.original.fid)} />
+      <Button aria-label='Remove unknown condition' icon={IvyIcons.Trash} onClick={() => removeCell(cell.row.original.fid)} />
     </span>
   );
 };

@@ -1,5 +1,5 @@
 import type { DataClass } from '@axonivy/inscription-protocol';
-import type { ComboboxItem, FieldsetInputProps} from '../../widgets';
+import type { ComboboxItem, FieldsetInputProps } from '../../widgets';
 import { Combobox, IvyIcon } from '../../widgets';
 import { IvyIcons } from '@axonivy/editor-icons';
 
@@ -17,7 +17,7 @@ const DataClassSelector = ({ dataClass, onChange, dataClasses, comboboxInputProp
     return (
       <>
         <div>
-          <IvyIcon icon={IvyIcons.DataModels} />
+          <IvyIcon icon={IvyIcons.DataClass} />
           {item.name}
         </div>
         {item.packageName && (
