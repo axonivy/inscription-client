@@ -141,7 +141,7 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
           <tbody>
             {!isFetching &&
               tableDynamic.getRowModel().rows.map(row => (
-                <SelectRow key={row.id} row={row}>
+                <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
