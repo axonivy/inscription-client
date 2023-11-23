@@ -1,5 +1,5 @@
 import { useAction, useEditorContext, useMeta } from '../../../../../context';
-import type { FieldsetControl, SelectItem} from '../../../../widgets';
+import type { FieldsetControl, SelectItem } from '../../../../widgets';
 import { Select, useFieldset } from '../../../../widgets';
 import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
@@ -19,7 +19,7 @@ export const RestClientSelect = () => {
   const openAction = useAction('openConfig');
   const controls: FieldsetControl[] = [
     { label: 'Open Rest config', icon: IvyIcons.GoToSource, action: () => openAction() },
-    { label: 'Create new Rest Client', icon: IvyIcons.Add, action: () => newAction() }
+    { label: 'Create new Rest Client', icon: IvyIcons.Plus, action: () => newAction() }
   ];
 
   const fieldset = useFieldset();

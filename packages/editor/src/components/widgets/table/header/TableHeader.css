@@ -13,15 +13,19 @@
 }
 
 .table .table-column-header .column-sort-button[data-state='unsorted'] {
-  transform: rotate(90deg);
+  transform: rotate(-90deg);
 }
 .table .table-column-header .column-sort-button[data-state='asc'] {
-  transform: rotate(180deg);
+  transform: rotate(90deg);
+}
+.table .table-column-header .column-sort-button[data-state='desc'] {
+  transform: rotate(-90deg);
 }
 
-.table .table-column-header .column-expand-button .ivy-angle-down {
+.table .table-column-header .column-expand-button .ivy-chevron {
+  transform: rotate(90deg);
   transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
 }
-.table .table-column-header .column-expand-button[data-state='collapsed'] .ivy-angle-down {
-  transform: rotate(-90deg);
+.table .table-column-header .column-expand-button[data-state='collapsed'] .ivy-chevron {
+  transform: rotate(0deg);
 }

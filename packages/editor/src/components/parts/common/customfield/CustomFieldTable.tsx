@@ -113,7 +113,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
             ))}
             <ActionCell
               actions={[
-                { label: 'Remove row', icon: IvyIcons.Delete, action: () => removeTableRow(row.index) },
+                { label: 'Remove row', icon: IvyIcons.Trash, action: () => removeTableRow(row.index) },
                 {
                   label: 'Open custom field configuration',
                   icon: IvyIcons.GoToSource,

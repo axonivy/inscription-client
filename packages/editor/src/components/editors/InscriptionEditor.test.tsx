@@ -15,7 +15,7 @@ describe('Editor', () => {
       { name: 'Call', content: <h1>Call</h1>, reset: { dirty: false, action: () => {} }, state: { state: 'empty', validations: [] } },
       { name: 'Result', content: <ErrorWidget />, reset: { dirty: false, action: () => {} }, state: { state: 'empty', validations: [] } }
     ];
-    render(<InscriptionEditor icon={IvyIcons.Add} parts={parts} />, {
+    render(<InscriptionEditor icon={IvyIcons.Plus} parts={parts} />, {
       wrapperProps: { validations: options.headerState, editor: { title: 'Test Editor' } }
     });
   }

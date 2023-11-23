@@ -35,7 +35,7 @@ export function ExpandableCell<TData>({
       {row.getCanExpand() ? (
         <>
           <Button
-            icon={IvyIcons.AngleDown}
+            icon={IvyIcons.Chevron}
             className='row-expand-button'
             aria-label={row.getIsExpanded() ? 'Collapse row' : 'Expand row'}
             data-state={row.getIsExpanded() ? 'expanded' : 'collapsed'}
@@ -44,7 +44,7 @@ export function ExpandableCell<TData>({
           {icon && <IvyIcon icon={icon} />}
         </>
       ) : isLoaded === false ? (
-        <Button icon={IvyIcons.AngleDown} className='row-expand-button' aria-label='Expand row' onClick={onClick} data-state='collapsed' />
+        <Button icon={IvyIcons.Chevron} className='row-expand-button' aria-label='Expand row' onClick={onClick} data-state='collapsed' />
       ) : isUnknown === true ? (
         '⛔'
       ) : (

@@ -6,5 +6,5 @@ import NameEditor from '../NameEditor';
 
 export const embeddedEventEditors = new Map<ElementType, ReactNode>([
   ['EmbeddedStart', <NameEditor icon={IvyIcons.Start} />],
-  ['EmbeddedEnd', <NameEditor icon={IvyIcons.End} />]
+  ['EmbeddedEnd', <NameEditor icon={IvyIcons.ProcessEnd} />]
 ]);

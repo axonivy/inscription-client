@@ -19,11 +19,12 @@
   width: unset;
   white-space: nowrap;
 }
-.collapsible-root .collapsible-trigger .ivy-angle-down {
+.collapsible-root .collapsible-trigger .ivy-toggle {
+  font-size: 20px;
   transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
 }
-.collapsible-root .collapsible-trigger[data-state='closed'] .ivy-angle-down {
-  transform: rotate(-90deg);
+.collapsible-root .collapsible-trigger[data-state='open'] .ivy-toggle {
+  transform: rotate(90deg);
 }
 
 .collapsible-root .collapsible-content {

@@ -32,5 +32,5 @@ export const htmlDialogEventEditors = new Map<ElementType, ReactNode>([
   ['HtmlDialogMethodStart', <HtmlDialogMethodStartEditor />],
   ['HtmlDialogEventStart', <HtmlDialogEventStartEditor />],
   ['HtmlDialogExit', <NameEditor icon={IvyIcons.ExitEnd} />],
-  ['HtmlDialogEnd', <NameEditor icon={IvyIcons.End} />]
+  ['HtmlDialogEnd', <NameEditor icon={IvyIcons.ProcessEnd} />]
 ]);

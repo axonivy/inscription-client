@@ -50,7 +50,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>
-          <Button icon={IvyIcons.WsEvent} aria-label='Browser' />
+          <Button icon={IvyIcons.ListSearch} aria-label='Browser' />
         </DialogTrigger>
         <DialogPortal container={editorRef.current}>
           <DialogContent className={`browser-dialog ${!open ? 'browser-content-exit' : ''}`}>

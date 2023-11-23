@@ -1,5 +1,5 @@
 import { useAction, useEditorContext, useMeta } from '../../../context';
-import type { FieldsetControl, SelectItem} from '../../../components/widgets';
+import type { FieldsetControl, SelectItem } from '../../../components/widgets';
 import { Select, useFieldset } from '../../../components/widgets';
 import { PathFieldset } from '../common';
 import { useWsRequestData } from './useWsRequestData';
@@ -17,7 +17,7 @@ export const WsClientSelect = () => {
   const newAction = useAction('newWebServiceClient');
   const openAction = useAction('openConfig');
   const openWsConfig: FieldsetControl = { label: 'Open WebService config', icon: IvyIcons.GoToSource, action: () => openAction() };
-  const createWsClient: FieldsetControl = { label: 'Create new WebService Client', icon: IvyIcons.Add, action: () => newAction() };
+  const createWsClient: FieldsetControl = { label: 'Create new WebService Client', icon: IvyIcons.Plus, action: () => newAction() };
 
   const fieldset = useFieldset();
   return (

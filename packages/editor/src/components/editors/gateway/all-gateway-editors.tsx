@@ -9,19 +9,19 @@ import { useCasePart, useConditionPart, useEndPagePart, useMultiTasksPart, useGe
 const AlternativeEditor = memo(() => {
   const name = useGeneralPart();
   const condition = useConditionPart();
-  return <InscriptionEditor icon={IvyIcons.Alternative} parts={[name, condition]} />;
+  return <InscriptionEditor icon={IvyIcons.AlternativeGateways} parts={[name, condition]} />;
 });
 
 const JoinEditor = memo(() => {
   const name = useGeneralPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.Join} parts={[name, output]} />;
+  return <InscriptionEditor icon={IvyIcons.JoinGateways} parts={[name, output]} />;
 });
 
 const SplitEditor = memo(() => {
   const name = useGeneralPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.Split} parts={[name, output]} />;
+  return <InscriptionEditor icon={IvyIcons.JoinGateways} parts={[name, output]} />;
 });
 
 const TaskSwitchGatewayEditor = memo(() => {
@@ -30,7 +30,7 @@ const TaskSwitchGatewayEditor = memo(() => {
   const multiTasks = useMultiTasksPart();
   const casePart = useCasePart();
   const endPage = useEndPagePart();
-  return <InscriptionEditor icon={IvyIcons.Tasks} parts={[name, output, multiTasks, casePart, endPage]} />;
+  return <InscriptionEditor icon={IvyIcons.JoinTasksGateways} parts={[name, output, multiTasks, casePart, endPage]} />;
 });
 
 export const gatewayEditors = new Map<ElementType, ReactNode>([

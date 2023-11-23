@@ -14,11 +14,12 @@
   display: flex;
   align-items: center;
 }
-.combobox-input .combobox-button .ivy-angle-down {
+.combobox-input .combobox-button .ivy-chevron {
+  transform: rotate(-90deg);
   transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
 }
-.combobox-input .combobox-button[aria-expanded='true'] .ivy-angle-down {
-  transform: rotate(180deg);
+.combobox-input .combobox-button[aria-expanded='true'] .ivy-chevron {
+  transform: rotate(90deg);
 }
 .combobox-menu {
   overflow: auto;
