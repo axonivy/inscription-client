@@ -50,7 +50,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
             {...keyboardProps}
             disabled={editorContext.readonly}
           >
-            <IvyIcon icon={IvyIcons.Add} rotate={45} />
+            <IvyIcon icon={IvyIcons.Close} />
           </button>
           <span>{tag}</span>
         </div>
@@ -58,7 +58,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
       <Popover.Root open={isOpen} onOpenChange={handleAddPopoverChange}>
         <Popover.Trigger asChild>
           <button className='tag tag-add' aria-label='Add new tag' disabled={editorContext.readonly}>
-            <IvyIcon icon={IvyIcons.Add} />
+            <IvyIcon icon={IvyIcons.Plus} />
             <span>Add</span>
           </button>
         </Popover.Trigger>
@@ -68,7 +68,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
               <Input value={newTag} {...keyboardProps} onChange={change => setNewTag(change)} {...tagFieldset.inputProps} />
             </Fieldset>
             <Popover.Close className='popover-close' aria-label='Close'>
-              <IvyIcon icon={IvyIcons.Add} rotate={45} />
+              <IvyIcon icon={IvyIcons.Close} />
             </Popover.Close>
             <Popover.Arrow className='popover-arrow' />
           </Popover.Content>

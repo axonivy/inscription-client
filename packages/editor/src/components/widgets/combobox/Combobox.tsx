@@ -1,5 +1,5 @@
 import { useCombobox } from 'downshift';
-import type { ComponentProps, ReactNode} from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
 import './Combobox.css';
 import { usePath, useReadonly } from '../../../context';
@@ -7,7 +7,7 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import Button from '../button/Button';
 import { SingleLineCodeEditor } from '../code-editor';
 import { useModifyEditor } from '../code-editor/useCodeEditor';
-import type { BrowserType} from '../../../components/browser';
+import type { BrowserType } from '../../../components/browser';
 import { Browser, useBrowser } from '../../../components/browser';
 import { CardText } from '../output/CardText';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
@@ -111,7 +111,7 @@ const Combobox = <T extends ComboboxItem>({
         <Button
           className='combobox-button'
           {...getToggleButtonProps()}
-          icon={IvyIcons.AngleDown}
+          icon={IvyIcons.Chevron}
           aria-label='toggle menu'
           disabled={readonly}
         />

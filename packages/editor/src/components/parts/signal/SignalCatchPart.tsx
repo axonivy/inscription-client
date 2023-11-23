@@ -42,7 +42,7 @@ const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean
           eventCode={config.signalCode}
           onChange={change => updateSignal(change)}
           eventCodes={signalCodes}
-          eventIcon={IvyIcons.Signal}
+          eventIcon={IvyIcons.StartSignal}
           comboboxInputProps={signalField.inputProps}
           withBrowser={withBrowser}
         />

@@ -24,12 +24,13 @@
 .select-button:focus-visible {
   border: var(--activ-border);
 }
-.select-button .ivy-angle-down {
+.select-button .ivy-chevron {
   font-size: 16px;
+  transform: rotate(-90deg);
   transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
 }
-.select-button[aria-expanded='true'] .ivy-angle-down {
-  transform: rotate(180deg);
+.select-button[aria-expanded='true'] .ivy-chevron {
+  transform: rotate(90deg);
 }
 .select-menu {
   overflow: auto;

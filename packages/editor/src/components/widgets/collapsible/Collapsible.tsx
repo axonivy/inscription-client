@@ -1,5 +1,5 @@
 import { Collapsible as CollapsibleRoot, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
 import './Collapsible.css';
 import { IvyIcons } from '@axonivy/editor-icons';
@@ -25,7 +25,7 @@ const Collapsible = ({ label, defaultOpen, message, children, autoClosable }: Co
       <div className='collapsible-header'>
         <CollapsibleTrigger asChild className='collapsible-trigger button'>
           <button>
-            <IvyIcon icon={IvyIcons.AngleDown} />
+            <IvyIcon icon={IvyIcons.Toggle} />
             {label}
           </button>
         </CollapsibleTrigger>

@@ -1,6 +1,6 @@
 import type { Document } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { ColumnDef, SortingState} from '@tanstack/react-table';
+import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
 import {
@@ -96,7 +96,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
             ))}
             <ActionCell
               actions={[
-                { label: 'Remove row', icon: IvyIcons.Delete, action: () => removeTableRow(row.index) },
+                { label: 'Remove row', icon: IvyIcons.Trash, action: () => removeTableRow(row.index) },
                 { label: 'Browse', icon: IvyIcons.Search, action: () => {} },
                 { label: 'Open URL', icon: IvyIcons.GoToSource, action: () => action(row.original.url) }
               ]}

@@ -1,8 +1,7 @@
 import type { IvyIcons } from '@axonivy/editor-icons';
-import type { Severity } from '@axonivy/inscription-protocol';
 
 export type IvyIconProps = {
-  icon: IvyIcons | Severity;
+  icon: IvyIcons;
   rotate?: 45 | 90 | 180 | 270;
 };
 

@@ -7,7 +7,7 @@ import { Fieldset, useFieldset } from '../../fieldset';
 import { useEditorContext, usePath } from '../../../../context';
 import { Input } from '../../input';
 import { SingleLineCodeEditor } from '../../code-editor';
-import type { BrowserType} from '../../../browser';
+import type { BrowserType } from '../../../browser';
 import { Browser, useBrowser } from '../../../browser';
 import { useModifyEditor } from '../../code-editor/useCodeEditor';
 import IvyIcon from '../../IvyIcon';
@@ -90,7 +90,7 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers }: CodeEdito
                 </div>
               </Fieldset>
               <PopoverClose className='popover-close' aria-label='Close' ref={closeRef}>
-                <IvyIcon icon={IvyIcons.Add} rotate={45} />
+                <IvyIcon icon={IvyIcons.Close} />
               </PopoverClose>
               <PopoverArrow className='popover-arrow' />
             </PopoverContent>

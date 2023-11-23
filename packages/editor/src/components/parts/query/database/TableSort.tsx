@@ -146,7 +146,7 @@ export const TableSort = () => {
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}
-              <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Delete, action: () => removeRow(row.index) }]} />
+              <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Trash, action: () => removeRow(row.index) }]} />
             </ReorderRow>
           ))}
         </tbody>

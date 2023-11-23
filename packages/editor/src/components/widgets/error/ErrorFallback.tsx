@@ -17,7 +17,7 @@ const ErrorFallback = (props: FallbackProps) => {
       </div>
       <div className='error-fallback-data'>
         <h5>
-          <IvyIcon icon={IvyIcons.Information} />
+          <IvyIcon icon={IvyIcons.InfoCircle} />
           Data:
         </h5>
         <pre>{JSON.stringify(data, null, 2)}</pre>

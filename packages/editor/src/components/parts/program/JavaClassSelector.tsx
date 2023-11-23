@@ -1,4 +1,4 @@
-import type { ComboboxItem, FieldsetControl} from '../../../components/widgets';
+import type { ComboboxItem, FieldsetControl } from '../../../components/widgets';
 import { Combobox, useFieldset } from '../../../components/widgets';
 import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { Consumer } from '../../../types/lambda';
@@ -25,7 +25,7 @@ const JavaClassSelector = ({ javaClass, onChange, type }: JavaClassSelectorProps
     icon: IvyIcons.GoToSource,
     action: () => openAction(javaClass)
   };
-  const createJavaClass: FieldsetControl = { label: 'Create new Java Class', icon: IvyIcons.Add, action: () => newAction() };
+  const createJavaClass: FieldsetControl = { label: 'Create new Java Class', icon: IvyIcons.Plus, action: () => newAction() };
 
   const javaClassField = useFieldset();
 
