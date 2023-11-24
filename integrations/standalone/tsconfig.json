@@ -5,8 +5,7 @@
     "jsx": "preserve",
     "rootDir": ".",
     "rootDirs": ["src", "tests"],
-    "outDir": "lib",
-    "baseUrl": "."
+    "outDir": "lib"
   },
   "include": ["src", "tests"],
   "exclude": ["**/playwright.config.ts"],
