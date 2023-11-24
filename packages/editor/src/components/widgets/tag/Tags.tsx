@@ -63,7 +63,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
           </button>
         </Popover.Trigger>
         <Popover.Portal container={editorContext.editorRef.current}>
-          <Popover.Content className='popover-content' sideOffset={5}>
+          <Popover.Content className='popover-content' sideOffset={5} collisionBoundary={editorContext.editorRef.current}>
             <Fieldset label='New Tag' {...tagFieldset.labelProps}>
               <Input value={newTag} {...keyboardProps} onChange={change => setNewTag(change)} {...tagFieldset.inputProps} />
             </Fieldset>
