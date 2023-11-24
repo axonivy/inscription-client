@@ -1,7 +1,7 @@
 import type { DeepPartial} from 'test-utils';
 import { renderHook } from 'test-utils';
 import type { ElementData, StartData } from '@axonivy/inscription-protocol';
-import { useStartData } from './useStartData';
+import { useStartData } from './useStartData.js';
 
 describe('useStartData', () => {
   function renderDataHook(startData: StartData, options?: { name?: string; synchParams?: boolean }) {

@@ -1,6 +1,6 @@
-import { PathContext, useEditorContext, useMeta } from '../../../context';
-import { MappingPart } from '../common';
-import { useWsRequestData } from './useWsRequestData';
+import { useMeta, PathContext, useEditorContext } from '../../../context/index.js';
+import { MappingPart } from '../common/index.js';
+import { useWsRequestData } from './useWsRequestData.js';
 
 export const WsMapping = () => {
   const { config, updateOperation } = useWsRequestData();

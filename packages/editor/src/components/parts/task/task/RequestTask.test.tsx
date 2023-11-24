@@ -1,6 +1,6 @@
 import type { WfTask } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
-import RequestTask from './RequestTask';
+import RequestTask from './RequestTask.js';
 
 describe('RequestTask', () => {
   function renderTask(data?: Partial<WfTask>) {
@@ -12,7 +12,7 @@ describe('RequestTask', () => {
     expect(screen.queryByText('Responsible')).not.toBeInTheDocument();
 
     const optionCollapse = screen.getByRole('button', { name: /Option/ });
-    await userEvent.click(optionCollapse);
+    await userEvent.default.click(optionCollapse);
 
     expect(screen.getByText(/Persist/)).toBeInTheDocument();
     expect(screen.queryByText('Skip Tasklist')).not.toBeInTheDocument();

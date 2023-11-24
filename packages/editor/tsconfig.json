@@ -3,8 +3,9 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
+    "baseUrl": ".",
     "paths": {
-      "test-utils": ["./src/test-utils/test-utils"]
+      "test-utils": ["./src/test-utils/test-utils.js"]
     }
   },
   "include": ["src"],

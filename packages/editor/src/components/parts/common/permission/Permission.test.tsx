@@ -1,5 +1,5 @@
 import { CollapsableUtil, SelectUtil, render, screen } from 'test-utils';
-import { Permission } from './Permission';
+import { Permission } from './Permission.js';
 
 const defaultConfig = { anonymous: true, error: 'Everybody', role: 'ivy:security:forbidden' };
 

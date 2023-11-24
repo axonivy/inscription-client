@@ -3,8 +3,8 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
-import { useSignalCatchPart, useGeneralPart, useOutputPart, useErrorCatchPart } from '../../../components/parts';
+import InscriptionEditor from '../InscriptionEditor.js';
+import { useSignalCatchPart, useGeneralPart, useOutputPart, useErrorCatchPart } from '../../../components/parts/index.js';
 
 const ErrorBoundaryEventEditor = memo(() => {
   const name = useGeneralPart();

@@ -1,4 +1,4 @@
-import ExpiryPart from './ExpiryPart';
+import ExpiryPart from './ExpiryPart.js';
 import { render, screen, SelectUtil, userEvent } from 'test-utils';
 import type { WfExpiry } from '@axonivy/inscription-protocol';
 
@@ -10,7 +10,7 @@ describe('ExpiryPart', () => {
   test('expiry part only render empty timeout input', async () => {
     renderExpiryPart();
     const expiryCollapse = screen.getByRole('button', { name: /Expiry/ });
-    await userEvent.click(expiryCollapse);
+    await userEvent.default.click(expiryCollapse);
 
     expect(screen.getByLabelText('Timeout')).toHaveValue('');
     expect(screen.queryByText('Responsible')).not.toBeInTheDocument();

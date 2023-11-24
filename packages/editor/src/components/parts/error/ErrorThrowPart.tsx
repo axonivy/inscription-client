@@ -1,14 +1,14 @@
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { ScriptInput, useFieldset } from '../../widgets';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { ScriptInput, useFieldset } from '../../widgets/index.js';
+import { useMeta, PathContext, useEditorContext, useValidations } from '../../../context/index.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { ErrorThrowData } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import type { EventCodeItem } from '../common';
-import { EventCodeSelect, PathFieldset } from '../common';
-import { useErrorThrowData } from './useErrorThrowData';
-import { eventCodeInfo } from '../../../utils/event-code';
+import type { EventCodeItem } from '../common/index.js';
+import { EventCodeSelect, PathFieldset } from '../common/index.js';
+import { useErrorThrowData } from './useErrorThrowData.js';
+import { eventCodeInfo } from '../../../utils/event-code.js';
 
 export function useErrorThrowPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useErrorThrowData();

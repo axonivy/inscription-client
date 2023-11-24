@@ -1,5 +1,5 @@
 import { CollapsableUtil, TableUtil, render, screen } from 'test-utils';
-import { TableFields } from './TableFields';
+import { TableFields } from './TableFields.js';
 
 describe('TableFields', () => {
   const renderTable = async (fields: Record<string, string>) => {

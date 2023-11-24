@@ -1,5 +1,5 @@
 import { render, screen } from 'test-utils';
-import SummaryFieldset from './SummaryFieldset';
+import SummaryFieldset from './SummaryFieldset.js';
 
 describe('SummaryFieldset', () => {
   function renderFieldset(data: string, weight?: 'normal' | 'bold') {

@@ -10,7 +10,7 @@ import type {
   RoleMeta,
   VariableInfo,
   Variable
-} from './inscription';
+} from './inscription.js';
 
 export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',

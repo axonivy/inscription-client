@@ -1,11 +1,11 @@
-import { Button, ScriptCell, EditableCell, Table, TableCell, TableHeader } from '../../widgets';
+import { Button, ScriptCell, EditableCell, Table, TableCell, TableHeader } from '../../widgets/index.js';
 import { useCallback, useMemo } from 'react';
-import { Condition } from './condition';
+import { Condition } from './condition.js';
 import type { CellContext, ColumnDef } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { ValidationReorderRow } from '../common';
+import { ValidationReorderRow } from '../common/index.js';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {

@@ -1,4 +1,4 @@
-import { eventCodeInfo } from './event-code';
+import { eventCodeInfo } from './event-code.js';
 
 describe('event code info', () => {
   test('info', () => {

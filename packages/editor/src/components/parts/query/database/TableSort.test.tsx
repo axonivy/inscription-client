@@ -1,5 +1,5 @@
 import { CollapsableUtil, SelectUtil, TableUtil, render } from 'test-utils';
-import { TableSort } from './TableSort';
+import { TableSort } from './TableSort.js';
 
 describe('TableSort', () => {
   test('empty', async () => {

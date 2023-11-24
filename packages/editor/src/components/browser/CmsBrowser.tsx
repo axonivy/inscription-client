@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useState } from 'react';
-import { ActionCell, Button, Checkbox, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../widgets';
-import type { UseBrowserImplReturnValue } from './useBrowser';
-import { useAction, useEditorContext, useMeta } from '../../context';
+import { ActionCell, Button, Checkbox, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../widgets/index.js';
+import type { UseBrowserImplReturnValue } from './useBrowser.js';
+import { useMeta, useAction, useEditorContext } from '../../context/index.js';
 import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, VisibilityState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';

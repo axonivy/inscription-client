@@ -1,7 +1,7 @@
-import './SelectCell.css';
+import './SelectCell.js';
 import type { CellContext, RowData } from '@tanstack/react-table';
-import type { SelectItem } from '../../select/Select';
-import Select from '../../select/Select';
+import type { SelectItem } from '../../select/Select.js';
+import Select from '../../select/Select.js';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

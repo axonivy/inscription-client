@@ -1,16 +1,16 @@
-import './CodeEditorCell.css';
+import './CodeEditorCell.js';
 import '../../popover/Popover.css';
 import type { CellContext, RowData } from '@tanstack/react-table';
 import { useEffect, useRef, useState } from 'react';
 import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover';
-import { Fieldset, useFieldset } from '../../fieldset';
-import { useEditorContext, usePath } from '../../../../context';
-import { Input } from '../../input';
-import { SingleLineCodeEditor } from '../../code-editor';
-import type { BrowserType } from '../../../browser';
-import { Browser, useBrowser } from '../../../browser';
-import { useModifyEditor } from '../../code-editor/useCodeEditor';
-import IvyIcon from '../../IvyIcon';
+import { Fieldset, useFieldset } from '../../fieldset/index.js';
+import { useEditorContext, usePath } from '../../../../context/index.js';
+import { Input } from '../../input/index.js';
+import { SingleLineCodeEditor } from '../../code-editor/index.js';
+import type { BrowserType } from '../../../browser/index.js';
+import { Browser, useBrowser } from '../../../browser/index.js';
+import { useModifyEditor } from '../../code-editor/useCodeEditor.js';
+import IvyIcon from '../../IvyIcon.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 declare module '@tanstack/react-table' {

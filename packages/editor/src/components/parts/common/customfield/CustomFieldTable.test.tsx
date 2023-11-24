@@ -1,5 +1,5 @@
 import type { WfCustomField } from '@axonivy/inscription-protocol';
-import CustomFieldTable from './CustomFieldTable';
+import CustomFieldTable from './CustomFieldTable.js';
 import { render, screen, userEvent, TableUtil } from 'test-utils';
 
 describe('CustomFieldTable', () => {
@@ -29,10 +29,10 @@ describe('CustomFieldTable', () => {
   test('table can sort columns', async () => {
     renderTable();
     const columnHeader = screen.getByRole('button', { name: 'Sort by Name' });
-    await userEvent.click(columnHeader);
+    await userEvent.default.click(columnHeader);
     TableUtil.assertRows([/field1/, /number/]);
 
-    await userEvent.click(columnHeader);
+    await userEvent.default.click(columnHeader);
     TableUtil.assertRows([/number/, /field1/]);
   });
 
@@ -54,13 +54,13 @@ describe('CustomFieldTable', () => {
   test('table can edit cells', async () => {
     const view = renderTable();
     const field1 = screen.getByDisplayValue(/field1/);
-    await userEvent.clear(field1);
-    await userEvent.type(field1, 'Hello[Tab]');
+    await userEvent.default.clear(field1);
+    await userEvent.default.type(field1, 'Hello[Tab]');
     view.rerender();
 
     const type = screen.getAllByRole('combobox')[1];
-    await userEvent.click(type);
-    await userEvent.keyboard('[ArrowDown][Enter]');
+    await userEvent.default.click(type);
+    await userEvent.default.keyboard('[ArrowDown][Enter]');
 
     expect(view.data()).toEqual([
       { name: 'Hello', type: 'STRING', value: 'this is a string' },

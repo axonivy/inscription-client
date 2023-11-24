@@ -1,4 +1,4 @@
-import Task from './Task';
+import Task from './Task.js';
 import type { WfTask } from '@axonivy/inscription-protocol';
 import { CollapsableUtil, render, screen, SelectUtil, userEvent } from 'test-utils';
 
@@ -33,7 +33,7 @@ describe('Task', () => {
     expect(SelectUtil.select({ label: 'Responsible' })).toBeInTheDocument();
 
     const optionCollapse = screen.getByRole('button', { name: /Option/ });
-    await userEvent.click(optionCollapse);
+    await userEvent.default.click(optionCollapse);
 
     expect(screen.getByText('Skip Tasklist')).toBeInTheDocument();
     expect(screen.getByText('Delay')).toBeInTheDocument();
@@ -48,7 +48,7 @@ describe('Task', () => {
       responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: 'bla' },
       priority: { level: 'EXCEPTION', script: '' },
       skipTasklist: true,
-      notification: {suppress: true},
+      notification: { suppress: true },
       delay: 'delay',
       customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }],
       code: 'code'

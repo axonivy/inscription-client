@@ -1,5 +1,5 @@
-import type { SelectItem } from './Select';
-import Select from './Select';
+import type { SelectItem } from './Select.js';
+import Select from './Select.js';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('Select', () => {
@@ -13,7 +13,7 @@ describe('Select', () => {
     rerender: () => void;
   } {
     let value = items[0];
-    userEvent.setup();
+    userEvent.default.setup();
     const view = render(<Select items={items} value={items[0]} onChange={(change: SelectItem) => (value = change)} />);
     return {
       data: () => value,
@@ -28,14 +28,14 @@ describe('Select', () => {
     expect(select).toHaveTextContent('label');
     expect(selectMenu).toBeEmptyDOMElement();
 
-    await userEvent.click(select);
+    await userEvent.default.click(select);
     expect(select).toHaveTextContent('label');
     expect(selectMenu).not.toBeEmptyDOMElement();
     expect(screen.getAllByRole('option')).toHaveLength(2);
     expect(screen.getByRole('option', { name: 'label' })).toHaveClass('hover', 'selected');
     expect(screen.getByRole('option', { name: 'test' })).not.toHaveClass('hover', 'selected');
 
-    await userEvent.click(select);
+    await userEvent.default.click(select);
     expect(select).toHaveTextContent('label');
     expect(selectMenu).toBeEmptyDOMElement();
   });
@@ -47,9 +47,9 @@ describe('Select', () => {
     expect(select).toHaveTextContent(/label/);
     expect(view.data().value).toEqual('value');
 
-    await userEvent.click(select);
+    await userEvent.default.click(select);
     expect(screen.getAllByRole('option')).toHaveLength(2);
-    await userEvent.click(screen.getByRole('option', { name: 'test' }));
+    await userEvent.default.click(screen.getByRole('option', { name: 'test' }));
     expect(selectMenu).toBeEmptyDOMElement();
     view.rerender();
     expect(select).toHaveTextContent(/test/);
@@ -60,28 +60,28 @@ describe('Select', () => {
     const view = renderSelect();
     const select = screen.getByRole('combobox');
     const selectMenu = screen.getByRole('listbox');
-    await userEvent.keyboard('[Tab]');
+    await userEvent.default.keyboard('[Tab]');
     expect(select).toHaveFocus();
     expect(selectMenu).toBeEmptyDOMElement();
 
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
     expect(selectMenu).not.toBeEmptyDOMElement();
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
     expect(selectMenu).toBeEmptyDOMElement();
-    await userEvent.keyboard('[Space]');
+    await userEvent.default.keyboard('[Space]');
     expect(selectMenu).not.toBeEmptyDOMElement();
 
     const option1 = screen.getByRole('option', { name: 'label' });
     const option2 = screen.getByRole('option', { name: 'test' });
     expect(option1).toHaveClass('hover', 'selected');
     expect(option2).not.toHaveClass('hover', 'selected');
-    await userEvent.keyboard('[ArrowDown]');
+    await userEvent.default.keyboard('[ArrowDown]');
     expect(option1).toHaveClass('selected');
     expect(option1).not.toHaveClass('hover');
     expect(option2).toHaveClass('hover');
     expect(option2).not.toHaveClass('selected');
 
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
     expect(selectMenu).toBeEmptyDOMElement();
     view.rerender();
     expect(select).toHaveTextContent(/test/);

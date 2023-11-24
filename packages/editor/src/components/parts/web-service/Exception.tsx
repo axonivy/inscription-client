@@ -1,8 +1,8 @@
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { useWebServiceData } from './useWebServiceData';
-import { PathCollapsible, PathFieldset } from '../common';
-import { Checkbox, ScriptInput, useFieldset } from '../../widgets';
-import { deepEqual } from '../../../utils/equals';
+import { useWebServiceData } from './useWebServiceData.js';
+import { PathCollapsible, PathFieldset } from '../common/index.js';
+import { Checkbox, ScriptInput, useFieldset } from '../../widgets/index.js';
+import { deepEqual } from '../../../utils/equals.js';
 
 export const Exception = () => {
   const { config, defaultConfig, updateException } = useWebServiceData();

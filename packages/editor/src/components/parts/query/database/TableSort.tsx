@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { PathCollapsible } from '../../common';
-import { useQueryData } from '../useQueryData';
+import { PathCollapsible } from '../../common/index.js';
+import { useQueryData } from '../useQueryData.js';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import type { SelectItem } from '../../../../components/widgets';
+import type { SelectItem } from '../../../../components/widgets/index.js';
 import {
   ActionCell,
   ReorderRow,
@@ -14,11 +14,11 @@ import {
   TableCell,
   TableFooter,
   TableHeader
-} from '../../../../components/widgets';
-import { useEditorContext, useMeta } from '../../../../context';
+} from '../../../../components/widgets/index.js';
+import { useMeta, useEditorContext } from '../../../../context/index.js';
 import { QUERY_ORDER } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { arraymove, indexOf } from '../../../../utils/array';
+import { arraymove, indexOf } from '../../../../utils/array.js';
 
 type OrderDirection = keyof typeof QUERY_ORDER;
 

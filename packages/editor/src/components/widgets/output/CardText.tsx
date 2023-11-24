@@ -1,8 +1,8 @@
-import './CardText.css';
+import './CardText.js';
 import { IvyIcons } from '@axonivy/editor-icons';
-import IvyIcon from '../IvyIcon';
-import { splitMacroExpressions, splitNewLine } from '../../../utils/utils';
-import type { FieldsetInputProps } from '../fieldset';
+import IvyIcon from '../IvyIcon.js';
+import { splitMacroExpressions, splitNewLine } from '../../../utils/utils.js';
+import type { FieldsetInputProps } from '../fieldset/index.js';
 import type { ElementRef } from 'react';
 import { forwardRef } from 'react';
 

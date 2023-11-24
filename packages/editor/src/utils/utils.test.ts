@@ -1,4 +1,4 @@
-import { generateId, splitMacroExpressions, splitNewLine } from './utils';
+import { generateId, splitMacroExpressions, splitNewLine } from './utils.js';
 
 test('generateId', () => {
   expect(generateId()).toEqual('0');

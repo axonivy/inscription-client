@@ -1,5 +1,5 @@
 import type { Document } from '@axonivy/inscription-protocol';
-import DocumentTable from './DocumentTable';
+import DocumentTable from './DocumentTable.js';
 import { render, screen, TableUtil, userEvent } from 'test-utils';
 
 describe('DocumentTable', () => {
@@ -29,10 +29,10 @@ describe('DocumentTable', () => {
   test('table can sort columns', async () => {
     renderTable();
     const columnHeader = screen.getByRole('button', { name: 'Sort by Name' });
-    await userEvent.click(columnHeader);
+    await userEvent.default.click(columnHeader);
     TableUtil.assertRows([/Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/]);
 
-    await userEvent.click(columnHeader);
+    await userEvent.default.click(columnHeader);
     TableUtil.assertRows([/ivyTeam ❤️ ivyteam.ch/, /Doc 1 axonivy.com/]);
   });
 
@@ -53,17 +53,17 @@ describe('DocumentTable', () => {
 
   test('table can edit cells', async () => {
     const view = renderTable();
-    await userEvent.tab(); // column header 1
-    await userEvent.tab(); // column header 2
-    await userEvent.tab();
+    await userEvent.default.tab(); // column header 1
+    await userEvent.default.tab(); // column header 2
+    await userEvent.default.tab();
     expect(screen.getByDisplayValue(/Doc 1/)).toHaveFocus();
-    await userEvent.keyboard('Hello');
-    await userEvent.tab();
+    await userEvent.default.keyboard('Hello');
+    await userEvent.default.tab();
     view.rerender();
 
     const descInput = screen.getByDisplayValue(/ivyteam.ch/);
-    await userEvent.clear(descInput);
-    await userEvent.type(descInput, 'World');
+    await userEvent.default.clear(descInput);
+    await userEvent.default.type(descInput, 'World');
 
     expect(view.data()).toEqual([
       { name: 'Hello', url: 'axonivy.com' },

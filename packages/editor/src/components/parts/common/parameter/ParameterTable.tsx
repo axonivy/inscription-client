@@ -3,8 +3,8 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
-import { EditableCell, Table, TableHeader, TableCell, ActionCell, TableFooter, TableAddRow, SortableHeader } from '../../../widgets';
-import { ValidationRow } from '../path/validation/ValidationRow';
+import { EditableCell, Table, TableHeader, TableCell, ActionCell, TableFooter, TableAddRow, SortableHeader } from '../../../widgets/index.js';
+import { ValidationRow } from '../path/validation/ValidationRow.js';
 
 type ParameterTableProps = {
   data: ScriptVariable[];

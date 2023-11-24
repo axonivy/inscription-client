@@ -1,6 +1,6 @@
 import type { EventCodeMeta } from '@axonivy/inscription-protocol';
-import type { ComboboxItem, FieldsetInputProps} from '../../../widgets';
-import { Combobox, IvyIcon } from '../../../widgets';
+import type { ComboboxItem, FieldsetInputProps} from '../../../widgets/index.js';
+import { Combobox, IvyIcon } from '../../../widgets/index.js';
 import type { IvyIcons } from '@axonivy/editor-icons';
 
 export type EventCodeItem = Pick<EventCodeMeta, 'eventCode'> & { info?: string } & ComboboxItem;

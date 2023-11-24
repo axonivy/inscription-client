@@ -1,7 +1,7 @@
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { Checkbox, ScriptInput, useFieldset } from '../../../widgets';
-import { PathCollapsible, ValidationFieldset } from '../../common';
-import { useTaskData } from '../useTaskData';
+import { Checkbox, ScriptInput, useFieldset } from '../../../widgets/index.js';
+import { PathCollapsible, ValidationFieldset } from '../../common/index.js';
+import { useTaskData } from '../useTaskData.js';
 
 const TaskListPart = () => {
   const { task, update } = useTaskData();

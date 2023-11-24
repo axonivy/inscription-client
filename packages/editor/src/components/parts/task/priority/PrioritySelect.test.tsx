@@ -1,4 +1,4 @@
-import PrioritySelect from './PrioritySelect';
+import PrioritySelect from './PrioritySelect.js';
 import type { WfPriority, WfLevel } from '@axonivy/inscription-protocol';
 import { render, screen, SelectUtil } from 'test-utils';
 

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import './Table.css';
-import { IconInput } from '../../input';
+import './Table.js';
+import { IconInput } from '../../input/index.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 type TableProps = { search?: { value: string; onChange: (value: string) => void }; children?: ReactNode };

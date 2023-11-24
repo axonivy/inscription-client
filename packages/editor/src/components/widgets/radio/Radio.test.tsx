@@ -1,6 +1,6 @@
 import { render, screen, userEvent } from 'test-utils';
-import type { RadioItemProps } from './Radio';
-import Radio from './Radio';
+import type { RadioItemProps } from './Radio.js';
+import Radio from './Radio.js';
 
 describe('Radio', () => {
   const items: RadioItemProps<string>[] = [
@@ -13,7 +13,7 @@ describe('Radio', () => {
     rerender: () => void;
   } {
     let value = items[0].value;
-    userEvent.setup();
+    userEvent.default.setup();
     const view = render(<Radio items={items} value={items[0].value} onChange={change => (value = change)} />);
     return {
       data: () => value,
@@ -31,7 +31,7 @@ describe('Radio', () => {
 
   test('change value', async () => {
     const view = renderRadio();
-    await userEvent.click(screen.getByRole('radio', { name: 'Second' }));
+    await userEvent.default.click(screen.getByRole('radio', { name: 'Second' }));
 
     view.rerender();
     expect(screen.getByRole('radio', { name: 'Test' })).not.toBeChecked();

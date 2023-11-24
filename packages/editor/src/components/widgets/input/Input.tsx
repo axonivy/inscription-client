@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
-import { useReadonly } from '../../../context';
-import './Input.css';
+import { useReadonly } from '../../../context/index.js';
+import './Input.js';
 
 export type InputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'ref'> & {
   value?: string;

@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow } from '../widgets';
-import type { UseBrowserImplReturnValue } from './useBrowser';
+import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow } from '../widgets/index.js';
+import type { UseBrowserImplReturnValue } from './useBrowser.js';
 import type { ColumnDef, ExpandedState, RowSelectionState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
-import { MappingTreeData } from '../parts/common/mapping-tree/mapping-tree-data';
+import { MappingTreeData } from '../parts/common/mapping-tree/mapping-tree-data.js';
 import type { VariableInfo } from '@axonivy/inscription-protocol';
-import { useEditorContext, useMeta } from '../../context';
-import { calcFullPathId } from '../parts/common/mapping-tree/useMappingTree';
+import { useMeta, useEditorContext } from '../../context/index.js';
+import { calcFullPathId } from '../parts/common/mapping-tree/useMappingTree.js';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 

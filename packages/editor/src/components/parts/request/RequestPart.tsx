@@ -1,12 +1,12 @@
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useRequestData } from './useRequestData';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useRequestData } from './useRequestData.js';
 import type { RequestData } from '@axonivy/inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
-import { Checkbox } from '../../../components/widgets';
-import StartCustomFieldPart from '../common/customfield/StartCustomFieldPart';
-import Information from '../common/info/Information';
-import { Permission } from '../common/permission/Permission';
+import { PathContext, useValidations } from '../../../context/index.js';
+import { Checkbox } from '../../../components/widgets/index.js';
+import StartCustomFieldPart from '../common/customfield/StartCustomFieldPart.js';
+import Information from '../common/info/Information.js';
+import { Permission } from '../common/permission/Permission.js';
 
 export function useRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRequestData();

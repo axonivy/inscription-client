@@ -1,4 +1,4 @@
-import type { GeneralData } from './part-data';
+import type { GeneralData } from './part-data.js';
 import type {
   Cache,
   CacheArtifact,
@@ -25,8 +25,8 @@ import type {
   StartPermission,
   WebserviceProcessConfig,
   WfTask
-} from './inscription';
-import type { Brand, UnionToIntersection, ValuesAsUnionDeep } from '../utils/type-helper';
+} from './inscription.js';
+import type { Brand, UnionToIntersection, ValuesAsUnionDeep } from '../utils/type-helper.js';
 
 export type ConfigData = UnionToIntersection<Data['config']>;
 

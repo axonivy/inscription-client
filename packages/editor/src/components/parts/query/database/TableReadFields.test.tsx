@@ -1,5 +1,5 @@
 import { CollapsableUtil, TableUtil, render, screen } from 'test-utils';
-import { TableReadFields } from './TableReadFields';
+import { TableReadFields } from './TableReadFields.js';
 
 describe('TableReadFields', () => {
   test('all', async () => {

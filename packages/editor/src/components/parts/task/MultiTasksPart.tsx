@@ -1,11 +1,11 @@
 import type { TaskData } from '@axonivy/inscription-protocol';
-import type { Tab} from '../../widgets';
-import { EmptyWidget, Tabs } from '../../widgets';
-import { PathContext, TaskDataContextInstance, mergePaths, useValidations } from '../../../context';
-import type { PartProps} from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import Task from './task/Task';
-import { useMutliTaskData } from './useTaskData';
+import type { Tab} from '../../widgets/index.js';
+import { EmptyWidget, Tabs } from '../../widgets/index.js';
+import { PathContext, TaskDataContextInstance, mergePaths, useValidations } from '../../../context/index.js';
+import type { PartProps} from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import Task from './task/Task.js';
+import { useMutliTaskData } from './useTaskData.js';
 
 export function useMultiTasksPart(): PartProps {
   const { config, defaultConfig, initConfig, resetTasks } = useMutliTaskData();

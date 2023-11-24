@@ -1,9 +1,9 @@
 import type { WfExpiry } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import type { DataUpdater } from '../../../../types/lambda';
-import { useTaskDataContext } from '../../../../context';
-import type { PriorityUpdater } from '../priority/PrioritySelect';
-import type { ResponsibleUpdater } from '../../common/responsible/ResponsibleSelect';
+import type { DataUpdater } from '../../../../types/lambda.js';
+import { useTaskDataContext } from '../../../../context/index.js';
+import type { PriorityUpdater } from '../priority/PrioritySelect.js';
+import type { ResponsibleUpdater } from '../../common/responsible/ResponsibleSelect.js';
 
 export function useExpiryData(): {
   expiry: WfExpiry;

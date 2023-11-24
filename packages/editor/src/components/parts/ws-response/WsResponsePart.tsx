@@ -1,11 +1,11 @@
 import type { WsResponseData } from '@axonivy/inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useWsResponseData } from './useWsResponseData';
-import { ExceptionSelect, MappingPart, PathCollapsible, PathFieldset, ValidationFieldset } from '../common';
-import { ScriptArea, useFieldset } from '../../widgets';
+import { useMeta, PathContext, useEditorContext, useValidations } from '../../../context/index.js';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useWsResponseData } from './useWsResponseData.js';
+import { ExceptionSelect, MappingPart, PathCollapsible, PathFieldset, ValidationFieldset } from '../common/index.js';
+import { ScriptArea, useFieldset } from '../../widgets/index.js';
 
 export function useWsResponsePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useWsResponseData();

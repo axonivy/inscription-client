@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import type { ATTRIBUTE_BROWSER_ID } from './AttributeBrowser';
-import type { CMS_BROWSER_ID } from './CmsBrowser';
-import type { Tab } from '../widgets';
-import type { FUNCTION_BROWSER_ID } from './FunctionBrowser';
-import type { TYPE_BROWSER_ID } from './TypeBrowser';
-import type { TABLE_COL_BROWSER_ID } from './TableColBrowser';
-import type { SQL_OPERATION_BROWSER_ID } from './SqlOperationBrowser';
-import type { CAT_PATH_CHOOSER_BROWSER_ID } from './CatPathChooser';
+import type { ATTRIBUTE_BROWSER_ID } from './AttributeBrowser.js';
+import type { CMS_BROWSER_ID } from './CmsBrowser.js';
+import type { Tab } from '../widgets/index.js';
+import type { FUNCTION_BROWSER_ID } from './FunctionBrowser.js';
+import type { TYPE_BROWSER_ID } from './TypeBrowser.js';
+import type { TABLE_COL_BROWSER_ID } from './TableColBrowser.js';
+import type { SQL_OPERATION_BROWSER_ID } from './SqlOperationBrowser.js';
+import type { CAT_PATH_CHOOSER_BROWSER_ID } from './CatPathChooser.js';
 
 export type BrowserType =
   | typeof ATTRIBUTE_BROWSER_ID

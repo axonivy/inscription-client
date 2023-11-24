@@ -1,9 +1,9 @@
-import './Part.css';
+import './Part.js';
 import { useState } from 'react';
-import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, ErrorFallback } from '../../../components/widgets';
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, ErrorFallback } from '../../../components/widgets/index.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { ErrorBoundary } from 'react-error-boundary';
-import type { PartProps } from './usePart';
+import type { PartProps } from './usePart.js';
 
 const Part = ({ parts }: { parts: PartProps[] }) => {
   const [value, setValue] = useState('k');

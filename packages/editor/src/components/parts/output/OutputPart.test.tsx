@@ -1,7 +1,7 @@
 import type { DeepPartial } from 'test-utils';
 import { render, screen, TableUtil, renderHook, waitFor } from 'test-utils';
-import { useOutputPart } from './OutputPart';
-import type { PartStateFlag } from '../../editors';
+import { useOutputPart } from './OutputPart.js';
+import type { PartStateFlag } from '../../editors/index.js';
 import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
 
 const Part = (props: { hideCode?: boolean }) => {

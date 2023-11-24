@@ -1,6 +1,6 @@
 import type { RestResource } from '@axonivy/inscription-protocol';
-import { useEditorContext, useMeta } from '../../../context';
-import { useRestRequestData } from './useRestRequestData';
+import { useMeta, useEditorContext } from '../../../context/index.js';
+import { useRestRequestData } from './useRestRequestData.js';
 
 export const useRestResourceMeta = (): Partial<RestResource> => {
   const { config } = useRestRequestData();

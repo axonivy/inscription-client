@@ -1,11 +1,11 @@
-import ExpiryPart from '../expiry/ExpiryPart';
-import TaskListPart from '../options/TaskListOptions';
-import PrioritySelect from '../priority/PrioritySelect';
-import ResponsibleSelect from '../../common/responsible/ResponsibleSelect';
-import { useTaskData } from '../useTaskData';
-import { CustomFieldPart } from '../../common';
-import Information from '../../common/info/Information';
-import TaskCode from '../code/TaskCode';
+import ExpiryPart from '../expiry/ExpiryPart.js';
+import TaskListPart from '../options/TaskListOptions.js';
+import PrioritySelect from '../priority/PrioritySelect.js';
+import ResponsibleSelect from '../../common/responsible/ResponsibleSelect.js';
+import { useTaskData } from '../useTaskData.js';
+import { CustomFieldPart } from '../../common/index.js';
+import Information from '../../common/info/Information.js';
+import TaskCode from '../code/TaskCode.js';
 
 const Task = () => {
   const { task, update, updateResponsible, updatePriority } = useTaskData();

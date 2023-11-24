@@ -1,8 +1,8 @@
-import type { ComboboxItem, FieldsetControl } from '../../../components/widgets';
-import { Combobox, useFieldset } from '../../../components/widgets';
-import { useAction, useEditorContext, useMeta } from '../../../context';
-import type { Consumer } from '../../../types/lambda';
-import { PathFieldset } from '../common';
+import type { ComboboxItem, FieldsetControl } from '../../../components/widgets/index.js';
+import { Combobox, useFieldset } from '../../../components/widgets/index.js';
+import { useMeta, useAction, useEditorContext } from '../../../context/index.js';
+import type { Consumer } from '../../../types/lambda.js';
+import { PathFieldset } from '../common/index.js';
 import type { Type } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 

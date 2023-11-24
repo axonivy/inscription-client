@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key */
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
+import InscriptionEditor from '../InscriptionEditor.js';
 import type { ElementType } from '@axonivy/inscription-protocol';
-import NameEditor from '../NameEditor';
+import NameEditor from '../NameEditor.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 import {
   useCasePart,
@@ -14,7 +14,7 @@ import {
   useTaskPart,
   useSubCallPart,
   useTriggerCallPart
-} from '../../../components/parts';
+} from '../../../components/parts/index.js';
 
 const DialogCallEditor = memo(() => {
   const name = useGeneralPart();

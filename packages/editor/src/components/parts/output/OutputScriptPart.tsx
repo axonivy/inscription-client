@@ -1,10 +1,10 @@
 import type { OutputData } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { Checkbox, ScriptArea, useFieldset } from '../../widgets';
-import { useOutputData } from './useOutputData';
-import { PathContext, useValidations } from '../../../context';
-import { PathFieldset } from '../common';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { Checkbox, ScriptArea, useFieldset } from '../../widgets/index.js';
+import { useOutputData } from './useOutputData.js';
+import { PathContext, useValidations } from '../../../context/index.js';
+import { PathFieldset } from '../common/index.js';
 
 export function useOutputScriptPart(): PartProps {
   const { config, defaultConfig, initConfig, resetCode } = useOutputData();

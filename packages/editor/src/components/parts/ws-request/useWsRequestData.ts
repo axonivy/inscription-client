@@ -1,8 +1,8 @@
 import type { WsRequestData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import type { DataUpdater } from '../../../types/lambda';
-import type { ConfigDataContext} from '../../../context';
-import { useConfigDataContext } from '../../../context';
+import type { DataUpdater } from '../../../types/lambda.js';
+import type { ConfigDataContext} from '../../../context/index.js';
+import { useConfigDataContext } from '../../../context/index.js';
 
 export function useWsRequestData(): ConfigDataContext<WsRequestData> & {
   update: DataUpdater<WsRequestData>;

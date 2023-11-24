@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
-import type { ComboboxItem } from './Combobox';
-import Combobox from './Combobox';
+import type { ComboboxItem } from './Combobox.js';
+import Combobox from './Combobox.js';
 import { render, screen, userEvent } from 'test-utils';
-import type { BrowserType } from '../../../components/browser';
+import type { BrowserType } from '../../../components/browser/index.js';
 
 describe('Combobox', () => {
   function renderCombobox(
@@ -53,7 +53,7 @@ describe('Combobox', () => {
     renderCombobox('test');
     assertMenuContent();
     const button = screen.getByRole('button', { name: 'toggle menu' });
-    await userEvent.click(button);
+    await userEvent.default.click(button);
     assertMenuContent(['test', 'bla']);
   });
 
@@ -61,7 +61,7 @@ describe('Combobox', () => {
     renderCombobox('test', { comboboxItem: item => <span>+ {item.value}</span> });
     assertMenuContent();
     const button = screen.getByRole('button', { name: 'toggle menu' });
-    await userEvent.click(button);
+    await userEvent.default.click(button);
     assertMenuContent(['+ test', '+ bla']);
   });
 
@@ -69,9 +69,9 @@ describe('Combobox', () => {
     let data = 'test';
     renderCombobox(data, { onChange: (change: string) => (data = change) });
     const button = screen.getByRole('button', { name: 'toggle menu' });
-    await userEvent.click(button);
+    await userEvent.default.click(button);
     const item = screen.getByRole('option', { name: 'bla' });
-    await userEvent.click(item);
+    await userEvent.default.click(item);
     assertMenuContent();
     const combobox = screen.getByRole('combobox');
     expect(combobox).toHaveValue('bla');
@@ -82,7 +82,7 @@ describe('Combobox', () => {
     let data = 'test';
     renderCombobox(data, { onChange: (change: string) => (data = change) });
     const combobox = screen.getByRole('combobox');
-    await userEvent.type(combobox, '123');
+    await userEvent.default.type(combobox, '123');
     expect(combobox).toHaveValue('test123');
     expect(data).toEqual('test');
   });
@@ -91,12 +91,12 @@ describe('Combobox', () => {
     let data = 'test';
     renderCombobox(data, { onChange: (change: string) => (data = change) });
     const combobox = screen.getByRole('combobox');
-    await userEvent.clear(combobox);
-    await userEvent.type(combobox, 'la');
-    await userEvent.keyboard('[ArrowDown]');
+    await userEvent.default.clear(combobox);
+    await userEvent.default.type(combobox, 'la');
+    await userEvent.default.keyboard('[ArrowDown]');
     const item = screen.getByRole('option', { name: 'bla' });
     expect(item).toHaveClass('hover');
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
     expect(data).toEqual('bla');
   });
 
@@ -109,11 +109,11 @@ describe('Combobox', () => {
     };
     renderCombobox('test', { itemFilter: itemFilter });
     const combobox = screen.getByRole('combobox');
-    await userEvent.clear(combobox);
-    await userEvent.type(combobox, 'la');
+    await userEvent.default.clear(combobox);
+    await userEvent.default.type(combobox, 'la');
     assertMenuContent();
-    await userEvent.clear(combobox);
-    await userEvent.type(combobox, 'b');
+    await userEvent.default.clear(combobox);
+    await userEvent.default.type(combobox, 'b');
     assertMenuContent(['bla']);
   });
 

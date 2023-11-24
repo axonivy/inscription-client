@@ -25,7 +25,7 @@ export namespace SelectUtil {
   }
 
   export async function assertOptionsCount(count: number, options?: SelectUtilOptions) {
-    await userEvent.click(select(options));
+    await userEvent.default.click(select(options));
     expect(screen.getAllByRole('option')).toHaveLength(count);
   }
 }

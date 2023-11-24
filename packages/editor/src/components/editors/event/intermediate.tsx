@@ -3,7 +3,7 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
+import InscriptionEditor from '../InscriptionEditor.js';
 import {
   useCasePart,
   useConfigurationPart,
@@ -12,7 +12,7 @@ import {
   useGeneralPart,
   useOutputPart,
   useTaskPart
-} from '../../../components/parts';
+} from '../../../components/parts/index.js';
 
 const TaskSwitchEventEditor = memo(() => {
   const name = useGeneralPart();

@@ -2,9 +2,9 @@ import type { DeepPartial} from 'test-utils';
 import { renderHook, screen, render, cloneObject } from 'test-utils';
 import type { WfTask, TaskData, ElementData } from '@axonivy/inscription-protocol';
 import { DEFAULT_TASK } from '@axonivy/inscription-protocol';
-import type { TaskPartProps} from './TaskPart';
-import { useTaskPart } from './TaskPart';
-import type { PartStateFlag } from '../../editors';
+import type { TaskPartProps} from './TaskPart.js';
+import { useTaskPart } from './TaskPart.js';
+import type { PartStateFlag } from '../../editors/index.js';
 
 const Part = () => {
   const part = useTaskPart();

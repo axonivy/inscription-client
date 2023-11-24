@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { PathContext, useEditorContext, useMeta } from '../../../../context';
-import { PathCollapsible, ValidationRow } from '../../common';
-import { useQueryData } from '../useQueryData';
+import { useMeta, PathContext, useEditorContext } from '../../../../context/index.js';
+import { PathCollapsible, ValidationRow } from '../../common/index.js';
+import { useQueryData } from '../useQueryData.js';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { ScriptCell, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
+import { ScriptCell, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets/index.js';
 import type { DatabaseColumn } from '@axonivy/inscription-protocol';
 
 type Column = DatabaseColumn & {

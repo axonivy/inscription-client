@@ -1,7 +1,7 @@
-import { useTaskData } from '../useTaskData';
-import { CustomFieldPart } from '../../common';
-import Information from '../../common/info/Information';
-import TaskCode from '../code/TaskCode';
+import { useTaskData } from '../useTaskData.js';
+import { CustomFieldPart } from '../../common/index.js';
+import Information from '../../common/info/Information.js';
+import TaskCode from '../code/TaskCode.js';
 
 const WaitTask = () => {
   const { task, update } = useTaskData();

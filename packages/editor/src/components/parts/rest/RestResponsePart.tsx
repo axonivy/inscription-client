@@ -1,13 +1,13 @@
 import type { RestResponseData } from '@axonivy/inscription-protocol';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useRestResponseData } from './useRestResponseData';
-import { MappingPart, PathFieldset } from '../common';
-import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
-import { RestError } from './rest-response/RestError';
-import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox';
-import { useRestEntityTypeMeta, useRestResourceMeta } from './useRestResourceMeta';
+import { useMeta, PathContext, useEditorContext, useValidations } from '../../../context/index.js';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useRestResponseData } from './useRestResponseData.js';
+import { MappingPart, PathFieldset } from '../common/index.js';
+import { Collapsible, ScriptArea, useFieldset } from '../../widgets/index.js';
+import { RestError } from './rest-response/RestError.js';
+import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox.js';
+import { useRestEntityTypeMeta, useRestResourceMeta } from './useRestResourceMeta.js';
 
 export function useRestResponsePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestResponseData();

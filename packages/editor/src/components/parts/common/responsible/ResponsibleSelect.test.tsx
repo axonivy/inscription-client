@@ -1,4 +1,4 @@
-import ResponsibleSelect from './ResponsibleSelect';
+import ResponsibleSelect from './ResponsibleSelect.js';
 import type { RoleMeta, WfActivator, WfActivatorType } from '@axonivy/inscription-protocol';
 import { render, screen, SelectUtil } from 'test-utils';
 

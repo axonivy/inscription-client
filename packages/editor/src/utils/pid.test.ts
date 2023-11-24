@@ -1,4 +1,4 @@
-import { PID } from './pid';
+import { PID } from './pid.js';
 
 describe('PID', () => {
   const pid = '1478B7E447CD01B2';

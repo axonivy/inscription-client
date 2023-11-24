@@ -1,8 +1,8 @@
-import { useDialogCallPart } from './DialogCallPart';
+import { useDialogCallPart } from './DialogCallPart.js';
 import type { DeepPartial } from 'test-utils';
 import { render, screen, TableUtil, renderHook } from 'test-utils';
 import type { CallData, DialogCallData, ElementData } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../../editors';
+import type { PartStateFlag } from '../../../editors/index.js';
 
 const Part = () => {
   const part = useDialogCallPart();

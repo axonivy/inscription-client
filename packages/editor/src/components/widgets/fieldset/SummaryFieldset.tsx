@@ -1,4 +1,4 @@
-import './SummaryFieldset.css';
+import './SummaryFieldset.js';
 import { memo } from 'react';
 
 const SummaryFieldset = ({ data, weight }: { data: string; weight?: 'normal' | 'bold' }) => (

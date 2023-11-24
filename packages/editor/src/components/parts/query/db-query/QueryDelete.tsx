@@ -1,5 +1,5 @@
-import { Condition } from '../database/Condition';
-import { TableSelect } from '../database/TableSelect';
+import { Condition } from '../database/Condition.js';
+import { TableSelect } from '../database/TableSelect.js';
 
 export const QueryDelete = () => (
   <>

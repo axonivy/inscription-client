@@ -1,6 +1,6 @@
-import { ScriptArea } from '../../../../components/widgets';
-import { PathCollapsible, ValidationFieldset } from '../../common';
-import { useTaskData } from '../useTaskData';
+import { ScriptArea } from '../../../../components/widgets/index.js';
+import { PathCollapsible, ValidationFieldset } from '../../common/index.js';
+import { useTaskData } from '../useTaskData.js';
 
 const TaskCode = () => {
   const { task, update } = useTaskData();

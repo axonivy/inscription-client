@@ -1,4 +1,4 @@
-import { mergePaths } from './usePath';
+import { mergePaths } from './usePath.js';
 
 describe('mergePath', () => {
   test('empty parent', async () => {

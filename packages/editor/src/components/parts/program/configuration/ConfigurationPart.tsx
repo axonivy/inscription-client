@@ -1,9 +1,9 @@
 import type { ConfigurationData, Label, Script, Text, Widget } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../editors';
-import { usePartDirty, usePartState } from '../../../editors';
-import { useEditorContext, useMeta, useValidations } from '../../../../context';
-import { useConfigurationData } from './useConfigurationData';
-import { Input, MessageText, ScriptInput } from '../../../widgets';
+import type { PartProps } from '../../../editors/index.js';
+import { usePartDirty, usePartState } from '../../../editors/index.js';
+import { useMeta, useEditorContext, useValidations } from '../../../../context/index.js';
+import { useConfigurationData } from './useConfigurationData.js';
+import { Input, MessageText, ScriptInput } from '../../../widgets/index.js';
 import './Configuration.css';
 
 export function useConfigurationPart(): PartProps {

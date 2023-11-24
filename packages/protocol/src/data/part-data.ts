@@ -1,5 +1,5 @@
-import type { Data } from './inscription';
-import type { ConfigData } from './inscription-data';
+import type { Data } from './inscription.js';
+import type { ConfigData } from './inscription-data.js';
 
 export type GeneralData = Omit<Data, 'config'>;
 

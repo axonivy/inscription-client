@@ -1,5 +1,5 @@
 import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
-import { RestHeaders } from './RestHeaders';
+import { RestHeaders } from './RestHeaders.js';
 import type { DeepPartial} from 'test-utils';
 import { CollapsableUtil, ComboboxUtil, render, TableUtil } from 'test-utils';
 

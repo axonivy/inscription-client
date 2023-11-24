@@ -1,5 +1,5 @@
 import { ComboboxUtil, render, TableUtil } from 'test-utils';
-import { PropertyTable } from './PropertyTable';
+import { PropertyTable } from './PropertyTable.js';
 import type { ScriptMappings } from '@axonivy/inscription-protocol';
 
 describe('PropertyTable', () => {

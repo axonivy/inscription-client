@@ -1,6 +1,6 @@
 import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
-import MappingPart from './MappingPart';
+import MappingPart from './MappingPart.js';
 
 describe('MappingPart', () => {
   const ATTRIBUTES = /Attribute/;
@@ -55,7 +55,7 @@ describe('MappingPart', () => {
   function renderTree(initData?: Record<string, string>): {
     data: () => Record<string, string>;
   } {
-    userEvent.setup();
+    userEvent.default.setup();
     let data = initData ?? { 'param.procurementRequest': 'in' };
     render(
       <MappingPart
@@ -106,34 +106,34 @@ describe('MappingPart', () => {
   test('tree can expand / collapse', async () => {
     renderTree();
     const treeExpander = screen.getByRole('button', { name: 'Collapse tree' });
-    await userEvent.click(treeExpander);
+    await userEvent.default.click(treeExpander);
     assertTableRows([ATTRIBUTES, PARAMS]);
 
-    await userEvent.click(treeExpander);
+    await userEvent.default.click(treeExpander);
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
   });
 
   test('tree row can expand / collapse', async () => {
     renderTree();
     const rowExpander = screen.getByRole('button', { name: 'Expand row' });
-    await userEvent.click(rowExpander);
+    await userEvent.default.click(rowExpander);
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
-    await userEvent.click(rowExpander);
+    await userEvent.default.click(rowExpander);
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
   });
 
   test('tree can edit expression', async () => {
     const view = renderTree();
     const rowExpander = screen.getByRole('button', { name: 'Expand row' });
-    await userEvent.click(rowExpander);
+    await userEvent.default.click(rowExpander);
     const inputs = screen.getAllByRole('textbox');
     expect(inputs).toHaveLength(5);
 
-    await userEvent.click(inputs[2]);
+    await userEvent.default.click(inputs[2]);
     const mockInput = screen.getByLabelText('Code');
     expect(mockInput).toHaveValue('');
-    await userEvent.type(mockInput, '123');
-    await userEvent.click(screen.getByRole('button', { name: 'Close' }));
+    await userEvent.default.type(mockInput, '123');
+    await userEvent.default.click(screen.getByRole('button', { name: 'Close' }));
     expect(screen.queryByLabelText('Code')).not.toBeInTheDocument();
 
     expect(inputs[0]).toHaveValue('in');
@@ -147,18 +147,18 @@ describe('MappingPart', () => {
     const toggleFilter = screen.getByRole('button', { name: 'Toggle Search' });
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
 
-    await userEvent.click(toggleFilter);
+    await userEvent.default.click(toggleFilter);
     const searchInput = screen.getByPlaceholderText('Search');
     expect(searchInput).toHaveValue('');
 
-    await userEvent.type(searchInput, 'amo');
+    await userEvent.default.type(searchInput, 'amo');
     assertTableRows([ATTRIBUTES, PARAMS, NODE_NUMBER]);
 
-    await userEvent.click(toggleFilter);
+    await userEvent.default.click(toggleFilter);
     expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
 
-    await userEvent.click(toggleFilter);
+    await userEvent.default.click(toggleFilter);
     expect(screen.getByPlaceholderText('Search')).toHaveValue('');
   });
 
@@ -168,10 +168,10 @@ describe('MappingPart', () => {
     const toggleInscribed = screen.getByRole('button', { name: 'Toggle Inscribed' });
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
 
-    await userEvent.click(toggleInscribed);
+    await userEvent.default.click(toggleInscribed);
     assertTableRows([ATTRIBUTES, NODE_PARAMS]);
 
-    await userEvent.click(toggleInscribed);
+    await userEvent.default.click(toggleInscribed);
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
   });
 

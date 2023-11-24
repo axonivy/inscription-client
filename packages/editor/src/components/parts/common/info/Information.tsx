@@ -1,6 +1,6 @@
-import type { DataUpdater } from '../../../../types/lambda';
-import { MacroArea, MacroInput, useFieldset } from '../../../../components/widgets';
-import { PathFieldset } from '../path/PathFieldset';
+import type { DataUpdater } from '../../../../types/lambda.js';
+import { MacroArea, MacroInput, useFieldset } from '../../../../components/widgets/index.js';
+import { PathFieldset } from '../path/PathFieldset.js';
 
 type InformationConfig = {
   name: string;

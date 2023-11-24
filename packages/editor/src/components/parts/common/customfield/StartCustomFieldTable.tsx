@@ -13,9 +13,9 @@ import {
   TableAddRow,
   SortableHeader,
   MacroCell
-} from '../../../widgets';
-import { useAction } from '../../../../context';
-import { ValidationRow } from '../path/validation/ValidationRow';
+} from '../../../widgets/index.js';
+import { useAction } from '../../../../context/index.js';
+import { ValidationRow } from '../path/validation/ValidationRow.js';
 
 type StartCustomFieldTableProps = {
   data: StartCustomStartField[];

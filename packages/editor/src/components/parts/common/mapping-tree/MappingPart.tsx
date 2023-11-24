@@ -1,9 +1,9 @@
 import { memo } from 'react';
-import { PathFieldset } from '../path/PathFieldset';
-import MappingTree from './MappingTree';
+import { PathFieldset } from '../path/PathFieldset.js';
+import MappingTree from './MappingTree.js';
 import type { SchemaKeys, VariableInfo } from '@axonivy/inscription-protocol';
-import { useTableGlobalFilter, useTableOnlyInscribed } from './useMappingTree';
-import type { BrowserType } from '../../../../components/browser';
+import { useTableGlobalFilter, useTableOnlyInscribed } from './useMappingTree.js';
+import type { BrowserType } from '../../../../components/browser/index.js';
 
 export type MappingPartProps = {
   data: Record<string, string>;

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import './App.css';
-import { useTheme } from './context/useTheme';
+import './App.js';
+import { useTheme } from './context/useTheme.js';
 
 function AppStateView({ children }: { children: ReactNode }) {
   const { mode: theme } = useTheme();

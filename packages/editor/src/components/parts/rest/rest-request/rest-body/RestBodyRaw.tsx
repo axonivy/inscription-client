@@ -1,7 +1,7 @@
-import { MacroArea } from '../../../../../components/widgets';
-import { useRestRequestData } from '../../useRestRequestData';
-import { PathContext } from '../../../../../context';
-import { ValidationFieldset } from '../../../../../components/parts/common';
+import { MacroArea } from '../../../../../components/widgets/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
+import { PathContext } from '../../../../../context/index.js';
+import { ValidationFieldset } from '../../../../../components/parts/common/index.js';
 
 export const RestBodyRaw = () => {
   const { config, updateBody } = useRestRequestData();

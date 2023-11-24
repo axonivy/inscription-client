@@ -1,8 +1,8 @@
-import { useAction, useEditorContext, useMeta } from '../../../context';
-import type { FieldsetControl, SelectItem } from '../../../components/widgets';
-import { Select, useFieldset } from '../../../components/widgets';
-import { PathFieldset } from '../common';
-import { useWsRequestData } from './useWsRequestData';
+import { useMeta, useAction, useEditorContext } from '../../../context/index.js';
+import type { FieldsetControl, SelectItem } from '../../../components/widgets/index.js';
+import { Select, useFieldset } from '../../../components/widgets/index.js';
+import { PathFieldset } from '../common/index.js';
+import { useWsRequestData } from './useWsRequestData.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 export const WsClientSelect = () => {

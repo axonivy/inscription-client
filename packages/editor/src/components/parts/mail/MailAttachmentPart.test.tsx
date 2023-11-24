@@ -1,8 +1,8 @@
 import type { DeepPartial} from 'test-utils';
 import { TableUtil, render, renderHook } from 'test-utils';
 import type { MailData } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../editors';
-import { useMailAttachmentPart } from './MailAttachmentPart';
+import type { PartStateFlag } from '../../editors/index.js';
+import { useMailAttachmentPart } from './MailAttachmentPart.js';
 
 const Part = () => {
   const part = useMailAttachmentPart();

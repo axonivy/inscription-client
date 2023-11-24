@@ -1,14 +1,14 @@
-import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableFooter, TableHeader } from '../../widgets';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useMailData } from './useMailData';
+import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableFooter, TableHeader } from '../../widgets/index.js';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useMailData } from './useMailData.js';
 import type { MailData } from '@axonivy/inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
+import { PathContext, useValidations } from '../../../context/index.js';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { ValidationRow } from '../common';
+import { ValidationRow } from '../common/index.js';
 
 export function useMailAttachmentPart(): PartProps {
   const { config, initConfig, defaultConfig, resetAttachments } = useMailData();

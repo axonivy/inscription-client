@@ -1,16 +1,16 @@
 import type { HttpMethod, RestRequestData } from '@axonivy/inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
-import type { PartProps} from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useRestRequestData } from './useRestRequestData';
-import { RestClientSelect } from './rest-request/rest-target/RestClientSelect';
-import { RestMethodSelect } from './rest-request/rest-target/RestMethodSelect';
-import { RestProperties } from './rest-request/rest-target/RestProperties';
-import { RestHeaders } from './rest-request/rest-target/RestHeaders';
-import { RestParameters } from './rest-request/rest-target/RestParameters';
-import { RestTargetUrl } from './rest-request/rest-target/RestTargetUrl';
-import { RestJaxRsCode } from './rest-request/rest-body/RestJaxRsCode';
-import { RestBody } from './rest-request/rest-body/RestBody';
+import { PathContext, useValidations } from '../../../context/index.js';
+import type { PartProps} from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useRestRequestData } from './useRestRequestData.js';
+import { RestClientSelect } from './rest-request/rest-target/RestClientSelect.js';
+import { RestMethodSelect } from './rest-request/rest-target/RestMethodSelect.js';
+import { RestProperties } from './rest-request/rest-target/RestProperties.js';
+import { RestHeaders } from './rest-request/rest-target/RestHeaders.js';
+import { RestParameters } from './rest-request/rest-target/RestParameters.js';
+import { RestTargetUrl } from './rest-request/rest-target/RestTargetUrl.js';
+import { RestJaxRsCode } from './rest-request/rest-body/RestJaxRsCode.js';
+import { RestBody } from './rest-request/rest-body/RestBody.js';
 
 export function useRestRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestRequestData();

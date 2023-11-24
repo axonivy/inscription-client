@@ -1,10 +1,10 @@
 import type { ProgramStartData } from '@axonivy/inscription-protocol';
-import type { PartProps} from '../../../editors';
-import { usePartDirty, usePartState } from '../../../editors';
-import { useValidations } from '../../../../context';
-import { useProgramStartData } from './useProgramStartData';
-import { Permission } from '../../common/permission/Permission';
-import JavaClassSelector from '../JavaClassSelector';
+import type { PartProps} from '../../../editors/index.js';
+import { usePartDirty, usePartState } from '../../../editors/index.js';
+import { useValidations } from '../../../../context/index.js';
+import { useProgramStartData } from './useProgramStartData.js';
+import { Permission } from '../../common/permission/Permission.js';
+import JavaClassSelector from '../JavaClassSelector.js';
 
 export function useProgramStartPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useProgramStartData();

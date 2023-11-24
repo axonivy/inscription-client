@@ -1,10 +1,10 @@
-import type { PartProps} from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useCaseData } from './useCaseData';
+import type { PartProps} from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useCaseData } from './useCaseData.js';
 import type { CaseData } from '@axonivy/inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
-import { CustomFieldPart } from '../common';
-import Information from '../common/info/Information';
+import { PathContext, useValidations } from '../../../context/index.js';
+import { CustomFieldPart } from '../common/index.js';
+import Information from '../common/info/Information.js';
 
 export function useCasePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useCaseData();

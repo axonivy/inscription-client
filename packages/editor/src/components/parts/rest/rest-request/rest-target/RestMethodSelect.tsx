@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
-import { useEditorContext, useMeta, useOpenApi } from '../../../../../context';
-import type { ComboboxItem, SelectItem} from '../../../../widgets';
-import { Combobox, ScriptInput, Select, useFieldset } from '../../../../widgets';
-import { PathFieldset } from '../../../common';
-import { useRestRequestData } from '../../useRestRequestData';
+import { useMeta, useEditorContext, useOpenApi } from '../../../../../context/index.js';
+import type { ComboboxItem, SelectItem } from '../../../../widgets/index.js';
+import { Combobox, ScriptInput, Select, useFieldset } from '../../../../widgets/index.js';
+import { PathFieldset } from '../../../common/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
 import type { HttpMethod, RestResource } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES, HTTP_METHOD } from '@axonivy/inscription-protocol';
-import './RestMethodSelect.css';
-import { useUpdateRestResource } from '../../useUpdateRestResource';
+import './RestMethodSelect.js';
+import { useUpdateRestResource } from '../../useUpdateRestResource.js';
 
 type RestMethodItem = ComboboxItem & RestResource;
 

@@ -1,11 +1,11 @@
-import type { ComboboxItem} from '../../../../widgets';
-import { Combobox, Fieldset, useFieldset } from '../../../../widgets';
-import { useMeta } from '../../../../../context';
-import { PathCollapsible } from '../../../common';
-import { useRestRequestData } from '../../useRestRequestData';
-import { deepEqual } from '../../../../../utils/equals';
-import { PropertyTable } from '../../../common/properties/PropertyTable';
-import { useRestResourceMeta } from '../../useRestResourceMeta';
+import type { ComboboxItem } from '../../../../widgets/index.js';
+import { Combobox, Fieldset, useFieldset } from '../../../../widgets/index.js';
+import { useMeta } from '../../../../../context/index.js';
+import { PathCollapsible } from '../../../common/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
+import { deepEqual } from '../../../../../utils/equals.js';
+import { PropertyTable } from '../../../common/properties/PropertyTable.js';
+import { useRestResourceMeta } from '../../useRestResourceMeta.js';
 
 export const RestHeaders = () => {
   const { config, defaultConfig, updateTarget, updateAcceptHeader } = useRestRequestData();

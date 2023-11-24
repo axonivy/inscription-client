@@ -1,4 +1,4 @@
-import './SelectRow.css';
+import './SelectRow.js';
 import type { Row } from '@tanstack/react-table';
 import type { ReactNode } from 'react';
 

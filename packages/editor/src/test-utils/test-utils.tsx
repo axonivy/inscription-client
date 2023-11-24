@@ -29,15 +29,15 @@ import { render, renderHook } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
 import type { ReactElement, ReactNode } from 'react';
 import { useRef } from 'react';
-import type { DeepPartial } from './type-utils';
-import type { ClientContext, DataContext } from '../context';
+import type { DeepPartial } from './type-utils.js';
+import type { ClientContext, DataContext } from '../context/index.js';
 import {
   ClientContextProvider,
   DataContextInstance,
   DEFAULT_EDITOR_CONTEXT,
   EditorContextInstance,
   OpenApiContextProvider
-} from '../context';
+} from '../context/index.js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 type ContextHelperProps = {
@@ -225,9 +225,9 @@ export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';
 export { customRender as render };
 export { customRenderHook as renderHook };
-export * from './table-utils';
-export * from './select-utils';
-export * from './combobox-utils';
-export * from './collapsible-utils';
-export * from './object-utils';
-export * from './type-utils';
+export * from './table-utils.js';
+export * from './select-utils.js';
+export * from './combobox-utils.js';
+export * from './collapsible-utils.js';
+export * from './object-utils.js';
+export * from './type-utils.js';

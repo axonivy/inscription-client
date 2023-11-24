@@ -1,13 +1,13 @@
 import type { WsRequestData } from '@axonivy/inscription-protocol';
-import { useValidations } from '../../../context';
-import type { PartProps} from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useWsRequestData } from './useWsRequestData';
-import { WsClientSelect } from './WsClientSelect';
-import { WsPortSelect } from './WsPortSelect';
-import { WsOperationSelect } from './WsOperationSelect';
-import { WsProperties } from './WsProperties';
-import { WsMapping } from './WsMapping';
+import { useValidations } from '../../../context/index.js';
+import type { PartProps} from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useWsRequestData } from './useWsRequestData.js';
+import { WsClientSelect } from './WsClientSelect.js';
+import { WsPortSelect } from './WsPortSelect.js';
+import { WsOperationSelect } from './WsOperationSelect.js';
+import { WsProperties } from './WsProperties.js';
+import { WsMapping } from './WsMapping.js';
 
 export function useWsRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useWsRequestData();

@@ -34,8 +34,8 @@ import type {
   JavaType,
   InscriptionElementContext,
   SignalCodeRequest
-} from './data/inscription';
-import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
+} from './data/inscription.js';
+import type { InscriptionData, InscriptionSaveData } from './data/inscription-data.js';
 
 export interface InscriptionMetaRequestTypes {
   'meta/start/dialogs': [InscriptionContext, CallableStart[]];

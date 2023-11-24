@@ -1,6 +1,6 @@
 import type { DeepPartial} from 'test-utils';
 import { renderHook, waitFor } from 'test-utils';
-import { useFindPathParams, useTargetPathSplit } from './usePathParams';
+import { useFindPathParams, useTargetPathSplit } from './usePathParams.js';
 import type { RestRequestData } from '@axonivy/inscription-protocol';
 
 describe('useTargetPathSplit', () => {

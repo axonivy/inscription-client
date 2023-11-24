@@ -1,5 +1,5 @@
-import type { Tab} from './Tab';
-import { Tabs } from './Tab';
+import type { Tab } from './Tab.js';
+import { Tabs } from './Tab.js';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('Tabs', () => {
@@ -32,15 +32,15 @@ describe('Tabs', () => {
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
 
     const call = screen.getByRole('tab', { name: /Call/ });
-    await userEvent.click(call);
+    await userEvent.default.click(call);
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Call');
 
     const result = screen.getByRole('tab', { name: /Result/ });
-    await userEvent.click(result);
+    await userEvent.default.click(result);
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Result');
 
     const name = screen.getByRole('tab', { name: /Name/ });
-    await userEvent.click(name);
+    await userEvent.default.click(name);
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
   });
 
@@ -51,19 +51,19 @@ describe('Tabs', () => {
     const call = screen.getByRole('tab', { name: /Call/ });
     const result = screen.getByRole('tab', { name: /Result/ });
 
-    await userEvent.tab();
+    await userEvent.default.tab();
     expect(name).toHaveFocus();
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Name');
 
-    await userEvent.keyboard('[ArrowRight]');
+    await userEvent.default.keyboard('[ArrowRight]');
     expect(call).toHaveFocus();
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Call');
 
-    await userEvent.keyboard('[ArrowRight]');
+    await userEvent.default.keyboard('[ArrowRight]');
     expect(result).toHaveFocus();
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Result');
 
-    await userEvent.keyboard('[ArrowLeft]');
+    await userEvent.default.keyboard('[ArrowLeft]');
     expect(call).toHaveFocus();
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Call');
   });

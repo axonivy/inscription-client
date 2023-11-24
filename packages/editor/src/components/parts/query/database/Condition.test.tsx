@@ -1,5 +1,5 @@
 import { CollapsableUtil, render, screen } from 'test-utils';
-import { Condition } from './Condition';
+import { Condition } from './Condition.js';
 
 describe('Condition', () => {
   test('data', async () => {

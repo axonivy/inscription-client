@@ -1,5 +1,5 @@
-import { ExceptionSelect, PathCollapsible, ValidationFieldset } from '../../common';
-import { useQueryData } from '../useQueryData';
+import { ExceptionSelect, PathCollapsible, ValidationFieldset } from '../../common/index.js';
+import { useQueryData } from '../useQueryData.js';
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 
 export const DbExceptionHandler = () => {

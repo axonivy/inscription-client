@@ -1,9 +1,9 @@
 import type { Dispatch} from 'react';
 import { useState } from 'react';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { FieldsetControl } from '../../../widgets';
+import type { FieldsetControl } from '../../../widgets/index.js';
 import type { ColumnFiltersState, Row } from '@tanstack/react-table';
-import type { MappingTreeData } from './mapping-tree-data';
+import type { MappingTreeData } from './mapping-tree-data.js';
 
 export type TableFilter<TFilter> = {
   active: boolean;

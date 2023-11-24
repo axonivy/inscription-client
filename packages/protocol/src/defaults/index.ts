@@ -1,2 +1,2 @@
-export * from './workflow-defaults';
-export * from './common-defaults';
+export * from './workflow-defaults.js';
+export * from './common-defaults.js';

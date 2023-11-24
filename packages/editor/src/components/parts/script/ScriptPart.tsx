@@ -1,10 +1,10 @@
 import type { ScriptData } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { ScriptArea, useFieldset } from '../../widgets';
-import { useScriptData } from './useScriptData';
-import { useValidations } from '../../../context';
-import { PathFieldset } from '../common';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { ScriptArea, useFieldset } from '../../widgets/index.js';
+import { useScriptData } from './useScriptData.js';
+import { useValidations } from '../../../context/index.js';
+import { PathFieldset } from '../common/index.js';
 
 export function useScriptPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useScriptData();

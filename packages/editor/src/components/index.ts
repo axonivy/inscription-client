@@ -1,2 +1,2 @@
-export * from './parts';
-export * from './widgets';
+export * from './parts/index.js';
+export * from './widgets/index.js';

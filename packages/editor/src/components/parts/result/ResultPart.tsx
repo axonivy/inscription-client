@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useResultData } from './useResultData';
+import { Collapsible, ScriptArea, useFieldset } from '../../widgets/index.js';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useResultData } from './useResultData.js';
 import type { ResultData } from '@axonivy/inscription-protocol';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { MappingPart, ParameterTable, PathFieldset } from '../common';
+import { useMeta, PathContext, useEditorContext, useValidations } from '../../../context/index.js';
+import { MappingPart, ParameterTable, PathFieldset } from '../common/index.js';
 import { useQueryClient } from '@tanstack/react-query';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {

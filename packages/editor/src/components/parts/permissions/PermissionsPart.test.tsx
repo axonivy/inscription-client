@@ -1,8 +1,8 @@
 import type { DeepPartial} from 'test-utils';
 import { render, renderHook, screen } from 'test-utils';
 import type { ElementData, InscriptionValidation, PermissionsData } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../editors';
-import { usePermissionsPart } from './PermissionsPart';
+import type { PartStateFlag } from '../../editors/index.js';
+import { usePermissionsPart } from './PermissionsPart.js';
 
 const Part = () => {
   const part = usePermissionsPart();

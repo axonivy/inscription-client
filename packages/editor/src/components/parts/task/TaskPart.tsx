@@ -1,15 +1,15 @@
-import type { PartProps} from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import type { TaskPersistData} from './options/usePersistOptionsData';
-import { useTaskPersistData } from './options/usePersistOptionsData';
-import Task from './task/Task';
-import { useTaskData } from './useTaskData';
-import { EmptyWidget } from '../../widgets';
+import type { PartProps} from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import type { TaskPersistData} from './options/usePersistOptionsData.js';
+import { useTaskPersistData } from './options/usePersistOptionsData.js';
+import Task from './task/Task.js';
+import { useTaskData } from './useTaskData.js';
+import { EmptyWidget } from '../../widgets/index.js';
 import type { WfTask } from '@axonivy/inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
-import RequestTask from './task/RequestTask';
-import WaitTask from './task/WaitTask';
-import WsTask from './task/WsTask';
+import { PathContext, useValidations } from '../../../context/index.js';
+import RequestTask from './task/RequestTask.js';
+import WaitTask from './task/WaitTask.js';
+import WsTask from './task/WsTask.js';
 
 export function useTaskPart(options?: TaskPartProps): PartProps {
   const { task, defaultTask, initTask, resetTask } = useTaskData();

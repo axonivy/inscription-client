@@ -1,13 +1,13 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { Checkbox, useFieldset } from '../../widgets';
-import { useSignalCatchData } from './useSignalCatchData';
-import { useEditorContext, useMeta, useValidations } from '../../../context';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { Checkbox, useFieldset } from '../../widgets/index.js';
+import { useSignalCatchData } from './useSignalCatchData.js';
+import { useMeta, useEditorContext, useValidations } from '../../../context/index.js';
 import type { SignalCatchData } from '@axonivy/inscription-protocol';
-import type { EventCodeItem } from '../common';
-import { EventCodeSelect, PathFieldset } from '../common';
-import { eventCodeInfo } from '../../../utils/event-code';
+import type { EventCodeItem } from '../common/index.js';
+import { EventCodeSelect, PathFieldset } from '../common/index.js';
+import { eventCodeInfo } from '../../../utils/event-code.js';
 
 export function useSignalCatchPart(options?: { makroSupport?: boolean; withBrowser?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useSignalCatchData();

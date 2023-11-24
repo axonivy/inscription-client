@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
-import { useAction, useEditorContext, useMeta, useValidations } from '../../../../context';
-import type { PartProps } from '../../../editors';
-import { usePartDirty, usePartState } from '../../../editors';
+import { useMeta, useAction, useEditorContext, useValidations } from '../../../../context/index.js';
+import type { PartProps } from '../../../editors/index.js';
+import { usePartDirty, usePartState } from '../../../editors/index.js';
 import type { CallData, DialogCallData, VariableInfo } from '@axonivy/inscription-protocol';
-import CallMapping, { useCallPartValidation } from '../CallMapping';
-import { useCallData, useDialogCallData } from '../useCallData';
-import CallSelect from '../CallSelect';
+import CallMapping, { useCallPartValidation } from '../CallMapping.js';
+import { useCallData, useDialogCallData } from '../useCallData.js';
+import CallSelect from '../CallSelect.js';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { FieldsetControl } from '../../../../components/widgets';
-import { useFieldset } from '../../../../components/widgets';
-import { PathFieldset } from '../../common';
+import type { FieldsetControl } from '../../../../components/widgets/index.js';
+import { useFieldset } from '../../../../components/widgets/index.js';
+import { PathFieldset } from '../../common/index.js';
 
 export function useDialogCallPart(): PartProps {
   const callData = useCallData();

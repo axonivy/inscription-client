@@ -1,6 +1,6 @@
-import './Button.css';
-import type { IvyIconProps } from '../IvyIcon';
-import IvyIcon from '../IvyIcon';
+import './Button.js';
+import type { IvyIconProps } from '../IvyIcon.js';
+import IvyIcon from '../IvyIcon.js';
 import type { ComponentProps} from 'react';
 import { forwardRef } from 'react';
 

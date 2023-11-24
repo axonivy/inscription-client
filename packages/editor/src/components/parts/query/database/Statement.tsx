@@ -1,6 +1,6 @@
-import { Checkbox, MacroArea, MessageText } from '../../../widgets';
-import { PathCollapsible, PathFieldset } from '../../common';
-import { useQueryData } from '../useQueryData';
+import { Checkbox, MacroArea, MessageText } from '../../../widgets/index.js';
+import { PathCollapsible, PathFieldset } from '../../common/index.js';
+import { useQueryData } from '../useQueryData.js';
 
 export const Statement = () => {
   const { config, defaultConfig, updateSql } = useQueryData();

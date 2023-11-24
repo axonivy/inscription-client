@@ -1,5 +1,5 @@
 import { ComboboxUtil, render } from 'test-utils';
-import { TableSelect } from './TableSelect';
+import { TableSelect } from './TableSelect.js';
 
 describe('TableSelect', () => {
   test('data', async () => {

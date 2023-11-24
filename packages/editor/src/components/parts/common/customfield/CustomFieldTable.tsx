@@ -4,7 +4,7 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { memo, useMemo, useState } from 'react';
-import type { SelectItem } from '../../../../components/widgets';
+import type { SelectItem } from '../../../../components/widgets/index.js';
 import {
   EditableCell,
   SelectCell,
@@ -16,9 +16,9 @@ import {
   TableAddRow,
   SortableHeader,
   ScriptCell
-} from '../../../../components/widgets';
-import { useAction } from '../../../../context';
-import { ValidationRow } from '../path/validation/ValidationRow';
+} from '../../../../components/widgets/index.js';
+import { useAction } from '../../../../context/index.js';
+import { ValidationRow } from '../path/validation/ValidationRow.js';
 
 type CustomFieldTableProps = {
   data: WfCustomField[];

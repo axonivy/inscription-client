@@ -1,8 +1,8 @@
-import './ActionCell.css';
+import './ActionCell.js';
 import type { IvyIcons } from '@axonivy/editor-icons';
-import { useReadonly } from '../../../../context';
-import { TableCell } from './TableCell';
-import Button from '../../button/Button';
+import { useReadonly } from '../../../../context/index.js';
+import { TableCell } from './TableCell.js';
+import Button from '../../button/Button.js';
 
 interface Action {
   label: string;

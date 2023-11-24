@@ -1,5 +1,5 @@
 import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
-import { RestTargetUrl } from './RestTargetUrl';
+import { RestTargetUrl } from './RestTargetUrl.js';
 import type { DeepPartial} from 'test-utils';
 import { render, screen } from 'test-utils';
 

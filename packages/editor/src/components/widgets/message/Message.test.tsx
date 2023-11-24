@@ -1,5 +1,5 @@
 import { render, screen } from 'test-utils';
-import { MessageText } from './Message';
+import { MessageText } from './Message.js';
 
 describe('MessageText', () => {
   test('error', () => {

@@ -1,5 +1,5 @@
-import { Checkbox, Collapsible } from '../../../widgets';
-import { useTaskPersistData } from './usePersistOptionsData';
+import { Checkbox, Collapsible } from '../../../widgets/index.js';
+import { useTaskPersistData } from './usePersistOptionsData.js';
 
 const PersistOptions = () => {
   const { config, updatePersist } = useTaskPersistData();

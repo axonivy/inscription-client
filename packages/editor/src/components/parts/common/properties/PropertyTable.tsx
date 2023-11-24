@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ValidationRow } from '../';
+import { ValidationRow } from '../index.js';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import type { ComboboxItem } from '../../../../components/widgets';
+import type { ComboboxItem } from '../../../../components/widgets/index.js';
 import {
   ActionCell,
   ComboCell,
@@ -13,8 +13,8 @@ import {
   TableCell,
   TableFooter,
   TableHeader
-} from '../../../../components/widgets';
-import { Property } from './properties';
+} from '../../../../components/widgets/index.js';
+import { Property } from './properties.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { ScriptMappings } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';

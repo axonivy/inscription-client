@@ -1,7 +1,7 @@
-import { useDataContext } from '../../../context';
+import { useDataContext } from '../../../context/index.js';
 import type { GeneralData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import type { DataUpdater } from '../../../types/lambda';
+import type { DataUpdater } from '../../../types/lambda.js';
 
 export function useGeneralData(): {
   data: GeneralData;

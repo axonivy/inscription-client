@@ -1,13 +1,13 @@
-import './Tags.css';
+import './Tags.js';
 import '../popover/Popover.css';
 import * as Popover from '@radix-ui/react-popover';
 import { memo, useState } from 'react';
 import { useKeyboard } from 'react-aria';
-import { useEditorContext } from '../../../context';
-import IvyIcon from '../IvyIcon';
+import { useEditorContext } from '../../../context/index.js';
+import IvyIcon from '../IvyIcon.js';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { Fieldset, useFieldset } from '../fieldset';
-import { Input } from '../input';
+import { Fieldset, useFieldset } from '../fieldset/index.js';
+import { Input } from '../input/index.js';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
   const [newTag, setNewTag] = useState('');

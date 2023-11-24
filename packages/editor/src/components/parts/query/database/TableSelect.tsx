@@ -1,8 +1,8 @@
-import { PathContext, useEditorContext, useMeta } from '../../../../context';
-import type { ComboboxItem } from '../../../widgets';
-import { Combobox, useFieldset } from '../../../widgets';
-import { PathFieldset } from '../../common';
-import { useQueryData } from '../useQueryData';
+import { useMeta, PathContext, useEditorContext } from '../../../../context/index.js';
+import type { ComboboxItem } from '../../../widgets/index.js';
+import { Combobox, useFieldset } from '../../../widgets/index.js';
+import { PathFieldset } from '../../common/index.js';
+import { useQueryData } from '../useQueryData.js';
 
 export const TableSelect = () => {
   const { config, updateSql } = useQueryData();

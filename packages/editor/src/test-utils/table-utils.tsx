@@ -30,7 +30,7 @@ export namespace TableUtil {
     await assertRowCount(expectedRows + 1);
 
     const addButton = screen.getByRole('button', { name: 'Add row' });
-    await userEvent.click(addButton);
+    await userEvent.default.click(addButton);
     expect(view.data()).toHaveLength(expectedRows);
 
     view.rerender();
@@ -42,7 +42,7 @@ export namespace TableUtil {
 
     const removeButtons = screen.getAllByRole('button', { name: 'Remove row' });
     expect(removeButtons).toHaveLength(expectedRows + 1);
-    await userEvent.click(removeButtons[0]);
+    await userEvent.default.click(removeButtons[0]);
     expect(view.data()).toHaveLength(expectedRows);
 
     view.rerender();
@@ -57,7 +57,7 @@ export namespace TableUtil {
 
     const addButton = screen.getByRole('button', { name: 'Add row' });
     addButton.focus();
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
     expect(view.data()).toHaveLength(defaultRows + 1);
 
     view.rerender();
@@ -66,7 +66,7 @@ export namespace TableUtil {
     const removeButtons = screen.getAllByRole('button', { name: 'Remove row' });
     expect(removeButtons).toHaveLength(defaultRows + 1);
     removeButtons[2].focus();
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
     expect(view.data()).toHaveLength(defaultRows);
 
     view.rerender();

@@ -1,5 +1,5 @@
 import { SelectUtil, render } from 'test-utils';
-import { DatabaseSelect } from './DatabaseSelect';
+import { DatabaseSelect } from './DatabaseSelect.js';
 
 describe('DatabaseSelect', () => {
   test('data', async () => {

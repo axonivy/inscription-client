@@ -1,6 +1,6 @@
 import { render, screen, userEvent } from 'test-utils';
-import Part from './Part';
-import type { PartProps, PartStateFlag } from './usePart';
+import Part from './Part.js';
+import type { PartProps, PartStateFlag } from './usePart.js';
 
 describe('Part', () => {
   const generalPart: PartProps = {
@@ -63,7 +63,7 @@ describe('Part', () => {
     const action = () => (dirty = false);
     renderAccordion({ ...callPart, reset: { dirty, action } });
     await assertDirtyState('Call', true);
-    await userEvent.click(screen.getByRole('button', { name: 'Reset Call' }));
+    await userEvent.default.click(screen.getByRole('button', { name: 'Reset Call' }));
     expect(dirty).toBeFalsy();
   });
 
@@ -71,9 +71,9 @@ describe('Part', () => {
     renderAccordion(generalPart);
     const trigger = screen.getByRole('button', { name: 'General' });
     assertExpanded('General', false);
-    await userEvent.click(trigger);
+    await userEvent.default.click(trigger);
     assertExpanded('General', true);
-    await userEvent.click(trigger);
+    await userEvent.default.click(trigger);
     assertExpanded('General', false);
   });
 
@@ -82,14 +82,14 @@ describe('Part', () => {
 
     const trigger = screen.getByRole('button', { name: 'Call' });
 
-    await userEvent.tab();
+    await userEvent.default.tab();
     expect(trigger).toHaveFocus();
     assertExpanded('Call', false);
 
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
     assertExpanded('Call', true);
 
-    await userEvent.keyboard('[Space]');
+    await userEvent.default.keyboard('[Space]');
     assertExpanded('Call', false);
   });
 
@@ -102,7 +102,7 @@ describe('Part', () => {
   }
 
   async function assertDirtyState(accordionName: string, dirty: boolean) {
-    await userEvent.click(screen.getByRole('button', { name: accordionName }));
+    await userEvent.default.click(screen.getByRole('button', { name: accordionName }));
     expect(screen.getByRole('button', { name: accordionName }).querySelector('span.accordion-state')).toHaveAttribute(
       'data-dirty',
       `${dirty}`

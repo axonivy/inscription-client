@@ -1,12 +1,12 @@
-import { Checkbox, Collapsible, ScriptInput, useFieldset } from '../../widgets';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useTriggerData } from './useTriggerData';
+import { Checkbox, Collapsible, ScriptInput, useFieldset } from '../../widgets/index.js';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useTriggerData } from './useTriggerData.js';
 import type { TriggerData } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
-import ResponsibleSelect from '../common/responsible/ResponsibleSelect';
-import { PathFieldset } from '../common';
+import { PathContext, useValidations } from '../../../context/index.js';
+import ResponsibleSelect from '../common/responsible/ResponsibleSelect.js';
+import { PathFieldset } from '../common/index.js';
 
 export function useTriggerPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useTriggerData();

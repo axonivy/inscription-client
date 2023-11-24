@@ -1,4 +1,4 @@
-import Checkbox from './Checkbox';
+import Checkbox from './Checkbox.js';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('Checkbox', () => {
@@ -7,7 +7,7 @@ describe('Checkbox', () => {
     rerender: () => void;
   } {
     let value = false;
-    userEvent.setup();
+    userEvent.default.setup();
     const view = render(<Checkbox label='test checkbox' value={value} onChange={(change: boolean) => (value = change)} />);
     return {
       data: () => value,
@@ -21,12 +21,12 @@ describe('Checkbox', () => {
     expect(checkbox).not.toBeChecked();
     expect(view.data()).toBeFalsy();
 
-    await userEvent.click(checkbox);
+    await userEvent.default.click(checkbox);
     view.rerender();
     expect(checkbox).toBeChecked();
     expect(view.data()).toBeTruthy();
 
-    await userEvent.click(checkbox);
+    await userEvent.default.click(checkbox);
     view.rerender();
     expect(checkbox).not.toBeChecked();
     expect(view.data()).toBeFalsy();
@@ -38,7 +38,7 @@ describe('Checkbox', () => {
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).not.toBeChecked();
 
-    await userEvent.click(label);
+    await userEvent.default.click(label);
     view.rerender();
     expect(checkbox).toBeChecked();
   });
@@ -46,15 +46,15 @@ describe('Checkbox', () => {
   test('toggled with keyboard', async () => {
     const view = renderCheckbox();
     const checkbox = screen.getByRole('checkbox');
-    await userEvent.tab();
+    await userEvent.default.tab();
     expect(checkbox).toHaveFocus();
     expect(checkbox).not.toBeChecked();
 
-    await userEvent.keyboard('[Space]');
+    await userEvent.default.keyboard('[Space]');
     view.rerender();
     expect(checkbox).toBeChecked();
 
-    await userEvent.keyboard('[Space]');
+    await userEvent.default.keyboard('[Space]');
     view.rerender();
     expect(checkbox).not.toBeChecked();
   });

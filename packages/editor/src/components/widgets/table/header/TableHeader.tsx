@@ -1,7 +1,7 @@
-import './TableHeader.css';
+import './TableHeader.js';
 import type { HeaderContext } from '@tanstack/react-table';
 import type { ReactNode } from 'react';
-import Button from '../../button/Button';
+import Button from '../../button/Button.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 export const TableHeader = (props: { colSpan: number; children?: ReactNode }) => (

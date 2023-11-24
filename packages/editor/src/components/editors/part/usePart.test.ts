@@ -1,6 +1,6 @@
 import { renderHook } from 'test-utils';
-import type { PartStateFlag} from './usePart';
-import { usePartState } from './usePart';
+import type { PartStateFlag} from './usePart.js';
+import { usePartState } from './usePart.js';
 import type { InscriptionValidation } from '@axonivy/inscription-protocol';
 
 describe('PartState', () => {

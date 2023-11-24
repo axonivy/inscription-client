@@ -1,6 +1,6 @@
 import { cloneObject, render, screen, userEvent } from 'test-utils';
-import type { Condition } from './condition';
-import ConditionTable from './ConditionTable';
+import type { Condition } from './condition.js';
+import ConditionTable from './ConditionTable.js';
 import type { InscriptionType } from '@axonivy/inscription-protocol';
 
 describe('ConditionTable', () => {
@@ -22,10 +22,10 @@ describe('ConditionTable', () => {
 
   test('can edit cells', async () => {
     const view = renderTable();
-    await userEvent.tab();
+    await userEvent.default.tab();
     expect(screen.getByDisplayValue('in.accepted == false')).toHaveFocus();
-    await userEvent.keyboard('true');
-    await userEvent.tab();
+    await userEvent.default.keyboard('true');
+    await userEvent.default.tab();
 
     const expectConditions = cloneObject(conditions);
     expectConditions[0].expression = 'true';
@@ -36,7 +36,7 @@ describe('ConditionTable', () => {
     const view = renderTable();
     const removeBtns = screen.getAllByRole('button', { name: 'Remove unknown condition' });
     expect(removeBtns).toHaveLength(2);
-    await userEvent.click(removeBtns[0]);
+    await userEvent.default.click(removeBtns[0]);
     const expectConditions = [];
     expectConditions.push(conditions[1], conditions[2]);
     expect(view.data()).toEqual(expectConditions);

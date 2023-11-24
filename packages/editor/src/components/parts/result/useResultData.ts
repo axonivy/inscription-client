@@ -1,8 +1,8 @@
-import type { ConfigDataContext} from '../../../context';
-import { useConfigDataContext } from '../../../context';
+import type { ConfigDataContext} from '../../../context/index.js';
+import { useConfigDataContext } from '../../../context/index.js';
 import type { ResultData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import type { DataUpdater } from '../../../types/lambda';
+import type { DataUpdater } from '../../../types/lambda.js';
 
 export function useResultData(): ConfigDataContext<ResultData> & {
   update: DataUpdater<ResultData['result']>;

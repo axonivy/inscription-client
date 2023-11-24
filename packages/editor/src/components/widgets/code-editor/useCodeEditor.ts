@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import type { BrowserType } from '../../../components/browser';
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
+import type { BrowserType } from '../../../components/browser/index.js';
 
 export const monacoAutoFocus = (editor: monaco.editor.IStandaloneCodeEditor) => {
   const range = editor.getModel()?.getFullModelRange();

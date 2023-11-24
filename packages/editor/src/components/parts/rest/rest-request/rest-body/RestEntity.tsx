@@ -1,9 +1,9 @@
-import { MappingPart, PathFieldset } from '../../../common';
-import { useRestRequestData } from '../../useRestRequestData';
-import { ScriptArea, useFieldset } from '../../../../widgets';
-import { PathContext, useEditorContext, useMeta } from '../../../../../context';
-import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from '../../RestEntityTypeCombobox';
-import { useRestEntityTypeMeta, useRestResourceMeta } from '../../useRestResourceMeta';
+import { MappingPart, PathFieldset } from '../../../common/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
+import { ScriptArea, useFieldset } from '../../../../widgets/index.js';
+import { useMeta, PathContext, useEditorContext } from '../../../../../context/index.js';
+import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from '../../RestEntityTypeCombobox.js';
+import { useRestEntityTypeMeta, useRestResourceMeta } from '../../useRestResourceMeta.js';
 import { EMPTY_VAR_INFO } from '@axonivy/inscription-protocol';
 
 const useShowEntityTypeCombo = (types: string[], currentType: string) => {

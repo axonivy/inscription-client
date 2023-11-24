@@ -1,8 +1,8 @@
-import { useWsRequestData } from './useWsRequestData';
-import { useEditorContext, useMeta } from '../../../context';
-import { PropertyTable } from '../common/properties/PropertyTable';
-import { PathCollapsible } from '../common';
-import { deepEqual } from '../../../utils/equals';
+import { useWsRequestData } from './useWsRequestData.js';
+import { useMeta, useEditorContext } from '../../../context/index.js';
+import { PropertyTable } from '../common/properties/PropertyTable.js';
+import { PathCollapsible } from '../common/index.js';
+import { deepEqual } from '../../../utils/equals.js';
 
 export const WsProperties = () => {
   const { config, defaultConfig, update } = useWsRequestData();

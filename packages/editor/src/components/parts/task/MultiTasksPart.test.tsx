@@ -2,8 +2,8 @@ import type { DeepPartial } from 'test-utils';
 import { render, screen, renderHook, userEvent } from 'test-utils';
 import type { TaskData, ElementData } from '@axonivy/inscription-protocol';
 import { DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../editors';
-import { useMultiTasksPart } from './MultiTasksPart';
+import type { PartStateFlag } from '../../editors/index.js';
+import { useMultiTasksPart } from './MultiTasksPart.js';
 import { deepmerge } from 'deepmerge-ts';
 
 const Part = () => {
@@ -41,7 +41,7 @@ describe('MultiTasksPart', () => {
     expect(screen.getByRole('tab', { name: 'TaskB' })).toHaveAttribute('data-message', 'error');
 
     expect(screen.getByLabelText('Name')).toHaveValue('task 1');
-    await userEvent.click(screen.getByRole('tab', { name: 'TaskB' }));
+    await userEvent.default.click(screen.getByRole('tab', { name: 'TaskB' }));
     expect(screen.getByLabelText('Name')).toHaveValue('task 2');
   });
 

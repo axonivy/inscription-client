@@ -1,2 +1,2 @@
-export * from './query-client';
-export * from './QueryProvider';
+export * from './query-client.js';
+export * from './QueryProvider.js';

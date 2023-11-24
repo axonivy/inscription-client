@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import type { FieldsetInputProps, SelectItem } from '../../../widgets';
-import { Select } from '../../../widgets';
-import { useRoles } from './useRoles';
+import type { FieldsetInputProps, SelectItem } from '../../../widgets/index.js';
+import { Select } from '../../../widgets/index.js';
+import { useRoles } from './useRoles.js';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
 

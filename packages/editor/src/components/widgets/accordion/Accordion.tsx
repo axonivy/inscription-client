@@ -1,8 +1,8 @@
-import './Accordion.css';
+import './Accordion.js';
 import { Content, Header, Item, Root, Trigger } from '@radix-ui/react-accordion';
-import IvyIcon from '../IvyIcon';
+import IvyIcon from '../IvyIcon.js';
 import { IvyIcons } from '@axonivy/editor-icons';
-import Button from '../button/Button';
+import Button from '../button/Button.js';
 import type { ComponentProps, ReactNode } from 'react';
 
 type AccordionRootProps = {

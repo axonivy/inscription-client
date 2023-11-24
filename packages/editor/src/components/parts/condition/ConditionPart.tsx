@@ -1,10 +1,10 @@
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useConditionData } from './useConditionData';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useConditionData } from './useConditionData.js';
+import { useMeta, PathContext, useEditorContext, useValidations } from '../../../context/index.js';
 import { useEffect, useState } from 'react';
-import { Condition } from './condition';
-import ConditionTable from './ConditionTable';
+import { Condition } from './condition.js';
+import ConditionTable from './ConditionTable.js';
 import type { ConditionData } from '@axonivy/inscription-protocol';
 
 export function useConditionPart(): PartProps {

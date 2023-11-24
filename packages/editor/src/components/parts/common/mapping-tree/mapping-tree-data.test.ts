@@ -1,5 +1,5 @@
 import type { VariableInfo } from '@axonivy/inscription-protocol';
-import { MappingTreeData } from './mapping-tree-data';
+import { MappingTreeData } from './mapping-tree-data.js';
 import { cloneObject } from 'test-utils';
 
 describe('MappingTreeData', () => {

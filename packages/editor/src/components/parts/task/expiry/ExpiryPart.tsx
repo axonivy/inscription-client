@@ -1,9 +1,9 @@
-import { ScriptInput, useFieldset } from '../../../../components/widgets';
-import { PathCollapsible, PathFieldset } from '../../common';
-import ErrorSelect from './ErrorSelect';
-import PrioritySelect from './../priority/PrioritySelect';
-import ResponsibleSelect from '../../common/responsible/ResponsibleSelect';
-import { useExpiryData } from './useExpiryData';
+import { ScriptInput, useFieldset } from '../../../../components/widgets/index.js';
+import { PathCollapsible, PathFieldset } from '../../common/index.js';
+import ErrorSelect from './ErrorSelect.js';
+import PrioritySelect from './../priority/PrioritySelect.js';
+import ResponsibleSelect from '../../common/responsible/ResponsibleSelect.js';
+import { useExpiryData } from './useExpiryData.js';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 
 const ExpiryPart = () => {

@@ -1,9 +1,9 @@
 import type { Monaco } from '@monaco-editor/react';
 import { loader } from '@monaco-editor/react';
-import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import type { ThemeMode } from '../context/useTheme';
-import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
-import { ivyMacroConf, ivyMacroLang } from './ivy-macro-language';
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
+import type { ThemeMode } from '../context/useTheme.js';
+import { ivyScriptConf, ivyScriptLang } from './ivy-script-language.js';
+import { ivyMacroConf, ivyMacroLang } from './ivy-macro-language.js';
 
 export const MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
   glyphMargin: false,

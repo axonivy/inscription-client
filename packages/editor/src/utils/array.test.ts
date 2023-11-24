@@ -1,4 +1,4 @@
-import { arraymove, indexOf } from './array';
+import { arraymove, indexOf } from './array.js';
 
 describe('array', () => {
   test('indexOf', () => {

@@ -1,8 +1,8 @@
-import type { FieldsetProps } from './Fieldset';
-import Fieldset from './Fieldset';
+import type { FieldsetProps } from './Fieldset.js';
+import Fieldset from './Fieldset.js';
 import { render, screen, userEvent } from 'test-utils';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { FieldsetControl } from './fieldset-control';
+import type { FieldsetControl } from './fieldset-control.js';
 
 describe('Fieldset', () => {
   function renderFieldset({ label, controls, message }: FieldsetProps) {
@@ -37,7 +37,7 @@ describe('Fieldset', () => {
 
     renderFieldset({ label: 'label', controls: [control1, control2] });
     const btn1 = screen.getByRole('button', { name: 'Btn1' });
-    await userEvent.click(btn1);
+    await userEvent.default.click(btn1);
     expect(btnTrigger).toBeTruthy();
 
     const btn2 = screen.getByRole('button', { name: 'Btn2' });

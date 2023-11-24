@@ -1,10 +1,10 @@
-import type { ComboboxItem} from '../../../../../components/widgets';
-import { Combobox, useFieldset } from '../../../../../components/widgets';
-import { PathFieldset } from '../../../common';
-import { useRestRequestData } from '../../useRestRequestData';
-import { useMeta, useOpenApi } from '../../../../../context';
+import type { ComboboxItem } from '../../../../../components/widgets/index.js';
+import { Combobox, useFieldset } from '../../../../../components/widgets/index.js';
+import { PathFieldset } from '../../../common/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
+import { useMeta, useOpenApi } from '../../../../../context/index.js';
 import type { InputType } from '@axonivy/inscription-protocol';
-import { useRestResourceMeta } from '../../useRestResourceMeta';
+import { useRestResourceMeta } from '../../useRestResourceMeta.js';
 
 const useShowContentTypeCombo = (mode: InputType) => {
   const { openApi } = useOpenApi();

@@ -1,5 +1,5 @@
 import { CollapsableUtil, render, screen } from 'test-utils';
-import { Exception } from './Exception';
+import { Exception } from './Exception.js';
 
 describe('Exception', () => {
   test('data', async () => {

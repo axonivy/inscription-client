@@ -1,5 +1,5 @@
 import { CollapsableUtil, render, screen } from 'test-utils';
-import { Statement } from './Statement';
+import { Statement } from './Statement.js';
 
 describe('Statement', () => {
   test('data', async () => {

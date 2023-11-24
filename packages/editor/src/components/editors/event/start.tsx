@@ -3,7 +3,7 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
+import InscriptionEditor from '../InscriptionEditor.js';
 
 import {
   useCasePart,
@@ -17,7 +17,7 @@ import {
   useRequestPart,
   useProgramStartPart,
   useConfigurationPart
-} from '../../../components/parts';
+} from '../../../components/parts/index.js';
 
 const RequestStartEditor = memo(() => {
   const name = useGeneralPart();

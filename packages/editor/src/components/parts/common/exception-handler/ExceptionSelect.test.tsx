@@ -1,4 +1,4 @@
-import ExceptionSelect from './ExceptionSelect';
+import ExceptionSelect from './ExceptionSelect.js';
 import { render, SelectUtil } from 'test-utils';
 
 describe('ExceptionSelect', () => {

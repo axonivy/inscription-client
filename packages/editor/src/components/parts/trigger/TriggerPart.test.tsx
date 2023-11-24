@@ -1,8 +1,8 @@
 import type { DeepPartial } from 'test-utils';
 import { render, screen, renderHook, CollapsableUtil, SelectUtil } from 'test-utils';
 import type { ElementData, InscriptionValidation, TriggerData } from '@axonivy/inscription-protocol';
-import { useTriggerPart } from './TriggerPart';
-import type { PartStateFlag } from '../../editors';
+import { useTriggerPart } from './TriggerPart.js';
+import type { PartStateFlag } from '../../editors/index.js';
 
 const Part = () => {
   const part = useTriggerPart();

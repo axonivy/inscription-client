@@ -1,6 +1,6 @@
 import type { WfCustomField } from '@axonivy/inscription-protocol';
 import { render, TableUtil, CollapsableUtil } from 'test-utils';
-import CustomFieldPart from './CustomFieldPart';
+import CustomFieldPart from './CustomFieldPart.js';
 
 describe('CustomFieldPart', () => {
   function renderTable(customFields?: WfCustomField[]) {

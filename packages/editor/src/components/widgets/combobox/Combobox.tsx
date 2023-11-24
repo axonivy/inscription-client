@@ -1,16 +1,16 @@
 import { useCombobox } from 'downshift';
 import type { ComponentProps, ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
-import './Combobox.css';
-import { usePath, useReadonly } from '../../../context';
+import './Combobox.js';
+import { usePath, useReadonly } from '../../../context/index.js';
 import { IvyIcons } from '@axonivy/editor-icons';
-import Button from '../button/Button';
-import { SingleLineCodeEditor } from '../code-editor';
-import { useModifyEditor } from '../code-editor/useCodeEditor';
-import type { BrowserType } from '../../../components/browser';
-import { Browser, useBrowser } from '../../../components/browser';
-import { CardText } from '../output/CardText';
-import { useOnFocus } from '../../../components/browser/useOnFocus';
+import Button from '../button/Button.js';
+import { SingleLineCodeEditor } from '../code-editor/index.js';
+import { useModifyEditor } from '../code-editor/useCodeEditor.js';
+import type { BrowserType } from '../../../components/browser/index.js';
+import { Browser, useBrowser } from '../../../components/browser/index.js';
+import { CardText } from '../output/CardText.js';
+import { useOnFocus } from '../../../components/browser/useOnFocus.js';
 
 export interface ComboboxItem {
   value: string;

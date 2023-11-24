@@ -14,8 +14,9 @@
     "src",
     "src-gen"
   ],
-  "types": "lib/index",
-  "module": "lib/index",
+  "type": "module",
+  "types": "lib/index.d.ts",
+  "module": "lib/index.js",
   "source": "src-gen/index",
   "devDependencies": {
     "fantasticon": "^1.2.3",

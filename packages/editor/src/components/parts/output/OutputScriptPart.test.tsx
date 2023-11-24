@@ -1,7 +1,7 @@
 import type { DeepPartial } from 'test-utils';
 import { render, screen, renderHook } from 'test-utils';
-import { useOutputScriptPart } from './OutputScriptPart';
-import type { PartStateFlag } from '../../editors';
+import { useOutputScriptPart } from './OutputScriptPart.js';
+import type { PartStateFlag } from '../../editors/index.js';
 import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
 
 const Part = () => {

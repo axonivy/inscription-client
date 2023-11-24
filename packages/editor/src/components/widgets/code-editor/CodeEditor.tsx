@@ -1,8 +1,8 @@
-import './CodeEditor.css';
+import './CodeEditor.js';
 import { Editor } from '@monaco-editor/react';
-import { useEditorContext } from '../../../context';
-import { MONACO_OPTIONS, MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
-import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { useEditorContext } from '../../../context/index.js';
+import { MONACO_OPTIONS, MonacoEditorUtil } from '../../../monaco/monaco-editor-util.js';
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
 
 export type CodeEditorProps = {
   value: string;

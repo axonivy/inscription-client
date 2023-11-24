@@ -1,5 +1,5 @@
 import { TableUtil, render, screen, userEvent } from 'test-utils';
-import { useCmsBrowser } from './CmsBrowser';
+import { useCmsBrowser } from './CmsBrowser.js';
 
 const Browser = (props: { location: string; accept: (value: string) => void }) => {
   const browser = useCmsBrowser(() => {});
@@ -40,8 +40,8 @@ describe('CmsBrowser', () => {
   test('accept', async () => {
     let data = '';
     renderBrowser({ accept: value => (data = value) });
-    await userEvent.click(await screen.findByRole('cell', { name: 'Macro' }));
-    await userEvent.click(screen.getByTestId('accept'));
+    await userEvent.default.click(await screen.findByRole('cell', { name: 'Macro' }));
+    await userEvent.default.click(screen.getByTestId('accept'));
     expect(data).toEqual('ivy.cms.co("/Macro")');
   });
 });

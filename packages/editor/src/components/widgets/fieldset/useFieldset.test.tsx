@@ -1,5 +1,5 @@
 import { renderHook } from 'test-utils';
-import { useFieldset } from './useFieldset';
+import { useFieldset } from './useFieldset.js';
 
 describe('useFieldset', () => {
   test('unique ids', () => {

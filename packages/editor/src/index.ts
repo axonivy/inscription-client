@@ -1,7 +1,7 @@
-export { default as App } from './App';
-export { default as AppStateView } from './AppStateView';
-export * from './components';
-export * from './context';
-export * from './monaco/monaco-editor-util';
-export * from './query';
-export * from './types/lambda';
+export { default as App } from './App.js';
+export { default as AppStateView } from './AppStateView.js';
+export * from './components/index.js';
+export * from './context/index.js';
+export * from './monaco/monaco-editor-util.js';
+export * from './query/index.js';
+export * from './types/lambda.js';

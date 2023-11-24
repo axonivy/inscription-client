@@ -1,8 +1,8 @@
 import type { DeepPartial} from 'test-utils';
 import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
 import type { MailData } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../editors';
-import { useMailHeaderPart } from './MailHeaderPart';
+import type { PartStateFlag } from '../../editors/index.js';
+import { useMailHeaderPart } from './MailHeaderPart.js';
 
 const Part = () => {
   const part = useMailHeaderPart();

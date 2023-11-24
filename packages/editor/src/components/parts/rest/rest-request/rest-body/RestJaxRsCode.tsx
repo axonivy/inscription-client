@@ -1,6 +1,6 @@
-import { ScriptArea, useFieldset } from '../../../../widgets';
-import { PathFieldset } from '../../../common';
-import { useRestRequestData } from '../../useRestRequestData';
+import { ScriptArea, useFieldset } from '../../../../widgets/index.js';
+import { PathFieldset } from '../../../common/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
 
 export const RestJaxRsCode = () => {
   const { config, update } = useRestRequestData();

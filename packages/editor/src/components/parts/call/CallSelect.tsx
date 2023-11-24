@@ -1,5 +1,5 @@
-import type { ComboboxItem, FieldsetInputProps} from '../../widgets';
-import { Combobox, IvyIcon } from '../../widgets';
+import type { ComboboxItem, FieldsetInputProps} from '../../widgets/index.js';
+import { Combobox, IvyIcon } from '../../widgets/index.js';
 import type { IvyIcons } from '@axonivy/editor-icons';
 import type { CallableStart } from '@axonivy/inscription-protocol';
 import { useMemo } from 'react';

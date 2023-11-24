@@ -12,8 +12,8 @@ import {
   TableCell,
   TableFooter,
   TableHeader
-} from '../../../../components/widgets';
-import { useAction } from '../../../../context';
+} from '../../../../components/widgets/index.js';
+import { useAction } from '../../../../context/index.js';
 
 const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change: Document[]) => void }) => {
   const columns = useMemo<ColumnDef<Document>[]>(

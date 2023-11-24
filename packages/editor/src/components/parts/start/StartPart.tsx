@@ -1,10 +1,10 @@
-import { Input, ScriptArea, useFieldset } from '../../../components/widgets';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useStartData } from './useStartData';
+import { Input, ScriptArea, useFieldset } from '../../../components/widgets/index.js';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useStartData } from './useStartData.js';
 import type { StartData } from '@axonivy/inscription-protocol';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { MappingPart, ParameterTable, PathCollapsible, PathFieldset } from '../common';
+import { useMeta, PathContext, useEditorContext, useValidations } from '../../../context/index.js';
+import { MappingPart, ParameterTable, PathCollapsible, PathFieldset } from '../common/index.js';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
 

@@ -1,7 +1,7 @@
-import { ScriptInput, useFieldset } from '../../../../components/widgets';
-import { PathFieldset, ValidationCollapsible } from '../../common';
+import { ScriptInput, useFieldset } from '../../../../components/widgets/index.js';
+import { PathFieldset, ValidationCollapsible } from '../../common/index.js';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { useQueryData } from '../useQueryData';
+import { useQueryData } from '../useQueryData.js';
 
 export const Limit = () => {
   const { config, defaultConfig, update } = useQueryData();

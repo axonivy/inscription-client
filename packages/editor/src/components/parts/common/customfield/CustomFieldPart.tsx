@@ -1,6 +1,6 @@
 import type { CustomFieldConfigType, WfCustomField } from '@axonivy/inscription-protocol';
-import CustomFieldTable from './CustomFieldTable';
-import { PathCollapsible } from '../path/PathCollapsible';
+import CustomFieldTable from './CustomFieldTable.js';
+import { PathCollapsible } from '../path/PathCollapsible.js';
 
 type CustomFieldPartProps = {
   customFields: WfCustomField[];

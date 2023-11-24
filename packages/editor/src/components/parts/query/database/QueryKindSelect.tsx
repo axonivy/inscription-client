@@ -1,10 +1,10 @@
-import type { SelectItem} from '../../../widgets';
-import { Select, useFieldset } from '../../../widgets';
-import { useQueryData } from '../useQueryData';
-import { PathFieldset } from '../../common';
+import type { SelectItem} from '../../../widgets/index.js';
+import { Select, useFieldset } from '../../../widgets/index.js';
+import { useQueryData } from '../useQueryData.js';
+import { PathFieldset } from '../../common/index.js';
 import type { QueryKind } from '@axonivy/inscription-protocol';
 import { QUERY_KIND } from '@axonivy/inscription-protocol';
-import { PathContext } from '../../../../context';
+import { PathContext } from '../../../../context/index.js';
 import { useMemo } from 'react';
 
 export const QueryKindSelect = () => {

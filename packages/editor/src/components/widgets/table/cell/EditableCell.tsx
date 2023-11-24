@@ -1,11 +1,11 @@
-import './EditableCell.css';
-import '../../code-editor/ScriptInput.css';
+import './EditableCell.js';
+import '../../code-editor/ScriptInput.js';
 import type { CellContext, RowData } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
-import { Input } from '../../input';
-import { Browser, useBrowser } from '../../../../components/browser';
-import { usePath } from '../../../../context';
-import { useOnFocus } from '../../../../components/browser/useOnFocus';
+import { Input } from '../../input/index.js';
+import { Browser, useBrowser } from '../../../../components/browser/index.js';
+import { usePath } from '../../../../context/index.js';
+import { useOnFocus } from '../../../../components/browser/useOnFocus.js';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

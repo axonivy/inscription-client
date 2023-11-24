@@ -1,5 +1,5 @@
-import { OpenApiContextProvider } from '../../../context';
-import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox';
+import { OpenApiContextProvider } from '../../../context/index.js';
+import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox.js';
 import type { DeepPartial} from 'test-utils';
 import { ComboboxUtil, render } from 'test-utils';
 import { renderHook } from '@testing-library/react';

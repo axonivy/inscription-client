@@ -1,13 +1,13 @@
 import type { EventData, IntermediateEventTimeoutAction } from '@axonivy/inscription-protocol';
 import { EVENT_ACTION_TYPE, IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../editors';
-import { usePartDirty, usePartState } from '../../../editors';
-import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common';
-import { ScriptInput, useFieldset, Radio } from '../../../widgets';
-import { useValidations } from '../../../../context';
-import { useEventData } from './useEventData';
-import JavaClassSelector from '../JavaClassSelector';
-import { deepEqual } from '../../../../utils/equals';
+import type { PartProps } from '../../../editors/index.js';
+import { usePartDirty, usePartState } from '../../../editors/index.js';
+import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common/index.js';
+import { ScriptInput, useFieldset, Radio } from '../../../widgets/index.js';
+import { useValidations } from '../../../../context/index.js';
+import { useEventData } from './useEventData.js';
+import JavaClassSelector from '../JavaClassSelector.js';
+import { deepEqual } from '../../../../utils/equals.js';
 
 export function useEventPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useEventData();

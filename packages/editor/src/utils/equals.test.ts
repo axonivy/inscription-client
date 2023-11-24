@@ -1,4 +1,4 @@
-import { deepEqual } from './equals';
+import { deepEqual } from './equals.js';
 
 describe('equals', () => {
   test('equals is true', () => {

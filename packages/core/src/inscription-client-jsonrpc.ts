@@ -11,8 +11,8 @@ import type {
 } from '@axonivy/inscription-protocol';
 import type { Disposable } from 'vscode-jsonrpc';
 import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
-import { ConnectionUtil } from './connection-util';
-import { BaseRcpClient } from './rcp-client';
+import { ConnectionUtil } from './connection-util.js';
+import { BaseRcpClient } from './rcp-client.js';
 
 export class InscriptionClientJsonRpc extends BaseRcpClient implements InscriptionClient {
   protected onDataChangedEmitter = new Emitter<InscriptionData>();

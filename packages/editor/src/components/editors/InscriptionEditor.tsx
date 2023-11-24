@@ -1,18 +1,18 @@
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import './InscriptionEditor.css';
+import './InscriptionEditor.js';
 import type { ElementType } from '@axonivy/inscription-protocol';
-import NoEditor from './NoEditor';
-import { activityEditors } from './activity/all-activity-editors';
-import { eventEditors } from './event/all-event-editors';
-import { gatewayEditors } from './gateway/all-gateway-editors';
-import { IvyIcon, MessageText } from '../widgets';
-import { useDataContext, useEditorContext } from '../../context';
+import NoEditor from './NoEditor.js';
+import { activityEditors } from './activity/all-activity-editors.js';
+import { eventEditors } from './event/all-event-editors.js';
+import { gatewayEditors } from './gateway/all-gateway-editors.js';
+import { IvyIcon, MessageText } from '../widgets/index.js';
+import { useDataContext, useEditorContext } from '../../context/index.js';
 import type { IvyIcons } from '@axonivy/editor-icons';
-import { useGeneralData } from '../parts/name/useGeneralData';
-import Part from './part/Part';
-import type { PartProps } from './part/usePart';
-import { otherEditors } from './other-editors';
+import { useGeneralData } from '../parts/name/useGeneralData.js';
+import Part from './part/Part.js';
+import type { PartProps } from './part/usePart.js';
+import { otherEditors } from './other-editors.js';
 
 const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
 

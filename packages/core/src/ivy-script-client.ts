@@ -1,6 +1,6 @@
 import { MonacoLanguageClient } from 'monaco-languageclient';
 
-import { ConnectionUtil } from './connection-util';
+import { ConnectionUtil } from './connection-util.js';
 
 export namespace IvyScriptLanguage {
   export async function startWebSocketClient(url: string): Promise<MonacoLanguageClient> {

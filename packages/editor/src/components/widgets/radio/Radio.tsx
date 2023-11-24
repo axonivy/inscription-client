@@ -1,6 +1,6 @@
-import { useReadonly } from '../../../context';
-import { useFieldset } from '../fieldset';
-import './Radio.css';
+import { useReadonly } from '../../../context/index.js';
+import { useFieldset } from '../fieldset/index.js';
+import './Radio.js';
 import type { RadioGroupProps} from '@radix-ui/react-radio-group';
 import { RadioGroup, RadioGroupItem, RadioGroupIndicator } from '@radix-ui/react-radio-group';
 

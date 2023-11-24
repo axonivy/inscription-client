@@ -1,6 +1,6 @@
 import type { StartCustomStartField } from '@axonivy/inscription-protocol';
-import { PathCollapsible } from '../path/PathCollapsible';
-import StartCustomFieldTable from './StartCustomFieldTable';
+import { PathCollapsible } from '../path/PathCollapsible.js';
+import StartCustomFieldTable from './StartCustomFieldTable.js';
 
 type StartCustomFieldPartProps = {
   customFields: StartCustomStartField[];

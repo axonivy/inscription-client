@@ -1,4 +1,4 @@
-import CallSelect from './CallSelect';
+import CallSelect from './CallSelect.js';
 import { render, screen, userEvent } from 'test-utils';
 import type { CallableStart } from '@axonivy/inscription-protocol';
 
@@ -45,7 +45,7 @@ describe('CallSelect', () => {
     expect(combobox).not.toHaveStyle(DEPRECATED_STYLE);
 
     const button = screen.getByRole('button', { name: 'toggle menu' });
-    await userEvent.click(button);
+    await userEvent.default.click(button);
     const menu = screen.getByRole('listbox');
     expect(menu).not.toBeEmptyDOMElement();
     const items = screen.getAllByRole('option');

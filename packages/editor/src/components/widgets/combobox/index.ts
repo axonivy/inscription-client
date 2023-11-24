@@ -1,2 +1,2 @@
-export * from './Combobox';
-export { default as Combobox } from './Combobox';
+export * from './Combobox.js';
+export { default as Combobox } from './Combobox.js';

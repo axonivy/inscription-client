@@ -1,7 +1,7 @@
 import type { ConfigData, ElementData, InscriptionValidation, WfTask } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { createContext, useCallback, useContext } from 'react';
-import type { UpdateConsumer } from '../types/lambda';
+import type { UpdateConsumer } from '../types/lambda.js';
 
 export interface DataContext {
   data: ElementData;

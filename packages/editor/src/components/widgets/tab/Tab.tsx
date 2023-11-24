@@ -1,8 +1,8 @@
-import './Tab.css';
+import './Tab.js';
 import { Tabs as TabsRoot, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import type { ReactNode} from 'react';
 import { useMemo } from 'react';
-import type { Message } from '../message/Message';
+import type { Message } from '../message/Message.js';
 
 export type Tab = {
   id: string;

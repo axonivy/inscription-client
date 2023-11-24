@@ -1,5 +1,5 @@
-import type { Message } from '../message/Message';
-import Collapsible from './Collapsible';
+import type { Message } from '../message/Message.js';
+import Collapsible from './Collapsible.js';
 import { render, screen, userEvent } from 'test-utils';
 
 describe('Collapsible', () => {
@@ -20,25 +20,25 @@ describe('Collapsible', () => {
   test('collapse part will render after click on trigger', async () => {
     renderCollapsible(false);
     expect(screen.queryByText(COLLAPSE_DATA)).not.toBeInTheDocument();
-    await userEvent.click(collapseBtn());
+    await userEvent.default.click(collapseBtn());
     expect(screen.getByText(COLLAPSE_DATA)).toBeInTheDocument();
   });
 
   test('collapse part will hide after click on trigger', async () => {
     renderCollapsible(true);
     expect(screen.getByText(COLLAPSE_DATA)).toBeInTheDocument();
-    await userEvent.click(collapseBtn());
+    await userEvent.default.click(collapseBtn());
     expect(screen.queryByText(COLLAPSE_DATA)).not.toBeInTheDocument();
   });
 
   test('collapse part will toggle with keyboard', async () => {
     renderCollapsible(false);
     expect(screen.queryByText(COLLAPSE_DATA)).not.toBeInTheDocument();
-    await userEvent.tab();
+    await userEvent.default.tab();
     expect(collapseBtn()).toHaveFocus();
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
     expect(screen.getByText(COLLAPSE_DATA)).toBeInTheDocument();
-    await userEvent.keyboard('[Space]');
+    await userEvent.default.keyboard('[Space]');
     expect(screen.queryByText(COLLAPSE_DATA)).not.toBeInTheDocument();
   });
 

@@ -1,8 +1,8 @@
-import type { PartProps} from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import DocumentTable from './document/DocumentTable';
-import { Collapsible, Fieldset, Tags, Textarea, useFieldset } from '../../widgets';
-import { useGeneralData } from './useGeneralData';
+import type { PartProps} from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import DocumentTable from './document/DocumentTable.js';
+import { Collapsible, Fieldset, Tags, Textarea, useFieldset } from '../../widgets/index.js';
+import { useGeneralData } from './useGeneralData.js';
 
 export function useGeneralPart(options?: { hideTags?: boolean; disableName?: boolean }): PartProps {
   const { data, initData, resetData } = useGeneralData();

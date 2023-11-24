@@ -1,5 +1,5 @@
-import { TableSelect } from '../database/TableSelect';
-import { TableFields } from '../database/TableFields';
+import { TableSelect } from '../database/TableSelect.js';
+import { TableFields } from '../database/TableFields.js';
 
 export const QueryWrite = () => (
   <>

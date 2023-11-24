@@ -1,11 +1,11 @@
-import './ScriptInput.css';
-import { Input } from '../input';
-import type { CodeEditorInputProps } from './SingleLineCodeEditor';
-import SingleLineCodeEditor from './SingleLineCodeEditor';
-import { useModifyEditor } from './useCodeEditor';
-import { Browser, useBrowser } from '../../../components/browser';
-import { usePath } from '../../../context';
-import { useOnFocus } from '../../../components/browser/useOnFocus';
+import './ScriptInput.js';
+import { Input } from '../input/index.js';
+import type { CodeEditorInputProps } from './SingleLineCodeEditor.js';
+import SingleLineCodeEditor from './SingleLineCodeEditor.js';
+import { useModifyEditor } from './useCodeEditor.js';
+import { Browser, useBrowser } from '../../../components/browser/index.js';
+import { usePath } from '../../../context/index.js';
+import { useOnFocus } from '../../../components/browser/useOnFocus.js';
 
 const ScriptInput = ({
   value,

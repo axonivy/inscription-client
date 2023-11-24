@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import './Tags.css';
+import './Tags.js';
 
 const SummaryTags = ({ tags }: { tags: string[] }) => (
   <>

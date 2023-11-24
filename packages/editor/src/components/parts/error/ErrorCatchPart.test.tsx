@@ -1,8 +1,8 @@
 import type { DeepPartial} from 'test-utils';
 import { ComboboxUtil, render, renderHook } from 'test-utils';
 import type { ElementData, ErrorCatchData } from '@axonivy/inscription-protocol';
-import { useErrorCatchPart } from './ErrorCatchPart';
-import type { PartStateFlag } from '../../editors';
+import { useErrorCatchPart } from './ErrorCatchPart.js';
+import type { PartStateFlag } from '../../editors/index.js';
 
 const Part = () => {
   const part = useErrorCatchPart();

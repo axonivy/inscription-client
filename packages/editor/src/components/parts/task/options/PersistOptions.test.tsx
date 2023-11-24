@@ -1,4 +1,4 @@
-import PersistOptions from './PersistOptions';
+import PersistOptions from './PersistOptions.js';
 import type { TaskData } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
 
@@ -10,7 +10,7 @@ describe('PersistOptions', () => {
   test('empty', async () => {
     renderTaskPart();
     const optionCollapse = screen.getByRole('button', { name: /Option/ });
-    await userEvent.click(optionCollapse);
+    await userEvent.default.click(optionCollapse);
     expect(screen.getByLabelText(/Persist/)).not.toBeChecked();
   });
 

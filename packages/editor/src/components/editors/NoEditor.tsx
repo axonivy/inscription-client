@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import './NoEditor.css';
+import './NoEditor.js';
 
 const NoEditor = (props: { type?: string }) => {
   return props.type ? (

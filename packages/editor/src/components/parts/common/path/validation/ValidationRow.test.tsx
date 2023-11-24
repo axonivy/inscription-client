@@ -1,6 +1,6 @@
 import { render, screen } from 'test-utils';
 import type { InscriptionValidation } from '@axonivy/inscription-protocol';
-import { ValidationRow } from './ValidationRow';
+import { ValidationRow } from './ValidationRow.js';
 
 describe('ValidationRow', () => {
   function renderTable(path: string) {

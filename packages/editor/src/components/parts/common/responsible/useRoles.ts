@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import type { SelectItem } from '../../../../components/widgets';
-import { useEditorContext, useMeta } from '../../../../context';
+import type { SelectItem } from '../../../../components/widgets/index.js';
+import { useMeta, useEditorContext } from '../../../../context/index.js';
 import { EMPTY_ROLE, type RoleMeta } from '@axonivy/inscription-protocol';
 
 export const useRoles = (showTaskRoles = false) => {

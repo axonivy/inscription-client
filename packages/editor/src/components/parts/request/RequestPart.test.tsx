@@ -1,8 +1,8 @@
 import type { DeepPartial } from 'test-utils';
 import { render, screen, renderHook, TableUtil, SelectUtil, CollapsableUtil } from 'test-utils';
 import type { ElementData, InscriptionValidation, RequestData } from '@axonivy/inscription-protocol';
-import { useRequestPart } from './RequestPart';
-import type { PartStateFlag } from '../../editors';
+import { useRequestPart } from './RequestPart.js';
+import type { PartStateFlag } from '../../editors/index.js';
 
 const Part = () => {
   const part = useRequestPart();

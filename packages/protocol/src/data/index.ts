@@ -1,6 +1,6 @@
-export * from './inscription-data';
+export * from './inscription-data.js';
 
-export * from './part-data';
-export * from './workflow-data';
+export * from './part-data.js';
+export * from './workflow-data.js';
 
-export * from './inscription';
+export * from './inscription.js';

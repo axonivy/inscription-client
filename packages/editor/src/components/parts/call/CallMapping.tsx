@@ -1,9 +1,9 @@
 import type { InscriptionValidation, VariableInfo } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
-import { ScriptArea, useFieldset } from '../../widgets';
-import { useCallData } from './useCallData';
-import { PathContext, useValidations } from '../../../context';
-import { MappingPart, PathFieldset } from '../common';
+import { ScriptArea, useFieldset } from '../../widgets/index.js';
+import { useCallData } from './useCallData.js';
+import { PathContext, useValidations } from '../../../context/index.js';
+import { MappingPart, PathFieldset } from '../common/index.js';
 
 export function useCallPartValidation(): InscriptionValidation[] {
   return useValidations(['call']);

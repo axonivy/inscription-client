@@ -54,8 +54,8 @@
     "jest-watch-typeahead": "^2.2.2"
   },
   "type": "module",
-  "module": "lib/index",
-  "types": "lib/index",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "source": "src/index",
   "scripts": {
     "clean": "rimraf lib *.tsbuildinfo",

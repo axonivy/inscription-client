@@ -3,7 +3,7 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
+import InscriptionEditor from '../InscriptionEditor.js';
 import {
   useMailAttachmentPart,
   useMailHeaderPart,
@@ -18,8 +18,8 @@ import {
   useRestRequestPart,
   useProgramInterfaceStartPart,
   useConfigurationPart
-} from '../../../components/parts';
-import { OpenApiContextProvider } from '../../../context/useOpenApi';
+} from '../../../components/parts/index.js';
+import { OpenApiContextProvider } from '../../../context/useOpenApi.js';
 
 const DatabaseEditor = memo(() => {
   const name = useGeneralPart();

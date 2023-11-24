@@ -1,6 +1,6 @@
 import type { StartCustomStartField } from '@axonivy/inscription-protocol';
 import { render, TableUtil, CollapsableUtil } from 'test-utils';
-import StartCustomFieldPart from './StartCustomFieldPart';
+import StartCustomFieldPart from './StartCustomFieldPart.js';
 
 describe('StartCustomFieldPart', () => {
   function renderTable(customFields?: StartCustomStartField[]) {

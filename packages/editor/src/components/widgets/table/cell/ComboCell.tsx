@@ -1,6 +1,6 @@
 import type { CellContext, RowData } from '@tanstack/react-table';
-import type { ComboboxItem } from '../../combobox';
-import { Combobox } from '../../combobox';
+import type { ComboboxItem } from '../../combobox/index.js';
+import { Combobox } from '../../combobox/index.js';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

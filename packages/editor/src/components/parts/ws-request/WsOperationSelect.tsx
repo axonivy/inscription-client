@@ -1,9 +1,9 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import { PathContext, useAction, useEditorContext, useMeta } from '../../../context';
-import type { FieldsetControl, SelectItem} from '../../widgets';
-import { Select, useFieldset } from '../../widgets';
-import { PathFieldset } from '../common';
-import { useWsRequestData } from './useWsRequestData';
+import { useMeta, PathContext, useAction, useEditorContext } from '../../../context/index.js';
+import type { FieldsetControl, SelectItem } from '../../widgets/index.js';
+import { Select, useFieldset } from '../../widgets/index.js';
+import { PathFieldset } from '../common/index.js';
+import { useWsRequestData } from './useWsRequestData.js';
 
 export const WsOperationSelect = () => {
   const { config, updateOperation } = useWsRequestData();

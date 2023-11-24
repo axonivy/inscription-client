@@ -1,6 +1,6 @@
 import { render, screen } from 'test-utils';
-import type { Message } from '../../message/Message';
-import { ReorderRow } from './ReorderRow';
+import type { Message } from '../../message/Message.js';
+import { ReorderRow } from './ReorderRow.js';
 
 describe('ReorderRow', () => {
   function renderTable(message?: Message) {

@@ -2,7 +2,7 @@
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
-import NameEditor from '../NameEditor';
+import NameEditor from '../NameEditor.js';
 
 export const bpmnActivityEditors = new Map<ElementType, ReactNode>([
   ['GenericBpmnElement', <NameEditor icon={IvyIcons.SubActivities} hideTags={true} />],

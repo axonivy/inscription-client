@@ -1,8 +1,8 @@
 import { IvyIcons } from '@axonivy/editor-icons';
-import Button from '../../button/Button';
-import './ExpandableCell.css';
+import Button from '../../button/Button.js';
+import './ExpandableCell.js';
 import type { CellContext } from '@tanstack/react-table';
-import IvyIcon from '../../IvyIcon';
+import IvyIcon from '../../IvyIcon.js';
 
 type ExpandableCellProps<TData> = {
   cell: CellContext<TData, unknown>;

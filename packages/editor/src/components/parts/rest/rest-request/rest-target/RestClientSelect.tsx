@@ -1,8 +1,8 @@
-import { useAction, useEditorContext, useMeta } from '../../../../../context';
-import type { FieldsetControl, SelectItem } from '../../../../widgets';
-import { Select, useFieldset } from '../../../../widgets';
-import { PathFieldset } from '../../../common';
-import { useRestRequestData } from '../../useRestRequestData';
+import { useMeta, useAction, useEditorContext } from '../../../../../context/index.js';
+import type { FieldsetControl, SelectItem } from '../../../../widgets/index.js';
+import { Select, useFieldset } from '../../../../widgets/index.js';
+import { PathFieldset } from '../../../common/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 export const RestClientSelect = () => {

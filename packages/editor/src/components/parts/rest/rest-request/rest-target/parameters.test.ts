@@ -1,5 +1,5 @@
 import { cloneObject } from 'test-utils';
-import { Parameter } from './parameters';
+import { Parameter } from './parameters.js';
 
 describe('Parameters', () => {
   const params: Parameter[] = [

@@ -1,8 +1,8 @@
-import InscriptionEditor from './InscriptionEditor';
-import type { PartProps } from './part/usePart';
+import InscriptionEditor from './InscriptionEditor.js';
+import type { PartProps } from './part/usePart.js';
 import type { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { render, screen, userEvent } from 'test-utils';
+import { render, userEvent } from 'test-utils';
 
 describe('Editor', () => {
   const ErrorWidget = () => {
@@ -55,7 +55,7 @@ describe('Editor', () => {
 
     test('editor part render error', async () => {
       renderEditor();
-      await userEvent.click(screen.getByRole('button', { name: 'Result' }));
+      await userEvent.default.click(screen.getByRole('button', { name: 'Result' }));
       expect(screen.getByRole('alert')).toHaveTextContent('this is an exception');
       expect(console.error).toHaveBeenCalled();
     });

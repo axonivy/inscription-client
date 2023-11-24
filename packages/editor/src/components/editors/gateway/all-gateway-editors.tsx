@@ -3,8 +3,8 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
-import { useCasePart, useConditionPart, useEndPagePart, useMultiTasksPart, useGeneralPart, useOutputPart } from '../../../components/parts';
+import InscriptionEditor from '../InscriptionEditor.js';
+import { useCasePart, useConditionPart, useEndPagePart, useMultiTasksPart, useGeneralPart, useOutputPart } from '../../../components/parts/index.js';
 
 const AlternativeEditor = memo(() => {
   const name = useGeneralPart();

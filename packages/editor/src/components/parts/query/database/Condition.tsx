@@ -1,7 +1,7 @@
-import { PathContext } from '../../../../context';
-import { MacroArea } from '../../../../components/widgets';
-import { PathCollapsible, ValidationFieldset } from '../../common';
-import { useQueryData } from '../useQueryData';
+import { PathContext } from '../../../../context/index.js';
+import { MacroArea } from '../../../../components/widgets/index.js';
+import { PathCollapsible, ValidationFieldset } from '../../common/index.js';
+import { useQueryData } from '../useQueryData.js';
 
 export const Condition = () => {
   const { config, defaultConfig, updateSql } = useQueryData();

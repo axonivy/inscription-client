@@ -1,12 +1,12 @@
-import type { PartProps} from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { MessageText, useFieldset } from '../../widgets';
-import { useEditorContext, useMeta, useValidations } from '../../../context';
-import { useProcessDataData } from './useProcessDataData';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { MessageText, useFieldset } from '../../widgets/index.js';
+import { useEditorContext, useMeta, useValidations } from '../../../context/index.js';
+import { useProcessDataData } from './useProcessDataData.js';
 import type { ProcessDataData } from '@axonivy/inscription-protocol';
-import { PathFieldset } from '../common';
-import type { DataClassItem } from './ClassSelectorPart';
-import DataClassSelector from './ClassSelectorPart';
+import { PathFieldset } from '../common/index.js';
+import type { DataClassItem } from './ClassSelectorPart.js';
+import DataClassSelector from './ClassSelectorPart.js';
 
 export function useProcessDataPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useProcessDataData();

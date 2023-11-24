@@ -1,6 +1,6 @@
-import { PathCollapsible, ValidationRow } from '../../../common';
-import { useRestRequestData } from '../../useRestRequestData';
-import type { SelectItem } from '../../../../widgets';
+import { PathCollapsible, ValidationRow } from '../../../common/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
+import type { SelectItem } from '../../../../widgets/index.js';
 import {
   ActionCell,
   EditableCell,
@@ -12,15 +12,15 @@ import {
   TableCell,
   TableFooter,
   TableHeader
-} from '../../../../widgets';
+} from '../../../../widgets/index.js';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEffect, useMemo, useState } from 'react';
 import { IVY_SCRIPT_TYPES, REST_PARAM_KIND } from '@axonivy/inscription-protocol';
-import { Parameter } from './parameters';
-import { useRestResourceMeta } from '../../useRestResourceMeta';
-import { useFindPathParams } from './usePathParams';
+import { Parameter } from './parameters.js';
+import { useRestResourceMeta } from '../../useRestResourceMeta.js';
+import { useFindPathParams } from './usePathParams.js';
 
 export const RestParameters = () => {
   const { config, updateParameters } = useRestRequestData();

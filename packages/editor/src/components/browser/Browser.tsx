@@ -1,18 +1,18 @@
-import './Browser.css';
+import './Browser.js';
 import { Dialog, DialogClose, DialogContent, DialogPortal, DialogTitle, DialogTrigger } from '@radix-ui/react-dialog';
-import { Button, TabContent, TabList, TabRoot } from '../widgets';
+import { Button, TabContent, TabList, TabRoot } from '../widgets/index.js';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { useEditorContext } from '../../context';
+import { useEditorContext } from '../../context/index.js';
 import { useState } from 'react';
-import { useAttributeBrowser } from './AttributeBrowser';
-import type { BrowserType, UseBrowserReturnValue } from './useBrowser';
-import { useFuncBrowser } from './FunctionBrowser';
-import { useTypeBrowser } from './TypeBrowser';
-import { useTableColBrowser } from './TableColBrowser';
-import { useSqlOpBrowser } from './SqlOperationBrowser';
-import { useCatPathChooserBrowser } from './CatPathChooser';
-import type { CmsOptions } from './CmsBrowser';
-import { useCmsBrowser } from './CmsBrowser';
+import { useAttributeBrowser } from './AttributeBrowser.js';
+import type { BrowserType, UseBrowserReturnValue } from './useBrowser.js';
+import { useFuncBrowser } from './FunctionBrowser.js';
+import { useTypeBrowser } from './TypeBrowser.js';
+import { useTableColBrowser } from './TableColBrowser.js';
+import { useSqlOpBrowser } from './SqlOperationBrowser.js';
+import { useCatPathChooserBrowser } from './CatPathChooser.js';
+import type { CmsOptions } from './CmsBrowser.js';
+import { useCmsBrowser } from './CmsBrowser.js';
 
 type BrowserProps = UseBrowserReturnValue & {
   types: BrowserType[];

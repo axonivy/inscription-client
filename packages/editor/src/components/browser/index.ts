@@ -1,2 +1,2 @@
-export { default as Browser } from './Browser';
-export * from './useBrowser';
+export { default as Browser } from './Browser.js';
+export * from './useBrowser.js';

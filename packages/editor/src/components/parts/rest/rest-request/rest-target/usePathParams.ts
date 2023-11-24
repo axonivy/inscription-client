@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useEditorContext, useMeta } from '../../../../../context';
-import { useRestRequestData } from '../../useRestRequestData';
+import { useMeta, useEditorContext } from '../../../../../context/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
 
 export const useTargetPathSplit = (path: string) => {
   return path.split(/(\{[^}]*\})/gm);

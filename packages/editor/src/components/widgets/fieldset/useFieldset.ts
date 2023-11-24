@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { generateId } from '../../../utils/utils';
+import { generateId } from '../../../utils/utils.js';
 
 export type FieldsetInputProps = {
   id: string;

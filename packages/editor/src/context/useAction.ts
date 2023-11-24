@@ -1,6 +1,6 @@
 import type { InscriptionActionArgs } from '@axonivy/inscription-protocol';
-import { useClient } from './useClient';
-import { useEditorContext } from './useEditorContext';
+import { useClient } from './useClient.js';
+import { useEditorContext } from './useEditorContext.js';
 
 export function useAction(actionId: InscriptionActionArgs['actionId']) {
   const { elementContext: context } = useEditorContext();

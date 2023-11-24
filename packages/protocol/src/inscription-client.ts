@@ -1,5 +1,5 @@
-import type { InscriptionActionArgs, InscriptionData, InscriptionElementContext, InscriptionSaveData, InscriptionValidation } from './data';
-import type { InscriptionMetaRequestTypes } from './inscription-protocol';
+import type { InscriptionActionArgs, InscriptionData, InscriptionElementContext, InscriptionSaveData, InscriptionValidation } from './data/index.js';
+import type { InscriptionMetaRequestTypes } from './inscription-protocol.js';
 
 export interface Event<T> {
   (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;

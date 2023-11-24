@@ -1,9 +1,9 @@
 import type { ColumnDef, Row, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { Checkbox, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
-import { useEditorContext, useMeta } from '../../../../context';
-import { PathCollapsible } from '../../common';
-import { useQueryData } from '../useQueryData';
+import { Checkbox, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets/index.js';
+import { useMeta, useEditorContext } from '../../../../context/index.js';
+import { PathCollapsible } from '../../common/index.js';
+import { useQueryData } from '../useQueryData.js';
 import { useEffect, useMemo, useState } from 'react';
 import type { DatabaseColumn } from '@axonivy/inscription-protocol';
 

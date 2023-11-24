@@ -1,6 +1,6 @@
-import './Message.css';
+import './Message.js';
 import type { InscriptionValidation, Severity } from '@axonivy/inscription-protocol';
-import IvyIcon from '../IvyIcon';
+import IvyIcon from '../IvyIcon.js';
 import type { ReactNode } from 'react';
 import { IvyIcons } from '@axonivy/editor-icons';
 

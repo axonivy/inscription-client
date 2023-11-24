@@ -1,6 +1,6 @@
 import type { ScriptMappings } from '@axonivy/inscription-protocol';
 import { cloneObject } from 'test-utils';
-import { Property } from './properties';
+import { Property } from './properties.js';
 
 describe('Properties', () => {
   const props: ScriptMappings = {

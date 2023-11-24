@@ -1,13 +1,13 @@
-import type { FieldsetControl} from '../../widgets';
-import { useFieldset } from '../../widgets';
-import type { PartProps} from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useEndPageData } from './useEndPageData';
+import type { FieldsetControl} from '../../widgets/index.js';
+import { useFieldset } from '../../widgets/index.js';
+import type { PartProps} from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useEndPageData } from './useEndPageData.js';
 import type { EndPageData } from '@axonivy/inscription-protocol';
-import { useAction, useValidations } from '../../../context';
+import { useAction, useValidations } from '../../../context/index.js';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { PathFieldset } from '../common';
-import InputWithBrowser from '../../../components/widgets/input/InputWithBrowser';
+import { PathFieldset } from '../common/index.js';
+import InputWithBrowser from '../../../components/widgets/input/InputWithBrowser.js';
 
 export function useEndPagePart(): PartProps {
   const { config, initConfig, defaultConfig, update } = useEndPageData();

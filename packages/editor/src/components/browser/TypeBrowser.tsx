@@ -1,9 +1,9 @@
 import { useMemo, useState, useEffect } from 'react';
-import { Checkbox, ExpandableCell, SelectRow, Table, TableCell } from '../widgets';
-import type { UseBrowserImplReturnValue } from './useBrowser';
+import { Checkbox, ExpandableCell, SelectRow, Table, TableCell } from '../widgets/index.js';
+import type { UseBrowserImplReturnValue } from './useBrowser.js';
 import type { ColumnDef, ExpandedState, FilterFn, RowSelectionState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
-import { useEditorContext, useMeta } from '../../context';
+import { useMeta, useEditorContext } from '../../context/index.js';
 import type { JavaType } from '@axonivy/inscription-protocol';
 export const TYPE_BROWSER_ID = 'type' as const;
 

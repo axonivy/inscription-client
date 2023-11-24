@@ -1,13 +1,13 @@
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import { useFieldset } from '../../widgets';
-import { useErrorCatchData } from './useErrorCatchData';
-import { useEditorContext, useMeta, useValidations } from '../../../context';
+import type { PartProps } from '../../editors/index.js';
+import { usePartDirty, usePartState } from '../../editors/index.js';
+import { useFieldset } from '../../widgets/index.js';
+import { useErrorCatchData } from './useErrorCatchData.js';
+import { useMeta, useEditorContext, useValidations } from '../../../context/index.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { ErrorCatchData } from '@axonivy/inscription-protocol';
-import type { EventCodeItem } from '../common';
-import { EventCodeSelect, PathFieldset } from '../common';
-import { eventCodeInfo } from '../../../utils/event-code';
+import type { EventCodeItem } from '../common/index.js';
+import { EventCodeSelect, PathFieldset } from '../common/index.js';
+import { eventCodeInfo } from '../../../utils/event-code.js';
 
 export function useErrorCatchPart(): PartProps {
   const { config, defaultConfig, initConfig, updateError } = useErrorCatchData();

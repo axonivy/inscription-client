@@ -1,8 +1,8 @@
-import { useEditorContext, useMeta } from '../../../../context';
-import type { SelectItem} from '../../../widgets';
-import { Select, useFieldset } from '../../../widgets';
-import { PathFieldset } from '../../common';
-import { useQueryData } from '../useQueryData';
+import { useMeta, useEditorContext } from '../../../../context/index.js';
+import type { SelectItem } from '../../../widgets/index.js';
+import { Select, useFieldset } from '../../../widgets/index.js';
+import { PathFieldset } from '../../common/index.js';
+import { useQueryData } from '../useQueryData.js';
 
 export const DatabaseSelect = () => {
   const { config, update } = useQueryData();

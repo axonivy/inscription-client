@@ -23,8 +23,8 @@
     "vscode-ws-jsonrpc": "^3.0.0"
   },
   "type": "module",
-  "types": "lib/index",
-  "module": "lib/index",
+  "types": "lib/index.d.ts",
+  "module": "lib/index.js",
   "source": "src/index",
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",

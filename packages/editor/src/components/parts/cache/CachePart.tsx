@@ -1,10 +1,10 @@
 import type { CacheData } from '@axonivy/inscription-protocol';
-import type { PartProps} from '../../../components/editors';
-import { usePartDirty, usePartState } from '../../../components/editors';
-import { useCacheData } from './useCacheData';
-import { PathContext, useValidations } from '../../../context';
-import { Collapsible, Radio } from '../../../components/widgets';
-import { CacheLifetime } from './CacheLifetime';
+import type { PartProps} from '../../../components/editors/index.js';
+import { usePartDirty, usePartState } from '../../../components/editors/index.js';
+import { useCacheData } from './useCacheData.js';
+import { PathContext, useValidations } from '../../../context/index.js';
+import { Collapsible, Radio } from '../../../components/widgets/index.js';
+import { CacheLifetime } from './CacheLifetime.js';
 
 export function useCachePart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useCacheData();

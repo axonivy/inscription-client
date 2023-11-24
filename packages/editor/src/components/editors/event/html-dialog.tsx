@@ -3,9 +3,9 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
-import NameEditor from '../NameEditor';
-import { useGeneralPart, useOutputPart, useResultPart, useStartPart } from '../../../components/parts';
+import InscriptionEditor from '../InscriptionEditor.js';
+import NameEditor from '../NameEditor.js';
+import { useGeneralPart, useOutputPart, useResultPart, useStartPart } from '../../../components/parts/index.js';
 
 const HtmlDialogStartEditor = memo(() => {
   const name = useGeneralPart();

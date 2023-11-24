@@ -1,6 +1,6 @@
 import type { AlternativeConditions, ConnectorRef, NodeRef } from '@axonivy/inscription-protocol';
-import { PID } from '../../../utils/pid';
-import { arraymove, indexOf } from '../../../utils/array';
+import { PID } from '../../../utils/pid.js';
+import { arraymove, indexOf } from '../../../utils/array.js';
 
 export interface Condition {
   fid: string;

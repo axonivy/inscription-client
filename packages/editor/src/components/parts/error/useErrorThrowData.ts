@@ -1,8 +1,8 @@
-import type { ConfigDataContext} from '../../../context';
-import { useConfigDataContext, useDataContext } from '../../../context';
+import type { ConfigDataContext} from '../../../context/index.js';
+import { useConfigDataContext, useDataContext } from '../../../context/index.js';
 import type { ErrorThrowData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import type { DataUpdater } from '../../../types/lambda';
+import type { DataUpdater } from '../../../types/lambda.js';
 
 export function useErrorThrowData(): ConfigDataContext<ErrorThrowData> & {
   update: DataUpdater<ErrorThrowData['throws']>;

@@ -1,8 +1,8 @@
 import type { DeepPartial } from 'test-utils';
 import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
 import type { WfCase, CaseData, ElementData } from '@axonivy/inscription-protocol';
-import { useCasePart } from './CasePart';
-import type { PartStateFlag } from '../../editors';
+import { useCasePart } from './CasePart.js';
+import type { PartStateFlag } from '../../editors/index.js';
 
 const Part = () => {
   const part = useCasePart();

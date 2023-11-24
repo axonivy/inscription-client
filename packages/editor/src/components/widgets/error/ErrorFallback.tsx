@@ -1,8 +1,8 @@
-import './ErrorFallback.css';
+import './ErrorFallback.js';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { FallbackProps } from 'react-error-boundary';
-import { useDataContext } from '../../../context';
-import IvyIcon from '../IvyIcon';
+import { useDataContext } from '../../../context/index.js';
+import IvyIcon from '../IvyIcon.js';
 
 const ErrorFallback = (props: FallbackProps) => {
   const { data } = useDataContext();

@@ -1,12 +1,12 @@
 import type { StartPermission } from '@axonivy/inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
-import RoleSelect from '../responsible/RoleSelect';
-import { Checkbox, useFieldset } from '../../../widgets';
-import { deepEqual } from '../../../../utils/equals';
-import { PathFieldset } from '../path/PathFieldset';
-import { PathCollapsible } from '../path/PathCollapsible';
-import ExceptionSelect from '../exception-handler/ExceptionSelect';
-import type { DataUpdater } from '../../../../types/lambda';
+import RoleSelect from '../responsible/RoleSelect.js';
+import { Checkbox, useFieldset } from '../../../widgets/index.js';
+import { deepEqual } from '../../../../utils/equals.js';
+import { PathFieldset } from '../path/PathFieldset.js';
+import { PathCollapsible } from '../path/PathCollapsible.js';
+import ExceptionSelect from '../exception-handler/ExceptionSelect.js';
+import type { DataUpdater } from '../../../../types/lambda.js';
 
 interface PermissionProps {
   anonymousFieldActive: boolean;

@@ -1,7 +1,7 @@
 import type { DeepPartial} from 'test-utils';
 import { render, CollapsableUtil, TableUtil, ComboboxUtil } from 'test-utils';
 import type { RestRequestData } from '@axonivy/inscription-protocol';
-import { RestProperties } from './RestProperties';
+import { RestProperties } from './RestProperties.js';
 
 describe('RestProperties', () => {
   function renderPart(data?: DeepPartial<RestRequestData>) {

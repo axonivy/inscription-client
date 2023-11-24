@@ -1,8 +1,8 @@
-import './RestTargetUrl.css';
-import { useEditorContext, useMeta, useOpenApi } from '../../../../../context';
-import { useRestRequestData } from '../../useRestRequestData';
+import './RestTargetUrl.js';
+import { useMeta, useEditorContext, useOpenApi } from '../../../../../context/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
 import { Fragment } from 'react';
-import { useTargetPathSplit } from './usePathParams';
+import { useTargetPathSplit } from './usePathParams.js';
 
 const RestTargetQueryParams = ({ queryParams }: { queryParams: [string, string][] }) => {
   if (queryParams.length === 0) {

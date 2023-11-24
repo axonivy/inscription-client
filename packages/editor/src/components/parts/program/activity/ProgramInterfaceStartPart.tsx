@@ -1,13 +1,13 @@
 import type { ProgramInterfaceStartData } from '@axonivy/inscription-protocol';
 import { IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../editors';
-import { usePartDirty, usePartState } from '../../../editors';
-import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common';
-import { useProgramInterfaceStartData } from './useProgramInterfaceStartData';
-import { ScriptInput, useFieldset } from '../../../../components/widgets';
-import { useValidations } from '../../../../context';
-import { deepEqual } from '../../../../utils/equals';
-import JavaClassSelector from '../JavaClassSelector';
+import type { PartProps } from '../../../editors/index.js';
+import { usePartDirty, usePartState } from '../../../editors/index.js';
+import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common/index.js';
+import { useProgramInterfaceStartData } from './useProgramInterfaceStartData.js';
+import { ScriptInput, useFieldset } from '../../../../components/widgets/index.js';
+import { useValidations } from '../../../../context/index.js';
+import { deepEqual } from '../../../../utils/equals.js';
+import JavaClassSelector from '../JavaClassSelector.js';
 
 export function useProgramInterfaceStartPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useProgramInterfaceStartData();

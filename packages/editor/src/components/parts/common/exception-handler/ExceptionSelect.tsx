@@ -1,7 +1,7 @@
-import type { FieldsetInputProps, SelectItem } from '../../../widgets';
-import { Select } from '../../../widgets';
-import { useEditorContext, useMeta } from '../../../../context';
-import type { Consumer } from '../../../../types/lambda';
+import type { FieldsetInputProps, SelectItem } from '../../../widgets/index.js';
+import { Select } from '../../../widgets/index.js';
+import { useMeta, useEditorContext } from '../../../../context/index.js';
+import type { Consumer } from '../../../../types/lambda.js';
 
 type ExceptionSelectProps = {
   value: string;

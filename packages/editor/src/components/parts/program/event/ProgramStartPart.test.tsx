@@ -1,8 +1,8 @@
 import type { DeepPartial} from 'test-utils';
 import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, InscriptionValidation, ProgramStartData } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../../editors';
-import { useProgramStartPart } from './ProgramStartPart';
+import type { PartStateFlag } from '../../../editors/index.js';
+import { useProgramStartPart } from './ProgramStartPart.js';
 
 const Part = () => {
   const part = useProgramStartPart();

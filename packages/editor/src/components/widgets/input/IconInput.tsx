@@ -1,8 +1,8 @@
-import './IconInput.css';
+import './IconInput.js';
 import type { IvyIcons } from '@axonivy/editor-icons';
-import IvyIcon from '../IvyIcon';
-import type { InputProps } from './Input';
-import Input from './Input';
+import IvyIcon from '../IvyIcon.js';
+import type { InputProps } from './Input.js';
+import Input from './Input.js';
 import { forwardRef } from 'react';
 
 export type IconInputProps = InputProps & {

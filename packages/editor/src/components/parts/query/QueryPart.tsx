@@ -1,16 +1,16 @@
-import { useQueryData } from './useQueryData';
+import { useQueryData } from './useQueryData.js';
 import type { QueryData } from '@axonivy/inscription-protocol';
-import { DatabaseSelect } from './database/DatabaseSelect';
-import { QueryKindSelect } from './database/QueryKindSelect';
-import type { PartProps} from '../../../components/editors';
-import { usePartDirty, usePartState } from '../../../components/editors';
-import { PathContext, useValidations } from '../../../context';
-import { QueryRead } from './db-query/QueryRead';
-import { QueryWrite } from './db-query/QueryWrite';
-import { QueryUpdate } from './db-query/QueryUpdate';
-import { QueryDelete } from './db-query/QueryDelete';
-import { QueryAny } from './db-query/QueryAny';
-import { DbExceptionHandler } from './database/DbExceptionHandler';
+import { DatabaseSelect } from './database/DatabaseSelect.js';
+import { QueryKindSelect } from './database/QueryKindSelect.js';
+import type { PartProps} from '../../../components/editors/index.js';
+import { usePartDirty, usePartState } from '../../../components/editors/index.js';
+import { PathContext, useValidations } from '../../../context/index.js';
+import { QueryRead } from './db-query/QueryRead.js';
+import { QueryWrite } from './db-query/QueryWrite.js';
+import { QueryUpdate } from './db-query/QueryUpdate.js';
+import { QueryDelete } from './db-query/QueryDelete.js';
+import { QueryAny } from './db-query/QueryAny.js';
+import { DbExceptionHandler } from './database/DbExceptionHandler.js';
 
 export function useQueryPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useQueryData();

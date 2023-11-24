@@ -1,5 +1,5 @@
 import { render, SelectUtil } from 'test-utils';
-import RoleSelect from './RoleSelect';
+import RoleSelect from './RoleSelect.js';
 import type { RoleMeta } from '@axonivy/inscription-protocol';
 
 describe('RoleSelect', () => {

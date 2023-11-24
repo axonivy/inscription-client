@@ -1,5 +1,5 @@
 import { CollapsableUtil, render, screen } from 'test-utils';
-import { Limit } from './Limit';
+import { Limit } from './Limit.js';
 
 describe('Limit', () => {
   test('data', async () => {

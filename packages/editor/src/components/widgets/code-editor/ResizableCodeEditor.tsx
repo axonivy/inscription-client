@@ -1,9 +1,9 @@
-import './ResizableCodeEditor.css';
+import './ResizableCodeEditor.js';
 import { useState } from 'react';
 import { useMove } from 'react-aria';
-import type { CodeEditorProps } from './CodeEditor';
-import CodeEditor from './CodeEditor';
-import type { BrowserType } from '../../../components/browser';
+import type { CodeEditorProps } from './CodeEditor.js';
+import CodeEditor from './CodeEditor.js';
+import type { BrowserType } from '../../../components/browser/index.js';
 
 export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'options' | 'onMount' | 'location'> & {
   browsers: BrowserType[];

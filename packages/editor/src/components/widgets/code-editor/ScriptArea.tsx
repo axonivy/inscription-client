@@ -1,9 +1,9 @@
-import './ScriptArea.css';
-import type { CodeEditorAreaProps } from './ResizableCodeEditor';
-import ResizableCodeEditor from './ResizableCodeEditor';
-import { Browser, useBrowser } from '../../../components/browser';
-import { useModifyEditor } from './useCodeEditor';
-import { usePath } from '../../../context';
+import './ScriptArea.js';
+import type { CodeEditorAreaProps } from './ResizableCodeEditor.js';
+import ResizableCodeEditor from './ResizableCodeEditor.js';
+import { Browser, useBrowser } from '../../../components/browser/index.js';
+import { useModifyEditor } from './useCodeEditor.js';
+import { usePath } from '../../../context/index.js';
 
 const ScriptArea = (props: CodeEditorAreaProps) => {
   const browser = useBrowser();

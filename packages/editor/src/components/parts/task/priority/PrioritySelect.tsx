@@ -1,11 +1,11 @@
-import './PrioritySelect.css';
+import './PrioritySelect.js';
 import { useMemo } from 'react';
 import type { WfPriority, WfLevel, WfTask } from '@axonivy/inscription-protocol';
 import { PRIORITY_LEVEL, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import type { SelectItem } from '../../../../components/widgets';
-import { ScriptInput, Select, useFieldset } from '../../../../components/widgets';
-import type { DataUpdater } from '../../../../types/lambda';
-import { PathFieldset } from '../../common';
+import type { SelectItem } from '../../../../components/widgets/index.js';
+import { ScriptInput, Select, useFieldset } from '../../../../components/widgets/index.js';
+import type { DataUpdater } from '../../../../types/lambda.js';
+import { PathFieldset } from '../../common/index.js';
 
 const DEFAULT_PRIORITY: SelectItem & { value: WfLevel } = { label: PRIORITY_LEVEL.NORMAL, value: 'NORMAL' };
 

@@ -1,5 +1,5 @@
 import type { RestRequestData } from '@axonivy/inscription-protocol';
-import { RestClientSelect } from './RestClientSelect';
+import { RestClientSelect } from './RestClientSelect.js';
 import type { DeepPartial} from 'test-utils';
 import { render, SelectUtil } from 'test-utils';
 

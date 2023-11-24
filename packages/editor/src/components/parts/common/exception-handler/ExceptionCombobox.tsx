@@ -1,5 +1,5 @@
-import type { ComboboxProps} from '../../../widgets';
-import { Combobox, IvyIcon } from '../../../widgets';
+import type { ComboboxProps} from '../../../widgets/index.js';
+import { Combobox, IvyIcon } from '../../../widgets/index.js';
 import type { IvyIcons } from '@axonivy/editor-icons';
 
 type ExceptionComboboxProps = Omit<ComboboxProps<ExceptionItem>, 'itemFilter' | 'comboboxItem'> & {

@@ -1,5 +1,5 @@
 import { render, screen } from 'test-utils';
-import { CacheLifetime } from './CacheLifetime';
+import { CacheLifetime } from './CacheLifetime.js';
 
 describe('CacheLifetime', () => {
   test('data', async () => {

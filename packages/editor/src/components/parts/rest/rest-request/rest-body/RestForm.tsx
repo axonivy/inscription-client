@@ -1,5 +1,5 @@
-import { ValidationRow } from '../../../common';
-import { useRestRequestData } from '../../useRestRequestData';
+import { ValidationRow } from '../../../common/index.js';
+import { useRestRequestData } from '../../useRestRequestData.js';
 import {
   ActionCell,
   EditableCell,
@@ -10,16 +10,16 @@ import {
   TableCell,
   TableFooter,
   TableHeader
-} from '../../../../widgets';
+} from '../../../../widgets/index.js';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEffect, useMemo, useState } from 'react';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { useRestResourceMeta } from '../../useRestResourceMeta';
-import type { RestParam } from './rest-parameter';
-import { restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
-import { PathContext } from '../../../../../context';
+import { useRestResourceMeta } from '../../useRestResourceMeta.js';
+import type { RestParam } from './rest-parameter.js';
+import { restParamBuilder, toRestMap, updateRestParams } from './rest-parameter.js';
+import { PathContext } from '../../../../../context/index.js';
 
 export const RestForm = () => {
   const { config, updateBody } = useRestRequestData();

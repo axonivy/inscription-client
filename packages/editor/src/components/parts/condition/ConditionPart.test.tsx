@@ -1,8 +1,8 @@
 import type { DeepPartial } from 'test-utils';
 import { render, TableUtil, renderHook, screen } from 'test-utils';
 import type { ConditionData, ConnectorRef, ElementData } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../editors';
-import { useConditionPart } from './ConditionPart';
+import type { PartStateFlag } from '../../editors/index.js';
+import { useConditionPart } from './ConditionPart.js';
 
 const Part = () => {
   const part = useConditionPart();

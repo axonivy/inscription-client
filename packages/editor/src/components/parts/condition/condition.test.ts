@@ -1,5 +1,5 @@
 import type { AlternativeConditions, ConnectorRef, InscriptionType } from '@axonivy/inscription-protocol';
-import { Condition } from './condition';
+import { Condition } from './condition.js';
 import { cloneObject } from 'test-utils';
 
 describe('Condition', () => {

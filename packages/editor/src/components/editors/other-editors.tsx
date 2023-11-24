@@ -2,13 +2,13 @@
 import type { ElementType } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
 import { memo } from 'react';
-import NameEditor from './NameEditor';
+import NameEditor from './NameEditor.js';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { useGeneralPart } from '../parts';
-import { useProcessDataPart } from '../parts/process-data/ProcessDataPart';
-import { usePermissionsPart } from '../parts/permissions/PermissionsPart';
-import { InscriptionEditor } from '.';
-import { useWebServiceProcessPart } from '../parts/web-service-process/WebServiceProcessPart';
+import { useGeneralPart } from '../parts/index.js';
+import { useProcessDataPart } from '../parts/process-data/ProcessDataPart.js';
+import { usePermissionsPart } from '../parts/permissions/PermissionsPart.js';
+import { InscriptionEditor } from './index.js';
+import { useWebServiceProcessPart } from '../parts/web-service-process/WebServiceProcessPart.js';
 
 const BusinessProcessEditor = memo(() => {
   const name = useGeneralPart({ disableName: true, hideTags: true });

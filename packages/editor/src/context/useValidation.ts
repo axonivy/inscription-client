@@ -1,6 +1,6 @@
 import type { InscriptionValidation, SchemaKeys } from '@axonivy/inscription-protocol';
-import { useDataContext } from './useDataContext';
-import { useFullPath, usePath } from './usePath';
+import { useDataContext } from './useDataContext.js';
+import { useFullPath, usePath } from './usePath.js';
 
 export function useValidations(paths?: SchemaKeys[]): InscriptionValidation[] {
   const { validations } = useDataContext();

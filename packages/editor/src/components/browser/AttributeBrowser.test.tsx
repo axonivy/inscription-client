@@ -1,6 +1,6 @@
 import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { TableUtil, render, screen, userEvent } from 'test-utils';
-import { useAttributeBrowser } from './AttributeBrowser';
+import { useAttributeBrowser } from './AttributeBrowser.js';
 
 const TYPES = {
   'mock.Test': [
@@ -95,8 +95,8 @@ describe('AttributeBrowser', () => {
   test('accept', async () => {
     let data = '';
     renderBrowser({ accept: value => (data = value) });
-    await userEvent.click(await screen.findByText('user', { selector: 'span.row-expand-label' }));
-    await userEvent.click(screen.getByTestId('accept'));
+    await userEvent.default.click(await screen.findByText('user', { selector: 'span.row-expand-label' }));
+    await userEvent.default.click(screen.getByTestId('accept'));
     expect(data).toEqual('in.user');
   });
 });

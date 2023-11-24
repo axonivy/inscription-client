@@ -1,8 +1,8 @@
-import PrioritySelect from '../priority/PrioritySelect';
-import { useTaskData } from '../useTaskData';
-import { CustomFieldPart } from '../../common';
-import Information from '../../common/info/Information';
-import TaskCode from '../code/TaskCode';
+import PrioritySelect from '../priority/PrioritySelect.js';
+import { useTaskData } from '../useTaskData.js';
+import { CustomFieldPart } from '../../common/index.js';
+import Information from '../../common/info/Information.js';
+import TaskCode from '../code/TaskCode.js';
 
 const WsTask = () => {
   const { task, update, updatePriority } = useTaskData();

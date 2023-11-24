@@ -9,7 +9,7 @@ import {
   ThemeContextProvider,
   initQueryClient
 } from '@axonivy/inscription-editor';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { URLParams } from './url-helper';

@@ -1,9 +1,9 @@
-import './Select.css';
+import './Select.js';
 import { useSelect } from 'downshift';
 import { memo, useEffect, useState, useRef } from 'react';
-import { useReadonly } from '../../../context';
+import { useReadonly } from '../../../context/index.js';
 import { IvyIcons } from '@axonivy/editor-icons';
-import IvyIcon from '../IvyIcon';
+import IvyIcon from '../IvyIcon.js';
 
 export type SelectItem = {
   label: string;

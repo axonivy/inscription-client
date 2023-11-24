@@ -1,7 +1,7 @@
-import './Checkbox.css';
+import './Checkbox.js';
 import { Checkbox as CheckboxRoot, CheckboxIndicator } from '@radix-ui/react-checkbox';
-import { useReadonly } from '../../../context';
-import { useFieldset } from '../fieldset';
+import { useReadonly } from '../../../context/index.js';
+import { useFieldset } from '../fieldset/index.js';
 
 type CheckboxProps = { label: string; value: boolean; onChange: (change: boolean) => void; disabled?: boolean };
 

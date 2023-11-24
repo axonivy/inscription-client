@@ -1,11 +1,11 @@
 import type { WebServiceProcessData, WsAuth } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES, WS_AUTH_TYPE } from '@axonivy/inscription-protocol';
-import type { PartProps} from '../../../components/editors';
-import { usePartDirty, usePartState } from '../../../components/editors';
-import { useValidations } from '../../../context';
-import { Input, Radio, useFieldset } from '../../../components/widgets';
-import { useWebServiceProcessData } from './useWebServiceProcessData';
-import { PathFieldset } from '../common';
+import type { PartProps} from '../../../components/editors/index.js';
+import { usePartDirty, usePartState } from '../../../components/editors/index.js';
+import { useValidations } from '../../../context/index.js';
+import { Input, Radio, useFieldset } from '../../../components/widgets/index.js';
+import { useWebServiceProcessData } from './useWebServiceProcessData.js';
+import { PathFieldset } from '../common/index.js';
 
 export function useWebServiceProcessPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useWebServiceProcessData();

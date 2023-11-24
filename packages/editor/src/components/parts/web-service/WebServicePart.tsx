@@ -1,12 +1,12 @@
 import type { WebserviceStartData } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../components/editors';
-import { usePartDirty, usePartState } from '../../../components/editors';
-import { useEditorContext, useValidations } from '../../../context';
-import { useWebServiceData } from './useWebServiceData';
-import { Exception } from './Exception';
-import { MessageText } from '../../../components/widgets';
-import { PID } from '../../../utils/pid';
-import { Permission } from '../common/permission/Permission';
+import type { PartProps } from '../../../components/editors/index.js';
+import { usePartDirty, usePartState } from '../../../components/editors/index.js';
+import { useEditorContext, useValidations } from '../../../context/index.js';
+import { useWebServiceData } from './useWebServiceData.js';
+import { Exception } from './Exception.js';
+import { MessageText } from '../../../components/widgets/index.js';
+import { PID } from '../../../utils/pid.js';
+import { Permission } from '../common/permission/Permission.js';
 
 export function useWebServicePart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useWebServiceData();

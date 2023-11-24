@@ -25,7 +25,7 @@ export namespace ComboboxUtil {
   }
 
   export async function assertOptionsCount(count: number, options?: ComboboxUtilOptions) {
-    await userEvent.click(select(options));
+    await userEvent.default.click(select(options));
     expect(screen.getAllByRole('option')).toHaveLength(count);
   }
 }

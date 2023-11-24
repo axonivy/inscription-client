@@ -1,7 +1,7 @@
 import type { DeepPartial } from 'test-utils';
 import { render, SelectUtil } from 'test-utils';
 import { EMPTY_VAR_INFO, type WsRequestData } from '@axonivy/inscription-protocol';
-import { WsOperationSelect } from './WsOperationSelect';
+import { WsOperationSelect } from './WsOperationSelect.js';
 
 describe('WsOperationSelect', () => {
   function renderPart(data?: DeepPartial<WsRequestData>) {

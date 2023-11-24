@@ -1,4 +1,4 @@
-import Tags from './Tags';
+import Tags from './Tags.js';
 import { render, screen, userEvent, waitFor } from 'test-utils';
 
 describe('Tags', () => {
@@ -7,7 +7,7 @@ describe('Tags', () => {
     rerender: () => void;
   } {
     let tags: string[] = [];
-    userEvent.setup();
+    userEvent.default.setup();
     const view = render(<Tags tags={['test', 'bla']} onChange={newTags => (tags = newTags)} />);
     return {
       data: () => tags,
@@ -34,7 +34,7 @@ describe('Tags', () => {
     const view = renderTags();
 
     const testTag = screen.getByRole('button', { name: /test/i });
-    await userEvent.click(testTag);
+    await userEvent.default.click(testTag);
 
     view.rerender();
     await assertTags(['bla']);
@@ -45,11 +45,11 @@ describe('Tags', () => {
     const view = renderTags();
 
     const addTagBtn = screen.getByRole('button', { name: /Add new tag/i });
-    await userEvent.click(addTagBtn);
+    await userEvent.default.click(addTagBtn);
     const popupInput = screen.getByLabelText('New Tag');
-    await userEvent.type(popupInput, 'new tag');
+    await userEvent.default.type(popupInput, 'new tag');
     const popupCloseBtn = screen.getByRole('button', { name: /Close/i });
-    await userEvent.click(popupCloseBtn);
+    await userEvent.default.click(popupCloseBtn);
 
     view.rerender();
     await assertTags(['test', 'bla', 'new tag']);
@@ -60,22 +60,22 @@ describe('Tags', () => {
   test('tags can be handled with keyboard', async () => {
     const view = renderTags();
 
-    await userEvent.tab();
+    await userEvent.default.tab();
     expect(screen.getByRole('button', { name: /test/i })).toHaveFocus();
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
 
     view.rerender();
     await assertTags(['bla']);
     expect(view.data()).toHaveLength(1);
 
-    await userEvent.tab();
-    await userEvent.tab();
+    await userEvent.default.tab();
+    await userEvent.default.tab();
     expect(screen.getByRole('button', { name: /Add new tag/i })).toHaveFocus();
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('[Enter]');
 
     expect(screen.getByLabelText('New Tag')).toHaveFocus();
-    await userEvent.keyboard('new tag');
-    await userEvent.keyboard('[Enter]');
+    await userEvent.default.keyboard('new tag');
+    await userEvent.default.keyboard('[Enter]');
 
     expect(screen.getByRole('button', { name: /Add new tag/i })).toHaveFocus();
     view.rerender();

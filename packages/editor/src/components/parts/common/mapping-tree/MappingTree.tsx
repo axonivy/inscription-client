@@ -12,12 +12,12 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { MappingTreeData } from './mapping-tree-data';
-import { ScriptCell, ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
-import type { MappingPartProps } from './MappingPart';
-import type { TableFilter} from './useMappingTree';
-import { calcFullPathId } from './useMappingTree';
-import { ValidationRow } from '../path/validation/ValidationRow';
+import { MappingTreeData } from './mapping-tree-data.js';
+import { ScriptCell, ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets/index.js';
+import type { MappingPartProps } from './MappingPart.js';
+import type { TableFilter} from './useMappingTree.js';
+import { calcFullPathId } from './useMappingTree.js';
+import { ValidationRow } from '../path/validation/ValidationRow.js';
 
 type MappingTreeProps = MappingPartProps & {
   globalFilter: TableFilter<string>;

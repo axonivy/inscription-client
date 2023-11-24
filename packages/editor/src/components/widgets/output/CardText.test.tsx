@@ -1,4 +1,4 @@
-import { CardArea, CardText } from './CardText';
+import { CardArea, CardText } from './CardText.js';
 import { render, screen } from 'test-utils';
 
 describe('CardText', () => {
