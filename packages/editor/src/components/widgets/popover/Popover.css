@@ -1,6 +1,6 @@
 .popover-content {
   border-radius: var(--border-radius);
-  width: min(90vw, 400px);
+  width: min(400px, calc(var(--radix-popover-content-available-width) - 2 * var(--size-2)));
   background-color: var(--N25);
   box-shadow: var(--popover-shadow);
   animation-duration: 400ms;
