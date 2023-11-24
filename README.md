@@ -10,6 +10,10 @@ This prototype is build with React and Headless Components.
 
 `yarn`: Install all packages:
 
+`yarn build`: Compiles typescript
+
+`yarn package`: Compiles and bundles production ready
+
 `yarn icons:generate`: Build the icon font
 
 `yarn protocol generate`: Generate the protocol types from the newest inscription json schema

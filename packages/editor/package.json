@@ -60,7 +60,7 @@
   "scripts": {
     "clean": "rimraf lib *.tsbuildinfo",
     "build": "tsc --build && tscp",
-    "build:production": "tsc -p tsconfig.production.json && tscp",
+    "package": "tsc -p tsconfig.production.json && tscp",
     "build:clean": "yarn clean && yarn build",
     "type": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",

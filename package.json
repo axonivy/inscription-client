@@ -6,11 +6,11 @@
     "node": ">=18.16.1"
   },
   "scripts": {
-    "ci": "yarn ci:prepare && yarn build:production && yarn lint:ci && yarn test:ci",
+    "ci": "yarn ci:prepare && yarn package && yarn lint:ci && yarn test:ci",
     "ci:prepare": "yarn install && yarn icons:generate",
     "clean": "lerna run clean",
     "build": "tsc --build && tscp --build",
-    "build:production": "lerna run build:production",
+    "package": "lerna run package",
     "watch": "concurrently 'tsc --build --watch' 'tscp --build --watch'",
     "build:clean": "lerna run build:clean",
     "type": "lerna run type",
