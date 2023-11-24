@@ -69,7 +69,7 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers }: CodeEdito
             />
           </PopoverTrigger>
           <PopoverPortal container={editorContext.editorRef.current}>
-            <PopoverContent className='popover-content' sideOffset={5} align={'end'}>
+            <PopoverContent className='popover-content' sideOffset={5} align={'end'} collisionBoundary={editorContext.editorRef.current}>
               <Fieldset label='Code' {...codeFieldset.labelProps}>
                 <div className='script-input'>
                   <SingleLineCodeEditor
