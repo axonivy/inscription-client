@@ -35,17 +35,15 @@ const Select = ({ value, onChange, items, inputProps, disabled }: SelectProps) =
   });
   const readonly = useReadonly();
 
-  const selectInputRef = useRef(null);
-  const selectMenuRef = useRef(null);
+  const selectInputRef = useRef<HTMLDivElement>(null);
+  const selectMenuRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     const selectInput = selectInputRef.current;
     const selectMenu = selectMenuRef?.current;
-
     if (isOpen && selectInput && selectMenu) {
-      const inputRect = (selectInput as HTMLElement).getBoundingClientRect();
-      (selectMenu as HTMLElement).style.width = `${inputRect.width}px`;
-      (selectMenu as HTMLElement).style.left = `${inputRect.left}px`;
+      selectMenu.style.width = `${selectInput.offsetWidth}px`;
+      selectMenu.style.left = `${selectInput.offsetLeft}px`;
     }
   }, [isOpen]);
 
