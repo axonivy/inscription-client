@@ -16,6 +16,9 @@
   border: var(--dashed-border);
   padding: 4px 10px;
 }
+.tag-remove {
+  all: unset;
+}
 .tag-remove .ivy {
   color: var(--error-color);
 }
