@@ -9,6 +9,7 @@
   padding-bottom: var(--size-2);
 }
 .tabs-trigger {
+  all: unset;
   font-family: inherit;
   padding: var(--size-2) var(--size-4) var(--size-2) var(--size-4);
   height: var(--size-3);

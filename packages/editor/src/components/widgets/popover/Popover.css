@@ -34,6 +34,7 @@
 }
 
 .popover-close {
+  all: unset;
   font-family: inherit;
   font-size: 10px;
   border-radius: 100%;

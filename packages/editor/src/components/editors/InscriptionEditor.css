@@ -1,15 +1,3 @@
-button {
-  all: unset;
-}
-button:disabled {
-  opacity: 0.6 !important;
-  cursor: not-allowed !important;
-}
-
-a {
-  color: var(--A300);
-}
-
 .editor {
   color: var(--body);
   display: flex;
@@ -18,6 +6,14 @@ a {
   height: 100%;
   overflow-y: auto;
   position: relative;
+}
+
+.editor button:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+.editor a {
+  color: var(--A300);
 }
 
 /* Header */

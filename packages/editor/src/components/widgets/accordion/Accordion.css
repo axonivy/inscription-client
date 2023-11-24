@@ -29,6 +29,7 @@
   background-color: var(--transparent);
 }
 .accordion-trigger {
+  all: unset;
   padding: var(--size-3);
   height: 16px;
   flex: 1;
