@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { useReadonly } from '../../../context';
 import './Input.css';
 
@@ -9,6 +9,15 @@ export type InputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'r
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, disabled, ...props }, forwardedRef) => {
+  const [currentValue, setCurrentValue] = useState(value ?? '');
+  useEffect(() => {
+    setCurrentValue(value ?? '');
+  }, [value]);
+  const updateValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const update = event.target.value;
+    setCurrentValue(update);
+    onChange(update);
+  };
   const readonly = useReadonly();
 
   return (
@@ -16,8 +25,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, disab
       {...props}
       ref={forwardedRef}
       className={`input ${props.className ?? ''}`}
-      value={value ?? ''}
-      onChange={event => onChange(event.target.value)}
+      value={currentValue}
+      onChange={updateValue}
       disabled={readonly || disabled}
     />
   );
