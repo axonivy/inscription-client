@@ -1,6 +1,6 @@
 import './Input.css';
-import type { ComponentProps} from 'react';
-import { useMemo } from 'react';
+import type { ComponentProps } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useReadonly } from '../../../context';
 
 export type TextareaProps = Omit<ComponentProps<'textarea'>, 'value' | 'onChange'> & {
@@ -10,6 +10,15 @@ export type TextareaProps = Omit<ComponentProps<'textarea'>, 'value' | 'onChange
 };
 
 const Textarea = ({ value, onChange, maxRows, disabled, ...textareaProps }: TextareaProps) => {
+  const [currentValue, setCurrentValue] = useState(value ?? '');
+  useEffect(() => {
+    setCurrentValue(value ?? '');
+  }, [value]);
+  const updateValue = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const update = event.target.value;
+    setCurrentValue(update);
+    onChange(update);
+  };
   const readonly = useReadonly();
   const height = useMemo(() => {
     let rows = value?.split(/\r\n|\r|\n/).length ?? 1;
@@ -23,8 +32,8 @@ const Textarea = ({ value, onChange, maxRows, disabled, ...textareaProps }: Text
     <textarea
       {...textareaProps}
       className={`input ${textareaProps.className ?? ''}`}
-      value={value ?? ''}
-      onChange={event => onChange(event.target.value)}
+      value={currentValue}
+      onChange={updateValue}
       disabled={readonly || disabled}
       style={{ height }}
     />
