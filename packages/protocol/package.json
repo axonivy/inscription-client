@@ -20,7 +20,7 @@
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc --build",
-    "build:production": "tsc",
+    "package": "tsc",
     "build:clean": "yarn clean && yarn generate && yarn build",
     "generate": "node ./schemaCodegen.cjs",
     "type": "tsc --noEmit",

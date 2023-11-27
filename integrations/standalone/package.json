@@ -31,7 +31,7 @@
     "clean": "rimraf build tsconfig.tsbuildinfo",
     "build": "tsc --build",
     "build:clean": "yarn clean && yarn build",
-    "build:production": "vite build",
+    "package": "vite build",
     "type": "tsc --noEmit",
     "start": "vite",
     "start:mock": "MOCK=true vite",
