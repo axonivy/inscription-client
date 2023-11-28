@@ -33,12 +33,13 @@ import type {
   TypeSearchRequest,
   JavaType,
   InscriptionElementContext,
-  SignalCodeRequest
+  SignalCodeRequest,
+  CallableDialogRequest
 } from './data/inscription';
 import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
 export interface InscriptionMetaRequestTypes {
-  'meta/start/dialogs': [InscriptionContext, CallableStart[]];
+  'meta/start/dialogs': [CallableDialogRequest, CallableStart[]];
   'meta/start/triggers': [InscriptionContext, CallableStart[]];
   'meta/start/calls': [InscriptionContext, CallableStart[]];
 
