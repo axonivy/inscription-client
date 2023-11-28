@@ -25,7 +25,7 @@ const DialogCallEditor = memo(() => {
 
 const UserTaskEditor = memo(() => {
   const name = useGeneralPart();
-  const call = useDialogCallPart();
+  const call = useDialogCallPart({ offline: true });
   const task = useTaskPart();
   const casePart = useCasePart();
   const output = useOutputPart();

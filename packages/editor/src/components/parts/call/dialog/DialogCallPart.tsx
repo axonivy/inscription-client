@@ -11,7 +11,7 @@ import type { FieldsetControl } from '../../../../components/widgets';
 import { useFieldset } from '../../../../components/widgets';
 import { PathFieldset } from '../../common';
 
-export function useDialogCallPart(): PartProps {
+export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
   const callData = useCallData();
   const targetData = useDialogCallData();
   const compareData = (callData: CallData, targetData: DialogCallData) => [callData.call, targetData.dialog];
@@ -23,14 +23,19 @@ export function useDialogCallPart(): PartProps {
     [...dialogValidations, ...callValidations]
   );
   const dirty = usePartDirty(compareData(callData.initConfig, targetData.initConfig), compareData(callData.config, targetData.config));
-  return { name: 'Call', state, reset: { dirty, action: () => targetData.resetData() }, content: <DialogCallPart /> };
+  return {
+    name: 'Call',
+    state,
+    reset: { dirty, action: () => targetData.resetData() },
+    content: <DialogCallPart offline={options?.offline} />
+  };
 }
 
-const DialogCallPart = () => {
+const DialogCallPart = ({ offline }: { offline?: boolean }) => {
   const { config, update } = useDialogCallData();
 
   const { context } = useEditorContext();
-  const { data: startItems } = useMeta('meta/start/dialogs', context, []);
+  const { data: startItems } = useMeta('meta/start/dialogs', { context, supportOffline: offline ?? false }, []);
 
   const variableInfo = useMemo<VariableInfo>(
     () => startItems.find(start => start.id === config.dialog)?.callParameter ?? { variables: [], types: {} },

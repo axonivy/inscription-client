@@ -26,6 +26,7 @@ export type Widget = Script | Label | Text;
 
 export interface Inscription {
   boolean: boolean;
+  callableDialogRequest: CallableDialogRequest;
   callableStart: CallableStart[];
   cmsMetaRequest: CmsMetaRequest;
   connectorRef: ConnectorRef[];
@@ -68,6 +69,14 @@ export interface Inscription {
   widget: Widget[];
   [k: string]: unknown;
 }
+export interface CallableDialogRequest {
+  context: InscriptionContext;
+  supportOffline: boolean;
+}
+export interface InscriptionContext {
+  app: string;
+  pmv: string;
+}
 export interface CallableStart {
   callParameter: VariableInfo;
   deprecated: boolean;
@@ -94,10 +103,6 @@ export interface Variable {
 export interface CmsMetaRequest {
   context: InscriptionContext;
   requiredProjects: boolean;
-}
-export interface InscriptionContext {
-  app: string;
-  pmv: string;
 }
 export interface ConnectorRef {
   name: string;
