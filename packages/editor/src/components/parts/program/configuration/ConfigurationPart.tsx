@@ -1,5 +1,6 @@
 import type { ConfigurationData, Label, Script, Text, Widget } from '@axonivy/inscription-protocol';
 import type { PartProps } from '../../../editors';
+import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { usePartDirty, usePartState } from '../../../editors';
 import { useEditorContext, useMeta, useValidations } from '../../../../context';
 import { useConfigurationData } from './useConfigurationData';
@@ -26,11 +27,11 @@ const ConfigurationPart = () => {
   const editorItems = useMeta('meta/program/editor', { context, type: config.javaClass }, []).data;
 
   function isLabel(object: Widget): object is Label {
-    return 'text' in object;
+    return object.widgetType === 'LABEL';
   }
 
   function isScript(object: Widget): object is Script {
-    return 'requiredType' in object;
+    return object.widgetType === 'SCRIPT';
   }
 
   function isText(object: Widget): object is Text {
@@ -55,10 +56,13 @@ const ConfigurationPart = () => {
       }
     }
     if (isScript(widget)) {
+      const typeToUse = widget.requiredType || IVY_SCRIPT_TYPES.STRING;
+
       return (
         <ScriptInput
-          type={widget.requiredType}
+          type={typeToUse}
           value={config.userConfig[widget.configKey]}
+          aria-label={widget.configKey}
           onChange={change => updateUserConfig(widget.configKey, change)}
           browsers={['attr', 'func', 'type', 'cms']}
         />
