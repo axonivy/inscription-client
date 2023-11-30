@@ -1,7 +1,7 @@
 import './Select.css';
 import { useSelect } from 'downshift';
 import { memo, useEffect, useState, useRef } from 'react';
-import { useReadonly } from '../../../context';
+import { useEditorContext, useReadonly } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
 
@@ -37,15 +37,17 @@ const Select = ({ value, onChange, items, inputProps, disabled }: SelectProps) =
 
   const selectInputRef = useRef<HTMLDivElement>(null);
   const selectMenuRef = useRef<HTMLUListElement>(null);
+  const { editorRef } = useEditorContext();
 
   useEffect(() => {
     const selectInput = selectInputRef.current;
-    const selectMenu = selectMenuRef?.current;
+    const selectMenu = selectMenuRef.current;
+    const editorOffset = editorRef.current?.getBoundingClientRect().left ?? 0;
     if (isOpen && selectInput && selectMenu) {
       selectMenu.style.width = `${selectInput.offsetWidth}px`;
-      selectMenu.style.left = `${selectInput.offsetLeft}px`;
+      selectMenu.style.left = `${selectInput.getBoundingClientRect().left - editorOffset}px`;
     }
-  }, [isOpen]);
+  }, [editorRef, isOpen]);
 
   return (
     <div className='select'>
