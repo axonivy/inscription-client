@@ -1,6 +1,7 @@
 import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 import type { TextArea } from '../../pageobjects/TextArea';
+import type { ScriptArea } from '../../pageobjects/CodeEditor';
 
 class FilePickupStartEventBean extends PartObject {
   infoText: TextArea;
@@ -36,16 +37,15 @@ class FilePickupStartEventBean extends PartObject {
 }
 
 class TimerBean extends FilePickupStartEventBean {
-  time: TextArea;
+  time: ScriptArea;
 
   constructor(part: Part) {
     super(part);
-    this.time = part.textArea('time');
+    this.time = part.scriptInput('time');
   }
 
   override async fill() {
     await this.time.fill('10');
-    await this.part.page.keyboard.press('Tab');
   }
 
   override async assertFill() {
@@ -54,9 +54,6 @@ class TimerBean extends FilePickupStartEventBean {
 
   override async clear() {
     await this.time.clear();
-    await this.part.page.keyboard.press('Backspace');
-    await this.part.page.keyboard.press('Backspace');
-    await this.part.page.keyboard.press('Tab');
   }
 
   override async assertClear() {
