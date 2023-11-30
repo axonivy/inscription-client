@@ -23,6 +23,7 @@ export type WsAuth = "NONE" | "WS_SECURITY" | "HTTP_BASIC";
 export type Severity = "INFO" | "WARNING" | "ERROR";
 export type Type = "START" | "INTERMEDIATE" | "ACTIVITY";
 export type Widget = Script | Label | Text;
+export type WidgetType = "TEXT" | "LABEL" | "SCRIPT";
 
 export interface Inscription {
   boolean: boolean;
@@ -52,13 +53,13 @@ export interface Inscription {
   restClientRequest: RestClientRequest;
   restContentTypeRequest: RestContentTypeRequest;
   restEntityInfoRequest: RestEntityInfoRequest;
-  restResource: RestResource[];
+  restResource: RestResource;
   restResourceRequest: RestResourceRequest;
   roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
-  string: string[];
+  string: string;
   typeSearchRequest: TypeSearchRequest;
   variableInfo: VariableInfo;
   void: Void;
@@ -806,12 +807,15 @@ export interface Script {
   configKey: string;
   multiline: boolean;
   requiredType: string;
+  widgetType: WidgetType;
 }
 export interface Label {
   multiline: boolean;
   text: string;
+  widgetType: WidgetType;
 }
 export interface Text {
   configKey: string;
   multiline: boolean;
+  widgetType: WidgetType;
 }

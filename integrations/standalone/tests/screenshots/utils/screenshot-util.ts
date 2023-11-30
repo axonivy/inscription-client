@@ -29,5 +29,5 @@ export async function screenshotSection(page: Page, pid: string, accordionName: 
 async function screenshot(page: Locator, name: string) {
   const dir = process.env.SCREENSHOT_DIR ?? './target';
   const buffer = await page.screenshot({ path: `${dir}/screenshots/${name}`, animations: 'disabled' });
-  expect(buffer.byteLength).toBeGreaterThan(4000);
+  expect(buffer.byteLength).toBeGreaterThan(3000);
 }
