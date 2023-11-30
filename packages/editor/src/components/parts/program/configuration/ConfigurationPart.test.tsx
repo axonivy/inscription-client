@@ -1,4 +1,4 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { render, renderHook, screen } from 'test-utils';
 import type { ConfigurationData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
@@ -16,9 +16,9 @@ describe('ConfigurationPart', () => {
         data: data && { config: data },
         meta: {
           widgets: [
-            { text: 'Path of directory to scan', multiline: false },
-            { configKey: 'directory', multiline: false },
-            { text: 'Multiline-Text', multiline: true }
+            { text: 'Path of directory to scan', multiline: false, widgetType: 'LABEL' },
+            { configKey: 'directory', multiline: false, widgetType: 'TEXT' },
+            { text: 'Multiline-Text', multiline: true, widgetType: 'LABEL' }
           ]
         }
       }

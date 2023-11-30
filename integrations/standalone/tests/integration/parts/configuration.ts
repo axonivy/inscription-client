@@ -45,6 +45,7 @@ class TimerBean extends FilePickupStartEventBean {
 
   override async fill() {
     await this.time.fill('10');
+    await this.part.page.keyboard.press('Tab');
   }
 
   override async assertFill() {
@@ -53,6 +54,9 @@ class TimerBean extends FilePickupStartEventBean {
 
   override async clear() {
     await this.time.clear();
+    await this.part.page.keyboard.press('Backspace');
+    await this.part.page.keyboard.press('Backspace');
+    await this.part.page.keyboard.press('Tab');
   }
 
   override async assertClear() {
