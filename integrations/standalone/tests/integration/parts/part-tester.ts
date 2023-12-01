@@ -47,6 +47,7 @@ export async function runTest(view: InscriptionView, test: PartTest) {
 
   await accordion.toggle();
   await test.fill(accordion);
+  await view.expectMutationStateSuccess();
   await view.reload();
 
   await accordion.toggle();
@@ -55,6 +56,7 @@ export async function runTest(view: InscriptionView, test: PartTest) {
 
   await accordion.toggle();
   await test.clear(accordion);
+  await view.expectMutationStateSuccess();
   await view.reload();
 
   await accordion.toggle();

@@ -85,7 +85,7 @@ function App(props: InscriptionElementContext) {
   }
 
   return (
-    <div ref={editorRef} className='editor-root' data-theme={theme}>
+    <div ref={editorRef} className='editor-root' data-theme={theme} data-mutation-state={mutation.status}>
       <EditorContextInstance.Provider
         value={{
           context: { app: context.app, pmv: context.pmv },
