@@ -58,6 +58,10 @@ export class InscriptionView {
     await expect(this.page.getByText(text).first()).toBeVisible({ timeout });
   }
 
+  async expectMutationStateSuccess() {
+    await expect(this.page.locator('.editor-root')).toHaveAttribute('data-mutation-state', 'success');
+  }
+
   async reload() {
     await this.page.reload();
     await InscriptionView.hideQueryDevTools(this.page);
