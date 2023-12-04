@@ -1,4 +1,4 @@
-import type { Locator, Page} from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { Popover } from './Popover';
 import { ScriptCell } from './CodeEditor';
@@ -35,9 +35,8 @@ export class Table {
   async clear() {
     let totalRows = await this.rows.count();
     while (totalRows > 0) {
-      for (let row = 0; row < totalRows; row++) {
-        await this.row(row).remove();
-      }
+      await this.row(0).remove();
+      await expect(this.rows).toHaveCount(totalRows - 1);
       totalRows = await this.rows.count();
     }
   }
