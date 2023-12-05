@@ -1,8 +1,9 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { render, renderHook, screen } from 'test-utils';
 import type { ElementData, InscriptionValidation, ProcessDataData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useProcessDataPart } from './ProcessDataPart';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useProcessDataPart();

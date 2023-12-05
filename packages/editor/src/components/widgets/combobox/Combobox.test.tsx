@@ -3,6 +3,7 @@ import type { ComboboxItem } from './Combobox';
 import Combobox from './Combobox';
 import { render, screen, userEvent } from 'test-utils';
 import type { BrowserType } from '../../../components/browser';
+import { describe, test, expect } from 'vitest';
 
 describe('Combobox', () => {
   function renderCombobox(

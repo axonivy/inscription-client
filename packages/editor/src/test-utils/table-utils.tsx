@@ -1,4 +1,5 @@
 import { screen, userEvent, waitFor, within } from 'test-utils';
+import { expect } from 'vitest';
 
 export namespace TableUtil {
   export function assertHeaders(expectedHeaders: string[]) {

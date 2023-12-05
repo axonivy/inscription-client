@@ -1,8 +1,9 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { ComboboxUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, SignalCatchData } from '@axonivy/inscription-protocol';
 import { useSignalCatchPart } from './SignalCatchPart';
 import type { PartStateFlag } from '../../editors';
+import { describe, test, expect } from 'vitest';
 
 const Part = (props: { makroSupport?: boolean }) => {
   const part = useSignalCatchPart({ makroSupport: props.makroSupport });

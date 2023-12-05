@@ -1,6 +1,7 @@
 import type { ScriptVariable } from '@axonivy/inscription-protocol';
 import ParameterTable from './ParameterTable';
 import { render, screen, userEvent, TableUtil } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('ParameterTable', () => {
   const customFields: ScriptVariable[] = [

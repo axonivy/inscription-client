@@ -1,7 +1,8 @@
 import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
 import { RestHeaders } from './RestHeaders';
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, ComboboxUtil, render, TableUtil } from 'test-utils';
+import { describe, test } from 'vitest';
 
 describe('RestHeaders', () => {
   function renderHeaders(data?: DeepPartial<RestRequestData>) {

@@ -1,4 +1,5 @@
 import { screen, userEvent } from 'test-utils';
+import { expect } from 'vitest';
 
 export namespace CollapsableUtil {
   export async function toggle(byText: string) {

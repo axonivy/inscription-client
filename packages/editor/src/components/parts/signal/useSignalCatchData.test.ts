@@ -1,7 +1,8 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { renderHook } from 'test-utils';
 import type { ElementData, SignalCatchData } from '@axonivy/inscription-protocol';
 import { useSignalCatchData } from './useSignalCatchData';
+import { describe, test, expect } from 'vitest';
 
 describe('useSignalCatchData', () => {
   function renderDataHook(signalData: Partial<SignalCatchData>) {

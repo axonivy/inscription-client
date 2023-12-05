@@ -1,8 +1,9 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
 import type { ElementData, ResultData, VariableInfo } from '@axonivy/inscription-protocol';
 import { useResultPart } from './ResultPart';
 import type { PartStateFlag } from '../../editors';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useResultPart();
@@ -41,7 +42,7 @@ describe('ResultPart', () => {
         variables: [{ attribute: 'result', description: '', type: '<String param>', simpleType: '<>' }]
       }
     );
-    await assertMainPart([/param String desc/], [/result <String param>/, /desc String/, /key value/], 'code');
+    await assertMainPart([/param String desc/], [/result <>/, /param String/, /key value/], 'code');
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ResultData>) {

@@ -1,7 +1,8 @@
-import type { DeepPartial} from 'test-utils';
+import type { DeepPartial } from 'test-utils';
 import { renderHook } from 'test-utils';
 import type { ElementData, ErrorCatchData } from '@axonivy/inscription-protocol';
 import { useErrorCatchData } from './useErrorCatchData';
+import { describe, test, expect } from 'vitest';
 
 describe('useErrorCatchData', () => {
   function renderDataHook(errorData: ErrorCatchData) {

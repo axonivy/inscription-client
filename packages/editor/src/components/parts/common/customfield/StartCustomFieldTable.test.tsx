@@ -1,6 +1,7 @@
 import type { StartCustomStartField } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent, TableUtil } from 'test-utils';
 import StartCustomFieldTable from './StartCustomFieldTable';
+import { describe, test, expect } from 'vitest';
 
 describe('StartCustomFieldTable', () => {
   const customFields: StartCustomStartField[] = [

@@ -3,6 +3,7 @@ import { render, screen, renderHook, TableUtil, SelectUtil, CollapsableUtil } fr
 import type { ElementData, InscriptionValidation, RequestData } from '@axonivy/inscription-protocol';
 import { useRequestPart } from './RequestPart';
 import type { PartStateFlag } from '../../editors';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useRequestPart();

@@ -1,6 +1,7 @@
 import Task from './Task';
 import type { WfTask } from '@axonivy/inscription-protocol';
 import { CollapsableUtil, render, screen, SelectUtil, userEvent } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('Task', () => {
   function renderTask(data?: Partial<WfTask>) {
@@ -48,7 +49,7 @@ describe('Task', () => {
       responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: 'bla' },
       priority: { level: 'EXCEPTION', script: '' },
       skipTasklist: true,
-      notification: {suppress: true},
+      notification: { suppress: true },
       delay: 'delay',
       customFields: [{ name: 'cf', type: 'NUMBER', value: '123' }],
       code: 'code'

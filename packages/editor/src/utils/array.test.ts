@@ -1,4 +1,5 @@
 import { arraymove, indexOf } from './array';
+import { describe, test, expect } from 'vitest';
 
 describe('array', () => {
   test('indexOf', () => {

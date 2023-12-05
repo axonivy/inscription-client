@@ -2,6 +2,7 @@ import type { DeepPartial } from 'test-utils';
 import { render, SelectUtil } from 'test-utils';
 import { EMPTY_VAR_INFO, type WsRequestData } from '@axonivy/inscription-protocol';
 import { WsOperationSelect } from './WsOperationSelect';
+import { describe, test } from 'vitest';
 
 describe('WsOperationSelect', () => {
   function renderPart(data?: DeepPartial<WsRequestData>) {

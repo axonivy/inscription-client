@@ -1,6 +1,7 @@
 import TaskListPart from './TaskListOptions';
 import type { WfTask } from '@axonivy/inscription-protocol';
 import { render, screen, userEvent } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('TaskListOption', () => {
   function renderTaskPart(data?: Partial<WfTask>) {
@@ -17,7 +18,7 @@ describe('TaskListOption', () => {
   });
 
   test('configured', async () => {
-    renderTaskPart({ skipTasklist: true, delay: 'delay', notification: {suppress: true} });
+    renderTaskPart({ skipTasklist: true, delay: 'delay', notification: { suppress: true } });
     expect(screen.getByLabelText('Skip Tasklist')).toBeChecked();
     expect(screen.getByLabelText('Suppress Notification')).toBeChecked();
     expect(screen.getByLabelText('Delay')).toHaveValue('delay');

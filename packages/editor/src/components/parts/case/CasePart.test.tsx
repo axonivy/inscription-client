@@ -3,6 +3,7 @@ import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-uti
 import type { WfCase, CaseData, ElementData } from '@axonivy/inscription-protocol';
 import { useCasePart } from './CasePart';
 import type { PartStateFlag } from '../../editors';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useCasePart();

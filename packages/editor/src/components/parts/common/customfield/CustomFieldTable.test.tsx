@@ -1,6 +1,7 @@
 import type { WfCustomField } from '@axonivy/inscription-protocol';
 import CustomFieldTable from './CustomFieldTable';
 import { render, screen, userEvent, TableUtil } from 'test-utils';
+import { describe, test, expect } from 'vitest';
 
 describe('CustomFieldTable', () => {
   const customFields: WfCustomField[] = [

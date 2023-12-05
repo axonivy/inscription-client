@@ -3,6 +3,7 @@ import type { DeepPartial } from 'test-utils';
 import { render, screen, TableUtil, renderHook } from 'test-utils';
 import type { CallData, ElementData, ProcessCallData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useTriggerCallPart();

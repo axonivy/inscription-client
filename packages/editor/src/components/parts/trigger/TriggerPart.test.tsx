@@ -3,6 +3,7 @@ import { render, screen, renderHook, CollapsableUtil, SelectUtil } from 'test-ut
 import type { ElementData, InscriptionValidation, TriggerData } from '@axonivy/inscription-protocol';
 import { useTriggerPart } from './TriggerPart';
 import type { PartStateFlag } from '../../editors';
+import { describe, test, expect } from 'vitest';
 
 const Part = () => {
   const part = useTriggerPart();

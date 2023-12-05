@@ -1,6 +1,7 @@
 import { render, screen } from 'test-utils';
 import type { Message } from '../../message/Message';
 import { ReorderRow } from './ReorderRow';
+import { describe, test, expect } from 'vitest';
 
 describe('ReorderRow', () => {
   function renderTable(message?: Message) {
