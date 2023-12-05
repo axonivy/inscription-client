@@ -24,6 +24,10 @@
   cursor: pointer;
   border-bottom: 1.5px solid var(--N500);
   flex: 1;
+  gap: var(--size-1);
+}
+.tabs-trigger:focus {
+  border: 1.5px solid var(--body);
 }
 .tabs-trigger:hover {
   border-bottom: 1.5px solid var(--body);
@@ -49,4 +53,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
+}
+
+.tabs-trigger i {
+  font-size: 16px;
 }

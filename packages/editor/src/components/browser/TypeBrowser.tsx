@@ -5,6 +5,7 @@ import type { ColumnDef, ExpandedState, FilterFn, RowSelectionState } from '@tan
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import { useEditorContext, useMeta } from '../../context';
 import type { JavaType } from '@axonivy/inscription-protocol';
+import { IvyIcons } from '@axonivy/editor-icons';
 export const TYPE_BROWSER_ID = 'type' as const;
 
 export const useTypeBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
@@ -13,40 +14,86 @@ export const useTypeBrowser = (onDoubleClick: () => void): UseBrowserImplReturnV
     id: TYPE_BROWSER_ID,
     name: 'Type',
     content: <TypeBrowser value={value} onChange={setValue} onDoubleClick={onDoubleClick} />,
-    accept: () => value
+    accept: () => value,
+    icon: IvyIcons.DataClass
   };
 };
 
 const TypeBrowser = (props: { value: string; onChange: (value: string) => void; onDoubleClick: () => void }) => {
+  type TypeBrowserObject = JavaType & {
+    icon: IvyIcons;
+  };
+
   const { context } = useEditorContext();
+
+  const [allSearchActive, setAllSearchActive] = useState(false);
 
   const [mainFilter, setMainFilter] = useState('');
   const { data: allDatatypes, isFetching } = useMeta('meta/scripting/allTypes', { context, limit: 150, type: mainFilter }, []);
+  const dataClasses = useMeta('meta/scripting/dataClasses', context, []).data;
+  const ivyTypes = useMeta('meta/scripting/ivyTypes', undefined, []).data;
 
-  const [dynamicTypes, setDynamicTypes] = useState<JavaType[]>([]);
+  const [types, setTypes] = useState<TypeBrowserObject[]>([]);
 
   const [typeAsList, setTypeAsList] = useState(false);
 
   const [showHelper, setShowHelper] = useState(false);
 
   useEffect(() => {
-    if (mainFilter.length > 0) {
-      allDatatypes.sort((a, b) => a.simpleName.localeCompare(b.simpleName));
+    const typeComparator = (a: TypeBrowserObject, b: TypeBrowserObject) => {
+      const fqCompare = a.fullQualifiedName.localeCompare(b.fullQualifiedName);
+      if (fqCompare !== 0) {
+        return fqCompare;
+      }
+      return a.simpleName.localeCompare(b.simpleName);
+    };
+
+    if (allSearchActive) {
+      if (mainFilter.length > 0) {
+        allDatatypes.sort((a, b) => a.simpleName.localeCompare(b.simpleName));
+      }
+      const mappedAllTypes: TypeBrowserObject[] = allDatatypes.map<TypeBrowserObject>(type => ({
+        icon: IvyIcons.DataClass,
+        ...type
+      }));
+      setTypes(mainFilter.length > 0 ? mappedAllTypes : []);
+    } else {
+      const mappedDataClasses: TypeBrowserObject[] = dataClasses.map<TypeBrowserObject>(dataClass => ({
+        simpleName: dataClass.name,
+        icon: IvyIcons.EditDots,
+        ...dataClass
+      }));
+      const mappedIvyTypes: TypeBrowserObject[] = ivyTypes.map<TypeBrowserObject>(ivyType => ({
+        icon: IvyIcons.File,
+        ...ivyType
+      }));
+
+      const sortedIvyTypes = mappedIvyTypes.sort(typeComparator);
+      const sortedMappedDataClasses = mappedDataClasses.sort(typeComparator);
+
+      const sortedTypes: TypeBrowserObject[] = sortedMappedDataClasses.concat(sortedIvyTypes);
+      setTypes(sortedTypes);
     }
-    setDynamicTypes(allDatatypes);
-  }, [allDatatypes, mainFilter]);
+  }, [allDatatypes, allSearchActive, dataClasses, ivyTypes, mainFilter]);
 
   useEffect(() => {
     setRowSelection({});
-  }, [dynamicTypes.length, mainFilter]);
+  }, [setTypes.length, mainFilter]);
 
-  const columns = useMemo<ColumnDef<JavaType>[]>(
+  const columns = useMemo<ColumnDef<TypeBrowserObject>[]>(
     () => [
       {
         accessorFn: row => row.simpleName,
         id: 'simpleName',
         cell: cell => {
-          return <ExpandableCell cell={cell} title={cell.row.original.simpleName} additionalInfo={cell.row.original.packageName} />;
+          return (
+            <ExpandableCell
+              cell={cell}
+              title={cell.row.original.simpleName}
+              additionalInfo={cell.row.original.packageName}
+              icon={cell.row.original.icon}
+            />
+          );
         }
       }
     ],
@@ -57,14 +104,14 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
   const [globalFilter, setGlobalFilter] = useState(mainFilter);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-  const regexFilter: FilterFn<JavaType> = (row, columnId, filterValue) => {
+  const regexFilter: FilterFn<TypeBrowserObject> = (row, columnId, filterValue) => {
     const cellValue = row.original.simpleName || '';
-    const regexPattern = new RegExp(filterValue.replace(/\*/g, '.*'), 'i'); // Convert * to .*
+    const regexPattern = new RegExp(filterValue.replace(/\*/g, '.*'), 'i');
     return regexPattern.test(cellValue);
   };
 
   const tableDynamic = useReactTable({
-    data: dynamicTypes,
+    data: types,
     columns: columns,
     state: {
       expanded,
@@ -85,15 +132,15 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
     getFilteredRowModel: getFilteredRowModel()
   });
 
-  const addListGeneric = (value: JavaType, typeAsList: boolean) => {
-    if (typeAsList) {
-      return 'java.util.List<' + value.fullQualifiedName + '>';
-    } else {
-      return value.fullQualifiedName;
-    }
-  };
-
   useEffect(() => {
+    const addListGeneric = (value: TypeBrowserObject, typeAsList: boolean) => {
+      if (typeAsList) {
+        return 'java.util.List<' + value.fullQualifiedName + '>';
+      } else {
+        return value.fullQualifiedName;
+      }
+    };
+
     if (Object.keys(rowSelection).length !== 1) {
       props.onChange('');
       setShowHelper(false);
@@ -129,6 +176,16 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
 
   return (
     <>
+      <div className='browser-table-header'>
+        <Checkbox
+          label='Search over all types'
+          value={allSearchActive}
+          onChange={() => {
+            setAllSearchActive(!allSearchActive);
+            setRowSelection({});
+          }}
+        />
+      </div>
       <Table
         search={{
           value: globalFilter,
@@ -137,22 +194,24 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
           }
         }}
       >
-        {mainFilter.length > 0 ? (
-          <tbody>
-            {!isFetching &&
-              tableDynamic.getRowModel().rows.map(row => (
-                <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
-                  {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                  ))}
-                </SelectRow>
-              ))}
-          </tbody>
-        ) : (
-          <tbody>
-            <TableCell>Please enter a search term to see results</TableCell>
-          </tbody>
-        )}
+        <tbody>
+          {tableDynamic.getRowModel().rows.length > 0 ? (
+            <>
+              {!isFetching &&
+                tableDynamic.getRowModel().rows.map(row => (
+                  <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
+                    {row.getVisibleCells().map(cell => (
+                      <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    ))}
+                  </SelectRow>
+                ))}
+            </>
+          ) : (
+            <tr>
+              <TableCell>No type found, enter a fitting search term</TableCell>
+            </tr>
+          )}
+        </tbody>
       </Table>
       {isFetching && (
         <div className='loader'>
