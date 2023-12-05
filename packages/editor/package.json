@@ -46,7 +46,6 @@
     "vitest": "^1.0.1",
     "jsdom": "^23.0.1"
   },
-  "type": "module",
   "module": "lib/index",
   "types": "lib/index",
   "source": "src/index",
