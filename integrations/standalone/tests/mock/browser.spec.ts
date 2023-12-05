@@ -150,10 +150,7 @@ test.describe('Script browser', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
 
     await page.getByText(browser).first().click();
-    if (browser === 'Type') {
-      await page.click('.icon-input input');
-      await page.keyboard.insertText('Per');
-    }
+
     await page.getByRole('row').nth(rowToCheck).click();
 
     if (checkListGeneric && browser === 'Type') {
@@ -173,10 +170,7 @@ test.describe('Script browser', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
 
     await page.getByText(browser).first().click();
-    if (browser === 'Type') {
-      await page.click('.icon-input input');
-      await page.keyboard.insertText('Per');
-    }
+
     await page.getByRole('row').nth(rowToCheck).click();
     await page.getByRole('row').nth(rowToCheck).dblclick();
 

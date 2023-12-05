@@ -31,7 +31,8 @@ export const useCmsBrowser = (onDoubleClick: () => void, options?: CmsOptions): 
         onDoubleClick={onDoubleClick}
       />
     ),
-    accept: () => value
+    accept: () => value,
+    icon: IvyIcons.Cms
   };
 };
 
@@ -64,7 +65,13 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
             <ExpandableCell
               cell={cell}
               title={cell.row.original.name}
-              icon={cell.row.original.type === 'FOLDER' ? IvyIcons.GoToSource : undefined}
+              icon={
+                cell.row.original.type === 'FOLDER'
+                  ? IvyIcons.FolderOpen
+                  : cell.row.original.type === 'FILE'
+                  ? IvyIcons.File
+                  : IvyIcons.ChangeType
+              }
               additionalInfo={cell.row.original.type}
             />
           );

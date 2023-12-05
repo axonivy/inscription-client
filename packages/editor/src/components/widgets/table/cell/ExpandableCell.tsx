@@ -31,7 +31,17 @@ export function ExpandableCell<TData>({
     row.toggleExpanded(true);
   };
   return (
-    <div className='row-expand' style={{ paddingLeft: `calc(${row.depth}*(var(--tree-gap))` }} title={title}>
+    <div
+      className='row-expand'
+      style={{
+        paddingLeft: `${
+          row.getCanExpand()
+            ? `calc(${row.depth} * var(--tree-gap))`
+            : `calc(${row.depth > 0 && icon ? '24px' : '0'} + ${row.depth} * var(--tree-gap))`
+        }`
+      }}
+      title={title}
+    >
       {row.getCanExpand() ? (
         <>
           <Button

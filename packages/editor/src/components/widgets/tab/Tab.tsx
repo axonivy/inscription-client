@@ -1,13 +1,16 @@
 import './Tab.css';
 import { Tabs as TabsRoot, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import { useMemo } from 'react';
 import type { Message } from '../message/Message';
+import IvyIcon from '../IvyIcon';
+import type { IvyIcons } from '@axonivy/editor-icons';
 
 export type Tab = {
   id: string;
   name: string;
   messages?: Message[];
+  icon?: IvyIcons;
   content: ReactNode;
 };
 
@@ -36,7 +39,7 @@ export const TabRoot = ({ tabs, value, onChange, children }: TabsProps & { child
 export const TabList = ({ tabs }: TabsProps) => (
   <TabsList className='tabs-list'>
     {tabs.map((tab, index) => (
-      <TabTrigger key={`${index}-${tab.name}`} tab={tab} />
+      <TabTrigger key={`${index}-${tab.name}`} tab={tab} tabIcon={tab.icon} />
     ))}
   </TabsList>
 );
@@ -51,7 +54,7 @@ export const TabContent = ({ tabs }: TabsProps) => (
   </>
 );
 
-export const TabTrigger = ({ tab }: { tab: Tab }) => {
+export const TabTrigger = ({ tab, tabIcon }: { tab: Tab; tabIcon?: IvyIcons }) => {
   const state = useMemo(() => {
     if (tab.messages?.find(message => message.severity === 'ERROR')) {
       return 'error';
@@ -63,7 +66,7 @@ export const TabTrigger = ({ tab }: { tab: Tab }) => {
   }, [tab.messages]);
   return (
     <TabsTrigger className='tabs-trigger' data-message={state} value={tab.id}>
-      {tab.name}
+      {tabIcon && <IvyIcon icon={tabIcon} />} <div>{tab.name}</div>
     </TabsTrigger>
   );
 };
