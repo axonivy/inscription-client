@@ -1,7 +1,9 @@
+.code-editor {
+  background: var(--background);
+}
 .code-editor .code-input {
   border-radius: var(--border-radius);
   border: var(--basic-border);
-  background: var(--background);
   font-size: 12px;
   line-height: 12px;
   color: var(--body);
