@@ -9,10 +9,6 @@
   color: var(--body);
   padding: var(--size-2);
 }
-.popover-content .script-input .code-editor .code-input .monaco-editor .view-lines,
-.popover-content .script-input .code-editor .code-input {
-  background-color: var(--background);
-}
 .popover-content:focus {
   box-shadow: var(--focus-shadow);
 }

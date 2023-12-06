@@ -5,6 +5,8 @@ import { Checkbox, ScriptArea, useFieldset } from '../../widgets';
 import { useOutputData } from './useOutputData';
 import { PathContext, useValidations } from '../../../context';
 import { PathFieldset } from '../common';
+import { splitNewLine } from '../../../utils/utils';
+import { useMemo } from 'react';
 
 export function useOutputScriptPart(): PartProps {
   const { config, defaultConfig, initConfig, resetCode } = useOutputData();
@@ -19,6 +21,14 @@ const OutputScriptPart = () => {
   const { config, update, updateSudo } = useOutputData();
   const codeFieldset = useFieldset();
 
+  const initHeight = useMemo(() => {
+    const height = splitNewLine(config.output.code).length * 18 + 20;
+    if (height < 90) {
+      return 90;
+    }
+    return height;
+  }, [config.output.code]);
+
   return (
     <PathContext path='output'>
       <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
@@ -26,6 +36,7 @@ const OutputScriptPart = () => {
           value={config.output.code}
           onChange={change => update('code', change)}
           browsers={['attr', 'func', 'type', 'cms']}
+          initHeight={initHeight}
           {...codeFieldset.inputProps}
         />
       </PathFieldset>
