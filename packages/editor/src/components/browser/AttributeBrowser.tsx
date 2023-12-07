@@ -7,6 +7,7 @@ import { MappingTreeData } from '../parts/common/mapping-tree/mapping-tree-data'
 import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { useEditorContext, useMeta } from '../../context';
 import { calcFullPathId } from '../parts/common/mapping-tree/useMappingTree';
+import { IvyIcons } from '@axonivy/editor-icons';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
@@ -14,6 +15,7 @@ export const useAttributeBrowser = (onDoubleClick: () => void, location: string)
   const [value, setValue] = useState('');
   return {
     id: ATTRIBUTE_BROWSER_ID,
+    icon: IvyIcons.Attribute,
     name: 'Attribute',
     content: <AttributeBrowser value={value} onChange={setValue} location={location} onDoubleClick={onDoubleClick} />,
     accept: () => value
@@ -68,6 +70,7 @@ const AttributeBrowser = ({
             loadChildren={() => loadChildren(cell.row.original)}
             title={cell.row.original.description}
             additionalInfo={cell.row.original.simpleType}
+            icon={IvyIcons.Attribute}
           />
         )
       }
