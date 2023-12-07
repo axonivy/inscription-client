@@ -2,7 +2,7 @@ import { TableUtil, render, screen, userEvent } from 'test-utils';
 import { useCmsBrowser } from './CmsBrowser';
 
 const Browser = (props: { location: string; accept: (value: string) => void }) => {
-  const browser = useCmsBrowser(() => {});
+  const browser = useCmsBrowser(() => {}, props.location);
   return (
     <>
       {browser.content}
@@ -25,6 +25,13 @@ describe('CmsBrowser', () => {
                 en: '<%=ivy.html.get("in.date")%> <%=ivy.cms.co("/ProcessPages/test/Panel1")%>'
               },
               children: []
+            },
+            {
+              name: 'CoolFile',
+              fullPath: '/CoolFile',
+              type: 'FILE',
+              values: {},
+              children: []
             }
           ]
         }
@@ -34,7 +41,7 @@ describe('CmsBrowser', () => {
 
   test('render', async () => {
     renderBrowser();
-    await TableUtil.assertRowCount(1);
+    await TableUtil.assertRowCount(2);
   });
 
   test('accept', async () => {
@@ -43,5 +50,28 @@ describe('CmsBrowser', () => {
     await userEvent.click(await screen.findByRole('cell', { name: 'Macro' }));
     await userEvent.click(screen.getByTestId('accept'));
     expect(data).toEqual('ivy.cms.co("/Macro")');
+  });
+
+  test('file', async () => {
+    let data = '';
+    renderBrowser({ accept: value => (data = value) });
+    await userEvent.click(await screen.findByRole('cell', { name: 'CoolFile' }));
+    await userEvent.click(screen.getByTestId('accept'));
+    expect(data).toEqual('ivy.cms.cr("/CoolFile")');
+  });
+
+  test('file in mail attachments', async () => {
+    let data = '';
+    renderBrowser({ accept: value => (data = value), location: 'attachments' });
+    await userEvent.click(await screen.findByRole('cell', { name: 'CoolFile' }));
+    await userEvent.click(screen.getByTestId('accept'));
+    expect(data).toEqual('ivy.cm.findObject("/CoolFile")');
+  });
+  test('file in mail content', async () => {
+    let data = '';
+    renderBrowser({ accept: value => (data = value), location: 'message' });
+    await userEvent.click(await screen.findByRole('cell', { name: 'CoolFile' }));
+    await userEvent.click(screen.getByTestId('accept'));
+    expect(data).toEqual('ivy.cms.co("/CoolFile")');
   });
 });
