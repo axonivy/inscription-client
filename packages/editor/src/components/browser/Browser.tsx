@@ -35,7 +35,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
   };
 
   const attrBrowser = useAttributeBrowser(onRowDoubleClick, location);
-  const cmsBrowser = useCmsBrowser(onRowDoubleClick, cmsOptions);
+  const cmsBrowser = useCmsBrowser(onRowDoubleClick, location, cmsOptions);
   const funcBrowser = useFuncBrowser();
   const typeBrowser = useTypeBrowser(onRowDoubleClick);
   const catPathChooserBrowser = useCatPathChooserBrowser();
