@@ -32,6 +32,7 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
   const { data: allDatatypes, isFetching } = useMeta('meta/scripting/allTypes', { context, limit: 150, type: mainFilter }, []);
   const dataClasses = useMeta('meta/scripting/dataClasses', context, []).data;
   const ivyTypes = useMeta('meta/scripting/ivyTypes', undefined, []).data;
+  const ownTypes = useMeta('meta/scripting/ownTypes', { context, limit: 100, type: '' }, []).data;
 
   const [types, setTypes] = useState<TypeBrowserObject[]>([]);
 
@@ -67,14 +68,22 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
         icon: IvyIcons.File,
         ...ivyType
       }));
+      const ownTypesWithoutDataClasses = ownTypes.filter(
+        ownType => !mappedDataClasses.find(dataClass => dataClass.fullQualifiedName === ownType.fullQualifiedName)
+      );
+      const mappedOwnTypes: TypeBrowserObject[] = ownTypesWithoutDataClasses.map<TypeBrowserObject>(ownType => ({
+        icon: IvyIcons.DataClass,
+        ...ownType
+      }));
 
       const sortedIvyTypes = mappedIvyTypes.sort(typeComparator);
       const sortedMappedDataClasses = mappedDataClasses.sort(typeComparator);
+      const sortedMappedOwnTypes = mappedOwnTypes.sort(typeComparator);
 
-      const sortedTypes: TypeBrowserObject[] = sortedMappedDataClasses.concat(sortedIvyTypes);
+      const sortedTypes: TypeBrowserObject[] = sortedMappedOwnTypes.concat(sortedMappedDataClasses).concat(sortedIvyTypes);
       setTypes(sortedTypes);
     }
-  }, [allDatatypes, allSearchActive, dataClasses, ivyTypes, mainFilter]);
+  }, [allDatatypes, allSearchActive, dataClasses, ivyTypes, mainFilter, ownTypes]);
 
   useEffect(() => {
     setRowSelection({});
