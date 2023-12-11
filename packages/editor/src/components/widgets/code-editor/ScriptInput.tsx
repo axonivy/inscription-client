@@ -2,7 +2,7 @@ import './ScriptInput.css';
 import { Input } from '../input';
 import type { CodeEditorInputProps } from './SingleLineCodeEditor';
 import SingleLineCodeEditor from './SingleLineCodeEditor';
-import { useModifyEditor } from './useCodeEditor';
+import { useMonacoEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
@@ -19,7 +19,7 @@ const ScriptInput = ({
 }: CodeEditorInputProps & { type: string }) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useModifyEditor({ modifyAction: modifyAction });
+  const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: modifyAction });
   const path = usePath();
 
   return (

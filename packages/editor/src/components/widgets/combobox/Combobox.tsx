@@ -6,7 +6,7 @@ import { usePath, useReadonly } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import Button from '../button/Button';
 import { SingleLineCodeEditor } from '../code-editor';
-import { useModifyEditor } from '../code-editor/useCodeEditor';
+import { useMonacoEditor } from '../code-editor/useCodeEditor';
 import type { BrowserType } from '../../../components/browser';
 import { Browser, useBrowser } from '../../../components/browser';
 import { CardText } from '../output/CardText';
@@ -84,7 +84,7 @@ const Combobox = <T extends ComboboxItem>({
   }, [items, selectItem, value]);
 
   const readonly = useReadonly();
-  const { setEditor, modifyEditor } = useModifyEditor({ modifyAction: value => `<%=${value}%>` });
+  const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: value => `<%=${value}%>` });
   const path = usePath();
   const browser = useBrowser();
   const { isFocusWithin, focusValue, focusWithinProps } = useOnFocus(value, onChange);
