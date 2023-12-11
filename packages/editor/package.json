@@ -43,7 +43,7 @@
     "@types/react": "^18.2.37",
     "deepmerge-ts": "^5.1.0",
     "eslint-plugin-testing-library": "^6.2.0",
-    "vitest": "^1.0.1",
+    "vitest": "^1.0.4",
     "jsdom": "^23.0.1"
   },
   "type": "module",
