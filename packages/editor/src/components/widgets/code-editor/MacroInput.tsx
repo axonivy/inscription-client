@@ -1,7 +1,7 @@
 import './ScriptInput.css';
 import type { CodeEditorInputProps } from './SingleLineCodeEditor';
 import SingleLineCodeEditor from './SingleLineCodeEditor';
-import { useModifyEditor } from './useCodeEditor';
+import { useMonacoEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
 import { CardText } from '../output/CardText';
@@ -12,7 +12,7 @@ type MacroInputProps = Omit<CodeEditorInputProps, 'context'>;
 const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useModifyEditor({ modifyAction: value => `<%=${value}%>` });
+  const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: value => `<%=${value}%>` });
   const path = usePath();
 
   return (

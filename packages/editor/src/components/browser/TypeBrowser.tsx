@@ -8,22 +8,27 @@ import type { JavaType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 export const TYPE_BROWSER_ID = 'type' as const;
 
-export const useTypeBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
+type TypeBrowserObject = JavaType & { icon: IvyIcons };
+
+export const useTypeBrowser = (onDoubleClick: () => void, initSearchFilter: () => string): UseBrowserImplReturnValue => {
   const [value, setValue] = useState('type');
   return {
     id: TYPE_BROWSER_ID,
     name: 'Type',
-    content: <TypeBrowser value={value} onChange={setValue} onDoubleClick={onDoubleClick} />,
+    content: <TypeBrowser value={value} onChange={setValue} onDoubleClick={onDoubleClick} initSearchFilter={initSearchFilter} />,
     accept: () => value,
     icon: IvyIcons.DataClass
   };
 };
 
-const TypeBrowser = (props: { value: string; onChange: (value: string) => void; onDoubleClick: () => void }) => {
-  type TypeBrowserObject = JavaType & {
-    icon: IvyIcons;
-  };
+interface TypeBrowserProps {
+  value: string;
+  onChange: (value: string) => void;
+  onDoubleClick: () => void;
+  initSearchFilter: () => string;
+}
 
+const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter }: TypeBrowserProps) => {
   const { context } = useEditorContext();
 
   const [allSearchActive, setAllSearchActive] = useState(false);
@@ -110,7 +115,7 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
   );
 
   const [expanded, setExpanded] = useState<ExpandedState>(true);
-  const [globalFilter, setGlobalFilter] = useState(mainFilter);
+  const [globalFilter, setGlobalFilter] = useState(initSearchFilter);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const regexFilter: FilterFn<TypeBrowserObject> = (row, columnId, filterValue) => {
@@ -151,7 +156,7 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
     };
 
     if (Object.keys(rowSelection).length !== 1) {
-      props.onChange('');
+      onChange('');
       setShowHelper(false);
       return;
     }
@@ -159,8 +164,8 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
     selectedRow = tableDynamic.getRowModel().rowsById[Object.keys(rowSelection)[0]];
 
     setShowHelper(true);
-    props.onChange(addListGeneric(selectedRow.original, typeAsList));
-  }, [props, props.onChange, rowSelection, tableDynamic, typeAsList]);
+    onChange(addListGeneric(selectedRow.original, typeAsList));
+  }, [onChange, rowSelection, tableDynamic, typeAsList]);
 
   const [debouncedFilterValue, setDebouncedFilterValue] = useState('');
 
@@ -208,7 +213,7 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
             <>
               {!isFetching &&
                 tableDynamic.getRowModel().rows.map(row => (
-                  <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
+                  <SelectRow key={row.id} row={row} onDoubleClick={onDoubleClick}>
                     {row.getVisibleCells().map(cell => (
                       <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                     ))}
@@ -229,7 +234,7 @@ const TypeBrowser = (props: { value: string; onChange: (value: string) => void; 
       )}
       {showHelper && (
         <pre className='browser-helptext'>
-          <b>{props.value}</b>
+          <b>{value}</b>
         </pre>
       )}
       <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
