@@ -37,7 +37,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
 
   const attrBrowser = useAttributeBrowser(onRowDoubleClick, location);
   const cmsBrowser = useCmsBrowser(onRowDoubleClick, location, cmsOptions);
-  const funcBrowser = useFuncBrowser();
+  const funcBrowser = useFuncBrowser(onRowDoubleClick);
   const typeBrowser = useTypeBrowser(
     onRowDoubleClick,
     initSearchFilter

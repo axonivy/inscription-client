@@ -39,6 +39,26 @@ export const useMonacoEditor = (options?: { modifyAction?: ModifyAction; scriptA
     } else {
       const text = value.length > 0 && options?.modifyAction ? options.modifyAction(value) : value;
       editor.executeEdits('browser', [{ range: selection, text, forceMoveMarkers: true }]);
+      if (type === 'func') {
+        const updatedEditorContent = editor.getValue();
+        const editorModel = editor.getModel();
+
+        if (editorModel && text.indexOf('(') !== -1) {
+          const textIndex = updatedEditorContent.indexOf(text);
+
+          const textrange = {
+            startLineNumber: editorModel.getPositionAt(textIndex).lineNumber,
+            startColumn: editorModel.getPositionAt(textIndex + 1 + text.indexOf('(')).column,
+            endLineNumber: editorModel.getPositionAt(textIndex + text.length).lineNumber,
+            endColumn: editorModel.getPositionAt(textIndex + text.length - 1).column
+          };
+
+          setTimeout(() => {
+            editor.setSelection(textrange);
+            editor.focus();
+          }, 500);
+        }
+      }
     }
   };
 

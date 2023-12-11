@@ -26,6 +26,7 @@ export type Widget = Script | Label | Text;
 export type WidgetType = "TEXT" | "LABEL" | "SCRIPT";
 
 export interface Inscription {
+  apiDocRequest: ApiDocRequest;
   boolean: boolean;
   callableDialogRequest: CallableDialogRequest;
   callableStart: CallableStart[];
@@ -39,6 +40,7 @@ export interface Inscription {
   errorCodeRequest: ErrorCodeRequest;
   errorStartMeta: ErrorStartMeta[];
   eventCodeMeta: EventCodeMeta[];
+  function: Function[];
   inscriptionActionArgs: InscriptionActionArgs;
   inscriptionContext: InscriptionContext;
   inscriptionElementContext: InscriptionElementContext;
@@ -59,7 +61,7 @@ export interface Inscription {
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
-  string: string;
+  string: string[];
   typeSearchRequest: TypeSearchRequest;
   variableInfo: VariableInfo;
   void: Void;
@@ -70,13 +72,19 @@ export interface Inscription {
   widget: Widget[];
   [k: string]: unknown;
 }
-export interface CallableDialogRequest {
+export interface ApiDocRequest {
   context: InscriptionContext;
-  supportOffline: boolean;
+  method: string;
+  paramTypes: string[];
+  type: string;
 }
 export interface InscriptionContext {
   app: string;
   pmv: string;
+}
+export interface CallableDialogRequest {
+  context: InscriptionContext;
+  supportOffline: boolean;
 }
 export interface CallableStart {
   callParameter: VariableInfo;
@@ -226,6 +234,21 @@ export interface EventCodeMeta {
   process: string;
   project: string;
   usage: number;
+}
+export interface Function {
+  isField: boolean;
+  name: string;
+  params: Parameter[];
+  returnType: PublicType;
+}
+export interface Parameter {
+  name: string;
+  type: string;
+}
+export interface PublicType {
+  functions: Function[];
+  packageName: string;
+  simpleName: string;
 }
 export interface InscriptionActionArgs {
   actionId:
