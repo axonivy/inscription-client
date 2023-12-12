@@ -9,7 +9,7 @@ import { Input } from '../../input';
 import { SingleLineCodeEditor } from '../../code-editor';
 import type { BrowserType } from '../../../browser';
 import { Browser, useBrowser } from '../../../browser';
-import { useModifyEditor } from '../../code-editor/useCodeEditor';
+import { useMonacoEditor } from '../../code-editor/useCodeEditor';
 import IvyIcon from '../../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
 
@@ -50,7 +50,7 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers }: CodeEdito
   const closeRef = useRef<HTMLButtonElement>(null);
   const path = usePath();
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useModifyEditor();
+  const { setEditor, modifyEditor } = useMonacoEditor();
 
   return (
     <>

@@ -34,6 +34,24 @@ test.describe('Script browser', () => {
     await expect(code(page).getByRole('textbox')).toHaveValue('test 123 <%=in.bla%>');
   });
 
+  test('browser init searchfilter', async ({ page }) => {
+    const inscriptionView = await InscriptionView.mock(page);
+    const task = inscriptionView.accordion('Call');
+    await task.toggle();
+
+    await page.getByText('Code').click();
+    const codeField = task.scriptArea();
+    await codeField.fill('handle');
+
+    await code(page).dblclick();
+    await browserBtn(page).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+
+    await page.getByText('Type').last().click();
+
+    await expect(page.getByPlaceholder('Search')).toHaveValue('handle');
+  });
+
   test('browser add cms string', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page);
     const task = inscriptionView.accordion('Task');

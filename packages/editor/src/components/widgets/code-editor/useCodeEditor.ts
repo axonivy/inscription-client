@@ -12,16 +12,15 @@ export const monacoAutoFocus = (editor: monaco.editor.IStandaloneCodeEditor) => 
 
 export type ModifyAction = (value: string) => string;
 
-export const useModifyEditor = (options?: { modifyAction?: ModifyAction; scriptAreaDatatypeEditor?: boolean }) => {
+export const useMonacoEditor = (options?: { modifyAction?: ModifyAction; scriptAreaDatatypeEditor?: boolean }) => {
   const [editor, setEditor] = useState<monaco.editor.IStandaloneCodeEditor>();
+
   const modifyEditor = (value: string, type: BrowserType) => {
     if (!editor) {
-      console.log('No editor set to modify');
       return;
     }
     const selection = editor.getSelection();
     if (!selection) {
-      console.log('No selection found on editor');
       return;
     }
 
@@ -43,5 +42,13 @@ export const useModifyEditor = (options?: { modifyAction?: ModifyAction; scriptA
     }
   };
 
-  return { setEditor, modifyEditor };
+  const getMonacoSelection: () => string = () => {
+    const selection = editor?.getSelection();
+    if (selection) {
+      return editor?.getModel()?.getValueInRange(selection) || '';
+    }
+    return '';
+  };
+
+  return { setEditor, modifyEditor, getMonacoSelection };
 };
