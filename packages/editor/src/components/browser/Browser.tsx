@@ -19,9 +19,10 @@ type BrowserProps = UseBrowserReturnValue & {
   accept: (value: string, type: BrowserType) => void;
   location: string;
   cmsOptions?: CmsOptions;
+  initSearchFilter?: () => string;
 };
 
-const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: BrowserProps) => {
+const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, initSearchFilter }: BrowserProps) => {
   const { editorRef } = useEditorContext();
   const [active, setActive] = useState<BrowserType>(types[0]);
 
@@ -35,9 +36,16 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions }: Br
   };
 
   const attrBrowser = useAttributeBrowser(onRowDoubleClick, location);
-  const cmsBrowser = useCmsBrowser(onRowDoubleClick, cmsOptions);
+  const cmsBrowser = useCmsBrowser(onRowDoubleClick, location, cmsOptions);
   const funcBrowser = useFuncBrowser();
-  const typeBrowser = useTypeBrowser(onRowDoubleClick);
+  const typeBrowser = useTypeBrowser(
+    onRowDoubleClick,
+    initSearchFilter
+      ? initSearchFilter
+      : () => {
+          return '';
+        }
+  );
   const catPathChooserBrowser = useCatPathChooserBrowser();
   const tableColBrowser = useTableColBrowser();
   const sqlOpBrowser = useSqlOpBrowser();

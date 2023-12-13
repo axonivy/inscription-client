@@ -16,7 +16,7 @@ export type CmsOptions = {
   typeFilter?: CmsTypeFilter;
 };
 
-export const useCmsBrowser = (onDoubleClick: () => void, options?: CmsOptions): UseBrowserImplReturnValue => {
+export const useCmsBrowser = (onDoubleClick: () => void, location: string, options?: CmsOptions): UseBrowserImplReturnValue => {
   const [value, setValue] = useState('');
 
   return {
@@ -29,9 +29,11 @@ export const useCmsBrowser = (onDoubleClick: () => void, options?: CmsOptions): 
         noApiCall={options?.noApiCall}
         typeFilter={options?.typeFilter}
         onDoubleClick={onDoubleClick}
+        location={location}
       />
     ),
-    accept: () => value
+    accept: () => value,
+    icon: IvyIcons.Cms
   };
 };
 
@@ -41,9 +43,10 @@ interface CmsBrowserProps {
   noApiCall?: boolean;
   typeFilter?: CmsTypeFilter;
   onDoubleClick: () => void;
+  location: string;
 }
 
-const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: CmsBrowserProps) => {
+const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, location }: CmsBrowserProps) => {
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
@@ -64,7 +67,13 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
             <ExpandableCell
               cell={cell}
               title={cell.row.original.name}
-              icon={cell.row.original.type === 'FOLDER' ? IvyIcons.GoToSource : undefined}
+              icon={
+                cell.row.original.type === 'FOLDER'
+                  ? IvyIcons.FolderOpen
+                  : cell.row.original.type === 'FILE'
+                  ? IvyIcons.File
+                  : IvyIcons.ChangeType
+              }
               additionalInfo={cell.row.original.type}
             />
           );
@@ -92,16 +101,6 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
     typeFilter === 'NONE' || typeFilter === undefined ? [] : [{ id: 'type', value: typeFilter }]
   );
 
-  const addIvyPathToValue = (value: string, type: ContentObjectType, noApiCall?: boolean) => {
-    if (noApiCall || value.length === 0) {
-      return value;
-    }
-    if (type === 'FILE') {
-      return `ivy.cms.cr("${value}")`;
-    }
-    return `ivy.cms.co("${value}")`;
-  };
-
   const table = useReactTable({
     data: tree,
     columns: columns,
@@ -128,6 +127,18 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
   });
 
   useEffect(() => {
+    const addIvyPathToValue = (value: string, type: ContentObjectType, noApiCall?: boolean) => {
+      if (noApiCall || value.length === 0) {
+        return value;
+      }
+      if (type === 'FILE' && location === 'attachments') {
+        return `ivy.cm.findObject("${value}")`;
+      } else if (type === 'FILE' && location !== 'message') {
+        return `ivy.cms.cr("${value}")`;
+      }
+      return `ivy.cms.co("${value}")`;
+    };
+
     if (Object.keys(rowSelection).length !== 1) {
       setSelectedContentObject({ name: '', children: [], fullPath: '', type: 'STRING', values: {} });
       setShowHelper(false);
@@ -138,7 +149,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick }: C
     setSelectedContentObject(selectedRow.original);
     setShowHelper(true);
     onChange(addIvyPathToValue(selectedRow.original.fullPath, selectedRow.original.type, noApiCall));
-  }, [onChange, rowSelection, noApiCall, table]);
+  }, [onChange, rowSelection, noApiCall, table, location]);
 
   return (
     <>

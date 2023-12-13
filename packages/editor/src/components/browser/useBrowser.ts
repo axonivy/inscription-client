@@ -7,6 +7,7 @@ import type { TYPE_BROWSER_ID } from './TypeBrowser';
 import type { TABLE_COL_BROWSER_ID } from './TableColBrowser';
 import type { SQL_OPERATION_BROWSER_ID } from './SqlOperationBrowser';
 import type { CAT_PATH_CHOOSER_BROWSER_ID } from './CatPathChooser';
+import type { IvyIcons } from '@axonivy/editor-icons';
 
 export type BrowserType =
   | typeof ATTRIBUTE_BROWSER_ID
@@ -20,6 +21,7 @@ export type BrowserType =
 export type UseBrowserImplReturnValue = Omit<Tab, 'id'> & {
   id: BrowserType;
   accept: () => string;
+  icon: IvyIcons;
 };
 
 export type UseBrowserReturnValue = {
