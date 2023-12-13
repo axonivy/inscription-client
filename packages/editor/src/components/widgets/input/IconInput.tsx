@@ -17,7 +17,7 @@ const IconInput = ({ icon, initFocus, ...props }: IconInputProps) => {
     if (initFocus) {
       const timer = setTimeout(() => {
         inputRef.current?.focus();
-      }, 0);
+      }, 50);
       return () => clearTimeout(timer);
     }
     return () => {};
