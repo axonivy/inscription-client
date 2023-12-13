@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Outlines" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1b1b1b;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="letter-d">
+    <path class="cls-1" d="m13,20.75h-6c-.41,0-.75-.34-.75-.75V4c0-.41.34-.75.75-.75h6c3.17,0,5.75,2.58,5.75,5.75v6c0,3.17-2.58,5.75-5.75,5.75Zm-5.25-1.5h5.25c2.34,0,4.25-1.91,4.25-4.25v-6c0-2.34-1.91-4.25-4.25-4.25h-5.25v14.5Z"/>
+  </g>
+</svg>

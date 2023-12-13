@@ -59,18 +59,22 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter }: TypeB
         allDatatypes.sort((a, b) => a.simpleName.localeCompare(b.simpleName));
       }
       const mappedAllTypes: TypeBrowserObject[] = allDatatypes.map<TypeBrowserObject>(type => ({
-        icon: IvyIcons.DataClass,
+        icon: dataClasses.find(dc => dc.fullQualifiedName === type.fullQualifiedName)
+          ? IvyIcons.LetterD
+          : type.fullQualifiedName.includes('ivy')
+          ? IvyIcons.Ivy
+          : IvyIcons.DataClass,
         ...type
       }));
       setTypes(mainFilter.length > 0 ? mappedAllTypes : []);
     } else {
       const mappedDataClasses: TypeBrowserObject[] = dataClasses.map<TypeBrowserObject>(dataClass => ({
         simpleName: dataClass.name,
-        icon: IvyIcons.EditDots,
+        icon: IvyIcons.LetterD,
         ...dataClass
       }));
       const mappedIvyTypes: TypeBrowserObject[] = ivyTypes.map<TypeBrowserObject>(ivyType => ({
-        icon: IvyIcons.File,
+        icon: ivyType.fullQualifiedName.includes('ivy') ? IvyIcons.Ivy : IvyIcons.DataClass,
         ...ivyType
       }));
       const ownTypesWithoutDataClasses = ownTypes.filter(
