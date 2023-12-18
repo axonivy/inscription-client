@@ -18,9 +18,11 @@ export type BrowserType =
   | typeof TABLE_COL_BROWSER_ID
   | typeof SQL_OPERATION_BROWSER_ID;
 
+type BrowserValue = { cursorValue: string; firstLineValue?: string };
+
 export type UseBrowserImplReturnValue = Omit<Tab, 'id'> & {
   id: BrowserType;
-  accept: () => string;
+  accept: () => BrowserValue;
   icon: IvyIcons;
 };
 
