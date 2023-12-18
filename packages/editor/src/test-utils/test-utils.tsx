@@ -75,6 +75,7 @@ type ContextHelperProps = {
     widgets?: Widget[];
     contentObject?: ContentObject[];
     datatypes?: JavaType[];
+    ivyTypes?: JavaType[];
     dataClasses?: DataClass[];
   };
   editor?: { title?: string; readonly?: boolean };
@@ -172,8 +173,8 @@ const ContextHelper = (
             return Promise.resolve(props.meta?.widgets ?? []);
           case 'meta/cms/tree':
             return Promise.resolve(props.meta?.contentObject ?? []);
-          case 'meta/scripting/allTypes':
-            return Promise.resolve(props.meta?.javaClasses ?? []);
+          case 'meta/scripting/ivyTypes':
+            return Promise.resolve(props.meta?.ivyTypes ?? []);
           case 'meta/scripting/dataClasses':
             return Promise.resolve(props.meta?.dataClasses ?? []);
           default:

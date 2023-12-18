@@ -1,7 +1,8 @@
 import { TableUtil, render, screen, userEvent } from 'test-utils';
 import { useCmsBrowser } from './CmsBrowser';
+import type { BrowserValue } from './Browser';
 
-const Browser = (props: { location: string; accept: (value: string) => void }) => {
+const Browser = (props: { location: string; accept: (value: BrowserValue) => void }) => {
   const browser = useCmsBrowser(() => {}, props.location);
   return (
     <>
@@ -12,7 +13,7 @@ const Browser = (props: { location: string; accept: (value: string) => void }) =
 };
 
 describe('CmsBrowser', () => {
-  function renderBrowser(options?: { location?: string; accept?: (value: string) => void }) {
+  function renderBrowser(options?: { location?: string; accept?: (value: BrowserValue) => void }) {
     render(<Browser location={options?.location ?? 'something'} accept={options?.accept ?? (() => {})} />, {
       wrapperProps: {
         meta: {
@@ -46,7 +47,7 @@ describe('CmsBrowser', () => {
 
   test('accept', async () => {
     let data = '';
-    renderBrowser({ accept: value => (data = value) });
+    renderBrowser({ accept: value => (data = value.cursorValue) });
     await userEvent.click(await screen.findByRole('cell', { name: 'Macro' }));
     await userEvent.click(screen.getByTestId('accept'));
     expect(data).toEqual('ivy.cms.co("/Macro")');
@@ -54,7 +55,7 @@ describe('CmsBrowser', () => {
 
   test('file', async () => {
     let data = '';
-    renderBrowser({ accept: value => (data = value) });
+    renderBrowser({ accept: value => (data = value.cursorValue) });
     await userEvent.click(await screen.findByRole('cell', { name: 'CoolFile' }));
     await userEvent.click(screen.getByTestId('accept'));
     expect(data).toEqual('ivy.cms.cr("/CoolFile")');
@@ -62,14 +63,14 @@ describe('CmsBrowser', () => {
 
   test('file in mail attachments', async () => {
     let data = '';
-    renderBrowser({ accept: value => (data = value), location: 'attachments' });
+    renderBrowser({ accept: value => (data = value.cursorValue), location: 'attachments' });
     await userEvent.click(await screen.findByRole('cell', { name: 'CoolFile' }));
     await userEvent.click(screen.getByTestId('accept'));
     expect(data).toEqual('ivy.cm.findObject("/CoolFile")');
   });
   test('file in mail content', async () => {
     let data = '';
-    renderBrowser({ accept: value => (data = value), location: 'message' });
+    renderBrowser({ accept: value => (data = value.cursorValue), location: 'message' });
     await userEvent.click(await screen.findByRole('cell', { name: 'CoolFile' }));
     await userEvent.click(screen.getByTestId('accept'));
     expect(data).toEqual('ivy.cms.co("/CoolFile")');

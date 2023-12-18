@@ -11,6 +11,7 @@ import type { BrowserType } from '../../../components/browser';
 import { Browser, useBrowser } from '../../../components/browser';
 import { CardText } from '../output/CardText';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
+import type { BrowserValue } from '../../browser/Browser';
 
 export interface ComboboxItem {
   value: string;
@@ -116,7 +117,12 @@ const Combobox = <T extends ComboboxItem>({
           disabled={readonly}
         />
         {browserTypes || (macro && browserTypes!) ? (
-          <Browser {...browser} types={browserTypes ? browserTypes : ['attr']} accept={macro ? modifyEditor : onChange} location={path} />
+          <Browser
+            {...browser}
+            types={browserTypes ? browserTypes : ['attr']}
+            accept={macro ? modifyEditor : (change: BrowserValue) => onChange(change.cursorValue)}
+            location={path}
+          />
         ) : null}
       </div>
       <ul {...getMenuProps()} className='combobox-menu'>

@@ -8,16 +8,17 @@ import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { useEditorContext, useMeta } from '../../context';
 import { calcFullPathId } from '../parts/common/mapping-tree/useMappingTree';
 import { IvyIcons } from '@axonivy/editor-icons';
+import type { BrowserValue } from './Browser';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
 export const useAttributeBrowser = (onDoubleClick: () => void, location: string): UseBrowserImplReturnValue => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: ATTRIBUTE_BROWSER_ID,
     icon: IvyIcons.Attribute,
     name: 'Attribute',
-    content: <AttributeBrowser value={value} onChange={setValue} location={location} onDoubleClick={onDoubleClick} />,
+    content: <AttributeBrowser value={value.cursorValue} onChange={setValue} location={location} onDoubleClick={onDoubleClick} />,
     accept: () => value
   };
 };
@@ -29,7 +30,7 @@ const AttributeBrowser = ({
   onDoubleClick
 }: {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (value: BrowserValue) => void;
   location: string;
   onDoubleClick: () => void;
 }) => {
@@ -109,7 +110,7 @@ const AttributeBrowser = ({
     }
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setShowHelper(true);
-    onChange(calcFullPathId(selectedRow));
+    onChange({ cursorValue: calcFullPathId(selectedRow) });
   }, [onChange, rowSelection, table]);
 
   return (
