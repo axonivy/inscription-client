@@ -34,7 +34,9 @@ import type {
   JavaType,
   InscriptionElementContext,
   SignalCodeRequest,
-  CallableDialogRequest
+  CallableDialogRequest,
+  Function,
+  ApiDocRequest
 } from './data/inscription';
 import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -75,6 +77,10 @@ export interface InscriptionMetaRequestTypes {
   'meta/scripting/allTypes': [TypeSearchRequest, JavaType[]];
   'meta/scripting/ivyTypes': [void, JavaType[]];
   'meta/scripting/ownTypes': [TypeSearchRequest, JavaType[]];
+
+  'meta/scripting/functions': [void, Function[]];
+
+  'meta/scripting/apiDoc': [ApiDocRequest, string];
 
   'meta/program/types': [ProgramInterfacesRequest, ProgramInterface[]];
   'meta/program/editor': [ProgramEditorRequest, Widget[]];
