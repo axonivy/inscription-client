@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow } from '../widgets';
-import type { UseBrowserImplReturnValue } from './useBrowser';
+import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow } from '../../widgets';
+import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { ColumnDef, ExpandedState, RowSelectionState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
-import { MappingTreeData } from '../parts/common/mapping-tree/mapping-tree-data';
+import { MappingTreeData } from '../../parts/common/mapping-tree/mapping-tree-data';
 import type { VariableInfo } from '@axonivy/inscription-protocol';
-import { useEditorContext, useMeta } from '../../context';
-import { calcFullPathId } from '../parts/common/mapping-tree/useMappingTree';
+import { useEditorContext, useMeta } from '../../../context';
+import { calcFullPathId } from '../../parts/common/mapping-tree/useMappingTree';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { BrowserValue } from './Browser';
+import type { BrowserValue } from '../Browser';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 

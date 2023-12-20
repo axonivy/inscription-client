@@ -1,12 +1,12 @@
 import { useMemo, useEffect, useState } from 'react';
-import { ActionCell, Button, Checkbox, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../widgets';
-import type { UseBrowserImplReturnValue } from './useBrowser';
-import { useAction, useEditorContext, useMeta } from '../../context';
+import { ActionCell, Button, Checkbox, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../../widgets';
+import type { UseBrowserImplReturnValue } from '../useBrowser';
+import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, VisibilityState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { BrowserValue } from './Browser';
+import type { BrowserValue } from '../Browser';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 

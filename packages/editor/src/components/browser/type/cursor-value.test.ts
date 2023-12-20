@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { getCursorValue } from './typeBrowser-utils'; // Update the path accordingly
+import { getCursorValue } from './cursor-value';
 import type { TypeBrowserObject } from './TypeBrowser';
 import { IvyIcons } from '@axonivy/editor-icons';
 

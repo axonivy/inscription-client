@@ -51,7 +51,7 @@ export const useMonacoEditor = (options?: { modifyAction?: ModifyAction; scriptA
             startLineNumber: editorModel.getPositionAt(textIndex).lineNumber,
             startColumn: editorModel.getPositionAt(textIndex + 1 + text.indexOf('(')).column,
             endLineNumber: editorModel.getPositionAt(textIndex + text.length).lineNumber,
-            endColumn: editorModel.getPositionAt(textIndex + text.length - 1).column
+            endColumn: editorModel.getPositionAt(textIndex + text.indexOf(')')).column
           };
 
           setTimeout(() => {

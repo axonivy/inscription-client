@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import type { ATTRIBUTE_BROWSER_ID } from './AttributeBrowser';
-import type { CMS_BROWSER_ID } from './CmsBrowser';
 import type { Tab } from '../widgets';
-import type { FUNCTION_BROWSER_ID } from './FunctionBrowser';
-import type { TYPE_BROWSER_ID } from './TypeBrowser';
-import type { TABLE_COL_BROWSER_ID } from './TableColBrowser';
-import type { SQL_OPERATION_BROWSER_ID } from './SqlOperationBrowser';
-import type { CAT_PATH_CHOOSER_BROWSER_ID } from './CatPathChooser';
 import type { IvyIcons } from '@axonivy/editor-icons';
+import type { ATTRIBUTE_BROWSER_ID } from './attribute/AttributeBrowser';
+import type { CMS_BROWSER_ID } from './cms/CmsBrowser';
+import type { FUNCTION_BROWSER_ID } from './function/FunctionBrowser';
+import type { TYPE_BROWSER_ID } from './type/TypeBrowser';
+import type { CAT_PATH_CHOOSER_BROWSER_ID } from './categorie/CatPathChooser';
+import type { TABLE_COL_BROWSER_ID } from './tableCol/TableColBrowser';
+import type { SQL_OPERATION_BROWSER_ID } from './sql/SqlOperationBrowser';
 
 export type BrowserType =
   | typeof ATTRIBUTE_BROWSER_ID
