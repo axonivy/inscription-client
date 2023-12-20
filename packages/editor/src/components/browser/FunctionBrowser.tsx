@@ -14,21 +14,22 @@ import {
   type Row
 } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
+import type { BrowserValue } from './Browser';
 import { useEditorContext, useMeta } from '../../context';
 export const FUNCTION_BROWSER_ID = 'func' as const;
 
 export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
-  const [value, setValue] = useState('function');
+  const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: FUNCTION_BROWSER_ID,
     name: 'Function',
-    content: <FunctionBrowser value={value} onChange={setValue} onDoubleClick={onDoubleClick} />,
+    content: <FunctionBrowser value={value.cursorValue} onChange={setValue} onDoubleClick={onDoubleClick} />,
     accept: () => value,
     icon: IvyIcons.Function
   };
 };
 
-const FunctionBrowser = (props: { value: string; onChange: (value: string) => void; onDoubleClick: () => void }) => {
+const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue) => void; onDoubleClick: () => void }) => {
   const { context } = useEditorContext();
   const [method, setMethod] = useState('');
   const [paramTypes, setParamTypes] = useState<string[]>([]);
@@ -101,7 +102,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: string) => vo
 
     if (Object.keys(rowSelection).length !== 1) {
       setShowHelper(false);
-      props.onChange('');
+      props.onChange({ cursorValue: '' });
       return;
     }
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
@@ -109,11 +110,11 @@ const FunctionBrowser = (props: { value: string; onChange: (value: string) => vo
     //setup correct functionName for the accept-method
     const parentNames = getParentNames(selectedRow);
     const selectedName = parentNames.reverse().join('.');
-    props.onChange(
-      selectedRow.original.isField
+    props.onChange({
+      cursorValue: selectedRow.original.isField
         ? selectedName
         : selectedName + '(' + selectedRow.original.params.map(param => param.type.split('.').pop()).join(', ') + ')'
-    );
+    });
 
     //setup Meta-Call for docApi
     const parentRow = selectedRow.getParentRow();

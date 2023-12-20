@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import type { BrowserType } from '../../../components/browser';
+import type { BrowserValue } from '../../browser/Browser';
+import type { BrowserType } from '../../browser';
 
 export const monacoAutoFocus = (editor: monaco.editor.IStandaloneCodeEditor) => {
   const range = editor.getModel()?.getFullModelRange();
@@ -15,7 +16,7 @@ export type ModifyAction = (value: string) => string;
 export const useMonacoEditor = (options?: { modifyAction?: ModifyAction; scriptAreaDatatypeEditor?: boolean }) => {
   const [editor, setEditor] = useState<monaco.editor.IStandaloneCodeEditor>();
 
-  const modifyEditor = (value: string, type: BrowserType) => {
+  const modifyEditor = (value: BrowserValue, type: BrowserType) => {
     if (!editor) {
       return;
     }
@@ -23,21 +24,21 @@ export const useMonacoEditor = (options?: { modifyAction?: ModifyAction; scriptA
     if (!selection) {
       return;
     }
-
-    if (type === 'type' && options?.scriptAreaDatatypeEditor) {
-      const textWithLineBreak = 'import ' + value + ';\n';
-      const parts = value.split('.');
-      const shortValue = parts.length > 1 ? parts.pop() : value;
+    if (value.firstLineValue) {
       editor.executeEdits('browser', [
-        { range: editor.getModel()?.getFullModelRange().collapseToStart() ?? selection, text: textWithLineBreak, forceMoveMarkers: true },
+        {
+          range: editor.getModel()?.getFullModelRange().collapseToStart() ?? selection,
+          text: value.firstLineValue ? value.firstLineValue : '',
+          forceMoveMarkers: true
+        },
         {
           range: selection,
-          text: shortValue || '',
+          text: value.cursorValue,
           forceMoveMarkers: true
         }
       ]);
     } else {
-      const text = value.length > 0 && options?.modifyAction ? options.modifyAction(value) : value;
+      const text = value.cursorValue.length > 0 && options?.modifyAction ? options.modifyAction(value.cursorValue) : value.cursorValue;
       editor.executeEdits('browser', [{ range: selection, text, forceMoveMarkers: true }]);
       if (type === 'func') {
         const updatedEditorContent = editor.getValue();

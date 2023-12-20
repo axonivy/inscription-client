@@ -1,10 +1,11 @@
 import './Input.css';
-import type { BrowserType} from '../../../components/browser';
+import type { BrowserType } from '../../../components/browser';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
 import type { ComponentProps } from 'react';
 import Input from './Input';
 import type { CmsTypeFilter } from '../../../components/browser/CmsBrowser';
+import type { BrowserValue } from '../../browser/Browser';
 
 type InputWithBrowserProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'ref'> & {
   value?: string;
@@ -20,7 +21,13 @@ const InputWithBrowser = ({ value, onChange, disabled, browsers, typeFilter, ...
   return (
     <div className='input-with-browser'>
       <Input value={value as string} onChange={onChange} disabled={disabled} {...props} />
-      <Browser {...browser} types={browsers} cmsOptions={{ noApiCall: true, typeFilter: typeFilter }} accept={onChange} location={path} />
+      <Browser
+        {...browser}
+        types={browsers}
+        cmsOptions={{ noApiCall: true, typeFilter: typeFilter }}
+        accept={(change: BrowserValue) => onChange(change.cursorValue)}
+        location={path}
+      />
     </div>
   );
 };
