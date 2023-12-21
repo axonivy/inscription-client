@@ -6,6 +6,7 @@ import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, V
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
+import type { BrowserValue } from './Browser';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 
@@ -17,14 +18,14 @@ export type CmsOptions = {
 };
 
 export const useCmsBrowser = (onDoubleClick: () => void, location: string, options?: CmsOptions): UseBrowserImplReturnValue => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
 
   return {
     id: CMS_BROWSER_ID,
     name: 'CMS',
     content: (
       <CmsBrowser
-        value={value}
+        value={value.cursorValue}
         onChange={setValue}
         noApiCall={options?.noApiCall}
         typeFilter={options?.typeFilter}
@@ -39,7 +40,7 @@ export const useCmsBrowser = (onDoubleClick: () => void, location: string, optio
 
 interface CmsBrowserProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (value: BrowserValue) => void;
   noApiCall?: boolean;
   typeFilter?: CmsTypeFilter;
   onDoubleClick: () => void;
@@ -142,13 +143,13 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
     if (Object.keys(rowSelection).length !== 1) {
       setSelectedContentObject({ name: '', children: [], fullPath: '', type: 'STRING', values: {} });
       setShowHelper(false);
-      onChange('');
+      onChange({ cursorValue: '' });
       return;
     }
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setSelectedContentObject(selectedRow.original);
     setShowHelper(true);
-    onChange(addIvyPathToValue(selectedRow.original.fullPath, selectedRow.original.type, noApiCall));
+    onChange({ cursorValue: addIvyPathToValue(selectedRow.original.fullPath, selectedRow.original.type, noApiCall) });
   }, [onChange, rowSelection, noApiCall, table, location]);
 
   return (

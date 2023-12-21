@@ -14,9 +14,11 @@ import { useCatPathChooserBrowser } from './CatPathChooser';
 import type { CmsOptions } from './CmsBrowser';
 import { useCmsBrowser } from './CmsBrowser';
 
+export type BrowserValue = { cursorValue: string; firstLineValue?: string };
+
 type BrowserProps = UseBrowserReturnValue & {
   types: BrowserType[];
-  accept: (value: string, type: BrowserType) => void;
+  accept: (value: BrowserValue) => void;
   location: string;
   cmsOptions?: CmsOptions;
   initSearchFilter?: () => string;
@@ -27,7 +29,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
   const [active, setActive] = useState<BrowserType>(types[0]);
 
   const acceptBrowser = () => {
-    accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? '', active);
+    accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? { cursorValue: '' });
   };
 
   const onRowDoubleClick = () => {
@@ -44,7 +46,8 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
       ? initSearchFilter
       : () => {
           return '';
-        }
+        },
+    location
   );
   const catPathChooserBrowser = useCatPathChooserBrowser();
   const tableColBrowser = useTableColBrowser();

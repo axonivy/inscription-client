@@ -6,16 +6,26 @@ import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, 
 import { useEditorContext, useMeta } from '../../context';
 import type { JavaType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
+import type { BrowserValue } from './Browser';
+import { getCursorValue } from './typeBrowser-utils';
 export const TYPE_BROWSER_ID = 'type' as const;
 
-type TypeBrowserObject = JavaType & { icon: IvyIcons };
+export type TypeBrowserObject = JavaType & { icon: IvyIcons };
 
-export const useTypeBrowser = (onDoubleClick: () => void, initSearchFilter: () => string): UseBrowserImplReturnValue => {
-  const [value, setValue] = useState('type');
+export const useTypeBrowser = (onDoubleClick: () => void, initSearchFilter: () => string, location: string): UseBrowserImplReturnValue => {
+  const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: TYPE_BROWSER_ID,
     name: 'Type',
-    content: <TypeBrowser value={value} onChange={setValue} onDoubleClick={onDoubleClick} initSearchFilter={initSearchFilter} />,
+    content: (
+      <TypeBrowser
+        value={value.cursorValue}
+        onChange={setValue}
+        onDoubleClick={onDoubleClick}
+        location={location}
+        initSearchFilter={initSearchFilter}
+      />
+    ),
     accept: () => value,
     icon: IvyIcons.DataClass
   };
@@ -23,12 +33,13 @@ export const useTypeBrowser = (onDoubleClick: () => void, initSearchFilter: () =
 
 interface TypeBrowserProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (value: BrowserValue) => void;
   onDoubleClick: () => void;
   initSearchFilter: () => string;
+  location: string;
 }
 
-const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter }: TypeBrowserProps) => {
+const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, location }: TypeBrowserProps) => {
   const { context } = useEditorContext();
 
   const [allSearchActive, setAllSearchActive] = useState(false);
@@ -52,6 +63,18 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter }: TypeB
         return fqCompare;
       }
       return a.simpleName.localeCompare(b.simpleName);
+    };
+
+    const ivyTypeComparator = (a: TypeBrowserObject, b: TypeBrowserObject) => {
+      const aHasJava = a.fullQualifiedName.startsWith('java.lang');
+      const bHasJava = b.fullQualifiedName.startsWith('java.lang');
+      if (aHasJava && !bHasJava) {
+        return -1;
+      }
+      if (!aHasJava && bHasJava) {
+        return 1;
+      }
+      return typeComparator(a, b);
     };
 
     if (allSearchActive) {
@@ -80,19 +103,20 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter }: TypeB
       const ownTypesWithoutDataClasses = ownTypes.filter(
         ownType => !mappedDataClasses.find(dataClass => dataClass.fullQualifiedName === ownType.fullQualifiedName)
       );
-      const mappedOwnTypes: TypeBrowserObject[] = ownTypesWithoutDataClasses.map<TypeBrowserObject>(ownType => ({
-        icon: IvyIcons.DataClass,
-        ...ownType
-      }));
-
-      const sortedIvyTypes = mappedIvyTypes.sort(typeComparator);
+      const sortedIvyTypes = mappedIvyTypes.sort(ivyTypeComparator);
       const sortedMappedDataClasses = mappedDataClasses.sort(typeComparator);
-      const sortedMappedOwnTypes = mappedOwnTypes.sort(typeComparator);
-
-      const sortedTypes: TypeBrowserObject[] = sortedMappedOwnTypes.concat(sortedMappedDataClasses).concat(sortedIvyTypes);
-      setTypes(sortedTypes);
+      if (location.includes('code')) {
+        const mappedOwnTypes: TypeBrowserObject[] = ownTypesWithoutDataClasses.map<TypeBrowserObject>(ownType => ({
+          icon: IvyIcons.DataClass,
+          ...ownType
+        }));
+        const sortedMappedOwnTypes = mappedOwnTypes.sort(typeComparator);
+        setTypes(sortedMappedOwnTypes.concat(sortedMappedDataClasses).concat(sortedIvyTypes));
+      } else {
+        setTypes(sortedMappedDataClasses.concat(sortedIvyTypes));
+      }
     }
-  }, [allDatatypes, allSearchActive, dataClasses, ivyTypes, mainFilter, ownTypes]);
+  }, [allDatatypes, allSearchActive, dataClasses, ivyTypes, location, mainFilter, ownTypes]);
 
   useEffect(() => {
     setRowSelection({});
@@ -151,25 +175,26 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter }: TypeB
   });
 
   useEffect(() => {
-    const addListGeneric = (value: TypeBrowserObject, typeAsList: boolean) => {
-      if (typeAsList) {
-        return 'java.util.List<' + value.fullQualifiedName + '>';
-      } else {
-        return value.fullQualifiedName;
-      }
-    };
-
     if (Object.keys(rowSelection).length !== 1) {
-      onChange('');
+      onChange({ cursorValue: '' });
       setShowHelper(false);
       return;
     }
-    let selectedRow = undefined;
-    selectedRow = tableDynamic.getRowModel().rowsById[Object.keys(rowSelection)[0]];
 
+    const selectedRow = tableDynamic.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setShowHelper(true);
-    onChange(addListGeneric(selectedRow.original, typeAsList));
-  }, [onChange, rowSelection, tableDynamic, typeAsList]);
+    const isIvyType = ivyTypes.some(javaClass => javaClass.fullQualifiedName === selectedRow.original.fullQualifiedName);
+    if (location.includes('code')) {
+      onChange({
+        cursorValue: getCursorValue(selectedRow.original, isIvyType, typeAsList, true),
+        firstLineValue: isIvyType || typeAsList ? undefined : 'import ' + selectedRow.original.fullQualifiedName + ';\n'
+      });
+    } else {
+      onChange({
+        cursorValue: getCursorValue(selectedRow.original, isIvyType, typeAsList, false)
+      });
+    }
+  }, [ivyTypes, location, onChange, rowSelection, tableDynamic, typeAsList]);
 
   const [debouncedFilterValue, setDebouncedFilterValue] = useState('');
 
