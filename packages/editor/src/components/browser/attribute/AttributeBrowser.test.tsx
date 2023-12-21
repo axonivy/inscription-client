@@ -2,7 +2,7 @@ import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { TableUtil, render, screen, userEvent } from 'test-utils';
 import { useAttributeBrowser } from './AttributeBrowser';
 import { describe, test, expect } from 'vitest';
-import type { BrowserValue } from './Browser';
+import type { BrowserValue } from '../Browser';
 
 const TYPES = {
   'mock.Test': [

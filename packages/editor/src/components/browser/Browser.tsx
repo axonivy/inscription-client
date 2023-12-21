@@ -4,15 +4,14 @@ import { Button, TabContent, TabList, TabRoot } from '../widgets';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEditorContext } from '../../context';
 import { useState } from 'react';
-import { useAttributeBrowser } from './AttributeBrowser';
 import type { BrowserType, UseBrowserReturnValue } from './useBrowser';
-import { useFuncBrowser } from './FunctionBrowser';
-import { useTypeBrowser } from './TypeBrowser';
-import { useTableColBrowser } from './TableColBrowser';
-import { useSqlOpBrowser } from './SqlOperationBrowser';
-import { useCatPathChooserBrowser } from './CatPathChooser';
-import type { CmsOptions } from './CmsBrowser';
-import { useCmsBrowser } from './CmsBrowser';
+import { useAttributeBrowser } from './attribute/AttributeBrowser';
+import { useCmsBrowser, type CmsOptions } from './cms/CmsBrowser';
+import { useFuncBrowser } from './function/FunctionBrowser';
+import { useTypeBrowser } from './type/TypeBrowser';
+import { useCatPathChooserBrowser } from './categorie/CatPathChooser';
+import { useTableColBrowser } from './tableCol/TableColBrowser';
+import { useSqlOpBrowser } from './sql/SqlOperationBrowser';
 
 export type BrowserValue = { cursorValue: string; firstLineValue?: string };
 
