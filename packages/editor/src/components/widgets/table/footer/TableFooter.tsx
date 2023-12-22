@@ -18,3 +18,15 @@ export const TableAddRow = (props: { colSpan: number; addRow: () => void }) => {
     </tr>
   );
 };
+
+export const TableShowMore = (props: { colSpan: number; showMore: () => void; helpertext: string }) => {
+  return (
+    <tr>
+      <th colSpan={props.colSpan} className='show-more-rows'>
+        <Button icon={IvyIcons.Dots} onClick={props.showMore} aria-label='Show more rows'>
+          {props.helpertext}
+        </Button>
+      </th>
+    </tr>
+  );
+};
