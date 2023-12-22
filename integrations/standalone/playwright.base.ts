@@ -31,15 +31,7 @@ const config = defineConfig({
     trace: 'retain-on-failure',
     headless: process.env.CI ? true : false
   },
-
-  projects: browsers(),
-
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'yarn start:mock',
-    url: 'http://localhost:3000/mock.html',
-    reuseExistingServer: !process.env.CI
-  }
+  projects: browsers()
 });
 
 export default config;

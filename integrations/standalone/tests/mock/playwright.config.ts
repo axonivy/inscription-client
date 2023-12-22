@@ -1,15 +1,16 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
-import defaultConfig from '../../playwright.config';
+import { defineConfig } from '@playwright/test';
+import defaultConfig from '../../playwright.base';
 
-const config: PlaywrightTestConfig = defaultConfig;
-config.testDir = './';
-config.timeout = 1000 * 30;
-config.use!.baseURL = 'http://localhost:3000/mock.html';
-config.retries = process.env.CI ? 1 : 0;
-config.webServer = {
-  command: 'yarn start:mock',
-  url: 'http://localhost:3000/mock.html',
-  reuseExistingServer: !process.env.CI
-};
-
-export default config;
+export default defineConfig(defaultConfig, {
+  testDir: './',
+  timeout: 1000 * 30,
+  use: {
+    baseURL: 'http://localhost:3000/mock.html'
+  },
+  retries: process.env.CI ? 1 : 0,
+  webServer: {
+    command: 'yarn start:mock',
+    url: 'http://localhost:3000/mock.html',
+    reuseExistingServer: !process.env.CI
+  }
+});

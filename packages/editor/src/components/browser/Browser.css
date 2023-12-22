@@ -164,7 +164,8 @@
 }
 
 @media (prefers-reduced-motion) {
-  .accordion-content {
+  .browser-dialog,
+  .browser-content-exit {
     animation: none !important;
   }
 }
