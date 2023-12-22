@@ -23,19 +23,26 @@ export function EditableCell<TData>({ cell, disabled, withBrowser: propWithBrows
   const path = usePath();
   const withBrowser = propWithBrowser || false;
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value as string, change => setValue(change));
+
   const onBlur = () => {
     cell.table.options.meta?.updateData(cell.row.id, cell.column.id, value);
   };
+
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
+
+  const updateValue = (value: string) => {
+    setValue(value);
+    cell.table.options.meta?.updateData(cell.row.id, cell.column.id, value);
+  };
 
   return withBrowser ? (
     <div className='editableCell-with-browser' {...focusWithinProps} tabIndex={1}>
       {isFocusWithin || browser.open ? (
         <>
           <Input {...focusValue} value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />
-          <Browser {...browser} types={['type']} accept={change => setValue(change.cursorValue)} location={path} />
+          <Browser {...browser} types={['type']} accept={change => updateValue(change.cursorValue)} location={path} />
         </>
       ) : (
         <Input value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />
