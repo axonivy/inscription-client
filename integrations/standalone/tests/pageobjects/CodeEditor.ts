@@ -1,4 +1,4 @@
-import type { Locator, Page} from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 class CodeEditor {
@@ -41,8 +41,11 @@ class CodeEditor {
   }
 
   protected async clearContent() {
-    await this.page.keyboard.press('Control+KeyA');
-    await this.page.keyboard.press('Meta+KeyA');
+    if (this.page.context().browser()?.browserType().name() === 'webkit') {
+      await this.page.keyboard.press('Meta+KeyA');
+    } else {
+      await this.page.keyboard.press('Control+KeyA');
+    }
     await this.page.keyboard.press('Delete');
   }
 

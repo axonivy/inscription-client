@@ -19,7 +19,7 @@
   "source": "src-gen/index",
   "devDependencies": {
     "fantasticon": "^1.2.3",
-    "rimraf": "^5.0.1"
+    "rimraf": "^5.0.5"
   },
   "scripts": {
     "clean": "rimraf lib src-gen/ivy-icons.* tsconfig.tsbuildinfo",
