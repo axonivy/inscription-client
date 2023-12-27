@@ -17,7 +17,7 @@
   "type": "module",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
-  "source": "src-gen/index",
+  "source": "src-gen/index.ts",
   "devDependencies": {
     "fantasticon": "^1.2.3",
     "rimraf": "^5.0.1"
