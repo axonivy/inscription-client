@@ -14,7 +14,6 @@ class CodeEditor {
     await this.focus();
     await expect(this.contentAssist).toBeHidden();
     await this.page.keyboard.press('Control+Space');
-    await this.page.keyboard.press('Meta+Space');
     await expect(this.contentAssist).toBeVisible();
   }
 
