@@ -1,10 +1,10 @@
-# Inscription View (Alpha)
+# Inscription View
 
-This repo contains the prototype of the web-based next gen inscription editors.
+This repo contains the web-based next gen inscription view for Axon Ivy process elements.
 
 ## Client
 
-This prototype is build with React and Headless Components.
+It is build with React and Headless Components.
 
 ### Available Scripts
 
@@ -24,8 +24,7 @@ This prototype is build with React and Headless Components.
 > If you don't have an active LSP backend, you can test the frontend with a mocked backend. Open [http://localhost:3000/mock.html](http://localhost:3000/mock.html) to view mocked data.
 > The page will reload if you make edits.
 
-If you have started a Dev-Axon Ivy Designer (port 8081), you can browse any inscription by addressing it via the `pid` e.g. http://localhost:3000/?pid=01682CA38FC4E775-f3
-If your Axon Ivy Designer run on another port you can also specify the host http://localhost:3000/?server=localhost:8080/designer&pid=01682CA38FC4E775-f3
+If you have started a Dev-Axon Ivy Designer (port 8081), you can browse any inscription by addressing it via the `app`, `pmv` and `pid` e.g. <http://localhost:3000?server=localhost:8081&app=designer&pmv=workflow-demos&pid=15254DC87A1B183B-f3>
 
 `yarn test`: Launches the test runner in the interactive watch mode
 
@@ -42,7 +41,7 @@ Simply start the `Chrome` launch config to get debug and breakpoint support.
 
 #### Run tests
 
-To run tests you can ether start a script above or start Playwright or Jest with the recommended workspace extensions.
+To run tests you can ether start a script above or start Playwright or Vitest with the recommended workspace extensions.
 
 ### Protocol changes
 
@@ -52,9 +51,3 @@ If you make protocol changes in the server and this causes to type errors on the
 - Run `yarn type` to check for typeing issues
 - Fix typing issues
 - Create a PR with your changes
-
-## Windows
-
-Windows has some known issues we need to fix:
-
-- fix mock vite start
