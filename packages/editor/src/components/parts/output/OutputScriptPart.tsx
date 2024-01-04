@@ -7,6 +7,7 @@ import { PathContext, useValidations } from '../../../context';
 import { PathFieldset } from '../common';
 import { splitNewLine } from '../../../utils/utils';
 import { useMemo } from 'react';
+import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 export function useOutputScriptPart(): PartProps {
   const { config, defaultConfig, initConfig, resetCode } = useOutputData();
@@ -20,6 +21,7 @@ export function useOutputScriptPart(): PartProps {
 const OutputScriptPart = () => {
   const { config, update, updateSudo } = useOutputData();
   const codeFieldset = useFieldset();
+  const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   const initHeight = useMemo(() => {
     const height = splitNewLine(config.output.code).length * 18 + 20;
@@ -31,8 +33,9 @@ const OutputScriptPart = () => {
 
   return (
     <PathContext path='output'>
-      <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
+      <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
         <ScriptArea
+          maximizeState={maximizeState}
           value={config.output.code}
           onChange={change => update('code', change)}
           browsers={['attr', 'func', 'type', 'cms']}

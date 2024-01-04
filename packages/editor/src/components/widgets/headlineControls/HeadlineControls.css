@@ -1,0 +1,8 @@
+.headline-controls {
+  display: inline-flex;
+  gap: var(--size-1);
+}
+
+.headline-controls .button[data-state='active'] {
+  color: var(--A300);
+}

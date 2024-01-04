@@ -6,6 +6,7 @@ import { usePartDirty, usePartState } from '../../editors';
 import { useOutputData } from './useOutputData';
 import { MappingPart, PathFieldset } from '../common';
 import type { BrowserType } from '../../../components/browser';
+import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 export function useOutputPart(options?: { hideCode?: boolean; additionalBrowsers?: BrowserType[] }): PartProps {
   const { config, defaultConfig, initConfig, resetOutput } = useOutputData();
@@ -30,12 +31,15 @@ const OutputPart = (props: { showCode?: boolean; additionalBrowsers?: BrowserTyp
   const browsers: BrowserType[] = ['attr', 'func', 'type', ...(props.additionalBrowsers ?? [])];
 
   const codeFieldset = useFieldset();
+  const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
+
   return (
     <PathContext path='output'>
       <MappingPart data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} browsers={browsers} />
       {props.showCode && (
-        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
+        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
           <ScriptArea
+            maximizeState={maximizeState}
             value={config.output.code}
             onChange={change => update('code', change)}
             browsers={browsers}

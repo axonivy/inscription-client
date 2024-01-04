@@ -5,6 +5,7 @@ import { ScriptArea, useFieldset } from '../../widgets';
 import { useScriptData } from './useScriptData';
 import { useValidations } from '../../../context';
 import { PathFieldset } from '../common';
+import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 export function useScriptPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useScriptData();
@@ -18,10 +19,12 @@ export function useScriptPart(): PartProps {
 const ScriptPart = () => {
   const { config, update } = useScriptData();
   const codeFieldset = useFieldset();
+  const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   return (
-    <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
+    <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
       <ScriptArea
+        maximizeState={maximizeState}
         value={config.code}
         onChange={change => update('code', change)}
         browsers={['attr', 'func', 'type', 'cms']}

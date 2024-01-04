@@ -2,10 +2,10 @@ import './Fieldset.css';
 import type { LabelProps } from '@radix-ui/react-label';
 import { Label } from '@radix-ui/react-label';
 import { memo } from 'react';
-import Button from '../button/Button';
 import type { FieldsetControl } from './fieldset-control';
 import type { MessageTextProps } from '../message/Message';
 import { MessageText } from '../message/Message';
+import HeadlineControls from '../headlineControls/HeadlineControls';
 
 export type FieldsetProps = LabelProps &
   MessageTextProps & {
@@ -22,19 +22,7 @@ const Fieldset = ({ label, controls, message, children, ...labelProps }: Fieldse
           <Label {...labelProps} className={`label ${labelProps.className}`}>
             {label}
           </Label>
-          <div className='fieldset-controls'>
-            {controls?.map((control, index) => (
-              <Button
-                icon={control.icon}
-                key={index}
-                aria-label={control.label}
-                title={control.label}
-                className='fieldset-control-button'
-                onClick={control.action}
-                data-state={control.active ? 'active' : 'inactive'}
-              />
-            ))}
-          </div>
+          {controls && <HeadlineControls controls={controls} />}
         </div>
       )}
       <div className={`fieldset-input ${severiry}`}>{children}</div>

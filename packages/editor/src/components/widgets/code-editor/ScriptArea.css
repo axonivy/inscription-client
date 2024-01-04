@@ -25,3 +25,7 @@
 .script-area:has(.monaco-editor .scrollbar.visible) .button {
   z-index: 20;
 }
+
+.script-area .code-editor {
+  border-radius: var(--border-radius);
+}
