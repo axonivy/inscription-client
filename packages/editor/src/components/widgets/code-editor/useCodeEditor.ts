@@ -13,7 +13,7 @@ export const monacoAutoFocus = (editor: monaco.editor.IStandaloneCodeEditor) => 
 
 export type ModifyAction = (value: string) => string;
 
-export const useMonacoEditor = (options?: { modifyAction?: ModifyAction; scriptAreaDatatypeEditor?: boolean }) => {
+export const useMonacoEditor = (options?: { modifyAction?: ModifyAction }) => {
   const [editor, setEditor] = useState<monaco.editor.IStandaloneCodeEditor>();
 
   const modifyEditor = (value: BrowserValue, type: BrowserType) => {
@@ -63,6 +63,20 @@ export const useMonacoEditor = (options?: { modifyAction?: ModifyAction; scriptA
     }
   };
 
+  const getSelectionRange = (): monaco.IRange | null => {
+    const selection = editor?.getSelection();
+    if (selection) {
+      return {
+        startLineNumber: selection.startLineNumber,
+        startColumn: selection.startColumn,
+        endLineNumber: selection.endLineNumber,
+        endColumn: selection.endColumn
+      };
+    } else {
+      return null;
+    }
+  };
+
   const getMonacoSelection: () => string = () => {
     const selection = editor?.getSelection();
     if (selection) {
@@ -71,5 +85,5 @@ export const useMonacoEditor = (options?: { modifyAction?: ModifyAction; scriptA
     return '';
   };
 
-  return { setEditor, modifyEditor, getMonacoSelection };
+  return { setEditor, modifyEditor, getMonacoSelection, getSelectionRange };
 };

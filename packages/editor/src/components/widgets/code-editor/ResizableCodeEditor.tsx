@@ -28,7 +28,6 @@ const ResizableCodeEditor = ({ initHeight, location, ...props }: ResizableCodeEd
       setResizeActive(false);
     }
   });
-
   return (
     <div className='resizable-code-editor'>
       <CodeEditor {...props} context={{ location }} height={height} />
