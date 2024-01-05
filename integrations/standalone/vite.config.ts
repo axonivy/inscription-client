@@ -1,20 +1,19 @@
-/** @type {import('vite').UserConfig} */
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import { UserConfig, defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig(() => {
-  const config = {
+  const config: UserConfig = {
     plugins: [react(), tsconfigPaths()],
-    build: { outDir: 'build', chunkSizeWarningLimit: 5000 },
+    build: { outDir: 'build', chunkSizeWarningLimit: 5000, rollupOptions: { input: { index: './index.html', mock: './mock.html' } } },
     server: { port: 3000, open: true },
     resolve: {
-      alias: { 
+      alias: {
         path: 'path-browserify',
         '@axonivy/inscription-core': resolve(__dirname, '../../packages/core/src'),
         '@axonivy/inscription-editor': resolve(__dirname, '../../packages/editor/src'),
-        '@axonivy/inscription-protocol': resolve(__dirname, '../../packages/protocol/src'),
+        '@axonivy/inscription-protocol': resolve(__dirname, '../../packages/protocol/src')
       }
     },
     base: './',
@@ -26,8 +25,7 @@ export default defineConfig(() => {
     }
   };
   if (process.env.MOCK) {
-    config.build.rollupOptions = { input: { app: './mock.html' } };
-    config.server.open = false;
+    config.server!.open = false;
   }
   return config;
 });
