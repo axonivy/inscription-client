@@ -8,6 +8,7 @@ import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
 import { RestError } from './rest-response/RestError';
 import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox';
 import { useRestEntityTypeMeta, useRestResourceMeta } from './useRestResourceMeta';
+import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 export function useRestResponsePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestResponseData();
@@ -31,6 +32,7 @@ const RestResponsePart = () => {
   const showResultType = useShowResultTypeCombo(resultTypes, config.response.entity.type);
   const typeFieldset = useFieldset();
   const codeFieldset = useFieldset();
+  const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
   return (
     <PathContext path='response'>
       <PathContext path='entity'>
@@ -50,8 +52,9 @@ const RestResponsePart = () => {
           browsers={['attr', 'func', 'type']}
           onChange={change => updateEntity('map', change)}
         />
-        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
+        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
           <ScriptArea
+            maximizeState={maximizeState}
             value={config.response.entity.code}
             onChange={change => updateEntity('code', change)}
             browsers={['attr', 'func', 'type']}

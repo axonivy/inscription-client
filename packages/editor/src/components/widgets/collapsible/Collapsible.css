@@ -1,6 +1,13 @@
 .collapsible-root .collapsible-header {
   display: flex;
 }
+
+.collapsible-root .collapsible-header:has([data-state='open']) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .collapsible-root .collapsible-header .message {
   min-width: 0;
 }

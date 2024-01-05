@@ -6,10 +6,18 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import IvyIcon from '../IvyIcon';
 import type { MessageTextProps } from '../message/Message';
 import { MessageText } from '../message/Message';
+import type { FieldsetControl } from '../fieldset';
+import HeadlineControls from '../headlineControls/HeadlineControls';
 
-export type CollapsibleProps = MessageTextProps & { label: string; defaultOpen?: boolean; autoClosable?: boolean; children: ReactNode };
+export type CollapsibleProps = MessageTextProps & {
+  label: string;
+  defaultOpen?: boolean;
+  autoClosable?: boolean;
+  children: ReactNode;
+  controls?: FieldsetControl[];
+};
 
-const Collapsible = ({ label, defaultOpen, message, children, autoClosable }: CollapsibleProps) => {
+const Collapsible = ({ label, defaultOpen, message, children, autoClosable, controls }: CollapsibleProps) => {
   const [open, setOpen] = useState(defaultOpen ?? false);
   useEffect(() => {
     if (autoClosable) {
@@ -30,6 +38,7 @@ const Collapsible = ({ label, defaultOpen, message, children, autoClosable }: Co
           </button>
         </CollapsibleTrigger>
         {!open && <MessageText message={message} />}
+        {controls && open && <HeadlineControls controls={controls} />}
       </div>
 
       <CollapsibleContent className='collapsible-content'>

@@ -11,13 +11,6 @@
   padding-inline: var(--size-1);
   height: 20px;
 }
-.fieldset-label .fieldset-controls {
-  display: inline-flex;
-  gap: var(--size-1);
-}
-.fieldset-label .fieldset-controls .button[data-state='active'] {
-  color: var(--A300);
-}
 
 .fieldset-input {
   display: flex;

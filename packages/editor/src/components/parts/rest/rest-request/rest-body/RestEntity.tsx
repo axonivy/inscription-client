@@ -5,6 +5,7 @@ import { PathContext, useEditorContext, useMeta } from '../../../../../context';
 import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from '../../RestEntityTypeCombobox';
 import { useRestEntityTypeMeta, useRestResourceMeta } from '../../useRestResourceMeta';
 import { EMPTY_VAR_INFO } from '@axonivy/inscription-protocol';
+import useMaximizedCodeEditor from '../../../../browser/useMaximizedCodeEditor';
 
 const useShowEntityTypeCombo = (types: string[], currentType: string) => {
   const resource = useRestResourceMeta();
@@ -19,6 +20,7 @@ export const RestEntity = () => {
   const showEntityType = useShowEntityTypeCombo(entityTypes, config.body.entity.type);
   const typeFieldset = useFieldset();
   const codeFieldset = useFieldset();
+  const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
   return (
     <PathContext path='entity'>
       {showEntityType && (
@@ -37,8 +39,9 @@ export const RestEntity = () => {
         onChange={change => updateEntity('map', change)}
         variableInfo={variableInfo}
       />
-      <PathFieldset label='Code' path='code' {...codeFieldset.labelProps}>
+      <PathFieldset label='Code' path='code' {...codeFieldset.labelProps} controls={[maximizeCode]}>
         <ScriptArea
+          maximizeState={maximizeState}
           value={config.body.entity.code}
           onChange={change => updateEntity('code', change)}
           browsers={['attr', 'func', 'type']}

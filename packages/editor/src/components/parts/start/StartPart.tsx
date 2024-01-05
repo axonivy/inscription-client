@@ -5,6 +5,7 @@ import { useStartData } from './useStartData';
 import type { StartData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { MappingPart, ParameterTable, PathCollapsible, PathFieldset } from '../common';
+import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
 
@@ -34,6 +35,8 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'input' }, { variables: [], types: {} });
 
+  const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
+
   const signatureFieldset = useFieldset();
   const codeFieldset = useFieldset();
   return (
@@ -51,8 +54,9 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
           onChange={change => update('map', change)}
           browsers={['attr', 'func', 'type']}
         />
-        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
+        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
           <ScriptArea
+            maximizeState={maximizeState}
             value={config.input.code}
             onChange={change => update('code', change)}
             browsers={['attr', 'func', 'type']}

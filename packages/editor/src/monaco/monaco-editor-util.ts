@@ -23,6 +23,13 @@ export const MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions 
   fixedOverflowWidgets: true
 };
 
+export const MAXIMIZED_MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
+  ...MONACO_OPTIONS,
+  lineNumbers: 'on',
+  folding: true,
+  showFoldingControls: 'always'
+};
+
 export const SINGLE_LINE_MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
   ...MONACO_OPTIONS,
   overviewRulerLanes: 0,

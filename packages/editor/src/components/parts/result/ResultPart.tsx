@@ -7,6 +7,7 @@ import type { ResultData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { MappingPart, ParameterTable, PathFieldset } from '../common';
 import { useQueryClient } from '@tanstack/react-query';
+import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useResultData();
@@ -33,6 +34,8 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   }, [config.result.params, queryClient]);
 
   const codeFieldset = useFieldset();
+  const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
+
   return (
     <PathContext path='result'>
       <Collapsible label='Result parameters'>
@@ -44,8 +47,9 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
         onChange={change => update('map', change)}
         browsers={['attr', 'func', 'type']}
       />
-      <PathFieldset label='Code' {...codeFieldset.labelProps} path='code'>
+      <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
         <ScriptArea
+          maximizeState={maximizeState}
           value={config.result.code}
           onChange={change => update('code', change)}
           browsers={['attr', 'func', 'type']}
