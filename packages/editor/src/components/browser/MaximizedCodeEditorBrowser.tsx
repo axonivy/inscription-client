@@ -1,16 +1,11 @@
 import { Dialog } from '@radix-ui/react-dialog';
 import { type Tab } from '../widgets';
-import { type BrowserType, type UseBrowserReturnValue } from './useBrowser';
+import { type UseBrowserReturnValue } from './useBrowser';
 import { IvyIcons } from '@axonivy/editor-icons';
+import MaximizedCodeEditor, { type MaximizedCodeEditorProps } from './maximizedCodeEditor/MaximizedCodeEditor';
 import BrowserBody from './BrowserBody';
-import MaximizedCodeEditor from './maximizedCodeEditor/MaximizedCodeEditor';
 
-type MaximaziedCodeEditorBrowserProps = UseBrowserReturnValue & {
-  editorValue: string;
-  location: string;
-  browsers: BrowserType[];
-  applyEditor: (change: string) => void;
-};
+type MaximaziedCodeEditorBrowserProps = UseBrowserReturnValue & MaximizedCodeEditorProps;
 
 const MaximizedCodeEditorBrowser = ({
   open,
@@ -18,11 +13,25 @@ const MaximizedCodeEditorBrowser = ({
   browsers,
   editorValue,
   applyEditor,
-  location
+  location,
+  selectionRange
 }: MaximaziedCodeEditorBrowserProps) => {
   const tabs: Tab[] = [
     {
-      content: <MaximizedCodeEditor applyEditor={applyEditor} browsers={browsers} editorValue={editorValue} location={location} />,
+      content: (
+        <MaximizedCodeEditor
+          applyEditor={applyEditor}
+          browsers={browsers}
+          editorValue={editorValue}
+          location={location}
+          selectionRange={selectionRange}
+          keyActions={{
+            escape: () => {
+              onOpenChange(false);
+            }
+          }}
+        />
+      ),
       id: 'maxCode',
       name: 'Code',
       icon: IvyIcons.StartProgram

@@ -1,4 +1,5 @@
 import './ScriptArea.css';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import type { CodeEditorAreaProps } from './ResizableCodeEditor';
 import ResizableCodeEditor from './ResizableCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
@@ -15,8 +16,13 @@ type ScriptAreaProps = CodeEditorAreaProps & {
 
 const ScriptArea = (props: ScriptAreaProps) => {
   const browser = useBrowser();
-  const { setEditor, modifyEditor, getMonacoSelection } = useMonacoEditor({ scriptAreaDatatypeEditor: true });
+  const { setEditor, modifyEditor, getMonacoSelection, getSelectionRange } = useMonacoEditor();
   const path = usePath();
+  const keyActionMountFunc = (editor: monaco.editor.IStandaloneCodeEditor) => {
+    editor.addCommand(monaco.KeyCode.F2, () => {
+      props.maximizeState.setIsMaximizedCodeEditorOpen(true);
+    });
+  };
 
   return props.maximizeState.isMaximizedCodeEditorOpen ? (
     <MaximizedCodeEditorBrowser
@@ -26,10 +32,11 @@ const ScriptArea = (props: ScriptAreaProps) => {
       editorValue={props.value}
       location={path}
       applyEditor={props.onChange}
+      selectionRange={getSelectionRange()}
     />
   ) : (
     <div className='script-area'>
-      <ResizableCodeEditor {...props} location={path} onMountFuncs={[setEditor]} />
+      <ResizableCodeEditor {...props} location={path} onMountFuncs={[setEditor, keyActionMountFunc]} />
       <Browser {...browser} types={props.browsers} accept={modifyEditor} location={path} initSearchFilter={getMonacoSelection} />
     </div>
   );
