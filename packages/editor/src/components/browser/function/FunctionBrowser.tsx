@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { ExpandableCell, SelectRow, Table, TableCell } from '../../widgets';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { ExpandableCell, SelectRow, Table, TableCell, TableFooter, TableShowMore } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { Function } from '@axonivy/inscription-protocol';
 import {
@@ -12,6 +12,7 @@ import {
   getFilteredRowModel,
   flexRender
 } from '@tanstack/react-table';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { BrowserValue } from '../Browser';
 import { useEditorContext, useMeta } from '../../../context';
@@ -34,13 +35,36 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
   const [method, setMethod] = useState('');
   const [paramTypes, setParamTypes] = useState<string[]>([]);
   const [type, setType] = useState('');
-
+  const [sortedTree, setSortedTree] = useState<Function[]>([]);
   const { data: tree } = useMeta('meta/scripting/functions', undefined, []);
   const { data: doc } = useMeta('meta/scripting/apiDoc', { context, method, paramTypes, type }, '');
+
+  const [rowNumber, setRowNumber] = useState(100);
 
   const [selectedFunctionDoc, setSelectedFunctionDoc] = useState('');
 
   const [showHelper, setShowHelper] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (tree && tree.length > 0) {
+      // Extracting and sorting functions inside root.returnType alphabetically
+      const sortedReturnTypes = tree
+        .map(entry => entry.returnType)
+        .filter(returnType => returnType)
+        .map(returnType => ({
+          ...returnType,
+          functions: returnType.functions.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }))
+        }));
+
+      // Replace the root.returnType from sortedData with the sortedReturnTypes
+      const finalSortedData = tree.map((entry, index) => ({
+        ...entry,
+        returnType: sortedReturnTypes[index]
+      }));
+
+      setSortedTree(finalSortedData);
+    }
+  }, [tree]);
 
   const columns = useMemo<ColumnDef<Function>[]>(
     () => [
@@ -65,12 +89,12 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
     []
   );
 
-  const [expanded, setExpanded] = useState<ExpandedState>(false as ExpandedState);
+  const [expanded, setExpanded] = useState<ExpandedState>({ [0]: true });
   const [globalFilter, setGlobalFilter] = useState('');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const table = useReactTable({
-    data: tree,
+    data: sortedTree,
     columns: columns,
     state: {
       expanded,
@@ -88,6 +112,16 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     getFilteredRowModel: getFilteredRowModel()
+  });
+
+  const { rows } = table.getRowModel();
+  const parentRef = useRef<HTMLDivElement>(null);
+
+  const virtualizer = useVirtualizer({
+    count: rows.length > 0 ? Math.min(rows.length, rowNumber) : 0,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 30,
+    overscan: 20
   });
 
   useEffect(() => {
@@ -123,19 +157,34 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
           value: globalFilter,
           onChange: newFilterValue => {
             setGlobalFilter(newFilterValue);
-            setExpanded(true);
+            setExpanded(newFilterValue.length > 0 ? true : { [0]: true });
+            setRowSelection({});
+            setRowNumber(100);
           }
         }}
+        ref={parentRef}
       >
         <tbody>
-          {table.getRowModel().rows.map(row => (
-            <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-              ))}
-            </SelectRow>
-          ))}
+          {virtualizer.getVirtualItems().map(virtualRow => {
+            const row = rows[virtualRow.index];
+            return (
+              <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                ))}
+              </SelectRow>
+            );
+          })}
         </tbody>
+        {rowNumber < rows.length && (
+          <TableFooter>
+            <TableShowMore
+              colSpan={4}
+              showMore={() => setRowNumber(old => old + 100)}
+              helpertext={rowNumber + ' out of ' + rows.length + ' shown'}
+            />
+          </TableFooter>
+        )}
       </Table>
       {showHelper && (
         <pre className='browser-helptext' dangerouslySetInnerHTML={{ __html: `<b>${props.value}</b>${selectedFunctionDoc}` }} />
