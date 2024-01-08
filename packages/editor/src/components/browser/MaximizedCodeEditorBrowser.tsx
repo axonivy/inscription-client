@@ -25,6 +25,7 @@ const MaximizedCodeEditorBrowser = ({
           editorValue={editorValue}
           location={location}
           selectionRange={selectionRange}
+          open={open}
           keyActions={{
             escape: () => {
               onOpenChange(false);
