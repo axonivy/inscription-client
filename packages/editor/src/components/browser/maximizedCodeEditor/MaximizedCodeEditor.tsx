@@ -12,12 +12,21 @@ export type MaximizedCodeEditorProps = {
   browsers: BrowserType[];
   applyEditor: (change: string) => void;
   selectionRange: monaco.IRange | null;
+  open: boolean;
   keyActions?: {
     escape?: () => void;
   };
 };
 
-const MaximizedCodeEditor = ({ editorValue, location, browsers, applyEditor, selectionRange, keyActions }: MaximizedCodeEditorProps) => {
+const MaximizedCodeEditor = ({
+  editorValue,
+  location,
+  browsers,
+  applyEditor,
+  selectionRange,
+  keyActions,
+  open
+}: MaximizedCodeEditorProps) => {
   const { setEditor, modifyEditor, getMonacoSelection } = useMonacoEditor();
   const browser = useBrowser();
 
@@ -35,18 +44,20 @@ const MaximizedCodeEditor = ({ editorValue, location, browsers, applyEditor, sel
   };
 
   return (
-    <div className='maximized-script-area'>
-      <div className='maximized-code-editor'>
-        <CodeEditor
-          value={editorValue}
-          onChange={applyEditor}
-          context={{ location }}
-          onMountFuncs={[setEditor, monacoAutoFocus, setSelection, keyActionMountFunc]}
-          options={MAXIMIZED_MONACO_OPTIONS}
-        />
+    open && (
+      <div className='maximized-script-area'>
+        <div className='maximized-code-editor'>
+          <CodeEditor
+            value={editorValue}
+            onChange={applyEditor}
+            context={{ location }}
+            onMountFuncs={[setEditor, monacoAutoFocus, setSelection, keyActionMountFunc]}
+            options={MAXIMIZED_MONACO_OPTIONS}
+          />
+        </div>
+        <Browser {...browser} types={browsers} accept={modifyEditor} location={location} initSearchFilter={getMonacoSelection} />
       </div>
-      <Browser {...browser} types={browsers} accept={modifyEditor} location={location} initSearchFilter={getMonacoSelection} />
-    </div>
+    )
   );
 };
 

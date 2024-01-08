@@ -24,21 +24,25 @@ const ScriptArea = (props: ScriptAreaProps) => {
     });
   };
 
-  return props.maximizeState.isMaximizedCodeEditorOpen ? (
-    <MaximizedCodeEditorBrowser
-      open={props.maximizeState.isMaximizedCodeEditorOpen}
-      onOpenChange={props.maximizeState.setIsMaximizedCodeEditorOpen}
-      browsers={props.browsers}
-      editorValue={props.value}
-      location={path}
-      applyEditor={props.onChange}
-      selectionRange={getSelectionRange()}
-    />
-  ) : (
-    <div className='script-area'>
-      <ResizableCodeEditor {...props} location={path} onMountFuncs={[setEditor, keyActionMountFunc]} />
-      <Browser {...browser} types={props.browsers} accept={modifyEditor} location={path} initSearchFilter={getMonacoSelection} />
-    </div>
+  return (
+    <>
+      <MaximizedCodeEditorBrowser
+        open={props.maximizeState.isMaximizedCodeEditorOpen}
+        onOpenChange={props.maximizeState.setIsMaximizedCodeEditorOpen}
+        browsers={props.browsers}
+        editorValue={props.value}
+        location={path}
+        applyEditor={props.onChange}
+        selectionRange={getSelectionRange()}
+      />
+      {!props.maximizeState.isMaximizedCodeEditorOpen && (
+        <div className='script-area'>
+          <ResizableCodeEditor {...props} location={path} onMountFuncs={[setEditor, keyActionMountFunc]} />
+
+          <Browser {...browser} types={props.browsers} accept={modifyEditor} location={path} initSearchFilter={getMonacoSelection} />
+        </div>
+      )}
+    </>
   );
 };
 
