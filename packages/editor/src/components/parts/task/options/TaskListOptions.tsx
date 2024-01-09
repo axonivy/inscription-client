@@ -4,7 +4,7 @@ import { PathCollapsible, ValidationFieldset } from '../../common';
 import { useTaskData } from '../useTaskData';
 
 const TaskListPart = () => {
-  const { task, update } = useTaskData();
+  const { task, update, updateNotification } = useTaskData();
   const delayFieldset = useFieldset();
 
   return (
@@ -13,7 +13,7 @@ const TaskListPart = () => {
       <Checkbox
         label='Suppress Notification'
         value={task.notification.suppress}
-        onChange={change => update('notification', { suppress: change })}
+        onChange={change => updateNotification('suppress', change)}
       />
       <ValidationFieldset label='Delay' {...delayFieldset.labelProps}>
         <ScriptInput

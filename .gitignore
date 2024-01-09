@@ -33,4 +33,4 @@ report.xml
 test-results
 playwright-report
 
-tsconfig.*tsbuildinfo
+*tsconfig.*tsbuildinfo
