@@ -61,7 +61,7 @@ export interface Inscription {
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
-  string: string[];
+  string: string;
   typeSearchRequest: TypeSearchRequest;
   variableInfo: VariableInfo;
   void: Void;
@@ -377,6 +377,7 @@ export interface WfActivator {
 }
 export interface WfNotification {
   suppress: boolean;
+  template: string;
 }
 export interface ElementSubProcessCall {
   call: ScriptMapCode;

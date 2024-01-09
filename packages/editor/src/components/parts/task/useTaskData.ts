@@ -1,4 +1,4 @@
-import type { TaskData, WfTask } from '@axonivy/inscription-protocol';
+import type { TaskData, WfNotification, WfTask } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import type { DataUpdater } from '../../../types/lambda';
 import type { ConfigDataContext, TaskDataContext} from '../../../context';
@@ -6,10 +6,13 @@ import { useConfigDataContext, useTaskDataContext } from '../../../context';
 import type { ResponsibleUpdater } from '../common/responsible/ResponsibleSelect';
 import type { PriorityUpdater } from './priority/PrioritySelect';
 
+type NotificationUpdater = DataUpdater<WfNotification>;
+
 export function useTaskData(): TaskDataContext & {
   update: DataUpdater<WfTask>;
   updateResponsible: ResponsibleUpdater;
   updatePriority: PriorityUpdater;
+  updateNotification: NotificationUpdater;
 } {
   const { setTask, ...task } = useTaskDataContext();
 
@@ -37,11 +40,20 @@ export function useTaskData(): TaskDataContext & {
     );
   };
 
+  const updateNotification: NotificationUpdater = (field, value) => {
+    setTask(
+      produce(draft => {
+        draft.notification[field] = value;
+      })
+    );
+  };
+
   return {
     ...task,
     update,
     updateResponsible,
-    updatePriority
+    updatePriority,
+    updateNotification
   };
 }
 
