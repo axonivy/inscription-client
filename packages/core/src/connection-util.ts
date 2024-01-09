@@ -7,6 +7,13 @@ export interface MessageConnection {
 }
 
 export namespace ConnectionUtil {
+  export function buildWebSocketUrl(baseUrl: string, endPoint: string) {
+    if (baseUrl.endsWith('/')) {
+      return `${baseUrl}${endPoint}`;
+    }
+    return `${baseUrl}/${endPoint}`;
+  }
+
   export async function createWebSocketConnection(url: string): Promise<MessageConnection> {
     return new Promise<MessageConnection>((resolve, reject) => {
       const webSocket = new WebSocket(url);

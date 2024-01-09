@@ -27,8 +27,8 @@ export async function start(): Promise<void> {
   const root = createRoot(document.getElementById('root')!);
 
   try {
-    await IvyScriptLanguage.startWebSocketClient(`${server}/ivy-script-lsp`);
-    const client = await InscriptionClientJsonRpc.startWebSocketClient(`${server}/ivy-inscription-lsp`);
+    await IvyScriptLanguage.startWebSocketClient(server);
+    const client = await InscriptionClientJsonRpc.startWebSocketClient(server);
     const queryClient = initQueryClient();
 
     root.render(

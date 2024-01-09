@@ -11,7 +11,7 @@ import type {
 } from '@axonivy/inscription-protocol';
 import type { Disposable } from 'vscode-jsonrpc';
 import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
-import { ConnectionUtil } from './connection-util';
+import { ConnectionUtil, type MessageConnection } from './connection-util';
 import { BaseRcpClient } from './rcp-client';
 
 export class InscriptionClientJsonRpc extends BaseRcpClient implements InscriptionClient {
@@ -76,7 +76,12 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
 
 export namespace InscriptionClientJsonRpc {
   export async function startWebSocketClient(url: string): Promise<InscriptionClient> {
-    const connection = await ConnectionUtil.createWebSocketConnection(url);
+    const webSocketUrl = ConnectionUtil.buildWebSocketUrl(url, '/ivy-inscription-lsp');
+    const connection = await ConnectionUtil.createWebSocketConnection(webSocketUrl);
+    return startClient(connection);
+  }
+
+  export async function startClient(connection: MessageConnection) {
     const messageConnection = createMessageConnection(connection.reader, connection.writer);
     const client = new InscriptionClientJsonRpc(messageConnection);
     client.start();
