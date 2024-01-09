@@ -47,7 +47,7 @@ test.describe('StartRequest', () => {
       view,
       new TaskTester({
         error: new RegExp(testee.processId),
-        testOptions: { responsible: false, priority: true, expiry: true, options: 'persist' }
+        testOptions: { responsible: false, priority: true, expiry: true, options: 'persist'}
       })
     );
   });

@@ -1,1 +1,6 @@
 Macro: <%=ivy.html.get("in.date")%> <%=ivy.cms.co("/ProcessPages/test/Panel1")%>
+Notification:
+  new-task:
+    Templates:
+      Customer:
+        dummy: ''

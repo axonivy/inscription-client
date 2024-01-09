@@ -50,6 +50,7 @@ export interface InscriptionMetaRequestTypes {
   'meta/workflow/errorStarts': [InscriptionElementContext, ErrorStartMeta[]];
   'meta/workflow/errorCodes': [ErrorCodeRequest, EventCodeMeta[]];
   'meta/workflow/signalCodes': [SignalCodeRequest, EventCodeMeta[]];
+  'meta/workflow/notificationTemplates': [InscriptionContext, string[]];
 
   'meta/database/names': [InscriptionContext, string[]];
   'meta/database/tables': [DatabaseTablesRequest, string[]];

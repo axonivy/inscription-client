@@ -60,7 +60,9 @@ class Task extends PartObject {
   priority: Select;
   optionsSection: Section;
   skipTasklist: Checkbox;
-  notification: Checkbox;
+  notificationSection: Section;
+  notificationSuppress: Checkbox;
+  notificationTemplate: Select;
   delay: ScriptInput;
   persist: Checkbox;
   expirySection: Section;
@@ -77,7 +79,7 @@ class Task extends PartObject {
     part: Part,
     private readonly nameValue = 'test name',
     private readonly errorValue = /f8/,
-    private readonly options: TaskTestOptions = { responsible: true, priority: true, expiry: true, options: 'list' }
+    private readonly options: TaskTestOptions = { responsible: true, priority: true, expiry: true, options: 'list'}
   ) {
     super(part);
     this.name = part.macroInput('Name');
@@ -87,7 +89,9 @@ class Task extends PartObject {
     this.priority = part.select('Priority');
     this.optionsSection = part.section('Options');
     this.skipTasklist = this.optionsSection.checkbox('Skip Tasklist');
-    this.notification = this.optionsSection.checkbox('Suppress Notification');
+    this.notificationSection = part.section('Notification');
+    this.notificationSuppress = this.notificationSection.checkbox('Suppress');
+    this.notificationTemplate = this.notificationSection.select('Template');
     this.delay = this.optionsSection.scriptInput('Delay');
     this.persist = this.optionsSection.checkbox('Persist task on creation');
     this.expirySection = part.section('Expiry');
@@ -121,9 +125,14 @@ class Task extends PartObject {
         await this.persist.click();
       } else {
         await this.skipTasklist.click();
-        await this.notification.click();
         await this.delay.fill('delay');
       }
+    }
+    
+    if (this.options.options === 'list') {
+      await this.notificationSection.toggle();
+      await this.notificationTemplate.choose('Customer')
+      await this.notificationSuppress.click();
     }
 
     if (this.options.expiry) {
@@ -161,10 +170,14 @@ class Task extends PartObject {
         await this.persist.expectChecked();
         await this.persist.click();
       } else {
-        await this.skipTasklist.expectChecked();
-        await this.notification.expectChecked();
+        await this.skipTasklist.expectChecked();        
         await this.delay.expectValue('delay');
       }
+    }
+
+    if (this.options.options === 'list') {
+      await this.notificationTemplate.expectValue('Customer');
+      await this.notificationSuppress.expectChecked();
     }
 
     if (this.options.expiry) {
@@ -197,9 +210,13 @@ class Task extends PartObject {
     if (this.options.options) {
       if (this.options.options === 'list') {
         await this.skipTasklist.click();
-        await this.notification.click();
         await this.delay.clear();
       }
+    }
+
+    if (this.options.options === 'list') {
+      await this.notificationSuppress.click();
+      await this.notificationTemplate.choose('Default');
     }
 
     if (this.options.expiry) {
@@ -228,6 +245,11 @@ class Task extends PartObject {
     if (this.options.options) {
       await this.optionsSection.expectIsClosed();
     }
+
+    if (this.options.options === 'list') {
+      await this.notificationSection.expectIsClosed();
+    }
+
     if (this.options.expiry) {
       await this.expirySection.expectIsClosed();
     }

@@ -3,18 +3,13 @@ import { Checkbox, ScriptInput, useFieldset } from '../../../widgets';
 import { PathCollapsible, ValidationFieldset } from '../../common';
 import { useTaskData } from '../useTaskData';
 
-const TaskListPart = () => {
-  const { task, update, updateNotification } = useTaskData();
+const TaskOptionsPart = () => {
+  const { task, update } = useTaskData();
   const delayFieldset = useFieldset();
 
   return (
     <PathCollapsible label='Options' defaultOpen={task.skipTasklist} path='delay'>
       <Checkbox label='Skip Tasklist' value={task.skipTasklist} onChange={change => update('skipTasklist', change)} />
-      <Checkbox
-        label='Suppress Notification'
-        value={task.notification.suppress}
-        onChange={change => updateNotification('suppress', change)}
-      />
       <ValidationFieldset label='Delay' {...delayFieldset.labelProps}>
         <ScriptInput
           value={task.delay}
@@ -28,4 +23,4 @@ const TaskListPart = () => {
   );
 };
 
-export default TaskListPart;
+export default TaskOptionsPart;

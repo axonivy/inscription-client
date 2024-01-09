@@ -45,6 +45,7 @@ export type SchemaKeys =
   | ValuesAsUnionDeep<SchemaKey>
   | keyof WfTask
   | keyof WfTask['expiry']
+  | keyof WfTask['notification']
   | keyof MailHeaders
   | keyof StartPermission
   | keyof ErrorDefinition
