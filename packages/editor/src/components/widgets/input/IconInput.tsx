@@ -14,13 +14,21 @@ const IconInput = ({ icon, initFocus, ...props }: IconInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    const handleAnimationEnd = () => {
+      inputRef.current?.focus();
+      document.querySelector('.browser-dialog')?.removeEventListener('animationend', handleAnimationEnd);
+    };
+
     if (initFocus) {
-      const timer = setTimeout(() => {
-        inputRef.current?.focus();
-      }, 50);
-      return () => clearTimeout(timer);
+      const dialogElement = document.querySelector('.browser-dialog');
+      if (dialogElement) {
+        dialogElement.addEventListener('animationend', handleAnimationEnd);
+      }
     }
-    return () => {};
+
+    return () => {
+      document.querySelector('.browser-dialog')?.removeEventListener('animationend', handleAnimationEnd);
+    };
   }, [initFocus]);
 
   return (
