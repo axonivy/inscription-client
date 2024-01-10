@@ -43,6 +43,18 @@ const MaximizedCodeEditor = ({
     });
   };
 
+  const delayedMonacoAutoFocus = (editor: monaco.editor.IStandaloneCodeEditor) => {
+    const handleAnimationEnd = () => {
+      monacoAutoFocus(editor);
+      document.querySelector('.browser-dialog')?.removeEventListener('animationend', handleAnimationEnd);
+    };
+
+    const dialogElement = document.querySelector('.browser-dialog');
+    if (dialogElement) {
+      dialogElement.addEventListener('animationend', handleAnimationEnd);
+    }
+  };
+
   return (
     open && (
       <div className='maximized-script-area'>
@@ -51,7 +63,7 @@ const MaximizedCodeEditor = ({
             value={editorValue}
             onChange={applyEditor}
             context={{ location }}
-            onMountFuncs={[setEditor, monacoAutoFocus, setSelection, keyActionMountFunc]}
+            onMountFuncs={[setEditor, delayedMonacoAutoFocus, setSelection, keyActionMountFunc]}
             options={MAXIMIZED_MONACO_OPTIONS}
           />
         </div>
