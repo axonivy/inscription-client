@@ -292,6 +292,8 @@ export namespace MetaMock {
     { label: 'ProcurementRequestParallel -> error:task:bla', id: 'f31' }
   ];
 
+  export const NOTIFICATION_TEMPLATES: string[] = [ 'Default', 'Customer', 'Employee' ];
+
   const NODE_OF: NodeRef = {
     pid: '1',
     name: 'Mock Element',

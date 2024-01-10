@@ -77,6 +77,8 @@ export class InscriptionClientMock implements InscriptionClient {
       case 'meta/workflow/errorCodes':
       case 'meta/workflow/signalCodes':
         return Promise.resolve([]);
+      case 'meta/workflow/notificationTemplates': 
+        return Promise.resolve(MetaMock.NOTIFICATION_TEMPLATES);
       case 'meta/scripting/out':
         if ((args as ScriptingDataArgs).location === 'result') {
           let resultInfo = MetaMock.RESULT_VAR_INFO;

@@ -29,7 +29,7 @@ export namespace DataMock {
       },
       task: {
         name: 'user task',
-        notification: false,
+        notification: {suppress: false, template: 'Default' }
       },
       case: {
         name: 'case <%=ivy.cms.co("/Case/name")%> bla <%= in.name %>',
