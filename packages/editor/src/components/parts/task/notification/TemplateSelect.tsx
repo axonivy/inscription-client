@@ -2,15 +2,13 @@ import { useMemo } from 'react';
 import type { SelectItem } from '../../../widgets';
 import { Select, useFieldset } from '../../../widgets';
 import { PathFieldset } from '../../common';
-import { useTemplates, DEFAULT_TEMPLATE } from './useTemplates';
+import { useTemplates } from './useTemplates';
 import type { WfNotification } from '@axonivy/inscription-protocol';
 
-const DEFAULT_TEMPLATE_ITEM: SelectItem = { label: DEFAULT_TEMPLATE, value: DEFAULT_TEMPLATE } as const;
-
-const TemplateSelect = ({ notification, onChange }: { notification: WfNotification, onChange: (value: SelectItem) => void }) => {
+const TemplateSelect = ({ notification, onChange }: { notification: WfNotification; onChange: (value: SelectItem) => void }) => {
   const templates = useTemplates();
   const selectedTemplate = useMemo<SelectItem>(
-    () => templates.find(e => e.value === notification.template) ?? DEFAULT_TEMPLATE_ITEM,
+    () => templates.find(e => e.value === notification.template) ?? { value: notification.template, label: notification.template },
     [notification.template, templates]
   );
   const selectFieldset = useFieldset();
@@ -19,7 +17,7 @@ const TemplateSelect = ({ notification, onChange }: { notification: WfNotificati
     <PathFieldset label='Template' {...selectFieldset.labelProps} path='template'>
       <div className='template-select'>
         <Select
-          value={selectedTemplate}          
+          value={selectedTemplate}
           items={templates}
           onChange={onChange}
           disabled={notification.suppress}
