@@ -55,6 +55,10 @@ test.describe('Common', () => {
     await screenshotSection(page, GENERIC_PID.USER_TASK2, 'Task', 'Custom Fields', 'common-section-task-custom-fields.png');
   });
 
+  test('Task Notification', async ({ page }) => {
+    await screenshotSection(page, GENERIC_PID.USER_TASK2, 'Task', 'Notification', 'common-section-task-notification.png');
+  });
+
   test('Task Code', async ({ page }) => {
     await screenshotSection(page, GENERIC_PID.USER_TASK2, 'Task', 'Code', 'common-section-task-code.png');
   });
