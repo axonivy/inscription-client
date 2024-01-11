@@ -1,12 +1,12 @@
 import { useMemo, useEffect, useState } from 'react';
-import { ActionCell, Button, Checkbox, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../../widgets';
+import { Button, Checkbox, ExpandableCell } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import { useAction, useEditorContext, useMeta } from '../../../context';
-import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, VisibilityState } from '@tanstack/react-table';
-import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
-import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
+import type { ColumnDef, Row } from '@tanstack/react-table';
+import type { ContentObject, MapStringString } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { BrowserValue } from '../Browser';
+import { GenericBrowser, type GenericData } from '../GenericBrowser';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 
@@ -47,110 +47,107 @@ interface CmsBrowserProps {
   location: string;
 }
 
+type HiddenCMSInfo = { fullPath: string; values: MapStringString };
+
 const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, location }: CmsBrowserProps) => {
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
   const { data: tree, refetch } = useMeta('meta/cms/tree', { context, requiredProjects: requiredProject }, []);
+  const [mappedSortedData, setMappedSortedData] = useState<GenericData<HiddenCMSInfo>[]>([]);
 
-  const [selectedContentObject, setSelectedContentObject] = useState<ContentObject | undefined>();
-  const [showHelper, setShowHelper] = useState<boolean>(false);
+  const [selectedContentObject, setSelectedContentObject] = useState<GenericData<HiddenCMSInfo> | undefined>();
 
   const newAction = useAction('newCmsString');
 
-  const columns = useMemo<ColumnDef<ContentObject>[]>(
+  useEffect(() => {
+    const mapContentObjectToGenericData = (cms: ContentObject): GenericData<HiddenCMSInfo> => ({
+      title: cms.name,
+      info: cms.type,
+      hiddenInfo: { fullPath: cms.fullPath, values: cms.values },
+      isNotSelectable: cms.type === 'FOLDER' ? true : false,
+      specialAction:
+        cms.type === 'FOLDER'
+          ? [{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(cms.fullPath) }]
+          : undefined,
+      children: cms.children ? cms.children.map(mapContentObjectToGenericData) : []
+    });
+
+    if (tree && tree.length > 0) {
+      // Replace the root.returnType from sortedData with the sortedReturnTypes
+      const mappedFinalSortedData = tree.map(entry => ({
+        title: entry.name,
+        info: entry.type,
+        hiddenInfo: { fullPath: entry.fullPath, values: entry.values },
+        isNotSelectable: entry.type === 'FOLDER' ? true : false,
+        specialAction:
+          entry.type === 'FOLDER'
+            ? [{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(entry.fullPath) }]
+            : undefined,
+        children: entry.children.map(mapContentObjectToGenericData)
+      }));
+
+      setMappedSortedData(mappedFinalSortedData);
+    }
+  }, [newAction, tree]);
+
+  const columns = useMemo<ColumnDef<GenericData<HiddenCMSInfo>>[]>(
     () => [
       {
-        accessorFn: row => row.name,
+        accessorFn: row => row.title,
         id: 'name',
         cell: cell => {
           return (
             <ExpandableCell
               cell={cell}
-              title={cell.row.original.name}
+              title={cell.row.original.title}
               icon={
-                cell.row.original.type === 'FOLDER'
+                cell.row.original.info === 'FOLDER'
                   ? IvyIcons.FolderOpen
-                  : cell.row.original.type === 'FILE'
+                  : cell.row.original.info === 'FILE'
                   ? IvyIcons.File
                   : IvyIcons.ChangeType
               }
-              additionalInfo={cell.row.original.type}
+              additionalInfo={cell.row.original.info}
             />
           );
         }
       },
       {
-        accessorFn: row => row.type,
+        accessorFn: row => row.info,
         id: 'type',
-        cell: cell => <span title={cell.row.original.type}>{cell.getValue() as string}</span>
+        cell: cell => <span title={cell.row.original.info}>{cell.getValue() as string}</span>
       },
       {
-        accessorFn: row => JSON.stringify(row.values),
+        accessorFn: row => JSON.stringify(row.hiddenInfo?.values),
         id: 'values',
-        cell: cell => <span title={JSON.stringify(cell.row.original.values)}>{JSON.stringify(cell.getValue())}</span>
+        cell: cell => <span title={JSON.stringify(cell.row.original.hiddenInfo?.values)}>{JSON.stringify(cell.getValue())}</span>
       }
     ],
     []
   );
 
-  const [expanded, setExpanded] = useState<ExpandedState>(false as ExpandedState);
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({ type: false, values: false });
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    typeFilter === 'NONE' || typeFilter === undefined ? [] : [{ id: 'type', value: typeFilter }]
-  );
+  const addIvyPathToValue = (value: string, type: string, noApiCall?: boolean) => {
+    if (noApiCall || value.length === 0) {
+      return value;
+    }
+    if (type === 'FILE' && location === 'attachments') {
+      return `ivy.cm.findObject("${value}")`;
+    } else if (type === 'FILE' && location !== 'message') {
+      return `ivy.cms.cr("${value}")`;
+    }
+    return `ivy.cms.co("${value}")`;
+  };
 
-  const table = useReactTable({
-    data: tree,
-    columns: columns,
-    state: {
-      expanded,
-      globalFilter,
-      rowSelection,
-      columnFilters,
-      columnVisibility
-    },
-    filterFromLeafRows: true,
-    enableRowSelection: true,
-    enableMultiRowSelection: false,
-    enableSubRowSelection: false,
-    onExpandedChange: setExpanded,
-    onGlobalFilterChange: setGlobalFilter,
-    onColumnFiltersChange: setColumnFilters,
-    onRowSelectionChange: setRowSelection,
-    getSubRows: row => row.children,
-    getCoreRowModel: getCoreRowModel(),
-    getExpandedRowModel: getExpandedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility
-  });
-
-  useEffect(() => {
-    const addIvyPathToValue = (value: string, type: ContentObjectType, noApiCall?: boolean) => {
-      if (noApiCall || value.length === 0) {
-        return value;
-      }
-      if (type === 'FILE' && location === 'attachments') {
-        return `ivy.cm.findObject("${value}")`;
-      } else if (type === 'FILE' && location !== 'message') {
-        return `ivy.cms.cr("${value}")`;
-      }
-      return `ivy.cms.co("${value}")`;
-    };
-
-    if (Object.keys(rowSelection).length !== 1) {
-      setSelectedContentObject({ name: '', children: [], fullPath: '', type: 'STRING', values: {} });
-      setShowHelper(false);
+  const handleRowSelectionChange = (selectedRow: Row<GenericData<HiddenCMSInfo>> | undefined) => {
+    if (!selectedRow) {
+      setSelectedContentObject({ title: '', children: [], hiddenInfo: { fullPath: '', values: {} }, info: 'STRING' });
       onChange({ cursorValue: '' });
       return;
     }
-    const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setSelectedContentObject(selectedRow.original);
-    setShowHelper(true);
-    onChange({ cursorValue: addIvyPathToValue(selectedRow.original.fullPath, selectedRow.original.type, noApiCall) });
-  }, [onChange, rowSelection, noApiCall, table, location]);
+    onChange({ cursorValue: addIvyPathToValue(selectedRow.original.hiddenInfo.fullPath, selectedRow.original.info, noApiCall) });
+  };
 
   return (
     <>
@@ -158,55 +155,16 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
         <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
         <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
       </div>
-      <Table
-        search={{
-          value: globalFilter,
-          onChange: newFilterValue => {
-            setGlobalFilter(newFilterValue);
-            setExpanded(true);
-          }
-        }}
-      >
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <SelectRow key={row.id} row={row} isNotSelectable={row.original.type === 'FOLDER'} onDoubleClick={onDoubleClick}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-              ))}
-              {row.original.type === 'FOLDER' ? (
-                <ActionCell
-                  actions={[{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(row.original.fullPath) }]}
-                />
-              ) : (
-                <TableCell> </TableCell>
-              )}
-            </SelectRow>
-          ))}
-        </tbody>
-      </Table>
-      {showHelper &&
-        (value.length !== 0 && selectedContentObject ? (
-          <pre className='browser-helptext'>
-            <b>{value}</b>
-            <code>
-              {Object.entries(selectedContentObject.values).map(([key, value]) => (
-                <div key={key}>
-                  <b>{`${key}: `}</b>
-                  {value}
-                </div>
-              ))}
-            </code>
-          </pre>
-        ) : (
-          <pre className='browser-helptext'>
-            <MessageText
-              message={{
-                severity: 'INFO',
-                message: `No element selected.`
-              }}
-            />
-          </pre>
-        ))}
+      <GenericBrowser
+        columns={columns}
+        data={mappedSortedData}
+        onDoubleClick={onDoubleClick}
+        onRowSelectionChange={handleRowSelectionChange}
+        value={value}
+        additionalHelp={selectedContentObject?.hiddenInfo.values}
+        customColumnFilters={typeFilter === 'NONE' || typeFilter === undefined ? [] : [{ id: 'type', value: typeFilter }]}
+        hiddenRows={{ type: false, values: false }}
+      />
     </>
   );
 };

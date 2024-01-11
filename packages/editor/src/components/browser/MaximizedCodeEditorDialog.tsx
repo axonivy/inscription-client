@@ -5,9 +5,9 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import MaximizedCodeEditor, { type MaximizedCodeEditorProps } from './maximizedCodeEditor/MaximizedCodeEditor';
 import BrowserBody from './BrowserBody';
 
-type MaximaziedCodeEditorBrowserProps = UseBrowserReturnValue & MaximizedCodeEditorProps;
+type MaximaziedCodeEditorDialogProps = UseBrowserReturnValue & MaximizedCodeEditorProps;
 
-const MaximizedCodeEditorBrowser = ({
+const MaximizedCodeEditorDialog = ({
   open,
   onOpenChange,
   browsers,
@@ -15,7 +15,7 @@ const MaximizedCodeEditorBrowser = ({
   applyEditor,
   location,
   selectionRange
-}: MaximaziedCodeEditorBrowserProps) => {
+}: MaximaziedCodeEditorDialogProps) => {
   const tabs: Tab[] = [
     {
       content: (
@@ -48,4 +48,4 @@ const MaximizedCodeEditorBrowser = ({
   );
 };
 
-export default MaximizedCodeEditorBrowser;
+export default MaximizedCodeEditorDialog;

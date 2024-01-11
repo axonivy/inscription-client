@@ -1,0 +1,188 @@
+import {
+  useReactTable,
+  type ColumnDef,
+  type ExpandedState,
+  type RowSelectionState,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getExpandedRowModel,
+  flexRender,
+  type Row,
+  type VisibilityState,
+  type ColumnFilter,
+  type ColumnFiltersState
+} from '@tanstack/react-table';
+import { useEffect, useRef, useState } from 'react';
+import { SelectRow, Table, TableCell, TableFooter, TableShowMore, type Action, ActionCell } from '../widgets';
+import { useVirtualizer } from '@tanstack/react-virtual';
+
+// Declare the GenericData type
+export type GenericData<T> = {
+  title: string;
+  info: string;
+  hiddenInfo: T;
+  children: GenericData<T>[];
+  isNotSelectable?: boolean;
+  specialAction?: Action[];
+};
+
+// Declare the GenericBrowserProps interface with the generic type parameter T
+interface GenericBrowserProps<T> {
+  value: string;
+  additionalHelp?: string | { [k: string]: string };
+  onDoubleClick: () => void;
+  data: GenericData<T>[];
+  columns: ColumnDef<GenericData<T>>[];
+  onRowSelectionChange: (selectedRow: Row<GenericData<T>> | undefined) => void;
+  hiddenRows?: { [x: string]: boolean };
+  customColumnFilters?: ColumnFilter[];
+  isFetching?: boolean;
+}
+
+// Use the generic type parameter T in the component signature
+export const GenericBrowser = <T = unknown,>({
+  value,
+  onDoubleClick,
+  data,
+  columns,
+  onRowSelectionChange,
+  additionalHelp,
+  isFetching,
+  hiddenRows,
+  customColumnFilters
+}: GenericBrowserProps<T>) => {
+  const [showHelper, setShowHelper] = useState<boolean>(false);
+
+  const [expanded, setExpanded] = useState<ExpandedState>({ [0]: true });
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(hiddenRows ? hiddenRows : {});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(customColumnFilters ? customColumnFilters : []);
+
+  const [rowNumber, setRowNumber] = useState(100);
+
+  const table = useReactTable({
+    data: data,
+    columns: columns,
+    state: {
+      expanded,
+      globalFilter,
+      rowSelection,
+      columnFilters,
+      columnVisibility
+    },
+    filterFromLeafRows: true,
+    enableRowSelection: true,
+    enableMultiRowSelection: false,
+    enableSubRowSelection: false,
+    onExpandedChange: setExpanded,
+    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
+    onRowSelectionChange: setRowSelection,
+    getSubRows: (originalRow: GenericData<T>): GenericData<T>[] | undefined => {
+      if (originalRow.children) {
+        return originalRow.children as GenericData<T>[];
+      }
+      return undefined;
+    },
+    getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility
+  });
+
+  const { rows } = table.getRowModel();
+  const parentRef = useRef<HTMLDivElement>(null);
+
+  const virtualizer = useVirtualizer({
+    count: rows.length > 0 ? Math.min(rows.length, rowNumber) : 0,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 30,
+    overscan: 20
+  });
+
+  useEffect(() => {
+    if (Object.keys(rowSelection).length !== 1) {
+      onRowSelectionChange(undefined);
+      setShowHelper(false);
+      return;
+    }
+    const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
+    onRowSelectionChange(selectedRow);
+    setShowHelper(true);
+  }, [onRowSelectionChange, rowSelection, table]);
+
+  return (
+    <>
+      <Table
+        search={{
+          value: globalFilter,
+          onChange: newFilterValue => {
+            setGlobalFilter(newFilterValue);
+            setExpanded(true);
+            setRowNumber(100);
+          }
+        }}
+        ref={parentRef}
+      >
+        <tbody>
+          {rows.length > 0 ? (
+            virtualizer.getVirtualItems().map(virtualRow => {
+              const row = rows[virtualRow.index];
+
+              return (
+                !isFetching && (
+                  <SelectRow key={row.id} row={row} isNotSelectable={row.original.isNotSelectable} onDoubleClick={onDoubleClick}>
+                    {row.getVisibleCells().map(cell => (
+                      <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    ))}
+                    {row.original.specialAction ? <ActionCell actions={row.original.specialAction} /> : <TableCell> </TableCell>}
+                  </SelectRow>
+                )
+              );
+            })
+          ) : (
+            <tr key='no-data'>
+              <TableCell>No result found, enter a fitting search term</TableCell>
+            </tr>
+          )}
+        </tbody>
+
+        {rowNumber < rows.length && (
+          <TableFooter>
+            <TableShowMore
+              colSpan={4}
+              showMore={() => setRowNumber(old => old + 100)}
+              helpertext={rowNumber + ' out of ' + rows.length + ' shown'}
+            />
+          </TableFooter>
+        )}
+      </Table>
+      {isFetching && (
+        <div className='loader'>
+          <p>loading more types...</p>
+        </div>
+      )}
+      {showHelper && (
+        <>
+          <pre className='browser-helptext'>
+            <b>{value}</b>
+            {typeof additionalHelp === 'string' ? (
+              <span dangerouslySetInnerHTML={{ __html: additionalHelp }} />
+            ) : (
+              <code>
+                {additionalHelp &&
+                  Object.entries(additionalHelp).map(([key, value]) => (
+                    <div key={key}>
+                      <b>{`${key}: `}</b>
+                      {value}
+                    </div>
+                  ))}
+              </code>
+            )}
+          </pre>
+        </>
+      )}
+    </>
+  );
+};

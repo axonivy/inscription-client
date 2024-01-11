@@ -1,11 +1,12 @@
-import type { Function } from '@axonivy/inscription-protocol';
 import type { Row } from '@tanstack/react-table';
+import type { GenericData } from '../GenericBrowser';
+import type { HiddenFunctionInfo } from './FunctionBrowser';
 
-export const getParentNames = (currentRow: Row<Function>, parentNames: string[] = []): string[] => {
+export const getParentNames = (currentRow: Row<GenericData<HiddenFunctionInfo>>, parentNames: string[] = []): string[] => {
   parentNames.push(
-    currentRow.original.isField
-      ? currentRow.original.name
-      : currentRow.original.name + '(' + currentRow.original.params.map(param => param.type.split('.').pop()).join(', ') + ')'
+    currentRow.original.hiddenInfo?.isField
+      ? currentRow.original.title
+      : currentRow.original.title + '(' + currentRow.original.hiddenInfo?.params.map(param => param.type.split('.').pop()).join(', ') + ')'
   );
   const parentRow = currentRow.getParentRow();
   if (parentRow !== undefined) {

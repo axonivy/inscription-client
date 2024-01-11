@@ -5,7 +5,7 @@ import ResizableCodeEditor from './ResizableCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { useMonacoEditor } from './useCodeEditor';
 import { usePath } from '../../../context';
-import MaximizedCodeEditorBrowser from '../../browser/MaximizedCodeEditorBrowser';
+import MaximizedCodeEditorDialog from '../../browser/MaximizedCodeEditorDialog';
 
 type ScriptAreaProps = CodeEditorAreaProps & {
   maximizeState: {
@@ -26,7 +26,7 @@ const ScriptArea = (props: ScriptAreaProps) => {
 
   return (
     <>
-      <MaximizedCodeEditorBrowser
+      <MaximizedCodeEditorDialog
         open={props.maximizeState.isMaximizedCodeEditorOpen}
         onOpenChange={props.maximizeState.setIsMaximizedCodeEditorOpen}
         browsers={props.browsers}
