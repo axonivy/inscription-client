@@ -10,23 +10,20 @@ import {
   type Row,
   type VisibilityState,
   type ColumnFilter,
-  type ColumnFiltersState
+  type ColumnFiltersState,
+  type FilterFnOption
 } from '@tanstack/react-table';
 import { useEffect, useRef, useState } from 'react';
 import { SelectRow, Table, TableCell, TableFooter, TableShowMore, type Action, ActionCell } from '../widgets';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
-// Declare the GenericData type
 export type GenericData<T> = {
-  title: string;
-  info: string;
-  hiddenInfo: T;
+  browserObject: T;
   children: GenericData<T>[];
   isNotSelectable?: boolean;
   specialAction?: Action[];
 };
 
-// Declare the GenericBrowserProps interface with the generic type parameter T
 interface GenericBrowserProps<T> {
   value: string;
   additionalHelp?: string | { [k: string]: string };
@@ -37,9 +34,10 @@ interface GenericBrowserProps<T> {
   hiddenRows?: { [x: string]: boolean };
   customColumnFilters?: ColumnFilter[];
   isFetching?: boolean;
+  ownGlobalFilter?: FilterFnOption<GenericData<T>> | undefined;
+  initSearchFilter?: () => string;
 }
 
-// Use the generic type parameter T in the component signature
 export const GenericBrowser = <T = unknown,>({
   value,
   onDoubleClick,
@@ -49,12 +47,14 @@ export const GenericBrowser = <T = unknown,>({
   additionalHelp,
   isFetching,
   hiddenRows,
-  customColumnFilters
+  customColumnFilters,
+  ownGlobalFilter,
+  initSearchFilter
 }: GenericBrowserProps<T>) => {
   const [showHelper, setShowHelper] = useState<boolean>(false);
 
   const [expanded, setExpanded] = useState<ExpandedState>({ [0]: true });
-  const [globalFilter, setGlobalFilter] = useState('');
+  const [globalFilter, setGlobalFilter] = useState(initSearchFilter ? initSearchFilter : '');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(hiddenRows ? hiddenRows : {});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(customColumnFilters ? customColumnFilters : []);
@@ -71,10 +71,12 @@ export const GenericBrowser = <T = unknown,>({
       columnFilters,
       columnVisibility
     },
+    globalFilterFn: ownGlobalFilter,
     filterFromLeafRows: true,
     enableRowSelection: true,
     enableMultiRowSelection: false,
     enableSubRowSelection: false,
+    enableFilters: ownGlobalFilter ? true : undefined,
     onExpandedChange: setExpanded,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,

@@ -1,12 +1,15 @@
 import type { Row } from '@tanstack/react-table';
 import type { GenericData } from '../GenericBrowser';
-import type { HiddenFunctionInfo } from './FunctionBrowser';
+import type { UpdatedFunction } from './FunctionBrowser';
 
-export const getParentNames = (currentRow: Row<GenericData<HiddenFunctionInfo>>, parentNames: string[] = []): string[] => {
+export const getParentNames = (currentRow: Row<GenericData<UpdatedFunction>>, parentNames: string[] = []): string[] => {
   parentNames.push(
-    currentRow.original.hiddenInfo?.isField
-      ? currentRow.original.title
-      : currentRow.original.title + '(' + currentRow.original.hiddenInfo?.params.map(param => param.type.split('.').pop()).join(', ') + ')'
+    currentRow.original.browserObject.isField
+      ? currentRow.original.browserObject.name
+      : currentRow.original.browserObject.name +
+          '(' +
+          currentRow.original.browserObject.params.map(param => param.type.split('.').pop()).join(', ') +
+          ')'
   );
   const parentRow = currentRow.getParentRow();
   if (parentRow !== undefined) {

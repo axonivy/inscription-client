@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ExpandableCell } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
-import type { Function, Parameter } from '@axonivy/inscription-protocol';
+import type { Function, PublicType } from '@axonivy/inscription-protocol';
 import { type ColumnDef, type Row } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { BrowserValue } from '../Browser';
@@ -9,6 +9,7 @@ import { useEditorContext, useMeta } from '../../../context';
 import { getParentNames } from './parent-name';
 import type { GenericData } from '../GenericBrowser';
 import { GenericBrowser } from '../GenericBrowser';
+import { mapToGenericData, mapToUpdatedFunction } from '../transformData';
 export const FUNCTION_BROWSER_ID = 'func' as const;
 
 export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
@@ -22,27 +23,20 @@ export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnV
   };
 };
 
-export type HiddenFunctionInfo = { isField: boolean; params: Parameter[]; packageName: string };
+export type UpdatedFunction = Omit<Function, 'returnType'> & { returnType: Omit<PublicType, 'functions'>; functions: UpdatedFunction[] };
 
 const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue) => void; onDoubleClick: () => void }) => {
   const { context } = useEditorContext();
   const [method, setMethod] = useState('');
   const [paramTypes, setParamTypes] = useState<string[]>([]);
   const [type, setType] = useState('');
-  const [mappedSortedData, setMappedSortedData] = useState<GenericData<HiddenFunctionInfo>[]>([]);
+  const [mappedSortedData, setMappedSortedData] = useState<GenericData<UpdatedFunction>[]>([]);
   const { data: tree } = useMeta('meta/scripting/functions', undefined, []);
   const { data: doc } = useMeta('meta/scripting/apiDoc', { context, method, paramTypes, type }, '');
 
   const [selectedFunctionDoc, setSelectedFunctionDoc] = useState('');
 
   useEffect(() => {
-    const mapFunctionToGenericData = (func: Function): GenericData<HiddenFunctionInfo> => ({
-      title: func.name,
-      info: func.returnType.simpleName,
-      hiddenInfo: { isField: func.isField, params: func.params, packageName: func.returnType.packageName },
-      children: func.returnType.functions ? func.returnType.functions.map(mapFunctionToGenericData) : []
-    });
-
     if (tree && tree.length > 0) {
       // Extracting and sorting functions inside root.returnType alphabetically
       const sortedReturnTypes = tree
@@ -53,38 +47,34 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
           functions: returnType.functions.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }))
         }));
 
-      const finalSortedData = tree.map((entry, index) => ({
+      const finalSortedData: Function[] = tree.map((entry, index) => ({
         ...entry,
         returnType: sortedReturnTypes[index]
       }));
-
-      // Replace the root.returnType from sortedData with the sortedReturnTypes
-      const mappedFinalSortedData = finalSortedData.map(entry => ({
-        title: entry.name,
-        info: entry.returnType.simpleName,
-        hiddenInfo: { isField: entry.isField, params: entry.params, packageName: entry.returnType.packageName },
-        children: entry.returnType.functions.map(mapFunctionToGenericData)
-      }));
-
+      //map correctly for genericBrowser
+      const mappedFinalSortedDataToUpdatedFunction: UpdatedFunction[] = finalSortedData.map(func => {
+        return mapToUpdatedFunction(func);
+      });
+      const mappedFinalSortedData = mappedFinalSortedDataToUpdatedFunction.map(entry => mapToGenericData(entry, 'functions'));
       setMappedSortedData(mappedFinalSortedData);
     }
   }, [tree]);
 
-  const columns = useMemo<ColumnDef<GenericData<HiddenFunctionInfo>>[]>(
+  const columns = useMemo<ColumnDef<GenericData<UpdatedFunction>>[]>(
     () => [
       {
         accessorFn: row =>
-          `${row.title.split('.').pop()}${
-            row.hiddenInfo?.isField === false ? `(${row.hiddenInfo.params.map(param => param.type.split('.').pop()).join(', ')})` : ''
+          `${row.browserObject.name.split('.').pop()}${
+            row.browserObject.isField === false ? `(${row.browserObject.params.map(param => param.type.split('.').pop()).join(', ')})` : ''
           }`,
         id: 'name',
         cell: cell => {
           return (
             <ExpandableCell
               cell={cell}
-              title={cell.row.original.title}
-              icon={cell.row.original.hiddenInfo?.isField ? IvyIcons.FolderOpen : IvyIcons.Function}
-              additionalInfo={cell.row.original.info}
+              title={cell.row.original.browserObject.name}
+              icon={cell.row.original.browserObject.isField ? IvyIcons.FolderOpen : IvyIcons.Function}
+              additionalInfo={cell.row.original.browserObject.returnType.simpleName}
             />
           );
         }
@@ -93,7 +83,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
     []
   );
 
-  const handleRowSelectionChange = (selectedRow: Row<GenericData<HiddenFunctionInfo>> | undefined) => {
+  const handleRowSelectionChange = (selectedRow: Row<GenericData<UpdatedFunction>> | undefined) => {
     if (!selectedRow) {
       props.onChange({ cursorValue: '' });
       return;
@@ -106,25 +96,23 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
     const parentRow = selectedRow.getParentRow();
     setType(
       parentRow
-        ? parentRow.original.hiddenInfo?.packageName + '.' + parentRow.original.info
-        : selectedRow.original.hiddenInfo?.packageName + '.' + selectedRow.original.info
+        ? parentRow.original.browserObject.returnType.packageName + '.' + parentRow.original.browserObject.returnType.simpleName
+        : selectedRow.original.browserObject.returnType.packageName + '.' + selectedRow.original.browserObject.returnType.simpleName
     );
-    setMethod(selectedRow.original.title);
-    setParamTypes(selectedRow.original.hiddenInfo ? selectedRow.original.hiddenInfo.params.map(param => param.type) : []);
+    setMethod(selectedRow.original.browserObject.name);
+    setParamTypes(selectedRow.original.browserObject.params ? selectedRow.original.browserObject.params.map(param => param.type) : []);
     //setup Helpertext
     setSelectedFunctionDoc(doc);
   };
 
   return (
-    <>
-      <GenericBrowser
-        columns={columns}
-        data={mappedSortedData}
-        onDoubleClick={props.onDoubleClick}
-        onRowSelectionChange={handleRowSelectionChange}
-        value={props.value}
-        additionalHelp={selectedFunctionDoc}
-      />
-    </>
+    <GenericBrowser
+      columns={columns}
+      data={mappedSortedData}
+      onDoubleClick={props.onDoubleClick}
+      onRowSelectionChange={handleRowSelectionChange}
+      value={props.value}
+      additionalHelp={selectedFunctionDoc}
+    />
   );
 };

@@ -3,10 +3,11 @@ import { Button, Checkbox, ExpandableCell } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { ColumnDef, Row } from '@tanstack/react-table';
-import type { ContentObject, MapStringString } from '@axonivy/inscription-protocol';
+import type { ContentObject } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { BrowserValue } from '../Browser';
 import { GenericBrowser, type GenericData } from '../GenericBrowser';
+import { mapToGenericData } from '../transformData';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 
@@ -47,81 +48,67 @@ interface CmsBrowserProps {
   location: string;
 }
 
-type HiddenCMSInfo = { fullPath: string; values: MapStringString };
-
 const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, location }: CmsBrowserProps) => {
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
   const { data: tree, refetch } = useMeta('meta/cms/tree', { context, requiredProjects: requiredProject }, []);
-  const [mappedSortedData, setMappedSortedData] = useState<GenericData<HiddenCMSInfo>[]>([]);
+  const [mappedSortedData, setMappedSortedData] = useState<GenericData<ContentObject>[]>([]);
 
-  const [selectedContentObject, setSelectedContentObject] = useState<GenericData<HiddenCMSInfo> | undefined>();
+  const [selectedContentObject, setSelectedContentObject] = useState<GenericData<ContentObject> | undefined>();
 
   const newAction = useAction('newCmsString');
 
   useEffect(() => {
-    const mapContentObjectToGenericData = (cms: ContentObject): GenericData<HiddenCMSInfo> => ({
-      title: cms.name,
-      info: cms.type,
-      hiddenInfo: { fullPath: cms.fullPath, values: cms.values },
-      isNotSelectable: cms.type === 'FOLDER' ? true : false,
-      specialAction:
-        cms.type === 'FOLDER'
-          ? [{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(cms.fullPath) }]
-          : undefined,
-      children: cms.children ? cms.children.map(mapContentObjectToGenericData) : []
-    });
-
     if (tree && tree.length > 0) {
       // Replace the root.returnType from sortedData with the sortedReturnTypes
-      const mappedFinalSortedData = tree.map(entry => ({
-        title: entry.name,
-        info: entry.type,
-        hiddenInfo: { fullPath: entry.fullPath, values: entry.values },
-        isNotSelectable: entry.type === 'FOLDER' ? true : false,
-        specialAction:
-          entry.type === 'FOLDER'
-            ? [{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(entry.fullPath) }]
-            : undefined,
-        children: entry.children.map(mapContentObjectToGenericData)
-      }));
+      const mappedFinalSortedData = tree.map(entry =>
+        mapToGenericData(
+          entry,
+          'children',
+          entry => entry.type === 'FOLDER',
+          entry =>
+            entry.type === 'FOLDER'
+              ? [{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(entry.fullPath) }]
+              : []
+        )
+      );
 
       setMappedSortedData(mappedFinalSortedData);
     }
   }, [newAction, tree]);
 
-  const columns = useMemo<ColumnDef<GenericData<HiddenCMSInfo>>[]>(
+  const columns = useMemo<ColumnDef<GenericData<ContentObject>>[]>(
     () => [
       {
-        accessorFn: row => row.title,
+        accessorFn: row => row.browserObject.name,
         id: 'name',
         cell: cell => {
           return (
             <ExpandableCell
               cell={cell}
-              title={cell.row.original.title}
+              title={cell.row.original.browserObject.name}
               icon={
-                cell.row.original.info === 'FOLDER'
+                cell.row.original.browserObject.type === 'FOLDER'
                   ? IvyIcons.FolderOpen
-                  : cell.row.original.info === 'FILE'
+                  : cell.row.original.browserObject.type === 'FILE'
                   ? IvyIcons.File
                   : IvyIcons.ChangeType
               }
-              additionalInfo={cell.row.original.info}
+              additionalInfo={cell.row.original.browserObject.type}
             />
           );
         }
       },
       {
-        accessorFn: row => row.info,
+        accessorFn: row => row.browserObject.type,
         id: 'type',
-        cell: cell => <span title={cell.row.original.info}>{cell.getValue() as string}</span>
+        cell: cell => <span title={cell.row.original.browserObject.type}>{cell.getValue() as string}</span>
       },
       {
-        accessorFn: row => JSON.stringify(row.hiddenInfo?.values),
+        accessorFn: row => JSON.stringify(row.browserObject.values),
         id: 'values',
-        cell: cell => <span title={JSON.stringify(cell.row.original.hiddenInfo?.values)}>{JSON.stringify(cell.getValue())}</span>
+        cell: cell => <span title={JSON.stringify(cell.row.original.browserObject.values)}>{JSON.stringify(cell.getValue())}</span>
       }
     ],
     []
@@ -139,14 +126,16 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
     return `ivy.cms.co("${value}")`;
   };
 
-  const handleRowSelectionChange = (selectedRow: Row<GenericData<HiddenCMSInfo>> | undefined) => {
+  const handleRowSelectionChange = (selectedRow: Row<GenericData<ContentObject>> | undefined) => {
     if (!selectedRow) {
-      setSelectedContentObject({ title: '', children: [], hiddenInfo: { fullPath: '', values: {} }, info: 'STRING' });
+      setSelectedContentObject({ browserObject: { name: '', children: [], fullPath: '', type: 'STRING', values: {} }, children: [] });
       onChange({ cursorValue: '' });
       return;
     }
     setSelectedContentObject(selectedRow.original);
-    onChange({ cursorValue: addIvyPathToValue(selectedRow.original.hiddenInfo.fullPath, selectedRow.original.info, noApiCall) });
+    onChange({
+      cursorValue: addIvyPathToValue(selectedRow.original.browserObject.fullPath, selectedRow.original.browserObject.type, noApiCall)
+    });
   };
 
   return (
@@ -161,7 +150,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
         onDoubleClick={onDoubleClick}
         onRowSelectionChange={handleRowSelectionChange}
         value={value}
-        additionalHelp={selectedContentObject?.hiddenInfo.values}
+        additionalHelp={selectedContentObject?.browserObject.values}
         customColumnFilters={typeFilter === 'NONE' || typeFilter === undefined ? [] : [{ id: 'type', value: typeFilter }]}
         hiddenRows={{ type: false, values: false }}
       />
