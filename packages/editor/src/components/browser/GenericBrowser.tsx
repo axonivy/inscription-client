@@ -26,13 +26,16 @@ export type GenericData<T> = {
 
 interface GenericBrowserProps<T> {
   data: GenericData<T>[];
-  value: string;
   columns: ColumnDef<GenericData<T>>[];
   onRowSelectionChange: (selectedRow: Row<GenericData<T>> | undefined) => void;
   isFetching: boolean;
+  additionalComponents: {
+    helperTextComponent: ReactNode;
+    headerComponent?: ReactNode;
+    footerComponent?: ReactNode;
+  };
   onRowDoubleClick?: () => void;
   initSearchValue?: string;
-  additionalHelp?: string | { [k: string]: string };
   hiddenRows?: { [x: string]: boolean };
   customColumnFilters?: ColumnFilter[];
   ownGlobalFilter?: FilterFnOption<GenericData<T>> | undefined;
@@ -43,18 +46,17 @@ interface GenericBrowserProps<T> {
 }
 
 export const GenericBrowser = <T = unknown,>({
-  value,
   data,
   columns,
   onRowSelectionChange,
-  additionalHelp,
   isFetching,
   hiddenRows,
   customColumnFilters,
   ownGlobalFilter,
   backendSearch,
   onRowDoubleClick,
-  initSearchValue
+  initSearchValue,
+  additionalComponents
 }: GenericBrowserProps<T>) => {
   const [showHelper, setShowHelper] = useState<boolean>(false);
 
@@ -125,6 +127,7 @@ export const GenericBrowser = <T = unknown,>({
 
   return (
     <>
+      {additionalComponents.headerComponent}
       <Table
         search={{
           value: globalFilter,
@@ -182,24 +185,10 @@ export const GenericBrowser = <T = unknown,>({
       )}
       {showHelper && (
         <>
-          <pre className='browser-helptext'>
-            <b>{value}</b>
-            {typeof additionalHelp === 'string' ? (
-              <span dangerouslySetInnerHTML={{ __html: additionalHelp }} />
-            ) : (
-              <code>
-                {additionalHelp &&
-                  Object.entries(additionalHelp).map(([key, value]) => (
-                    <div key={key}>
-                      <b>{`${key}: `}</b>
-                      {value}
-                    </div>
-                  ))}
-              </code>
-            )}
-          </pre>
+          <pre className='browser-helptext'>{additionalComponents.helperTextComponent}</pre>
         </>
       )}
+      {additionalComponents.footerComponent}
     </>
   );
 };

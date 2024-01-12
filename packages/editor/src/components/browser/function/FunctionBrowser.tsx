@@ -31,8 +31,8 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
   const [paramTypes, setParamTypes] = useState<string[]>([]);
   const [type, setType] = useState('');
   const [mappedSortedData, setMappedSortedData] = useState<GenericData<UpdatedFunction>[]>([]);
-  const { data: tree, isFetching } = useMeta('meta/scripting/functions', undefined, []);
-  const { data: doc } = useMeta('meta/scripting/apiDoc', { context, method, paramTypes, type }, '');
+  const { data: tree, isFetching: funcIsFetching } = useMeta('meta/scripting/functions', undefined, []);
+  const { data: doc, isFetching: docIsFetching } = useMeta('meta/scripting/apiDoc', { context, method, paramTypes, type }, '');
 
   const [selectedFunctionDoc, setSelectedFunctionDoc] = useState('');
 
@@ -110,9 +110,19 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
       columns={columns}
       data={mappedSortedData}
       onRowSelectionChange={handleRowSelectionChange}
-      value={props.value}
-      additionalHelp={selectedFunctionDoc}
-      isFetching={isFetching}
+      isFetching={funcIsFetching}
+      additionalComponents={{
+        helperTextComponent: (
+          <>
+            <b>{props.value}</b>
+            {docIsFetching ? (
+              <span>Java Documentation is loading...</span>
+            ) : (
+              <span dangerouslySetInnerHTML={{ __html: selectedFunctionDoc }} />
+            )}
+          </>
+        )
+      }}
     />
   );
 };

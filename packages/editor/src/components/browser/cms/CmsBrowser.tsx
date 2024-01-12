@@ -138,19 +138,35 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, location }: CmsBro
 
   return (
     <>
-      <div className='browser-table-header'>
-        <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
-        <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
-      </div>
       <GenericBrowser
         columns={columns}
         data={mappedSortedData}
         onRowSelectionChange={handleRowSelectionChange}
-        value={value}
-        additionalHelp={selectedContentObject?.browserObject.values}
         customColumnFilters={typeFilter === 'NONE' || typeFilter === undefined ? [] : [{ id: 'type', value: typeFilter }]}
         hiddenRows={{ type: false, values: false }}
         isFetching={isFetching}
+        additionalComponents={{
+          helperTextComponent: (
+            <>
+              <b>{value}</b>
+              <code>
+                {selectedContentObject?.browserObject.values &&
+                  Object.entries(selectedContentObject?.browserObject.values).map(([key, value]) => (
+                    <div key={key}>
+                      <b>{`${key}: `}</b>
+                      {value}
+                    </div>
+                  ))}
+              </code>
+            </>
+          ),
+          headerComponent: (
+            <div className='browser-table-header'>
+              <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
+              <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
+            </div>
+          )
+        }}
       />
     </>
   );

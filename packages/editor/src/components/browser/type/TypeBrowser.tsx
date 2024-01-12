@@ -13,12 +13,12 @@ export const TYPE_BROWSER_ID = 'type' as const;
 
 export type TypeBrowserObject = JavaType & { icon: IvyIcons };
 
-export const useTypeBrowser = (location: string): UseBrowserImplReturnValue => {
+export const useTypeBrowser = (initSearchFilter: string, location: string): UseBrowserImplReturnValue => {
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: TYPE_BROWSER_ID,
     name: 'Type',
-    content: <TypeBrowser value={value.cursorValue} onChange={setValue} location={location} />,
+    content: <TypeBrowser initSearchFilter={initSearchFilter} value={value.cursorValue} onChange={setValue} location={location} />,
     accept: () => value,
     icon: IvyIcons.DataClass
   };
@@ -28,9 +28,10 @@ interface TypeBrowserProps {
   value: string;
   onChange: (value: BrowserValue) => void;
   location: string;
+  initSearchFilter: string;
 }
 
-const TypeBrowser = ({ value, onChange, location }: TypeBrowserProps) => {
+const TypeBrowser = ({ value, onChange, location, initSearchFilter }: TypeBrowserProps) => {
   const { context } = useEditorContext();
 
   const [allSearchActive, setAllSearchActive] = useState(false);
@@ -155,25 +156,30 @@ const TypeBrowser = ({ value, onChange, location }: TypeBrowserProps) => {
 
   return (
     <>
-      <div className='browser-table-header'>
-        <Checkbox
-          label='Search over all types'
-          value={allSearchActive}
-          onChange={() => {
-            setAllSearchActive(!allSearchActive);
-          }}
-        />
-      </div>
       <GenericBrowser
         columns={columns}
         data={mappedSortedData}
         onRowSelectionChange={handleRowSelectionChange}
-        value={value}
         ownGlobalFilter={regexFilter}
         isFetching={isFetching}
         backendSearch={{ active: allSearchActive, setSearchValue: setBackendMainFilter }}
+        additionalComponents={{
+          helperTextComponent: <b>{value}</b>,
+          headerComponent: (
+            <div className='browser-table-header'>
+              <Checkbox
+                label='Search over all types'
+                value={allSearchActive}
+                onChange={() => {
+                  setAllSearchActive(!allSearchActive);
+                }}
+              />
+            </div>
+          ),
+          footerComponent: <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
+        }}
+        initSearchValue={initSearchFilter}
       />
-      <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
     </>
   );
 };
