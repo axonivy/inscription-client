@@ -2,7 +2,7 @@ import { Dialog, DialogTrigger } from '@radix-ui/react-dialog';
 import { Button } from '../widgets';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useState } from 'react';
-import type { BrowserType, UseBrowserReturnValue } from './useBrowser';
+import { type BrowserType, type UseBrowserReturnValue } from './useBrowser';
 import { useAttributeBrowser } from './attribute/AttributeBrowser';
 import { useCmsBrowser, type CmsOptions } from './cms/CmsBrowser';
 import { useFuncBrowser } from './function/FunctionBrowser';
@@ -35,17 +35,9 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
   };
 
   const attrBrowser = useAttributeBrowser(onRowDoubleClick, location);
-  const cmsBrowser = useCmsBrowser(onRowDoubleClick, location, cmsOptions);
-  const funcBrowser = useFuncBrowser(onRowDoubleClick);
-  const typeBrowser = useTypeBrowser(
-    onRowDoubleClick,
-    initSearchFilter
-      ? initSearchFilter
-      : () => {
-          return '';
-        },
-    location
-  );
+  const cmsBrowser = useCmsBrowser(location, cmsOptions);
+  const funcBrowser = useFuncBrowser();
+  const typeBrowser = useTypeBrowser(location);
   const catPathChooserBrowser = useCatPathChooserBrowser();
   const tableColBrowser = useTableColBrowser();
   const sqlOpBrowser = useSqlOpBrowser();

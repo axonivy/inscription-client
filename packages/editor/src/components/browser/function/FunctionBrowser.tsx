@@ -12,12 +12,12 @@ import { GenericBrowser } from '../GenericBrowser';
 import { mapToGenericData, mapToUpdatedFunction } from '../transformData';
 export const FUNCTION_BROWSER_ID = 'func' as const;
 
-export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
+export const useFuncBrowser = (): UseBrowserImplReturnValue => {
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: FUNCTION_BROWSER_ID,
     name: 'Function',
-    content: <FunctionBrowser value={value.cursorValue} onChange={setValue} onDoubleClick={onDoubleClick} />,
+    content: <FunctionBrowser value={value.cursorValue} onChange={setValue} />,
     accept: () => value,
     icon: IvyIcons.Function
   };
@@ -25,13 +25,13 @@ export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnV
 
 export type UpdatedFunction = Omit<Function, 'returnType'> & { returnType: Omit<PublicType, 'functions'>; functions: UpdatedFunction[] };
 
-const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue) => void; onDoubleClick: () => void }) => {
+const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue) => void }) => {
   const { context } = useEditorContext();
   const [method, setMethod] = useState('');
   const [paramTypes, setParamTypes] = useState<string[]>([]);
   const [type, setType] = useState('');
   const [mappedSortedData, setMappedSortedData] = useState<GenericData<UpdatedFunction>[]>([]);
-  const { data: tree } = useMeta('meta/scripting/functions', undefined, []);
+  const { data: tree, isFetching } = useMeta('meta/scripting/functions', undefined, []);
   const { data: doc } = useMeta('meta/scripting/apiDoc', { context, method, paramTypes, type }, '');
 
   const [selectedFunctionDoc, setSelectedFunctionDoc] = useState('');
@@ -109,10 +109,10 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
     <GenericBrowser
       columns={columns}
       data={mappedSortedData}
-      onDoubleClick={props.onDoubleClick}
       onRowSelectionChange={handleRowSelectionChange}
       value={props.value}
       additionalHelp={selectedFunctionDoc}
+      isFetching={isFetching}
     />
   );
 };

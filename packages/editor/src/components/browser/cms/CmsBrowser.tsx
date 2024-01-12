@@ -18,7 +18,7 @@ export type CmsOptions = {
   typeFilter?: CmsTypeFilter;
 };
 
-export const useCmsBrowser = (onDoubleClick: () => void, location: string, options?: CmsOptions): UseBrowserImplReturnValue => {
+export const useCmsBrowser = (location: string, options?: CmsOptions): UseBrowserImplReturnValue => {
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
 
   return {
@@ -30,7 +30,6 @@ export const useCmsBrowser = (onDoubleClick: () => void, location: string, optio
         onChange={setValue}
         noApiCall={options?.noApiCall}
         typeFilter={options?.typeFilter}
-        onDoubleClick={onDoubleClick}
         location={location}
       />
     ),
@@ -44,15 +43,14 @@ interface CmsBrowserProps {
   onChange: (value: BrowserValue) => void;
   noApiCall?: boolean;
   typeFilter?: CmsTypeFilter;
-  onDoubleClick: () => void;
   location: string;
 }
 
-const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, location }: CmsBrowserProps) => {
+const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, location }: CmsBrowserProps) => {
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
-  const { data: tree, refetch } = useMeta('meta/cms/tree', { context, requiredProjects: requiredProject }, []);
+  const { data: tree, isFetching, refetch } = useMeta('meta/cms/tree', { context, requiredProjects: requiredProject }, []);
   const [mappedSortedData, setMappedSortedData] = useState<GenericData<ContentObject>[]>([]);
 
   const [selectedContentObject, setSelectedContentObject] = useState<GenericData<ContentObject> | undefined>();
@@ -147,12 +145,12 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
       <GenericBrowser
         columns={columns}
         data={mappedSortedData}
-        onDoubleClick={onDoubleClick}
         onRowSelectionChange={handleRowSelectionChange}
         value={value}
         additionalHelp={selectedContentObject?.browserObject.values}
         customColumnFilters={typeFilter === 'NONE' || typeFilter === undefined ? [] : [{ id: 'type', value: typeFilter }]}
         hiddenRows={{ type: false, values: false }}
+        isFetching={isFetching}
       />
     </>
   );
