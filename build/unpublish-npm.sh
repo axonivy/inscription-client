@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REGISTRY="https://npmjs-registry.ivyteam.io/"
+REGISTRY="https://npmjs-registry.ivyteam.ch/"
 
 npm unpublish "@axonivy/editor-icons@${1}" --registry $REGISTRY
 npm unpublish "@axonivy/inscription-core@${1}" --registry $REGISTRY
