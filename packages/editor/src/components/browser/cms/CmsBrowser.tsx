@@ -6,7 +6,7 @@ import type { ColumnDef, Row } from '@tanstack/react-table';
 import type { ContentObject } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { BrowserValue } from '../Browser';
-import { GenericBrowser, type GenericData } from '../GenericBrowser';
+import { type GenericData } from '../GenericBrowser';
 import { mapToGenericData } from '../transformData';
 
 export const CMS_BROWSER_ID = 'cms' as const;
@@ -18,35 +18,9 @@ export type CmsOptions = {
   typeFilter?: CmsTypeFilter;
 };
 
-export const useCmsBrowser = (location: string, options?: CmsOptions): UseBrowserImplReturnValue => {
+export const useCmsBrowser = (location: string, options?: CmsOptions): UseBrowserImplReturnValue<ContentObject> => {
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
 
-  return {
-    id: CMS_BROWSER_ID,
-    name: 'CMS',
-    content: (
-      <CmsBrowser
-        value={value.cursorValue}
-        onChange={setValue}
-        noApiCall={options?.noApiCall}
-        typeFilter={options?.typeFilter}
-        location={location}
-      />
-    ),
-    accept: () => value,
-    icon: IvyIcons.Cms
-  };
-};
-
-interface CmsBrowserProps {
-  value: string;
-  onChange: (value: BrowserValue) => void;
-  noApiCall?: boolean;
-  typeFilter?: CmsTypeFilter;
-  location: string;
-}
-
-const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, location }: CmsBrowserProps) => {
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
@@ -127,47 +101,54 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, location }: CmsBro
   const handleRowSelectionChange = (selectedRow: Row<GenericData<ContentObject>> | undefined) => {
     if (!selectedRow) {
       setSelectedContentObject({ browserObject: { name: '', children: [], fullPath: '', type: 'STRING', values: {} }, children: [] });
-      onChange({ cursorValue: '' });
+      setValue({ cursorValue: '' });
       return;
     }
     setSelectedContentObject(selectedRow.original);
-    onChange({
-      cursorValue: addIvyPathToValue(selectedRow.original.browserObject.fullPath, selectedRow.original.browserObject.type, noApiCall)
+    setValue({
+      cursorValue: addIvyPathToValue(
+        selectedRow.original.browserObject.fullPath,
+        selectedRow.original.browserObject.type,
+        options?.noApiCall
+      )
     });
   };
 
-  return (
-    <>
-      <GenericBrowser
-        columns={columns}
-        data={mappedSortedData}
-        onRowSelectionChange={handleRowSelectionChange}
-        customColumnFilters={typeFilter === 'NONE' || typeFilter === undefined ? [] : [{ id: 'type', value: typeFilter }]}
-        hiddenRows={{ type: false, values: false }}
-        isFetching={isFetching}
-        additionalComponents={{
-          helperTextComponent: (
-            <>
-              <b>{value}</b>
-              <code>
-                {selectedContentObject?.browserObject.values &&
-                  Object.entries(selectedContentObject?.browserObject.values).map(([key, value]) => (
-                    <div key={key}>
-                      <b>{`${key}: `}</b>
-                      {value}
-                    </div>
-                  ))}
-              </code>
-            </>
-          ),
-          headerComponent: (
-            <div className='browser-table-header'>
-              <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
-              <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
-            </div>
-          )
-        }}
-      />
-    </>
-  );
+  return {
+    id: CMS_BROWSER_ID,
+    name: 'CMS',
+    content: {
+      columns: columns,
+      data: mappedSortedData,
+      onRowSelectionChange: handleRowSelectionChange,
+      customColumnFilters:
+        options?.typeFilter === 'NONE' || options?.typeFilter === undefined ? [] : [{ id: 'type', value: options?.typeFilter }],
+      hiddenRows: { type: false, values: false },
+      isFetching: isFetching,
+      additionalComponents: {
+        helperTextComponent: (
+          <>
+            <b>{value.cursorValue}</b>
+            <code>
+              {selectedContentObject?.browserObject.values &&
+                Object.entries(selectedContentObject?.browserObject.values).map(([key, value]) => (
+                  <div key={key}>
+                    <b>{`${key}: `}</b>
+                    {value}
+                  </div>
+                ))}
+            </code>
+          </>
+        ),
+        headerComponent: (
+          <div className='browser-table-header'>
+            <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
+            <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
+          </div>
+        )
+      }
+    },
+    accept: () => value,
+    icon: IvyIcons.Cms
+  };
 };

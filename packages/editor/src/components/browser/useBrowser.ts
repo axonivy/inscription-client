@@ -8,6 +8,7 @@ import type { TYPE_BROWSER_ID } from './type/TypeBrowser';
 import type { CAT_PATH_CHOOSER_BROWSER_ID } from './categorie/CatPathChooser';
 import type { TABLE_COL_BROWSER_ID } from './tableCol/TableColBrowser';
 import type { SQL_OPERATION_BROWSER_ID } from './sql/SqlOperationBrowser';
+import type { GenericBrowserProps } from './GenericBrowser';
 
 export type BrowserType =
   | typeof ATTRIBUTE_BROWSER_ID
@@ -20,10 +21,11 @@ export type BrowserType =
 
 type BrowserValue = { cursorValue: string; firstLineValue?: string };
 
-export type UseBrowserImplReturnValue = Omit<Tab, 'id'> & {
+export type UseBrowserImplReturnValue<T> = Omit<Tab, 'id' | 'content'> & {
   id: BrowserType;
   accept: () => BrowserValue;
   icon: IvyIcons;
+  content: GenericBrowserProps<T>;
 };
 
 export type UseBrowserReturnValue = {

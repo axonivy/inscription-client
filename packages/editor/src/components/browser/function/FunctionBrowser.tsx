@@ -8,24 +8,14 @@ import type { BrowserValue } from '../Browser';
 import { useEditorContext, useMeta } from '../../../context';
 import { getParentNames } from './parent-name';
 import type { GenericData } from '../GenericBrowser';
-import { GenericBrowser } from '../GenericBrowser';
 import { mapToGenericData, mapToUpdatedFunction } from '../transformData';
 export const FUNCTION_BROWSER_ID = 'func' as const;
 
-export const useFuncBrowser = (): UseBrowserImplReturnValue => {
-  const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
-  return {
-    id: FUNCTION_BROWSER_ID,
-    name: 'Function',
-    content: <FunctionBrowser value={value.cursorValue} onChange={setValue} />,
-    accept: () => value,
-    icon: IvyIcons.Function
-  };
-};
-
 export type UpdatedFunction = Omit<Function, 'returnType'> & { returnType: Omit<PublicType, 'functions'>; functions: UpdatedFunction[] };
 
-const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue) => void }) => {
+export const useFuncBrowser = (): UseBrowserImplReturnValue<UpdatedFunction> => {
+  const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
+
   const { context } = useEditorContext();
   const [method, setMethod] = useState('');
   const [paramTypes, setParamTypes] = useState<string[]>([]);
@@ -85,12 +75,12 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
 
   const handleRowSelectionChange = (selectedRow: Row<GenericData<UpdatedFunction>> | undefined) => {
     if (!selectedRow) {
-      props.onChange({ cursorValue: '' });
+      setValue({ cursorValue: '' });
       return;
     }
     const parentNames = getParentNames(selectedRow);
     const selectedName = parentNames.reverse().join('.');
-    props.onChange({ cursorValue: selectedName });
+    setValue({ cursorValue: selectedName });
 
     //setup Meta-Call for docApi
     const parentRow = selectedRow.getParentRow();
@@ -105,16 +95,18 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
     setSelectedFunctionDoc(doc);
   };
 
-  return (
-    <GenericBrowser
-      columns={columns}
-      data={mappedSortedData}
-      onRowSelectionChange={handleRowSelectionChange}
-      isFetching={funcIsFetching}
-      additionalComponents={{
+  return {
+    id: FUNCTION_BROWSER_ID,
+    name: 'Function',
+    content: {
+      columns: columns,
+      data: mappedSortedData,
+      onRowSelectionChange: handleRowSelectionChange,
+      isFetching: funcIsFetching,
+      additionalComponents: {
         helperTextComponent: (
           <>
-            <b>{props.value}</b>
+            <b>{value.cursorValue}</b>
             {docIsFetching ? (
               <span>Java Documentation is loading...</span>
             ) : (
@@ -122,7 +114,10 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
             )}
           </>
         )
-      }}
-    />
-  );
+      }
+    },
+
+    accept: () => value,
+    icon: IvyIcons.Function
+  };
 };

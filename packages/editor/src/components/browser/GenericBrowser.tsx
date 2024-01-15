@@ -24,7 +24,7 @@ export type GenericData<T> = {
   specialAction?: Action[];
 };
 
-interface GenericBrowserProps<T> {
+export interface GenericBrowserProps<T> {
   data: GenericData<T>[];
   columns: ColumnDef<GenericData<T>>[];
   onRowSelectionChange: (selectedRow: Row<GenericData<T>> | undefined) => void;
