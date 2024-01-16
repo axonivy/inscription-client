@@ -1,8 +1,22 @@
 .headline-controls {
-  display: inline-flex;
+  display: flex;
+  align-items: center;
+  gap: var(--size-1);
+}
+
+.controls-array {
+  display: flex;
+  align-items: center;
   gap: var(--size-1);
 }
 
 .headline-controls .button[data-state='active'] {
   color: var(--A300);
+}
+
+.headline-controls .separat-controls {
+  height: 10px;
+  width: 1px;
+  background-color: var(--N200);
+  border-radius: 5px;
 }

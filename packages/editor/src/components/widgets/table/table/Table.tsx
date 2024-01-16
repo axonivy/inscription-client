@@ -8,12 +8,14 @@ type TableProps = {
   children?: ReactNode;
 };
 
-export const Table = forwardRef<HTMLDivElement, TableProps>(({ children, search }, forwardRef) => (
+export const Table = forwardRef<HTMLTableElement, TableProps>(({ children, search }, forwardRef) => (
   <div className='table-root'>
     {search && <IconInput icon={IvyIcons.Search} initFocus={true} placeholder='Search' {...search} />}
     <div className='table-container'>
-      <div ref={forwardRef}>
-        <table className='table'>{children}</table>
+      <div>
+        <table ref={forwardRef} className='table'>
+          {children}
+        </table>
       </div>
     </div>
   </div>

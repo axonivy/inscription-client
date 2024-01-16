@@ -10,15 +10,17 @@ const HeadlineControls = ({ controls }: HeadlineControlsProps) => {
   return (
     <div className='headline-controls'>
       {controls.map((control, index) => (
-        <Button
-          icon={control.icon}
-          key={index}
-          aria-label={control.label}
-          title={control.label}
-          className='headline-control-button'
-          onClick={control.action}
-          data-state={control.active ? 'active' : 'inactive'}
-        />
+        <div className='controls-array' key={index}>
+          {control.withSeperator && <div className='separat-controls'></div>}
+          <Button
+            icon={control.icon}
+            aria-label={control.label}
+            title={control.label}
+            className='headline-control-button'
+            onClick={control.action}
+            data-state={control.active ? 'active' : 'inactive'}
+          />
+        </div>
       ))}
     </div>
   );

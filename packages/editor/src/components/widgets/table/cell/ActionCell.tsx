@@ -4,7 +4,7 @@ import { useReadonly } from '../../../../context';
 import { TableCell } from './TableCell';
 import Button from '../../button/Button';
 
-interface Action {
+export interface Action {
   label: string;
   icon: IvyIcons;
   action: () => void;

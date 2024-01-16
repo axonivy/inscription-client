@@ -1,17 +1,46 @@
 .selectable-row {
   cursor: pointer;
 }
-.selectable-row:where(:hover) {
+.selectable-row:where(:hover),
+.selectable-row:where(:hover) .input {
   background-color: var(--A50);
 }
 
 .selectable-row:where([data-state='selected']),
+.selectable-row:where([data-state='selected']) .table-cell .input,
 .selectable-row:where([data-state='selected']) .table-cell .row-expand .row-expand-label-info {
   background-color: var(--A300);
   color: var(--selected-row-text-color);
+  border-radius: var(--border-radius);
 }
 
 .selectable-row:where([data-state='selected']) .table-cell .row-expand .row-expand-button:hover {
   background-color: var(--A300);
   color: var(--selected-row-text-color);
+}
+
+.table .remove-row .button {
+  position: absolute;
+  border: 0.75px solid var(--N200);
+  margin-left: -8.5px;
+  margin-top: 10.5px;
+  background-color: var(--background);
+  color: var(--error-color);
+  border-radius: 10px;
+  width: 14px;
+  height: 14px;
+}
+
+.table .remove-row .button:hover {
+  background-color: var(--error-color);
+  color: var(--background);
+}
+
+.table .remove-row .ivy {
+  position: relative;
+  top: -5.75px;
+  left: 0.1px;
+  width: 8px;
+  height: 8px;
+  font-size: 15px;
 }

@@ -1,7 +1,7 @@
 import './TableFooter.css';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useReadonly } from '../../../../context';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import Button from '../../button/Button';
 
 export const TableFooter = (props: { children: ReactNode }) => {
@@ -9,13 +9,23 @@ export const TableFooter = (props: { children: ReactNode }) => {
 };
 
 export const TableAddRow = (props: { colSpan: number; addRow: () => void }) => {
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
+
   const readonly = useReadonly();
   return (
-    <tr>
-      <th colSpan={props.colSpan} className='add-row'>
-        <Button icon={IvyIcons.Plus} onClick={props.addRow} disabled={readonly} aria-label='Add row' />
-      </th>
-    </tr>
+    <div className='add-row-container'>
+      <Button
+        icon={IvyIcons.Plus}
+        onClick={props.addRow}
+        disabled={readonly}
+        aria-label='Add row'
+        onFocus={() => setIsButtonHovered(true)}
+        onBlur={() => setIsButtonHovered(false)}
+        onMouseEnter={() => setIsButtonHovered(true)}
+        onMouseLeave={() => setIsButtonHovered(false)}
+      />
+      <div className={`add-line ${isButtonHovered ? 'hovered' : ''}`} />
+    </div>
   );
 };
 

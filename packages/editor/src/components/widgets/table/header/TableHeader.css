@@ -3,18 +3,28 @@
   text-align: start;
   font-size: 12px;
   height: 20px;
+  font-weight: normal;
   border-bottom: var(--basic-border);
+  position: relative;
 }
 
 .table .table-column-header :where(.column-sort, .column-expand) {
   display: flex;
   align-items: center;
-  gap: var(--size-1);
+  justify-content: space-between;
+}
+.table .table-column-header .column-sort-button:hover {
+  background-color: var(--background);
 }
 
 .table .table-column-header .column-sort-button[data-state='unsorted'] {
   transform: rotate(-90deg);
+  color: var(--N200);
 }
+.table .table-column-header .column-sort-button[data-state='unsorted']:hover {
+  color: var(--body);
+}
+
 .table .table-column-header .column-sort-button[data-state='asc'] {
   transform: rotate(90deg);
 }
@@ -28,4 +38,28 @@
 }
 .table .table-column-header .column-expand-button[data-state='collapsed'] .ivy-chevron {
   transform: rotate(0deg);
+}
+
+.table-column-header .resizer {
+  position: absolute;
+  top: var(--size-2);
+  bottom: var(--size-2);
+  right: 0;
+  width: 1px;
+  border-radius: var(--border-radius);
+  height: calc(100% - (2 * var(--size-2)));
+  background-color: var(--N200);
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+}
+.table-column-header .resizer:hover {
+  width: 5px;
+  background: var(--A300);
+}
+
+.table-column-header .resizer.isResizing {
+  background: var(--A300);
+  width: 5px;
+  opacity: 1;
 }

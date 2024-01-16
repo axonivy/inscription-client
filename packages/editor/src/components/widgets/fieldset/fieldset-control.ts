@@ -4,5 +4,6 @@ export interface FieldsetControl {
   label: string;
   icon: IvyIcons;
   active?: boolean;
+  withSeperator?: boolean;
   action: () => void;
 }
