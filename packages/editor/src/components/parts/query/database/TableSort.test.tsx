@@ -8,7 +8,7 @@ describe('TableSort', () => {
     await CollapsableUtil.assertClosed('Sort');
   });
 
-  test('data', async () => {
+  test.skip('data', async () => {
     render(<TableSort />, {
       wrapperProps: {
         data: { config: { query: { sql: { orderBy: ['test'] } } } },

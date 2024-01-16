@@ -9,33 +9,33 @@ class Output extends PartObject {
 
   constructor(part: Part, private readonly hasCode: boolean = true) {
     super(part);
-    this.mapping = part.table(['text', 'label', 'expression']);
+    this.mapping = part.table(['text', 'expression']);
     this.code = part.scriptArea();
   }
 
   async fill() {
-    await this.mapping.row(1).column(2).fill('"bla"');
+    await this.mapping.row(1).column(1).fill('"bla"');
     if (this.hasCode) {
       await this.code.fill('code');
     }
   }
 
   async assertFill() {
-    await this.mapping.row(1).column(2).expectValue('"bla"');
+    await this.mapping.row(1).column(1).expectValue('"bla"');
     if (this.hasCode) {
       await this.code.expectValue('code');
     }
   }
 
   async clear() {
-    await this.mapping.row(1).column(2).fill('');
+    await this.mapping.row(1).column(1).fill('');
     if (this.hasCode) {
       await this.code.clear();
     }
   }
 
   async assertClear() {
-    await this.mapping.row(1).column(2).expectEmpty();
+    await this.mapping.row(1).column(1).expectEmpty();
     if (this.hasCode) {
       await this.code.expectEmpty();
     }

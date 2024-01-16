@@ -1,9 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import type {
-  ColumnDef,
-  ColumnFiltersState,
-  ExpandedState,
-  SortingState} from '@tanstack/react-table';
+import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, SortingState } from '@tanstack/react-table';
 import {
   flexRender,
   getCoreRowModel,
@@ -13,11 +9,19 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { MappingTreeData } from './mapping-tree-data';
-import { ScriptCell, ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
+import {
+  ScriptCell,
+  ExpandableCell,
+  ExpandableHeader,
+  Table,
+  TableCell,
+  TableHeader,
+  ResizableHeader
+} from '../../../../components/widgets';
 import type { MappingPartProps } from './MappingPart';
-import type { TableFilter} from './useMappingTree';
+import type { TableFilter } from './useMappingTree';
 import { calcFullPathId } from './useMappingTree';
-import { ValidationRow } from '../path/validation/ValidationRow';
+import { SelectableValidationRow } from '../path/validation/ValidationRow';
 
 type MappingTreeProps = MappingPartProps & {
   globalFilter: TableFilter<string>;
@@ -43,7 +47,7 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
       {
         accessorFn: row => row.attribute,
         id: 'attribute',
-        header: header => <ExpandableHeader header={header} name='Attribute' />,
+        header: header => <ExpandableHeader header={header} name='Attribute' seperator={true} />,
         cell: cell => (
           <ExpandableCell
             cell={cell}
@@ -57,18 +61,10 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
         enableSorting: false
       },
       {
-        accessorFn: row => row.simpleType,
-        id: 'simpleType',
-        header: () => <span>Type</span>,
-        cell: cell => <span title={cell.row.original.type}>{cell.getValue() as string}</span>,
-        footer: props => props.column.id,
-        enableSorting: false
-      },
-      {
         accessorFn: row => row.value,
         id: 'value',
         header: () => <span>Expression</span>,
-        cell: cell => <ScriptCell cell={cell} type={cell.row.original.type} browsers={browsers} />,
+        cell: cell => <ScriptCell cell={cell} type={cell.row.original.type} browsers={browsers} placeholder={cell.row.original.type} />,
         footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
       }
@@ -78,6 +74,7 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [expanded, setExpanded] = useState<ExpandedState>(true);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const table = useReactTable({
     data: tree,
@@ -85,10 +82,17 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
     state: {
       sorting,
       expanded,
+      rowSelection,
       globalFilter: globalFilter.filter,
       columnFilters: onlyInscribedFilter.filter
     },
     filterFromLeafRows: true,
+    columnResizeMode: 'onChange',
+    columnResizeDirection: 'ltr',
+    enableRowSelection: true,
+    enableMultiRowSelection: false,
+    enableSubRowSelection: false,
+    onRowSelectionChange: setRowSelection,
     onExpandedChange: setExpanded,
     onGlobalFilterChange: globalFilter.setFilter,
     onColumnFiltersChange: onlyInscribedFilter.setFilter,
@@ -110,22 +114,24 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
     <Table search={globalFilter.active ? { value: globalFilter.filter, onChange: globalFilter.setFilter } : undefined}>
       <thead>
         {table.getHeaderGroups().map(headerGroup => (
-          <tr key={headerGroup.id}>
+          <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
             {headerGroup.headers.map(header => (
-              <TableHeader key={header.id} colSpan={header.colSpan}>
+              <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
                 {flexRender(header.column.columnDef.header, header.getContext())}
               </TableHeader>
             ))}
-          </tr>
+          </ResizableHeader>
         ))}
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <ValidationRow key={row.id} rowPathSuffix={calcFullPathId(row)}>
+          <SelectableValidationRow row={row} key={row.id} rowPathSuffix={calcFullPathId(row)}>
             {row.getVisibleCells().map(cell => (
-              <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+              <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </TableCell>
             ))}
-          </ValidationRow>
+          </SelectableValidationRow>
         ))}
       </tbody>
     </Table>

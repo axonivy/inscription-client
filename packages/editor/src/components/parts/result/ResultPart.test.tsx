@@ -22,7 +22,7 @@ describe('ResultPart', () => {
     } else {
       await CollapsableUtil.toggle('Result parameters');
       TableUtil.assertRows(params, 1);
-      TableUtil.assertRows(map, 4);
+      TableUtil.assertRows(map, 3);
     }
     expect(await screen.findByLabelText('Code')).toHaveValue(code);
   }
@@ -42,7 +42,7 @@ describe('ResultPart', () => {
         variables: [{ attribute: 'result', description: '', type: '<String param>', simpleType: '<>' }]
       }
     );
-    await assertMainPart([/param String desc/], [/result <>/, /param String/, /key value/], 'code');
+    await assertMainPart([/param String desc/], [/result/, /param/, /key value/], 'code');
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ResultData>) {

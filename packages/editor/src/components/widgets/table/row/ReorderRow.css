@@ -6,6 +6,9 @@
   cursor: grab;
   width: 20px;
 }
-.dnd-row-handle i {
+
+.dnd-row-handle .ivy-change-type {
   display: flex;
+  justify-content: flex-end;
+  padding: var(--size-2);
 }

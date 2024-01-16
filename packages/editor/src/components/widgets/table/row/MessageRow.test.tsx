@@ -8,7 +8,7 @@ describe('MessageRow', () => {
     render(
       <table>
         <tbody>
-          <MessageRow message={message}>
+          <MessageRow colSpan={3} message={message}>
             <td>content</td>
           </MessageRow>
         </tbody>

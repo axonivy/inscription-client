@@ -14,9 +14,14 @@ declare module '@tanstack/react-table' {
   }
 }
 
-type EditableCellProps<TData> = { cell: CellContext<TData, unknown>; disabled?: boolean; withBrowser?: boolean };
+type EditableCellProps<TData> = {
+  cell: CellContext<TData, unknown>;
+  disabled?: boolean;
+  withBrowser?: boolean;
+  placeholder?: string;
+};
 
-export function EditableCell<TData>({ cell, disabled, withBrowser: propWithBrowser }: EditableCellProps<TData>) {
+export function EditableCell<TData>({ cell, disabled, withBrowser: propWithBrowser, placeholder }: EditableCellProps<TData>) {
   const initialValue = cell.getValue();
   const [value, setValue] = useState(initialValue);
   const browser = useBrowser();
@@ -31,6 +36,12 @@ export function EditableCell<TData>({ cell, disabled, withBrowser: propWithBrows
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
+
+  useEffect(() => {
+    if (isFocusWithin && !cell.row.getIsSelected()) {
+      cell.row.toggleSelected();
+    }
+  }, [cell.row, isFocusWithin]);
 
   const updateValue = (value: string) => {
     setValue(value);
@@ -49,6 +60,15 @@ export function EditableCell<TData>({ cell, disabled, withBrowser: propWithBrows
       )}
     </div>
   ) : (
-    <Input value={value as string} onChange={change => setValue(change)} onBlur={onBlur} disabled={disabled} />
+    <div {...focusWithinProps} tabIndex={1} aria-label={value as string}>
+      <Input
+        {...focusValue}
+        value={value as string}
+        onChange={change => setValue(change)}
+        onBlur={onBlur}
+        disabled={disabled}
+        placeholder={placeholder}
+      />
+    </div>
   );
 }

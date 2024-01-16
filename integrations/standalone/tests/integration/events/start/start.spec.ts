@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import { CaseTest, GeneralTest, RequestTest, StartTest, TaskTester, TriggerTest, runTest } from '../../parts';
-import type { CreateProcessResult} from '../../../glsp-protocol';
+import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 
 test.describe('StartRequest', () => {
@@ -47,7 +47,7 @@ test.describe('StartRequest', () => {
       view,
       new TaskTester({
         error: new RegExp(testee.processId),
-        testOptions: { responsible: false, priority: true, expiry: true, options: 'persist'}
+        testOptions: { responsible: false, priority: true, expiry: true, options: 'persist' }
       })
     );
   });

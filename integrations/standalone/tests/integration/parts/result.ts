@@ -18,7 +18,7 @@ class Result extends PartObject {
     } else {
       this.params = this.paramSection.table(['text', 'text', 'text']);
     }
-    this.mapping = part.table(['text', 'label', 'expression']);
+    this.mapping = part.table(['text', 'expression']);
     this.code = part.scriptArea();
   }
 
@@ -30,7 +30,8 @@ class Result extends PartObject {
     } else {
       await paramRow.fill(['param', 'String', 'desc']);
     }
-    await this.mapping.row(1).column(2).fill('"bla"');
+    await this.paramSection.toggle();
+    await this.mapping.row(1).column(1).fill('"bla"');
     await this.code.fill('code');
   }
 
@@ -42,21 +43,24 @@ class Result extends PartObject {
     } else {
       await paramRow.expectValues(['param', 'String', 'desc']);
     }
-    await this.mapping.row(1).column(2).expectValue('"bla"');
+    await this.paramSection.toggle();
+    await this.mapping.row(1).column(1).expectValue('"bla"');
     await this.code.expectValue('code');
   }
 
   async clear() {
     await this.paramSection.toggle();
     await this.params.clear();
-    await this.mapping.row(0).column(2).fill('');
+    await this.paramSection.toggle();
+    await this.mapping.row(0).column(1).fill('');
     await this.code.clear();
   }
 
   async assertClear() {
     await this.paramSection.toggle();
     await this.params.expectEmpty();
-    await this.mapping.row(0).column(2).expectEmpty();
+    await this.paramSection.toggle();
+    await this.mapping.row(0).column(1).expectEmpty();
     await this.code.expectEmpty();
   }
 }

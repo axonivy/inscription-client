@@ -7,10 +7,10 @@ describe('MappingPart', () => {
   const ATTRIBUTES = /Attribute/;
   const PARAMS = /param.procurementRequest/;
   const NODE_PARAMS = /param.procurementRequest/;
-  const NODE_BOOLEAN = /acceptedBoolean/;
-  const NODE_NUMBER = /amountNumber/;
-  const USER = /requesterUser/;
-  const NODE_STRING = /emailString/;
+  const NODE_BOOLEAN = /accepted/;
+  const NODE_NUMBER = /amount/;
+  const USER = /requester/;
+  const NODE_STRING = /email/;
 
   const variableInfo: VariableInfo = {
     variables: [
@@ -89,7 +89,7 @@ describe('MappingPart', () => {
 
   test('tree will render', () => {
     renderTree();
-    assertTableHeaders(['Attribute', 'Type', 'Expression']);
+    assertTableHeaders(['Attribute', 'Expression']);
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
   });
 
@@ -100,8 +100,8 @@ describe('MappingPart', () => {
 
   test('tree will render description title', () => {
     renderTree({ 'workflow.humantask.Description': 'value' });
-    expect(screen.getAllByRole('row')[1]).toHaveTextContent('param.procurementRequestProcurementRequest');
-    expect(screen.getAllByRole('row')[1]).toHaveAccessibleName('param.procurementRequest ProcurementRequest');
+    expect(screen.getAllByRole('row')[1]).toHaveTextContent('param.procurementRequest');
+    expect(screen.getAllByRole('row')[1]).toHaveAccessibleName('param.procurementRequest');
   });
 
   test('tree can expand / collapse', async () => {

@@ -28,14 +28,14 @@ class Case extends PartObject {
 
     await this.customSection.toggle();
     const row = await this.customFields.addRow();
-    await row.fill(['cf', 'value']);
+    await row.fill(['cf', '"value"']);
   }
 
   async assertFill() {
     await this.name.expectValue('case name');
     await this.description.expectValue('case desc');
     await this.category.expectValue('case cat');
-    await this.customFields.row(0).expectValues(['cf', 'value']);
+    await this.customFields.row(0).expectValues(['cf', '"value"']);
   }
 
   async clear() {

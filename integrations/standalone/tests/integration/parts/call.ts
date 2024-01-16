@@ -12,30 +12,30 @@ class Call extends PartObject {
   constructor(part: Part, readonly selectLabel: string, private readonly selectValue: string, private readonly assertSelectValue: string) {
     super(part);
     this.call = part.combobox(selectLabel);
-    this.mapping = part.table(['text', 'label', 'expression']);
+    this.mapping = part.table(['text', 'expression']);
     this.code = part.scriptArea();
   }
 
   async fill() {
     await this.call.choose(this.selectValue);
-    await this.mapping.row(2).column(2).fill('"test"');
+    await this.mapping.row(2).column(1).fill('"test"');
     await this.code.fill('code');
   }
 
   async assertFill() {
     await this.call.expectValue(this.assertSelectValue);
-    await this.mapping.row(2).column(2).expectValue('"test"');
+    await this.mapping.row(2).column(1).expectValue('"test"');
     await this.code.expectValue('code');
   }
 
   async clear() {
-    await this.mapping.row(2).column(2).edit('');
+    await this.mapping.row(2).column(1).edit('');
     await this.code.clear();
   }
 
   async assertClear() {
     await this.call.expectValue(this.assertSelectValue);
-    await this.mapping.row(2).column(2).expectEmpty();
+    await this.mapping.row(2).column(1).expectEmpty();
     await this.code.expectEmpty();
   }
 }

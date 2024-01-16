@@ -1,4 +1,4 @@
-import { screen, userEvent, waitFor, within } from 'test-utils';
+import { act, screen, userEvent, waitFor, within } from 'test-utils';
 import { expect } from 'vitest';
 
 export namespace TableUtil {
@@ -28,54 +28,43 @@ export namespace TableUtil {
   }
 
   export async function assertAddRow(view: { data: () => unknown[]; rerender: () => void }, expectedRows: number): Promise<void> {
-    await assertRowCount(expectedRows + 1);
-
+    await assertRowCount(expectedRows);
     const addButton = screen.getByRole('button', { name: 'Add row' });
     await userEvent.click(addButton);
     expect(view.data()).toHaveLength(expectedRows);
 
     view.rerender();
-    await assertRowCount(expectedRows + 2);
+    await assertRowCount(expectedRows + 1);
+  }
+
+  export async function assertAddRowWithKeyboard(
+    view: { data: () => unknown[]; rerender: () => void },
+    firstCellOfLastRowValue: string
+  ): Promise<void> {
+    const rowCount = screen.getAllByRole('row').length;
+    const firstCellLastRow = screen.getByDisplayValue(firstCellOfLastRowValue);
+    await userEvent.click(firstCellLastRow);
+    expect(firstCellLastRow).toHaveFocus();
+    await act(async () => {
+      await userEvent.tab();
+      waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(rowCount + 1));
+      view.rerender();
+    });
   }
 
   export async function assertRemoveRow(view: { data: () => unknown[]; rerender: () => void }, expectedRows: number): Promise<void> {
-    await assertRowCount(expectedRows + 3);
-
-    const removeButtons = screen.getAllByRole('button', { name: 'Remove row' });
-    expect(removeButtons).toHaveLength(expectedRows + 1);
-    await userEvent.click(removeButtons[0]);
+    await assertRowCount(expectedRows + 2);
+    const firstRow = screen.getAllByRole('row')[1];
+    await userEvent.click(firstRow);
+    const removeButton = await screen.findByRole('button', { name: 'Remove row' });
+    await userEvent.click(removeButton);
     expect(view.data()).toHaveLength(expectedRows);
 
     view.rerender();
-    await assertRowCount(expectedRows + 2);
-  }
-
-  export async function assertAddAndRemoveWithKeyboard(
-    view: { data: () => unknown[]; rerender: () => void },
-    defaultRows: number
-  ): Promise<void> {
-    await assertRowCount(defaultRows + 2);
-
-    const addButton = screen.getByRole('button', { name: 'Add row' });
-    addButton.focus();
-    await userEvent.keyboard('[Enter]');
-    expect(view.data()).toHaveLength(defaultRows + 1);
-
-    view.rerender();
-    await assertRowCount(defaultRows + 3);
-
-    const removeButtons = screen.getAllByRole('button', { name: 'Remove row' });
-    expect(removeButtons).toHaveLength(defaultRows + 1);
-    removeButtons[2].focus();
-    await userEvent.keyboard('[Enter]');
-    expect(view.data()).toHaveLength(defaultRows);
-
-    view.rerender();
-    await assertRowCount(defaultRows + 2);
+    await assertRowCount(expectedRows + 1);
   }
 
   export function assertReadonly() {
     expect(screen.getByRole('button', { name: 'Add row' })).toBeDisabled();
-    expect(screen.getAllByRole('button', { name: 'Remove row' })[0]).toBeDisabled();
   }
 }

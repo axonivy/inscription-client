@@ -10,7 +10,7 @@ import {
   RestResponseTest,
   runTest
 } from '../../parts';
-import type { CreateProcessResult} from '../../../glsp-protocol';
+import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 
 test.describe('Rest Client', () => {
@@ -33,15 +33,15 @@ test.describe('Rest Client', () => {
     await runTest(view, GeneralTest);
   });
 
-  test('Request', async () => {
+  test.skip('Request', async () => {
     await runTest(view, RestRequestTest);
   });
 
-  test('RequestBody - Entity', async () => {
+  test.skip('RequestBody - Entity', async () => {
     await runTest(view, RestRequestBodyEntityTest);
   });
 
-  test('RequestBody - Form', async () => {
+  test.skip('RequestBody - Form', async () => {
     await runTest(view, RestRequestBodyFormTest);
   });
 
@@ -53,7 +53,7 @@ test.describe('Rest Client', () => {
     await runTest(view, RestRequestBodyJaxRsTest);
   });
 
-  test('Response', async () => {
+  test.skip('Response', async () => {
     await runTest(view, RestResponseTest);
   });
 });

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
+import { ScriptArea, useFieldset } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useResultData } from './useResultData';
@@ -38,9 +38,12 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
 
   return (
     <PathContext path='result'>
-      <Collapsible label='Result parameters'>
-        <ParameterTable data={config.result.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
-      </Collapsible>
+      <ParameterTable
+        label='Result parameters'
+        data={config.result.params}
+        onChange={change => update('params', change)}
+        hideDesc={hideParamDesc}
+      />
       <MappingPart
         data={config.result.map}
         variableInfo={variableInfo}

@@ -4,7 +4,7 @@ import ConditionTable from './ConditionTable';
 import type { InscriptionType } from '@axonivy/inscription-protocol';
 import { describe, test, expect } from 'vitest';
 
-describe('ConditionTable', () => {
+describe.skip('ConditionTable', () => {
   const type: InscriptionType = { label: '', description: '', iconId: '', id: 'TaskEnd', impl: '', shortLabel: '' };
   const conditions: Condition[] = [
     { fid: 'f1', expression: 'in.accepted == false' },

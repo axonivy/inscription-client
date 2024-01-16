@@ -21,7 +21,7 @@ describe('WsMapping', () => {
 
   test('empty', async () => {
     renderPart();
-    TableUtil.assertHeaders(['Attribute', 'Type', 'Expression']);
+    TableUtil.assertHeaders(['Attribute', 'Expression']);
   });
 
   test('data', async () => {

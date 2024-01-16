@@ -9,7 +9,7 @@ describe('ValidationRow', () => {
     render(
       <table>
         <tbody>
-          <ValidationRow rowPathSuffix={path} title='this is a title'>
+          <ValidationRow colSpan={3} rowPathSuffix={path} title='this is a title'>
             <td>content</td>
           </ValidationRow>
         </tbody>

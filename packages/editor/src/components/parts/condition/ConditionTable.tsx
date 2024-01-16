@@ -85,7 +85,7 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
       </thead>
       <tbody>
         {table.getRowModel().rows.map(row => (
-          <ValidationReorderRow key={row.id} id={row.original.fid} updateOrder={updateOrder} rowPathSuffix={row.index}>
+          <ValidationReorderRow colSpan={2} key={row.id} id={row.original.fid} updateOrder={updateOrder} rowPathSuffix={row.index}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}

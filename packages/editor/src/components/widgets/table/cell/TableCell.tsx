@@ -1,4 +1,7 @@
 import './TableCell.css';
-import type { ReactNode } from 'react';
 
-export const TableCell = (props: { children: ReactNode }) => <td className='table-cell'>{props.children}</td>;
+export const TableCell = ({ children, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
+  <td {...props} className='table-cell'>
+    {children}
+  </td>
+);

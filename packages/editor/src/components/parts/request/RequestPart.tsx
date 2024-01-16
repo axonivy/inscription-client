@@ -4,9 +4,9 @@ import { useRequestData } from './useRequestData';
 import type { RequestData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import { Checkbox } from '../../../components/widgets';
-import StartCustomFieldPart from '../common/customfield/StartCustomFieldPart';
 import Information from '../common/info/Information';
 import { Permission } from '../common/permission/Permission';
+import StartCustomFieldTable from '../common/customfield/StartCustomFieldTable';
 
 export function useRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRequestData();
@@ -37,10 +37,8 @@ const RequestPart = () => {
               label='Start list'
             />
             <Information config={config.request} update={updateRequest} />
-            <StartCustomFieldPart
-              customFields={config.request.customFields}
-              updateCustomFields={change => updateRequest('customFields', change)}
-            />
+
+            <StartCustomFieldTable data={config.request.customFields} onChange={change => updateRequest('customFields', change)} />
           </PathContext>
           <Permission
             config={config.permission}

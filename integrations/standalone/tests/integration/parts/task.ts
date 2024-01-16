@@ -79,7 +79,7 @@ class Task extends PartObject {
     part: Part,
     private readonly nameValue = 'test name',
     private readonly errorValue = /f8/,
-    private readonly options: TaskTestOptions = { responsible: true, priority: true, expiry: true, options: 'list'}
+    private readonly options: TaskTestOptions = { responsible: true, priority: true, expiry: true, options: 'list' }
   ) {
     super(part);
     this.name = part.macroInput('Name');
@@ -128,10 +128,10 @@ class Task extends PartObject {
         await this.delay.fill('delay');
       }
     }
-    
+
     if (this.options.options === 'list') {
       await this.notificationSection.toggle();
-      await this.notificationTemplate.choose('Customer')
+      await this.notificationTemplate.choose('Customer');
       await this.notificationSuppress.click();
     }
 
@@ -145,7 +145,7 @@ class Task extends PartObject {
 
     await this.customFieldsSection.toggle();
     const row = await this.customFields.addRow();
-    await row.fill(['cf', 'value']);
+    await row.fill(['cf', '"value"']);
 
     await this.codeSection.toggle();
     await this.code.fill('code');
@@ -170,7 +170,7 @@ class Task extends PartObject {
         await this.persist.expectChecked();
         await this.persist.click();
       } else {
-        await this.skipTasklist.expectChecked();        
+        await this.skipTasklist.expectChecked();
         await this.delay.expectValue('delay');
       }
     }
@@ -189,7 +189,7 @@ class Task extends PartObject {
 
     await this.customFields.expectRowCount(1);
     await this.customFields.cell(0, 0).expectValue('cf');
-    await this.customFields.cell(0, 2).expectValue('value');
+    await this.customFields.cell(0, 2).expectValue('"value"');
 
     await this.code.expectValue('code');
   }

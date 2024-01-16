@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
 import { GeneralTest, OutputTest, runTest } from '../parts';
-import type { CreateProcessResult} from '../../glsp-protocol';
+import type { CreateProcessResult } from '../../glsp-protocol';
 import { createProcess } from '../../glsp-protocol';
 
 test.describe('Join', () => {

@@ -20,7 +20,7 @@ export class Table {
 
   async addRow() {
     const totalRows = await this.rows.count();
-    await this.locator.getByRole('row', { name: 'Add row' }).click();
+    await this.locator.getByRole('button', { name: 'Add row' }).click();
     return this.row(totalRows);
   }
 
@@ -84,7 +84,8 @@ export class Row {
   }
 
   async remove() {
-    await this.locator.getByRole('button', { name: 'Remove row' }).click();
+    await this.locator.click();
+    await this.page.getByRole('button', { name: 'Remove row' }).click();
   }
 
   async dragTo(targetRow: Row) {
