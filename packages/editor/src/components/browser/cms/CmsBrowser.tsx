@@ -53,34 +53,34 @@ export const useCmsBrowser = (location: string, options?: CmsOptions): UseBrowse
   const columns = useMemo<ColumnDef<GenericData<ContentObject>>[]>(
     () => [
       {
-        accessorFn: row => row.browserObject.name,
+        accessorFn: row => row.data.name,
         id: 'name',
         cell: cell => {
           return (
             <ExpandableCell
               cell={cell}
-              title={cell.row.original.browserObject.name}
+              title={cell.row.original.data.name}
               icon={
-                cell.row.original.browserObject.type === 'FOLDER'
+                cell.row.original.data.type === 'FOLDER'
                   ? IvyIcons.FolderOpen
-                  : cell.row.original.browserObject.type === 'FILE'
+                  : cell.row.original.data.type === 'FILE'
                   ? IvyIcons.File
                   : IvyIcons.ChangeType
               }
-              additionalInfo={cell.row.original.browserObject.type}
+              additionalInfo={cell.row.original.data.type}
             />
           );
         }
       },
       {
-        accessorFn: row => row.browserObject.type,
+        accessorFn: row => row.data.type,
         id: 'type',
-        cell: cell => <span title={cell.row.original.browserObject.type}>{cell.getValue() as string}</span>
+        cell: cell => <span title={cell.row.original.data.type}>{cell.getValue() as string}</span>
       },
       {
-        accessorFn: row => JSON.stringify(row.browserObject.values),
+        accessorFn: row => JSON.stringify(row.data.values),
         id: 'values',
-        cell: cell => <span title={JSON.stringify(cell.row.original.browserObject.values)}>{JSON.stringify(cell.getValue())}</span>
+        cell: cell => <span title={JSON.stringify(cell.row.original.data.values)}>{JSON.stringify(cell.getValue())}</span>
       }
     ],
     []
@@ -100,17 +100,13 @@ export const useCmsBrowser = (location: string, options?: CmsOptions): UseBrowse
 
   const handleRowSelectionChange = (selectedRow: Row<GenericData<ContentObject>> | undefined) => {
     if (!selectedRow) {
-      setSelectedContentObject({ browserObject: { name: '', children: [], fullPath: '', type: 'STRING', values: {} }, children: [] });
+      setSelectedContentObject({ data: { name: '', children: [], fullPath: '', type: 'STRING', values: {} }, children: [] });
       setValue({ cursorValue: '' });
       return;
     }
     setSelectedContentObject(selectedRow.original);
     setValue({
-      cursorValue: addIvyPathToValue(
-        selectedRow.original.browserObject.fullPath,
-        selectedRow.original.browserObject.type,
-        options?.noApiCall
-      )
+      cursorValue: addIvyPathToValue(selectedRow.original.data.fullPath, selectedRow.original.data.type, options?.noApiCall)
     });
   };
 
@@ -121,31 +117,33 @@ export const useCmsBrowser = (location: string, options?: CmsOptions): UseBrowse
       columns: columns,
       data: mappedSortedData,
       onRowSelectionChange: handleRowSelectionChange,
-      customColumnFilters:
-        options?.typeFilter === 'NONE' || options?.typeFilter === undefined ? [] : [{ id: 'type', value: options?.typeFilter }],
-      hiddenRows: { type: false, values: false },
-      isFetching: isFetching,
-      additionalComponents: {
-        helperTextComponent: (
-          <>
-            <b>{value.cursorValue}</b>
-            <code>
-              {selectedContentObject?.browserObject.values &&
-                Object.entries(selectedContentObject?.browserObject.values).map(([key, value]) => (
-                  <div key={key}>
-                    <b>{`${key}: `}</b>
-                    {value}
-                  </div>
-                ))}
-            </code>
-          </>
-        ),
-        headerComponent: (
-          <div className='browser-table-header'>
-            <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
-            <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
-          </div>
-        )
+      options: {
+        customColumnFilters:
+          options?.typeFilter === 'NONE' || options?.typeFilter === undefined ? [] : [{ id: 'type', value: options?.typeFilter }],
+        hiddenRows: { type: false, values: false },
+        isFetching: isFetching,
+        additionalComponents: {
+          helperTextComponent: (
+            <>
+              <b>{value.cursorValue}</b>
+              <code>
+                {selectedContentObject?.data.values &&
+                  Object.entries(selectedContentObject?.data.values).map(([key, value]) => (
+                    <div key={key}>
+                      <b>{`${key}: `}</b>
+                      {value}
+                    </div>
+                  ))}
+              </code>
+            </>
+          ),
+          headerComponent: (
+            <div className='browser-table-header'>
+              <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
+              <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
+            </div>
+          )
+        }
       }
     },
     accept: () => value,

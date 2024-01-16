@@ -4,17 +4,17 @@ import type { UpdatedFunction } from './function/FunctionBrowser';
 import type { Action } from '../widgets';
 
 export function mapToGenericData<T>(
-  browserObject: T,
+  data: T,
   childrenParam?: keyof T,
   isNotSelectable?: (object: T) => boolean,
   specialAction?: (object: T) => Action[]
 ): GenericData<T> {
-  const children = childrenParam ? ((browserObject[childrenParam] || []) as T[]) : undefined;
+  const children = childrenParam ? ((data[childrenParam] || []) as T[]) : undefined;
 
   return {
-    browserObject,
-    isNotSelectable: isNotSelectable ? isNotSelectable(browserObject) : undefined,
-    specialAction: specialAction ? specialAction(browserObject) : undefined,
+    data,
+    isNotSelectable: isNotSelectable ? isNotSelectable(data) : undefined,
+    specialAction: specialAction ? specialAction(data) : undefined,
     children: children ? children.map((child: T) => mapToGenericData(child, childrenParam, isNotSelectable, specialAction)) : []
   };
 }

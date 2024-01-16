@@ -18,53 +18,43 @@ import { SelectRow, Table, TableCell, TableFooter, TableShowMore, type Action, A
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 export type GenericData<T> = {
-  browserObject: T;
+  data: T;
   children: GenericData<T>[];
   isNotSelectable?: boolean;
   specialAction?: Action[];
 };
 
-export interface GenericBrowserProps<T> {
+export type GenericBrowserProps<T> = {
   data: GenericData<T>[];
   columns: ColumnDef<GenericData<T>>[];
   onRowSelectionChange: (selectedRow: Row<GenericData<T>> | undefined) => void;
-  isFetching: boolean;
-  additionalComponents: {
-    helperTextComponent: ReactNode;
-    headerComponent?: ReactNode;
-    footerComponent?: ReactNode;
+  options?: {
+    onRowDoubleClick?: () => void;
+    initSearchValue?: string;
+    isFetching?: boolean;
+    hiddenRows?: { [x: string]: boolean };
+    customColumnFilters?: ColumnFilter[];
+    ownGlobalFilter?: FilterFnOption<GenericData<T>> | undefined;
+    additionalComponents?: {
+      helperTextComponent?: ReactNode;
+      headerComponent?: ReactNode;
+      footerComponent?: ReactNode;
+    };
+    backendSearch?: {
+      active: boolean;
+      setSearchValue: (value: string) => void;
+    };
   };
-  onRowDoubleClick?: () => void;
-  initSearchValue?: string;
-  hiddenRows?: { [x: string]: boolean };
-  customColumnFilters?: ColumnFilter[];
-  ownGlobalFilter?: FilterFnOption<GenericData<T>> | undefined;
-  backendSearch?: {
-    active: boolean;
-    setSearchValue: (value: string) => void;
-  };
-}
+};
 
-export const GenericBrowser = <T = unknown,>({
-  data,
-  columns,
-  onRowSelectionChange,
-  isFetching,
-  hiddenRows,
-  customColumnFilters,
-  ownGlobalFilter,
-  backendSearch,
-  onRowDoubleClick,
-  initSearchValue,
-  additionalComponents
-}: GenericBrowserProps<T>) => {
+export const GenericBrowser = <T extends object>({ data, columns, onRowSelectionChange, options }: GenericBrowserProps<T>) => {
   const [showHelper, setShowHelper] = useState<boolean>(false);
 
   const [expanded, setExpanded] = useState<ExpandedState>({ [0]: true });
-  const [globalFilter, setGlobalFilter] = useState(initSearchValue ? initSearchValue : '');
+  const [globalFilter, setGlobalFilter] = useState(options?.initSearchValue ? options.initSearchValue : '');
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(hiddenRows ? hiddenRows : {});
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(customColumnFilters ? customColumnFilters : []);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(options && options.hiddenRows ? options.hiddenRows : {});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(options?.customColumnFilters ? options.customColumnFilters : []);
 
   const [rowNumber, setRowNumber] = useState(100);
 
@@ -78,12 +68,12 @@ export const GenericBrowser = <T = unknown,>({
       columnFilters,
       columnVisibility
     },
-    globalFilterFn: ownGlobalFilter,
+    globalFilterFn: options?.ownGlobalFilter,
     filterFromLeafRows: true,
     enableRowSelection: true,
     enableMultiRowSelection: false,
     enableSubRowSelection: false,
-    enableFilters: ownGlobalFilter ? true : undefined,
+    enableFilters: options?.ownGlobalFilter ? true : undefined,
     onExpandedChange: setExpanded,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
@@ -123,11 +113,11 @@ export const GenericBrowser = <T = unknown,>({
 
   useEffect(() => {
     setRowSelection({});
-  }, [backendSearch?.active]);
+  }, [options?.backendSearch?.active]);
 
   return (
     <>
-      {additionalComponents.headerComponent}
+      {options?.additionalComponents?.headerComponent}
       <Table
         search={{
           value: globalFilter,
@@ -135,7 +125,7 @@ export const GenericBrowser = <T = unknown,>({
             setGlobalFilter(newFilterValue);
             setExpanded(true);
             setRowNumber(100);
-            backendSearch?.active && backendSearch.setSearchValue(newFilterValue);
+            options?.backendSearch?.active && options?.backendSearch.setSearchValue(newFilterValue);
           }
         }}
         ref={parentRef}
@@ -146,17 +136,17 @@ export const GenericBrowser = <T = unknown,>({
               const row = rows[virtualRow.index];
 
               return (
-                !isFetching && (
+                !options?.isFetching && (
                   <SelectRow
                     key={row.id}
                     row={row}
                     isNotSelectable={row.original.isNotSelectable}
-                    onDoubleClick={onRowDoubleClick ? onRowDoubleClick : () => {}}
+                    onDoubleClick={options?.onRowDoubleClick ? options?.onRowDoubleClick : () => {}}
                   >
                     {row.getVisibleCells().map(cell => (
                       <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                     ))}
-                    {row.original.specialAction ? <ActionCell actions={row.original.specialAction} /> : <TableCell> </TableCell>}
+                    {row.original.specialAction ? <ActionCell actions={row.original.specialAction} /> : null}
                   </SelectRow>
                 )
               );
@@ -178,17 +168,13 @@ export const GenericBrowser = <T = unknown,>({
           </TableFooter>
         )}
       </Table>
-      {isFetching && (
+      {options?.isFetching && (
         <div className='loader'>
           <p>loading more types...</p>
         </div>
       )}
-      {showHelper && (
-        <>
-          <pre className='browser-helptext'>{additionalComponents.helperTextComponent}</pre>
-        </>
-      )}
-      {additionalComponents.footerComponent}
+      {showHelper && options && <pre className='browser-helptext'>{options.additionalComponents?.helperTextComponent}</pre>}
+      {options?.additionalComponents?.footerComponent}
     </>
   );
 };

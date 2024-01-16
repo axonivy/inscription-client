@@ -54,17 +54,17 @@ export const useFuncBrowser = (): UseBrowserImplReturnValue<UpdatedFunction> => 
     () => [
       {
         accessorFn: row =>
-          `${row.browserObject.name.split('.').pop()}${
-            row.browserObject.isField === false ? `(${row.browserObject.params.map(param => param.type.split('.').pop()).join(', ')})` : ''
+          `${row.data.name.split('.').pop()}${
+            row.data.isField === false ? `(${row.data.params.map(param => param.type.split('.').pop()).join(', ')})` : ''
           }`,
         id: 'name',
         cell: cell => {
           return (
             <ExpandableCell
               cell={cell}
-              title={cell.row.original.browserObject.name}
-              icon={cell.row.original.browserObject.isField ? IvyIcons.FolderOpen : IvyIcons.Function}
-              additionalInfo={cell.row.original.browserObject.returnType.simpleName}
+              title={cell.row.original.data.name}
+              icon={cell.row.original.data.isField ? IvyIcons.FolderOpen : IvyIcons.Function}
+              additionalInfo={cell.row.original.data.returnType.simpleName}
             />
           );
         }
@@ -86,11 +86,11 @@ export const useFuncBrowser = (): UseBrowserImplReturnValue<UpdatedFunction> => 
     const parentRow = selectedRow.getParentRow();
     setType(
       parentRow
-        ? parentRow.original.browserObject.returnType.packageName + '.' + parentRow.original.browserObject.returnType.simpleName
-        : selectedRow.original.browserObject.returnType.packageName + '.' + selectedRow.original.browserObject.returnType.simpleName
+        ? parentRow.original.data.returnType.packageName + '.' + parentRow.original.data.returnType.simpleName
+        : selectedRow.original.data.returnType.packageName + '.' + selectedRow.original.data.returnType.simpleName
     );
-    setMethod(selectedRow.original.browserObject.name);
-    setParamTypes(selectedRow.original.browserObject.params ? selectedRow.original.browserObject.params.map(param => param.type) : []);
+    setMethod(selectedRow.original.data.name);
+    setParamTypes(selectedRow.original.data.params ? selectedRow.original.data.params.map(param => param.type) : []);
     //setup Helpertext
     setSelectedFunctionDoc(doc);
   };
@@ -102,18 +102,20 @@ export const useFuncBrowser = (): UseBrowserImplReturnValue<UpdatedFunction> => 
       columns: columns,
       data: mappedSortedData,
       onRowSelectionChange: handleRowSelectionChange,
-      isFetching: funcIsFetching,
-      additionalComponents: {
-        helperTextComponent: (
-          <>
-            <b>{value.cursorValue}</b>
-            {docIsFetching ? (
-              <span>Java Documentation is loading...</span>
-            ) : (
-              <span dangerouslySetInnerHTML={{ __html: selectedFunctionDoc }} />
-            )}
-          </>
-        )
+      options: {
+        isFetching: funcIsFetching,
+        additionalComponents: {
+          helperTextComponent: (
+            <>
+              <b>{value.cursorValue}</b>
+              {docIsFetching ? (
+                <span>Java Documentation is loading...</span>
+              ) : (
+                <span dangerouslySetInnerHTML={{ __html: selectedFunctionDoc }} />
+              )}
+            </>
+          )
+        }
       }
     },
 

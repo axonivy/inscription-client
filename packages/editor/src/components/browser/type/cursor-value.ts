@@ -11,8 +11,8 @@ const addListGeneric = (value: string, inCodeBlock: boolean) => {
 
 export const getCursorValue = (value: GenericData<TypeBrowserObject>, isIvyType: boolean, typeAsList: boolean, inCodeBlock: boolean) => {
   if (isIvyType) {
-    return typeAsList ? addListGeneric(value.browserObject.simpleName, inCodeBlock) : value.browserObject.simpleName;
+    return typeAsList ? addListGeneric(value.data.simpleName, inCodeBlock) : value.data.simpleName;
   } else {
-    return typeAsList ? addListGeneric(value.browserObject.fullQualifiedName, inCodeBlock) : value.browserObject.fullQualifiedName;
+    return typeAsList ? addListGeneric(value.data.fullQualifiedName, inCodeBlock) : value.data.fullQualifiedName;
   }
 };

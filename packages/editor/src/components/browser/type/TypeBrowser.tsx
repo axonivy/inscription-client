@@ -96,15 +96,15 @@ export const useTypeBrowser = (location: string): UseBrowserImplReturnValue<Type
   const columns = useMemo<ColumnDef<GenericData<TypeBrowserObject>>[]>(
     () => [
       {
-        accessorFn: row => row.browserObject.simpleName,
+        accessorFn: row => row.data.simpleName,
         id: 'simpleName',
         cell: cell => {
           return (
             <ExpandableCell
               cell={cell}
-              title={cell.row.original.browserObject.simpleName}
-              additionalInfo={cell.row.original.browserObject.packageName}
-              icon={cell.row.original.browserObject.icon}
+              title={cell.row.original.data.simpleName}
+              additionalInfo={cell.row.original.data.packageName}
+              icon={cell.row.original.data.icon}
             />
           );
         }
@@ -114,7 +114,7 @@ export const useTypeBrowser = (location: string): UseBrowserImplReturnValue<Type
   );
 
   const regexFilter: FilterFn<GenericData<TypeBrowserObject>> = (row, columnId, filterValue) => {
-    const cellValue = row.original.browserObject.simpleName || '';
+    const cellValue = row.original.data.simpleName || '';
     const regexPattern = new RegExp(filterValue.replace(/\*/g, '.*'), 'i');
     return regexPattern.test(cellValue);
   };
@@ -124,11 +124,11 @@ export const useTypeBrowser = (location: string): UseBrowserImplReturnValue<Type
       setValue({ cursorValue: '' });
       return;
     }
-    const isIvyType = ivyTypes.some(javaClass => javaClass.fullQualifiedName === selectedRow.original.browserObject.fullQualifiedName);
+    const isIvyType = ivyTypes.some(javaClass => javaClass.fullQualifiedName === selectedRow.original.data.fullQualifiedName);
     if (location.includes('code')) {
       setValue({
         cursorValue: getCursorValue(selectedRow.original, isIvyType, typeAsList, true),
-        firstLineValue: isIvyType || typeAsList ? undefined : 'import ' + selectedRow.original.browserObject.fullQualifiedName + ';\n'
+        firstLineValue: isIvyType || typeAsList ? undefined : 'import ' + selectedRow.original.data.fullQualifiedName + ';\n'
       });
     } else {
       setValue({
@@ -146,23 +146,25 @@ export const useTypeBrowser = (location: string): UseBrowserImplReturnValue<Type
       columns: columns,
       data: mappedSortedData,
       onRowSelectionChange: handleRowSelectionChange,
-      ownGlobalFilter: regexFilter,
-      isFetching: isFetching,
-      backendSearch: { active: allSearchActive, setSearchValue: setBackendMainFilter },
-      additionalComponents: {
-        helperTextComponent: <b>{value.cursorValue}</b>,
-        headerComponent: (
-          <div className='browser-table-header'>
-            <Checkbox
-              label='Search over all types'
-              value={allSearchActive}
-              onChange={() => {
-                setAllSearchActive(!allSearchActive);
-              }}
-            />
-          </div>
-        ),
-        footerComponent: <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
+      options: {
+        ownGlobalFilter: regexFilter,
+        isFetching: isFetching,
+        backendSearch: { active: allSearchActive, setSearchValue: setBackendMainFilter },
+        additionalComponents: {
+          helperTextComponent: <b>{value.cursorValue}</b>,
+          headerComponent: (
+            <div className='browser-table-header'>
+              <Checkbox
+                label='Search over all types'
+                value={allSearchActive}
+                onChange={() => {
+                  setAllSearchActive(!allSearchActive);
+                }}
+              />
+            </div>
+          ),
+          footerComponent: <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
+        }
       }
     }
   };

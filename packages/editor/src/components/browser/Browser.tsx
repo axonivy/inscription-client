@@ -35,7 +35,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
     acceptBrowser();
   };
 
-  const attrBrowser = useAttributeBrowser(onRowDoubleClick, location);
+  const attrBrowser = useAttributeBrowser(location);
   const cmsBrowser = useCmsBrowser(location, cmsOptions);
   const funcBrowser = useFuncBrowser();
   const typeBrowser = useTypeBrowser(location);
@@ -51,8 +51,11 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
       ...browser,
       content: (
         <GenericBrowser
-          initSearchValue={initSearchFilter ? initSearchFilter() : ''}
-          onRowDoubleClick={onRowDoubleClick}
+          options={{
+            initSearchValue: initSearchFilter ? initSearchFilter() : '',
+            onRowDoubleClick: onRowDoubleClick,
+            ...browser.content.options
+          }}
           {...browser.content}
         />
       )

@@ -12,7 +12,7 @@ import { mapToGenericData } from '../transformData';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
-export const useAttributeBrowser = (onDoubleClick: () => void, location: string): UseBrowserImplReturnValue<MappingTreeData> => {
+export const useAttributeBrowser = (location: string): UseBrowserImplReturnValue<MappingTreeData> => {
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   const [mappedSortedData, setMappedSortedData] = useState<GenericData<MappingTreeData>[]>([]);
 
@@ -20,16 +20,8 @@ export const useAttributeBrowser = (onDoubleClick: () => void, location: string)
   const [varInfo, setVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
   const { elementContext: context } = useEditorContext();
-  const { data: inVarInfo, isFetching: inVarInfoIsFetching } = useMeta(
-    'meta/scripting/in',
-    { context, location },
-    { variables: [], types: {} }
-  );
-  const { data: outVarInfo, isFetching: outVarInfoIsFetching } = useMeta(
-    'meta/scripting/out',
-    { context, location },
-    { variables: [], types: {} }
-  );
+  const { data: inVarInfo } = useMeta('meta/scripting/in', { context, location }, { variables: [], types: {} });
+  const { data: outVarInfo } = useMeta('meta/scripting/out', { context, location }, { variables: [], types: {} });
 
   useEffect(() => {
     location.endsWith('code')
@@ -51,16 +43,16 @@ export const useAttributeBrowser = (onDoubleClick: () => void, location: string)
   const columns = useMemo<ColumnDef<GenericData<MappingTreeData>>[]>(
     () => [
       {
-        accessorFn: row => row.browserObject.attribute,
+        accessorFn: row => row.data.attribute,
         id: 'attribute',
         header: header => <ExpandableHeader header={header} name='Attribute' />,
         cell: cell => (
           <ExpandableCell
             cell={cell}
-            isLoaded={cell.row.original.browserObject.isLoaded}
-            loadChildren={() => loadChildren(cell.row.original.browserObject)}
-            title={cell.row.original.browserObject.description}
-            additionalInfo={cell.row.original.browserObject.simpleType}
+            isLoaded={cell.row.original.data.isLoaded}
+            loadChildren={() => loadChildren(cell.row.original.data)}
+            title={cell.row.original.data.description}
+            additionalInfo={cell.row.original.data.simpleType}
             icon={IvyIcons.Attribute}
           />
         )
@@ -70,7 +62,7 @@ export const useAttributeBrowser = (onDoubleClick: () => void, location: string)
   );
 
   const calcFullPathId = (row: Row<GenericData<MappingTreeData>>) => {
-    return [...row.getParentRows().map(parent => parent.original.browserObject.attribute), row.original.browserObject.attribute].join('.');
+    return [...row.getParentRows().map(parent => parent.original.data.attribute), row.original.data.attribute].join('.');
   };
 
   const handleRowSelectionChange = (selectedRow: Row<GenericData<MappingTreeData>> | undefined) => {
@@ -90,9 +82,10 @@ export const useAttributeBrowser = (onDoubleClick: () => void, location: string)
       columns: columns,
       data: mappedSortedData,
       onRowSelectionChange: handleRowSelectionChange,
-      isFetching: inVarInfoIsFetching || outVarInfoIsFetching ? true : false,
-      additionalComponents: {
-        helperTextComponent: <code>{value.cursorValue}</code>
+      options: {
+        additionalComponents: {
+          helperTextComponent: <code>{value.cursorValue}</code>
+        }
       }
     },
     accept: () => value
