@@ -38,7 +38,11 @@ const SubCallPart = () => {
   );
 
   const action = useAction('newProcess');
-  const createProcess: FieldsetControl = { label: 'Create new Sub Process', icon: IvyIcons.Plus, action: () => action() };
+  const createProcess: FieldsetControl = {
+    label: 'Create new Sub Process',
+    icon: IvyIcons.Plus,
+    action: () => action('Callable Sub Process')
+  };
   const callField = useFieldset();
   return (
     <>

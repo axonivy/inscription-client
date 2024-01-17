@@ -38,7 +38,11 @@ const TriggerCallPart = () => {
   );
 
   const action = useAction('newProcess');
-  const createProcess: FieldsetControl = { label: 'Create new Trigger Process', icon: IvyIcons.Plus, action: () => action() };
+  const createProcess: FieldsetControl = {
+    label: 'Create new Trigger Process',
+    icon: IvyIcons.Plus,
+    action: () => action('Business Process')
+  };
   const callField = useFieldset();
   return (
     <>
