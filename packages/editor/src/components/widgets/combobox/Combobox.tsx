@@ -95,14 +95,24 @@ const Combobox = <T extends ComboboxItem>({
       <div className='combobox-input' {...(macro ? { ...focusWithinProps, tabIndex: 1 } : {})}>
         {macro ? (
           isFocusWithin || browser.open ? (
-            <SingleLineCodeEditor
-              {...focusValue}
-              value={value}
-              onChange={onChange}
-              context={{ location: path }}
-              macro={true}
-              onMountFuncs={[setEditor]}
-            />
+            <>
+              <SingleLineCodeEditor
+                {...focusValue}
+                value={value}
+                onChange={onChange}
+                context={{ location: path }}
+                macro={true}
+                onMountFuncs={[setEditor]}
+              />
+              {browserTypes || (macro && browserTypes!) ? (
+                <Browser
+                  {...browser}
+                  types={browserTypes ? browserTypes : ['attr']}
+                  accept={macro ? modifyEditor : (change: BrowserValue) => onChange(change.cursorValue)}
+                  location={path}
+                />
+              ) : null}
+            </>
           ) : (
             <CardText value={value} {...inputProps} />
           )
@@ -116,14 +126,6 @@ const Combobox = <T extends ComboboxItem>({
           aria-label='toggle menu'
           disabled={readonly}
         />
-        {browserTypes || (macro && browserTypes!) ? (
-          <Browser
-            {...browser}
-            types={browserTypes ? browserTypes : ['attr']}
-            accept={macro ? modifyEditor : (change: BrowserValue) => onChange(change.cursorValue)}
-            location={path}
-          />
-        ) : null}
       </div>
       <ul {...getMenuProps()} className='combobox-menu'>
         {isOpen &&

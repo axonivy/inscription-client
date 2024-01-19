@@ -5,10 +5,10 @@ import { PathContext, useEditorContext, useMeta, useValidations } from '../../..
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { ErrorThrowData } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import type { EventCodeItem } from '../common';
-import { EventCodeSelect, PathFieldset } from '../common';
+import type { ClassifiedItem } from '../common';
+import { ClassificationCombobox, PathFieldset } from '../common';
 import { useErrorThrowData } from './useErrorThrowData';
-import { eventCodeInfo } from '../../../utils/event-code';
+import { classifiedItemInfo } from '../../../utils/event-code-categorie';
 
 export function useErrorThrowPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useErrorThrowData();
@@ -28,8 +28,8 @@ const ErrorThrowPart = () => {
   const { config, update } = useErrorThrowData();
   const { context } = useEditorContext();
   const errorCodes = [
-    ...useMeta('meta/workflow/errorCodes', { context, thrower: true }, []).data.map<EventCodeItem>(code => {
-      return { ...code, value: code.eventCode, info: eventCodeInfo(code) };
+    ...useMeta('meta/workflow/errorCodes', { context, thrower: true }, []).data.map<ClassifiedItem>(code => {
+      return { ...code, value: code.eventCode, info: classifiedItemInfo(code) };
     })
   ];
 
@@ -38,11 +38,11 @@ const ErrorThrowPart = () => {
   return (
     <PathContext path='throws'>
       <PathFieldset label='Error Code to throw' {...errorField.labelProps} path='error'>
-        <EventCodeSelect
-          eventCode={config.throws.error}
+        <ClassificationCombobox
+          value={config.throws.error}
           onChange={change => update('error', change)}
-          eventCodes={errorCodes}
-          eventIcon={IvyIcons.Error}
+          data={errorCodes}
+          icon={IvyIcons.Error}
           comboboxInputProps={errorField.inputProps}
         />
       </PathFieldset>

@@ -6,7 +6,8 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type PID = string
+export type CategoryType = ("START" | "TASK" | "CASE")
+export type PID = string;
 export type ContentObjectType = "STRING" | "FILE" | "FOLDER";
 export type CustomFieldConfigType = "START" | "TASK" | "CASE";
 export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
@@ -30,6 +31,8 @@ export interface Inscription {
   boolean: boolean;
   callableDialogRequest: CallableDialogRequest;
   callableStart: CallableStart[];
+  categoryPathMeta: CategoryPathMeta[];
+  categoryPathRequest: CategoryPathRequest;
   cmsMetaRequest: CmsMetaRequest;
   connectorRef: ConnectorRef[];
   contentObject: ContentObject[];
@@ -108,6 +111,16 @@ export interface Variable {
   description: string;
   simpleType: string;
   type: string;
+}
+export interface CategoryPathMeta {
+  path: string;
+  process: string;
+  project: string;
+  usage: number;
+}
+export interface CategoryPathRequest {
+  context: InscriptionContext;
+  type: CategoryType;
 }
 export interface CmsMetaRequest {
   context: InscriptionContext;

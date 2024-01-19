@@ -7,7 +7,6 @@ import { useAttributeBrowser } from './attribute/AttributeBrowser';
 import { useCmsBrowser, type CmsOptions } from './cms/CmsBrowser';
 import { useFuncBrowser } from './function/FunctionBrowser';
 import { useTypeBrowser } from './type/TypeBrowser';
-import { useCatPathChooserBrowser } from './categorie/CatPathChooser';
 import { useTableColBrowser } from './tableCol/TableColBrowser';
 import { useSqlOpBrowser } from './sql/SqlOperationBrowser';
 import BrowserBody from './BrowserBody';
@@ -46,11 +45,10 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
         },
     location
   );
-  const catPathChooserBrowser = useCatPathChooserBrowser();
   const tableColBrowser = useTableColBrowser();
   const sqlOpBrowser = useSqlOpBrowser();
 
-  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, catPathChooserBrowser, tableColBrowser, sqlOpBrowser];
+  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, tableColBrowser, sqlOpBrowser];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
 
