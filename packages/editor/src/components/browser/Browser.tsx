@@ -46,7 +46,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
         },
     location
   );
-  const catPathChooserBrowser = useCatPathChooserBrowser();
+  const catPathChooserBrowser = useCatPathChooserBrowser(onRowDoubleClick, location);
   const tableColBrowser = useTableColBrowser();
   const sqlOpBrowser = useSqlOpBrowser();
 

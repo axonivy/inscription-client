@@ -6,7 +6,8 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type PID = string
+export type Type1 = ("START" | "TASK" | "CASE")
+export type PID = string;
 export type ContentObjectType = "STRING" | "FILE" | "FOLDER";
 export type CustomFieldConfigType = "START" | "TASK" | "CASE";
 export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
@@ -21,7 +22,7 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | 
 export type InputType = "ENTITY" | "FORM" | "RAW";
 export type WsAuth = "NONE" | "WS_SECURITY" | "HTTP_BASIC";
 export type Severity = "INFO" | "WARNING" | "ERROR";
-export type Type = "START" | "INTERMEDIATE" | "ACTIVITY";
+export type Type2 = "START" | "INTERMEDIATE" | "ACTIVITY";
 export type Widget = Script | Label | Text;
 export type WidgetType = "TEXT" | "LABEL" | "SCRIPT";
 
@@ -30,6 +31,8 @@ export interface Inscription {
   boolean: boolean;
   callableDialogRequest: CallableDialogRequest;
   callableStart: CallableStart[];
+  categoryPathMeta: CategoryPathMeta[];
+  categoryPathRequest: CategoryPathRequest;
   cmsMetaRequest: CmsMetaRequest;
   connectorRef: ConnectorRef[];
   contentObject: ContentObject[];
@@ -55,7 +58,7 @@ export interface Inscription {
   restClientRequest: RestClientRequest;
   restContentTypeRequest: RestContentTypeRequest;
   restEntityInfoRequest: RestEntityInfoRequest;
-  restResource: RestResource;
+  restResource: RestResource[];
   restResourceRequest: RestResourceRequest;
   roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
@@ -108,6 +111,16 @@ export interface Variable {
   description: string;
   simpleType: string;
   type: string;
+}
+export interface CategoryPathMeta {
+  path: string;
+  process: string;
+  project: string;
+  usage: number;
+}
+export interface CategoryPathRequest {
+  context: InscriptionContext;
+  type: Type1;
 }
 export interface CmsMetaRequest {
   context: InscriptionContext;
@@ -718,7 +731,7 @@ export interface ProgramInterface {
 }
 export interface ProgramInterfacesRequest {
   context: InscriptionContext;
-  type: Type;
+  type: Type2;
 }
 export interface RestClient {
   clientId: string;

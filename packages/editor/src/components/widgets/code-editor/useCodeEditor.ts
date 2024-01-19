@@ -38,8 +38,14 @@ export const useMonacoEditor = (options?: { modifyAction?: ModifyAction }) => {
         }
       ]);
     } else {
-      const text = value.cursorValue.length > 0 && options?.modifyAction ? options.modifyAction(value.cursorValue) : value.cursorValue;
+      const text =
+        value.cursorValue.length > 0 && options?.modifyAction && type !== 'catPath'
+          ? options.modifyAction(value.cursorValue)
+          : value.cursorValue;
       editor.executeEdits('browser', [{ range: selection, text, forceMoveMarkers: true }]);
+      if (type === 'catPath') {
+        editor.setValue(text);
+      }
       if (type === 'func') {
         const updatedEditorContent = editor.getValue();
         const editorModel = editor.getModel();

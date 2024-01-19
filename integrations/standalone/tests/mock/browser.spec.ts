@@ -95,6 +95,20 @@ test.describe('Script browser', () => {
     await expect(code(page).getByRole('textbox')).toHaveValue('ch.ivyteam.test.Person');
   });
 
+  test('browser add category', async ({ page }) => {
+    const inscriptionView = await InscriptionView.mock(page);
+    const task = inscriptionView.accordion('Task');
+    await task.toggle();
+
+    const category = task.macroInput('Category');
+    await assertCodeHidden(page);
+    await category.focus();
+    await assertCodeVisible(page);
+
+    await applyBrowser(page, 'Personal/TasksProject: inscription-integrationProcess: exampleProcessUsage: 1', 'Category Path Chooser', 1);
+    await expect(code(page).getByRole('textbox')).toHaveValue('Personal/Tasks');
+  });
+
   test('browser add type as list', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page);
     const task = inscriptionView.accordion('Task');
@@ -151,6 +165,20 @@ test.describe('Script browser', () => {
 
     await applyBrowserDblClick(page, 'Type', 0);
     await expect(code(page).getByRole('textbox')).toHaveValue('ch.ivyteam.test.Person');
+  });
+
+  test('browser add categoryPath doubleclick', async ({ page }) => {
+    const inscriptionView = await InscriptionView.mock(page);
+    const task = inscriptionView.accordion('Task');
+    await task.toggle();
+
+    const category = task.macroInput('Category');
+    await assertCodeHidden(page);
+    await category.focus();
+    await assertCodeVisible(page);
+
+    await applyBrowserDblClick(page, 'Category Path Chooser', 1);
+    await expect(code(page).getByRole('textbox')).toHaveValue('Personal/Tasks');
   });
 
   test('maximized code editor', async ({ page }) => {
