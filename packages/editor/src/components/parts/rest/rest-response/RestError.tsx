@@ -1,9 +1,10 @@
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { useFieldset } from '../../../widgets';
-import type { ExceptionItem, PathFieldsetProps } from '../../common';
-import { ExceptionCombobox, PathFieldset } from '../../common';
+import type { PathFieldsetProps } from '../../common';
+import { PathFieldset } from '../../common';
 import { useEditorContext, useMeta } from '../../../../context';
-import { eventCodeInfo } from '../../../../utils/event-code';
+import { classifiedItemInfo } from '../../../../utils/event-code-categorie';
+import { ExceptionCombobox, type ExceptionItem } from '../../common/exception-handler/ExceptionCombobox';
 
 type RestErrorProps = Omit<PathFieldsetProps, 'value' | 'onChange' | 'children'> & {
   value: string;
@@ -19,7 +20,7 @@ export const RestError = ({ label, path, value, onChange }: RestErrorProps) => {
       return {
         value: code.eventCode,
         label: code.eventCode,
-        info: eventCodeInfo(code)
+        info: classifiedItemInfo(code)
       };
     })
   ];

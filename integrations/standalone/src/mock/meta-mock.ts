@@ -7,7 +7,8 @@ import type {
   RoleMeta,
   ContentObject,
   DataClass,
-  JavaType
+  JavaType,
+  CategoryPathMeta
 } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
@@ -171,6 +172,21 @@ export namespace MetaMock {
     }
   ];
 
+  export const CATPATH: CategoryPathMeta[] = [
+    {
+      path: 'Dossier',
+      process: '<INVALID>',
+      project: 'inscription-screenshot',
+      usage: 2
+    },
+    {
+      path: 'Personal/Tasks',
+      process: 'exampleProcess',
+      project: 'inscription-integration',
+      usage: 1
+    }
+  ];
+
   export const RESULT_VAR_INFO: VariableInfo = {
     variables: [
       {
@@ -292,7 +308,7 @@ export namespace MetaMock {
     { label: 'ProcurementRequestParallel -> error:task:bla', id: 'f31' }
   ];
 
-  export const NOTIFICATION_TEMPLATES: string[] = [ 'Default', 'Customer', 'Employee' ];
+  export const NOTIFICATION_TEMPLATES: string[] = ['Default', 'Customer', 'Employee'];
 
   const NODE_OF: NodeRef = {
     pid: '1',

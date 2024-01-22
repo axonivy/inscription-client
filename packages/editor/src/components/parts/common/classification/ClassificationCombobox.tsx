@@ -1,26 +1,25 @@
-import type { EventCodeMeta } from '@axonivy/inscription-protocol';
-import type { ComboboxItem, FieldsetInputProps} from '../../../widgets';
+import type { ComboboxItem, FieldsetInputProps } from '../../../widgets';
 import { Combobox, IvyIcon } from '../../../widgets';
 import type { IvyIcons } from '@axonivy/editor-icons';
 
-export type EventCodeItem = Pick<EventCodeMeta, 'eventCode'> & { info?: string } & ComboboxItem;
+export type ClassifiedItem = { label?: string; info?: string } & ComboboxItem;
 
-type EventCodeSelectProps = {
-  eventCode: string;
+type ClassificatioComboboxProps = {
+  value: string;
   onChange: (change: string) => void;
-  eventCodes: EventCodeItem[];
-  eventIcon: IvyIcons;
+  data: ClassifiedItem[];
+  icon?: IvyIcons;
   comboboxInputProps?: FieldsetInputProps;
   withBrowser?: boolean;
 };
 
-const EventCodeSelect = ({ eventCode, onChange, eventCodes, eventIcon, comboboxInputProps, withBrowser }: EventCodeSelectProps) => {
-  const comboboxItem = (item: EventCodeItem) => {
+const ClassificationCombobox = ({ value, onChange, data, icon, comboboxInputProps, withBrowser }: ClassificatioComboboxProps) => {
+  const comboboxItem = (item: ClassifiedItem) => {
     return (
       <>
         <div>
-          <IvyIcon icon={eventIcon} />
-          {item.eventCode}
+          {icon && <IvyIcon icon={icon} />}
+          {item.label ? item.label : item.value}
         </div>
         {item.info && (
           <div>
@@ -33,9 +32,9 @@ const EventCodeSelect = ({ eventCode, onChange, eventCodes, eventIcon, comboboxI
 
   return (
     <Combobox
-      value={eventCode}
+      value={value}
       onChange={onChange}
-      items={eventCodes}
+      items={data}
       comboboxItem={comboboxItem}
       {...comboboxInputProps}
       {...(withBrowser
@@ -48,4 +47,4 @@ const EventCodeSelect = ({ eventCode, onChange, eventCodes, eventIcon, comboboxI
   );
 };
 
-export default EventCodeSelect;
+export default ClassificationCombobox;

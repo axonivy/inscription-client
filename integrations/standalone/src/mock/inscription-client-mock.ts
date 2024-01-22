@@ -77,7 +77,7 @@ export class InscriptionClientMock implements InscriptionClient {
       case 'meta/workflow/errorCodes':
       case 'meta/workflow/signalCodes':
         return Promise.resolve([]);
-      case 'meta/workflow/notificationTemplates': 
+      case 'meta/workflow/notificationTemplates':
         return Promise.resolve(MetaMock.NOTIFICATION_TEMPLATES);
       case 'meta/scripting/out':
         if ((args as ScriptingDataArgs).location === 'result') {
@@ -104,6 +104,8 @@ export class InscriptionClientMock implements InscriptionClient {
         return Promise.resolve(MetaMock.DATACLASS);
       case 'meta/scripting/allTypes':
         return Promise.resolve(MetaMock.DATATYPE);
+      case 'meta/workflow/categoryPaths':
+        return Promise.resolve(MetaMock.CATPATH);
       default:
         throw Error('mock meta path not programmed');
     }

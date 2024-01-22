@@ -5,9 +5,9 @@ import { useErrorCatchData } from './useErrorCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { ErrorCatchData } from '@axonivy/inscription-protocol';
-import type { EventCodeItem } from '../common';
-import { EventCodeSelect, PathFieldset } from '../common';
-import { eventCodeInfo } from '../../../utils/event-code';
+import type { ClassifiedItem } from '../common';
+import { ClassificationCombobox, PathFieldset } from '../common';
+import { classifiedItemInfo } from '../../../utils/event-code-categorie';
 
 export function useErrorCatchPart(): PartProps {
   const { config, defaultConfig, initConfig, updateError } = useErrorCatchData();
@@ -27,20 +27,20 @@ const ErrorCatchPart = () => {
   const { config, updateError } = useErrorCatchData();
   const { context } = useEditorContext();
   const errorCodes = [
-    { value: '', eventCode: '<< Empty >>', info: 'Catches all errors' },
-    ...useMeta('meta/workflow/errorCodes', { context, thrower: false }, []).data.map<EventCodeItem>(code => {
-      return { ...code, value: code.eventCode, info: eventCodeInfo(code) };
+    { value: '', label: '<< Empty >>', info: 'Catches all errors' },
+    ...useMeta('meta/workflow/errorCodes', { context, thrower: false }, []).data.map<ClassifiedItem>(code => {
+      return { ...code, value: code.eventCode, info: classifiedItemInfo(code) };
     })
   ];
 
   const errorField = useFieldset();
   return (
     <PathFieldset label='Error Code' {...errorField.labelProps} path='errorCode'>
-      <EventCodeSelect
-        eventCode={config.errorCode}
+      <ClassificationCombobox
+        value={config.errorCode}
         onChange={change => updateError(change)}
-        eventCodes={errorCodes}
-        eventIcon={IvyIcons.Error}
+        data={errorCodes}
+        icon={IvyIcons.Error}
         comboboxInputProps={errorField.inputProps}
       />
     </PathFieldset>

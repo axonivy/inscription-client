@@ -5,9 +5,9 @@ import { Checkbox, useFieldset } from '../../widgets';
 import { useSignalCatchData } from './useSignalCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import type { SignalCatchData } from '@axonivy/inscription-protocol';
-import type { EventCodeItem } from '../common';
-import { EventCodeSelect, PathFieldset } from '../common';
-import { eventCodeInfo } from '../../../utils/event-code';
+import type { ClassifiedItem } from '../common';
+import { ClassificationCombobox, PathFieldset } from '../common';
+import { classifiedItemInfo } from '../../../utils/event-code-categorie';
 
 export function useSignalCatchPart(options?: { makroSupport?: boolean; withBrowser?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useSignalCatchData();
@@ -27,9 +27,9 @@ const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean
   const { config, update, updateSignal } = useSignalCatchData();
   const { context } = useEditorContext();
   const signalCodes = [
-    { value: '', eventCode: '<< Empty >>', info: 'Receives every signal' },
-    ...useMeta('meta/workflow/signalCodes', { context, macro: !!makroSupport }, []).data.map<EventCodeItem>(code => {
-      return { ...code, value: code.eventCode, info: eventCodeInfo(code) };
+    { value: '', label: '<< Empty >>', info: 'Receives every signal' },
+    ...useMeta('meta/workflow/signalCodes', { context, macro: !!makroSupport }, []).data.map<ClassifiedItem>(code => {
+      return { ...code, value: code.eventCode, info: classifiedItemInfo(code) };
     })
   ];
 
@@ -37,12 +37,11 @@ const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean
   return (
     <>
       <PathFieldset label='Signal Code' {...signalField.labelProps} path='signalCode'>
-        {/* todo: somehow support macro input here... */}
-        <EventCodeSelect
-          eventCode={config.signalCode}
+        <ClassificationCombobox
+          value={config.signalCode}
           onChange={change => updateSignal(change)}
-          eventCodes={signalCodes}
-          eventIcon={IvyIcons.StartSignal}
+          data={signalCodes}
+          icon={IvyIcons.StartSignal}
           comboboxInputProps={signalField.inputProps}
           withBrowser={withBrowser}
         />

@@ -36,7 +36,9 @@ import type {
   SignalCodeRequest,
   CallableDialogRequest,
   Function,
-  ApiDocRequest
+  ApiDocRequest,
+  CategoryPathRequest,
+  CategoryPathMeta
 } from './data/inscription';
 import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -51,6 +53,7 @@ export interface InscriptionMetaRequestTypes {
   'meta/workflow/errorCodes': [ErrorCodeRequest, EventCodeMeta[]];
   'meta/workflow/signalCodes': [SignalCodeRequest, EventCodeMeta[]];
   'meta/workflow/notificationTemplates': [InscriptionContext, string[]];
+  'meta/workflow/categoryPaths': [CategoryPathRequest, CategoryPathMeta[]];
 
   'meta/database/names': [InscriptionContext, string[]];
   'meta/database/tables': [DatabaseTablesRequest, string[]];
