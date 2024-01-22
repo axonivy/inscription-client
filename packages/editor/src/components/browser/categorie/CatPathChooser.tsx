@@ -12,7 +12,7 @@ import {
   getFilteredRowModel,
   flexRender
 } from '@tanstack/react-table';
-import type { CategoryPathMeta, Type1 } from '@axonivy/inscription-protocol';
+import type { CategoryPathMeta, CategoryType } from '@axonivy/inscription-protocol';
 export const CAT_PATH_CHOOSER_BROWSER_ID = 'catPath' as const;
 
 export const useCatPathChooserBrowser = (onDoubleClick: () => void, location: string): UseBrowserImplReturnValue => {
@@ -35,18 +35,18 @@ const CatPathChooserBrowser = (props: {
 }) => {
   const { context } = useEditorContext();
 
-  const type = (): Type1 => {
+  const type = (): CategoryType => {
     const location = props.location.toLowerCase();
-    switch (true) {
-      case location.includes('request') || location.includes('start'):
-        return 'START';
-      case location.includes('case'):
-        return 'CASE';
-      case location.includes('task'):
-        return 'TASK';
-      default:
-        throw new Error('Unknown type');
+    if (location.includes('request') || location.includes('start')) {
+      return 'START';
     }
+    if (location.includes('case')) {
+      return 'CASE';
+    }
+    if (location.includes('task')) {
+      return 'TASK';
+    }
+    return '' as CategoryType;
   };
   const { data } = useMeta('meta/workflow/categoryPaths', { context, type: type() }, []);
   const [showHelper, setShowHelper] = useState<boolean>(false);

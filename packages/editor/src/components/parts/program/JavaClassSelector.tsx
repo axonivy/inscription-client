@@ -3,13 +3,13 @@ import { Combobox, useFieldset } from '../../../components/widgets';
 import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { Consumer } from '../../../types/lambda';
 import { PathFieldset } from '../common';
-import type { Type2 } from '@axonivy/inscription-protocol';
+import type { Type } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 
 type JavaClassSelectorProps = {
   javaClass: string;
   onChange: Consumer<string>;
-  type: Type2;
+  type: Type;
 };
 
 const JavaClassSelector = ({ javaClass, onChange, type }: JavaClassSelectorProps) => {

@@ -6,7 +6,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Type1 = ("START" | "TASK" | "CASE")
+export type CategoryType = ("START" | "TASK" | "CASE")
 export type PID = string;
 export type ContentObjectType = "STRING" | "FILE" | "FOLDER";
 export type CustomFieldConfigType = "START" | "TASK" | "CASE";
@@ -22,7 +22,7 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | 
 export type InputType = "ENTITY" | "FORM" | "RAW";
 export type WsAuth = "NONE" | "WS_SECURITY" | "HTTP_BASIC";
 export type Severity = "INFO" | "WARNING" | "ERROR";
-export type Type2 = "START" | "INTERMEDIATE" | "ACTIVITY";
+export type Type = "START" | "INTERMEDIATE" | "ACTIVITY";
 export type Widget = Script | Label | Text;
 export type WidgetType = "TEXT" | "LABEL" | "SCRIPT";
 
@@ -58,7 +58,7 @@ export interface Inscription {
   restClientRequest: RestClientRequest;
   restContentTypeRequest: RestContentTypeRequest;
   restEntityInfoRequest: RestEntityInfoRequest;
-  restResource: RestResource[];
+  restResource: RestResource;
   restResourceRequest: RestResourceRequest;
   roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
@@ -120,7 +120,7 @@ export interface CategoryPathMeta {
 }
 export interface CategoryPathRequest {
   context: InscriptionContext;
-  type: Type1;
+  type: CategoryType;
 }
 export interface CmsMetaRequest {
   context: InscriptionContext;
@@ -731,7 +731,7 @@ export interface ProgramInterface {
 }
 export interface ProgramInterfacesRequest {
   context: InscriptionContext;
-  type: Type2;
+  type: Type;
 }
 export interface RestClient {
   clientId: string;
