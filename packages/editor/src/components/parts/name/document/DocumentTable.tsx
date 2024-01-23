@@ -27,7 +27,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
         accessorFn: row => row.url,
         id: 'url',
         header: header => <SortableHeader header={header} name='URL' />,
-        cell: cell => <EditableCell cell={cell} placeholder={'Enter a Name'} />
+        cell: cell => <EditableCell cell={cell} placeholder={'Enter a URL'} />
       }
     ],
     []

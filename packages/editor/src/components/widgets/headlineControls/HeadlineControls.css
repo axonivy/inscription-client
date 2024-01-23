@@ -18,5 +18,5 @@
   height: 10px;
   width: 1px;
   background-color: var(--N200);
-  border-radius: 5px;
+  border-radius: var(--border-radius);
 }
