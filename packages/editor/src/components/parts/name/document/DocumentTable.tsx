@@ -89,13 +89,18 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
 
   const action = useAction('openPage');
 
+  const cleanUpTable = () => {
+    const filteredData = data.filter(obj => obj.name !== '' || obj.url !== '');
+
+    if (filteredData.length !== data.length) {
+      setRowIndex(-1);
+      setRowSelection({});
+      onChange(filteredData);
+    }
+  };
+
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
-      const filteredData = data.filter(obj => obj.name !== '' || obj.url !== '');
-
-      if (filteredData.length !== data.length && data.length > 1) {
-        onChange(filteredData);
-      }
       return;
     }
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
@@ -104,11 +109,19 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
   }, [data, onChange, rowSelection, table]);
 
   const tableActions =
-    rowIndex > -1
+    rowIndex > -1 && data.filter(obj => obj.name === '' && obj.url === '').length === 0
       ? [
           { label: 'Browse', icon: IvyIcons.Search, action: () => {} },
           { label: 'Open URL', icon: IvyIcons.GoToSource, action: () => action(rowUrl) }
         ]
+      : rowIndex > -1 && data.filter(obj => obj.name === '' && obj.url === '').length > 0
+      ? [
+          { label: 'Browse', icon: IvyIcons.Search, action: () => {} },
+          { label: 'Open URL', icon: IvyIcons.GoToSource, action: () => action(rowUrl) },
+          { label: 'Cleanup Table', icon: IvyIcons.Redo, action: () => cleanUpTable(), withSeperator: true }
+        ]
+      : data.filter(obj => obj.name === '' && obj.url === '').length > 0
+      ? [{ label: 'Cleanup Table', icon: IvyIcons.Redo, action: () => cleanUpTable() }]
       : [];
 
   return (
