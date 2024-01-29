@@ -24,10 +24,11 @@ type CodeEditorCellProps<TData> = {
   cell: CellContext<TData, unknown>;
   makro: boolean;
   type?: string;
+  placeholder?: string;
   browsers: BrowserType[];
 };
 
-export function CodeEditorCell<TData>({ cell, makro, type, browsers }: CodeEditorCellProps<TData>) {
+export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder }: CodeEditorCellProps<TData>) {
   const initialValue = cell.getValue() as string;
   const [value, setValue] = useState(initialValue);
   useEffect(() => {
@@ -52,6 +53,12 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers }: CodeEdito
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useMonacoEditor();
 
+  useEffect(() => {
+    if (open && !cell.row.getIsSelected()) {
+      cell.row.toggleSelected();
+    }
+  }, [cell.row, open]);
+
   return (
     <>
       {type && type.length === 0 ? (
@@ -66,6 +73,7 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers }: CodeEdito
                 setOpen(true);
               }}
               type='input'
+              placeholder={placeholder}
             />
           </PopoverTrigger>
           <PopoverPortal container={editorContext.editorRef.current}>

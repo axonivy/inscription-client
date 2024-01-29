@@ -3,10 +3,10 @@ import TaskOptionsPart from '../options/TaskOptionsPart';
 import PrioritySelect from '../priority/PrioritySelect';
 import ResponsibleSelect from '../../common/responsible/ResponsibleSelect';
 import { useTaskData } from '../useTaskData';
-import { CustomFieldPart } from '../../common';
 import Information from '../../common/info/Information';
 import TaskCode from '../code/TaskCode';
 import NotificationPart from '../notification/NotificationPart';
+import CustomFieldTable from '../../common/customfield/CustomFieldTable';
 
 const Task = () => {
   const { task, update, updateResponsible, updatePriority } = useTaskData();
@@ -17,7 +17,7 @@ const Task = () => {
       <PrioritySelect priority={task.priority} updatePriority={updatePriority} />
       <TaskOptionsPart />
       <ExpiryPart />
-      <CustomFieldPart customFields={task.customFields} updateCustomFields={change => update('customFields', change)} type='TASK' />
+      <CustomFieldTable data={task.customFields} onChange={change => update('customFields', change)} type='TASK' />
       <NotificationPart />
       <TaskCode />
     </>

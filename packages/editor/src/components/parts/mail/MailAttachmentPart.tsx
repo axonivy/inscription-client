@@ -1,4 +1,4 @@
-import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableFooter, TableHeader } from '../../widgets';
+import { ActionCell, ScriptCell, Table, TableAddRow, TableCell, TableHeader } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
@@ -67,32 +67,32 @@ const MailAttachmentTable = () => {
   });
 
   return (
-    <Table>
-      <thead>
-        {table.getHeaderGroups().map(headerGroup => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map(header => (
-              <TableHeader key={header.id} colSpan={header.colSpan}>
-                {flexRender(header.column.columnDef.header, header.getContext())}
-              </TableHeader>
-            ))}
-            <TableHeader colSpan={1} />
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map(row => (
-          <ValidationRow key={row.id} rowPathSuffix={row.index}>
-            {row.getVisibleCells().map(cell => (
-              <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-            ))}
-            <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Trash, action: () => removeTableRow(row.index) }]} />
-          </ValidationRow>
-        ))}
-      </tbody>
-      <TableFooter>
-        <TableAddRow colSpan={4} addRow={addRow} />
-      </TableFooter>
-    </Table>
+    <>
+      <Table>
+        <thead>
+          {table.getHeaderGroups().map(headerGroup => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
+                <TableHeader key={header.id} colSpan={header.colSpan}>
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHeader>
+              ))}
+              <TableHeader colSpan={1} />
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map(row => (
+            <ValidationRow colSpan={1} key={row.id} rowPathSuffix={row.index}>
+              {row.getVisibleCells().map(cell => (
+                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+              ))}
+              <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Trash, action: () => removeTableRow(row.index) }]} />
+            </ValidationRow>
+          ))}
+        </tbody>
+      </Table>
+      <TableAddRow addRow={addRow} />
+    </>
   );
 };

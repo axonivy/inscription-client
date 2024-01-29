@@ -23,7 +23,7 @@ describe('StartCustomFieldTable', () => {
 
   test('table will render', () => {
     renderTable();
-    TableUtil.assertHeaders(['Name', 'Expression', '', '']);
+    TableUtil.assertHeaders(['Name', 'Expression']);
     TableUtil.assertRows([/field1/, /number/]);
   });
 
@@ -49,7 +49,12 @@ describe('StartCustomFieldTable', () => {
 
   test('table can add/remove rows by keyboard', async () => {
     const view = renderTable();
-    await TableUtil.assertAddAndRemoveWithKeyboard(view, 2);
+    await TableUtil.assertAddRowWithKeyboard(view, 'number');
+    expect(view.data()).toEqual([
+      { name: 'field1', value: 'this is a string' },
+      { name: 'number', value: '1' },
+      { name: '', value: '' }
+    ]);
   });
 
   test('table can edit cells', async () => {

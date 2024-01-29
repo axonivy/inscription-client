@@ -1,20 +1,42 @@
 .table .table-column-header {
-  padding: var(--size-2);
   text-align: start;
   font-size: 12px;
   height: 20px;
+  font-weight: normal;
   border-bottom: var(--basic-border);
+  position: relative;
+  padding: var(--size-2);
+}
+
+.table .table-column-header:has(.has-resizer) {
+  padding-right: 0px;
 }
 
 .table .table-column-header :where(.column-sort, .column-expand) {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.table .table-column-header .header-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--size-1);
+}
+
+.table .table-column-header .column-sort-button:hover {
+  background-color: var(--background);
 }
 
 .table .table-column-header .column-sort-button[data-state='unsorted'] {
   transform: rotate(-90deg);
+  color: var(--N200);
 }
+.table .table-column-header .column-sort-button[data-state='unsorted']:hover {
+  color: var(--body);
+}
+
 .table .table-column-header .column-sort-button[data-state='asc'] {
   transform: rotate(90deg);
 }
@@ -28,4 +50,18 @@
 }
 .table .table-column-header .column-expand-button[data-state='collapsed'] .ivy-chevron {
   transform: rotate(0deg);
+}
+
+.table-column-header .resizer {
+  width: 3px;
+  border-radius: var(--border-radius);
+  height: 18px;
+  background-color: var(--N200);
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+}
+.table-column-header .resizer:where(:hover, .is-resizing) {
+  width: 5px;
+  background: var(--A300);
 }

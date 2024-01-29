@@ -1,7 +1,7 @@
 import './ReorderRow.css';
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import { useRef } from 'react';
-import type { TextDropItem} from 'react-aria';
+import type { TextDropItem } from 'react-aria';
 import { useDrag, useDrop } from 'react-aria';
 import IvyIcon from '../../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
@@ -45,6 +45,7 @@ export const ReorderRow = ({ id, updateOrder, children, ...props }: ReorderRowPr
       {...dragProps}
       {...dropProps}
       ref={ref}
+      colSpan={2}
       className={`dnd-row${isDragging ? ' dragging' : ''}${isDropTarget ? ' target' : ''}`}
       {...props}
     >

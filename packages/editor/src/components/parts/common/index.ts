@@ -1,4 +1,4 @@
-export { default as CustomFieldPart } from './customfield/CustomFieldPart';
+export { default as CustomFieldTable } from './customfield/CustomFieldTable';
 export { default as ClassificationCombobox } from './classification/ClassificationCombobox';
 export * from './classification/ClassificationCombobox';
 export { default as ExceptionSelect } from './exception-handler/ExceptionSelect';

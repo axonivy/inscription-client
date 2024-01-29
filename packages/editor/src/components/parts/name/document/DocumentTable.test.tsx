@@ -1,6 +1,6 @@
 import type { Document } from '@axonivy/inscription-protocol';
 import DocumentTable from './DocumentTable';
-import { render, screen, TableUtil, userEvent } from 'test-utils';
+import { CollapsableUtil, render, screen, TableUtil, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('DocumentTable', () => {
@@ -21,9 +21,10 @@ describe('DocumentTable', () => {
     };
   }
 
-  test('table will render', () => {
+  test('table will render', async () => {
     renderTable();
-    TableUtil.assertHeaders(['Name', 'URL', '', '']);
+    CollapsableUtil.assertOpen('Means / Documents');
+    TableUtil.assertHeaders(['Name', 'URL']);
     TableUtil.assertRows([/Doc 1 axonivy.com/, /ivyTeam ❤️ ivyteam.ch/]);
   });
 
@@ -47,13 +48,20 @@ describe('DocumentTable', () => {
     await TableUtil.assertRemoveRow(view, 1);
   });
 
-  test('table can add/remove rows by keyboard', async () => {
+  test('table can add rows by keyboard', async () => {
     const view = renderTable();
-    await TableUtil.assertAddAndRemoveWithKeyboard(view, 2);
+    await TableUtil.assertAddRowWithKeyboard(view, 'ivyTeam ❤️');
+    expect(view.data()).toEqual([
+      { name: 'Doc 1', url: 'axonivy.com' },
+      { name: 'ivyTeam ❤️', url: 'ivyteam.ch' },
+      { name: '', url: '' }
+    ]);
   });
 
   test('table can edit cells', async () => {
     const view = renderTable();
+    expect(screen.getAllByRole('row').length).toBe(3);
+    (await screen.findByText('Means / Documents')).focus();
     await userEvent.tab(); // column header 1
     await userEvent.tab(); // column header 2
     await userEvent.tab();
@@ -61,7 +69,6 @@ describe('DocumentTable', () => {
     await userEvent.keyboard('Hello');
     await userEvent.tab();
     view.rerender();
-
     const descInput = screen.getByDisplayValue(/ivyteam.ch/);
     await userEvent.clear(descInput);
     await userEvent.type(descInput, 'World');

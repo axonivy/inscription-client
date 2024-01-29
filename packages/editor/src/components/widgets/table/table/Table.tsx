@@ -11,8 +11,8 @@ type TableProps = {
 export const Table = forwardRef<HTMLDivElement, TableProps>(({ children, search }, forwardRef) => (
   <div className='table-root'>
     {search && <IconInput icon={IvyIcons.Search} initFocus={true} placeholder='Search' {...search} />}
-    <div className='table-container'>
-      <div ref={forwardRef}>
+    <div ref={forwardRef} className='table-container'>
+      <div>
         <table className='table'>{children}</table>
       </div>
     </div>

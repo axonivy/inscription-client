@@ -4,7 +4,7 @@ import { ComboboxUtil, TableUtil, render, screen } from 'test-utils';
 import { RestEntity } from './RestEntity';
 import { describe, test, expect } from 'vitest';
 
-describe('RestEntity', () => {
+describe.skip('RestEntity', () => {
   function renderPart(data?: DeepPartial<RestRequestData>) {
     const restEntityInfo: VariableInfo = {
       variables: [

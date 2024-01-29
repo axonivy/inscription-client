@@ -12,7 +12,6 @@ import {
   Table,
   TableAddRow,
   TableCell,
-  TableFooter,
   TableHeader
 } from '../../../../components/widgets';
 import { useEditorContext, useMeta } from '../../../../context';
@@ -150,10 +149,8 @@ export const TableSort = () => {
             </ReorderRow>
           ))}
         </tbody>
-        <TableFooter>
-          <TableAddRow colSpan={4} addRow={addRow} />
-        </TableFooter>
       </Table>
+      <TableAddRow addRow={addRow} />
     </PathCollapsible>
   );
 };

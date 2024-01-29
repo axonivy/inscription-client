@@ -4,7 +4,7 @@ import { usePartDirty, usePartState } from '../../editors';
 import { useStartData } from './useStartData';
 import type { StartData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { MappingPart, ParameterTable, PathCollapsible, PathFieldset } from '../common';
+import { MappingPart, ParameterTable, PathFieldset } from '../common';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
@@ -39,15 +39,19 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
 
   const signatureFieldset = useFieldset();
   const codeFieldset = useFieldset();
+
   return (
     <>
       <PathFieldset label='Signature' {...signatureFieldset.labelProps} path='signature'>
         <Input value={config.signature} onChange={change => updateSignature(change)} {...signatureFieldset.inputProps} />
       </PathFieldset>
       <PathContext path='input'>
-        <PathCollapsible label='Input parameters' path='params'>
-          <ParameterTable data={config.input.params} onChange={change => update('params', change)} hideDesc={hideParamDesc} />
-        </PathCollapsible>
+        <ParameterTable
+          label='Input parameters'
+          data={config.input.params}
+          onChange={change => update('params', change)}
+          hideDesc={hideParamDesc}
+        />
         <MappingPart
           data={config.input.map}
           variableInfo={variableInfo}

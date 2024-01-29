@@ -1,16 +1,6 @@
 import { ValidationRow } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import {
-  ActionCell,
-  EditableCell,
-  ScriptCell,
-  SortableHeader,
-  Table,
-  TableAddRow,
-  TableCell,
-  TableFooter,
-  TableHeader
-} from '../../../../widgets';
+import { ActionCell, EditableCell, ScriptCell, SortableHeader, Table, TableAddRow, TableCell, TableHeader } from '../../../../widgets';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
@@ -102,7 +92,7 @@ export const RestForm = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <ValidationRow key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
+            <ValidationRow colSpan={3} key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}
@@ -119,10 +109,8 @@ export const RestForm = () => {
             </ValidationRow>
           ))}
         </tbody>
-        <TableFooter>
-          <TableAddRow colSpan={4} addRow={addRow} />
-        </TableFooter>
       </Table>
+      <TableAddRow addRow={addRow} />
     </PathContext>
   );
 };

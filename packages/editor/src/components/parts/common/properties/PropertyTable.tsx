@@ -11,7 +11,6 @@ import {
   Table,
   TableAddRow,
   TableCell,
-  TableFooter,
   TableHeader
 } from '../../../../components/widgets';
 import { Property } from './properties';
@@ -80,37 +79,37 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
     }
   });
   return (
-    <Table>
-      <thead>
-        {table.getHeaderGroups().map(headerGroup => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map(header => (
-              <TableHeader key={header.id} colSpan={header.colSpan}>
-                {flexRender(header.column.columnDef.header, header.getContext())}
-              </TableHeader>
-            ))}
-            <TableHeader colSpan={1} />
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map(row => {
-          if (hideProperties?.includes(row.original.name)) {
-            return null;
-          }
-          return (
-            <ValidationRow key={row.id} rowPathSuffix={row.original.name}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+    <>
+      <Table>
+        <thead>
+          {table.getHeaderGroups().map(headerGroup => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
+                <TableHeader key={header.id} colSpan={header.colSpan}>
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHeader>
               ))}
-              <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Trash, action: () => removeTableRow(row.index) }]} />
-            </ValidationRow>
-          );
-        })}
-      </tbody>
-      <TableFooter>
-        <TableAddRow colSpan={4} addRow={addRow} />
-      </TableFooter>
-    </Table>
+              <TableHeader colSpan={1} />
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map(row => {
+            if (hideProperties?.includes(row.original.name)) {
+              return null;
+            }
+            return (
+              <ValidationRow colSpan={3} key={row.id} rowPathSuffix={row.original.name}>
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                ))}
+                <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Trash, action: () => removeTableRow(row.index) }]} />
+              </ValidationRow>
+            );
+          })}
+        </tbody>
+      </Table>
+      <TableAddRow addRow={addRow} />
+    </>
   );
 };

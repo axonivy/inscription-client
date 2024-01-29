@@ -1,10 +1,10 @@
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useCaseData } from './useCaseData';
 import type { CaseData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import { CustomFieldPart } from '../common';
 import Information from '../common/info/Information';
+import CustomFieldTable from '../common/customfield/CustomFieldTable';
 
 export function useCasePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useCaseData();
@@ -21,7 +21,7 @@ const CasePart = () => {
   return (
     <PathContext path='case'>
       <Information config={config.case} update={update} />
-      <CustomFieldPart customFields={config.case.customFields} updateCustomFields={change => update('customFields', change)} type='CASE' />
+      <CustomFieldTable data={config.case.customFields} onChange={change => update('customFields', change)} type='CASE' />
     </PathContext>
   );
 };

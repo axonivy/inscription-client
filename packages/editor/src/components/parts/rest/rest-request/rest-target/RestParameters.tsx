@@ -10,7 +10,6 @@ import {
   Table,
   TableAddRow,
   TableCell,
-  TableFooter,
   TableHeader
 } from '../../../../widgets';
 import type { ColumnDef, SortingState } from '@tanstack/react-table';
@@ -113,7 +112,7 @@ export const RestParameters = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <ValidationRow key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
+            <ValidationRow colSpan={5} key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}
@@ -130,10 +129,8 @@ export const RestParameters = () => {
             </ValidationRow>
           ))}
         </tbody>
-        <TableFooter>
-          <TableAddRow colSpan={4} addRow={addRow} />
-        </TableFooter>
       </Table>
+      <TableAddRow addRow={addRow} />
     </PathCollapsible>
   );
 };

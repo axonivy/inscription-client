@@ -23,7 +23,7 @@ describe('StartPart', () => {
     } else {
       await CollapsableUtil.toggle('Input parameters');
       TableUtil.assertRows(params, 1);
-      TableUtil.assertRows(map, 4);
+      TableUtil.assertRows(map, 3);
     }
     expect(await screen.findByLabelText('Code')).toHaveValue(code);
   }

@@ -37,7 +37,7 @@ export function ExpandableCell<TData>({
         paddingLeft: `${
           row.getCanExpand()
             ? `calc(${row.depth} * var(--tree-gap))`
-            : `calc(${row.depth > 0 && icon ? '24px' : '0'} + ${row.depth} * var(--tree-gap))`
+            : `calc(${row.depth > 0 && icon ? '24px' : '0px'} + ${row.depth} * var(--tree-gap))`
         }`
       }}
       title={title}

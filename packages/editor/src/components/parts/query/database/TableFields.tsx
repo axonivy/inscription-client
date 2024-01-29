@@ -97,7 +97,7 @@ export const TableFields = () => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map(row => (
-              <ValidationRow key={row.id} rowPathSuffix={row.original.name}>
+              <ValidationRow colSpan={3} key={row.id} rowPathSuffix={row.original.name}>
                 {row.getVisibleCells().map(cell => (
                   <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                 ))}

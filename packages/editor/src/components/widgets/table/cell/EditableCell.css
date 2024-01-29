@@ -1,15 +1,13 @@
 .table-cell:has(.input) {
-  padding: var(--size-1);
+  padding: 1px;
 }
 .table-cell .input {
   border: none;
-  padding: var(--size-1);
-  width: calc(100% - var(--size-2));
-  background-color: var(--N25);
-}
-.table-cell .input:where(:hover, :focus),
-.table-cell .code-editor .input {
+  padding: 8px;
+  width: calc(100% - 15px);
   background-color: var(--background);
+  color: var(--body);
+  border-radius: 0px;
 }
 
 .editableCell-with-browser {

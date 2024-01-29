@@ -22,6 +22,7 @@ const GeneralPart = (props: { hideTags?: boolean; disableName?: boolean }) => {
 
   const nameField = useFieldset();
   const descriptionField = useFieldset();
+
   return (
     <>
       <Fieldset label='Display name' {...nameField.labelProps}>
@@ -41,9 +42,9 @@ const GeneralPart = (props: { hideTags?: boolean; disableName?: boolean }) => {
           {...descriptionField.inputProps}
         />
       </Fieldset>
-      <Collapsible label='Means / Documents' defaultOpen={data.docs !== undefined && data.docs.length > 0}>
-        <DocumentTable data={data.docs} onChange={change => update('docs', change)} />
-      </Collapsible>
+
+      <DocumentTable data={data.docs} onChange={change => update('docs', change)} />
+
       {!props.hideTags && (
         <Collapsible label='Tags' defaultOpen={data.tags !== undefined && data.tags.length > 0}>
           <Tags tags={data.tags ?? []} onChange={change => update('tags', change)} />

@@ -1,43 +1,85 @@
 import './TableHeader.css';
-import type { HeaderContext } from '@tanstack/react-table';
-import type { ReactNode } from 'react';
+import type { HeaderContext, HeaderGroup, RowSelectionState } from '@tanstack/react-table';
 import Button from '../../button/Button';
 import { IvyIcons } from '@axonivy/editor-icons';
 
-export const TableHeader = (props: { colSpan: number; children?: ReactNode }) => (
-  <th className='table-column-header' colSpan={props.colSpan}>
-    {props.children}
+export const TableHeader = ({ children, colSpan, ...props }: React.HTMLAttributes<HTMLTableCellElement> & { colSpan?: number }) => (
+  <th className='table-column-header' colSpan={colSpan} {...props}>
+    {children}
   </th>
 );
 
-export function SortableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string }) {
+export const ResizableHeader = <TData,>({
+  children,
+  setRowSelection,
+  headerGroup,
+  ...props
+}: React.HTMLAttributes<HTMLTableRowElement> & {
+  setRowSelection: (value: React.SetStateAction<RowSelectionState>) => void;
+  headerGroup: HeaderGroup<TData>;
+}) => (
+  <tr
+    onClick={() => {
+      setRowSelection({});
+    }}
+    onDoubleClick={() => {
+      headerGroup.headers.forEach(header => {
+        header.column.resetSize();
+      });
+    }}
+    {...props}
+  >
+    {children}
+  </tr>
+);
+
+export function SortableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string; seperator?: boolean }) {
   const header = props.header;
   return (
-    <div className='column-sort'>
-      <span className='column-sort-label'>{props.name}</span>
-      <Button
-        className={header.column.getCanSort() ? 'column-sort-button' : ''}
-        aria-label={`Sort by ${props.name}`}
-        onClick={header.column.getToggleSortingHandler()}
-        data-state={header.column.getIsSorted() || 'unsorted'}
-        icon={header.column.getIsSorted() ? IvyIcons.Chevron : IvyIcons.Straighten}
-      />
+    <>
+      <div className={`column-sort ${props.seperator ? 'has-resizer' : ''}`}>
+        <span className='column-sort-label'>{props.name}</span>
+        <div className='header-buttons'>
+          <Button
+            className={header.column.getCanSort() ? 'column-sort-button' : ''}
+            aria-label={`Sort by ${props.name}`}
+            onClick={header.column.getToggleSortingHandler()}
+            data-state={header.column.getIsSorted() || 'unsorted'}
+            icon={header.column.getIsSorted() ? IvyIcons.Chevron : IvyIcons.Straighten}
+          />
+          {props.seperator && <ColumnResizer header={header} />}
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function ExpandableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string; seperator?: boolean }) {
+  const header = props.header;
+  return (
+    <div className={`column-expand ${props.seperator ? 'has-resizer' : ''}`}>
+      <div className='header-buttons'>
+        <Button
+          icon={IvyIcons.Chevron}
+          className='column-expand-button'
+          aria-label={header.table.getIsAllRowsExpanded() ? 'Collapse tree' : 'Expand tree'}
+          data-state={header.table.getIsAllRowsExpanded() ? 'expanded' : 'collapsed'}
+          {...{ onClick: header.table.getToggleAllRowsExpandedHandler() }}
+        />
+        <span className='column-expand-label'>{props.name}</span>
+      </div>
+
+      {props.seperator && <ColumnResizer header={header} />}
     </div>
   );
 }
 
-export function ExpandableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string }) {
-  const table = props.header.table;
+function ColumnResizer<TData>(props: { header: HeaderContext<TData, unknown> }) {
   return (
-    <div className='column-expand'>
-      <Button
-        icon={IvyIcons.Chevron}
-        className='column-expand-button'
-        aria-label={table.getIsAllRowsExpanded() ? 'Collapse tree' : 'Expand tree'}
-        data-state={table.getIsAllRowsExpanded() ? 'expanded' : 'collapsed'}
-        {...{ onClick: table.getToggleAllRowsExpandedHandler() }}
-      />
-      <span className='column-expand-label'>{props.name}</span>
-    </div>
+    <div
+      onMouseDown={props.header.header.getResizeHandler()}
+      onTouchStart={props.header.header.getResizeHandler()}
+      className={`resizer ${props.header.column.getIsResizing() ? 'is-resizing' : ''}`}
+    />
   );
 }

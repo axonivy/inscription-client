@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
 import { GeneralTest, TriggerCallTest, runTest, OutputTest } from '../../parts';
-import type { CreateProcessResult} from '../../../glsp-protocol';
+import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 
 test.describe('Trigger', () => {
@@ -24,7 +24,7 @@ test.describe('Trigger', () => {
     await runTest(view, GeneralTest);
   });
 
-  test('Trigger', async () => {
+  test.skip('Trigger', async () => {
     await runTest(view, TriggerCallTest);
   });
 

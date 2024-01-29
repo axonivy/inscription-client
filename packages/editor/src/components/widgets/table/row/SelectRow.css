@@ -1,17 +1,24 @@
 .selectable-row {
   cursor: pointer;
 }
-.selectable-row:where(:hover) {
+.selectable-row:hover,
+.selectable-row:hover .input {
   background-color: var(--A50);
 }
 
-.selectable-row:where([data-state='selected']),
-.selectable-row:where([data-state='selected']) .table-cell .row-expand .row-expand-label-info {
+.selectable-row[data-state='selected'],
+.selectable-row[data-state='selected'] .table-cell :where(.input, .select-button, .row-expand .row-expand-label-info) {
   background-color: var(--A300);
   color: var(--selected-row-text-color);
+  border-radius: var(--border-radius);
 }
 
-.selectable-row:where([data-state='selected']) .table-cell .row-expand .row-expand-button:hover {
+.selectable-row[data-state='selected'] .table-cell :where(.select-button:hover, .select-button:focus, .select-menu) {
+  background-color: var(--background);
+  color: var(--body);
+}
+
+.selectable-row[data-state='selected'] .table-cell .row-expand .row-expand-button:hover {
   background-color: var(--A300);
   color: var(--selected-row-text-color);
 }
