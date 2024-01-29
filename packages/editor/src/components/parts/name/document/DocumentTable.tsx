@@ -1,8 +1,8 @@
 import type { Document } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { memo, useEffect, useMemo, useState } from 'react';
+import type { ColumnDef } from '@tanstack/react-table';
+import { flexRender } from '@tanstack/react-table';
+import { memo, useMemo } from 'react';
 import {
   Collapsible,
   EditableCell,
@@ -15,7 +15,7 @@ import {
   TableHeader
 } from '../../../../components/widgets';
 import { useAction } from '../../../../context';
-import { deepEqual } from '../../../../utils/equals';
+import { useResizableEditableTable } from '../../common/table/useResizableEditableTable';
 
 const EMPTY_DOCUMENT: Document = { name: '', url: '' } as const;
 
@@ -37,74 +37,14 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
     []
   );
 
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-
-  const addRow = () => {
-    const newData = [...data];
-    newData.push(EMPTY_DOCUMENT);
-    onChange(newData);
-    setRowSelection({ [`${newData.length - 1}`]: true });
-  };
-
-  const removeTableRow = (index: number) => {
-    const newData = [...data];
-    newData.splice(index, 1);
-    if (newData.length === 0) {
-      setRowSelection({});
-    } else if (index === data.length - 1) {
-      setRowSelection({ [`${newData.length - 1}`]: true });
-    }
-    onChange(newData);
-  };
-
-  const table = useReactTable({
-    data: data,
+  const { table, rowSelection, setRowSelection, addRow, removeRow, showAddButton } = useResizableEditableTable({
+    data,
     columns,
-    state: { sorting, rowSelection },
-    columnResizeMode: 'onChange',
-    columnResizeDirection: 'ltr',
-    enableRowSelection: true,
-    enableMultiRowSelection: false,
-    enableSubRowSelection: false,
-    onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    meta: {
-      updateData: (rowId: string, columnId: string, value: unknown) => {
-        const rowIndex = parseInt(rowId);
-        const updatedData = data.map((row, index) => {
-          if (index === rowIndex) {
-            return {
-              ...data[rowIndex]!,
-              [columnId]: value
-            };
-          }
-          return row;
-        });
-        if (!deepEqual(updatedData[updatedData.length - 1], EMPTY_DOCUMENT) && rowIndex === data.length - 1) {
-          onChange([...updatedData, EMPTY_DOCUMENT]);
-        } else {
-          onChange(updatedData);
-        }
-      }
-    }
+    onChange,
+    emptyDataObject: EMPTY_DOCUMENT
   });
 
   const action = useAction('openPage');
-
-  useEffect(() => {
-    if (Object.keys(rowSelection).length !== 1) {
-      const filteredData = data.filter(obj => !deepEqual(obj, EMPTY_DOCUMENT));
-
-      if (filteredData.length !== data.length) {
-        setRowSelection({});
-        onChange(filteredData);
-      }
-      return;
-    }
-  }, [data, onChange, rowSelection, table]);
 
   const tableActions =
     table.getSelectedRowModel().rows.length > 0
@@ -118,7 +58,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
           {
             label: 'Remove row',
             icon: IvyIcons.Trash,
-            action: () => removeTableRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
+            action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
           }
         ]
       : [];
@@ -149,7 +89,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
           ))}
         </tbody>
       </Table>
-      {data.filter(obj => deepEqual(obj, EMPTY_DOCUMENT)).length === 0 && <TableAddRow addRow={addRow} />}
+      {showAddButton() && <TableAddRow addRow={addRow} />}
     </Collapsible>
   );
 };

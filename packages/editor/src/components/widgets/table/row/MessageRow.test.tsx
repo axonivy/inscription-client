@@ -1,5 +1,5 @@
 import { render, screen } from 'test-utils';
-import { MessageRow } from './MessageRow';
+import { MessageRowWithTr } from './MessageRow';
 import type { Message } from '../../message/Message';
 import { describe, test, expect } from 'vitest';
 
@@ -8,9 +8,9 @@ describe('MessageRow', () => {
     render(
       <table>
         <tbody>
-          <MessageRow colSpan={3} message={message}>
+          <MessageRowWithTr colSpan={3} message={message}>
             <td>content</td>
-          </MessageRow>
+          </MessageRowWithTr>
         </tbody>
       </table>
     );

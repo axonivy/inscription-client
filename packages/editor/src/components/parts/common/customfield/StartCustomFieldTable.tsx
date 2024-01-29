@@ -1,13 +1,13 @@
 import type { StartCustomStartField } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { memo, useEffect, useMemo, useState } from 'react';
+import type { ColumnDef } from '@tanstack/react-table';
+import { flexRender } from '@tanstack/react-table';
+import { memo, useMemo } from 'react';
 import { EditableCell, Table, TableHeader, TableCell, TableAddRow, SortableHeader, MacroCell, ResizableHeader } from '../../../widgets';
 import { useAction } from '../../../../context';
 import { SelectableValidationRow } from '../path/validation/ValidationRow';
 import { PathCollapsible } from '../path/PathCollapsible';
-import { deepEqual } from '../../../../utils/equals';
+import { useResizableEditableTable } from '../table/useResizableEditableTable';
 
 type StartCustomFieldTableProps = {
   data: StartCustomStartField[];
@@ -33,74 +33,14 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
     []
   );
 
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-
-  const addRow = () => {
-    const newData = [...data];
-    newData.push(EMPTY_STARTCUSTOMSTARTFIELD);
-    onChange(newData);
-    setRowSelection({ [`${newData.length - 1}`]: true });
-  };
-
-  const removeTableRow = (index: number) => {
-    const newData = [...data];
-    newData.splice(index, 1);
-    if (newData.length === 0) {
-      setRowSelection({});
-    } else if (index === data.length - 1) {
-      setRowSelection({ [`${newData.length - 1}`]: true });
-    }
-    onChange(newData);
-  };
-
-  const table = useReactTable({
-    data: data,
+  const { table, rowSelection, setRowSelection, addRow, removeRow, showAddButton } = useResizableEditableTable({
+    data,
     columns,
-    state: { sorting, rowSelection },
-    columnResizeMode: 'onChange',
-    columnResizeDirection: 'ltr',
-    enableRowSelection: true,
-    enableMultiRowSelection: false,
-    enableSubRowSelection: false,
-    onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    meta: {
-      updateData: (rowId: string, columnId: string, value: unknown) => {
-        const rowIndex = parseInt(rowId);
-        const updatedData = data.map((row, index) => {
-          if (index === rowIndex) {
-            return {
-              ...data[rowIndex]!,
-              [columnId]: value
-            };
-          }
-          return row;
-        });
-        if (!deepEqual(updatedData[updatedData.length - 1], EMPTY_STARTCUSTOMSTARTFIELD) && rowIndex === data.length - 1) {
-          onChange([...updatedData, EMPTY_STARTCUSTOMSTARTFIELD]);
-        } else {
-          onChange(updatedData);
-        }
-      }
-    }
+    onChange,
+    emptyDataObject: EMPTY_STARTCUSTOMSTARTFIELD
   });
 
   const action = useAction('openCustomField');
-
-  useEffect(() => {
-    if (Object.keys(rowSelection).length !== 1) {
-      const filteredData = data.filter(obj => !deepEqual(obj, EMPTY_STARTCUSTOMSTARTFIELD));
-
-      if (filteredData.length !== data.length) {
-        setRowSelection({});
-        onChange(filteredData);
-      }
-      return;
-    }
-  }, [data, onChange, rowSelection, table]);
 
   const tableActions =
     table.getSelectedRowModel().rows.length > 0
@@ -113,7 +53,7 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
           {
             label: 'Remove row',
             icon: IvyIcons.Trash,
-            action: () => removeTableRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
+            action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
           }
         ]
       : [];
@@ -144,7 +84,7 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
           ))}
         </tbody>
       </Table>
-      {data.filter(obj => deepEqual(obj, EMPTY_STARTCUSTOMSTARTFIELD)).length === 0 && <TableAddRow addRow={addRow} />}
+      {showAddButton() && <TableAddRow addRow={addRow} />}
     </PathCollapsible>
   );
 };
