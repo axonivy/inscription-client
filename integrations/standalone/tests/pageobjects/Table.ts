@@ -7,6 +7,7 @@ import { Combobox } from './Combobox';
 
 export class Table {
   private readonly rows: Locator;
+  private readonly header: Locator;
   private readonly locator: Locator;
 
   constructor(readonly page: Page, parentLocator: Locator, readonly columns: ColumnType[], label?: string) {
@@ -16,6 +17,7 @@ export class Table {
       this.locator = parentLocator.getByLabel(label);
     }
     this.rows = this.locator.locator('tbody tr:not(.row-message)');
+    this.header = this.locator.locator('thead tr');
   }
 
   async addRow() {
@@ -25,7 +27,7 @@ export class Table {
   }
 
   row(row: number) {
-    return new Row(this.page, this.rows, row, this.columns);
+    return new Row(this.page, this.rows, this.header, row, this.columns);
   }
 
   cell(row: number, column: number) {
@@ -54,9 +56,11 @@ export type ColumnType = 'label' | 'text' | 'expression' | 'select' | 'combobox'
 
 export class Row {
   public readonly locator: Locator;
+  public readonly header: Locator;
 
-  constructor(readonly page: Page, rowsLocator: Locator, row: number, readonly columns: ColumnType[]) {
+  constructor(readonly page: Page, rowsLocator: Locator, headerLocator: Locator, row: number, readonly columns: ColumnType[]) {
     this.locator = rowsLocator.nth(row);
+    this.header = headerLocator.nth(0);
   }
 
   async fill(values: string[]) {
@@ -86,6 +90,7 @@ export class Row {
   async remove() {
     await this.locator.click();
     await this.page.getByRole('button', { name: 'Remove row' }).click();
+    await this.header.click();
   }
 
   async dragTo(targetRow: Row) {
