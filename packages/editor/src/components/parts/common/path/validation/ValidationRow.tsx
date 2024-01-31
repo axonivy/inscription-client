@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { mergePaths, usePath, useValidations } from '../../../../../context';
 import type { ReorderRowProps, SelectRowProps } from '../../../../widgets';
-import { MessageRow, MessageText, ReorderRow } from '../../../../widgets';
+import { MessageRow, MessageRowWithTr, ReorderRow, SelectRow, styleMessageRow } from '../../../../widgets';
 
 type ValidationRowProps = {
   rowPathSuffix: string | number;
@@ -20,9 +20,9 @@ const useValidationRow = (rowPathSuffix: string | number) => {
 export const ValidationRow = ({ rowPathSuffix, children, title, colSpan }: ValidationRowProps) => {
   const message = useValidationRow(rowPathSuffix);
   return (
-    <MessageRow message={message} title={title} colSpan={colSpan ? colSpan : 2}>
+    <MessageRowWithTr message={message} title={title} colSpan={colSpan ? colSpan : 2}>
       {children}
-    </MessageRow>
+    </MessageRowWithTr>
   );
 };
 
@@ -37,29 +37,10 @@ export const SelectableValidationRow = <TData extends object>({
   const message = useValidationRow(rowPathSuffix);
   return (
     <>
-      <tr
-        className={`selectable-row ${message ? `row-${message.severity.toLocaleLowerCase()}` : ''}`}
-        title={title}
-        data-state={row.getIsSelected() ? 'selected' : ''}
-        onClick={event => {
-          if (event.detail === 1) {
-            if (!row.getIsSelected()) {
-              row.getToggleSelectedHandler()(event);
-            }
-          } else if (onDoubleClick) {
-            onDoubleClick();
-          }
-        }}
-      >
+      <SelectRow row={row} onDoubleClick={onDoubleClick} title={title} className={styleMessageRow(message)}>
         {children}
-      </tr>
-      {message && (
-        <tr className='row row-message'>
-          <td colSpan={colSpan}>
-            <MessageText message={message} />
-          </td>
-        </tr>
-      )}
+      </SelectRow>
+      <MessageRow colSpan={colSpan ? colSpan : 2} message={message} />
     </>
   );
 };

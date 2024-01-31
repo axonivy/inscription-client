@@ -5,8 +5,8 @@ import type { TextDropItem } from 'react-aria';
 import { useDrag, useDrop } from 'react-aria';
 import IvyIcon from '../../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { MessageRow } from './MessageRow';
 import type { MessageTextProps } from '../../message/Message';
+import { MessageRowWithTr } from './MessageRow';
 
 export type ReorderRowProps = {
   id: string;
@@ -41,7 +41,7 @@ export const ReorderRow = ({ id, updateOrder, children, ...props }: ReorderRowPr
   });
 
   return (
-    <MessageRow
+    <MessageRowWithTr
       {...dragProps}
       {...dropProps}
       ref={ref}
@@ -53,6 +53,6 @@ export const ReorderRow = ({ id, updateOrder, children, ...props }: ReorderRowPr
       <td className='dnd-row-handle'>
         <IvyIcon icon={IvyIcons.ChangeType} />
       </td>
-    </MessageRow>
+    </MessageRowWithTr>
   );
 };
