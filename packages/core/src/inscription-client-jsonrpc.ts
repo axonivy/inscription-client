@@ -15,7 +15,7 @@ import { ConnectionUtil, type MessageConnection } from './connection-util';
 import { BaseRcpClient } from './rcp-client';
 
 export class InscriptionClientJsonRpc extends BaseRcpClient implements InscriptionClient {
-  protected onDataChangedEmitter = new Emitter<InscriptionData>();
+  protected onDataChangedEmitter = new Emitter<void>();
   onDataChanged = this.onDataChangedEmitter.event;
   protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
   onValidation = this.onValidationEmitter.event;

@@ -105,6 +105,6 @@ export interface InscriptionRequestTypes extends InscriptionMetaRequestTypes {
 }
 
 export interface InscriptionNotificationTypes {
-  dataChanged: InscriptionData;
+  dataChanged: void;
   validation: InscriptionValidation[];
 }
