@@ -23,6 +23,6 @@ export interface InscriptionClient {
 
   action(action: InscriptionActionArgs): void;
 
-  onDataChanged: Event<InscriptionData>;
+  onDataChanged: Event<void>;
   onValidation: Event<InscriptionValidation[]>;
 }

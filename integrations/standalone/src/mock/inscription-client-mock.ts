@@ -26,7 +26,7 @@ export class InscriptionClientMock implements InscriptionClient {
 
   protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
   onValidation = this.onValidationEmitter.event;
-  protected onDataChangedEmitter = new Emitter<InscriptionData>();
+  protected onDataChangedEmitter = new Emitter<void>();
   onDataChanged = this.onDataChangedEmitter.event;
 
   initialize(): Promise<boolean> {
