@@ -58,13 +58,13 @@ export interface Inscription {
   restClientRequest: RestClientRequest;
   restContentTypeRequest: RestContentTypeRequest;
   restEntityInfoRequest: RestEntityInfoRequest;
-  restResource: RestResource;
+  restResource: RestResource[];
   restResourceRequest: RestResourceRequest;
-  roleMeta: RoleMeta[];
+  roleMeta: RoleMeta;
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
-  string: string;
+  string: string[];
   typeSearchRequest: TypeSearchRequest;
   variableInfo: VariableInfo;
   void: Void;
@@ -274,6 +274,7 @@ export interface InscriptionActionArgs {
     | "openConfig"
     | "openCustomField"
     | "openEndPage"
+    | "openOrCreateCmsCategory"
     | "openPage"
     | "openProgram"
     | "openTestWs";

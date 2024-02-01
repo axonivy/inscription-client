@@ -1,7 +1,7 @@
 import type { DataUpdater } from '../../../../types/lambda';
 import { MacroArea, MacroInput, useFieldset } from '../../../../components/widgets';
 import { PathFieldset } from '../path/PathFieldset';
-import { useEditorContext, useMeta, usePath } from '../../../../context';
+import { useAction, useEditorContext, useMeta, usePath } from '../../../../context';
 import type { CategoryType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import ClassificationCombobox, { type ClassifiedItem } from '../classification/ClassificationCombobox';
@@ -25,6 +25,7 @@ const Information = <T extends InformationConfig>({ config, update }: Informatio
 
   const { context } = useEditorContext();
   const path = usePath();
+  const openAction = useAction('openOrCreateCmsCategory');
 
   const type = (): CategoryType => {
     const location = path.toLowerCase();
@@ -64,7 +65,12 @@ const Information = <T extends InformationConfig>({ config, update }: Informatio
           {...descFieldset.inputProps}
         />
       </PathFieldset>
-      <PathFieldset label='Category' {...catFieldset.labelProps} path='category'>
+      <PathFieldset
+        label='Category'
+        {...catFieldset.labelProps}
+        path='category'
+        controls={[{ label: 'Open CMS Editor', icon: IvyIcons.Cms, action: () => openAction('/Categorie/' + config.category + '/name') }]}
+      >
         <ClassificationCombobox
           value={config.category}
           onChange={change => update('category', change)}
