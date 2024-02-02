@@ -4,7 +4,7 @@ import { ComboboxUtil, TableUtil, render, screen } from 'test-utils';
 import { RestEntity } from './RestEntity';
 import { describe, test, expect } from 'vitest';
 
-describe.skip('RestEntity', () => {
+describe('RestEntity', () => {
   function renderPart(data?: DeepPartial<RestRequestData>) {
     const restEntityInfo: VariableInfo = {
       variables: [
@@ -23,7 +23,7 @@ describe.skip('RestEntity', () => {
   test('empty', async () => {
     renderPart();
     await screen.findByText('param');
-    TableUtil.assertRows(['param String']);
+    TableUtil.assertRows(['param']);
     expect(screen.getByLabelText('Code')).toHaveValue('');
   });
 
@@ -31,7 +31,7 @@ describe.skip('RestEntity', () => {
     renderPart({ body: { entity: { code: 'hi', type: 'String', map: { 'param.bla': '123', param: 'test' } } } });
     await screen.findByText('param');
     await ComboboxUtil.assertValue('String');
-    TableUtil.assertRows(['param String test', '⛔ bla 123']);
+    TableUtil.assertRows(['param test', '⛔ bla 123']);
     expect(screen.getByLabelText('Code')).toHaveValue('hi');
   });
 });

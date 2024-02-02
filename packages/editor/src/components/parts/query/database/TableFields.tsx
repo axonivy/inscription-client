@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { PathContext, useEditorContext, useMeta } from '../../../../context';
-import { PathCollapsible, ValidationRow } from '../../common';
+import { PathCollapsible, SelectableValidationRow } from '../../common';
 import { useQueryData } from '../useQueryData';
-import type { ColumnDef, SortingState } from '@tanstack/react-table';
+import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { ScriptCell, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
+import { ResizableHeader, ScriptCell, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
 import type { DatabaseColumn } from '@axonivy/inscription-protocol';
 
 type Column = DatabaseColumn & {
@@ -34,13 +34,13 @@ export const TableFields = () => {
     () => [
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Column' />,
-        cell: cell => <span>{cell.getValue() as string}</span>
-      },
-      {
-        accessorKey: 'type',
-        header: header => <SortableHeader header={header} name='Type' />,
-        cell: cell => <span>{cell.getValue() as string}</span>
+        header: header => <SortableHeader header={header} name='Column' seperator={true} />,
+        cell: cell => (
+          <>
+            <span>{cell.getValue() as string}</span>
+            <span className='row-expand-label-info'> : {cell.row.original.type}</span>
+          </>
+        )
       },
       {
         accessorKey: 'expression',
@@ -52,10 +52,18 @@ export const TableFields = () => {
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
   const table = useReactTable({
     data,
     columns,
-    state: { sorting },
+    state: { sorting, rowSelection },
+    columnResizeMode: 'onChange',
+    columnResizeDirection: 'ltr',
+    enableRowSelection: true,
+    enableMultiRowSelection: false,
+    enableSubRowSelection: false,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -86,22 +94,24 @@ export const TableFields = () => {
         <Table>
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
-              <tr key={headerGroup.id}>
+              <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
                 {headerGroup.headers.map(header => (
-                  <TableHeader key={header.id} colSpan={header.colSpan}>
+                  <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHeader>
                 ))}
-              </tr>
+              </ResizableHeader>
             ))}
           </thead>
           <tbody>
             {table.getRowModel().rows.map(row => (
-              <ValidationRow colSpan={3} key={row.id} rowPathSuffix={row.original.name}>
+              <SelectableValidationRow row={row} colSpan={2} key={row.id} rowPathSuffix={row.original.name}>
                 {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
                 ))}
-              </ValidationRow>
+              </SelectableValidationRow>
             ))}
           </tbody>
         </Table>

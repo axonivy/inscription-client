@@ -3,10 +3,11 @@ import type { ReactNode } from 'react';
 import { useRef } from 'react';
 import type { TextDropItem } from 'react-aria';
 import { useDrag, useDrop } from 'react-aria';
+import type { MessageTextProps } from '../../message/Message';
+import { MessageRow, styleMessageRow, type MessageRowProps } from './MessageRow';
+import { SelectRow, type SelectRowProps } from './SelectRow';
 import IvyIcon from '../../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
-import type { MessageTextProps } from '../../message/Message';
-import { MessageRowWithTr } from './MessageRow';
 
 export type ReorderRowProps = {
   id: string;
@@ -14,7 +15,17 @@ export type ReorderRowProps = {
   children: ReactNode;
 };
 
-export const ReorderRow = ({ id, updateOrder, children, ...props }: ReorderRowProps & MessageTextProps) => {
+export const SelectableReorderRow = <TData extends object>({
+  id,
+  updateOrder,
+  children,
+  message,
+  colSpan,
+  row,
+  title,
+  onDoubleClick,
+  ...props
+}: ReorderRowProps & MessageTextProps & SelectRowProps<TData> & MessageRowProps) => {
   const DND_TYPE = 'text/id';
 
   const { dragProps, isDragging } = useDrag({
@@ -37,22 +48,40 @@ export const ReorderRow = ({ id, updateOrder, children, ...props }: ReorderRowPr
       } else {
         console.log(`invalid drop item ${e.items[0]}`);
       }
+      if (!row.getIsSelected()) {
+        row.getToggleSelectedHandler()(e);
+      }
     }
   });
 
   return (
-    <MessageRowWithTr
-      {...dragProps}
-      {...dropProps}
-      ref={ref}
-      colSpan={2}
-      className={`dnd-row${isDragging ? ' dragging' : ''}${isDropTarget ? ' target' : ''}`}
-      {...props}
-    >
-      {children}
-      <td className='dnd-row-handle'>
-        <IvyIcon icon={IvyIcons.ChangeType} />
-      </td>
-    </MessageRowWithTr>
+    <>
+      <SelectRow
+        {...dragProps}
+        {...dropProps}
+        row={row}
+        onDoubleClick={onDoubleClick}
+        onClick={e => {
+          if (!row.getIsSelected()) {
+            row.getToggleSelectedHandler()(e);
+          }
+        }}
+        title={title}
+        className={`dnd-row${isDragging ? ' dragging' : ''}${isDropTarget ? ' target' : ''} ${styleMessageRow(message)}`}
+        {...props}
+      >
+        {children}
+      </SelectRow>
+      <MessageRow colSpan={colSpan ? colSpan : 2} message={message} />
+    </>
   );
 };
+
+export const ReorderWrapperIcon = ({ children }: React.HTMLAttributes<HTMLTableCellElement>) => (
+  <div className='reorder-select-icon'>
+    {children}
+    <div className='dnd-row-handle'>
+      <IvyIcon icon={IvyIcons.ChangeType} />
+    </div>
+  </div>
+);

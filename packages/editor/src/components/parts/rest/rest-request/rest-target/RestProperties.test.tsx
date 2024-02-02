@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, CollapsableUtil, TableUtil, ComboboxUtil } from 'test-utils';
+import { render, CollapsableUtil, TableUtil, ComboboxUtil, userEvent, screen } from 'test-utils';
 import type { RestRequestData } from '@axonivy/inscription-protocol';
 import { RestProperties } from './RestProperties';
 import { describe, test } from 'vitest';
@@ -18,8 +18,10 @@ describe('RestProperties', () => {
 
   test('data', async () => {
     renderPart({ target: { properties: { rester: 'value' } } });
+
     await CollapsableUtil.assertOpen('Properties');
     TableUtil.assertRows(['rester value']);
+    await userEvent.click(screen.getByRole('row', { name: 'rester value' }));
     await ComboboxUtil.assertValue('rester');
     await ComboboxUtil.assertOptionsCount(3);
   });

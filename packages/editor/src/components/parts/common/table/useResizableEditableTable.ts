@@ -1,8 +1,9 @@
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-
 import { useState, useEffect } from 'react';
 import { deepEqual } from '../../../../utils/equals';
+import type { FieldsetControl } from '../../../widgets';
+import { IvyIcons } from '@axonivy/editor-icons';
 
 interface UseResizableEditableTableProps<TData> {
   data: TData[];
@@ -83,7 +84,13 @@ const useResizableEditableTable = <TData>({ data, columns, onChange, emptyDataOb
     onChange(newData);
   };
 
-  return { table, rowSelection, setRowSelection, addRow, removeRow, showAddButton };
+  const removeRowAction: FieldsetControl = {
+    label: 'Remove row',
+    icon: IvyIcons.Trash,
+    action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
+  };
+
+  return { table, rowSelection, removeRowAction, setRowSelection, addRow, showAddButton };
 };
 
 export { useResizableEditableTable };

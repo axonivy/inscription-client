@@ -16,7 +16,8 @@ import {
   Table,
   TableCell,
   TableHeader,
-  ResizableHeader
+  ResizableHeader,
+  TextHeader
 } from '../../../../components/widgets';
 import type { MappingPartProps } from './MappingPart';
 import type { TableFilter } from './useMappingTree';
@@ -63,7 +64,7 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
       {
         accessorFn: row => row.value,
         id: 'value',
-        header: () => <span>Expression</span>,
+        header: header => <TextHeader header={header} name='Expression' />,
         cell: cell => <ScriptCell cell={cell} type={cell.row.original.type} browsers={browsers} placeholder={cell.row.original.type} />,
         footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0

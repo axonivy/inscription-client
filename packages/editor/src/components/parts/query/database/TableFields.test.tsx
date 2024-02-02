@@ -20,19 +20,19 @@ describe('TableFields', () => {
   test('data', async () => {
     await renderTable({ test: 'bla' });
     await CollapsableUtil.assertOpen('Fields');
-    TableUtil.assertHeaders(['Column', 'Type', 'Value']);
-    await screen.findByText('bool');
+    TableUtil.assertHeaders(['Column', 'Value']);
+    await screen.findByText('hi');
     await TableUtil.assertRowCount(3);
-    TableUtil.assertRows(['test VarChar(10) bla', 'hi bool']);
+    TableUtil.assertRows(['test : VarChar(10) bla', 'hi : bool']);
   });
 
   test('unknown columns', async () => {
     await renderTable({ unknown: '1234' });
     await CollapsableUtil.assertOpen('Fields');
-    TableUtil.assertHeaders(['Column', 'Type', 'Value']);
-    await screen.findByText('bool');
+    TableUtil.assertHeaders(['Column', 'Value']);
+    await screen.findByText('hi');
     await screen.findByDisplayValue('1234');
     await TableUtil.assertRowCount(4);
-    TableUtil.assertRows(['test VarChar(10)', 'hi bool', 'unknown 1234']);
+    TableUtil.assertRows(['test : VarChar(10)', 'hi : bool', 'unknown : 1234']);
   });
 });

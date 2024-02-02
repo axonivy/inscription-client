@@ -8,7 +8,7 @@ describe('TableSort', () => {
     await CollapsableUtil.assertClosed('Sort');
   });
 
-  test.skip('data', async () => {
+  test('data', async () => {
     render(<TableSort />, {
       wrapperProps: {
         data: { config: { query: { sql: { orderBy: ['test'] } } } },
@@ -21,7 +21,7 @@ describe('TableSort', () => {
       }
     });
     await CollapsableUtil.assertOpen('Sort');
-    TableUtil.assertHeaders(['Column', 'Direction', '', '']);
+    TableUtil.assertHeaders(['Column', 'Direction']);
     await SelectUtil.assertValue('test', { index: 0 });
     await SelectUtil.assertValue('ASCENDING', { index: 1 });
   });

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { mergePaths, usePath, useValidations } from '../../../../../context';
-import type { ReorderRowProps, SelectRowProps } from '../../../../widgets';
-import { MessageRow, MessageRowWithTr, ReorderRow, SelectRow, styleMessageRow } from '../../../../widgets';
+import type { MessageRowProps, ReorderRowProps, SelectRowProps } from '../../../../widgets';
+import { MessageRow, SelectRow, SelectableReorderRow, styleMessageRow } from '../../../../widgets';
 
 type ValidationRowProps = {
   rowPathSuffix: string | number;
@@ -15,15 +15,6 @@ const useValidationRow = (rowPathSuffix: string | number) => {
   const path = usePath();
   const rowPath = mergePaths(path, [rowPathSuffix]);
   return validations.find(val => val.path === rowPath);
-};
-
-export const ValidationRow = ({ rowPathSuffix, children, title, colSpan }: ValidationRowProps) => {
-  const message = useValidationRow(rowPathSuffix);
-  return (
-    <MessageRowWithTr message={message} title={title} colSpan={colSpan ? colSpan : 2}>
-      {children}
-    </MessageRowWithTr>
-  );
 };
 
 export const SelectableValidationRow = <TData extends object>({
@@ -45,13 +36,17 @@ export const SelectableValidationRow = <TData extends object>({
   );
 };
 
-type ValidationReorderRowProps = ValidationRowProps & ReorderRowProps;
+type ValidationReorderRowProps<TData> = ValidationRowProps & ReorderRowProps & SelectRowProps<TData> & MessageRowProps;
 
-export const ValidationReorderRow = ({ rowPathSuffix, children, ...props }: ValidationReorderRowProps) => {
+export const ValidationSelectableReorderRow = <TData extends object>({
+  rowPathSuffix,
+  children,
+  ...props
+}: ValidationReorderRowProps<TData>) => {
   const message = useValidationRow(rowPathSuffix);
   return (
-    <ReorderRow message={message} {...props}>
+    <SelectableReorderRow message={message} {...props}>
       {children}
-    </ReorderRow>
+    </SelectableReorderRow>
   );
 };

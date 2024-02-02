@@ -1,16 +1,23 @@
 import { render, screen } from 'test-utils';
 import type { Message } from '../../message/Message';
-import { ReorderRow } from './ReorderRow';
+import { SelectableReorderRow } from './ReorderRow';
 import { describe, test, expect } from 'vitest';
+import type { Row } from '@tanstack/react-table';
 
 describe('ReorderRow', () => {
   function renderTable(message?: Message) {
     render(
       <table>
         <tbody>
-          <ReorderRow id='f1' updateOrder={() => {}} message={message}>
+          <SelectableReorderRow
+            colSpan={1}
+            row={{ getIsSelected: () => {} } as Row<object>}
+            id='f1'
+            updateOrder={() => {}}
+            message={message}
+          >
             <td>content</td>
-          </ReorderRow>
+          </SelectableReorderRow>
         </tbody>
       </table>
     );

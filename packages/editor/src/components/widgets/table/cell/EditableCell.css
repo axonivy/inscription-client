@@ -1,5 +1,5 @@
 .table-cell:has(.input) {
-  padding: 1px;
+  padding: 0px;
 }
 .table-cell .input {
   border: none;

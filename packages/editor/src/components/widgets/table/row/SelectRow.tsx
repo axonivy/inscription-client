@@ -1,6 +1,6 @@
 import './SelectRow.css';
 import type { Row } from '@tanstack/react-table';
-import type { ComponentProps, ReactNode } from 'react';
+import { type ComponentProps, type ReactNode } from 'react';
 
 export type SelectRowProps<TData> = ComponentProps<'tr'> & {
   row: Row<TData>;
@@ -16,8 +16,9 @@ export const SelectRow = <TData extends object>({
   title,
   isNotSelectable,
   onDoubleClick,
-  className
-}: SelectRowProps<TData>) => (
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLTableRowElement> & SelectRowProps<TData>) => (
   <tr
     className={`${isNotSelectable ? '' : 'selectable-row'} ${className}`}
     data-state={row.getIsSelected() ? 'selected' : ''}
@@ -33,6 +34,7 @@ export const SelectRow = <TData extends object>({
         }
       }
     }}
+    {...props}
   >
     {children}
   </tr>

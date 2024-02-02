@@ -1,5 +1,4 @@
 import type { ScriptVariable } from '@axonivy/inscription-protocol';
-import { IvyIcons } from '@axonivy/editor-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { memo, useMemo } from 'react';
@@ -41,23 +40,14 @@ const ParameterTable = ({ data, onChange, hideDesc, label }: ParameterTableProps
     return colDef;
   }, [hideDesc]);
 
-  const { table, rowSelection, setRowSelection, addRow, removeRow, showAddButton } = useResizableEditableTable({
+  const { table, setRowSelection, addRow, removeRowAction, showAddButton } = useResizableEditableTable({
     data,
     columns,
     onChange,
     emptyDataObject: EMPTY_SCRIPT_VARIABLE
   });
 
-  const tableActions =
-    table.getSelectedRowModel().rows.length > 0
-      ? [
-          {
-            label: 'Remove row',
-            icon: IvyIcons.Trash,
-            action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
-          }
-        ]
-      : [];
+  const tableActions = table.getSelectedRowModel().rows.length > 0 ? [removeRowAction] : [];
 
   return (
     <PathCollapsible path='params' label={label} controls={tableActions}>

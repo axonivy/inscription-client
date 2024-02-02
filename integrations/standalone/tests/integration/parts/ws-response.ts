@@ -13,34 +13,34 @@ class WsResponse extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.mapping = part.table(['label', 'label', 'expression']);
+    this.mapping = part.table(['label', 'expression']);
     this.code = part.scriptArea();
     this.errorSection = part.section('Error');
     this.exception = this.errorSection.select();
   }
 
   async fill() {
-    await this.mapping.row(1).column(2).fill('"bla"');
+    await this.mapping.row(1).column(1).fill('"bla"');
     await this.code.fill('code');
     await this.errorSection.toggle();
     await this.exception.choose('>> Ignore Exception');
   }
 
   async assertFill() {
-    await this.mapping.row(1).column(2).expectValue('"bla"');
+    await this.mapping.row(1).column(1).expectValue('"bla"');
     await this.code.expectValue('code');
     await this.errorSection.expectIsOpen();
     await this.exception.expectValue('>> Ignore Exception');
   }
 
   async clear() {
-    await this.mapping.row(1).column(2).fill('');
+    await this.mapping.row(1).column(1).fill('');
     await this.code.clear();
     await this.exception.choose('ivy:error:webservice:exception');
   }
 
   async assertClear() {
-    await this.mapping.row(1).column(2).expectValue('');
+    await this.mapping.row(1).column(1).expectValue('');
     await this.code.expectValue('');
     await this.errorSection.expectIsClosed();
   }

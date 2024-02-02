@@ -19,7 +19,7 @@ class WsRequest extends PartObject {
     this.operation = part.select('Operation');
     this.propertiesSection = part.section('Properties');
     this.properties = this.propertiesSection.table(['combobox', 'expression']);
-    this.mapping = part.table(['label', 'label', 'expression']);
+    this.mapping = part.table(['label', 'expression']);
   }
 
   async fill() {
@@ -32,7 +32,7 @@ class WsRequest extends PartObject {
     await row.fill(['endpoint.cache', '123']);
     await this.propertiesSection.toggle();
 
-    await this.mapping.row(1).column(2).fill('"bla"');
+    await this.mapping.row(1).column(1).fill('"bla"');
   }
 
   async assertFill() {
@@ -45,7 +45,7 @@ class WsRequest extends PartObject {
     await this.propertiesSection.toggle();
 
     await this.mapping.expectRowCount(2);
-    await this.mapping.row(1).column(2).expectValue('"bla"');
+    await this.mapping.row(1).column(1).expectValue('"bla"');
   }
 
   async clear() {
@@ -54,7 +54,7 @@ class WsRequest extends PartObject {
 
     await this.properties.clear();
 
-    await this.mapping.row(1).column(2).fill('');
+    await this.mapping.row(1).column(1).fill('');
   }
 
   async assertClear() {

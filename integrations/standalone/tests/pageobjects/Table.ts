@@ -87,10 +87,12 @@ export class Row {
     }
   }
 
-  async remove() {
+  async remove(withoutHeader?: boolean) {
     await this.locator.click();
     await this.page.getByRole('button', { name: 'Remove row' }).click();
-    await this.header.click();
+    if (!withoutHeader || withoutHeader === undefined) {
+      await this.header.click();
+    }
   }
 
   async dragTo(targetRow: Row) {

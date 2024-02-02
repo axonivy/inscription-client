@@ -1,6 +1,5 @@
 import { deepEqual } from '../../../../../utils/equals';
-import { useMeta } from '../../../../../context';
-import { PathCollapsible } from '../../../common';
+import { PathContext, useMeta } from '../../../../../context';
 import { PropertyTable } from '../../../common/properties/PropertyTable';
 import { useRestRequestData } from '../../useRestRequestData';
 
@@ -10,16 +9,14 @@ export const RestProperties = () => {
   const knownProperties = useMeta('meta/rest/properties', undefined, []).data;
 
   return (
-    <PathCollapsible
-      label='Properties'
-      path='properties'
-      defaultOpen={!deepEqual(config.target.properties, defaultConfig.target.properties)}
-    >
+    <PathContext path='properties'>
       <PropertyTable
         properties={config.target.properties}
         update={change => updateTarget('properties', change)}
         knownProperties={knownProperties}
+        label='Properties'
+        defaultOpen={!deepEqual(config.target.properties, defaultConfig.target.properties)}
       />
-    </PathCollapsible>
+    </PathContext>
   );
 };

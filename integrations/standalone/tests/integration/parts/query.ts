@@ -67,7 +67,7 @@ class FieldsReadPart extends PartObject {
     super(part);
     this.section = part.section('Fields');
     this.all = this.section.checkbox('Select all fields');
-    this.table = this.section.table(['label', 'label', 'label']);
+    this.table = this.section.table(['label', 'label']);
   }
 
   async fill(): Promise<void> {
@@ -79,7 +79,7 @@ class FieldsReadPart extends PartObject {
   async assertFill(): Promise<void> {
     await this.section.expectIsOpen();
     await this.all.expectUnchecked();
-    await this.table.row(1).expectValues(['NAME', 'VARCHAR', '✅']);
+    await this.table.row(1).expectValues(['NAME', '✅']);
   }
   async clear(): Promise<void> {
     await this.all.click();
@@ -96,7 +96,7 @@ class FieldsPart extends PartObject {
   constructor(part: Part) {
     super(part);
     this.section = part.section('Fields');
-    this.table = this.section.table(['label', 'label', 'expression']);
+    this.table = this.section.table(['label', 'expression']);
   }
 
   async fill(): Promise<void> {

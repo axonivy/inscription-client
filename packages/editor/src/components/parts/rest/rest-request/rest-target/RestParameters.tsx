@@ -1,9 +1,9 @@
-import { PathCollapsible, ValidationRow } from '../../../common';
+import { PathCollapsible, SelectableValidationRow } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
 import type { SelectItem } from '../../../../widgets';
 import {
-  ActionCell,
   EditableCell,
+  ResizableHeader,
   ScriptCell,
   SelectCell,
   SortableHeader,
@@ -12,7 +12,7 @@ import {
   TableCell,
   TableHeader
 } from '../../../../widgets';
-import type { ColumnDef, SortingState } from '@tanstack/react-table';
+import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { useEffect, useMemo, useState } from 'react';
@@ -20,6 +20,9 @@ import { IVY_SCRIPT_TYPES, REST_PARAM_KIND } from '@axonivy/inscription-protocol
 import { Parameter } from './parameters';
 import { useRestResourceMeta } from '../../useRestResourceMeta';
 import { useFindPathParams } from './usePathParams';
+import { deepEqual } from '../../../../../utils/equals';
+
+const EMPTY_PARAMETER: Parameter = { kind: 'Query', name: '', expression: '', known: false };
 
 export const RestParameters = () => {
   const { config, updateParameters } = useRestRequestData();
@@ -39,51 +42,69 @@ export const RestParameters = () => {
     updateParameters({ queryParams: Parameter.to(props, 'Query'), templateParams: Parameter.to(props, 'Path') });
   const kindItems = useMemo<SelectItem[]>(() => Object.entries(REST_PARAM_KIND).map(([value, label]) => ({ label, value })), []);
 
-  const [sorting, setSorting] = useState<SortingState>([]);
   const columns = useMemo<ColumnDef<Parameter>[]>(
     () => [
       {
         accessorKey: 'kind',
-        header: header => <SortableHeader header={header} name='Kind' />,
+        header: header => <SortableHeader header={header} name='Kind' seperator={true} />,
         cell: cell => <SelectCell cell={cell} items={kindItems} disabled={cell.row.original.known} />
       },
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Name' />,
+        header: header => <SortableHeader header={header} name='Name' seperator={true} />,
         cell: cell => <EditableCell cell={cell} disabled={cell.row.original.known} />
-      },
-      {
-        accessorKey: 'type',
-        header: header => <SortableHeader header={header} name='Type' />,
-        cell: cell => <span>{cell.getValue() as string}</span>
       },
       {
         accessorKey: 'expression',
         header: header => <SortableHeader header={header} name='Expression' />,
         cell: cell => (
-          <ScriptCell cell={cell} type={cell.row.original.type ?? IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'type', 'cms']} />
+          <ScriptCell
+            cell={cell}
+            type={cell.row.original.type ?? IVY_SCRIPT_TYPES.OBJECT}
+            browsers={['attr', 'func', 'type', 'cms']}
+            placeholder={cell.row.original.type}
+          />
         )
       }
     ],
     [kindItems]
   );
 
-  const addRow = () => {
-    const newData = [...data];
-    newData.push({ kind: 'Query', name: '', expression: '', known: false });
-    onChange(newData);
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
+  const showAddButton = () => {
+    return data.filter(obj => deepEqual(obj, EMPTY_PARAMETER)).length === 0;
   };
 
-  const removeTableRow = (index: number) => {
+  const addRow = () => {
+    const newData = [...data];
+    newData.push(EMPTY_PARAMETER);
+    onChange(newData);
+    setRowSelection({ [`${newData.length - 1}`]: true });
+  };
+
+  const removeRow = (index: number) => {
     const newData = [...data];
     newData.splice(index, 1);
+    if (newData.length === 0) {
+      setRowSelection({});
+    } else if (index === data.length - 1) {
+      setRowSelection({ [`${newData.length - 1}`]: true });
+    }
     onChange(newData);
   };
 
   const table = useReactTable({
     data,
     columns,
-    state: { sorting },
+    state: { sorting, rowSelection },
+    columnResizeMode: 'onChange',
+    columnResizeDirection: 'ltr',
+    enableRowSelection: true,
+    enableMultiRowSelection: false,
+    enableSubRowSelection: false,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -95,42 +116,44 @@ export const RestParameters = () => {
     }
   });
 
+  const tableActions =
+    table.getSelectedRowModel().rows.length > 0 && !table.getRowModel().rowsById[Object.keys(rowSelection)[0]].original.known
+      ? [
+          {
+            label: 'Remove row',
+            icon: IvyIcons.Trash,
+            action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
+          }
+        ]
+      : [];
+
   return (
-    <PathCollapsible label='Parameters' path='parameters' defaultOpen={data.length > 0}>
+    <PathCollapsible label='Parameters' path='parameters' defaultOpen={data.length > 0} controls={tableActions}>
       <Table>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
+            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
               {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan}>
+                <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHeader>
               ))}
-              <TableHeader colSpan={1} />
-            </tr>
+            </ResizableHeader>
           ))}
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <ValidationRow colSpan={5} key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
+            <SelectableValidationRow row={row} colSpan={3} key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
               {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
               ))}
-              <ActionCell
-                actions={[
-                  {
-                    label: 'Remove row',
-                    icon: IvyIcons.Trash,
-                    action: () => removeTableRow(row.index),
-                    disabled: row.original.known
-                  }
-                ]}
-              />
-            </ValidationRow>
+            </SelectableValidationRow>
           ))}
         </tbody>
       </Table>
-      <TableAddRow addRow={addRow} />
+      {showAddButton() && <TableAddRow addRow={addRow} />}
     </PathCollapsible>
   );
 };

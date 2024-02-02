@@ -24,7 +24,7 @@ test.describe('Trigger', () => {
     await runTest(view, GeneralTest);
   });
 
-  test.skip('Trigger', async () => {
+  test('Trigger', async () => {
     await runTest(view, TriggerCallTest);
   });
 

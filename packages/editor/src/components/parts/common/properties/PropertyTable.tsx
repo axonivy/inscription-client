@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ValidationRow } from '../';
-import type { ColumnDef, SortingState } from '@tanstack/react-table';
+import { SelectableValidationRow } from '../';
+import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import type { ComboboxItem } from '../../../../components/widgets';
 import {
-  ActionCell,
+  Collapsible,
   ComboCell,
+  ResizableHeader,
   ScriptCell,
   SortableHeader,
   Table,
@@ -17,15 +18,20 @@ import { Property } from './properties';
 import { IvyIcons } from '@axonivy/editor-icons';
 import type { ScriptMappings } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
+import { deepEqual } from '../../../../utils/equals';
 
 type PropertyTableProps = {
   properties: ScriptMappings;
   update: (change: ScriptMappings) => void;
   knownProperties: string[];
   hideProperties?: string[];
+  label: string;
+  defaultOpen?: boolean;
 };
 
-export const PropertyTable = ({ properties, update, knownProperties, hideProperties }: PropertyTableProps) => {
+const EMPTY_PROPERTY: Property = { expression: '', name: '' };
+
+export const PropertyTable = ({ properties, update, knownProperties, hideProperties, label, defaultOpen }: PropertyTableProps) => {
   const [data, setData] = useState<Property[]>([]);
   useEffect(() => {
     setData(Property.of(properties));
@@ -35,39 +41,64 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
 
   const knownPropertyItems = knownProperties.map<ComboboxItem>(prop => ({ value: prop }));
 
-  const [sorting, setSorting] = useState<SortingState>([]);
   const columns = useMemo<ColumnDef<Property>[]>(
     () => [
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Name' />,
+        header: header => <SortableHeader header={header} name='Name' seperator={true} />,
         cell: cell => <ComboCell cell={cell} items={knownPropertyItems} />
       },
       {
         accessorKey: 'expression',
         header: header => <SortableHeader header={header} name='Expression' />,
-        cell: cell => <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.OBJECT} browsers={['attr', 'func', 'type', 'cms']} />
+        cell: cell => (
+          <ScriptCell
+            cell={cell}
+            type={IVY_SCRIPT_TYPES.OBJECT}
+            browsers={['attr', 'func', 'type', 'cms']}
+            placeholder='Enter a Expression'
+          />
+        )
       }
     ],
     [knownPropertyItems]
   );
 
-  const addRow = () => {
-    const newData = [...data];
-    newData.push({ name: '', expression: '' });
-    onChange(newData);
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
+  const showAddButton = () => {
+    return data.filter(obj => deepEqual(obj, EMPTY_PROPERTY)).length === 0;
   };
 
-  const removeTableRow = (index: number) => {
+  const addRow = () => {
+    const newData = [...data];
+    newData.push(EMPTY_PROPERTY);
+    onChange(newData);
+    setRowSelection({ [`${newData.length - 1}`]: true });
+  };
+
+  const removeRow = (index: number) => {
     const newData = [...data];
     newData.splice(index, 1);
+    if (newData.length === 0) {
+      setRowSelection({});
+    } else if (index === data.length - 1) {
+      setRowSelection({ [`${newData.length - 1}`]: true });
+    }
     onChange(newData);
   };
 
   const table = useReactTable({
     data,
     columns,
-    state: { sorting },
+    state: { sorting, rowSelection },
+    columnResizeMode: 'onChange',
+    columnResizeDirection: 'ltr',
+    enableRowSelection: true,
+    enableMultiRowSelection: false,
+    enableSubRowSelection: false,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -78,19 +109,30 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
       }
     }
   });
+
+  const tableActions =
+    table.getSelectedRowModel().rows.length > 0
+      ? [
+          {
+            label: 'Remove row',
+            icon: IvyIcons.Trash,
+            action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
+          }
+        ]
+      : [];
+
   return (
-    <>
+    <Collapsible label={label} defaultOpen={defaultOpen} controls={tableActions}>
       <Table>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
+            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
               {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan}>
+                <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHeader>
               ))}
-              <TableHeader colSpan={1} />
-            </tr>
+            </ResizableHeader>
           ))}
         </thead>
         <tbody>
@@ -99,17 +141,18 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
               return null;
             }
             return (
-              <ValidationRow colSpan={3} key={row.id} rowPathSuffix={row.original.name}>
+              <SelectableValidationRow row={row} colSpan={2} key={row.id} rowPathSuffix={row.original.name}>
                 {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
                 ))}
-                <ActionCell actions={[{ label: 'Remove row', icon: IvyIcons.Trash, action: () => removeTableRow(row.index) }]} />
-              </ValidationRow>
+              </SelectableValidationRow>
             );
           })}
         </tbody>
       </Table>
-      <TableAddRow addRow={addRow} />
-    </>
+      {showAddButton() && <TableAddRow addRow={addRow} />}
+    </Collapsible>
   );
 };
