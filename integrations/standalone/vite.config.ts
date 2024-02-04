@@ -6,7 +6,23 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig(() => {
   const config: UserConfig = {
     plugins: [react(), tsconfigPaths()],
-    build: { outDir: 'build', chunkSizeWarningLimit: 5000, rollupOptions: { input: { index: './index.html', mock: './mock.html' } } },
+    build: {
+      outDir: 'build',
+      chunkSizeWarningLimit: 5000,
+      rollupOptions: {
+        input: {
+          index: './index.html',
+          mock: './mock.html'
+        },
+        output: {
+          manualChunks(id: string) {
+            if (id.includes('monaco-languageclient' || id.includes('vscode'))) {
+              return 'monaco-chunk';
+            }
+          }
+        }
+      }
+    },
     server: { port: 3000, open: true },
     resolve: {
       alias: {

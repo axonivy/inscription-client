@@ -7,13 +7,22 @@ import {
   MonacoEditorUtil,
   QueryProvider,
   ThemeContextProvider,
-  initQueryClient
+  initQueryClient,
+  type ThemeMode
 } from '@axonivy/inscription-editor';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { URLParams } from './url-helper';
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
+
+async function initMonaco(theme: ThemeMode): Promise<boolean> {
+  console.time('initMonaco');
+  const monaco = await import('monaco-editor/esm/vs/editor/editor.api');
+  const editorWorker = await import('monaco-editor/esm/vs/editor/editor.worker?worker');
+  await MonacoUtil.initStandalone(editorWorker.default);
+  await MonacoEditorUtil.configureInstance(monaco, theme);
+  console.timeEnd('initMonaco');
+  return true;
+}
 
 export async function start(): Promise<void> {
   console.time('*** start');
@@ -23,12 +32,10 @@ export async function start(): Promise<void> {
   const pid = URLParams.pid();
   const theme = URLParams.themeMode();
 
-  await MonacoUtil.initStandalone(editorWorker);
-  await MonacoEditorUtil.initMonaco(monaco, theme);
   const root = createRoot(document.getElementById('root')!);
-
   try {
-    await IvyScriptLanguage.startWebSocketClient(server);
+    const isMonacoReady = initMonaco(theme);
+    IvyScriptLanguage.startWebSocketClient(server, isMonacoReady);
     const client = await InscriptionClientJsonRpc.startWebSocketClient(server);
     const queryClient = initQueryClient();
 
@@ -43,9 +50,11 @@ export async function start(): Promise<void> {
         </ThemeContextProvider>
       </React.StrictMode>
     );
-    console.timeEnd('*** start');
   } catch (error) {
+    console.error(error);
     root.render(<AppStateView>{'An error has occurred: ' + error}</AppStateView>);
+  } finally {
+    console.timeEnd('*** start');
   }
 }
 

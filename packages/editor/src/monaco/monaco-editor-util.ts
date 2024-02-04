@@ -4,6 +4,7 @@ import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import type { ThemeMode } from '../context/useTheme';
 import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
 import { ivyMacroConf, ivyMacroLang } from './ivy-macro-language';
+import { Deferred } from '@axonivy/inscription-core';
 
 export const MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
   glyphMargin: false,
@@ -53,31 +54,6 @@ export const SINGLE_LINE_MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstruc
 
 export namespace MonacoEditorUtil {
   export const DEFAULT_THEME_NAME = 'axon-input';
-  export async function initMonaco(monaco: Monaco, theme: ThemeMode): Promise<Monaco> {
-    console.time('MonacoEditorUtil.initMonaco');
-    loader.config({ monaco });
-
-    return loader.init().then(monaco => {
-      monaco.languages.register({
-        id: 'ivyScript',
-        extensions: ['.ivyScript', '.ivyScript'],
-        aliases: ['IvyScript', 'ivyScript']
-      });
-      monaco.languages.register({
-        id: 'ivyMacro',
-        extensions: ['.ivyMacro', '.ivyMacro'],
-        aliases: []
-      });
-      monaco.languages.setLanguageConfiguration('ivyScript', ivyScriptConf);
-      monaco.languages.setMonarchTokensProvider('ivyScript', ivyScriptLang);
-      monaco.languages.setLanguageConfiguration('ivyMacro', ivyMacroConf);
-      monaco.languages.setMonarchTokensProvider('ivyMacro', ivyMacroLang);
-
-      monaco.editor.defineTheme(DEFAULT_THEME_NAME, themeData(theme));
-      console.timeEnd('MonacoEditorUtil.initMonaco');
-      return monaco;
-    });
-  }
 
   export function themeData(theme: ThemeMode): monaco.editor.IStandaloneThemeData {
     if (theme === 'dark') {
@@ -103,4 +79,45 @@ export namespace MonacoEditorUtil {
       rules: []
     };
   }
+
+  const instance: Deferred<Monaco> = new Deferred<Monaco>();
+  export async function getInstance(): Promise<Monaco> {
+    return instance.promise;
+  }
+
+  let configureCalled = false;
+  export async function configureInstance(monaco: Monaco, theme: ThemeMode): Promise<Monaco> {
+    if (configureCalled) {
+      console.error(
+        'MonacoEditorUtil.configureInstance should only be called once. The caller will receive the first, configured instance. If you want to configure additional instances, call "configureMonaco" instead.'
+      );
+    } else {
+      configureCalled = true;
+      configureMonaco(monaco, theme).then(instance.resolve).catch(instance.reject);
+    }
+    return instance.promise;
+  }
+}
+
+export async function configureMonaco(monaco: Monaco, theme: ThemeMode): Promise<Monaco> {
+  console.time('configureMonaco');
+  loader.config({ monaco });
+  const _monaco = await loader.init();
+  _monaco.languages.register({
+    id: 'ivyScript',
+    extensions: ['.ivyScript', '.ivyScript'],
+    aliases: ['IvyScript', 'ivyScript']
+  });
+  _monaco.languages.register({
+    id: 'ivyMacro',
+    extensions: ['.ivyMacro', '.ivyMacro'],
+    aliases: []
+  });
+  _monaco.languages.setLanguageConfiguration('ivyScript', ivyScriptConf);
+  _monaco.languages.setMonarchTokensProvider('ivyScript', ivyScriptLang);
+  _monaco.languages.setLanguageConfiguration('ivyMacro', ivyMacroConf);
+  _monaco.languages.setMonarchTokensProvider('ivyMacro', ivyMacroLang);
+  _monaco.editor.defineTheme(MonacoEditorUtil.DEFAULT_THEME_NAME, MonacoEditorUtil.themeData(theme));
+  console.timeEnd('configureMonaco');
+  return _monaco;
 }
