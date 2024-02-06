@@ -16,6 +16,7 @@ import { URLParams } from './url-helper';
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 
 export async function start(): Promise<void> {
+  console.time('*** start');
   const server = URLParams.webSocketBase();
   const app = URLParams.app();
   const pmv = URLParams.pmv();
@@ -42,6 +43,7 @@ export async function start(): Promise<void> {
         </ThemeContextProvider>
       </React.StrictMode>
     );
+    console.timeEnd('*** start');
   } catch (error) {
     root.render(<AppStateView>{'An error has occurred: ' + error}</AppStateView>);
   }

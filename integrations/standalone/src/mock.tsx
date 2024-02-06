@@ -16,6 +16,7 @@ import type { ElementType } from '@axonivy/inscription-protocol';
 import { InscriptionClientMock } from './mock/inscription-client-mock';
 
 export async function start(): Promise<void> {
+  console.time('*** start');
   const theme = URLParams.themeMode();
   const readonly = URLParams.parameter('readonly') ? true : false;
   const type = (URLParams.parameter('type') as ElementType) ?? undefined;
@@ -38,6 +39,7 @@ export async function start(): Promise<void> {
       </ThemeContextProvider>
     </React.StrictMode>
   );
+  console.timeEnd('*** start');
 }
 
 start();
