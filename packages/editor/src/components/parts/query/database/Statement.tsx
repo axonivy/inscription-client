@@ -11,7 +11,7 @@ export const Statement = () => {
       path='sql'
     >
       <PathFieldset label='SQL Query' path='stmt'>
-        <MacroArea value={config.query.sql.stmt} onChange={change => updateSql('stmt', change)} browsers={['tablecol', 'sqlOp', 'attr']} />
+        <MacroArea value={config.query.sql.stmt} onChange={change => updateSql('stmt', change)} browsers={['tablecol', 'attr']} />
       </PathFieldset>
       <MessageText
         message={{

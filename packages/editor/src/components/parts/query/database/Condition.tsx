@@ -12,7 +12,7 @@ export const Condition = () => {
           <MacroArea
             value={config.query.sql.condition}
             onChange={change => updateSql('condition', change)}
-            browsers={['tablecol', 'sqlOp', 'attr']}
+            browsers={['tablecol', 'attr']}
           />
         </ValidationFieldset>
       </PathCollapsible>
