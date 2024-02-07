@@ -8,7 +8,6 @@ import { useCmsBrowser, type CmsOptions } from './cms/CmsBrowser';
 import { useFuncBrowser } from './function/FunctionBrowser';
 import { useTypeBrowser } from './type/TypeBrowser';
 import { useTableColBrowser } from './tableCol/TableColBrowser';
-import { useSqlOpBrowser } from './sql/SqlOperationBrowser';
 import BrowserBody from './BrowserBody';
 
 export type BrowserValue = { cursorValue: string; firstLineValue?: string };
@@ -45,10 +44,9 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
         },
     location
   );
-  const tableColBrowser = useTableColBrowser();
-  const sqlOpBrowser = useSqlOpBrowser();
+  const tableColBrowser = useTableColBrowser(onRowDoubleClick);
 
-  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, tableColBrowser, sqlOpBrowser];
+  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, tableColBrowser];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
 
