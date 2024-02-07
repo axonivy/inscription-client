@@ -106,6 +106,8 @@ export class InscriptionClientMock implements InscriptionClient {
         return Promise.resolve(MetaMock.DATATYPE);
       case 'meta/workflow/categoryPaths':
         return Promise.resolve(MetaMock.CATPATH);
+      case 'meta/database/columns':
+        return Promise.resolve(MetaMock.DATABASE);
       default:
         throw Error('mock meta path not programmed');
     }

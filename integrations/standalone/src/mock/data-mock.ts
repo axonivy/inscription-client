@@ -29,7 +29,7 @@ export namespace DataMock {
       },
       task: {
         name: 'user task',
-        notification: {suppress: false, template: 'Default' }
+        notification: { suppress: false, template: 'Default' }
       },
       case: {
         name: 'case <%=ivy.cms.co("/Case/name")%> bla <%= in.name %>',
@@ -65,6 +65,25 @@ blalbalba
     }
   };
 
+  export const DATABASE = {
+    ...NAME,
+    config: {
+      query: {
+        dbName: ['testDatabase'],
+        sql: {
+          kind: 'READ',
+          table: 'cool Table',
+          condition: '',
+          fields: {},
+          select: ['*'] as string[],
+          orderBy: [] as string[],
+          stmt: '',
+          quote: false
+        }
+      }
+    }
+  };
+
   export function mockForType(type: ElementType) {
     switch (type) {
       case 'UserTask':
@@ -74,6 +93,8 @@ blalbalba
         return DataMock.TASK_SWITCH_GATEWAY;
       case 'Alternative':
         return DataMock.ALTERNATIVE;
+      case 'Database':
+        return DataMock.DATABASE;
       default:
         return DataMock.NAME;
     }

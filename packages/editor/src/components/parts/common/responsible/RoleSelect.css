@@ -1,0 +1,13 @@
+.role-select,
+.responsible-select .role-select {
+  display: flex;
+  gap: var(--size-1);
+  align-items: center;
+  width: 100%;
+}
+
+.role-select .select,
+.responsible-select .role-select .select {
+  flex: auto;
+  width: 100%;
+}
