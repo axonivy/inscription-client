@@ -77,6 +77,7 @@ type ContextHelperProps = {
     datatypes?: JavaType[];
     ivyTypes?: JavaType[];
     dataClasses?: DataClass[];
+    tags?: string[];
   };
   editor?: { title?: string; readonly?: boolean };
 };
@@ -177,6 +178,8 @@ const ContextHelper = (
             return Promise.resolve(props.meta?.ivyTypes ?? []);
           case 'meta/scripting/dataClasses':
             return Promise.resolve(props.meta?.dataClasses ?? []);
+          case 'meta/workflow/tags':
+            return Promise.resolve(props.meta?.tags ?? []);
           default:
             throw Error('mock meta path not programmed');
         }

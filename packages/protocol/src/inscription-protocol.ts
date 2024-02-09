@@ -54,6 +54,7 @@ export interface InscriptionMetaRequestTypes {
   'meta/workflow/signalCodes': [SignalCodeRequest, EventCodeMeta[]];
   'meta/workflow/notificationTemplates': [InscriptionContext, string[]];
   'meta/workflow/categoryPaths': [CategoryPathRequest, CategoryPathMeta[]];
+  'meta/workflow/tags': [InscriptionElementContext, string[]];
 
   'meta/database/names': [InscriptionContext, string[]];
   'meta/database/tables': [DatabaseTablesRequest, string[]];

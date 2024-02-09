@@ -1,80 +1,153 @@
 import './Tags.css';
-import '../popover/Popover.css';
-import * as Popover from '@radix-ui/react-popover';
-import { memo, useState } from 'react';
-import { useKeyboard } from 'react-aria';
-import { useEditorContext } from '../../../context';
+import { memo, useEffect, useRef, useState } from 'react';
+import { useEditorContext, useMeta } from '../../../context';
 import IvyIcon from '../IvyIcon';
 import { IvyIcons } from '@axonivy/editor-icons';
-import { Fieldset, useFieldset } from '../fieldset';
-import { Input } from '../input';
+import { useCombobox } from 'downshift';
+import { useKeyboard } from 'react-aria';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
-  const [newTag, setNewTag] = useState('');
-  const [isOpen, setOpen] = useState(false);
+  const { elementContext } = useEditorContext();
 
-  const handleRemoveTag = (removeTag: string) => {
+  const { data } = useMeta('meta/workflow/tags', elementContext, []);
+  const [dropDownTags, setDropDownTags] = useState<string[]>([]);
+  const [addValue, setAddValue] = useState('Add');
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const filter = (tag: string, input?: string) => {
+    if (!input) {
+      return true;
+    }
+    return tag.toLowerCase().includes(input.toLowerCase());
+  };
+
+  const removeTag = (removeTag: string) => {
     const newTags = props.tags.filter(tag => tag !== removeTag);
     props.onChange(newTags);
   };
-  const handleAddPopoverChange = (open: boolean) => {
-    setOpen(open);
-    if (!open && newTag.length > 0) {
-      const newTags = [...props.tags, newTag];
-      props.onChange(newTags);
+
+  const addTag = (tag: string) => {
+    if (tag.length > 0 && !props.tags.find(t => t === tag)) {
+      const tagWithoutSpaces = tag.replace(/\s/g, '');
+      props.onChange([...props.tags, tagWithoutSpaces]);
     }
-    setNewTag('');
+    closeMenu();
+    selectItem('');
+    setAddValue('Add');
+    inputRef.current?.blur();
   };
+
+  const {
+    isOpen,
+    getToggleButtonProps,
+    getMenuProps,
+    getInputProps,
+    inputValue,
+    highlightedIndex,
+    getItemProps,
+    openMenu,
+    selectedItem,
+    selectItem,
+    closeMenu
+  } = useCombobox({
+    onSelectedItemChange(change) {
+      addTag(change.inputValue ?? '');
+    },
+    stateReducer(state, actionAndChanges) {
+      switch (actionAndChanges.type) {
+        case useCombobox.stateChangeTypes.InputBlur:
+          addTag(actionAndChanges.changes.inputValue ?? '');
+          break;
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
+          selectItem(actionAndChanges.changes.inputValue ?? '');
+          break;
+      }
+      return actionAndChanges.changes;
+    },
+    onInputValueChange(change) {
+      if (change.type !== useCombobox.stateChangeTypes.FunctionSelectItem) {
+        setDropDownTags(data.filter(tag => !props.tags.includes(tag)).filter(item => filter(item, change.inputValue)));
+        setAddValue(change.inputValue ?? '');
+      }
+    },
+    items: dropDownTags,
+    itemToString(item) {
+      return item ?? '';
+    },
+    initialSelectedItem: ''
+  });
+
+  useEffect(() => {
+    setDropDownTags(data.filter(tag => !props.tags.includes(tag)));
+  }, [data, props.tags]);
+
   const { keyboardProps } = useKeyboard({
     onKeyDown: e => {
       if (e.key === 'Delete' && e.target instanceof HTMLButtonElement) {
         e.target.click();
       }
-      if (e.key === 'Enter' && e.target instanceof HTMLInputElement) {
-        handleAddPopoverChange(false);
-      }
     }
   });
 
   const editorContext = useEditorContext();
-  const tagFieldset = useFieldset();
 
   return (
-    <div className='tags'>
-      {props.tags.map((tag, index) => (
-        <div key={`${tag}-${index}`} className='tag' role='gridcell'>
+    <>
+      <div className='tags'>
+        <div {...getToggleButtonProps()}>
           <button
-            className='tag-remove'
-            onClick={() => handleRemoveTag(tag)}
-            aria-label={`Remove Tag ${tag}`}
-            {...keyboardProps}
+            className={`tag ${isOpen || (!isOpen && addValue !== 'Add') ? 'tag-remove-button' : 'tag-add'}`}
+            aria-label='Add new tag'
             disabled={editorContext.readonly}
           >
             <IvyIcon icon={IvyIcons.Close} />
+            <input
+              disabled={editorContext.readonly}
+              className='new-tag-input'
+              {...getInputProps({
+                onFocus: () => {
+                  openMenu();
+                  setAddValue('');
+                },
+                ref: inputRef,
+                value: addValue,
+                'aria-label': 'New Tag'
+              })}
+              style={{ width: inputValue.length * 8 > 28 ? inputValue.length * 8 : 28 }}
+            />
           </button>
-          <span>{tag}</span>
+          <ul {...getMenuProps()} className='combobox-menu'>
+            {isOpen &&
+              dropDownTags.map((item, index) => (
+                <li
+                  className={`combobox-menu-entry ${highlightedIndex === index ? 'hover' : ''} ${selectedItem === item ? 'selected' : ''}`}
+                  key={`${item}${index}`}
+                  {...getItemProps({ item, index })}
+                >
+                  <span>{item}</span>
+                </li>
+              ))}
+          </ul>
         </div>
-      ))}
-      <Popover.Root open={isOpen} onOpenChange={handleAddPopoverChange}>
-        <Popover.Trigger asChild>
-          <button className='tag tag-add' aria-label='Add new tag' disabled={editorContext.readonly}>
-            <IvyIcon icon={IvyIcons.Plus} />
-            <span>Add</span>
-          </button>
-        </Popover.Trigger>
-        <Popover.Portal container={editorContext.editorRef.current}>
-          <Popover.Content className='popover-content' sideOffset={5} collisionBoundary={editorContext.editorRef.current}>
-            <Fieldset label='New Tag' {...tagFieldset.labelProps}>
-              <Input value={newTag} {...keyboardProps} onChange={change => setNewTag(change)} {...tagFieldset.inputProps} />
-            </Fieldset>
-            <Popover.Close className='popover-close' aria-label='Close'>
+        {props.tags.map((tag, index) => (
+          <div key={`${tag}-${index}`} className='added-tag' role='gridcell'>
+            <button
+              className='tag-remove'
+              onClick={() => {
+                removeTag(tag);
+              }}
+              aria-label={`Remove Tag ${tag}`}
+              {...keyboardProps}
+              disabled={editorContext.readonly}
+            >
               <IvyIcon icon={IvyIcons.Close} />
-            </Popover.Close>
-            <Popover.Arrow className='popover-arrow' />
-          </Popover.Content>
-        </Popover.Portal>
-      </Popover.Root>
-    </div>
+            </button>
+            <span>{tag}</span>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
