@@ -27,7 +27,14 @@ export namespace URLParams {
   }
 
   const isSecureConnection = () => {
-    return window.location.protocol === 'https:' || parameter('secure') === 'true';
+    const secureParam = parameter('secure');
+    if (secureParam === 'true') {
+      return true;
+    }
+    if (secureParam === 'false') {
+      return false;
+    }
+    return window.location.protocol === 'https:';
   };
 
   const server = () => {
