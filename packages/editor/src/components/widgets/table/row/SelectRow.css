@@ -21,3 +21,11 @@
   background-color: var(--A300);
   color: var(--selected-row-text-color);
 }
+
+.selectable-row[data-state='selected'] .combobox-button:hover {
+  background-color: var(--A300);
+}
+
+.selectable-row[data-state=''] .combobox-button:hover {
+  background-color: var(--A50);
+}

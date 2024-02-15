@@ -6,11 +6,10 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type CategoryType = ("START" | "TASK" | "CASE")
-export type PID = string;
+export type PID = string
 export type ContentObjectType = "STRING" | "FILE" | "FOLDER";
-export type CustomFieldConfigType = "START" | "TASK" | "CASE";
 export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
+export type WorkflowType = "START" | "TASK" | "CASE";
 export type WfLevel = "EXCEPTION" | "HIGH" | "NORMAL" | "LOW" | "SCRIPT";
 export type WfActivatorType = "ROLE" | "ROLE_FROM_ATTRIBUTE" | "USER_FROM_ATTRIBUTE" | "DELETE_TASK";
 export type CacheInvalidation = "NONE" | "FIXED_TIME" | "LIFETIME";
@@ -32,10 +31,10 @@ export interface Inscription {
   callableDialogRequest: CallableDialogRequest;
   callableStart: CallableStart[];
   categoryPathMeta: CategoryPathMeta[];
-  categoryPathRequest: CategoryPathRequest;
   cmsMetaRequest: CmsMetaRequest;
   connectorRef: ConnectorRef[];
   contentObject: ContentObject[];
+  customFieldSchema: WfCustomField[];
   databaseColumn: DatabaseColumn[];
   databaseColumnRequest: DatabaseColumnRequest;
   databaseTablesRequest: DatabaseTablesRequest;
@@ -64,7 +63,7 @@ export interface Inscription {
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
-  string: string[];
+  string: string;
   typeSearchRequest: TypeSearchRequest;
   variableInfo: VariableInfo;
   void: Void;
@@ -73,6 +72,7 @@ export interface Inscription {
   webServiceOperation: WebServiceOperation[];
   webServicePortRequest: WebServicePortRequest;
   widget: Widget[];
+  workflowTypeRequest: WorkflowTypeRequest;
   [k: string]: unknown;
 }
 export interface ApiDocRequest {
@@ -117,10 +117,6 @@ export interface CategoryPathMeta {
   process: string;
   project: string;
   usage: number;
-}
-export interface CategoryPathRequest {
-  context: InscriptionContext;
-  type: CategoryType;
 }
 export interface CmsMetaRequest {
   context: InscriptionContext;
@@ -209,6 +205,11 @@ export interface ContentObject {
 export interface MapStringString {
   [k: string]: string;
 }
+export interface WfCustomField {
+  name: string;
+  type: WfFieldType;
+  value: string;
+}
 export interface DatabaseColumn {
   ivyType: string;
   name: string;
@@ -283,7 +284,7 @@ export interface InscriptionActionArgs {
 }
 export interface OpenCustomField {
   name: string;
-  type: CustomFieldConfigType;
+  type: WorkflowType;
 }
 export interface InscriptionRequest {
   context: InscriptionElementContext;
@@ -355,11 +356,6 @@ export interface WfCase {
   customFields: WfCustomField[];
   description: string;
   name: string;
-}
-export interface WfCustomField {
-  name: string;
-  type: WfFieldType;
-  value: string;
 }
 export interface WfTask {
   category: string;
@@ -856,4 +852,8 @@ export interface Text {
   configKey: string;
   multiline: boolean;
   widgetType: WidgetType;
+}
+export interface WorkflowTypeRequest {
+  context: InscriptionContext;
+  type: WorkflowType;
 }

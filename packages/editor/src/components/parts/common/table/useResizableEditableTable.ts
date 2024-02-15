@@ -10,11 +10,36 @@ interface UseResizableEditableTableProps<TData> {
   columns: ColumnDef<TData>[];
   onChange: (change: TData[]) => void;
   emptyDataObject: TData;
+  specialUpdateData?: (rowId: string, columnId: string, value: unknown) => void;
 }
 
-const useResizableEditableTable = <TData>({ data, columns, onChange, emptyDataObject }: UseResizableEditableTableProps<TData>) => {
+const useResizableEditableTable = <TData>({
+  data,
+  columns,
+  onChange,
+  emptyDataObject,
+  specialUpdateData
+}: UseResizableEditableTableProps<TData>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
+  const updateData = (rowId: string, columnId: string, value: unknown) => {
+    const rowIndex = parseInt(rowId);
+    const updatedData = data.map((row, index) => {
+      if (index === rowIndex) {
+        return {
+          ...data[rowIndex]!,
+          [columnId]: value
+        };
+      }
+      return row;
+    });
+    if (!deepEqual(updatedData[updatedData.length - 1], emptyDataObject) && rowIndex === data.length - 1) {
+      onChange([...updatedData, emptyDataObject]);
+    } else {
+      onChange(updatedData);
+    }
+  };
 
   const table = useReactTable({
     data,
@@ -29,25 +54,7 @@ const useResizableEditableTable = <TData>({ data, columns, onChange, emptyDataOb
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    meta: {
-      updateData: (rowId, columnId, value) => {
-        const rowIndex = parseInt(rowId);
-        const updatedData = data.map((row, index) => {
-          if (index === rowIndex) {
-            return {
-              ...data[rowIndex]!,
-              [columnId]: value
-            };
-          }
-          return row;
-        });
-        if (!deepEqual(updatedData[updatedData.length - 1], emptyDataObject) && rowIndex === data.length - 1) {
-          onChange([...updatedData, emptyDataObject]);
-        } else {
-          onChange(updatedData);
-        }
-      }
-    }
+    meta: { updateData: specialUpdateData ? specialUpdateData : updateData }
   });
 
   useEffect(() => {

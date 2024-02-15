@@ -18,7 +18,7 @@ class Case extends PartObject {
     this.category = part.macroInput('Category');
 
     this.customSection = part.section('Custom Fields');
-    this.customFields = this.customSection.table(['text', 'label', 'expression']);
+    this.customFields = this.customSection.table(['combobox', 'label', 'expression']);
   }
 
   async fill() {

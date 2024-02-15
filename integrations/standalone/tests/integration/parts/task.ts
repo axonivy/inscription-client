@@ -100,7 +100,7 @@ class Task extends PartObject {
     this.expiryResponsbile = this.expirySection.responsibleSelect('Responsible');
     this.expiryPriority = this.expirySection.select('Priority');
     this.customFieldsSection = part.section('Custom Fields');
-    this.customFields = this.customFieldsSection.table(['text', 'label', 'expression']);
+    this.customFields = this.customFieldsSection.table(['combobox', 'label', 'expression']);
     this.codeSection = part.section('Code');
     this.code = this.codeSection.scriptArea();
   }
