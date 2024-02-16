@@ -20,7 +20,7 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
         <RoleSelect
           value={props.responsible?.activator}
           onChange={change => props.updateResponsible('activator', change)}
-          showtaskRoles={true}
+          showTaskRoles={true}
         />
       );
     case 'ROLE_FROM_ATTRIBUTE':

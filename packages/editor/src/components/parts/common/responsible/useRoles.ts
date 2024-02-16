@@ -5,22 +5,29 @@ import { EMPTY_ROLE, type RoleMeta } from '@axonivy/inscription-protocol';
 
 export const useRoles = (showTaskRoles = false) => {
   const [roles, setRoles] = useState<SelectItem[]>([]);
+  const [rolesAsTree, setRolesAsTree] = useState<RoleMeta[]>([]);
   const { context, elementContext } = useEditorContext();
   const roleTree = useMeta('meta/workflow/roleTree', context, EMPTY_ROLE).data;
   const taskRoles = useMeta('meta/workflow/taskRoles', elementContext, []).data;
 
   useEffect(() => {
     const flatRoles: SelectItem[] = [];
-    const addRoles = (role: RoleMeta) => {
+    const treeRoles: RoleMeta[] = [];
+    const addFlatRoles = (role: RoleMeta) => {
       flatRoles.push({ label: role.id, value: role.id });
-      role.children.forEach(addRoles);
+      role.children.forEach(addFlatRoles);
     };
     if (showTaskRoles) {
-      taskRoles.forEach(addRoles);
+      taskRoles.forEach(role => {
+        treeRoles.push(role);
+        addFlatRoles(role);
+      });
     }
-    addRoles(roleTree);
+    treeRoles.push(roleTree);
+    setRolesAsTree(treeRoles);
+    addFlatRoles(roleTree);
     setRoles(flatRoles);
-  }, [roleTree, showTaskRoles, taskRoles]);
+  }, [roleTree, setRolesAsTree, showTaskRoles, taskRoles]);
 
-  return roles;
+  return { rolesAsTree, roles };
 };

@@ -8,7 +8,8 @@ import type {
   ContentObject,
   DataClass,
   JavaType,
-  CategoryPathMeta
+  CategoryPathMeta,
+  DatabaseColumn
 } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
@@ -291,6 +292,19 @@ export namespace MetaMock {
           ]
         }
       }
+    }
+  ];
+
+  export const DATABASE: DatabaseColumn[] = [
+    {
+      ivyType: 'TestIvyType',
+      name: 'Test Column',
+      type: 'String'
+    },
+    {
+      ivyType: 'SpecialTestIvyType',
+      name: 'Cool Column',
+      type: 'Boolean'
     }
   ];
 

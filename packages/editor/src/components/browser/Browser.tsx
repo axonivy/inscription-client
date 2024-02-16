@@ -9,6 +9,7 @@ import { useFuncBrowser } from './function/FunctionBrowser';
 import { useTypeBrowser } from './type/TypeBrowser';
 import { useTableColBrowser } from './tableCol/TableColBrowser';
 import BrowserBody from './BrowserBody';
+import { useRoleBrowser, type RoleOptions } from './role/RoleBrowser';
 
 export type BrowserValue = { cursorValue: string; firstLineValue?: string };
 
@@ -17,10 +18,11 @@ type BrowserProps = UseBrowserReturnValue & {
   accept: (value: BrowserValue, type: BrowserType) => void;
   location: string;
   cmsOptions?: CmsOptions;
+  roleOptions?: RoleOptions;
   initSearchFilter?: () => string;
 };
 
-const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, initSearchFilter }: BrowserProps) => {
+const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, roleOptions, initSearchFilter }: BrowserProps) => {
   const [active, setActive] = useState<BrowserType>(types[0]);
 
   const acceptBrowser = () => {
@@ -45,8 +47,9 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, init
     location
   );
   const tableColBrowser = useTableColBrowser(onRowDoubleClick);
+  const roleBrowser = useRoleBrowser(onRowDoubleClick, roleOptions);
 
-  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, tableColBrowser];
+  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, tableColBrowser, roleBrowser];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
 

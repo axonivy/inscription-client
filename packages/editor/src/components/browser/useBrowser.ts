@@ -6,13 +6,15 @@ import type { CMS_BROWSER_ID } from './cms/CmsBrowser';
 import type { FUNCTION_BROWSER_ID } from './function/FunctionBrowser';
 import type { TYPE_BROWSER_ID } from './type/TypeBrowser';
 import type { TABLE_COL_BROWSER_ID } from './tableCol/TableColBrowser';
+import type { ROLE_BROWSER } from './role/RoleBrowser';
 
 export type BrowserType =
   | typeof ATTRIBUTE_BROWSER_ID
   | typeof CMS_BROWSER_ID
   | typeof FUNCTION_BROWSER_ID
   | typeof TYPE_BROWSER_ID
-  | typeof TABLE_COL_BROWSER_ID;
+  | typeof TABLE_COL_BROWSER_ID
+  | typeof ROLE_BROWSER;
 
 type BrowserValue = { cursorValue: string; firstLineValue?: string };
 
