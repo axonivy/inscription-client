@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="Outlines" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #1b1b1b;
-        stroke-width: 0px;
-      }
-    </style>
-  </defs>
-  <g id="start-signal">
-    <path class="cls-1" d="m6.2,17.74c-.27,0-.52-.14-.65-.38-.14-.23-.13-.52,0-.76l5.91-9.98c.14-.23.38-.37.65-.37h0c.27,0,.51.14.65.38l5.69,9.85c.13.23.13.51,0,.75s-.38.38-.64.38l-11.6.13h0Zm5.91-9.25l-4.58,7.73,8.99-.1-4.41-7.63Z"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" id="Outlines" viewBox="0 0 24 24"><defs><style>.cls-1{fill:#1b1b1b;stroke-width:0}</style></defs><g id="start-signal"><path d="m6.2,17.74c-.27,0-.52-.14-.65-.38-.14-.23-.13-.52,0-.76l5.91-9.98c.14-.23.38-.37.65-.37h0c.27,0,.51.14.65.38l5.69,9.85c.13.23.13.51,0,.75s-.38.38-.64.38l-11.6.13h0Zm5.91-9.25l-4.58,7.73,8.99-.1-4.41-7.63Z" class="cls-1"/></g></svg>
