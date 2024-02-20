@@ -1,6 +1,6 @@
 import type { ColumnDef, Row, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { Checkbox, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
+import { Checkbox, ResizableHeader, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
 import { useEditorContext, useMeta } from '../../../../context';
 import { PathCollapsible } from '../../common';
 import { useQueryData } from '../useQueryData';
@@ -32,13 +32,13 @@ export const TableReadFields = () => {
     () => [
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Column' />,
-        cell: cell => <span>{cell.getValue() as string}</span>
-      },
-      {
-        accessorKey: 'type',
-        header: header => <SortableHeader header={header} name='Type' />,
-        cell: cell => <span>{cell.getValue() as string}</span>
+        header: header => <SortableHeader header={header} name='Column' seperator={true} />,
+        cell: cell => (
+          <>
+            <span>{cell.getValue() as string}</span>
+            <span className='row-expand-label-info'> : {cell.row.original.type}</span>
+          </>
+        )
       },
       {
         accessorKey: 'selected',
@@ -54,6 +54,8 @@ export const TableReadFields = () => {
     data,
     columns,
     state: { sorting },
+    columnResizeMode: 'onChange',
+    columnResizeDirection: 'ltr',
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel()
@@ -78,20 +80,22 @@ export const TableReadFields = () => {
         <Table>
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
-              <tr key={headerGroup.id}>
+              <ResizableHeader key={headerGroup.id} headerGroup={headerGroup}>
                 {headerGroup.headers.map(header => (
-                  <TableHeader key={header.id} colSpan={header.colSpan}>
+                  <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHeader>
                 ))}
-              </tr>
+              </ResizableHeader>
             ))}
           </thead>
           <tbody>
             {table.getRowModel().rows.map(row => (
               <tr key={row.id} onClick={() => selectRow(row)}>
                 {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
                 ))}
               </tr>
             ))}

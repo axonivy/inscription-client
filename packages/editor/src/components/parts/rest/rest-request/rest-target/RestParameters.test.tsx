@@ -1,7 +1,7 @@
 import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
 import { RestParameters } from './RestParameters';
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, SelectUtil, TableUtil, render, screen } from 'test-utils';
+import { CollapsableUtil, SelectUtil, TableUtil, render, screen, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('RestParameters', () => {
@@ -35,10 +35,11 @@ describe('RestParameters', () => {
       queryParams: [{ name: 'queryParam', type: { fullQualifiedName: 'String' }, doc: 'query param', required: false }]
     });
     await screen.findByText('Kind');
-    TableUtil.assertRows(['pathParam Number', 'queryParam String']);
+    TableUtil.assertRows(['pathParam', 'queryParam']);
     expect(SelectUtil.select({ index: 0 })).toBeDisabled();
     expect(screen.getAllByRole('textbox')[0]).toHaveValue('pathParam');
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();
-    expect(screen.getAllByRole('button', { name: 'Remove row' })[0]).toBeDisabled();
+    await userEvent.click(screen.getAllByRole('textbox')[0]);
+    expect(screen.queryAllByRole('button', { name: 'Remove row' })).toHaveLength(0);
   });
 });

@@ -33,15 +33,15 @@ test.describe('Rest Client', () => {
     await runTest(view, GeneralTest);
   });
 
-  test.skip('Request', async () => {
+  test('Request', async () => {
     await runTest(view, RestRequestTest);
   });
 
-  test.skip('RequestBody - Entity', async () => {
+  test('RequestBody - Entity', async () => {
     await runTest(view, RestRequestBodyEntityTest);
   });
 
-  test.skip('RequestBody - Form', async () => {
+  test('RequestBody - Form', async () => {
     await runTest(view, RestRequestBodyFormTest);
   });
 
@@ -53,7 +53,7 @@ test.describe('Rest Client', () => {
     await runTest(view, RestRequestBodyJaxRsTest);
   });
 
-  test.skip('Response', async () => {
+  test('Response', async () => {
     await runTest(view, RestResponseTest);
   });
 });

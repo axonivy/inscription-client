@@ -5,7 +5,7 @@ import { Select } from '../../pageobjects/Select';
 import type { Table } from '../../pageobjects/Table';
 import type { ScriptInput } from '../../pageobjects/CodeEditor';
 import type { Combobox } from '../../pageobjects/Combobox';
-import type { Locator} from '@playwright/test';
+import type { Locator } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 class RestRequest extends PartObject {
@@ -30,7 +30,7 @@ class RestRequest extends PartObject {
     this.method = new Select(part.page, part.currentLocator(), { nth: 1 });
     this.path = part.scriptInput('Resource');
     this.parametersSection = part.section('Parameters');
-    this.parameters = this.parametersSection.table(['select', 'text', 'label', 'expression']);
+    this.parameters = this.parametersSection.table(['select', 'text', 'expression']);
     this.headersSection = part.section('Headers');
     this.acceptHeader = this.headersSection.combobox('Accept');
     this.headers = this.headersSection.table(['combobox', 'expression']);
@@ -45,7 +45,7 @@ class RestRequest extends PartObject {
     await this.path.fill('/{myParam}');
 
     await this.parameters.expectRowCount(4);
-    await this.parameters.row(3).column(3).fill('123');
+    await this.parameters.row(3).column(2).fill('123');
     const paramRow = await this.parameters.addRow();
     await paramRow.fill(['Query', 'query', 'bla']);
 
@@ -68,7 +68,7 @@ class RestRequest extends PartObject {
     await this.path.expectValue('/{myParam}');
 
     await this.parametersSection.expectIsOpen();
-    await this.parameters.row(3).column(3).expectValue('123');
+    await this.parameters.row(3).column(2).expectValue('123');
     await this.parameters.row(4).expectValues(['Query', 'query', 'bla']);
 
     await this.headersSection.expectIsOpen();
@@ -112,7 +112,7 @@ class RestRequestOpenApi extends RestRequest {
     await this.resource.choose('DELETE');
 
     await this.parameters.expectRowCount(1);
-    await this.parameters.row(0).column(3).fill('123');
+    await this.parameters.row(0).column(2).fill('123');
 
     await this.headersSection.toggle();
     const headerRow = await this.headers.addRow();

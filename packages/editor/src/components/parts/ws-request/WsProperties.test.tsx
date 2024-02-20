@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, CollapsableUtil, TableUtil, ComboboxUtil } from 'test-utils';
+import { render, CollapsableUtil, TableUtil, ComboboxUtil, userEvent, screen } from 'test-utils';
 import type { WsRequestData } from '@axonivy/inscription-protocol';
 import { WsProperties } from './WsProperties';
 import { describe, test } from 'vitest';
@@ -18,6 +18,7 @@ describe('WsProperties', () => {
     renderPart({ properties: { soaper: 'value' } });
     await CollapsableUtil.assertOpen('Properties');
     TableUtil.assertRows(['soaper value']);
+    await userEvent.click(screen.getByRole('row', { name: 'soaper value' }));
     await ComboboxUtil.assertValue('soaper');
     await ComboboxUtil.assertOptionsCount(3);
   });

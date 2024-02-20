@@ -10,10 +10,9 @@
 .selectable-row[data-state='selected'] .table-cell :where(.input, .select-button, .row-expand .row-expand-label-info) {
   background-color: var(--A300);
   color: var(--selected-row-text-color);
-  border-radius: var(--border-radius);
 }
 
-.selectable-row[data-state='selected'] .table-cell :where(.select-button:hover, .select-button:focus, .select-menu) {
+.selectable-row[data-state='selected'] .table-cell :where(.select-button:hover, .select-button:focus, .select-menu, .combobox-menu) {
   background-color: var(--background);
   color: var(--body);
 }

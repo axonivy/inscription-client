@@ -15,12 +15,12 @@ export const ResizableHeader = <TData,>({
   headerGroup,
   ...props
 }: React.HTMLAttributes<HTMLTableRowElement> & {
-  setRowSelection: (value: React.SetStateAction<RowSelectionState>) => void;
+  setRowSelection?: (value: React.SetStateAction<RowSelectionState>) => void;
   headerGroup: HeaderGroup<TData>;
 }) => (
   <tr
     onClick={() => {
-      setRowSelection({});
+      setRowSelection ? setRowSelection({}) : undefined;
     }}
     onDoubleClick={() => {
       headerGroup.headers.forEach(header => {
@@ -32,6 +32,16 @@ export const ResizableHeader = <TData,>({
     {children}
   </tr>
 );
+
+export function TextHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string; seperator?: boolean }) {
+  const header = props.header;
+  return (
+    <div className={`column-text ${props.seperator ? 'has-resizer' : ''}`}>
+      <span>{props.name}</span>
+      {props.seperator && <ColumnResizer header={header} />}
+    </div>
+  );
+}
 
 export function SortableHeader<TData>(props: { header: HeaderContext<TData, unknown>; name: string; seperator?: boolean }) {
   const header = props.header;

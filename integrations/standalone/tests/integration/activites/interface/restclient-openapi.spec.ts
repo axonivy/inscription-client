@@ -4,7 +4,7 @@ import { RestRequestBodyOpenApiTest, RestRequestOpenApiTest, runTest } from '../
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 
-test.describe.skip('Rest Client - OpenApi', () => {
+test.describe('Rest Client - OpenApi', () => {
   let view: InscriptionView;
   let testee: CreateProcessResult;
 

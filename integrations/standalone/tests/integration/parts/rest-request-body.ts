@@ -19,14 +19,14 @@ class EntityPart extends PartObject {
     super(part);
     this.bodyType = body.radioGroup();
     this.entityType = body.combobox('Entity-Type');
-    this.mapping = body.table(['label', 'label', 'expression']);
+    this.mapping = body.table(['label', 'expression']);
     this.code = body.scriptArea();
   }
 
   async fill() {
     await this.bodyType.expectSelected('Entity');
     await this.entityType.fill('ch.ivyteam.test.Person');
-    await expect(this.mapping.row(0).locator).toHaveText('paramPerson');
+    await expect(this.mapping.row(0).locator).toHaveText('param');
     await this.mapping.row(2).fill(['CH']);
     await this.code.fill('code');
   }
@@ -46,7 +46,7 @@ class EntityPart extends PartObject {
 class EntityOpenApiPart extends EntityPart {
   override async fill() {
     await this.bodyType.expectSelected('Entity');
-    await expect(this.mapping.row(0).locator).toHaveText('paramPet');
+    await expect(this.mapping.row(0).locator).toHaveText('param');
     await this.mapping.row(2).fill(['CH']);
     await this.code.fill('code');
   }
@@ -68,7 +68,7 @@ class FormPart extends PartObject {
   constructor(part: Part, body: Section) {
     super(part);
     this.bodyType = body.radioGroup();
-    this.form = body.table(['text', 'label', 'expression']);
+    this.form = body.table(['text', 'expression']);
   }
 
   async fill() {

@@ -25,8 +25,8 @@ describe('TableReadFields', () => {
     });
     await CollapsableUtil.assertOpen('Fields');
     expect(screen.getByRole('checkbox')).not.toBeChecked();
-    TableUtil.assertHeaders(['Column', 'Type', 'Read']);
-    await screen.findByText('VarChar(10)');
-    TableUtil.assertRows(['test VarChar(10) ✅', 'hi bool']);
+    TableUtil.assertHeaders(['Column', 'Read']);
+    await screen.findByText(': VarChar(10)');
+    TableUtil.assertRows(['test : VarChar(10) ✅', 'hi : bool']);
   });
 });

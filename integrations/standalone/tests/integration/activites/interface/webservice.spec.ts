@@ -25,11 +25,11 @@ test.describe('Web Service', () => {
     await runTest(view, GeneralTest);
   });
 
-  test.skip('Request', async () => {
+  test('Request', async () => {
     await runTest(view, WsRequestTest);
   });
 
-  test.skip('Response', async () => {
+  test('Response', async () => {
     await runTest(view, WsResponseTest);
   });
 

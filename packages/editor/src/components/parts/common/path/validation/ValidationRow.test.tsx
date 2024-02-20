@@ -1,7 +1,8 @@
 import { render, screen } from 'test-utils';
 import type { InscriptionValidation } from '@axonivy/inscription-protocol';
-import { ValidationRow } from './ValidationRow';
 import { describe, test, expect } from 'vitest';
+import { SelectableValidationRow } from './ValidationRow';
+import type { Row } from '@tanstack/react-table';
 
 describe('ValidationRow', () => {
   function renderTable(path: string) {
@@ -9,9 +10,14 @@ describe('ValidationRow', () => {
     render(
       <table>
         <tbody>
-          <ValidationRow colSpan={3} rowPathSuffix={path} title='this is a title'>
+          <SelectableValidationRow
+            row={{ getIsSelected: () => false } as Row<object>}
+            colSpan={3}
+            rowPathSuffix={path}
+            title='this is a title'
+          >
             <td>content</td>
-          </ValidationRow>
+          </SelectableValidationRow>
         </tbody>
       </table>,
       { wrapperProps: { validations } }

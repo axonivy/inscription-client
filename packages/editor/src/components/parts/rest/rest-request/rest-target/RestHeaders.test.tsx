@@ -1,7 +1,7 @@
 import type { RestRequestData, RestResource } from '@axonivy/inscription-protocol';
 import { RestHeaders } from './RestHeaders';
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, ComboboxUtil, render, TableUtil } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, render, screen, TableUtil, userEvent } from 'test-utils';
 import { describe, test } from 'vitest';
 
 describe('RestHeaders', () => {
@@ -30,7 +30,9 @@ describe('RestHeaders', () => {
 
   test('known headers', async () => {
     renderHeaders({ target: { headers: { myOwnHeader: 'unknown' } } });
+    CollapsableUtil.assertOpen('Accept-Properties');
     TableUtil.assertRows(['myOwnHeader unknown']);
+    await userEvent.click(screen.getByRole('row', { name: 'myOwnHeader unknown' }));
     await ComboboxUtil.assertValue('myOwnHeader', { nth: 1 });
     await ComboboxUtil.assertOptionsCount(2, { nth: 1 });
   });

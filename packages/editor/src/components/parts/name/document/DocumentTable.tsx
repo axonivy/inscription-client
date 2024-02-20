@@ -37,7 +37,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
     []
   );
 
-  const { table, rowSelection, setRowSelection, addRow, removeRow, showAddButton } = useResizableEditableTable({
+  const { table, rowSelection, setRowSelection, addRow, removeRowAction, showAddButton } = useResizableEditableTable({
     data,
     columns,
     onChange,
@@ -55,11 +55,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
             icon: IvyIcons.GoToSource,
             action: () => action(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].original.url)
           },
-          {
-            label: 'Remove row',
-            icon: IvyIcons.Trash,
-            action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
-          }
+          removeRowAction
         ]
       : [];
 

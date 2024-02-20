@@ -4,7 +4,7 @@ import ConditionTable from './ConditionTable';
 import type { InscriptionType } from '@axonivy/inscription-protocol';
 import { describe, test, expect } from 'vitest';
 
-describe.skip('ConditionTable', () => {
+describe('ConditionTable', () => {
   const type: InscriptionType = { label: '', description: '', iconId: '', id: 'TaskEnd', impl: '', shortLabel: '' };
   const conditions: Condition[] = [
     { fid: 'f1', expression: 'in.accepted == false' },
@@ -24,20 +24,27 @@ describe.skip('ConditionTable', () => {
   test('can edit cells', async () => {
     const view = renderTable();
     await userEvent.tab();
-    expect(screen.getByDisplayValue('in.accepted == false')).toHaveFocus();
+
+    const cellToEdit = screen.getByDisplayValue('in.accepted == false');
+    expect(cellToEdit).toHaveFocus();
+    await userEvent.clear(cellToEdit);
     await userEvent.keyboard('true');
-    await userEvent.tab();
+    await userEvent.click(screen.getByRole('button', { name: 'Close' }));
 
     const expectConditions = cloneObject(conditions);
+
     expectConditions[0].expression = 'true';
     expect(view.data()).toEqual(expectConditions);
   });
 
   test('can remove unknown conditions', async () => {
     const view = renderTable();
-    const removeBtns = screen.getAllByRole('button', { name: 'Remove unknown condition' });
-    expect(removeBtns).toHaveLength(2);
-    await userEvent.click(removeBtns[0]);
+    const firstRow = screen.getAllByRole('row')[1];
+    await userEvent.click(firstRow);
+    const removeButton = await screen.findByRole('button', { name: 'Remove row' });
+
+    expect(removeButton).toBeInTheDocument();
+    await userEvent.click(removeButton);
     const expectConditions = [];
     expectConditions.push(conditions[1], conditions[2]);
     expect(view.data()).toEqual(expectConditions);

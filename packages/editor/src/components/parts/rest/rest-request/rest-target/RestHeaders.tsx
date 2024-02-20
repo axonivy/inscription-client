@@ -1,4 +1,4 @@
-import type { ComboboxItem} from '../../../../widgets';
+import type { ComboboxItem } from '../../../../widgets';
 import { Combobox, Fieldset, useFieldset } from '../../../../widgets';
 import { useMeta } from '../../../../../context';
 import { PathCollapsible } from '../../../common';
@@ -30,6 +30,8 @@ export const RestHeaders = () => {
         update={change => updateTarget('headers', change)}
         knownProperties={[...restResourceHeaders, ...knownHeaders]}
         hideProperties={['Accept']}
+        label='Accept-Properties'
+        defaultOpen={true}
       />
     </PathCollapsible>
   );

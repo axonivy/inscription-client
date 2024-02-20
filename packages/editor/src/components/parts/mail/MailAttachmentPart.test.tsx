@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { TableUtil, render, renderHook } from 'test-utils';
+import { render, renderHook, screen } from 'test-utils';
 import type { MailData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useMailAttachmentPart } from './MailAttachmentPart';
@@ -15,19 +15,16 @@ describe('MailAttachmentPart', () => {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
-  async function assertPage(data?: DeepPartial<MailData>) {
-    TableUtil.assertRows(data?.attachments ?? []);
-  }
-
   test('empty data', async () => {
     renderPart();
-    await assertPage();
+    expect(screen.queryByRole('table')).toBeNull();
   });
 
   test('full data', async () => {
     const data: DeepPartial<MailData> = { attachments: ['a1', 'second'] };
     renderPart(data);
-    await assertPage(data);
+    const rows = screen.getAllByRole('row');
+    expect(rows).toHaveLength(2);
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<MailData>) {

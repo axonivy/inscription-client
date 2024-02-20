@@ -33,7 +33,7 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
     []
   );
 
-  const { table, rowSelection, setRowSelection, addRow, removeRow, showAddButton } = useResizableEditableTable({
+  const { table, rowSelection, setRowSelection, addRow, removeRowAction, showAddButton } = useResizableEditableTable({
     data,
     columns,
     onChange,
@@ -50,11 +50,7 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
             icon: IvyIcons.GoToSource,
             action: () => action({ name: table.getRowModel().rowsById[Object.keys(rowSelection)[0]].original.name, type: 'START' })
           },
-          {
-            label: 'Remove row',
-            icon: IvyIcons.Trash,
-            action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
-          }
+          removeRowAction
         ]
       : [];
 

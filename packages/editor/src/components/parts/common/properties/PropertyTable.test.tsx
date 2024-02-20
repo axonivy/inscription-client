@@ -1,11 +1,20 @@
-import { ComboboxUtil, render, TableUtil } from 'test-utils';
+import { ComboboxUtil, render, screen, TableUtil, userEvent } from 'test-utils';
 import { PropertyTable } from './PropertyTable';
 import type { ScriptMappings } from '@axonivy/inscription-protocol';
 import { describe, test } from 'vitest';
 
 describe('PropertyTable', () => {
   function renderPart(data: ScriptMappings, hide?: string[]) {
-    render(<PropertyTable properties={data} update={() => {}} knownProperties={['Super', 'soaper', '132']} hideProperties={hide} />);
+    render(
+      <PropertyTable
+        properties={data}
+        update={() => {}}
+        knownProperties={['Super', 'soaper', '132']}
+        hideProperties={hide}
+        label='Properties'
+        defaultOpen={true}
+      />
+    );
   }
 
   test('properties', async () => {
@@ -20,6 +29,7 @@ describe('PropertyTable', () => {
 
   test('knownProperties', async () => {
     renderPart({ soaper: 'value' });
+    await userEvent.click(screen.getByRole('row', { name: 'soaper value' }));
     await ComboboxUtil.assertValue('soaper');
     await ComboboxUtil.assertOptionsCount(3);
   });

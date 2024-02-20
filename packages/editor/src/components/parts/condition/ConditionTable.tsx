@@ -1,29 +1,17 @@
-import { Button, ScriptCell, EditableCell, Table, TableCell, TableHeader } from '../../widgets';
-import { useCallback, useMemo } from 'react';
+import { Table, TableCell, TableHeader, Fieldset, ResizableHeader, ScriptCell, ReorderWrapperIcon, TextHeader } from '../../widgets';
+import { useCallback, useMemo, useState } from 'react';
 import { Condition } from './condition';
-import type { CellContext, ColumnDef } from '@tanstack/react-table';
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/editor-icons';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { ValidationReorderRow } from '../common';
+import { ValidationSelectableReorderRow } from '../common';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {
     return <span>{`${condition.target.name}: ${condition.target.type.id}`}</span>;
   }
   return <span>⛔ {condition.fid}</span>;
-};
-
-const ConditionExpressionCell = ({ cell, removeCell }: { cell: CellContext<Condition, unknown>; removeCell: (id: string) => void }) => {
-  if (cell.row.original.target) {
-    return <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.BOOLEAN} browsers={['attr', 'func', 'type']} />;
-  }
-  return (
-    <span style={{ display: 'flex' }}>
-      <EditableCell cell={cell} />
-      <Button aria-label='Remove unknown condition' icon={IvyIcons.Trash} onClick={() => removeCell(cell.row.original.fid)} />
-    </span>
-  );
 };
 
 const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (change: Condition[]) => void }) => {
@@ -33,34 +21,53 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     },
     [data, onChange]
   );
-
-  const removeCell = useCallback(
-    (id: string) => {
-      onChange(Condition.remove(data, id));
-    },
-    [data, onChange]
-  );
+  const removeRow = (index: number) => {
+    const newData = [...data];
+    newData.splice(index, 1);
+    if (newData.length === 0) {
+      setRowSelection({});
+    } else if (index === data.length - 1) {
+      setRowSelection({ [`${newData.length - 1}`]: true });
+    }
+    onChange(newData);
+  };
 
   const columns = useMemo<ColumnDef<Condition>[]>(
     () => [
       {
         accessorKey: 'fid',
-        header: () => <span>Type</span>,
+        header: header => <TextHeader header={header} name='Type' seperator={true} />,
         cell: cell => <ConditionTypeCell condition={cell.row.original} />
       },
       {
         accessorKey: 'expression',
-        header: () => <span>Expression</span>,
-        cell: cell => <ConditionExpressionCell cell={cell} removeCell={removeCell} />
+        header: header => <TextHeader header={header} name='Expression' />,
+        cell: cell => (
+          <ReorderWrapperIcon>
+            <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.BOOLEAN} browsers={['attr', 'func', 'type']} />
+          </ReorderWrapperIcon>
+        )
       }
     ],
-    [removeCell]
+    []
   );
+
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const table = useReactTable({
     data,
     columns,
+    state: { sorting, rowSelection },
+    columnResizeMode: 'onChange',
+    columnResizeDirection: 'ltr',
+    enableRowSelection: true,
+    enableMultiRowSelection: false,
+    enableSubRowSelection: false,
+    onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     meta: {
       updateData: (rowId: string, columnId: string, value: unknown) => {
         const rowIndex = parseInt(rowId);
@@ -69,30 +76,56 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     }
   });
 
+  const showDeleteAction =
+    table.getSelectedRowModel().rows.length > 0 && !table.getRowModel().rowsById[Object.keys(rowSelection)[0]].original.target;
+
+  const tableActions = showDeleteAction
+    ? [
+        {
+          label: 'Remove row',
+          icon: IvyIcons.Trash,
+          action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
+        }
+      ]
+    : [];
+
   return (
-    <Table>
-      <thead>
-        {table.getHeaderGroups().map(headerGroup => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map(header => (
-              <TableHeader key={header.id} colSpan={header.colSpan}>
-                {flexRender(header.column.columnDef.header, header.getContext())}
-              </TableHeader>
-            ))}
-            <TableHeader colSpan={1}></TableHeader>
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map(row => (
-          <ValidationReorderRow colSpan={2} key={row.id} id={row.original.fid} updateOrder={updateOrder} rowPathSuffix={row.index}>
-            {row.getVisibleCells().map(cell => (
-              <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-            ))}
-          </ValidationReorderRow>
-        ))}
-      </tbody>
-    </Table>
+    <div>
+      <Fieldset label='Condition' controls={tableActions} />
+      <Table>
+        <thead>
+          {table.getHeaderGroups().map(headerGroup => (
+            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
+              {headerGroup.headers.map(header => (
+                <TableHeader
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  style={{ width: header.getSize() !== 15 ? header.getSize() : undefined }}
+                >
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHeader>
+              ))}
+            </ResizableHeader>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map(row => (
+            <ValidationSelectableReorderRow
+              row={row}
+              colSpan={2}
+              key={row.id}
+              id={row.original.fid}
+              updateOrder={updateOrder}
+              rowPathSuffix={row.index}
+            >
+              {row.getVisibleCells().map(cell => (
+                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+              ))}
+            </ValidationSelectableReorderRow>
+          ))}
+        </tbody>
+      </Table>
+    </div>
   );
 };
 
