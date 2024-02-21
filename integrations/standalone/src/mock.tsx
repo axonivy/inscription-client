@@ -22,7 +22,6 @@ async function initMonaco(theme: ThemeMode): Promise<void> {
 }
 
 export async function start(): Promise<void> {
-  console.time('*** start');
   const theme = URLParams.themeMode();
   const readonly = URLParams.parameter('readonly') ? true : false;
   const type = (URLParams.parameter('type') as ElementType) ?? undefined;
@@ -45,7 +44,6 @@ export async function start(): Promise<void> {
       </ThemeContextProvider>
     </React.StrictMode>
   );
-  console.timeEnd('*** start');
 }
 
 start();

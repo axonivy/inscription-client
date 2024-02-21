@@ -15,17 +15,14 @@ import { createRoot } from 'react-dom/client';
 import { URLParams } from './url-helper';
 
 async function initMonaco(theme: ThemeMode): Promise<boolean> {
-  console.time('initMonaco');
   const monaco = await import('monaco-editor/esm/vs/editor/editor.api');
   const editorWorker = await import('monaco-editor/esm/vs/editor/editor.worker?worker');
   await MonacoUtil.initStandalone(editorWorker.default);
   await MonacoEditorUtil.configureInstance(monaco, theme);
-  console.timeEnd('initMonaco');
   return true;
 }
 
 export async function start(): Promise<void> {
-  console.time('*** start');
   const server = URLParams.webSocketBase();
   const app = URLParams.app();
   const pmv = URLParams.pmv();
@@ -53,8 +50,6 @@ export async function start(): Promise<void> {
   } catch (error) {
     console.error(error);
     root.render(<AppStateView>{'An error has occurred: ' + error}</AppStateView>);
-  } finally {
-    console.timeEnd('*** start');
   }
 }
 

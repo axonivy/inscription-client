@@ -6,7 +6,6 @@ import { buildWorkerDefinition } from 'monaco-editor-workers';
 
 export namespace MonacoUtil {
   export async function initStandalone(worker?: new () => Worker) {
-    console.time('MonacoUtil.initStandalone');
     await initServices({ userServices: [] });
     buildWorkerDefinition('../../node_modules/monaco-editor-workers/dist/workers', new URL('', window.location.href).href, false);
 
@@ -18,7 +17,6 @@ export namespace MonacoUtil {
         }
       };
     }
-    console.timeEnd('MonacoUtil.initStandalone');
   }
 
   export function monacoInitialized() {

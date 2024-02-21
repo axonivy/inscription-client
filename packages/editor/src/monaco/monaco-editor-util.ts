@@ -100,7 +100,6 @@ export namespace MonacoEditorUtil {
 }
 
 export async function configureMonaco(monaco: Monaco, theme: ThemeMode): Promise<Monaco> {
-  console.time('configureMonaco');
   loader.config({ monaco });
   const _monaco = await loader.init();
   _monaco.languages.register({
@@ -118,6 +117,5 @@ export async function configureMonaco(monaco: Monaco, theme: ThemeMode): Promise
   _monaco.languages.setLanguageConfiguration('ivyMacro', ivyMacroConf);
   _monaco.languages.setMonarchTokensProvider('ivyMacro', ivyMacroLang);
   _monaco.editor.defineTheme(MonacoEditorUtil.DEFAULT_THEME_NAME, MonacoEditorUtil.themeData(theme));
-  console.timeEnd('configureMonaco');
   return _monaco;
 }

@@ -5,10 +5,8 @@ import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { useRef, Suspense, lazy } from 'react';
 
 const Editor = lazy(async () => {
-  console.time('CodeEditor.Editor');
   const editor = await import('@monaco-editor/react');
   await MonacoEditorUtil.getInstance();
-  console.timeEnd('CodeEditor.Editor');
   return editor;
 });
 
