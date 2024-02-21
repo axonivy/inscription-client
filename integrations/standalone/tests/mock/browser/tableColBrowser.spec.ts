@@ -5,8 +5,7 @@ import { browserBtn, code } from './browser-mock-utils';
 
 test.describe('Table Column browser', () => {
   test('browser add table column with all fields', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
-    await page.goto('?type=Database');
+    const inscriptionView = await InscriptionView.mock(page, { type: 'Database' });
     const query = inscriptionView.accordion('Query');
     await query.toggle();
     const allFieldsCheckbox = query.checkbox('Select all fields');
@@ -23,8 +22,7 @@ test.describe('Table Column browser', () => {
   });
 
   test('browser add table column with one field', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
-    await page.goto('?type=Database');
+    const inscriptionView = await InscriptionView.mock(page, { type: 'Database' });
     const query = inscriptionView.accordion('Query');
     await query.toggle();
     const allFieldsCheckbox = query.checkbox('Select all fields');
@@ -41,8 +39,7 @@ test.describe('Table Column browser', () => {
   });
 
   test('browser add table column doubleclick', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
-    await page.goto('?type=Database');
+    const inscriptionView = await InscriptionView.mock(page, { type: 'Database' });
     const query = inscriptionView.accordion('Query');
     await query.toggle();
     const allFieldsCheckbox = query.checkbox('Select all fields');
