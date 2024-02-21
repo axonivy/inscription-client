@@ -97,6 +97,7 @@ const RoleBrowser = (props: {
           value: globalFilter,
           onChange: newFilterValue => {
             setGlobalFilter(newFilterValue);
+            setRowSelection({});
             setExpanded(true);
           }
         }}
