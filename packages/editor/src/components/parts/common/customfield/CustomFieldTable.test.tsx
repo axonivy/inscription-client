@@ -46,36 +46,6 @@ describe('CustomFieldTable', () => {
     await TableUtil.assertRemoveRow(view, 1);
   });
 
-  test.skip('table can add rows by keyboard', async () => {
-    const view = renderTable();
-    await TableUtil.assertAddRowWithKeyboard(view, 'number');
-
-    expect(view.data()).toEqual([
-      { name: 'field1', type: 'STRING', value: 'this is a string' },
-      { name: 'number', type: 'NUMBER', value: '1' },
-      { name: '', type: 'STRING', value: '' }
-    ]);
-  });
-
-  test.skip('table can edit cells', async () => {
-    const view = renderTable();
-    const field1 = screen.getByDisplayValue(/field1/);
-    await userEvent.dblClick(field1);
-    await userEvent.type(field1, 'Hello[Tab]');
-    view.rerender();
-
-    const type = screen.getAllByRole('combobox')[1];
-    await userEvent.click(type);
-    await userEvent.click(type);
-    await userEvent.keyboard('[ArrowDown][Enter]');
-
-    expect(view.data()).toEqual([
-      { name: 'Hello', type: 'STRING', value: 'this is a string' },
-      { name: 'number', type: 'STRING', value: '1' },
-      { name: '', type: 'STRING', value: '' }
-    ]);
-  });
-
   test('table support readonly mode', async () => {
     render(<CustomFieldTable data={customFields} onChange={() => {}} type='CASE' />, {
       wrapperProps: { editor: { readonly: true } }
