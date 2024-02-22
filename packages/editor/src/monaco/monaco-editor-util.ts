@@ -4,7 +4,7 @@ import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import type { ThemeMode } from '../context/useTheme';
 import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
 import { ivyMacroConf, ivyMacroLang } from './ivy-macro-language';
-import { Deferred } from '@axonivy/inscription-core';
+import { Deferred } from '../utils/promises-util';
 
 export const MONACO_OPTIONS: monaco.editor.IStandaloneEditorConstructionOptions = {
   glyphMargin: false,
