@@ -2,7 +2,7 @@ import type { DataUpdater } from '../../../../types/lambda';
 import { MacroArea, MacroInput, useFieldset } from '../../../../components/widgets';
 import { PathFieldset } from '../path/PathFieldset';
 import { useAction, useEditorContext, useMeta, usePath } from '../../../../context';
-import type { CategoryType } from '@axonivy/inscription-protocol';
+import type { SchemaKeys, SchemaPath, WorkflowType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/editor-icons';
 import ClassificationCombobox, { type ClassifiedItem } from '../classification/ClassificationCombobox';
 import { classifiedItemInfo } from '../../../../utils/event-code-categorie';
@@ -18,6 +18,20 @@ type InformationProps<T> = {
   update: DataUpdater<T>;
 };
 
+const toWorkflowType = (path: '' | SchemaPath | SchemaKeys): WorkflowType => {
+  const location = path.toLowerCase();
+  if (location.includes('request') || location.includes('start')) {
+    return 'START';
+  }
+  if (location.includes('case')) {
+    return 'CASE';
+  }
+  if (location.includes('task')) {
+    return 'TASK';
+  }
+  return '' as WorkflowType;
+};
+
 const Information = <T extends InformationConfig>({ config, update }: InformationProps<T>) => {
   const nameFieldset = useFieldset();
   const descFieldset = useFieldset();
@@ -27,22 +41,9 @@ const Information = <T extends InformationConfig>({ config, update }: Informatio
   const path = usePath();
   const openAction = useAction('openOrCreateCmsCategory');
 
-  const type = (): CategoryType => {
-    const location = path.toLowerCase();
-    if (location.includes('request') || location.includes('start')) {
-      return 'START';
-    }
-    if (location.includes('case')) {
-      return 'CASE';
-    }
-    if (location.includes('task')) {
-      return 'TASK';
-    }
-    return '' as CategoryType;
-  };
   const categories = [
     { value: '', label: '<< Empty >>', info: 'Select no Category' },
-    ...useMeta('meta/workflow/categoryPaths', { context, type: type() }, []).data.map<ClassifiedItem>(categroy => {
+    ...useMeta('meta/workflow/categoryPaths', { context, type: toWorkflowType(path) }, []).data.map<ClassifiedItem>(categroy => {
       return { ...categroy, value: categroy.path, info: classifiedItemInfo(categroy) };
     })
   ];

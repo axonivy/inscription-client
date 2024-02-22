@@ -3,8 +3,18 @@ import { IvyIcons } from '@axonivy/editor-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { memo, useMemo } from 'react';
-import { EditableCell, Table, TableHeader, TableCell, TableAddRow, SortableHeader, MacroCell, ResizableHeader } from '../../../widgets';
-import { useAction } from '../../../../context';
+import {
+  Table,
+  TableHeader,
+  TableCell,
+  TableAddRow,
+  SortableHeader,
+  MacroCell,
+  ResizableHeader,
+  ComboCell,
+  type ComboboxItem
+} from '../../../widgets';
+import { useAction, useEditorContext, useMeta } from '../../../../context';
 import { SelectableValidationRow } from '../path/validation/ValidationRow';
 import { PathCollapsible } from '../path/PathCollapsible';
 import { useResizableEditableTable } from '../table/useResizableEditableTable';
@@ -17,12 +27,21 @@ type StartCustomFieldTableProps = {
 const EMPTY_STARTCUSTOMSTARTFIELD: StartCustomStartField = { name: '', value: '' } as const;
 
 const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) => {
+  const { context } = useEditorContext();
+  const predefinedCustomField: ComboboxItem[] = useMeta(
+    'meta/workflow/customFields',
+    { context, type: 'START' },
+    []
+  ).data.map<ComboboxItem>(pcf => ({
+    value: pcf.name
+  }));
+
   const columns = useMemo<ColumnDef<StartCustomStartField>[]>(
     () => [
       {
         accessorKey: 'name',
         header: header => <SortableHeader header={header} name='Name' seperator={true} />,
-        cell: cell => <EditableCell cell={cell} placeholder={'Enter a Name'} />
+        cell: cell => <ComboCell cell={cell} items={predefinedCustomField.filter(pcf => !data.find(d => d.name === pcf.value))} />
       },
       {
         accessorKey: 'value',
@@ -30,7 +49,7 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
         cell: cell => <MacroCell cell={cell} placeholder={'Enter an Expression'} />
       }
     ],
-    []
+    [data, predefinedCustomField]
   );
 
   const { table, rowSelection, setRowSelection, addRow, removeRowAction, showAddButton } = useResizableEditableTable({

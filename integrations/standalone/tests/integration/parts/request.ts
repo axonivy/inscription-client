@@ -27,7 +27,7 @@ class Request extends PartObject {
     this.description = part.macroArea('Description');
     this.category = part.macroInput('Category');
     this.customFieldSection = part.section('Custom Fields');
-    this.customFields = this.customFieldSection.table(['text', 'expression']);
+    this.customFields = this.customFieldSection.table(['combobox', 'expression']);
     this.permissionSection = part.section('Permission');
     this.anonym = this.permissionSection.checkbox('Allow anonymous');
     this.role = this.permissionSection.select('Role');
