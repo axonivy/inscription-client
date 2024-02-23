@@ -49,7 +49,7 @@ test.describe('Type browser', () => {
     await assertCodeVisible(page);
 
     await applyTypeBrowser(page, 0, 'ch.ivyteam.test.Person', true);
-    await expect(code(page).getByRole('textbox')).toHaveValue('java.util.List<ch.ivyteam.test.Person>');
+    await expect(code(page).getByRole('textbox')).toHaveValue('List<ch.ivyteam.test.Person>');
   });
 
   test('browser add type doubleclick', async ({ page }) => {
@@ -78,7 +78,7 @@ test.describe('Type browser', () => {
     } else {
       if (checkListGeneric) {
         await page.getByLabel('Use Type as List').click();
-        await expect(page.locator('.browser-helptext')).toHaveText('java.util.List<' + expectedSelection + '>');
+        await expect(page.locator('.browser-helptext')).toHaveText('List<' + expectedSelection + '>');
       } else {
         await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
       }

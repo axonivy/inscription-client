@@ -15,7 +15,7 @@ test('getCursorValue handles IvyType and typeAsList and inCodeBlock', () => {
 });
 
 test('getCursorValue handles IvyType, typeAsList, and not inCodeBlock', () => {
-  expect(getCursorValue(value, true, true, false)).toEqual('java.util.List<SampleType>');
+  expect(getCursorValue(value, true, true, false)).toEqual('List<SampleType>');
 });
 
 test('getCursorValue handles IvyType, non-typeAsList, and inCodeBlock', () => {
@@ -23,11 +23,11 @@ test('getCursorValue handles IvyType, non-typeAsList, and inCodeBlock', () => {
 });
 
 test('getCursorValue handles no IvyType, typeAsList, and inCodeBlock', () => {
-  expect(getCursorValue(value, false, true, true)).toEqual('List<com.example.SampleType>');
+  expect(getCursorValue(value, false, true, true)).toEqual('List<SampleType>');
 });
 
-test('getCursorValue handles non-IvyType and non-typeAsList', () => {
-  expect(getCursorValue(value, false, false, true)).toEqual('com.example.SampleType');
+test('getCursorValue handles non-IvyType and non-typeAsList an inCodeBlock', () => {
+  expect(getCursorValue(value, false, false, true)).toEqual('SampleType');
 });
 
 test('getCursorValue handles IvyType, not-typeAsList, and not inCodeBlock', () => {
@@ -35,7 +35,7 @@ test('getCursorValue handles IvyType, not-typeAsList, and not inCodeBlock', () =
 });
 
 test('getCursorValue handles non-IvyType, typeAsList, and not inCodeBlock', () => {
-  expect(getCursorValue(value, false, true, false)).toEqual('java.util.List<com.example.SampleType>');
+  expect(getCursorValue(value, false, true, false)).toEqual('List<com.example.SampleType>');
 });
 
 test('getCursorValue handles non-IvyType and non-typeAsList and not inCodeBlock', () => {
