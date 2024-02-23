@@ -4,7 +4,7 @@ import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { Consumer } from '../../../types/lambda';
 import { PathFieldset } from '../common';
 import type { Type } from '@axonivy/inscription-protocol';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 type JavaClassSelectorProps = {
   javaClass: string;

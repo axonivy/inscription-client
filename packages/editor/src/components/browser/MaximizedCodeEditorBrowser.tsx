@@ -1,7 +1,7 @@
 import { Dialog } from '@radix-ui/react-dialog';
 import { type Tab } from '../widgets';
 import { type UseBrowserReturnValue } from './useBrowser';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import MaximizedCodeEditor, { type MaximizedCodeEditorProps } from './maximizedCodeEditor/MaximizedCodeEditor';
 import BrowserBody from './BrowserBody';
 

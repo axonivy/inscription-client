@@ -1,7 +1,7 @@
 import { forwardRef, type ReactNode } from 'react';
 import './Table.css';
 import { IconInput } from '../../input';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 type TableProps = {
   search?: { value: string; onChange: (value: string) => void };

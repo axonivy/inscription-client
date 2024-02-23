@@ -1,7 +1,7 @@
 import './TableHeader.css';
 import type { HeaderContext, HeaderGroup, RowSelectionState } from '@tanstack/react-table';
 import Button from '../../button/Button';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export const TableHeader = ({ children, colSpan, ...props }: React.HTMLAttributes<HTMLTableCellElement> & { colSpan?: number }) => (
   <th className='table-column-header' colSpan={colSpan} {...props}>

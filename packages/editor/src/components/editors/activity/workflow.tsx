@@ -4,7 +4,7 @@ import { memo } from 'react';
 import InscriptionEditor from '../InscriptionEditor';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import NameEditor from '../NameEditor';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import {
   useCasePart,
   useOutputScriptPart,

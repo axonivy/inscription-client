@@ -8,5 +8,5 @@
     }
   },
   "include": ["src"],
-  "references": [{ "path": "../icons/tsconfig.json" }, { "path": "../protocol/tsconfig.json" }]
+  "references": [{ "path": "../protocol/tsconfig.json" }]
 }

@@ -20,10 +20,6 @@
       "path": "./packages/editor"
     },
     {
-      "name": "package/icons",
-      "path": "./packages/icons"
-    },
-    {
       "name": "integrations/standalone",
       "path": "./integrations/standalone"
     }

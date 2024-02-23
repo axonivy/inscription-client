@@ -1,4 +1,4 @@
-import type { IvyIcons } from '@axonivy/editor-icons';
+import type { IvyIcons } from '@axonivy/ui-icons';
 import { memo } from 'react';
 import { useGeneralPart } from '../parts';
 import InscriptionEditor from './InscriptionEditor';

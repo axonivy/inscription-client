@@ -2,7 +2,7 @@ import './Select.css';
 import { useSelect } from 'downshift';
 import { memo, useEffect, useState, useRef } from 'react';
 import { useEditorContext, useReadonly } from '../../../context';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import IvyIcon from '../IvyIcon';
 
 export type SelectItem = {

@@ -1,6 +1,6 @@
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { PathContext, useAction, useEditorContext, useMeta } from '../../../context';
-import type { FieldsetControl, SelectItem} from '../../widgets';
+import type { FieldsetControl, SelectItem } from '../../widgets';
 import { Select, useFieldset } from '../../widgets';
 import { PathFieldset } from '../common';
 import { useWsRequestData } from './useWsRequestData';

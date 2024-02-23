@@ -1,8 +1,0 @@
-{
-  "extends": "../../config/tsconfig.package.json",
-  "compilerOptions": {
-    "rootDir": "src-gen",
-    "outDir": "lib"
-  },
-  "include": ["src-gen"]
-}

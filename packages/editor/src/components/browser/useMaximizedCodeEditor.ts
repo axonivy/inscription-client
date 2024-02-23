@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from '../widgets';
 
 const useMaximizedCodeEditor = () => {

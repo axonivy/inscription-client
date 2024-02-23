@@ -1,4 +1,4 @@
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import Button from '../../button/Button';
 import './ExpandableCell.css';
 import type { CellContext } from '@tanstack/react-table';

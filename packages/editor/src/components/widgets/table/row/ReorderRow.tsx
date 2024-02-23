@@ -7,7 +7,7 @@ import type { MessageTextProps } from '../../message/Message';
 import { MessageRow, styleMessageRow, type MessageRowProps } from './MessageRow';
 import { SelectRow, type SelectRowProps } from './SelectRow';
 import IvyIcon from '../../IvyIcon';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export type ReorderRowProps = {
   id: string;

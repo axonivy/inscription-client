@@ -1,5 +1,5 @@
 import './EmptyWidget.css';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import IvyIcon from '../IvyIcon';
 
 const EmptyWidget = (props: { message: string }) => {

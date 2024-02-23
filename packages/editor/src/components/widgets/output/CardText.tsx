@@ -1,5 +1,5 @@
 import './CardText.css';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import IvyIcon from '../IvyIcon';
 import { splitMacroExpressions, splitNewLine } from '../../../utils/utils';
 import type { FieldsetInputProps } from '../fieldset';

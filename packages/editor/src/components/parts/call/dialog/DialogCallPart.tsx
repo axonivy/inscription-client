@@ -6,7 +6,7 @@ import type { CallData, DialogCallData, VariableInfo } from '@axonivy/inscriptio
 import CallMapping, { useCallPartValidation } from '../CallMapping';
 import { useCallData, useDialogCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from '../../../../components/widgets';
 import { useFieldset } from '../../../../components/widgets';
 import { PathFieldset } from '../../common';

@@ -3,7 +3,7 @@ import type { ComponentProps, ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
 import './Combobox.css';
 import { usePath, useReadonly } from '../../../context';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import Button from '../button/Button';
 import { SingleLineCodeEditor } from '../code-editor';
 import { useMonacoEditor } from '../code-editor/useCodeEditor';

@@ -1,7 +1,7 @@
 import './Accordion.css';
 import { Content, Header, Item, Root, Trigger } from '@radix-ui/react-accordion';
 import IvyIcon from '../IvyIcon';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import Button from '../button/Button';
 import type { ComponentProps, ReactNode } from 'react';
 

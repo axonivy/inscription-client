@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { Condition } from './condition';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { ValidationSelectableReorderRow } from '../common';
 

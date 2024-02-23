@@ -3,7 +3,7 @@ import type { FieldsetControl, SelectItem } from '../../../components/widgets';
 import { Select, useFieldset } from '../../../components/widgets';
 import { PathFieldset } from '../common';
 import { useWsRequestData } from './useWsRequestData';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export const WsClientSelect = () => {
   const { config, update } = useWsRequestData();

@@ -18,7 +18,7 @@ import {
 import { useEditorContext, useMeta } from '../../../../context';
 import { QUERY_ORDER } from '@axonivy/inscription-protocol';
 import { arraymove, indexOf } from '../../../../utils/array';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 type OrderDirection = keyof typeof QUERY_ORDER;
 
