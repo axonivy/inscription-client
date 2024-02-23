@@ -70,7 +70,7 @@ const Information = <T extends InformationConfig>({ config, update }: Informatio
         label='Category'
         {...catFieldset.labelProps}
         path='category'
-        controls={[{ label: 'Open CMS Editor', icon: IvyIcons.Cms, action: () => openAction('/Categorie/' + config.category + '/name') }]}
+        controls={[{ label: 'Open CMS Editor', icon: IvyIcons.Cms, action: () => openAction('/Categories/' + config.category + '/name') }]}
       >
         <ClassificationCombobox
           value={config.category}

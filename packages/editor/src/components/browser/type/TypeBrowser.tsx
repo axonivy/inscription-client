@@ -187,7 +187,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
     if (location.includes('code')) {
       onChange({
         cursorValue: getCursorValue(selectedRow.original, isIvyType, typeAsList, true),
-        firstLineValue: isIvyType || typeAsList ? undefined : 'import ' + selectedRow.original.fullQualifiedName + ';\n'
+        firstLineValue: isIvyType ? undefined : 'import ' + selectedRow.original.fullQualifiedName + ';\n'
       });
     } else {
       onChange({
