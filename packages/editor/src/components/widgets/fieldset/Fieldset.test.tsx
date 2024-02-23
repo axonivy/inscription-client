@@ -1,7 +1,7 @@
 import type { FieldsetProps } from './Fieldset';
 import Fieldset from './Fieldset';
 import { render, screen, userEvent } from 'test-utils';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from './fieldset-control';
 import { describe, test, expect } from 'vitest';
 

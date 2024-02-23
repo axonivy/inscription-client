@@ -13,7 +13,7 @@ import {
   flexRender
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { useEditorContext, useMeta } from '../../../context';
 import { getParentNames } from './parent-name';

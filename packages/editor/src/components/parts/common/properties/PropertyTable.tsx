@@ -15,7 +15,7 @@ import {
   TableHeader
 } from '../../../../components/widgets';
 import { Property } from './properties';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { ScriptMappings } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { deepEqual } from '../../../../utils/equals';

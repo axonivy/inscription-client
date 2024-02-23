@@ -1,11 +1,11 @@
-import type { FieldsetControl} from '../../widgets';
+import type { FieldsetControl } from '../../widgets';
 import { useFieldset } from '../../widgets';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useEndPageData } from './useEndPageData';
 import type { EndPageData } from '@axonivy/inscription-protocol';
 import { useAction, useValidations } from '../../../context';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { PathFieldset } from '../common';
 import InputWithBrowser from '../../../components/widgets/input/InputWithBrowser';
 

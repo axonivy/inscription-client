@@ -5,7 +5,7 @@ import type { ColumnDef, ExpandedState, FilterFn, RowSelectionState } from '@tan
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import { useEditorContext, useMeta } from '../../../context';
 import type { JavaType } from '@axonivy/inscription-protocol';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { getCursorValue } from './cursor-value';
 export const TYPE_BROWSER_ID = 'type' as const;

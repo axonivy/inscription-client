@@ -1,7 +1,7 @@
 import type { DataClass } from '@axonivy/inscription-protocol';
 import type { ComboboxItem, FieldsetInputProps } from '../../widgets';
 import { Combobox, IvyIcon } from '../../widgets';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export type DataClassItem = Pick<DataClass, 'name' | 'packageName' | 'path'> & ComboboxItem;
 

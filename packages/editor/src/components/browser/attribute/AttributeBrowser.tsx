@@ -7,7 +7,7 @@ import { MappingTreeData } from '../../parts/common/mapping-tree/mapping-tree-da
 import type { VariableInfo } from '@axonivy/inscription-protocol';
 import { useEditorContext, useMeta } from '../../../context';
 import { calcFullPathId } from '../../parts/common/mapping-tree/useMappingTree';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;

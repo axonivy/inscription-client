@@ -8,7 +8,7 @@ import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
 import { IvyIcon, MessageText } from '../widgets';
 import { useDataContext, useEditorContext } from '../../context';
-import type { IvyIcons } from '@axonivy/editor-icons';
+import type { IvyIcons } from '@axonivy/ui-icons';
 import { useGeneralData } from '../parts/name/useGeneralData';
 import Part from './part/Part';
 import type { PartProps } from './part/usePart';

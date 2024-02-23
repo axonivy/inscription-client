@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
 import NameEditor from '../NameEditor';

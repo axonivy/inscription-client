@@ -1,6 +1,6 @@
 import type { WfCustomField, WorkflowType } from '@axonivy/inscription-protocol';
 import { CUSTOM_FIELD_TYPE } from '@axonivy/inscription-protocol';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { memo, useMemo } from 'react';

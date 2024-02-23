@@ -3,7 +3,7 @@ import type { FieldsetControl, SelectItem } from '../../../../widgets';
 import { Select, useFieldset } from '../../../../widgets';
 import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export const RestClientSelect = () => {
   const { config, updateTarget } = useRestRequestData();

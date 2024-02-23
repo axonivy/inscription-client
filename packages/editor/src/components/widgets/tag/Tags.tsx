@@ -2,7 +2,7 @@ import './Tags.css';
 import { memo, useEffect, useRef, useState } from 'react';
 import { useEditorContext, useMeta } from '../../../context';
 import IvyIcon from '../IvyIcon';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { useCombobox } from 'downshift';
 import { useKeyboard } from 'react-aria';
 

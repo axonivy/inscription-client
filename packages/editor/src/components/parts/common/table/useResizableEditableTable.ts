@@ -3,7 +3,7 @@ import { getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/rea
 import { useState, useEffect } from 'react';
 import { deepEqual } from '../../../../utils/equals';
 import type { FieldsetControl } from '../../../widgets';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 interface UseResizableEditableTableProps<TData> {
   data: TData[];

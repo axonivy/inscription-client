@@ -1,6 +1,6 @@
 import { Dialog, DialogTrigger } from '@radix-ui/react-dialog';
 import { Button } from '../widgets';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { useState } from 'react';
 import type { BrowserType, UseBrowserReturnValue } from './useBrowser';
 import { useAttributeBrowser } from './attribute/AttributeBrowser';

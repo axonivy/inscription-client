@@ -1,6 +1,6 @@
 import type { ComboboxItem, FieldsetInputProps } from '../../../widgets';
 import { Combobox, IvyIcon } from '../../../widgets';
-import type { IvyIcons } from '@axonivy/editor-icons';
+import type { IvyIcons } from '@axonivy/ui-icons';
 
 export type ClassifiedItem = { label?: string; info?: string } & ComboboxItem;
 

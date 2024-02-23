@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Tab } from '../widgets';
-import type { IvyIcons } from '@axonivy/editor-icons';
+import type { IvyIcons } from '@axonivy/ui-icons';
 import type { ATTRIBUTE_BROWSER_ID } from './attribute/AttributeBrowser';
 import type { CMS_BROWSER_ID } from './cms/CmsBrowser';
 import type { FUNCTION_BROWSER_ID } from './function/FunctionBrowser';

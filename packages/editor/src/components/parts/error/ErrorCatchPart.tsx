@@ -3,7 +3,7 @@ import { usePartDirty, usePartState } from '../../editors';
 import { useFieldset } from '../../widgets';
 import { useErrorCatchData } from './useErrorCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { ErrorCatchData } from '@axonivy/inscription-protocol';
 import type { ClassifiedItem } from '../common';
 import { ClassificationCombobox, PathFieldset } from '../common';

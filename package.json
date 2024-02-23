@@ -9,8 +9,7 @@
     "node": "20.10.0"
   },
   "scripts": {
-    "ci": "yarn ci:prepare && yarn package && yarn lint:ci && yarn test:ci",
-    "ci:prepare": "yarn install && yarn icons:generate",
+    "ci": "yarn install && yarn package && yarn lint:ci && yarn test:ci",
     "clean": "lerna run clean",
     "build": "tsc --build && tscp --build",
     "package": "lerna run package",
@@ -23,10 +22,10 @@
     "standalone": "yarn -s --cwd integrations/standalone",
     "dev": "yarn standalone start:mock",
     "generate": "lerna run generate",
-    "icons:generate": "yarn --cwd packages/icons generate",
     "protocol": "yarn --cwd packages/protocol",
     "test": "yarn --cwd packages/editor test",
     "test:ci": "lerna run test:ci",
+    "update:axonivy:next": "npx --yes npm-check-updates @axonivy* -ws -t patch -u",
     "publish:next": "lerna publish --exact --canary --preid next --tag-version-prefix beta --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
-import type { Dispatch} from 'react';
+import type { Dispatch } from 'react';
 import { useState } from 'react';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from '../../../widgets';
 import type { ColumnFiltersState, Row } from '@tanstack/react-table';
 import type { MappingTreeData } from './mapping-tree-data';

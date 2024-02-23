@@ -3,7 +3,7 @@ import { MacroArea, MacroInput, useFieldset } from '../../../../components/widge
 import { PathFieldset } from '../path/PathFieldset';
 import { useAction, useEditorContext, useMeta, usePath } from '../../../../context';
 import type { SchemaKeys, SchemaPath, WorkflowType } from '@axonivy/inscription-protocol';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import ClassificationCombobox, { type ClassifiedItem } from '../classification/ClassificationCombobox';
 import { classifiedItemInfo } from '../../../../utils/event-code-categorie';
 

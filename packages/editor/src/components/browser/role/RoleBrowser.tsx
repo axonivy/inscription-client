@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { SelectRow, Table, TableCell, ExpandableCell } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import {
   useReactTable,

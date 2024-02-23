@@ -1,4 +1,4 @@
-import type { IvyIcons } from '@axonivy/editor-icons';
+import type { IvyIcons } from '@axonivy/ui-icons';
 
 export interface FieldsetControl {
   label: string;

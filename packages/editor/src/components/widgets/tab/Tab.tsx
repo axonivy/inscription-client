@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import { useMemo } from 'react';
 import type { Message } from '../message/Message';
 import IvyIcon from '../IvyIcon';
-import type { IvyIcons } from '@axonivy/editor-icons';
+import type { IvyIcons } from '@axonivy/ui-icons';
 
 export type Tab = {
   id: string;

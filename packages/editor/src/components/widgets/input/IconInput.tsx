@@ -1,5 +1,5 @@
 import './IconInput.css';
-import type { IvyIcons } from '@axonivy/editor-icons';
+import type { IvyIcons } from '@axonivy/ui-icons';
 import IvyIcon from '../IvyIcon';
 import type { InputProps } from './Input';
 import Input from './Input';

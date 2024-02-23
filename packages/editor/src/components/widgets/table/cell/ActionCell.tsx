@@ -1,5 +1,5 @@
 import './ActionCell.css';
-import type { IvyIcons } from '@axonivy/editor-icons';
+import type { IvyIcons } from '@axonivy/ui-icons';
 import { useReadonly } from '../../../../context';
 import { TableCell } from './TableCell';
 import Button from '../../button/Button';

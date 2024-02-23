@@ -2,7 +2,7 @@ import { Collapsible as CollapsibleRoot, CollapsibleContent, CollapsibleTrigger 
 import type { ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
 import './Collapsible.css';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import IvyIcon from '../IvyIcon';
 import type { MessageTextProps } from '../message/Message';
 import { MessageText } from '../message/Message';

@@ -1,7 +1,7 @@
 import InscriptionEditor from './InscriptionEditor';
 import type { PartProps } from './part/usePart';
 import type { InscriptionValidation } from '@axonivy/inscription-protocol';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { render, screen, userEvent } from 'test-utils';
 import { describe, test, expect, afterEach, beforeEach, vi } from 'vitest';
 

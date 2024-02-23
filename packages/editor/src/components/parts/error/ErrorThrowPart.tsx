@@ -2,7 +2,7 @@ import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { ScriptInput, useFieldset } from '../../widgets';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import type { ErrorThrowData } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import type { ClassifiedItem } from '../common';

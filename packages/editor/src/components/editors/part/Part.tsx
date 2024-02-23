@@ -1,7 +1,7 @@
 import './Part.css';
 import { useState } from 'react';
 import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, ErrorFallback } from '../../../components/widgets';
-import { IvyIcons } from '@axonivy/editor-icons';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { ErrorBoundary } from 'react-error-boundary';
 import type { PartProps } from './usePart';
 
