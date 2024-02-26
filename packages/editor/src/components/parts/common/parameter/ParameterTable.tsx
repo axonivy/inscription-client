@@ -14,7 +14,7 @@ type ParameterTableProps = {
   hideDesc?: boolean;
 };
 
-const EMPTY_SCRIPT_VARIABLE: ScriptVariable = { name: 'change_this_name', type: 'String', desc: '' } as const;
+const EMPTY_SCRIPT_VARIABLE: ScriptVariable = { name: '', type: 'String', desc: '' } as const;
 
 const ParameterTable = ({ data, onChange, hideDesc, label }: ParameterTableProps) => {
   const columns = useMemo(() => {

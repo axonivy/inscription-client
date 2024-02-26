@@ -25,6 +25,7 @@ export type ComboboxProps<T extends ComboboxItem> = Omit<ComponentProps<'input'>
   onChange: (change: string) => void;
   macro?: boolean;
   browserTypes?: BrowserType[];
+  updateOnInputChange?: boolean;
 };
 
 const Combobox = <T extends ComboboxItem>({
@@ -35,6 +36,7 @@ const Combobox = <T extends ComboboxItem>({
   onChange,
   macro,
   browserTypes,
+  updateOnInputChange,
   ...inputProps
 }: ComboboxProps<T>) => {
   const filter = itemFilter
@@ -70,6 +72,9 @@ const Combobox = <T extends ComboboxItem>({
       onInputValueChange(change) {
         if (change.type !== useCombobox.stateChangeTypes.FunctionSelectItem) {
           setFilteredItems(items.filter(item => filter(item, change.inputValue)));
+          if (updateOnInputChange) {
+            onChange(change.inputValue ?? '');
+          }
         }
       },
       items: filteredItems,
@@ -80,9 +85,11 @@ const Combobox = <T extends ComboboxItem>({
     });
 
   useEffect(() => {
-    selectItem({ value });
-    setFilteredItems(items);
-  }, [items, selectItem, value]);
+    if (!updateOnInputChange || updateOnInputChange == undefined) {
+      selectItem({ value });
+      setFilteredItems(items);
+    }
+  }, [updateOnInputChange, items, selectItem, value]);
 
   const readonly = useReadonly();
   const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: value => `<%=${value}%>` });
