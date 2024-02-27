@@ -1,4 +1,4 @@
-import type { Locator, Page} from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import type { RESPONSIBLE_TYPE, ValuesAsUnion } from '@axonivy/inscription-protocol';
 import { ScriptInput } from './CodeEditor';
@@ -10,7 +10,7 @@ export class ResponsibleSelect {
   private readonly script: ScriptInput;
   private readonly select: Select;
 
-  constructor(page: Page, parentLocator: Locator, label: string) {
+  constructor(readonly page: Page, parentLocator: Locator, label: string) {
     this.locator = parentLocator.locator('.responsible-select', { has: page.getByLabel(label) }).first();
     this.type = parentLocator.getByLabel(label).first();
     this.script = new ScriptInput(page, this.locator);
@@ -39,7 +39,7 @@ export class ResponsibleSelect {
 
   async chooseType(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>) {
     await this.type.click();
-    await this.locator.getByRole('option', { name: type, exact: true }).first().click();
+    await this.page.getByRole('option', { name: type, exact: true }).first().click();
     await this.expectType(type);
   }
 

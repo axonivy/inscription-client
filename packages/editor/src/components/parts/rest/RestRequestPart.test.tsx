@@ -46,7 +46,7 @@ describe('RestRequestPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { code: 'code' });
     assertState('configured', { method: 'DELETE' });
     assertState('configured', { body: { mediaType: 'app/json' } });

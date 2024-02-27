@@ -15,8 +15,8 @@ class General extends PartObject {
 
   constructor(part: Part, private readonly hasTags: boolean, private readonly nameDisabled?: boolean) {
     super(part);
-    this.displayName = part.textArea('Display name');
-    this.description = part.textArea('Description');
+    this.displayName = part.textArea({ label: 'Display name' });
+    this.description = part.textArea({ label: 'Description' });
     this.meansDocumentsSection = part.section('Means / Documents');
     this.documents = this.meansDocumentsSection.table(['text', 'text']);
     this.tagsSection = part.section('Tags');

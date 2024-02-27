@@ -1,6 +1,6 @@
 import { PathContext, useEditorContext, useMeta } from '../../../context';
-import type { SelectItem} from '../../widgets';
-import { Select, useFieldset } from '../../widgets';
+import type { SelectItem } from '../../widgets';
+import { Select } from '../../widgets';
 import { PathFieldset } from '../common';
 import { useWsRequestData } from './useWsRequestData';
 
@@ -13,16 +13,10 @@ export const WsPortSelect = () => {
   });
   const selectedItem = items.find(i => i.value === config.operation.port) ?? { label: config.operation.port, value: config.operation.port };
 
-  const fieldset = useFieldset();
   return (
     <PathContext path='operation'>
-      <PathFieldset label='Port' path='port' {...fieldset.labelProps}>
-        <Select
-          value={selectedItem}
-          onChange={item => updateOperation('port', item.value)}
-          items={items}
-          inputProps={fieldset.inputProps}
-        />
+      <PathFieldset label='Port' path='port'>
+        <Select value={selectedItem} onChange={item => updateOperation('port', item.value)} items={items} />
       </PathFieldset>
     </PathContext>
   );

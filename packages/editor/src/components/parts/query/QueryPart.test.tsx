@@ -125,7 +125,7 @@ describe('QueryPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { exceptionHandler: 'bla' });
     assertState('configured', { query: { dbName: 'bla' } });
 

@@ -8,7 +8,7 @@ import { describe, test, expect } from 'vitest';
 
 describe('RestEntityTypeCombobox', () => {
   function renderCombo(value: string, restEntityTypes?: string[]) {
-    render(<RestEntityTypeCombobox value={value} onChange={() => {}} items={restEntityTypes ?? []} id='' aria-labelledby='' />, {
+    render(<RestEntityTypeCombobox value={value} onChange={() => {}} items={restEntityTypes ?? []} />, {
       wrapperProps: { meta: { restEntityTypes } }
     });
   }

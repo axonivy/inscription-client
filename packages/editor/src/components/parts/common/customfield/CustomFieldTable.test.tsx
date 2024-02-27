@@ -66,11 +66,10 @@ describe('CustomFieldTable', () => {
 
     const type = screen.getAllByRole('combobox')[1];
     await userEvent.click(type);
-    await userEvent.click(type);
     await userEvent.keyboard('[ArrowDown][Enter]');
 
     expect(view.data()).toEqual([
-      { name: 'Hello', type: 'STRING', value: 'this is a string' },
+      { name: 'Hello', type: 'TEXT', value: 'this is a string' },
       { name: 'number', type: 'NUMBER', value: '1' }
     ]);
   });

@@ -18,24 +18,32 @@ export const SelectRow = <TData extends object>({
   onDoubleClick,
   className,
   ...props
-}: React.HTMLAttributes<HTMLTableRowElement> & SelectRowProps<TData>) => (
-  <tr
-    className={`${isNotSelectable ? '' : 'selectable-row'} ${className}`}
-    data-state={row.getIsSelected() ? 'selected' : ''}
-    title={title}
-    onClick={event => {
-      if (!isNotSelectable) {
-        if (event.detail === 1) {
-          if (!row.getIsSelected()) {
-            row.getToggleSelectedHandler()(event);
+}: React.HTMLAttributes<HTMLTableRowElement> & SelectRowProps<TData>) => {
+  const selectRow = () => {
+    if (!row.getIsSelected()) {
+      row.toggleSelected();
+    }
+  };
+  return (
+    <tr
+      className={`${isNotSelectable ? '' : 'selectable-row'} ${className}`}
+      data-state={row.getIsSelected() ? 'selected' : ''}
+      title={title}
+      onClick={event => {
+        if (!isNotSelectable) {
+          if (event.detail === 1) {
+            if (!row.getIsSelected()) {
+              row.getToggleSelectedHandler()(event);
+            }
+          } else if (onDoubleClick) {
+            onDoubleClick();
           }
-        } else if (onDoubleClick) {
-          onDoubleClick();
         }
-      }
-    }}
-    {...props}
-  >
-    {children}
-  </tr>
-);
+      }}
+      onFocus={() => selectRow()}
+      {...props}
+    >
+      {children}
+    </tr>
+  );
+};

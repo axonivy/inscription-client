@@ -50,7 +50,7 @@ describe('EventPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { javaClass: 'Bla' });
     assertState('configured', { eventId: '123' });
     assertState('configured', { timeout: { duration: '123' } });

@@ -1,5 +1,4 @@
 import { Dialog, DialogTrigger } from '@radix-ui/react-dialog';
-import { Button } from '../widgets';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useState } from 'react';
 import type { BrowserType, UseBrowserReturnValue } from './useBrowser';
@@ -10,6 +9,7 @@ import { useTypeBrowser } from './type/TypeBrowser';
 import { useTableColBrowser } from './tableCol/TableColBrowser';
 import BrowserBody from './BrowserBody';
 import { useRoleBrowser, type RoleOptions } from './role/RoleBrowser';
+import { Button } from '@axonivy/ui-components';
 
 export type BrowserValue = { cursorValue: string; firstLineValue?: string };
 

@@ -46,7 +46,7 @@ describe('StartPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { javaClass: 'Bla' });
     assertState('configured', { permission: { anonymous: false } });
     assertState('error', undefined, { path: 'javaClass.cause', message: '', severity: 'ERROR' });

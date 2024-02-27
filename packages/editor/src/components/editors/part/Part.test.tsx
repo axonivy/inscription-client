@@ -6,7 +6,7 @@ import { describe, test, expect } from 'vitest';
 describe('Part', () => {
   const generalPart: PartProps = {
     name: 'General',
-    state: { state: 'empty', validations: [] },
+    state: { state: undefined, validations: [] },
     reset: { dirty: false, action: () => {} },
     content: <h1>General</h1>
   };
@@ -43,27 +43,17 @@ describe('Part', () => {
 
   test('state', () => {
     renderAccordion(generalPart);
-    assertPartState('General', 'empty');
+    assertPartState('General', undefined);
     renderAccordion(callPart);
     assertPartState('Call', 'warning');
     renderAccordion(resultPart);
     assertPartState('Result', 'error');
   });
 
-  test('dirty', async () => {
-    renderAccordion(generalPart);
-    await assertDirtyState('General', false);
-    renderAccordion(callPart);
-    await assertDirtyState('Call', true);
-    renderAccordion(resultPart);
-    await assertDirtyState('Result', false);
-  });
-
   test('reset data', async () => {
     let dirty = true;
     const action = () => (dirty = false);
     renderAccordion({ ...callPart, reset: { dirty, action } });
-    await assertDirtyState('Call', true);
     await userEvent.click(screen.getByRole('button', { name: 'Reset Call' }));
     expect(dirty).toBeFalsy();
   });
@@ -99,14 +89,10 @@ describe('Part', () => {
   }
 
   function assertPartState(accordionName: string, state: PartStateFlag) {
-    expect(screen.getByRole('button', { name: accordionName }).querySelector('span.accordion-state')).toHaveAttribute('data-state', state);
-  }
-
-  async function assertDirtyState(accordionName: string, dirty: boolean) {
-    await userEvent.click(screen.getByRole('button', { name: accordionName }));
-    expect(screen.getByRole('button', { name: accordionName }).querySelector('span.accordion-state')).toHaveAttribute(
-      'data-dirty',
-      `${dirty}`
-    );
+    if (state) {
+      expect(screen.getByRole('button', { name: accordionName }).querySelector('.ui-state-dot')).toHaveAttribute('data-state', state);
+    } else {
+      expect(screen.getByRole('button', { name: accordionName }).querySelector('.ui-state-dot')).toBeNull;
+    }
   }
 });

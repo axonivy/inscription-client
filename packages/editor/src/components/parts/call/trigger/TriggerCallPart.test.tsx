@@ -37,7 +37,7 @@ describe('TriggerCallPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { processCall: 'trigger' });
     assertState('configured', { call: { code: 'code', map: {} } });
     assertState('configured', { call: { code: '', map: { key: 'value' } } });

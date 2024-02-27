@@ -8,6 +8,7 @@ import { CardArea } from '../output/CardText';
 import type { ElementRef } from 'react';
 import { useRef } from 'react';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
+import { useField } from '@axonivy/ui-components';
 
 const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
@@ -15,6 +16,7 @@ const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps)
   const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: value => `<%=${value}%>` });
   const path = usePath();
   const areaRef = useRef<ElementRef<'output'>>(null);
+  const { inputProps } = useField();
 
   return (
     // tabIndex is needed for safari to catch the focus when click on browser button
@@ -23,6 +25,7 @@ const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps)
         <>
           <ResizableCodeEditor
             {...focusValue}
+            {...inputProps}
             {...props}
             location={path}
             onMountFuncs={[setEditor, monacoAutoFocus]}
@@ -32,7 +35,7 @@ const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps)
           <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
         </>
       ) : (
-        <CardArea value={value} {...props} ref={areaRef} />
+        <CardArea value={value} {...inputProps} {...props} ref={areaRef} />
       )}
     </div>
   );

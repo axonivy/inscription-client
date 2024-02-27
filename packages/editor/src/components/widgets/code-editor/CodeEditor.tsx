@@ -3,6 +3,7 @@ import { useEditorContext } from '../../../context';
 import { MONACO_OPTIONS, MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { useRef, Suspense, lazy } from 'react';
+import { useReadonly } from '@axonivy/ui-components';
 
 const Editor = lazy(async () => {
   const editor = await import('@monaco-editor/react');
@@ -21,7 +22,8 @@ export type CodeEditorProps = {
 };
 
 const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, ...props }: CodeEditorProps) => {
-  const { elementContext, readonly } = useEditorContext();
+  const { elementContext } = useEditorContext();
+  const readonly = useReadonly();
   const placeholderElement = useRef<HTMLDivElement>(null);
   const handlePlaceholder = (showPlaceholder: boolean) => {
     if (placeholderElement.current) {

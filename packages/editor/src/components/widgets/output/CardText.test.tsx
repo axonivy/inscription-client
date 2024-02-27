@@ -1,3 +1,4 @@
+import { Field, Label } from '@axonivy/ui-components';
 import { CardArea, CardText } from './CardText';
 import { render, screen } from 'test-utils';
 import { describe, test, expect } from 'vitest';
@@ -5,12 +6,10 @@ import { describe, test, expect } from 'vitest';
 describe('CardText', () => {
   function renderText(text: string) {
     render(
-      <>
-        <label id='label' htmlFor='text'>
-          Label
-        </label>
-        <CardText id='text' aria-labelledby='label' value={text} />
-      </>
+      <Field>
+        <Label>Label</Label>
+        <CardText value={text} />
+      </Field>
     );
   }
 
@@ -28,12 +27,10 @@ describe('CardText', () => {
 describe('CardArea', () => {
   function renderArea(text: string) {
     render(
-      <>
-        <label id='label' htmlFor='text'>
-          Label
-        </label>
-        <CardArea id='text' aria-labelledby='label' value={text} />
-      </>
+      <Field>
+        <Label>Label</Label>
+        <CardArea value={text} />
+      </Field>
     );
   }
 

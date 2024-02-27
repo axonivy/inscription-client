@@ -1,8 +1,9 @@
 import './MessageRow.css';
-import { MessageText } from '../../message/Message';
-import type { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { InscriptionValidation, Severity } from '@axonivy/inscription-protocol';
+import { Message } from '@axonivy/ui-components';
+import type { ValidationMessage } from '../../message/Message';
 
-export type MessageRowProps = { message?: Omit<InscriptionValidation, 'path'>; colSpan?: number };
+export type MessageRowProps = { message?: ValidationMessage; colSpan?: number };
 
 export const styleMessageRow = (message?: Omit<InscriptionValidation, 'path'>, className?: string) => {
   return `row ${message ? `row-${message.severity.toLocaleLowerCase()}` : ''} ${className}`;
@@ -14,7 +15,7 @@ export const MessageRow = ({ message, colSpan }: MessageRowProps) => {
       {message && (
         <tr className={`row row-message message-${message.severity.toLocaleLowerCase()}`}>
           <td colSpan={colSpan ?? 2}>
-            <MessageText message={message} />
+            <Message message={message.message} variant={message.severity.toLocaleLowerCase() as Lowercase<Severity>} />
           </td>
         </tr>
       )}
