@@ -4,6 +4,7 @@ import MappingTree from './MappingTree';
 import type { SchemaKeys, VariableInfo } from '@axonivy/inscription-protocol';
 import { useTableGlobalFilter, useTableOnlyInscribed } from './useMappingTree';
 import type { BrowserType } from '../../../../components/browser';
+import { Field } from '@axonivy/ui-components';
 
 export type MappingPartProps = {
   data: Record<string, string>;
@@ -19,7 +20,9 @@ const MappingPart = ({ path, ...props }: MappingPartProps) => {
 
   return (
     <PathFieldset label='Mapping' controls={[globalFilter.control, onlyInscribedFilter.control]} path={path ?? 'map'}>
-      <MappingTree {...props} globalFilter={globalFilter} onlyInscribedFilter={onlyInscribedFilter} />
+      <Field>
+        <MappingTree {...props} globalFilter={globalFilter} onlyInscribedFilter={onlyInscribedFilter} />
+      </Field>
     </PathFieldset>
   );
 };

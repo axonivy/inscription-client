@@ -88,6 +88,7 @@ export class Row {
 
   async remove(withoutHeader?: boolean) {
     await this.locator.click();
+    await this.page.keyboard.press('Escape');
     await this.page.getByRole('button', { name: 'Remove row' }).click();
     if (!withoutHeader || withoutHeader === undefined) {
       await this.header.click();

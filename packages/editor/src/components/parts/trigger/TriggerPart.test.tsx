@@ -64,10 +64,10 @@ describe('TriggerPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { triggerable: true });
 
-    assertState('empty', undefined, { path: 'task.name', message: '', severity: 'ERROR' });
+    assertState(undefined, undefined, { path: 'task.name', message: '', severity: 'ERROR' });
     assertState('error', undefined, { path: 'task.delay', message: '', severity: 'ERROR' });
     assertState('warning', undefined, { path: 'task.responsible', message: '', severity: 'WARNING' });
   });

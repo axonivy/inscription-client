@@ -61,7 +61,7 @@ export const TableSort = () => {
       {
         accessorKey: 'name',
         header: header => <TextHeader header={header} name='Column' seperator={true} />,
-        cell: cell => <SelectCell cell={cell} items={columnItems.filter(item => indexOf(data, obj => obj.name === item.value) === -1)} />
+        cell: cell => <SelectCell cell={cell} items={columnItems} />
       },
       {
         accessorKey: 'sorting',
@@ -73,7 +73,7 @@ export const TableSort = () => {
         )
       }
     ],
-    [columnItems, data, orderItems]
+    [columnItems, orderItems]
   );
 
   const updateOrderBy = (data: Column[]) => {

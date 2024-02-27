@@ -1,5 +1,5 @@
 import type { DataUpdater } from '../../../../types/lambda';
-import { MacroArea, MacroInput, useFieldset } from '../../../../components/widgets';
+import { MacroArea, MacroInput } from '../../../../components/widgets';
 import { PathFieldset } from '../path/PathFieldset';
 import { useAction, useEditorContext, useMeta, usePath } from '../../../../context';
 import type { SchemaKeys, SchemaPath, WorkflowType } from '@axonivy/inscription-protocol';
@@ -33,10 +33,6 @@ const toWorkflowType = (path: '' | SchemaPath | SchemaKeys): WorkflowType => {
 };
 
 const Information = <T extends InformationConfig>({ config, update }: InformationProps<T>) => {
-  const nameFieldset = useFieldset();
-  const descFieldset = useFieldset();
-  const catFieldset = useFieldset();
-
   const { context } = useEditorContext();
   const path = usePath();
   const openAction = useAction('openOrCreateCmsCategory');
@@ -50,25 +46,14 @@ const Information = <T extends InformationConfig>({ config, update }: Informatio
 
   return (
     <>
-      <PathFieldset label='Name' {...nameFieldset.labelProps} path='name'>
-        <MacroInput
-          value={config.name}
-          browsers={['attr', 'func', 'cms']}
-          onChange={change => update('name', change)}
-          {...nameFieldset.inputProps}
-        />
+      <PathFieldset label='Name' path='name'>
+        <MacroInput value={config.name} browsers={['attr', 'func', 'cms']} onChange={change => update('name', change)} />
       </PathFieldset>
-      <PathFieldset label='Description' {...descFieldset.labelProps} path='description'>
-        <MacroArea
-          value={config.description}
-          browsers={['attr', 'func', 'cms']}
-          onChange={change => update('description', change)}
-          {...descFieldset.inputProps}
-        />
+      <PathFieldset label='Description' path='description'>
+        <MacroArea value={config.description} browsers={['attr', 'func', 'cms']} onChange={change => update('description', change)} />
       </PathFieldset>
       <PathFieldset
         label='Category'
-        {...catFieldset.labelProps}
         path='category'
         controls={[{ label: 'Open CMS Editor', icon: IvyIcons.Cms, action: () => openAction('/Categories/' + config.category + '/name') }]}
       >
@@ -77,7 +62,6 @@ const Information = <T extends InformationConfig>({ config, update }: Informatio
           onChange={change => update('category', change)}
           data={categories}
           icon={IvyIcons.Label}
-          comboboxInputProps={catFieldset.inputProps}
           withBrowser={true}
         />
       </PathFieldset>

@@ -6,6 +6,7 @@ import { useMonacoEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
+import { useField } from '@axonivy/ui-components';
 
 const ScriptInput = ({
   value,
@@ -22,6 +23,7 @@ const ScriptInput = ({
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: modifyAction });
   const path = usePath();
+  const { inputProps } = useField();
 
   return (
     // tabIndex is needed for safari to catch the focus when click on browser button
@@ -30,6 +32,7 @@ const ScriptInput = ({
         <>
           <SingleLineCodeEditor
             {...focusValue}
+            {...inputProps}
             {...props}
             context={{ type, location: path }}
             onMountFuncs={[setEditor]}
@@ -39,7 +42,7 @@ const ScriptInput = ({
           <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
         </>
       ) : (
-        <Input value={value} onChange={onChange} placeholder={placeholder} {...props} />
+        <Input value={value} onChange={onChange} placeholder={placeholder} {...inputProps} {...props} />
       )}
     </div>
   );

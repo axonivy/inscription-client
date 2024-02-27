@@ -1,5 +1,5 @@
 import type { OutputData } from '@axonivy/inscription-protocol';
-import { ScriptArea, useFieldset } from '../../widgets';
+import { ScriptArea } from '../../widgets';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
@@ -30,20 +30,18 @@ const OutputPart = (props: { showCode?: boolean; additionalBrowsers?: BrowserTyp
 
   const browsers: BrowserType[] = ['attr', 'func', 'type', ...(props.additionalBrowsers ?? [])];
 
-  const codeFieldset = useFieldset();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   return (
     <PathContext path='output'>
       <MappingPart data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} browsers={browsers} />
       {props.showCode && (
-        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
+        <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
           <ScriptArea
             maximizeState={maximizeState}
             value={config.output.code}
             onChange={change => update('code', change)}
             browsers={browsers}
-            {...codeFieldset.inputProps}
           />
         </PathFieldset>
       )}

@@ -7,7 +7,7 @@ class EndPage extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.endPage = part.textArea('Display the following page');
+    this.endPage = part.textArea({ label: 'Display the following page' });
   }
 
   async fill() {
