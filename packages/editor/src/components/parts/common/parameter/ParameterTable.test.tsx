@@ -60,7 +60,7 @@ describe('ParameterTable', () => {
     expect(view.data()).toEqual([
       { name: 'field1', type: 'String', desc: 'this is a string' },
       { name: 'number', type: 'Number', desc: '1' },
-      { name: 'change_this_name', type: 'String', desc: '' }
+      { name: '', type: 'String', desc: '' }
     ]);
   });
 

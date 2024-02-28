@@ -16,7 +16,7 @@ export function ComboCell<TData>({ cell, items }: { cell: CellContext<TData, unk
   const setValue = (value: string) => {
     cell.table.options.meta?.updateData(cell.row.id, cell.column.id, value);
   };
-  const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value as string, change => setValue(change));
+  const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value as string, change => setValue(change as string));
 
   useEffect(() => {
     if (isFocusWithin && !cell.row.getIsSelected()) {
@@ -26,7 +26,7 @@ export function ComboCell<TData>({ cell, items }: { cell: CellContext<TData, unk
 
   return (
     <div {...focusWithinProps}>
-      <Combobox items={items} value={focusValue.value} onChange={setValue} />
+      <Combobox items={items} value={focusValue.value} onChange={focusValue.onChange} updateOnInputChange={true} />
     </div>
   );
 }
