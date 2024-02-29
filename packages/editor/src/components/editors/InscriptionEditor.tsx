@@ -6,9 +6,9 @@ import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { IvyIcon, MessageText } from '../widgets';
-import { useDataContext, useEditorContext } from '../../context';
-import type { IvyIcons } from '@axonivy/ui-icons';
+import { Button, IvyIcon, MessageText } from '../widgets';
+import { useAction, useDataContext, useEditorContext } from '../../context';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { useGeneralData } from '../parts/name/useGeneralData';
 import Part from './part/Part';
 import type { PartProps } from './part/usePart';
@@ -32,6 +32,8 @@ const Header = (props: EditorProps) => {
   const { data } = useGeneralData();
   const validations = useDataContext().validations.filter(val => val.path.length === 0);
   const editorContext = useEditorContext();
+  const helpUrl = editorContext.type.helpUrl;
+  const action = useAction('openPage');
   return (
     <>
       <div className='header'>
@@ -42,6 +44,16 @@ const Header = (props: EditorProps) => {
             {data.name.length > 0 && ` - ${data.name}`}
           </div>
         </div>
+
+        {helpUrl !== undefined && helpUrl !== '' && (
+          <div className='header-right'>
+            <Button
+              icon={IvyIcons.InfoCircle}
+              onClick={() => action(helpUrl)}
+              aria-label={`Open Help for ${editorContext.type.shortLabel}`}
+            />
+          </div>
+        )}
       </div>
       {validations.length > 0 && (
         <div className='header-messages'>

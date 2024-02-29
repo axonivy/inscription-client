@@ -39,7 +39,8 @@ export class InscriptionClientMock implements InscriptionClient {
       label: this.type,
       shortLabel: this.type,
       description: this.type,
-      iconId: this.type
+      iconId: this.type,
+      helpUrl: this.type
     };
     this.elementData = DataMock.mockForType(this.type) as ElementData;
     this.onValidationEmitter.fire(ValidationMock.validateData(this.type, { data: this.elementData, context }));
