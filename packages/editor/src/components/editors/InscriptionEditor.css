@@ -20,12 +20,14 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--background);
   padding: var(--size-3) var(--size-4);
   gap: var(--size-2);
   border-bottom: var(--basic-border);
   height: 24px; /* need to be full height 48px to be same with process editor*/
 }
+
 .header-left {
   display: flex;
   gap: 0.75rem;
@@ -35,6 +37,14 @@
   min-width: 7rem;
   align-items: center;
 }
+
+.header-right .ivy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
 .header-title {
   white-space: nowrap;
   overflow: hidden;

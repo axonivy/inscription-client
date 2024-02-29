@@ -57,9 +57,9 @@ export interface Inscription {
   restClientRequest: RestClientRequest;
   restContentTypeRequest: RestContentTypeRequest;
   restEntityInfoRequest: RestEntityInfoRequest;
-  restResource: RestResource[];
+  restResource: RestResource;
   restResourceRequest: RestResourceRequest;
-  roleMeta: RoleMeta;
+  roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
@@ -135,6 +135,7 @@ export interface NodeRef {
 }
 export interface InscriptionType {
   description: string;
+  helpUrl: string;
   iconId: string;
   id:
     | "Alternative"

@@ -20,7 +20,8 @@ export const DEFAULT_EDITOR_CONTEXT: EditorContext = {
     label: 'Unknown Inscription Editor',
     shortLabel: 'Unknown',
     description: 'This is an Inscription Editor for an unknown element type',
-    iconId: 'unknown'
+    iconId: 'unknown',
+    helpUrl: 'unknown'
   },
   navigateTo: () => {}
 };

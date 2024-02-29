@@ -5,7 +5,7 @@ import type { InscriptionType } from '@axonivy/inscription-protocol';
 import { describe, test, expect } from 'vitest';
 
 describe('ConditionTable', () => {
-  const type: InscriptionType = { label: '', description: '', iconId: '', id: 'TaskEnd', impl: '', shortLabel: '' };
+  const type: InscriptionType = { label: '', description: '', iconId: '', id: 'TaskEnd', impl: '', shortLabel: '', helpUrl: '' };
   const conditions: Condition[] = [
     { fid: 'f1', expression: 'in.accepted == false' },
     { fid: 'f6', expression: 'false', target: { name: 'Target name', pid: 'f7', type: type } },

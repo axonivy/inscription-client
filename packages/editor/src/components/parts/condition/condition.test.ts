@@ -22,7 +22,8 @@ describe('Condition', () => {
     id: 'Alternative',
     impl: '',
     label: '',
-    shortLabel: ''
+    shortLabel: '',
+    helpUrl: ''
   };
 
   test('of', () => {
