@@ -1,7 +1,9 @@
-import { expect, test } from '@playwright/test';
+import { test } from '@playwright/test';
+import { GeneralTest, runTest } from '../../parts';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import type { CreateProcessResult} from '../../../glsp-protocol';
+import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
+import { RuleInterfaceStartTest } from '../../parts/program-interface-start';
 
 test.describe('Rule', () => {
   let view: InscriptionView;
@@ -16,6 +18,14 @@ test.describe('Rule', () => {
   });
 
   test('Header', async () => {
-    await expect(view.page.locator('.no-editor')).toHaveText('No Editor found for type: ThirdPartyProgramInterface');
+    await view.expectHeaderText('Rule');
+  });
+
+  test('General', async () => {
+    await runTest(view, GeneralTest);
+  });
+
+  test('Start', async () => {
+    await runTest(view, RuleInterfaceStartTest);
   });
 });
