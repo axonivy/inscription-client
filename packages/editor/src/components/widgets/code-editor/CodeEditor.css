@@ -14,3 +14,16 @@
 .code-editor .code-input:focus-within {
   border: var(--activ-border);
 }
+
+.code-editor .monaco-placeholder {
+  position: absolute;
+  display: none;
+  white-space: pre-wrap;
+  top: 12px;
+  left: 11px;
+  color: var(--N500);
+  font-family: Consolas, 'Courier New', monospace;
+  pointer-events: none;
+  user-select: none;
+  z-index: 10;
+}

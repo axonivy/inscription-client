@@ -10,6 +10,7 @@ type EditorOptions = {
   editorOptions?: {
     fixedOverflowWidgets?: boolean;
   };
+  placeholder?: string;
   keyActions?: {
     enter?: () => void;
     tab?: () => void;
@@ -21,8 +22,16 @@ type EditorOptions = {
 export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs' | 'context'> &
   EditorOptions & { browsers: BrowserType[] };
 
-const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyActions, ...props }: CodeEditorProps & EditorOptions) => {
+const SingleLineCodeEditor = ({
+  onChange,
+  onMountFuncs,
+  editorOptions,
+  keyActions,
+  placeholder,
+  ...props
+}: CodeEditorProps & EditorOptions) => {
   const mountFuncs = onMountFuncs ? onMountFuncs : [];
+
   const singleLineMountFuncs = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editor.createContextKey('singleLine', true);
     const isSuggestWidgetOpen = (editor: monaco.editor.IStandaloneCodeEditor) =>
@@ -31,6 +40,7 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyAction
     const triggerAcceptSuggestion = (editor: monaco.editor.IStandaloneCodeEditor) =>
       editor.trigger(undefined, 'acceptSelectedSuggestion', undefined);
     const STATE_OPEN = 3;
+
     editor.addCommand(
       monaco.KeyCode.Enter,
       () => {
@@ -81,6 +91,7 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyAction
     <CodeEditor
       height={40}
       onChange={onCodeChange}
+      placeholder={placeholder}
       options={editorOptions ? { ...SINGLE_LINE_MONACO_OPTIONS, ...editorOptions } : SINGLE_LINE_MONACO_OPTIONS}
       onMountFuncs={[...mountFuncs, monacoAutoFocus, singleLineMountFuncs]}
       {...props}
