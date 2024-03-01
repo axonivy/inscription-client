@@ -87,7 +87,6 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
                     context={{ type, location: path }}
                     onMountFuncs={[setEditor]}
                     editorOptions={{ fixedOverflowWidgets: false }}
-                    placeholder='Press CTRL + SPACE for auto-completion'
                     keyActions={{
                       enter: () => closeRef.current?.click(),
                       escape: () => closeRef.current?.click(),

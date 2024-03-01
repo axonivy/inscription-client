@@ -25,5 +25,10 @@
   font-family: Consolas, 'Courier New', monospace;
   pointer-events: none;
   user-select: none;
-  z-index: 10;
+  z-index: 2;
+}
+
+.code-editor .with-lineNumbers {
+  left: 35px;
+  font-size: 12px;
 }

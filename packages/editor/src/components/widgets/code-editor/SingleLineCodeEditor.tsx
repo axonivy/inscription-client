@@ -10,7 +10,6 @@ type EditorOptions = {
   editorOptions?: {
     fixedOverflowWidgets?: boolean;
   };
-  placeholder?: string;
   keyActions?: {
     enter?: () => void;
     tab?: () => void;
@@ -22,14 +21,7 @@ type EditorOptions = {
 export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs' | 'context'> &
   EditorOptions & { browsers: BrowserType[] };
 
-const SingleLineCodeEditor = ({
-  onChange,
-  onMountFuncs,
-  editorOptions,
-  keyActions,
-  placeholder,
-  ...props
-}: CodeEditorProps & EditorOptions) => {
+const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyActions, ...props }: CodeEditorProps & EditorOptions) => {
   const mountFuncs = onMountFuncs ? onMountFuncs : [];
 
   const singleLineMountFuncs = (editor: monaco.editor.IStandaloneCodeEditor) => {
@@ -91,7 +83,6 @@ const SingleLineCodeEditor = ({
     <CodeEditor
       height={40}
       onChange={onCodeChange}
-      placeholder={placeholder}
       options={editorOptions ? { ...SINGLE_LINE_MONACO_OPTIONS, ...editorOptions } : SINGLE_LINE_MONACO_OPTIONS}
       onMountFuncs={[...mountFuncs, monacoAutoFocus, singleLineMountFuncs]}
       {...props}

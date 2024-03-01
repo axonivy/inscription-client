@@ -11,12 +11,11 @@ export type CodeEditorProps = {
   context: { location: string; type?: string };
   macro?: boolean;
   height?: number;
-  placeholder?: string;
   onMountFuncs?: Array<(editor: monaco.editor.IStandaloneCodeEditor) => void>;
   options?: monaco.editor.IStandaloneEditorConstructionOptions;
 };
 
-const CodeEditor = ({ value, onChange, placeholder, context, macro, onMountFuncs, options, ...props }: CodeEditorProps) => {
+const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, ...props }: CodeEditorProps) => {
   const { elementContext, readonly } = useEditorContext();
   const placeholderElement = useRef<HTMLDivElement>(null);
   const handlePlaceholder = (showPlaceholder: boolean) => {
@@ -57,11 +56,10 @@ const CodeEditor = ({ value, onChange, placeholder, context, macro, onMountFuncs
         onMount={handleEditorDidMount}
         {...props}
       />
-      {placeholder && (
-        <div ref={placeholderElement} className='monaco-placeholder'>
-          {placeholder}
-        </div>
-      )}
+
+      <div ref={placeholderElement} className={`monaco-placeholder ${monacoOptions.lineNumbers === 'on' ? 'with-lineNumbers' : ''}`}>
+        Press CTRL + SPACE for auto-completion
+      </div>
     </div>
   );
 };
