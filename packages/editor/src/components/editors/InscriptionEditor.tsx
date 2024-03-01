@@ -13,8 +13,15 @@ import { useGeneralData } from '../parts/name/useGeneralData';
 import Part from './part/Part';
 import type { PartProps } from './part/usePart';
 import { otherEditors } from './other-editors';
+import { thirdPartyEditors } from './third-party/all-third-party-editors';
 
-const editors = new Map<ElementType, ReactNode>([...eventEditors, ...gatewayEditors, ...activityEditors, ...otherEditors]);
+const editors = new Map<ElementType, ReactNode>([
+  ...eventEditors,
+  ...gatewayEditors,
+  ...activityEditors,
+  ...thirdPartyEditors,
+  ...otherEditors
+]);
 
 export const inscriptionEditor = (type?: ElementType): ReactNode => {
   if (type) {

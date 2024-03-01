@@ -9,7 +9,7 @@ import { useEventData } from './useEventData';
 import JavaClassSelector from '../JavaClassSelector';
 import { deepEqual } from '../../../../utils/equals';
 
-export function useEventPart(): PartProps {
+export function useEventPart(options?: { thirdParty?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, reset } = useEventData();
   const compareData = (data: EventData) => [data.javaClass, data.eventId, data.timeout];
   const validation = [...useValidations(['timeout']), ...useValidations(['eventId']), ...useValidations(['javaClass'])];
@@ -19,11 +19,11 @@ export function useEventPart(): PartProps {
     name: 'Event',
     state,
     reset: { dirty, action: () => reset() },
-    content: <EventPart />
+    content: <EventPart thirdParty={options?.thirdParty} />
   };
 }
 
-const EventPart = () => {
+const EventPart = ({ thirdParty }: { thirdParty?: boolean }) => {
   const { config, defaultConfig, update, updateTimeout } = useEventData();
 
   const eventIdFieldset = useFieldset();
@@ -33,7 +33,9 @@ const EventPart = () => {
 
   return (
     <>
-      <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='INTERMEDIATE' />
+      {(thirdParty === undefined || thirdParty === false) && (
+        <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='INTERMEDIATE' />
+      )}
 
       <PathFieldset label='Event ID' path='eventId' {...eventIdFieldset.labelProps}>
         <ScriptInput

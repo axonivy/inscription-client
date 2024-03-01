@@ -9,7 +9,7 @@ import { useValidations } from '../../../../context';
 import { deepEqual } from '../../../../utils/equals';
 import JavaClassSelector from '../JavaClassSelector';
 
-export function useProgramInterfaceStartPart(): PartProps {
+export function useProgramInterfaceStartPart(options?: { thirdParty?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, reset } = useProgramInterfaceStartData();
   const compareData = (data: ProgramInterfaceStartData) => [data.javaClass, data.exceptionHandler, data.timeout];
   const validation = [...useValidations(['timeout']), ...useValidations(['exceptionHandler']), ...useValidations(['javaClass'])];
@@ -19,11 +19,11 @@ export function useProgramInterfaceStartPart(): PartProps {
     name: 'Start',
     state,
     reset: { dirty, action: () => reset() },
-    content: <ProgramInterfaceStartPart />
+    content: <ProgramInterfaceStartPart thirdParty={options?.thirdParty} />
   };
 }
 
-const ProgramInterfaceStartPart = () => {
+const ProgramInterfaceStartPart = ({ thirdParty }: { thirdParty?: boolean }) => {
   const { config, defaultConfig, update, updateTimeout } = useProgramInterfaceStartData();
 
   const errorFieldset = useFieldset();
@@ -32,7 +32,9 @@ const ProgramInterfaceStartPart = () => {
 
   return (
     <>
-      <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='ACTIVITY' />
+      {(thirdParty === undefined || thirdParty === false) && (
+        <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='ACTIVITY' />
+      )}
 
       <PathCollapsible label='Program' path='exceptionHandler' defaultOpen={config.exceptionHandler !== defaultConfig.exceptionHandler}>
         <PathFieldset label='Error' path='error' {...errorFieldset.labelProps}>
