@@ -54,11 +54,7 @@ const Header = (props: EditorProps) => {
 
         {helpUrl !== undefined && helpUrl !== '' && (
           <div className='header-right'>
-            <Button
-              icon={IvyIcons.InfoCircle}
-              onClick={() => action(helpUrl)}
-              aria-label={`Open Help for ${editorContext.type.shortLabel}`}
-            />
+            <Button icon={IvyIcons.Help} onClick={() => action(helpUrl)} aria-label={`Open Help for ${editorContext.type.shortLabel}`} />
           </div>
         )}
       </div>
