@@ -31,7 +31,7 @@ export const inscriptionEditor = (type?: ElementType): ReactNode => {
 };
 
 export interface EditorProps {
-  icon: IvyIcons;
+  icon?: IvyIcons;
   parts: PartProps[];
 }
 
@@ -45,7 +45,7 @@ const Header = (props: EditorProps) => {
     <>
       <div className='header'>
         <div className='header-left'>
-          <IvyIcon icon={props.icon} />
+          {props.icon && <IvyIcon icon={props.icon} />}
           <div className='header-title'>
             {editorContext.type.shortLabel}
             {data.name.length > 0 && ` - ${data.name}`}
