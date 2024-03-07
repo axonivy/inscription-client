@@ -1,9 +1,14 @@
 import './CodeEditor.css';
-import { Editor } from '@monaco-editor/react';
 import { useEditorContext } from '../../../context';
 import { MONACO_OPTIONS, MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import { useRef } from 'react';
+import { useRef, Suspense, lazy } from 'react';
+
+const Editor = lazy(async () => {
+  const editor = await import('@monaco-editor/react');
+  await MonacoEditorUtil.getInstance();
+  return editor;
+});
 
 export type CodeEditorProps = {
   value: string;
@@ -41,21 +46,23 @@ const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, ..
 
   return (
     <div className='code-editor'>
-      <Editor
-        className='code-input'
-        defaultValue={value}
-        value={value}
-        defaultLanguage={language}
-        defaultPath={`${language}/${contextPath}/${context.location}/${context.type ? context.type : ''}`}
-        options={monacoOptions}
-        theme={MonacoEditorUtil.DEFAULT_THEME_NAME}
-        onChange={code => {
-          handlePlaceholder(!code);
-          onChange(code ?? '');
-        }}
-        onMount={handleEditorDidMount}
-        {...props}
-      />
+      <Suspense fallback={<div className='code-input'>Loading Editor...</div>}>
+        <Editor
+          className='code-input'
+          defaultValue={value}
+          value={value}
+          defaultLanguage={language}
+          defaultPath={`${language}/${contextPath}/${context.location}/${context.type ? context.type : ''}`}
+          options={monacoOptions}
+          theme={MonacoEditorUtil.DEFAULT_THEME_NAME}
+          onChange={code => {
+            handlePlaceholder(!code);
+            onChange(code ?? '');
+          }}
+          onMount={handleEditorDidMount}
+          {...props}
+        />
+      </Suspense>
 
       <div ref={placeholderElement} className={`monaco-placeholder ${monacoOptions.lineNumbers === 'on' ? 'with-lineNumbers' : ''}`}>
         Press CTRL + SPACE for auto-completion
