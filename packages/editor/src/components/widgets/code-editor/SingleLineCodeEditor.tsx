@@ -19,7 +19,7 @@ type EditorOptions = {
 };
 
 export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs' | 'context'> &
-  EditorOptions & { browsers: BrowserType[] };
+  EditorOptions & { browsers: BrowserType[]; placeholder?: string };
 
 const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyActions, ...props }: CodeEditorProps & EditorOptions) => {
   const mountFuncs = onMountFuncs ? onMountFuncs : [];
@@ -32,7 +32,6 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyAction
     const triggerAcceptSuggestion = (editor: monaco.editor.IStandaloneCodeEditor) =>
       editor.trigger(undefined, 'acceptSelectedSuggestion', undefined);
     const STATE_OPEN = 3;
-
     editor.addCommand(
       monaco.KeyCode.Enter,
       () => {

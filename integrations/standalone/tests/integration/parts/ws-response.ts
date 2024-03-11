@@ -34,7 +34,7 @@ class WsResponse extends PartObject {
   }
 
   async clear() {
-    await this.mapping.row(1).column(1).fill('');
+    await this.mapping.row(1).column(1).clearExpression();
     await this.code.clear();
     await this.exception.choose('ivy:error:webservice:exception');
   }

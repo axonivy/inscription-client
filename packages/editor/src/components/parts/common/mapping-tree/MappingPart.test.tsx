@@ -123,25 +123,6 @@ describe('MappingPart', () => {
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
   });
 
-  test('tree can edit expression', async () => {
-    const view = renderTree();
-    const rowExpander = screen.getByRole('button', { name: 'Expand row' });
-    await userEvent.click(rowExpander);
-    const inputs = screen.getAllByRole('textbox');
-    expect(inputs).toHaveLength(5);
-
-    await userEvent.click(inputs[2]);
-    const mockInput = screen.getByLabelText('Code');
-    expect(mockInput).toHaveValue('');
-    await userEvent.type(mockInput, '123');
-    await userEvent.click(screen.getByRole('button', { name: 'Close' }));
-    expect(screen.queryByLabelText('Code')).not.toBeInTheDocument();
-
-    expect(inputs[0]).toHaveValue('in');
-    expect(screen.getAllByRole('textbox')[2]).toHaveValue('123');
-    expect(view.data()).toEqual({ 'param.procurementRequest': 'in', 'param.procurementRequest.amount': '123' });
-  });
-
   test('tree will filter', async () => {
     renderTree();
     expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();

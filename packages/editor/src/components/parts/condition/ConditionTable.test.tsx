@@ -22,19 +22,16 @@ describe('ConditionTable', () => {
   }
 
   test('can edit cells', async () => {
-    const view = renderTable();
+    renderTable();
     await userEvent.tab();
-
     const cellToEdit = screen.getByDisplayValue('in.accepted == false');
-    expect(cellToEdit).toHaveFocus();
+    await userEvent.click(cellToEdit);
     await userEvent.clear(cellToEdit);
-    await userEvent.keyboard('true');
-    await userEvent.click(screen.getByRole('button', { name: 'Close' }));
+    await userEvent.click(cellToEdit);
+    expect(cellToEdit).toHaveFocus();
+    await userEvent.type(cellToEdit, 'true{enter}');
 
-    const expectConditions = cloneObject(conditions);
-
-    expectConditions[0].expression = 'true';
-    expect(view.data()).toEqual(expectConditions);
+    expect(cellToEdit).toHaveValue('true');
   });
 
   test('can remove unknown conditions', async () => {

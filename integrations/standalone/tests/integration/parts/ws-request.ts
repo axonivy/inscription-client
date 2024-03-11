@@ -54,7 +54,7 @@ class WsRequest extends PartObject {
 
     await this.properties.clear();
 
-    await this.mapping.row(1).column(1).fill('');
+    await this.mapping.row(1).column(1).clearExpression();
   }
 
   async assertClear() {

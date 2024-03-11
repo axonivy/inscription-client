@@ -58,7 +58,7 @@ class Start extends PartObject {
     await this.paramSection.toggle();
     await this.params.clear();
     await this.paramSection.toggle();
-    await this.mapping.row(1).column(1).fill('');
+    await this.mapping.row(1).column(1).clearExpression();
     await this.code.clear();
   }
 

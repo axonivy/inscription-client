@@ -28,7 +28,7 @@ class Output extends PartObject {
   }
 
   async clear() {
-    await this.mapping.row(1).column(1).fill('');
+    await this.mapping.row(1).column(1).clearExpression();
     if (this.hasCode) {
       await this.code.clear();
     }

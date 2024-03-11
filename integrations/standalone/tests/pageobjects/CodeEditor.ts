@@ -96,10 +96,4 @@ export class ScriptCell extends CodeEditor {
   constructor(page: Page, locator: Locator, parentLocator: Locator) {
     super(page, locator, locator, parentLocator);
   }
-
-  override async fill(value: string) {
-    await this.focus();
-    await this.clearContent();
-    await this.page.keyboard.type(value);
-  }
 }

@@ -29,7 +29,7 @@ class Call extends PartObject {
   }
 
   async clear() {
-    await this.mapping.row(2).column(1).edit('');
+    await this.mapping.row(2).column(1).clearExpression();
     await this.code.clear();
   }
 
