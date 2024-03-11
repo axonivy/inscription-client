@@ -32,7 +32,7 @@ test.describe('Code Editor Input', () => {
     await assertAcceptScriptCellValue(page, 'Escape');
   });
 
-  test('ScriptCell - close popup accepts value', async ({ page }) => {
+  test('ScriptCell - update on input', async ({ page }) => {
     await assertAcceptScriptCellValue(page);
   });
 
@@ -45,16 +45,10 @@ test.describe('Code Editor Input', () => {
     const inscriptionView = await InscriptionView.mock(page);
     const taskPart = inscriptionView.accordion('Output');
     await taskPart.toggle();
-    const popover = inscriptionView.popover();
-    await popover.expectHidden();
-    await taskPart.table(['label', 'expression']).row(1).column(1).edit('test');
-    await popover.expectOpen();
+    await taskPart.table(['label', 'expression']).row(1).column(1).fill('test');
     if (key) {
       await page.keyboard.press(key);
-    } else {
-      await popover.close();
     }
-    await popover.expectHidden();
 
     await taskPart.toggle();
     await taskPart.toggle();

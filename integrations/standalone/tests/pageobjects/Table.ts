@@ -1,6 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
-import { Popover } from './Popover';
 import { ScriptCell } from './CodeEditor';
 import { Select } from './Select';
 import { Combobox } from './Combobox';
@@ -134,12 +133,6 @@ export class Cell {
     }
   }
 
-  async edit(value: string) {
-    await expect(this.textbox).toHaveAttribute('aria-expanded', 'false');
-    const code = new ScriptCell(this.page, this.textbox, Popover.locator(this.page));
-    await code.fill(value);
-  }
-
   async expectValue(value: string) {
     switch (this.columnType) {
       case 'select':
@@ -164,7 +157,12 @@ export class Cell {
   }
 
   private async fillExpression(value: string) {
-    await this.edit(value);
-    await new Popover(this.page).close();
+    const code = new ScriptCell(this.page, this.textbox, this.locator);
+    await code.fill(value);
+  }
+
+  async clearExpression() {
+    const code = new ScriptCell(this.page, this.textbox, this.locator);
+    await code.clear();
   }
 }

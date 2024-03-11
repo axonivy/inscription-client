@@ -43,7 +43,7 @@ class RestResponse extends PartObject {
 
   async clear() {
     await this.type.fill('');
-    await this.mapping.row(1).column(1).fill('');
+    await this.mapping.row(1).column(1).clearExpression();
     await this.code.clear();
     await this.clientError.choose('ivy:error:rest:client');
     await this.statusError.choose('ivy:error:rest:client');

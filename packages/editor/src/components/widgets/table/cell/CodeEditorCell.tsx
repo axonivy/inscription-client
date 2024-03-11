@@ -1,17 +1,13 @@
 import './CodeEditorCell.css';
-import '../../popover/Popover.css';
 import type { CellContext, RowData } from '@tanstack/react-table';
-import { useEffect, useRef, useState } from 'react';
-import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '@radix-ui/react-popover';
-import { Fieldset, useFieldset } from '../../fieldset';
-import { useEditorContext, usePath } from '../../../../context';
+import { useEffect, useState } from 'react';
+import { usePath } from '../../../../context';
 import { Input } from '../../input';
 import { SingleLineCodeEditor } from '../../code-editor';
 import type { BrowserType } from '../../../browser';
 import { Browser, useBrowser } from '../../../browser';
 import { useMonacoEditor } from '../../code-editor/useCodeEditor';
-import IvyIcon from '../../IvyIcon';
-import { IvyIcons } from '@axonivy/ui-icons';
+import { useOnFocus } from '../../../browser/useOnFocus';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,79 +27,61 @@ type CodeEditorCellProps<TData> = {
 export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder }: CodeEditorCellProps<TData>) {
   const initialValue = cell.getValue() as string;
   const [value, setValue] = useState(initialValue);
+
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
 
-  const [open, setOpen] = useState(false);
-  const changeOpen = (open: boolean) => {
-    setOpen(open);
-    if (!open) {
-      updateValue();
-    }
-  };
-  const updateValue = () => {
-    cell.table.options.meta?.updateData(cell.row.id, cell.column.id, value);
-  };
-
-  const editorContext = useEditorContext();
-  const codeFieldset = useFieldset();
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const { setEditor, modifyEditor } = useMonacoEditor();
   const path = usePath();
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useMonacoEditor();
+
+  const updateValue = (newValue: string) => {
+    setValue(newValue);
+    if (!browser.open && newValue !== cell.getValue()) {
+      cell.table.options.meta?.updateData(cell.row.id, cell.column.id, newValue);
+    }
+  };
+
+  const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, updateValue);
 
   useEffect(() => {
-    if (open && !cell.row.getIsSelected()) {
+    if (isFocusWithin && !cell.row.getIsSelected()) {
       cell.row.toggleSelected();
     }
-  }, [cell.row, open]);
+  }, [cell.row, isFocusWithin]);
+
+  const activeElementBlur = () => {
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement) {
+      activeElement.blur();
+    }
+  };
 
   return (
     <>
       {type && type.length === 0 ? (
-        <Input value={value} onChange={setValue} onBlur={() => updateValue()} />
+        <Input value={value} onChange={setValue} onBlur={() => updateValue(value)} />
       ) : (
-        <Popover open={open} onOpenChange={changeOpen}>
-          <PopoverTrigger asChild>
-            <Input
-              value={value}
-              onChange={change => {
-                setValue(change);
-                setOpen(true);
-              }}
-              type='input'
-              placeholder={placeholder}
-            />
-          </PopoverTrigger>
-          <PopoverPortal container={editorContext.editorRef.current}>
-            <PopoverContent className='popover-content' sideOffset={5} align={'end'} collisionBoundary={editorContext.editorRef.current}>
-              <Fieldset label='Code' {...codeFieldset.labelProps}>
-                <div className='script-input'>
-                  <SingleLineCodeEditor
-                    value={value}
-                    onChange={setValue}
-                    macro={makro}
-                    context={{ type, location: path }}
-                    onMountFuncs={[setEditor]}
-                    editorOptions={{ fixedOverflowWidgets: false }}
-                    keyActions={{
-                      enter: () => closeRef.current?.click(),
-                      escape: () => closeRef.current?.click(),
-                      tab: () => closeRef.current?.click()
-                    }}
-                    {...codeFieldset.inputProps}
-                  />
-                  <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
-                </div>
-              </Fieldset>
-              <PopoverClose className='popover-close' aria-label='Close' ref={closeRef}>
-                <IvyIcon icon={IvyIcons.Close} />
-              </PopoverClose>
-              <PopoverArrow className='popover-arrow' />
-            </PopoverContent>
-          </PopoverPortal>
-        </Popover>
+        <div className='script-input' {...focusWithinProps} tabIndex={1}>
+          {isFocusWithin || browser.open ? (
+            <>
+              <SingleLineCodeEditor
+                {...focusValue}
+                context={{ type, location: path }}
+                keyActions={{
+                  enter: activeElementBlur,
+                  escape: activeElementBlur
+                }}
+                onMountFuncs={[setEditor]}
+                macro={makro}
+              />
+              <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
+            </>
+          ) : (
+            <Input value={value} onChange={setValue} placeholder={placeholder} onBlur={() => updateValue(value)} />
+          )}
+        </div>
       )}
     </>
   );

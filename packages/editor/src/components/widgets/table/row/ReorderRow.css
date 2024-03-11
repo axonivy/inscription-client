@@ -4,6 +4,10 @@
   gap: var(--size-3);
 }
 
+.table-cell .reorder-select-icon .script-input {
+  width: 100%;
+}
+
 .table-cell .reorder-select-icon .ivy {
   font-size: 15px;
 }
