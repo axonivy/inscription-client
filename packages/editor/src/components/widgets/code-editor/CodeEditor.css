@@ -31,3 +31,7 @@
 .code-editor .with-lineNumbers {
   left: 35px;
 }
+
+.code-editor .header .type {
+  height: 100%;
+}
