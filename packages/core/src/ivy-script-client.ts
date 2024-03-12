@@ -1,14 +1,14 @@
 import { createWebSocketConnection, type Connection } from '@axonivy/jsonrpc';
 
 export namespace IvyScriptLanguage {
-  export async function startWebSocketClient(url: string, isMonacoReady: Promise<boolean>): Promise<any> {
+  export async function startWebSocketClient(url: string, isMonacoReady: Promise<any>): Promise<any> {
     const webSocketUrl = new URL('ivy-script-lsp', url);
     const connection = await createWebSocketConnection(webSocketUrl);
-    await isMonacoReady;
-    return startClient(connection);
+    return startClient(connection, isMonacoReady);
   }
 
-  export async function startClient(connection: Connection) {
+  export async function startClient(connection: Connection, isMonacoReady: Promise<any>) {
+    await isMonacoReady;
     const { MonacoLanguageClient } = await import('monaco-languageclient');
     const client = new MonacoLanguageClient({
       name: 'IvyScript Language Client',

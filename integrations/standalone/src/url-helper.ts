@@ -1,4 +1,4 @@
-import type { ThemeMode } from '@axonivy/inscription-editor';
+import { defaultThemeMode, type ThemeMode } from '@axonivy/inscription-editor';
 
 export namespace URLParams {
   export function parameter(key: string): string | undefined {
@@ -23,7 +23,7 @@ export namespace URLParams {
   }
 
   export function themeMode(): ThemeMode {
-    return (parameter('theme') as ThemeMode) ?? defaultTheme();
+    return (parameter('theme') as ThemeMode) ?? defaultThemeMode();
   }
 
   const isSecureConnection = () => {
@@ -48,9 +48,5 @@ export namespace URLParams {
       return href.substring(protocol.length + 2, href.indexOf('/process-inscription'));
     }
     return 'localhost:8081';
-  };
-
-  const defaultTheme = (): ThemeMode => {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   };
 }

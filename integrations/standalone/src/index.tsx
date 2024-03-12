@@ -1,52 +1,23 @@
-import './index.css';
-import { IvyScriptLanguage, InscriptionClientJsonRpc, MonacoUtil } from '@axonivy/inscription-core';
-import {
-  App,
-  AppStateView,
-  ClientContextProvider,
-  MonacoEditorUtil,
-  QueryProvider,
-  ThemeContextProvider,
-  initQueryClient,
-  type ThemeMode
-} from '@axonivy/inscription-editor';
-import React from 'react';
+import { InscriptionClientJsonRpc } from '@axonivy/inscription-core';
+import { AppStateView } from '@axonivy/inscription-editor';
 import { createRoot } from 'react-dom/client';
+import './index.css';
+import { LazyApp, type LazyAppProps } from './lazy-app';
 import { URLParams } from './url-helper';
 
-async function initMonaco(theme: ThemeMode): Promise<boolean> {
-  const monaco = await import('monaco-editor/esm/vs/editor/editor.api');
-  const editorWorker = await import('monaco-editor/esm/vs/editor/editor.worker?worker');
-  await MonacoUtil.initStandalone(editorWorker.default);
-  await MonacoEditorUtil.configureInstance(monaco, theme);
-  return true;
-}
-
 export async function start(): Promise<void> {
-  const server = URLParams.webSocketBase();
-  const app = URLParams.app();
-  const pmv = URLParams.pmv();
-  const pid = URLParams.pid();
-  const theme = URLParams.themeMode();
+  const props: LazyAppProps = {
+    server: URLParams.webSocketBase(),
+    app: URLParams.app(),
+    pmv: URLParams.pmv(),
+    pid: URLParams.pid(),
+    theme: URLParams.themeMode(),
+    clientCreator: () => InscriptionClientJsonRpc.startWebSocketClient(props.server!)
+  };
 
   const root = createRoot(document.getElementById('root')!);
   try {
-    const isMonacoReady = initMonaco(theme);
-    IvyScriptLanguage.startWebSocketClient(server, isMonacoReady);
-    const client = await InscriptionClientJsonRpc.startWebSocketClient(server);
-    const queryClient = initQueryClient();
-
-    root.render(
-      <React.StrictMode>
-        <ThemeContextProvider theme={theme}>
-          <ClientContextProvider client={client}>
-            <QueryProvider client={queryClient}>
-              <App app={app} pmv={pmv} pid={pid} />
-            </QueryProvider>
-          </ClientContextProvider>
-        </ThemeContextProvider>
-      </React.StrictMode>
-    );
+    root.render(<LazyApp {...props} />);
   } catch (error) {
     console.error(error);
     root.render(<AppStateView>{'An error has occurred: ' + error}</AppStateView>);

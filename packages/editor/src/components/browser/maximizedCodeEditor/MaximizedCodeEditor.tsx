@@ -1,10 +1,10 @@
 import './MaximizedCodeEditor.css';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { useBrowser, type BrowserType } from '../useBrowser';
 import { monacoAutoFocus, useMonacoEditor } from '../../widgets/code-editor/useCodeEditor';
 import CodeEditor from '../../widgets/code-editor/CodeEditor';
 import Browser from '../Browser';
-import { MAXIMIZED_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
+import { MAXIMIZED_MONACO_OPTIONS, MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
 
 export type MaximizedCodeEditorProps = {
   editorValue: string;
@@ -36,7 +36,7 @@ const MaximizedCodeEditor = ({
     }
   };
   const keyActionMountFunc = (editor: monaco.editor.IStandaloneCodeEditor) => {
-    editor.addCommand(monaco.KeyCode.Escape, () => {
+    editor.addCommand(MonacoEditorUtil.KeyCode.Escape, () => {
       if (keyActions?.escape) {
         keyActions.escape();
       }

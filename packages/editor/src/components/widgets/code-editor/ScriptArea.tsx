@@ -1,11 +1,12 @@
 import './ScriptArea.css';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import type { CodeEditorAreaProps } from './ResizableCodeEditor';
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import ResizableCodeEditor from './ResizableCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { useMonacoEditor } from './useCodeEditor';
 import { usePath } from '../../../context';
 import MaximizedCodeEditorBrowser from '../../browser/MaximizedCodeEditorBrowser';
+import { MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
 
 type ScriptAreaProps = CodeEditorAreaProps & {
   maximizeState: {
@@ -19,7 +20,7 @@ const ScriptArea = (props: ScriptAreaProps) => {
   const { setEditor, modifyEditor, getMonacoSelection, getSelectionRange } = useMonacoEditor();
   const path = usePath();
   const keyActionMountFunc = (editor: monaco.editor.IStandaloneCodeEditor) => {
-    editor.addCommand(monaco.KeyCode.F2, () => {
+    editor.addCommand(MonacoEditorUtil.KeyCode.F2, () => {
       props.maximizeState.setIsMaximizedCodeEditorOpen(true);
     });
   };

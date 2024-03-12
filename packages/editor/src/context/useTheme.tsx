@@ -1,10 +1,14 @@
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 export type ThemeMode = 'dark' | 'light';
 export type ThemeContext = {
   mode: ThemeMode;
   setMode: (mode: ThemeMode) => void;
+};
+
+export const defaultThemeMode = (): ThemeMode => {
+  return window?.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
 export const ThemeContextInstance = createContext<ThemeContext>({ mode: 'light', setMode: () => {} });
