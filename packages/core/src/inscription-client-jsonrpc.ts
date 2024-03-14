@@ -7,18 +7,23 @@ import type {
   InscriptionSaveData,
   InscriptionValidation,
   InscriptionMetaRequestTypes,
-  InscriptionElementContext
+  InscriptionElementContext,
+  Event
 } from '@axonivy/inscription-protocol';
-import type { Disposable } from 'vscode-jsonrpc';
-import { createMessageConnection, Emitter } from 'vscode-jsonrpc';
-import { ConnectionUtil, type MessageConnection } from './connection-util';
-import { BaseRcpClient } from './rcp-client';
+import {
+  createWebSocketConnection,
+  BaseRpcClient,
+  createMessageConnection,
+  Emitter,
+  type Connection,
+  type Disposable
+} from '@axonivy/jsonrpc';
 
-export class InscriptionClientJsonRpc extends BaseRcpClient implements InscriptionClient {
+export class InscriptionClientJsonRpc extends BaseRpcClient implements InscriptionClient {
   protected onDataChangedEmitter = new Emitter<void>();
-  onDataChanged = this.onDataChangedEmitter.event;
+  onDataChanged: Event<void> = this.onDataChangedEmitter.event;
   protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
-  onValidation = this.onValidationEmitter.event;
+  onValidation: Event<InscriptionValidation[]> = this.onValidationEmitter.event;
 
   protected override setupConnection(): void {
     super.setupConnection();
@@ -76,12 +81,12 @@ export class InscriptionClientJsonRpc extends BaseRcpClient implements Inscripti
 
 export namespace InscriptionClientJsonRpc {
   export async function startWebSocketClient(url: string): Promise<InscriptionClient> {
-    const webSocketUrl = ConnectionUtil.buildWebSocketUrl(url, '/ivy-inscription-lsp');
-    const connection = await ConnectionUtil.createWebSocketConnection(webSocketUrl);
+    const webSocketUrl = new URL('ivy-inscription-lsp', url);
+    const connection = await createWebSocketConnection(webSocketUrl);
     return startClient(connection);
   }
 
-  export async function startClient(connection: MessageConnection) {
+  export async function startClient(connection: Connection) {
     const messageConnection = createMessageConnection(connection.reader, connection.writer);
     const client = new InscriptionClientJsonRpc(messageConnection);
     client.start();
