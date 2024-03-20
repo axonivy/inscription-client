@@ -37,6 +37,7 @@ export class InscriptionView {
     }
     await page.goto(url);
     await this.initPage(page);
+    await page.waitForSelector('.editor-root');
     return view;
   }
 

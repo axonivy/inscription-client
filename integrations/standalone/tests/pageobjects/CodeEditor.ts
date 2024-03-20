@@ -32,6 +32,7 @@ class CodeEditor {
 
   async focus() {
     await this.locator.click();
+    await expect(this.code).not.toHaveText('Loading Editor...');
     await expect(this.code).toBeVisible();
   }
 

@@ -77,7 +77,11 @@ function App(props: InscriptionElementContext) {
   });
 
   if (isPending) {
-    return <AppStateView>Loading...</AppStateView>;
+    return (
+      <AppStateView>
+        <div className='loader' />
+      </AppStateView>
+    );
   }
 
   if (isError) {

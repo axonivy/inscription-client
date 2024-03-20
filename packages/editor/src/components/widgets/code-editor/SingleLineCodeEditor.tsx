@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { SINGLE_LINE_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { MonacoEditorUtil, SINGLE_LINE_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import type { CodeEditorProps } from './CodeEditor';
 import CodeEditor from './CodeEditor';
 import { monacoAutoFocus } from './useCodeEditor';
@@ -33,7 +33,7 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyAction
       editor.trigger(undefined, 'acceptSelectedSuggestion', undefined);
     const STATE_OPEN = 3;
     editor.addCommand(
-      monaco.KeyCode.Enter,
+      MonacoEditorUtil.KeyCode.Enter,
       () => {
         if (isSuggestWidgetOpen(editor)) {
           triggerAcceptSuggestion(editor);
@@ -44,7 +44,7 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyAction
       'singleLine'
     );
     editor.addCommand(
-      monaco.KeyCode.Tab,
+      MonacoEditorUtil.KeyCode.Tab,
       () => {
         if (isSuggestWidgetOpen(editor)) {
           triggerAcceptSuggestion(editor);
@@ -60,7 +60,7 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyAction
       'singleLine'
     );
     editor.addCommand(
-      monaco.KeyCode.Escape,
+      MonacoEditorUtil.KeyCode.Escape,
       () => {
         if (!isSuggestWidgetOpen(editor) && keyActions?.escape) {
           keyActions.escape();
