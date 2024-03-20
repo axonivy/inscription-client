@@ -27,6 +27,10 @@ export async function screenshotSection(page: Page, pid: string, accordionName: 
 }
 
 async function screenshot(page: Locator, name: string) {
+  const code = page.locator('div.code-input').first();
+  if (await code.isVisible()) {
+    await expect(code).not.toHaveText('Loading Editor...');
+  }
   const dir = process.env.SCREENSHOT_DIR ?? './target';
   const buffer = await page.screenshot({ path: `${dir}/screenshots/${name}`, animations: 'disabled' });
   expect(buffer.byteLength).toBeGreaterThan(3000);
