@@ -1,6 +1,5 @@
-import { Select as SelectRoot, SelectTrigger, SelectValue, SelectGroup, SelectContent, SelectItem } from '@axonivy/ui-components';
+import { SimpleSelect } from '@axonivy/ui-components';
 import { memo } from 'react';
-import { useReadonly } from '../../../context';
 
 export type SelectItem = {
   label: string;
@@ -20,29 +19,12 @@ export type SelectProps = {
 };
 
 const Select = ({ value, onChange, items, inputProps, disabled }: SelectProps) => {
-  const readonly = useReadonly();
-
   const onValueChange = (change: string) => {
     const item = items.find(({ value }) => value === change);
     onChange(item ?? EMPTY_SELECT_ITEM);
   };
 
-  return (
-    <SelectRoot value={value?.value} onValueChange={onValueChange} disabled={readonly || disabled} {...inputProps}>
-      <SelectTrigger>
-        <SelectValue placeholder='Select a fruit' />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          {items.map((item, index) => (
-            <SelectItem key={`${item.value}${index}`} value={item.value}>
-              {item.label}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </SelectRoot>
-  );
+  return <SimpleSelect value={value?.value} onValueChange={onValueChange} items={items} disabled={disabled} {...inputProps} />;
 };
 
 export default memo(Select);

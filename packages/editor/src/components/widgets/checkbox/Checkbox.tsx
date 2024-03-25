@@ -1,18 +1,12 @@
-import { Checkbox as CheckboxPromitive, Flex, Label } from '@axonivy/ui-components';
-import { useReadonly } from '../../../context';
-import { useFieldset } from '../fieldset';
+import { Checkbox as CheckboxPromitive, Field, Label } from '@axonivy/ui-components';
 
 type CheckboxProps = { label: string; value: boolean; onChange: (change: boolean) => void; disabled?: boolean };
 
-const Checkbox = ({ label, value, onChange, disabled }: CheckboxProps) => {
-  const readonly = useReadonly();
-  const fieldset = useFieldset();
-  return (
-    <Flex alignItems='center' gap={1}>
-      <CheckboxPromitive checked={value} onCheckedChange={onChange} disabled={readonly || disabled} {...fieldset.inputProps} />
-      <Label {...fieldset.labelProps}>{label}</Label>
-    </Flex>
-  );
-};
+const Checkbox = ({ label, value, onChange, disabled }: CheckboxProps) => (
+  <Field direction='row' alignItems='center' gap={2}>
+    <CheckboxPromitive checked={value} onCheckedChange={onChange} disabled={disabled} />
+    <Label>{label}</Label>
+  </Field>
+);
 
 export default Checkbox;
