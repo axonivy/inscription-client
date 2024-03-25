@@ -36,3 +36,8 @@ vi.mock('../components/widgets/code-editor', () => ({
   MacroInput: CodeEditorMock,
   SingleLineCodeEditor: CodeEditorMock
 }));
+
+// window.PointerEvent = class PointerEvent extends Event {};
+window.HTMLElement.prototype.scrollIntoView = vi.fn();
+window.HTMLElement.prototype.hasPointerCapture = vi.fn();
+// window.HTMLElement.prototype.releasePointerCapture = vi.fn();
