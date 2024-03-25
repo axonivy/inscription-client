@@ -8,12 +8,12 @@ import {
   AccordionContent,
   type AccordionControlProps,
   AccordionState,
-  Button,
-  type MessageData
+  Button
 } from '@axonivy/ui-components';
 import { ErrorBoundary } from 'react-error-boundary';
 import type { PartProps } from './usePart';
 import { ErrorFallback } from '../../widgets';
+import type { Severity } from '@axonivy/inscription-protocol';
 
 const UndoControl = ({ name, reset, ...props }: Pick<PartProps, 'name' | 'reset'> & AccordionControlProps) => {
   if (reset.dirty) {
@@ -23,8 +23,15 @@ const UndoControl = ({ name, reset, ...props }: Pick<PartProps, 'name' | 'reset'
 };
 
 const State = ({ state }: Pick<PartProps, 'state'>) => {
-  const messages = state.validations.map<MessageData>(({ message, severity }) => ({ message, variant: severity.toLocaleLowerCase() }));
-  return <AccordionState messages={messages} state={state.state} />;
+  return (
+    <AccordionState
+      messages={state.validations.map(({ message, severity }) => ({
+        message,
+        variant: severity.toLocaleLowerCase() as Lowercase<Severity>
+      }))}
+      state={state.state}
+    />
+  );
 };
 
 const Part = ({ parts }: { parts: PartProps[] }) => {
