@@ -24,6 +24,7 @@ import type {
   DataClass
 } from '@axonivy/inscription-protocol';
 import { DEFAULT_DATA, EMPTY_ROLE, EMPTY_VAR_INFO } from '@axonivy/inscription-protocol';
+import { ReadonlyProvider } from '@axonivy/ui-components';
 import type { queries, Queries, RenderHookOptions, RenderOptions } from '@testing-library/react';
 import { render, renderHook } from '@testing-library/react';
 import { deepmerge } from 'deepmerge-ts';
@@ -190,23 +191,22 @@ const ContextHelper = (
   if (props.editor?.title) {
     editorContext.type.shortLabel = props.editor.title;
   }
-  if (props.editor?.readonly) {
-    editorContext.readonly = props.editor.readonly;
-  }
   const editorRef = useRef(null);
   editorContext.editorRef = editorRef;
   const queryClient = new QueryClient();
   return (
     <div ref={editorRef}>
-      <EditorContextInstance.Provider value={editorContext}>
-        <ClientContextProvider client={client.client}>
-          <QueryClientProvider client={queryClient}>
-            <DataContextInstance.Provider value={data}>
-              <OpenApiContextProvider>{props.children}</OpenApiContextProvider>
-            </DataContextInstance.Provider>
-          </QueryClientProvider>
-        </ClientContextProvider>
-      </EditorContextInstance.Provider>
+      <ReadonlyProvider readonly={props.editor?.readonly ?? false}>
+        <EditorContextInstance.Provider value={editorContext}>
+          <ClientContextProvider client={client.client}>
+            <QueryClientProvider client={queryClient}>
+              <DataContextInstance.Provider value={data}>
+                <OpenApiContextProvider>{props.children}</OpenApiContextProvider>
+              </DataContextInstance.Provider>
+            </QueryClientProvider>
+          </ClientContextProvider>
+        </EditorContextInstance.Provider>
+      </ReadonlyProvider>
     </div>
   );
 };

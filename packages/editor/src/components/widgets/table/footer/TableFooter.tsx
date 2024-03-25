@@ -1,6 +1,6 @@
 import './TableFooter.css';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { useReadonly } from '../../../../context';
+import { useReadonly } from '@axonivy/ui-components';
 import { type ReactNode } from 'react';
 import Button from '../../button/Button';
 

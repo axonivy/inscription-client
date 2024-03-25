@@ -1,4 +1,3 @@
-import { useReadonly } from '../../../context';
 import { useFieldset } from '../fieldset';
 import type { RadioGroupProps } from '@radix-ui/react-radio-group';
 import { RadioGroup, RadioGroupItem, Label, Flex } from '@axonivy/ui-components';
@@ -12,16 +11,8 @@ type RadioProps<T extends string> = Omit<RadioGroupProps, 'value' | 'onChange'> 
 };
 
 const Radio = <T extends string>({ value, onChange, items, orientation = 'vertical', ...props }: RadioProps<T>) => {
-  const readonly = useReadonly();
   return (
-    <RadioGroup
-      className='radio-group-root'
-      value={value}
-      onValueChange={onChange}
-      disabled={readonly}
-      orientation={orientation}
-      {...props}
-    >
+    <RadioGroup className='radio-group-root' value={value} onValueChange={onChange} orientation={orientation} {...props}>
       {items.map((item, index) => (
         <RadioItem key={`${index}-${item.value}`} {...item} />
       ))}

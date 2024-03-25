@@ -92,12 +92,11 @@ function App(props: InscriptionElementContext) {
 
   return (
     <div ref={editorRef} className={`editor-root ${theme}`} data-theme={theme} data-mutation-state={mutation.status}>
-      <ReadonlyProvider readonly={data.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly}>
+      <ReadonlyProvider readonly={data.readonly ?? false}>
         <EditorContextInstance.Provider
           value={{
             context: { app: context.app, pmv: context.pmv },
             elementContext: context,
-            readonly: data.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
             editorRef,
             type: data.type ?? DEFAULT_EDITOR_CONTEXT.type,
             navigateTo: (pid: PID) => setContext(old => ({ ...old, pid }))

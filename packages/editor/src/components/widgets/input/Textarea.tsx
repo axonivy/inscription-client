@@ -1,7 +1,7 @@
 import './Input.css';
 import type { ComponentProps } from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { useReadonly } from '../../../context';
+import { useReadonly } from '@axonivy/ui-components';
 import { splitNewLine } from '../../../utils/utils';
 
 export type TextareaProps = Omit<ComponentProps<'textarea'>, 'value' | 'onChange'> & {

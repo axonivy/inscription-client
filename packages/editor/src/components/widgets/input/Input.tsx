@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import { forwardRef, useEffect, useState } from 'react';
-import { useReadonly } from '../../../context';
+import { useReadonly } from '@axonivy/ui-components';
 import './Input.css';
 
 export type InputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'ref'> & {
