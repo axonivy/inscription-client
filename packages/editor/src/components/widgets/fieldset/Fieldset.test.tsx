@@ -4,12 +4,13 @@ import { render, screen, userEvent } from 'test-utils';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from './fieldset-control';
 import { describe, test, expect } from 'vitest';
+import { Input } from '@axonivy/ui-components';
 
 describe('Fieldset', () => {
   function renderFieldset({ label, controls, message }: FieldsetProps) {
     render(
-      <Fieldset label={label} htmlFor='input' controls={controls} message={message}>
-        <input id='input' />
+      <Fieldset label={label} controls={controls} message={message}>
+        <Input />
       </Fieldset>
     );
   }

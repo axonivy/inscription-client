@@ -1,33 +1,29 @@
-import './Fieldset.css';
-import type { LabelProps } from '@radix-ui/react-label';
-import { Label } from '@radix-ui/react-label';
 import { memo } from 'react';
 import type { FieldsetControl } from './fieldset-control';
 import type { MessageTextProps } from '../message/Message';
-import { MessageText } from '../message/Message';
-import HeadlineControls from '../headlineControls/HeadlineControls';
+import { ButtonGroup, Fieldset as Field, type FieldsetProps as FieldProps } from '@axonivy/ui-components';
+import type { Severity } from '@axonivy/inscription-protocol';
 
-export type FieldsetProps = LabelProps &
+export type FieldsetProps = Omit<FieldProps, 'message' | 'control'> &
   MessageTextProps & {
-    label?: string;
     controls?: FieldsetControl[];
   };
 
-const Fieldset = ({ label, controls, message, children, ...labelProps }: FieldsetProps) => {
-  const severiry = message ? `fieldset-${message.severity.toString().toLowerCase()}` : '';
+const Controls = ({ controls }: Pick<FieldsetProps, 'controls'>) => {
+  if (controls) {
+    return (
+      <ButtonGroup
+        controls={controls.map(({ action, icon, label, active }) => ({ icon, title: label, onClick: action, toggle: active }))}
+      />
+    );
+  }
+  return null;
+};
+
+const Fieldset = ({ label, controls, message, ...props }: FieldsetProps) => {
+  const severiry = message?.severity.toString().toLowerCase() as Lowercase<Severity>;
   return (
-    <div className='fieldset-column'>
-      {label && (
-        <div className='fieldset-label'>
-          <Label {...labelProps} className={`label ${labelProps.className}`}>
-            {label}
-          </Label>
-          {controls && <HeadlineControls controls={controls} />}
-        </div>
-      )}
-      <div className={`fieldset-input ${severiry}`}>{children}</div>
-      <MessageText message={message} />
-    </div>
+    <Field label={label} message={{ message: message?.message, variant: severiry }} control={<Controls controls={controls} />} {...props} />
   );
 };
 
