@@ -1,6 +1,6 @@
 import './HeadlineControls.css';
-import Button from '../button/Button';
 import type { FieldsetControl } from '../fieldset';
+import { Button } from '@axonivy/ui-components';
 
 type HeadlineControlsProps = {
   controls: FieldsetControl[];

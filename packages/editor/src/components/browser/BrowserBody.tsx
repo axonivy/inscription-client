@@ -1,7 +1,8 @@
 import './BrowserBody.css';
 import { DialogClose, DialogContent, DialogPortal, DialogTitle } from '@radix-ui/react-dialog';
-import { Button, TabList, TabRoot, type Tab, TabContent } from '../widgets';
+import { TabList, TabRoot, type Tab, TabContent } from '../widgets';
 import { useEditorContext } from '../../context';
+import { Button, Flex } from '@axonivy/ui-components';
 
 interface ReusableBrowserDialogProps {
   open: boolean;
@@ -25,16 +26,18 @@ const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply }: ReusableB
 
             <TabContent tabs={tabs} />
           </TabRoot>
-          <div className='browser-footer'>
+          <Flex alignItems='center' style={{ justifyContent: 'flex-end' }} gap={1}>
             <DialogClose asChild>
-              <Button aria-label='Cancel'>Cancel</Button>
+              <Button aria-label='Cancel' size='large'>
+                Cancel
+              </Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button className='insert' aria-label='Apply' onClick={onApply}>
+              <Button aria-label='Apply' onClick={onApply} size='large' variant='primary'>
                 Apply
               </Button>
             </DialogClose>
-          </div>
+          </Flex>
         </div>
       </DialogContent>
     </DialogPortal>

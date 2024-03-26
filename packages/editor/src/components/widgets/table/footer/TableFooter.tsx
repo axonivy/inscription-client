@@ -1,8 +1,7 @@
 import './TableFooter.css';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { useReadonly } from '@axonivy/ui-components';
+import { Button, useReadonly } from '@axonivy/ui-components';
 import { type ReactNode } from 'react';
-import Button from '../../button/Button';
 
 export const TableFooter = (props: { children: ReactNode }) => {
   return <tfoot className='table-footer'>{props.children}</tfoot>;

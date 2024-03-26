@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useState } from 'react';
-import { ActionCell, Button, Checkbox, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../../widgets';
+import { ActionCell, Checkbox, ExpandableCell, MessageText, SelectRow, Table, TableCell } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, VisibilityState } from '@tanstack/react-table';
@@ -7,6 +7,7 @@ import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, 
 import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
+import { Button } from '@axonivy/ui-components';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 

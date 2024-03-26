@@ -4,8 +4,7 @@ import { memo, useEffect, useState } from 'react';
 import './Combobox.css';
 import { usePath } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { useReadonly } from '@axonivy/ui-components';
-import Button from '../button/Button';
+import { Button, useReadonly } from '@axonivy/ui-components';
 import { SingleLineCodeEditor } from '../code-editor';
 import { useMonacoEditor } from '../code-editor/useCodeEditor';
 import type { BrowserType } from '../../../components/browser';
@@ -127,13 +126,7 @@ const Combobox = <T extends ComboboxItem>({
         ) : (
           <input className='input' {...getInputProps()} {...inputProps} disabled={readonly} />
         )}
-        <Button
-          className='combobox-button'
-          {...getToggleButtonProps()}
-          icon={IvyIcons.Chevron}
-          aria-label='toggle menu'
-          disabled={readonly}
-        />
+        <Button {...getToggleButtonProps()} icon={IvyIcons.Chevron} aria-label='toggle menu' disabled={readonly} />
       </div>
       <ul {...getMenuProps()} className='combobox-menu'>
         {isOpen &&

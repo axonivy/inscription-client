@@ -6,7 +6,7 @@ import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { Button, IvyIcon, MessageText } from '../widgets';
+import { IvyIcon, MessageText } from '../widgets';
 import { useAction, useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useGeneralData } from '../parts/name/useGeneralData';
@@ -14,6 +14,7 @@ import Part from './part/Part';
 import type { PartProps } from './part/usePart';
 import { otherEditors } from './other-editors';
 import { thirdPartyEditors } from './third-party/all-third-party-editors';
+import { Button } from '@axonivy/ui-components';
 
 const editors = new Map<ElementType, ReactNode>([
   ...eventEditors,
