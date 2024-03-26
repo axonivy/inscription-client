@@ -38,7 +38,7 @@ describe('ErrorCatchPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { errorCode: 'error' });
   });
 

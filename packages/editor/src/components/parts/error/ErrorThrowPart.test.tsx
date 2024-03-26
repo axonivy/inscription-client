@@ -40,7 +40,7 @@ describe('ErrorThrowPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { throws: { error: 'error' } });
     assertState('configured', { throws: { cause: 'cause' } });
 

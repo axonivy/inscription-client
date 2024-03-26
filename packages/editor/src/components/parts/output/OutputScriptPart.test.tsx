@@ -42,10 +42,10 @@ describe('OutputScriptPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { sudo: true });
     assertState('configured', { output: { code: 'code', map: {} } });
-    assertState('empty', { output: { code: '', map: { key: 'value' } } });
+    assertState(undefined, { output: { code: '', map: { key: 'value' } } });
   });
 
   test('reset', () => {

@@ -6,7 +6,7 @@ import { describe, test, expect } from 'vitest';
 describe('Part', () => {
   const generalPart: PartProps = {
     name: 'General',
-    state: { state: 'empty', validations: [] },
+    state: { state: undefined, validations: [] },
     reset: { dirty: false, action: () => {} },
     content: <h1>General</h1>
   };
@@ -43,7 +43,7 @@ describe('Part', () => {
 
   test('state', () => {
     renderAccordion(generalPart);
-    assertPartState('General', 'empty');
+    assertPartState('General', undefined);
     renderAccordion(callPart);
     assertPartState('Call', 'warning');
     renderAccordion(resultPart);

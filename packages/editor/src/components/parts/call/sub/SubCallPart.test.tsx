@@ -37,7 +37,7 @@ describe('SubCallPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { processCall: 'dialog' });
     assertState('configured', { call: { code: 'code', map: {} } });
     assertState('configured', { call: { code: '', map: { key: 'value' } } });

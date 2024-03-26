@@ -40,7 +40,7 @@ describe('SignalCatchPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { signalCode: 'error' });
     assertState('configured', { attachToBusinessCase: false });
   });
