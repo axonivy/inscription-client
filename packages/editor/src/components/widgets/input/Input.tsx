@@ -1,14 +1,12 @@
-import type { ComponentProps } from 'react';
 import { forwardRef, useEffect, useState } from 'react';
-import { useField, useReadonly } from '@axonivy/ui-components';
-import './Input.css';
+import { Input as InputPrimitive, type InputProps as InputPrimitiveProps } from '@axonivy/ui-components';
 
-export type InputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'ref'> & {
+export type InputProps = Omit<InputPrimitiveProps, 'value' | 'onChange' | 'ref'> & {
   value?: string;
   onChange: (change: string) => void;
 };
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, disabled, ...props }, forwardedRef) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, ...props }, forwardedRef) => {
   const [currentValue, setCurrentValue] = useState(value ?? '');
   useEffect(() => {
     setCurrentValue(value ?? '');
@@ -18,20 +16,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, disab
     setCurrentValue(update);
     onChange(update);
   };
-  const readonly = useReadonly();
-  const { inputProps } = useField();
-
-  return (
-    <input
-      {...inputProps}
-      {...props}
-      ref={forwardedRef}
-      className={`input ${props.className ?? ''}`}
-      value={currentValue}
-      onChange={updateValue}
-      disabled={readonly || disabled}
-    />
-  );
+  return <InputPrimitive ref={forwardedRef} value={currentValue} onChange={updateValue} {...props} />;
 });
 
 export default Input;
