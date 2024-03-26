@@ -1,10 +1,10 @@
 import { useCombobox } from 'downshift';
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentPropsWithRef, ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
 import './Combobox.css';
 import { usePath } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { Button, useField, useReadonly } from '@axonivy/ui-components';
+import { Button, Input, useField, useReadonly } from '@axonivy/ui-components';
 import { SingleLineCodeEditor } from '../code-editor';
 import { useMonacoEditor } from '../code-editor/useCodeEditor';
 import type { BrowserType } from '../../../components/browser';
@@ -17,7 +17,7 @@ export interface ComboboxItem {
   value: string;
 }
 
-export type ComboboxProps<T extends ComboboxItem> = Omit<ComponentProps<'input'>, 'value' | 'onChange'> & {
+export type ComboboxProps<T extends ComboboxItem> = Omit<ComponentPropsWithRef<'input'>, 'value' | 'onChange'> & {
   items: T[];
   itemFilter?: (item: T, input?: string) => boolean;
   comboboxItem?: (item: T) => ReactNode;
@@ -126,7 +126,7 @@ const Combobox = <T extends ComboboxItem>({
             <CardText value={value} {...inputProps} {...props} />
           )
         ) : (
-          <input className='input' {...getInputProps()} {...inputProps} {...props} disabled={readonly} />
+          <Input {...getInputProps()} {...inputProps} {...props} />
         )}
         <Button {...getToggleButtonProps()} icon={IvyIcons.Chevron} aria-label='toggle menu' disabled={readonly} />
       </div>
