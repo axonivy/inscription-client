@@ -4,7 +4,8 @@ import {
   CollapsibleTrigger,
   type CollapsibleControlProps,
   CollapsibleState,
-  ButtonGroup
+  ButtonGroup,
+  Flex
 } from '@axonivy/ui-components';
 import type { ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
@@ -55,7 +56,11 @@ const Collapsible = ({ label, defaultOpen, message, children, autoClosable, cont
       <CollapsibleTrigger control={props => <Controls {...props} controls={controls} />} state={<State message={message} />}>
         {label}
       </CollapsibleTrigger>
-      <CollapsibleContent>{children}</CollapsibleContent>
+      <CollapsibleContent>
+        <Flex direction='column' gap={3}>
+          {children}
+        </Flex>
+      </CollapsibleContent>
     </CollapsibleRoot>
   );
 };

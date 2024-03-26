@@ -1,4 +1,3 @@
-import './Part.css';
 import { useState } from 'react';
 import { IvyIcons } from '@axonivy/ui-icons';
 import {
@@ -8,7 +7,8 @@ import {
   AccordionContent,
   type AccordionControlProps,
   AccordionState,
-  Button
+  Button,
+  Flex
 } from '@axonivy/ui-components';
 import { ErrorBoundary } from 'react-error-boundary';
 import type { PartProps } from './usePart';
@@ -50,7 +50,9 @@ const Part = ({ parts }: { parts: PartProps[] }) => {
             </AccordionTrigger>
             <AccordionContent>
               <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[part]}>
-                {part.content}
+                <Flex direction='column' gap={3}>
+                  {part.content}
+                </Flex>
               </ErrorBoundary>
             </AccordionContent>
           </AccordionItem>
