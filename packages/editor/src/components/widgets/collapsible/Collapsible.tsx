@@ -9,16 +9,16 @@ import {
 } from '@axonivy/ui-components';
 import type { ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
-import type { MessageTextProps } from '../message/Message';
 import type { FieldsetControl } from '../fieldset';
-import type { Severity } from '@axonivy/inscription-protocol';
+import { type ValidationMessage, toMessageDataArray } from '../message/Message';
 
-export type CollapsibleProps = MessageTextProps & {
+export type CollapsibleProps = {
   label: string;
   defaultOpen?: boolean;
   autoClosable?: boolean;
   children: ReactNode;
-  controls?: FieldsetControl[];
+  controls?: Array<FieldsetControl>;
+  validations?: Array<ValidationMessage>;
 };
 
 const Controls = ({ controls, ...props }: Pick<CollapsibleProps, 'controls'> & CollapsibleControlProps) => {
@@ -33,14 +33,14 @@ const Controls = ({ controls, ...props }: Pick<CollapsibleProps, 'controls'> & C
   return null;
 };
 
-const State = ({ message }: Pick<MessageTextProps, 'message'>) => {
-  if (message) {
-    return <CollapsibleState messages={[{ message: message.message, variant: message.severity as Lowercase<Severity> }]} />;
+const State = ({ validations }: Pick<CollapsibleProps, 'validations'>) => {
+  if (validations) {
+    return <CollapsibleState messages={toMessageDataArray(validations)} />;
   }
   return null;
 };
 
-const Collapsible = ({ label, defaultOpen, message, children, autoClosable, controls }: CollapsibleProps) => {
+const Collapsible = ({ label, defaultOpen, validations, children, autoClosable, controls }: CollapsibleProps) => {
   const [open, setOpen] = useState(defaultOpen ?? false);
   useEffect(() => {
     if (autoClosable) {
@@ -53,7 +53,7 @@ const Collapsible = ({ label, defaultOpen, message, children, autoClosable, cont
   }, [autoClosable, defaultOpen]);
   return (
     <CollapsibleRoot open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger control={props => <Controls {...props} controls={controls} />} state={<State message={message} />}>
+      <CollapsibleTrigger control={props => <Controls {...props} controls={controls} />} state={<State validations={validations} />}>
         {label}
       </CollapsibleTrigger>
       <CollapsibleContent>

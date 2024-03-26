@@ -7,9 +7,9 @@ import { describe, test, expect } from 'vitest';
 import { Input } from '@axonivy/ui-components';
 
 describe('Fieldset', () => {
-  function renderFieldset({ label, controls, message }: FieldsetProps) {
+  function renderFieldset(props: FieldsetProps) {
     render(
-      <Fieldset label={label} controls={controls} message={message}>
+      <Fieldset {...props}>
         <Input />
       </Fieldset>
     );
@@ -27,7 +27,7 @@ describe('Fieldset', () => {
   });
 
   test('message', () => {
-    renderFieldset({ label: 'label', message: { message: 'this is a error', severity: 'ERROR' } });
+    renderFieldset({ label: 'label', validation: { message: 'this is a error', severity: 'ERROR' } });
     expect(screen.getByTitle('this is a error')).toHaveClass('message');
   });
 

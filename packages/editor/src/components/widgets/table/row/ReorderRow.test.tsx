@@ -1,11 +1,11 @@
 import { render, screen } from 'test-utils';
-import type { Message } from '../../message/Message';
+import type { ValidationMessage } from '../../message/Message';
 import { SelectableReorderRow } from './ReorderRow';
 import { describe, test, expect } from 'vitest';
 import type { Row } from '@tanstack/react-table';
 
 describe('ReorderRow', () => {
-  function renderTable(message?: Message) {
+  function renderTable(message?: ValidationMessage) {
     render(
       <table>
         <tbody>

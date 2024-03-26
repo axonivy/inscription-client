@@ -1,4 +1,5 @@
-import { Checkbox, MacroArea, MessageText } from '../../../widgets';
+import { Message } from '@axonivy/ui-components';
+import { Checkbox, MacroArea } from '../../../widgets';
 import { PathCollapsible, PathFieldset } from '../../common';
 import { useQueryData } from '../useQueryData';
 
@@ -13,11 +14,9 @@ export const Statement = () => {
       <PathFieldset label='SQL Query' path='stmt'>
         <MacroArea value={config.query.sql.stmt} onChange={change => updateSql('stmt', change)} browsers={['tablecol', 'attr']} />
       </PathFieldset>
-      <MessageText
-        message={{
-          severity: 'WARNING',
-          message: `The use of 'any query' can lead to SQL injection vulnerabilities. See the 'help' docs fro more information.`
-        }}
+      <Message
+        message='The use of "any query" can lead to SQL injection vulnerabilities. See the "help" docs for more information.'
+        variant='warning'
       />
       <Checkbox label='Quote ivyScript variables' value={config.query.sql.quote} onChange={change => updateSql('quote', change)} />
     </PathCollapsible>

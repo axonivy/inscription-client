@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react';
 import { memo } from 'react';
 import './InscriptionEditor.css';
-import type { ElementType } from '@axonivy/inscription-protocol';
+import type { ElementType, Severity } from '@axonivy/inscription-protocol';
 import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { IvyIcon, MessageText } from '../widgets';
+import { IvyIcon } from '../widgets';
 import { useAction, useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useGeneralData } from '../parts/name/useGeneralData';
@@ -14,7 +14,7 @@ import Part from './part/Part';
 import type { PartProps } from './part/usePart';
 import { otherEditors } from './other-editors';
 import { thirdPartyEditors } from './third-party/all-third-party-editors';
-import { Button } from '@axonivy/ui-components';
+import { Button, Message } from '@axonivy/ui-components';
 
 const editors = new Map<ElementType, ReactNode>([
   ...eventEditors,
@@ -62,7 +62,7 @@ const Header = (props: EditorProps) => {
       {validations.length > 0 && (
         <div className='header-messages'>
           {validations.map((validaiton, index) => (
-            <MessageText key={index} message={validaiton} />
+            <Message key={index} message={validaiton.message} variant={validaiton.severity.toLocaleLowerCase() as Lowercase<Severity>} />
           ))}
         </div>
       )}
