@@ -1,6 +1,6 @@
 import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { FieldsetControl, SelectItem } from '../../../components/widgets';
-import { Select, useFieldset } from '../../../components/widgets';
+import { Select } from '../../../components/widgets';
 import { PathFieldset } from '../common';
 import { useWsRequestData } from './useWsRequestData';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -19,10 +19,9 @@ export const WsClientSelect = () => {
   const openWsConfig: FieldsetControl = { label: 'Open WebService config', icon: IvyIcons.GoToSource, action: () => openAction() };
   const createWsClient: FieldsetControl = { label: 'Create new WebService Client', icon: IvyIcons.Plus, action: () => newAction() };
 
-  const fieldset = useFieldset();
   return (
-    <PathFieldset label='Client' path='clientId' {...fieldset.labelProps} controls={[openWsConfig, createWsClient]}>
-      <Select value={selectedItem} onChange={item => update('clientId', item.value)} items={items} inputProps={fieldset.inputProps} />
+    <PathFieldset label='Client' path='clientId' controls={[openWsConfig, createWsClient]}>
+      <Select value={selectedItem} onChange={item => update('clientId', item.value)} items={items} />
     </PathFieldset>
   );
 };

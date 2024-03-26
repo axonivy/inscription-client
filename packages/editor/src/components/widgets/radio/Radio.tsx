@@ -1,4 +1,3 @@
-import { useFieldset } from '../fieldset';
 import type { RadioGroupProps } from '@radix-ui/react-radio-group';
 import { RadioGroup, RadioGroupItem, Label, Flex } from '@axonivy/ui-components';
 
@@ -21,11 +20,10 @@ const Radio = <T extends string>({ value, onChange, items, orientation = 'vertic
 };
 
 const RadioItem = <T extends string>({ label, value, description }: RadioItemProps<T>) => {
-  const fieldset = useFieldset();
   return (
     <Flex alignItems='center' gap={2}>
-      <RadioGroupItem className='radio-group-item' value={value} {...fieldset.inputProps} />
-      <Label className='radio-group-label' aria-label={label} {...fieldset.labelProps}>
+      <RadioGroupItem className='radio-group-item' value={value} />
+      <Label className='radio-group-label' aria-label={label}>
         {label}
         <i>{description ? ` : ${description}` : ''}</i>
       </Label>

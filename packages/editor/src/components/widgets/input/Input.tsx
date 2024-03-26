@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import { forwardRef, useEffect, useState } from 'react';
-import { useReadonly } from '@axonivy/ui-components';
+import { useField, useReadonly } from '@axonivy/ui-components';
 import './Input.css';
 
 export type InputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'ref'> & {
@@ -19,9 +19,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, disab
     onChange(update);
   };
   const readonly = useReadonly();
+  const { inputProps } = useField();
 
   return (
     <input
+      {...inputProps}
       {...props}
       ref={forwardedRef}
       className={`input ${props.className ?? ''}`}

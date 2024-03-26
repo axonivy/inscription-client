@@ -1,7 +1,7 @@
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
-import { Checkbox, useFieldset } from '../../widgets';
+import { Checkbox } from '../../widgets';
 import { useSignalCatchData } from './useSignalCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import type { SignalCatchData } from '@axonivy/inscription-protocol';
@@ -33,16 +33,14 @@ const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean
     })
   ];
 
-  const signalField = useFieldset();
   return (
     <>
-      <PathFieldset label='Signal Code' {...signalField.labelProps} path='signalCode'>
+      <PathFieldset label='Signal Code' path='signalCode'>
         <ClassificationCombobox
           value={config.signalCode}
           onChange={change => updateSignal(change)}
           data={signalCodes}
           icon={IvyIcons.StartSignal}
-          comboboxInputProps={signalField.inputProps}
           withBrowser={withBrowser}
         />
       </PathFieldset>

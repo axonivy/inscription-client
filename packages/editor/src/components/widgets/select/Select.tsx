@@ -8,23 +8,20 @@ export type SelectItem = {
 
 export const EMPTY_SELECT_ITEM: SelectItem = { label: '', value: '' };
 
-export type SelectInputProps = { id: string; 'aria-labelledby': string };
-
 export type SelectProps = {
   value?: SelectItem;
   onChange: (value: SelectItem) => void;
   items: SelectItem[];
-  inputProps?: SelectInputProps;
   disabled?: boolean;
 };
 
-const Select = ({ value, onChange, items, inputProps, disabled }: SelectProps) => {
+const Select = ({ value, onChange, items, disabled }: SelectProps) => {
   const onValueChange = (change: string) => {
     const item = items.find(({ value }) => value === change);
     onChange(item ?? EMPTY_SELECT_ITEM);
   };
 
-  return <SimpleSelect value={value?.value} onValueChange={onValueChange} items={items} disabled={disabled} {...inputProps} />;
+  return <SimpleSelect value={value?.value} onValueChange={onValueChange} items={items} disabled={disabled} />;
 };
 
 export default memo(Select);

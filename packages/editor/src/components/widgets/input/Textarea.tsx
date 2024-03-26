@@ -1,7 +1,7 @@
 import './Input.css';
 import type { ComponentProps } from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { useReadonly } from '@axonivy/ui-components';
+import { useField, useReadonly } from '@axonivy/ui-components';
 import { splitNewLine } from '../../../utils/utils';
 
 export type TextareaProps = Omit<ComponentProps<'textarea'>, 'value' | 'onChange'> & {
@@ -10,7 +10,7 @@ export type TextareaProps = Omit<ComponentProps<'textarea'>, 'value' | 'onChange
   maxRows?: number;
 };
 
-const Textarea = ({ value, onChange, maxRows, disabled, ...textareaProps }: TextareaProps) => {
+const Textarea = ({ value, onChange, maxRows, disabled, ...props }: TextareaProps) => {
   const [currentValue, setCurrentValue] = useState(value ?? '');
   useEffect(() => {
     setCurrentValue(value ?? '');
@@ -21,6 +21,7 @@ const Textarea = ({ value, onChange, maxRows, disabled, ...textareaProps }: Text
     onChange(update);
   };
   const readonly = useReadonly();
+  const { inputProps } = useField();
   const height = useMemo(() => {
     let rows = splitNewLine(value ?? '').length;
     if (maxRows && rows > maxRows) {
@@ -31,8 +32,9 @@ const Textarea = ({ value, onChange, maxRows, disabled, ...textareaProps }: Text
 
   return (
     <textarea
-      {...textareaProps}
-      className={`input ${textareaProps.className ?? ''}`}
+      {...inputProps}
+      {...props}
+      className={`input ${props.className ?? ''}`}
       value={currentValue}
       onChange={updateValue}
       disabled={readonly || disabled}

@@ -1,6 +1,6 @@
 import type { InscriptionValidation, VariableInfo } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
-import { ScriptArea, useFieldset } from '../../widgets';
+import { ScriptArea } from '../../widgets';
 import { useCallData } from './useCallData';
 import { PathContext, useValidations } from '../../../context';
 import { MappingPart, PathFieldset } from '../common';
@@ -12,7 +12,6 @@ export function useCallPartValidation(): InscriptionValidation[] {
 
 const CallMapping = ({ variableInfo }: { variableInfo: VariableInfo }) => {
   const { config, update } = useCallData();
-  const codeFieldset = useFieldset();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   return (
@@ -23,13 +22,12 @@ const CallMapping = ({ variableInfo }: { variableInfo: VariableInfo }) => {
         onChange={change => update('map', change)}
         browsers={['attr', 'func', 'type']}
       />
-      <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
+      <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
         <ScriptArea
           maximizeState={maximizeState}
           value={config.call.code}
           onChange={change => update('code', change)}
           browsers={['attr', 'func', 'type']}
-          {...codeFieldset.inputProps}
         />
       </PathFieldset>
     </PathContext>

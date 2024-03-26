@@ -1,4 +1,4 @@
-import { Checkbox, Collapsible, ScriptInput, useFieldset } from '../../widgets';
+import { Checkbox, Collapsible, ScriptInput } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useTriggerData } from './useTriggerData';
@@ -21,7 +21,6 @@ export function useTriggerPart(): PartProps {
 const TriggerPart = () => {
   const { config, update, updateResponsible, updateDelay, updateAttach } = useTriggerData();
 
-  const delayFieldset = useFieldset();
   return (
     <>
       <Checkbox
@@ -38,13 +37,12 @@ const TriggerPart = () => {
               onChange={change => updateAttach(change)}
               label='Attach to Business Case that triggered this process'
             />
-            <PathFieldset label='Delay' {...delayFieldset.labelProps} path='delay'>
+            <PathFieldset label='Delay' path='delay'>
               <ScriptInput
                 value={config.task.delay}
                 onChange={change => updateDelay(change)}
                 type={IVY_SCRIPT_TYPES.DURATION}
                 browsers={['attr', 'func', 'type']}
-                {...delayFieldset.inputProps}
               />
             </PathFieldset>
           </Collapsible>

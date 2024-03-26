@@ -2,11 +2,11 @@ import './CardText.css';
 import { IvyIcons } from '@axonivy/ui-icons';
 import IvyIcon from '../IvyIcon';
 import { splitMacroExpressions, splitNewLine } from '../../../utils/utils';
-import type { FieldsetInputProps } from '../fieldset';
 import type { ElementRef } from 'react';
 import { forwardRef } from 'react';
+import { useField } from '@axonivy/ui-components';
 
-export type CardTextProps = Partial<FieldsetInputProps> & {
+export type CardTextProps = {
   value?: string;
 };
 
@@ -38,9 +38,10 @@ const CardLine = ({ parts }: { parts: string[] }) => (
 );
 
 export const CardText = ({ value, ...props }: CardTextProps) => {
+  const { inputProps } = useField();
   const parts = splitMacroExpressions(value ?? '');
   return (
-    <output className='card-text' {...props}>
+    <output className='card-text' {...inputProps} {...props}>
       <CardLine parts={parts} />
     </output>
   );

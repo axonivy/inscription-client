@@ -4,7 +4,7 @@ import { memo, useEffect, useState } from 'react';
 import './Combobox.css';
 import { usePath } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { Button, useReadonly } from '@axonivy/ui-components';
+import { Button, useField, useReadonly } from '@axonivy/ui-components';
 import { SingleLineCodeEditor } from '../code-editor';
 import { useMonacoEditor } from '../code-editor/useCodeEditor';
 import type { BrowserType } from '../../../components/browser';
@@ -37,7 +37,7 @@ const Combobox = <T extends ComboboxItem>({
   macro,
   browserTypes,
   updateOnInputChange,
-  ...inputProps
+  ...props
 }: ComboboxProps<T>) => {
   const filter = itemFilter
     ? itemFilter
@@ -97,6 +97,8 @@ const Combobox = <T extends ComboboxItem>({
   const browser = useBrowser();
   const { isFocusWithin, focusValue, focusWithinProps } = useOnFocus(value, onChange);
 
+  const { inputProps } = useField();
+
   return (
     <div className='combobox'>
       <div className='combobox-input' {...(macro ? { ...focusWithinProps, tabIndex: 1 } : {})}>
@@ -121,10 +123,10 @@ const Combobox = <T extends ComboboxItem>({
               ) : null}
             </>
           ) : (
-            <CardText value={value} {...inputProps} />
+            <CardText value={value} {...inputProps} {...props} />
           )
         ) : (
-          <input className='input' {...getInputProps()} {...inputProps} disabled={readonly} />
+          <input className='input' {...getInputProps()} {...inputProps} {...props} disabled={readonly} />
         )}
         <Button {...getToggleButtonProps()} icon={IvyIcons.Chevron} aria-label='toggle menu' disabled={readonly} />
       </div>

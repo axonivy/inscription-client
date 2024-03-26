@@ -1,6 +1,6 @@
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
-import { MessageText, useFieldset } from '../../widgets';
+import { MessageText } from '../../widgets';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { useProcessDataData } from './useProcessDataData';
 import type { ProcessDataData } from '@axonivy/inscription-protocol';
@@ -31,17 +31,10 @@ const ProcessDataPart = () => {
     })
   ];
 
-  const dataClassField = useFieldset();
-
   return (
     <>
-      <PathFieldset label='Data Class' {...dataClassField.labelProps} path='data'>
-        <DataClassSelector
-          dataClass={config.data}
-          onChange={change => update('data', change)}
-          dataClasses={dataClasses}
-          comboboxInputProps={dataClassField.inputProps}
-        />
+      <PathFieldset label='Data Class' path='data'>
+        <DataClassSelector dataClass={config.data} onChange={change => update('data', change)} dataClasses={dataClasses} />
       </PathFieldset>
       <MessageText
         message={{

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useEditorContext, useMeta, useOpenApi } from '../../../../../context';
-import type { ComboboxItem, SelectItem} from '../../../../widgets';
-import { Combobox, ScriptInput, Select, useFieldset } from '../../../../widgets';
+import type { ComboboxItem, SelectItem } from '../../../../widgets';
+import { Combobox, ScriptInput, Select } from '../../../../widgets';
 import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
 import type { HttpMethod, RestResource } from '@axonivy/inscription-protocol';
@@ -38,9 +38,8 @@ export const RestMethodSelect = () => {
   };
 
   const { openApi } = useOpenApi();
-  const fieldset = useFieldset();
   return (
-    <PathFieldset label='Resource' path='path' {...fieldset.labelProps}>
+    <PathFieldset label='Resource' path='path'>
       {items.length > 0 && openApi ? (
         <Combobox
           value={`${config.method}:${config.target.path}`}
@@ -52,7 +51,6 @@ export const RestMethodSelect = () => {
           }
           items={items}
           comboboxItem={comboboxItem}
-          {...fieldset.inputProps}
         />
       ) : (
         <div className='rest-method-input'>
@@ -67,7 +65,6 @@ export const RestMethodSelect = () => {
             type={IVY_SCRIPT_TYPES.STRING}
             modifyAction={value => `{${value}}`}
             browsers={['attr']}
-            {...fieldset.inputProps}
           />
         </div>
       )}
