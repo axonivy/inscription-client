@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 import { useEditorContext, useMeta, useOpenApi } from '../../../../../context';
-import type { ComboboxItem, SelectItem} from '../../../../widgets';
-import { Combobox, ScriptInput, Select, useFieldset } from '../../../../widgets';
+import type { ComboboxItem, SelectItem } from '../../../../widgets';
+import { Combobox, ScriptInput, Select } from '../../../../widgets';
 import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
 import type { HttpMethod, RestResource } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES, HTTP_METHOD } from '@axonivy/inscription-protocol';
 import './RestMethodSelect.css';
 import { useUpdateRestResource } from '../../useUpdateRestResource';
+import { Field } from '@axonivy/ui-components';
 
 type RestMethodItem = ComboboxItem & RestResource;
 
@@ -38,9 +39,8 @@ export const RestMethodSelect = () => {
   };
 
   const { openApi } = useOpenApi();
-  const fieldset = useFieldset();
   return (
-    <PathFieldset label='Resource' path='path' {...fieldset.labelProps}>
+    <PathFieldset label='Resource' path='path'>
       {items.length > 0 && openApi ? (
         <Combobox
           value={`${config.method}:${config.target.path}`}
@@ -52,7 +52,6 @@ export const RestMethodSelect = () => {
           }
           items={items}
           comboboxItem={comboboxItem}
-          {...fieldset.inputProps}
         />
       ) : (
         <div className='rest-method-input'>
@@ -61,14 +60,15 @@ export const RestMethodSelect = () => {
             onChange={item => update('method', item.value as HttpMethod)}
             items={methodItems}
           />
-          <ScriptInput
-            value={config.target.path}
-            onChange={change => updateTarget('path', change)}
-            type={IVY_SCRIPT_TYPES.STRING}
-            modifyAction={value => `{${value}}`}
-            browsers={['attr']}
-            {...fieldset.inputProps}
-          />
+          <Field>
+            <ScriptInput
+              value={config.target.path}
+              onChange={change => updateTarget('path', change)}
+              type={IVY_SCRIPT_TYPES.STRING}
+              modifyAction={value => `{${value}}`}
+              browsers={['attr']}
+            />
+          </Field>
         </div>
       )}
     </PathFieldset>

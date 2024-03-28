@@ -61,20 +61,13 @@ describe('DocumentTable', () => {
   test('table can edit cells', async () => {
     const view = renderTable();
     expect(screen.getAllByRole('row').length).toBe(3);
-    (await screen.findByText('Means / Documents')).focus();
-    await userEvent.tab(); // column header 1
-    await userEvent.tab(); // column header 2
+    const input = screen.getByDisplayValue(/Doc 1/);
+    await userEvent.click(input);
+    await userEvent.keyboard('0');
     await userEvent.tab();
-    expect(screen.getByDisplayValue(/Doc 1/)).toHaveFocus();
-    await userEvent.keyboard('Hello');
-    await userEvent.tab();
-    view.rerender();
-    const descInput = screen.getByDisplayValue(/ivyteam.ch/);
-    await userEvent.clear(descInput);
-    await userEvent.type(descInput, 'World');
 
     expect(view.data()).toEqual([
-      { name: 'Hello', url: 'axonivy.com' },
+      { name: 'Doc 10', url: 'axonivy.com' },
       { name: 'ivyTeam ❤️', url: 'ivyteam.ch' }
     ]);
   });

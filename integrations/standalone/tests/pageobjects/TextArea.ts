@@ -1,11 +1,15 @@
-import type { Locator} from '@playwright/test';
+import type { Locator } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 export class TextArea {
   private readonly locator: Locator;
 
-  constructor(parentLocator: Locator, label: string) {
-    this.locator = parentLocator.getByLabel(label);
+  constructor(parentLocator: Locator, options?: { label?: string; nth?: number }) {
+    if (options?.label) {
+      this.locator = parentLocator.getByLabel(options.label);
+    } else {
+      this.locator = parentLocator.getByRole('textbox').nth(options?.nth ?? 0);
+    }
   }
 
   async fill(value: string) {

@@ -1,5 +1,5 @@
-import type { SelectItem} from '../../../widgets';
-import { Select, useFieldset } from '../../../widgets';
+import type { SelectItem } from '../../../widgets';
+import { Select } from '../../../widgets';
 import { useQueryData } from '../useQueryData';
 import { PathFieldset } from '../../common';
 import type { QueryKind } from '@axonivy/inscription-protocol';
@@ -11,15 +11,13 @@ export const QueryKindSelect = () => {
   const { config, updateSql } = useQueryData();
   const items = useMemo<SelectItem[]>(() => Object.entries(QUERY_KIND).map(([label, value]) => ({ label, value })), []);
 
-  const fieldset = useFieldset();
   return (
     <PathContext path='sql'>
-      <PathFieldset label='Query Kind' path='kind' {...fieldset.labelProps}>
+      <PathFieldset label='Query Kind' path='kind'>
         <Select
           value={{ label: config.query.sql.kind, value: config.query.sql.kind }}
           onChange={item => updateSql('kind', item.value as QueryKind)}
           items={items}
-          inputProps={fieldset.inputProps}
         />
       </PathFieldset>
     </PathContext>

@@ -5,7 +5,7 @@ import { useValidation } from '../../../../../context';
 export const ValidationFieldset = ({ children, ...props }: FieldsetProps) => {
   const validation = useValidation();
   return (
-    <Fieldset {...props} message={validation}>
+    <Fieldset {...props} validation={validation}>
       {children}
     </Fieldset>
   );

@@ -3,6 +3,7 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { useEditorContext, useMeta } from '../../../context';
 import IvyIcon from '../IvyIcon';
 import { IvyIcons } from '@axonivy/ui-icons';
+import { useReadonly } from '@axonivy/ui-components';
 import { useCombobox } from 'downshift';
 import { useKeyboard } from 'react-aria';
 
@@ -90,7 +91,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
     }
   });
 
-  const editorContext = useEditorContext();
+  const readonly = useReadonly();
 
   return (
     <>
@@ -99,11 +100,11 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
           <button
             className={`tag ${isOpen || (!isOpen && addValue !== 'Add') ? 'tag-remove-button' : 'tag-add'}`}
             aria-label='Add new tag'
-            disabled={editorContext.readonly}
+            disabled={readonly}
           >
             <IvyIcon icon={IvyIcons.Close} />
             <input
-              disabled={editorContext.readonly}
+              disabled={readonly}
               className='new-tag-input'
               {...getInputProps({
                 onFocus: () => {
@@ -139,7 +140,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
               }}
               aria-label={`Remove Tag ${tag}`}
               {...keyboardProps}
-              disabled={editorContext.readonly}
+              disabled={readonly}
             >
               <IvyIcon icon={IvyIcons.Close} />
             </button>

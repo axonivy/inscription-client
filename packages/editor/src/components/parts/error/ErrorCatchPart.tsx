@@ -1,6 +1,5 @@
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
-import { useFieldset } from '../../widgets';
 import { useErrorCatchData } from './useErrorCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -33,16 +32,9 @@ const ErrorCatchPart = () => {
     })
   ];
 
-  const errorField = useFieldset();
   return (
-    <PathFieldset label='Error Code' {...errorField.labelProps} path='errorCode'>
-      <ClassificationCombobox
-        value={config.errorCode}
-        onChange={change => updateError(change)}
-        data={errorCodes}
-        icon={IvyIcons.Error}
-        comboboxInputProps={errorField.inputProps}
-      />
+    <PathFieldset label='Error Code' path='errorCode'>
+      <ClassificationCombobox value={config.errorCode} onChange={change => updateError(change)} data={errorCodes} icon={IvyIcons.Error} />
     </PathFieldset>
   );
 };

@@ -12,9 +12,9 @@ describe('Editor', () => {
 
   function renderEditor(options: { headerState?: InscriptionValidation[] } = {}) {
     const parts: PartProps[] = [
-      { name: 'Name', content: <h1>Name</h1>, reset: { dirty: false, action: () => {} }, state: { state: 'empty', validations: [] } },
-      { name: 'Call', content: <h1>Call</h1>, reset: { dirty: false, action: () => {} }, state: { state: 'empty', validations: [] } },
-      { name: 'Result', content: <ErrorWidget />, reset: { dirty: false, action: () => {} }, state: { state: 'empty', validations: [] } }
+      { name: 'Name', content: <h1>Name</h1>, reset: { dirty: false, action: () => {} }, state: { state: undefined, validations: [] } },
+      { name: 'Call', content: <h1>Call</h1>, reset: { dirty: false, action: () => {} }, state: { state: undefined, validations: [] } },
+      { name: 'Result', content: <ErrorWidget />, reset: { dirty: false, action: () => {} }, state: { state: undefined, validations: [] } }
     ];
     render(<InscriptionEditor icon={IvyIcons.Plus} parts={parts} />, {
       wrapperProps: { validations: options.headerState, editor: { title: 'Test Editor' } }

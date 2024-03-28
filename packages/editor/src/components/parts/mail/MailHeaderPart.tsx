@@ -1,5 +1,5 @@
-import { Checkbox, Collapsible, MacroInput, useFieldset } from '../../widgets';
-import type { PartProps} from '../../editors';
+import { Checkbox, Collapsible, MacroInput } from '../../widgets';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/inscription-protocol';
@@ -20,77 +20,38 @@ export function useMailHeaderPart(): PartProps {
 
 const MailHeaderPart = () => {
   const { config, defaultConfig, update, updateHeader } = useMailData();
-  const subjectFieldset = useFieldset();
-  const fromFieldset = useFieldset();
-  const replyToFieldset = useFieldset();
-  const toFieldset = useFieldset();
-  const ccFieldset = useFieldset();
-  const bccFieldset = useFieldset();
-  const exceptionFieldset = useFieldset();
-
   const borwserTypes: BrowserType[] = ['attr', 'func', 'cms'];
 
   return (
     <>
       <PathContext path='headers'>
-        <PathFieldset label='Subject' {...subjectFieldset.labelProps} path='subject'>
-          <MacroInput
-            value={config.headers.subject}
-            onChange={change => updateHeader('subject', change)}
-            browsers={borwserTypes}
-            {...subjectFieldset.inputProps}
-          />
+        <PathFieldset label='Subject' path='subject'>
+          <MacroInput value={config.headers.subject} onChange={change => updateHeader('subject', change)} browsers={borwserTypes} />
         </PathFieldset>
-        <PathFieldset label='From' {...fromFieldset.labelProps} path='from'>
-          <MacroInput
-            value={config.headers.from}
-            onChange={change => updateHeader('from', change)}
-            browsers={borwserTypes}
-            {...fromFieldset.inputProps}
-          />
+        <PathFieldset label='From' path='from'>
+          <MacroInput value={config.headers.from} onChange={change => updateHeader('from', change)} browsers={borwserTypes} />
         </PathFieldset>
-        <PathFieldset label='Reply to' {...replyToFieldset.labelProps} path='replyTo'>
-          <MacroInput
-            value={config.headers.replyTo}
-            onChange={change => updateHeader('replyTo', change)}
-            browsers={borwserTypes}
-            {...replyToFieldset.inputProps}
-          />
+        <PathFieldset label='Reply to' path='replyTo'>
+          <MacroInput value={config.headers.replyTo} onChange={change => updateHeader('replyTo', change)} browsers={borwserTypes} />
         </PathFieldset>
-        <PathFieldset label='To' {...toFieldset.labelProps} path='to'>
-          <MacroInput
-            value={config.headers.to}
-            onChange={change => updateHeader('to', change)}
-            browsers={borwserTypes}
-            {...toFieldset.inputProps}
-          />
+        <PathFieldset label='To' path='to'>
+          <MacroInput value={config.headers.to} onChange={change => updateHeader('to', change)} browsers={borwserTypes} />
         </PathFieldset>
-        <PathFieldset label='CC' {...ccFieldset.labelProps} path='cc'>
-          <MacroInput
-            value={config.headers.cc}
-            onChange={change => updateHeader('cc', change)}
-            browsers={borwserTypes}
-            {...ccFieldset.inputProps}
-          />
+        <PathFieldset label='CC' path='cc'>
+          <MacroInput value={config.headers.cc} onChange={change => updateHeader('cc', change)} browsers={borwserTypes} />
         </PathFieldset>
-        <PathFieldset label='BCC' {...bccFieldset.labelProps} path='bcc'>
-          <MacroInput
-            value={config.headers.bcc}
-            onChange={change => updateHeader('bcc', change)}
-            browsers={borwserTypes}
-            {...bccFieldset.inputProps}
-          />
+        <PathFieldset label='BCC' path='bcc'>
+          <MacroInput value={config.headers.bcc} onChange={change => updateHeader('bcc', change)} browsers={borwserTypes} />
         </PathFieldset>
       </PathContext>
       <Collapsible
         label='Options'
         defaultOpen={config.failIfMissingAttachments || config.exceptionHandler !== defaultConfig.exceptionHandler}
       >
-        <PathFieldset label='Error' {...exceptionFieldset.labelProps} path='exceptionHandler'>
+        <PathFieldset label='Error' path='exceptionHandler'>
           <ExceptionSelect
             value={config.exceptionHandler}
             onChange={change => update('exceptionHandler', change)}
-            inputProps={exceptionFieldset.inputProps}
             staticExceptions={[IVY_EXCEPTIONS.mail, IVY_EXCEPTIONS.ignoreException]}
           />
         </PathFieldset>

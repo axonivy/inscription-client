@@ -64,7 +64,7 @@ export namespace MonacoEditorUtil {
         colors: {
           'editor.foreground': '#FFFFFF',
           'editorCursor.foreground': '#FFFFFF',
-          'editor.background': '#2c2c2c'
+          'editor.background': '#333333'
         },
         inherit: true,
         rules: []
@@ -75,7 +75,7 @@ export namespace MonacoEditorUtil {
       colors: {
         'editor.foreground': '#202020',
         'editorCursor.foreground': '#202020',
-        'editor.background': '#ffffff'
+        'editor.background': '#fafafa'
       },
       inherit: true,
       rules: []

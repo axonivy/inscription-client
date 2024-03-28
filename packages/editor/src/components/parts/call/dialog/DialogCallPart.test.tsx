@@ -37,7 +37,7 @@ describe('DialogCallPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { dialog: 'dialog' });
     assertState('configured', { call: { code: 'code', map: {} } });
     assertState('configured', { call: { code: '', map: { key: 'value' } } });

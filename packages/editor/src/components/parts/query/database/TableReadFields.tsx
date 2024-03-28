@@ -1,11 +1,12 @@
 import type { ColumnDef, Row, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { Checkbox, ResizableHeader, SortableHeader, Table, TableCell, TableHeader } from '../../../../components/widgets';
+import { Checkbox } from '../../../../components/widgets';
 import { useEditorContext, useMeta } from '../../../../context';
 import { PathCollapsible } from '../../common';
 import { useQueryData } from '../useQueryData';
 import { useEffect, useMemo, useState } from 'react';
 import type { DatabaseColumn } from '@axonivy/inscription-protocol';
+import { SortableHeader, Table, TableBody, TableCell, TableResizableHeader, TableRow } from '@axonivy/ui-components';
 
 type Column = Omit<DatabaseColumn, 'ivyType'> & {
   selected: boolean;
@@ -32,7 +33,7 @@ export const TableReadFields = () => {
     () => [
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Column' seperator={true} />,
+        header: ({ column }) => <SortableHeader column={column} name='Column' />,
         cell: cell => (
           <>
             <span>{cell.getValue() as string}</span>
@@ -42,7 +43,7 @@ export const TableReadFields = () => {
       },
       {
         accessorKey: 'selected',
-        header: header => <SortableHeader header={header} name='Read' />,
+        header: ({ column }) => <SortableHeader column={column} name='Read' />,
         cell: cell => <span>{(cell.getValue() as boolean) ? '✅' : ''}</span>
       }
     ],
@@ -78,28 +79,18 @@ export const TableReadFields = () => {
       <Checkbox label='Select all fields' value={selectAll} onChange={() => updateSql('select', selectAll ? [] : ['*'])} />
       {!selectAll && (
         <Table>
-          <thead>
-            {table.getHeaderGroups().map(headerGroup => (
-              <ResizableHeader key={headerGroup.id} headerGroup={headerGroup}>
-                {headerGroup.headers.map(header => (
-                  <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHeader>
-                ))}
-              </ResizableHeader>
-            ))}
-          </thead>
-          <tbody>
+          <TableResizableHeader headerGroups={table.getHeaderGroups()} />
+          <TableBody>
             {table.getRowModel().rows.map(row => (
-              <tr key={row.id} onClick={() => selectRow(row)}>
+              <TableRow key={row.id} onClick={() => selectRow(row)}>
                 {row.getVisibleCells().map(cell => (
                   <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-              </tr>
+              </TableRow>
             ))}
-          </tbody>
+          </TableBody>
         </Table>
       )}
     </PathCollapsible>

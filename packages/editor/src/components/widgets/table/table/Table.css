@@ -1,45 +1,7 @@
-.table-root {
-  border-radius: var(--border-radius);
-  overflow: hidden;
-}
-.table-root .icon-input {
-  margin-bottom: var(--size-1);
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.table-root .table-container {
+.ui-table-root {
   max-height: 50vh;
-  overflow: auto;
-}
-.table:empty {
-  border: none;
-}
-.table {
-  overflow: auto;
-  max-height: 100%;
-  width: 100%;
-  max-width: 100%;
-  border: var(--basic-border);
-  border-radius: var(--border-radius);
-  border-spacing: 0;
-  background: var(--background);
-  table-layout: fixed;
 }
 
-.table tr :where(td) {
-  border-top: var(--seperator-border);
-}
-
-.table tr:last-child td:first-child {
-  border-bottom-left-radius: var(--border-radius);
-}
-
-.table tr:last-child td:last-child {
-  border-bottom-right-radius: var(--border-radius);
-}
-
-.table tr:first-child td {
-  border-top: none;
+.ui-table-root .ui-dnd-row-handle {
+  margin-inline-end: var(--size-2);
 }

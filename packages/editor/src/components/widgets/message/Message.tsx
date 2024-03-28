@@ -1,36 +1,19 @@
-import './Message.css';
 import type { InscriptionValidation, Severity } from '@axonivy/inscription-protocol';
-import IvyIcon from '../IvyIcon';
-import type { ReactNode } from 'react';
-import { IvyIcons } from '@axonivy/ui-icons';
 
-export type Message = Omit<InscriptionValidation, 'path'>;
+export type ValidationMessage = Omit<InscriptionValidation, 'path'>;
 
-export type MessageTextProps = {
-  message?: Omit<InscriptionValidation, 'path'>;
-  children?: ReactNode;
+export type MessageData = {
+  message?: string;
+  variant?: Lowercase<Severity>;
 };
 
-const ivyIconForSeverity = (severity: Severity) => {
-  switch (severity) {
-    case 'INFO':
-      return IvyIcons.InfoCircle;
-    case 'WARNING':
-      return IvyIcons.Caution;
-    case 'ERROR':
-      return IvyIcons.ErrorXMark;
-  }
+export const toMessageDataArray = (validations: Array<ValidationMessage>): Array<MessageData> => {
+  return validations.map(toMessageData) as Array<MessageData>;
 };
 
-export const MessageText = ({ message, children }: MessageTextProps) => {
-  if (message) {
-    return (
-      <div className='message' data-state={message.severity.toString().toLowerCase()} title={message.message}>
-        <IvyIcon icon={ivyIconForSeverity(message.severity)} />
-        <span>{message.message}</span>
-        {children}
-      </div>
-    );
+export const toMessageData = (validation?: ValidationMessage): MessageData | undefined => {
+  if (validation) {
+    return { message: validation.message, variant: validation.severity.toLocaleLowerCase() as Lowercase<Severity> };
   }
-  return null;
+  return undefined;
 };

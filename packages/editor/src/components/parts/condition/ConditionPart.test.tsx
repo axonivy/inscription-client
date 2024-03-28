@@ -47,7 +47,7 @@ describe('ConditionPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { conditions: { f1: 'false' } });
   });
 

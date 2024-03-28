@@ -12,11 +12,13 @@ test.describe('Part states', () => {
 
     await casePart.toggle();
     await casePart.macroInput('Name').clear();
+    await casePart.toggle();
     await casePart.expectState('error');
     await callPart.expectState('warning');
 
     await callPart.toggle();
     await callPart.combobox('Dialog').choose('AcceptRequest');
+    await callPart.toggle();
     await casePart.expectState('error');
     await callPart.expectState('configured');
   });

@@ -1,7 +1,7 @@
-.table-cell:has(.input) {
+.ui-table-cell:has(.input) {
   padding: 0px;
 }
-.table-cell .input {
+.ui-table-cell .input {
   border: none;
   padding: 8px;
   width: calc(100% - 15px);

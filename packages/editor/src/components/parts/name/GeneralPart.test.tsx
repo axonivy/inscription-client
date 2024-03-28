@@ -51,7 +51,7 @@ describe('NamePart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { name: 'name' });
     assertState('configured', { description: 'des' });
     assertState('configured', { docs: [{ name: 'a', url: 'u' }] });

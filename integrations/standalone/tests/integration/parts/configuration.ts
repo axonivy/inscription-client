@@ -4,15 +4,13 @@ import type { TextArea } from '../../pageobjects/TextArea';
 import type { ScriptArea } from '../../pageobjects/CodeEditor';
 
 class FilePickupStartEventBean extends PartObject {
-  infoText: TextArea;
   path: TextArea;
   processAttribut: TextArea;
 
   constructor(part: Part) {
     super(part);
-    this.infoText = part.textArea('Path of directory to scan');
-    this.path = part.textArea('directory');
-    this.processAttribut = part.textArea('processAttribute');
+    this.path = part.textArea({ nth: 0 });
+    this.processAttribut = part.textArea({ nth: 1 });
   }
 
   async fill() {
@@ -41,7 +39,7 @@ class TimerBean extends FilePickupStartEventBean {
 
   constructor(part: Part) {
     super(part);
-    this.time = part.scriptInput('time');
+    this.time = part.scriptInput();
   }
 
   override async fill() {
@@ -62,15 +60,13 @@ class TimerBean extends FilePickupStartEventBean {
 }
 
 class FileIntermediateEventBean extends FilePickupStartEventBean {
-  override infoText: TextArea;
   override path: TextArea;
   eventId: TextArea;
 
   constructor(part: Part) {
     super(part);
-    this.infoText = part.textArea('Path of directory to scan');
-    this.path = part.textArea('directory');
-    this.eventId = part.textArea('eventId');
+    this.path = part.textArea({ nth: 0 });
+    this.eventId = part.textArea({ nth: 1 });
   }
 
   override async fill() {

@@ -47,7 +47,7 @@ describe('StartPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { signature: 'sig' });
     assertState('configured', { input: { code: 'code' } });
     assertState('configured', { input: { map: { key: 'value' } } });

@@ -25,33 +25,32 @@ describe('Select', () => {
   test('select will render', async () => {
     renderSelect();
     const select = screen.getByRole('combobox');
-    const selectMenu = screen.getByRole('listbox');
     expect(select).toHaveTextContent('label');
-    expect(selectMenu).toBeEmptyDOMElement();
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
     await userEvent.click(select);
     expect(select).toHaveTextContent('label');
-    expect(selectMenu).not.toBeEmptyDOMElement();
+    screen.debug();
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
     expect(screen.getAllByRole('option')).toHaveLength(2);
-    expect(screen.getByRole('option', { name: 'label' })).toHaveClass('hover', 'selected');
-    expect(screen.getByRole('option', { name: 'test' })).not.toHaveClass('hover', 'selected');
+    expect(screen.getByRole('option', { name: 'label' })).toHaveAttribute('data-state', 'checked');
+    expect(screen.getByRole('option', { name: 'test' })).toHaveAttribute('data-state', 'unchecked');
 
-    await userEvent.click(select);
+    await userEvent.click(select, { pointerEventsCheck: 0 });
     expect(select).toHaveTextContent('label');
-    expect(selectMenu).toBeEmptyDOMElement();
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 
   test('select can change value', async () => {
     const view = renderSelect();
     const select = screen.getByRole('combobox');
-    const selectMenu = screen.getByRole('listbox');
     expect(select).toHaveTextContent(/label/);
     expect(view.data().value).toEqual('value');
 
     await userEvent.click(select);
     expect(screen.getAllByRole('option')).toHaveLength(2);
     await userEvent.click(screen.getByRole('option', { name: 'test' }));
-    expect(selectMenu).toBeEmptyDOMElement();
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     view.rerender();
     expect(select).toHaveTextContent(/test/);
     expect(view.data().value).toEqual('bla');
@@ -60,30 +59,27 @@ describe('Select', () => {
   test('select can be handled with keyboard', async () => {
     const view = renderSelect();
     const select = screen.getByRole('combobox');
-    const selectMenu = screen.getByRole('listbox');
     await userEvent.keyboard('[Tab]');
     expect(select).toHaveFocus();
-    expect(selectMenu).toBeEmptyDOMElement();
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
     await userEvent.keyboard('[Enter]');
-    expect(selectMenu).not.toBeEmptyDOMElement();
+    expect(screen.queryByRole('listbox')).toBeInTheDocument();
     await userEvent.keyboard('[Enter]');
-    expect(selectMenu).toBeEmptyDOMElement();
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     await userEvent.keyboard('[Space]');
-    expect(selectMenu).not.toBeEmptyDOMElement();
+    expect(screen.queryByRole('listbox')).toBeInTheDocument();
 
     const option1 = screen.getByRole('option', { name: 'label' });
     const option2 = screen.getByRole('option', { name: 'test' });
-    expect(option1).toHaveClass('hover', 'selected');
-    expect(option2).not.toHaveClass('hover', 'selected');
+    expect(option1).toHaveAttribute('data-state', 'checked');
+    expect(option2).toHaveAttribute('data-state', 'unchecked');
     await userEvent.keyboard('[ArrowDown]');
-    expect(option1).toHaveClass('selected');
-    expect(option1).not.toHaveClass('hover');
-    expect(option2).toHaveClass('hover');
-    expect(option2).not.toHaveClass('selected');
+    expect(option1).toHaveAttribute('data-state', 'checked');
+    expect(option2).toHaveAttribute('data-state', 'unchecked');
 
     await userEvent.keyboard('[Enter]');
-    expect(selectMenu).toBeEmptyDOMElement();
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     view.rerender();
     expect(select).toHaveTextContent(/test/);
     expect(view.data().value).toEqual('bla');

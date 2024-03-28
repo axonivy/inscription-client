@@ -52,7 +52,7 @@ describe('MailHeaderPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { headers: { subject: 's' } });
     assertState('configured', { headers: { from: 's' } });
     assertState('configured', { headers: { to: 's' } });

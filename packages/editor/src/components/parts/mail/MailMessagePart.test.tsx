@@ -40,7 +40,7 @@ describe('MailMessagePart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { message: { body: 'hi' } });
     assertState('configured', { message: { contentType: MAIL_TYPE.html } });
   });

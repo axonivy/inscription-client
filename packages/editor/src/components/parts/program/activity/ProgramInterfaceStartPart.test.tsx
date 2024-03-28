@@ -45,7 +45,7 @@ describe('ProgramInterfaceStartPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { javaClass: 'Bla' });
     assertState('configured', { exceptionHandler: '>> Ignore Exception' });
     assertState('configured', { timeout: { seconds: '123' } });

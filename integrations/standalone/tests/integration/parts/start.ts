@@ -14,7 +14,7 @@ class Start extends PartObject {
 
   constructor(part: Part, private readonly hideParamDesc: boolean = false) {
     super(part);
-    this.signature = part.textArea('Signature');
+    this.signature = part.textArea({ label: 'Signature' });
     this.paramSection = part.section('Input parameters');
     if (this.hideParamDesc) {
       this.params = this.paramSection.table(['text', 'text']);

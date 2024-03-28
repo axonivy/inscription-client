@@ -5,7 +5,7 @@ import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useWsResponseData } from './useWsResponseData';
 import { ExceptionSelect, MappingPart, PathCollapsible, PathFieldset, ValidationFieldset } from '../common';
-import { ScriptArea, useFieldset } from '../../widgets';
+import { ScriptArea } from '../../widgets';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 export function useWsResponsePart(): PartProps {
@@ -22,7 +22,6 @@ const WsResponsePart = () => {
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'output' }, { variables: [], types: {} });
 
-  const codeFieldset = useFieldset();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
   return (
     <>
@@ -33,13 +32,12 @@ const WsResponsePart = () => {
           onChange={change => updateOutput('map', change)}
           browsers={['attr', 'func', 'type']}
         />
-        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
+        <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
           <ScriptArea
             maximizeState={maximizeState}
             value={config.output.code}
             onChange={change => updateOutput('code', change)}
             browsers={['attr', 'func', 'type']}
-            {...codeFieldset.inputProps}
           />
         </PathFieldset>
       </PathContext>

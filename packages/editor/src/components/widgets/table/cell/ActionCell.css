@@ -1,8 +1,3 @@
-.table-cell:has(.action-buttons) {
+.ui-table-cell.action-cell {
   padding: var(--size-1);
-}
-.table-cell .action-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--size-1);
 }

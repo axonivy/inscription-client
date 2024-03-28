@@ -1,4 +1,4 @@
-import type { Locator, Page} from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { Part } from './Part';
 import { Tab } from './Tab';
@@ -17,11 +17,11 @@ export class Accordion extends Part {
   }
 
   private static locator(page: Page, label: string) {
-    return page.locator(`.accordion-item`, { has: Accordion.toggleButtonLocator(page, label) });
+    return page.locator(`.ui-accordion-item`, { has: Accordion.toggleButtonLocator(page, label) });
   }
 
   private static toggleButtonLocator(page: Page, label: string) {
-    return page.locator(`.accordion-trigger:has-text("${label}")`);
+    return page.locator(`.ui-accordion-trigger:has-text("${label}")`);
   }
 
   tab(label: string) {
@@ -33,7 +33,11 @@ export class Accordion extends Part {
   }
 
   async expectState(state: PartStateFlag) {
-    const stateLocator = this.locator.locator('.accordion-state');
-    await expect(stateLocator).toHaveAttribute('data-state', state);
+    const stateLocator = this.locator.locator('.ui-state-dot');
+    if (state) {
+      await expect(stateLocator).toHaveAttribute('data-state', state);
+    } else {
+      await expect(stateLocator).toBeHidden();
+    }
   }
 }

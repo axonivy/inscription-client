@@ -34,7 +34,7 @@ describe('EndPagePart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { page: 'bla' });
   });
 

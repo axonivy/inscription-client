@@ -32,7 +32,7 @@ describe('WsRequestPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { clientId: 'asdf' });
     assertState('configured', { properties: { name: 'a' } });
     assertState('configured', { operation: { name: 'asdf' } });

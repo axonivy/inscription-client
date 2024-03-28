@@ -1,6 +1,6 @@
 import './RoleSelect.css';
 import { useMemo } from 'react';
-import type { FieldsetInputProps, SelectItem } from '../../../widgets';
+import type { SelectItem } from '../../../widgets';
 import { Select } from '../../../widgets';
 import { useRoles } from './useRoles';
 import { Browser, useBrowser } from '../../../browser';
@@ -12,11 +12,10 @@ const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as c
 type RoleSelectProps = {
   value?: string;
   onChange: (change: string) => void;
-  inputProps?: FieldsetInputProps;
   showTaskRoles?: boolean;
 };
 
-const RoleSelect = ({ value, onChange, inputProps, showTaskRoles }: RoleSelectProps) => {
+const RoleSelect = ({ value, onChange, showTaskRoles }: RoleSelectProps) => {
   const { roles: roleItems } = useRoles(showTaskRoles);
   const browser = useBrowser();
   const path = usePath();
@@ -29,7 +28,7 @@ const RoleSelect = ({ value, onChange, inputProps, showTaskRoles }: RoleSelectPr
 
   return (
     <div className='role-select'>
-      <Select items={roleItems} value={selectedRole} onChange={item => onChange(item.value)} inputProps={inputProps} />
+      <Select items={roleItems} value={selectedRole} onChange={item => onChange(item.value)} />
       <Browser
         {...browser}
         types={['role']}

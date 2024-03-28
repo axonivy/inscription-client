@@ -24,29 +24,6 @@
   animation-fill-mode: forwards;
 }
 
-.browser-content .browser-footer .button {
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: var(--size-1);
-  padding-inline: var(--size-1);
-  width: unset;
-}
-
-.insert {
-  color: white;
-  background-color: var(--A300);
-}
-
-.insert:hover {
-  background-color: var(--A400);
-}
-
-.browser-content .browser-footer .vertical-spacer-line {
-  border-left: var(--icon-seperator-line);
-  text-align: right;
-  height: 22px;
-}
 .browser-content .tabs-content {
   gap: var(--size-1);
 }
@@ -91,21 +68,6 @@
 
 .browser-title .tabs-list .tabs-trigger {
   font-size: 14px;
-}
-
-.browser-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--size-1);
-}
-.browser-dialog .browser-footer .button {
-  font-weight: 500;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: var(--size-1);
-  padding: var(--size-1) var(--size-2) var(--size-1) var(--size-2);
-  width: unset;
 }
 
 .browser-table-header {

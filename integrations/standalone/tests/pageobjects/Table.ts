@@ -15,7 +15,7 @@ export class Table {
     } else {
       this.locator = parentLocator.getByLabel(label);
     }
-    this.rows = this.locator.locator('tbody tr:not(.row-message)');
+    this.rows = this.locator.locator('tbody tr:not(.ui-message-row)');
     this.header = this.locator.locator('thead tr');
   }
 
@@ -88,6 +88,7 @@ export class Row {
 
   async remove(withoutHeader?: boolean) {
     await this.locator.click();
+    await this.page.keyboard.press('Escape');
     await this.page.getByRole('button', { name: 'Remove row' }).click();
     if (!withoutHeader || withoutHeader === undefined) {
       await this.header.click();
@@ -95,8 +96,8 @@ export class Row {
   }
 
   async dragTo(targetRow: Row) {
-    const source = this.locator.locator('.dnd-row-handle');
-    const target = targetRow.locator.locator('.dnd-row-handle');
+    const source = this.locator.locator('.ui-dnd-row-handle');
+    const target = targetRow.locator.locator('.ui-dnd-row-handle');
     await source.dragTo(target);
   }
 }

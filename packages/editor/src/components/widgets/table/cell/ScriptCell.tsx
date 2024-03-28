@@ -1,6 +1,7 @@
 import type { CellContext } from '@tanstack/react-table';
 import { CodeEditorCell } from './CodeEditorCell';
 import type { BrowserType } from '../../../../components/browser';
+import { InputCell } from '@axonivy/ui-components';
 
 export const ScriptCell = <TData,>({
   cell,
@@ -12,4 +13,9 @@ export const ScriptCell = <TData,>({
   type: string;
   browsers: BrowserType[];
   placeholder?: string;
-}) => <CodeEditorCell cell={cell} makro={false} type={type} browsers={browsers} placeholder={placeholder} />;
+}) => {
+  if (type && type.length === 0) {
+    return <InputCell cell={cell} placeholder={placeholder} />;
+  }
+  return <CodeEditorCell cell={cell} makro={false} type={type} browsers={browsers} placeholder={placeholder} />;
+};

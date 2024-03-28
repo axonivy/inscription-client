@@ -2,7 +2,7 @@ import type { Locator, Page } from '@playwright/test';
 import { MacroEditor, ScriptArea, ScriptInput } from './CodeEditor';
 import { ResponsibleSelect } from './ResponsibleSelect';
 import { Select } from './Select';
-import type { ColumnType} from './Table';
+import type { ColumnType } from './Table';
 import { Table } from './Table';
 import { Checkbox } from './Checkbox';
 import { TextArea } from './TextArea';
@@ -19,8 +19,8 @@ export abstract class Composite {
     this.locator = locator;
   }
 
-  textArea(label: string) {
-    return new TextArea(this.locator, label);
+  textArea(options: { label?: string; nth?: number }) {
+    return new TextArea(this.locator, options);
   }
 
   checkbox(label: string) {
@@ -51,7 +51,7 @@ export abstract class Composite {
     return new MacroEditor(this.page, this.locator, label);
   }
 
-  scriptInput(label: string) {
+  scriptInput(label?: string) {
     return new ScriptInput(this.page, this.locator, label);
   }
 

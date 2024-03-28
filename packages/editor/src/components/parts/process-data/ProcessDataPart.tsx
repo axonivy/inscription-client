@@ -1,12 +1,12 @@
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
-import { MessageText, useFieldset } from '../../widgets';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { useProcessDataData } from './useProcessDataData';
 import type { ProcessDataData } from '@axonivy/inscription-protocol';
 import { PathFieldset } from '../common';
 import type { DataClassItem } from './ClassSelectorPart';
 import DataClassSelector from './ClassSelectorPart';
+import { Message } from '@axonivy/ui-components';
 
 export function useProcessDataPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useProcessDataData();
@@ -31,23 +31,14 @@ const ProcessDataPart = () => {
     })
   ];
 
-  const dataClassField = useFieldset();
-
   return (
     <>
-      <PathFieldset label='Data Class' {...dataClassField.labelProps} path='data'>
-        <DataClassSelector
-          dataClass={config.data}
-          onChange={change => update('data', change)}
-          dataClasses={dataClasses}
-          comboboxInputProps={dataClassField.inputProps}
-        />
+      <PathFieldset label='Data Class' path='data'>
+        <DataClassSelector dataClass={config.data} onChange={change => update('data', change)} dataClasses={dataClasses} />
       </PathFieldset>
-      <MessageText
-        message={{
-          severity: 'WARNING',
-          message: `If the process data class changes, all already used fields must exist in the new data class. Otherwise existing mappings and scripts will be removed.`
-        }}
+      <Message
+        message='If the process data class changes, all already used fields must exist in the new data class. Otherwise existing mappings and scripts will be removed.'
+        variant='warning'
       />
     </>
   );

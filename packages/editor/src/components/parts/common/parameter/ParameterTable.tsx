@@ -2,10 +2,11 @@ import type { ScriptVariable } from '@axonivy/inscription-protocol';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { memo, useMemo } from 'react';
-import { EditableCell, Table, TableHeader, TableCell, TableAddRow, SortableHeader, ResizableHeader } from '../../../widgets';
-import { SelectableValidationRow } from '../path/validation/ValidationRow';
+import { ValidationRow } from '../path/validation/ValidationRow';
 import { PathCollapsible } from '../path/PathCollapsible';
 import { useResizableEditableTable } from '../table/useResizableEditableTable';
+import { InputCell, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
+import { EditableCell } from '../../../widgets';
 
 type ParameterTableProps = {
   data: ScriptVariable[];
@@ -21,26 +22,26 @@ const ParameterTable = ({ data, onChange, hideDesc, label }: ParameterTableProps
     const colDef: ColumnDef<ScriptVariable>[] = [
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Name' seperator={true} />,
-        cell: cell => <EditableCell cell={cell} placeholder={'Enter a Name'} />
+        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        cell: cell => <InputCell cell={cell} placeholder={'Enter a Name'} />
       },
       {
         accessorKey: 'type',
-        header: header => <SortableHeader header={header} name='Type' seperator={true} />,
+        header: ({ column }) => <SortableHeader column={column} name='Type' />,
         cell: cell => <EditableCell cell={cell} withBrowser={true} />
       }
     ];
     if (hideDesc === undefined || !hideDesc) {
       colDef.push({
         accessorKey: 'desc',
-        header: header => <SortableHeader header={header} name='Description' />,
-        cell: cell => <EditableCell cell={cell} placeholder={'Enter a Description'} />
+        header: ({ column }) => <SortableHeader column={column} name='Description' />,
+        cell: cell => <InputCell cell={cell} placeholder={'Enter a Description'} />
       });
     }
     return colDef;
   }, [hideDesc]);
 
-  const { table, setRowSelection, addRow, removeRowAction, showAddButton } = useResizableEditableTable({
+  const { table, setRowSelection, removeRowAction, showAddButton } = useResizableEditableTable({
     data,
     columns,
     onChange,
@@ -51,31 +52,23 @@ const ParameterTable = ({ data, onChange, hideDesc, label }: ParameterTableProps
 
   return (
     <PathCollapsible path='params' label={label} controls={tableActions}>
-      <Table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
-              {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
-              ))}
-            </ResizableHeader>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <SelectableValidationRow key={row.id} row={row} rowPathSuffix={row.original.name} colSpan={3}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </SelectableValidationRow>
-          ))}
-        </tbody>
-      </Table>
-      {showAddButton() && <TableAddRow addRow={addRow} />}
+      <div>
+        <Table>
+          <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
+          <TableBody>
+            {table.getRowModel().rows.map(row => (
+              <ValidationRow key={row.id} row={row} rowPathSuffix={row.original.name}>
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </ValidationRow>
+            ))}
+          </TableBody>
+        </Table>
+        {showAddButton()}
+      </div>
     </PathCollapsible>
   );
 };

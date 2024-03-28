@@ -1,6 +1,6 @@
 import { useEditorContext, useMeta } from '../../../../context';
-import type { SelectItem} from '../../../widgets';
-import { Select, useFieldset } from '../../../widgets';
+import type { SelectItem } from '../../../widgets';
+import { Select } from '../../../widgets';
 import { PathFieldset } from '../../common';
 import { useQueryData } from '../useQueryData';
 
@@ -12,14 +12,12 @@ export const DatabaseSelect = () => {
     return { label: db, value: db };
   });
 
-  const fieldset = useFieldset();
   return (
-    <PathFieldset label='Database' path='dbName' {...fieldset.labelProps}>
+    <PathFieldset label='Database' path='dbName'>
       <Select
         value={{ label: config.query.dbName, value: config.query.dbName }}
         onChange={item => update('dbName', item.value)}
         items={databaseItems}
-        inputProps={fieldset.inputProps}
       />
     </PathFieldset>
   );

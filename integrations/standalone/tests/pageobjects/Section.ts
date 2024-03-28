@@ -29,11 +29,11 @@ export class Section extends Composite {
   }
 
   private static locator(page: Page, parentLocator: Locator, label: string) {
-    return parentLocator.locator(`.collapsible-root`, { has: Section.toggleButtonLocatorInternal(page, label) });
+    return parentLocator.locator(`.ui-collapsible`, { has: Section.toggleButtonLocatorInternal(page, label) });
   }
 
   private static toggleButtonLocatorInternal(page: Page, label: string) {
     const regexLabel = new RegExp(`^${label}$`);
-    return page.locator(`.collapsible-trigger`, { hasText: regexLabel });
+    return page.locator(`.ui-collapsible-trigger`, { hasText: regexLabel });
   }
 }

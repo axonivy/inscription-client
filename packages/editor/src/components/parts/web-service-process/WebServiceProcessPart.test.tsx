@@ -45,7 +45,7 @@ describe('WebServiceProcessPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', {
       wsAuth: 'HTTP_BASIC',
       wsTypeName: 'Test'

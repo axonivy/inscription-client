@@ -1,6 +1,6 @@
-import type { SelectItem} from '../../widgets';
-import { Fieldset, MacroArea, Select, useFieldset } from '../../widgets';
-import type { PartProps} from '../../editors';
+import type { SelectItem } from '../../widgets';
+import { Fieldset, MacroArea, Select } from '../../widgets';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/inscription-protocol';
@@ -20,27 +20,18 @@ export function useMailMessagePart(): PartProps {
 
 const MailMessagePart = () => {
   const { config, updateMessage } = useMailData();
-  const messageFieldset = useFieldset();
-  const typeFieldset = useFieldset();
-
   const typeItems = useMemo<SelectItem[]>(() => Object.values(MAIL_TYPE).map(value => ({ label: value, value })), []);
 
   return (
     <>
-      <PathFieldset label='Message' {...messageFieldset.labelProps} path='message'>
-        <MacroArea
-          value={config.message.body}
-          onChange={change => updateMessage('body', change)}
-          browsers={['attr', 'func', 'cms']}
-          {...messageFieldset.inputProps}
-        />
+      <PathFieldset label='Message' path='message'>
+        <MacroArea value={config.message.body} onChange={change => updateMessage('body', change)} browsers={['attr', 'func', 'cms']} />
       </PathFieldset>
-      <Fieldset label='Type' {...typeFieldset.labelProps}>
+      <Fieldset label='Type'>
         <Select
           value={{ value: config.message.contentType, label: config.message.contentType }}
           items={typeItems}
           onChange={change => updateMessage('contentType', change.value)}
-          inputProps={typeFieldset.inputProps}
         />
       </Fieldset>
     </>

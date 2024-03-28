@@ -1,4 +1,4 @@
-import { Input, ScriptArea, useFieldset } from '../../../components/widgets';
+import { Input, ScriptArea } from '../../../components/widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useStartData } from './useStartData';
@@ -37,13 +37,10 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
 
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
-  const signatureFieldset = useFieldset();
-  const codeFieldset = useFieldset();
-
   return (
     <>
-      <PathFieldset label='Signature' {...signatureFieldset.labelProps} path='signature'>
-        <Input value={config.signature} onChange={change => updateSignature(change)} {...signatureFieldset.inputProps} />
+      <PathFieldset label='Signature' path='signature'>
+        <Input value={config.signature} onChange={change => updateSignature(change)} />
       </PathFieldset>
       <PathContext path='input'>
         <ParameterTable
@@ -58,13 +55,12 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
           onChange={change => update('map', change)}
           browsers={['attr', 'func', 'type']}
         />
-        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
+        <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
           <ScriptArea
             maximizeState={maximizeState}
             value={config.input.code}
             onChange={change => update('code', change)}
             browsers={['attr', 'func', 'type']}
-            {...codeFieldset.inputProps}
           />
         </PathFieldset>
       </PathContext>

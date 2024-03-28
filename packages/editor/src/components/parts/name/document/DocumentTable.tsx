@@ -3,19 +3,10 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { memo, useMemo } from 'react';
-import {
-  Collapsible,
-  EditableCell,
-  ResizableHeader,
-  SelectRow,
-  SortableHeader,
-  Table,
-  TableAddRow,
-  TableCell,
-  TableHeader
-} from '../../../../components/widgets';
+import { Collapsible } from '../../../../components/widgets';
 import { useAction } from '../../../../context';
 import { useResizableEditableTable } from '../../common/table/useResizableEditableTable';
+import { InputCell, SelectRow, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 
 const EMPTY_DOCUMENT: Document = { name: '', url: '' } as const;
 
@@ -24,20 +15,20 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
     () => [
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Name' seperator={true} />,
-        cell: cell => <EditableCell cell={cell} placeholder={'Enter a Name'} />
+        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        cell: cell => <InputCell cell={cell} placeholder={'Enter a Name'} />
       },
       {
         accessorFn: row => row.url,
         id: 'url',
-        header: header => <SortableHeader header={header} name='URL' />,
-        cell: cell => <EditableCell cell={cell} placeholder={'Enter a URL'} />
+        header: ({ column }) => <SortableHeader column={column} name='URL' />,
+        cell: cell => <InputCell cell={cell} placeholder={'Enter a URL'} />
       }
     ],
     []
   );
 
-  const { table, rowSelection, setRowSelection, addRow, removeRowAction, showAddButton } = useResizableEditableTable({
+  const { table, rowSelection, setRowSelection, removeRowAction, showAddButton } = useResizableEditableTable({
     data,
     columns,
     onChange,
@@ -61,31 +52,23 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
 
   return (
     <Collapsible label='Means / Documents' controls={tableActions} defaultOpen={data !== undefined && data.length > 0}>
-      <Table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
-              {headerGroup.headers.map(header => (
-                <TableHeader colSpan={1} key={header.id} style={{ width: header.getSize() }}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
-              ))}
-            </ResizableHeader>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <SelectRow key={row.id} row={row}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </SelectRow>
-          ))}
-        </tbody>
-      </Table>
-      {showAddButton() && <TableAddRow addRow={addRow} />}
+      <div>
+        <Table>
+          <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
+          <TableBody>
+            {table.getRowModel().rows.map(row => (
+              <SelectRow key={row.id} row={row}>
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </SelectRow>
+            ))}
+          </TableBody>
+        </Table>
+        {showAddButton()}
+      </div>
     </Collapsible>
   );
 };

@@ -53,7 +53,7 @@ describe('CachePart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', {
       cache: {
         mode: 'CACHE'

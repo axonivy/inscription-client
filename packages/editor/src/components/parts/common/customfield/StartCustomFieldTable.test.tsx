@@ -49,10 +49,10 @@ describe('StartCustomFieldTable', () => {
   test('table can add/remove rows by keyboard', async () => {
     const view = renderTable();
     await userEvent.click(screen.getAllByRole('row')[2]);
-    await TableUtil.assertAddRowWithKeyboard(view, 'number');
+    await TableUtil.assertAddRowWithKeyboard(view, 'number', '1');
     expect(view.data()).toEqual([
       { name: 'field1', value: 'this is a string' },
-      { name: 'number', value: '1' },
+      { name: 'number1', value: '1' },
       { name: '', value: '' }
     ]);
   });

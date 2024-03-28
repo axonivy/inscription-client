@@ -1,6 +1,6 @@
 import { useAction, useEditorContext, useMeta } from '../../../../../context';
 import type { FieldsetControl, SelectItem } from '../../../../widgets';
-import { Select, useFieldset } from '../../../../widgets';
+import { Select } from '../../../../widgets';
 import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -22,16 +22,10 @@ export const RestClientSelect = () => {
     { label: 'Create new Rest Client', icon: IvyIcons.Plus, action: () => newAction() }
   ];
 
-  const fieldset = useFieldset();
   return (
-    <PathFieldset label='Client' path='clientId' {...fieldset.labelProps} controls={controls}>
+    <PathFieldset label='Client' path='clientId' controls={controls}>
       <div className='rest-client-select'>
-        <Select
-          value={selectedItem}
-          onChange={item => updateTarget('clientId', item.value)}
-          items={items}
-          inputProps={fieldset.inputProps}
-        />
+        <Select value={selectedItem} onChange={item => updateTarget('clientId', item.value)} items={items} />
       </div>
     </PathFieldset>
   );

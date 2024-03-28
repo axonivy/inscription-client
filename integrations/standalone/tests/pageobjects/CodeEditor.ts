@@ -32,8 +32,12 @@ class CodeEditor {
 
   async focus() {
     await this.locator.click();
-    await expect(this.code).not.toHaveText('Loading Editor...');
+    await this.waitLazyLoading();
     await expect(this.code).toBeVisible();
+  }
+
+  async waitLazyLoading() {
+    await expect(this.code).not.toHaveText('Loading Editor...');
   }
 
   private async blur() {
@@ -71,7 +75,7 @@ export class ScriptArea extends CodeEditor {
 
 export class ScriptInput extends CodeEditor {
   constructor(page: Page, parentLocator: Locator, label?: string) {
-    let locator = parentLocator.getByRole('textbox');
+    let locator = parentLocator.getByRole('textbox').first();
     if (label) {
       locator = parentLocator.getByLabel(label, { exact: true }).first();
     }

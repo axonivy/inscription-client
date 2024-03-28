@@ -37,7 +37,7 @@ describe('RestResponsePart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { response: { clientError: 'asdf' } });
     assertState('configured', { response: { entity: { code: 'a' } } });
 

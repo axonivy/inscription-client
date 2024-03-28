@@ -36,7 +36,7 @@ describe('WsResponsePart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { output: { code: 'asdf' } });
     assertState('configured', { output: { map: { name: 'a' } } });
     assertState('configured', { exceptionHandler: 'ex' });

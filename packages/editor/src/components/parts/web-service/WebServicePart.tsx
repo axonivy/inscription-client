@@ -4,9 +4,9 @@ import { usePartDirty, usePartState } from '../../../components/editors';
 import { useEditorContext, useValidations } from '../../../context';
 import { useWebServiceData } from './useWebServiceData';
 import { Exception } from './Exception';
-import { MessageText } from '../../../components/widgets';
 import { PID } from '../../../utils/pid';
 import { Permission } from '../common/permission/Permission';
+import { Message } from '@axonivy/ui-components';
 
 export function useWebServicePart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useWebServiceData();
@@ -24,11 +24,12 @@ const WebServicePart = () => {
 
   return (
     <>
-      <MessageText message={{ message: 'Web service authentication on the', severity: 'INFO' }}>
+      <Message variant='info'>
+        Web service authentication on the
         <a href='#' onClick={navigateToProcess}>
           process
         </a>
-      </MessageText>
+      </Message>
       <Permission
         anonymousFieldActive={false}
         config={config.permission}

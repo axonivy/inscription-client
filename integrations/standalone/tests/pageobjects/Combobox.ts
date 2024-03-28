@@ -1,17 +1,15 @@
-import type { Locator, Page} from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 export class Combobox {
-  private readonly locator: Locator;
   private readonly combobox: Locator;
 
-  constructor(page: Page, parentLocator: Locator, options?: { label?: string; nth?: number }) {
+  constructor(readonly page: Page, parentLocator: Locator, options?: { label?: string; nth?: number }) {
     if (options?.label) {
-      this.locator = parentLocator.locator('.combobox', { has: page.getByLabel(options.label) }).first();
+      this.combobox = parentLocator.getByRole('combobox', { name: options.label }).first();
     } else {
-      this.locator = parentLocator.locator('.combobox').nth(options?.nth ?? 0);
+      this.combobox = parentLocator.getByRole('combobox').nth(options?.nth ?? 0);
     }
-    this.combobox = this.locator.getByRole('combobox');
   }
 
   async fill(value: string) {
@@ -21,7 +19,7 @@ export class Combobox {
 
   async choose(value: string) {
     await this.combobox.fill(value);
-    await this.locator.getByRole('option', { name: value }).first().click();
+    await this.page.getByRole('option', { name: value }).first().click();
   }
 
   async expectValue(value: string | RegExp) {

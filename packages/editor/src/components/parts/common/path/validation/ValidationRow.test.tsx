@@ -1,7 +1,7 @@
 import { render, screen } from 'test-utils';
 import type { InscriptionValidation } from '@axonivy/inscription-protocol';
 import { describe, test, expect } from 'vitest';
-import { SelectableValidationRow } from './ValidationRow';
+import { ValidationRow } from './ValidationRow';
 import type { Row } from '@tanstack/react-table';
 
 describe('ValidationRow', () => {
@@ -10,14 +10,13 @@ describe('ValidationRow', () => {
     render(
       <table>
         <tbody>
-          <SelectableValidationRow
-            row={{ getIsSelected: () => false } as Row<object>}
-            colSpan={3}
+          <ValidationRow
+            row={{ getIsSelected: () => false, getVisibleCells: () => [{}] } as Row<object>}
             rowPathSuffix={path}
             title='this is a title'
           >
             <td>content</td>
-          </SelectableValidationRow>
+          </ValidationRow>
         </tbody>
       </table>,
       { wrapperProps: { validations } }
@@ -43,7 +42,7 @@ describe('ValidationRow', () => {
     renderTable('test.bla');
     const rows = screen.getAllByRole('row');
     expect(rows[0]).toHaveClass('row-error');
-    expect(rows[1]).toHaveClass('row-message');
+    expect(rows[1]).toHaveClass('ui-message-row');
     expect(rows[1]).toHaveTextContent('this is an error');
   });
 });

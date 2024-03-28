@@ -31,7 +31,7 @@ describe('WebServicePart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', {
       permission: {
         error: '>> Ignore Exception'

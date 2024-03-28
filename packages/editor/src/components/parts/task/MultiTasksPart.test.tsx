@@ -54,9 +54,9 @@ describe('MultiTasksPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
-    assertState('empty', { tasks: [] });
-    assertState('empty', { tasks: [{ id: 'TaskA' }] });
+    assertState(undefined);
+    assertState(undefined, { tasks: [] });
+    assertState(undefined, { tasks: [{ id: 'TaskA' }] });
     assertState('configured', { tasks: [{ id: 'TaskA', name: 'task1' }] });
   });
 

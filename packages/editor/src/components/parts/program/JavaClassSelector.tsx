@@ -1,5 +1,5 @@
 import type { ComboboxItem, FieldsetControl } from '../../../components/widgets';
-import { Combobox, useFieldset } from '../../../components/widgets';
+import { Combobox } from '../../../components/widgets';
 import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { Consumer } from '../../../types/lambda';
 import { PathFieldset } from '../common';
@@ -27,11 +27,9 @@ const JavaClassSelector = ({ javaClass, onChange, type }: JavaClassSelectorProps
   };
   const createJavaClass: FieldsetControl = { label: 'Create new Java Class', icon: IvyIcons.Plus, action: () => newAction() };
 
-  const javaClassField = useFieldset();
-
   return (
-    <PathFieldset label='Java Class' {...javaClassField.labelProps} path='javaClass' controls={[openJavaClassConfig, createJavaClass]}>
-      <Combobox value={javaClass} onChange={item => onChange(item)} items={javaClassItems} {...javaClassField.inputProps} />
+    <PathFieldset label='Java Class' path='javaClass' controls={[openJavaClassConfig, createJavaClass]}>
+      <Combobox value={javaClass} onChange={item => onChange(item)} items={javaClassItems} />
     </PathFieldset>
   );
 };

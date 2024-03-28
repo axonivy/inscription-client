@@ -8,7 +8,6 @@ import { useCallData, useDialogCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from '../../../../components/widgets';
-import { useFieldset } from '../../../../components/widgets';
 import { PathFieldset } from '../../common';
 
 export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
@@ -44,16 +43,14 @@ const DialogCallPart = ({ offline }: { offline?: boolean }) => {
 
   const action = useAction('newHtmlDialog');
   const createDialog: FieldsetControl = { label: 'Create new Html Dialog', icon: IvyIcons.Plus, action: () => action() };
-  const callField = useFieldset();
   return (
     <>
-      <PathFieldset label='Dialog' {...callField.labelProps} controls={[createDialog]} path='dialog'>
+      <PathFieldset label='Dialog' controls={[createDialog]} path='dialog'>
         <CallSelect
           start={config.dialog}
           onChange={change => update('dialog', change)}
           starts={startItems}
           startIcon={IvyIcons.InitStart}
-          comboboxInputProps={callField.inputProps}
         />
       </PathFieldset>
       <CallMapping variableInfo={variableInfo} />

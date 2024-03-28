@@ -4,8 +4,9 @@ import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { usePartDirty, usePartState } from '../../../editors';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../../context';
 import { useConfigurationData } from './useConfigurationData';
-import { Input, MessageText, ScriptInput } from '../../../widgets';
+import { Input, ScriptInput } from '../../../widgets';
 import './Configuration.css';
+import { Message } from '@axonivy/ui-components';
 
 export function useConfigurationPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useConfigurationData();
@@ -81,7 +82,7 @@ const ConfigurationPart = () => {
   };
 
   if (editorItems.length === 0) {
-    return <MessageText message={{ severity: 'INFO', message: 'No configuration needed' }} />;
+    return <Message message='No configuration needed' variant='info' />;
   }
 
   return (

@@ -1,4 +1,4 @@
-import type { ComboboxItem, FieldsetInputProps } from '../../../widgets';
+import type { ComboboxItem } from '../../../widgets';
 import { Combobox, IvyIcon } from '../../../widgets';
 import type { IvyIcons } from '@axonivy/ui-icons';
 
@@ -9,11 +9,10 @@ type ClassificatioComboboxProps = {
   onChange: (change: string) => void;
   data: ClassifiedItem[];
   icon?: IvyIcons;
-  comboboxInputProps?: FieldsetInputProps;
   withBrowser?: boolean;
 };
 
-const ClassificationCombobox = ({ value, onChange, data, icon, comboboxInputProps, withBrowser }: ClassificatioComboboxProps) => {
+const ClassificationCombobox = ({ value, onChange, data, icon, withBrowser }: ClassificatioComboboxProps) => {
   const comboboxItem = (item: ClassifiedItem) => {
     return (
       <>
@@ -36,7 +35,6 @@ const ClassificationCombobox = ({ value, onChange, data, icon, comboboxInputProp
       onChange={onChange}
       items={data}
       comboboxItem={comboboxItem}
-      {...comboboxInputProps}
       {...(withBrowser
         ? {
             browserTypes: ['attr'],

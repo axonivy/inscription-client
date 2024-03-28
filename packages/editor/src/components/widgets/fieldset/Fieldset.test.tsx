@@ -4,12 +4,13 @@ import { render, screen, userEvent } from 'test-utils';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from './fieldset-control';
 import { describe, test, expect } from 'vitest';
+import { Input } from '@axonivy/ui-components';
 
 describe('Fieldset', () => {
-  function renderFieldset({ label, controls, message }: FieldsetProps) {
+  function renderFieldset(props: FieldsetProps) {
     render(
-      <Fieldset label={label} htmlFor='input' controls={controls} message={message}>
-        <input id='input' />
+      <Fieldset {...props}>
+        <Input />
       </Fieldset>
     );
   }
@@ -26,8 +27,8 @@ describe('Fieldset', () => {
   });
 
   test('message', () => {
-    renderFieldset({ label: 'label', message: { message: 'this is a error', severity: 'ERROR' } });
-    expect(screen.getByTitle('this is a error')).toHaveClass('message');
+    renderFieldset({ label: 'label', validation: { message: 'this is a error', severity: 'ERROR' } });
+    expect(screen.getByTitle('this is a error')).toHaveClass('ui-message');
   });
 
   test('control buttons', async () => {
@@ -42,6 +43,6 @@ describe('Fieldset', () => {
     expect(btnTrigger).toBeTruthy();
 
     const btn2 = screen.getByRole('button', { name: 'Btn2' });
-    expect(btn2).toHaveAttribute('data-state', 'active');
+    expect(btn2).toHaveAttribute('data-state', 'on');
   });
 });

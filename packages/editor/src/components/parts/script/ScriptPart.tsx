@@ -1,7 +1,7 @@
 import type { ScriptData } from '@axonivy/inscription-protocol';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
-import { ScriptArea, useFieldset } from '../../widgets';
+import { ScriptArea } from '../../widgets';
 import { useScriptData } from './useScriptData';
 import { useValidations } from '../../../context';
 import { PathFieldset } from '../common';
@@ -18,17 +18,15 @@ export function useScriptPart(): PartProps {
 
 const ScriptPart = () => {
   const { config, update } = useScriptData();
-  const codeFieldset = useFieldset();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   return (
-    <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
+    <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
       <ScriptArea
         maximizeState={maximizeState}
         value={config.code}
         onChange={change => update('code', change)}
         browsers={['attr', 'func', 'type', 'cms']}
-        {...codeFieldset.inputProps}
       />
     </PathFieldset>
   );

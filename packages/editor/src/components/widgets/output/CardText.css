@@ -1,7 +1,7 @@
 .card-text {
   border-radius: var(--border-radius);
   border: var(--basic-border);
-  background: var(--background);
+  background: var(--N25);
   font-size: 12px;
   line-height: 12px;
   color: var(--body);

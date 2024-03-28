@@ -59,30 +59,24 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
   };
 
   return (
-    <>
-      {type && type.length === 0 ? (
-        <Input value={value} onChange={setValue} onBlur={() => updateValue(value)} />
+    <div className='script-input' {...focusWithinProps} tabIndex={1}>
+      {isFocusWithin || browser.open ? (
+        <>
+          <SingleLineCodeEditor
+            {...focusValue}
+            context={{ type, location: path }}
+            keyActions={{
+              enter: activeElementBlur,
+              escape: activeElementBlur
+            }}
+            onMountFuncs={[setEditor]}
+            macro={makro}
+          />
+          <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
+        </>
       ) : (
-        <div className='script-input' {...focusWithinProps} tabIndex={1}>
-          {isFocusWithin || browser.open ? (
-            <>
-              <SingleLineCodeEditor
-                {...focusValue}
-                context={{ type, location: path }}
-                keyActions={{
-                  enter: activeElementBlur,
-                  escape: activeElementBlur
-                }}
-                onMountFuncs={[setEditor]}
-                macro={makro}
-              />
-              <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
-            </>
-          ) : (
-            <Input value={value} onChange={setValue} placeholder={placeholder} onBlur={() => updateValue(value)} />
-          )}
-        </div>
+        <Input value={value} onChange={setValue} placeholder={placeholder} onBlur={() => updateValue(value)} />
       )}
-    </>
+    </div>
   );
 }

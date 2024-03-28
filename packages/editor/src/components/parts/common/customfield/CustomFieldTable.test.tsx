@@ -48,11 +48,10 @@ describe('CustomFieldTable', () => {
 
   test('table can add rows by keyboard', async () => {
     const view = renderTable();
-    await TableUtil.assertAddRowWithKeyboard(view, 'number');
-
+    await TableUtil.assertAddRowWithKeyboard(view, 'number', '1');
     expect(view.data()).toEqual([
       { name: 'field1', type: 'STRING', value: 'this is a string' },
-      { name: 'number', type: 'NUMBER', value: '1' },
+      { name: 'number1', type: 'NUMBER', value: '1' },
       { name: '', type: 'STRING', value: '' }
     ]);
   });
@@ -66,11 +65,10 @@ describe('CustomFieldTable', () => {
 
     const type = screen.getAllByRole('combobox')[1];
     await userEvent.click(type);
-    await userEvent.click(type);
     await userEvent.keyboard('[ArrowDown][Enter]');
 
     expect(view.data()).toEqual([
-      { name: 'Hello', type: 'STRING', value: 'this is a string' },
+      { name: 'Hello', type: 'TEXT', value: 'this is a string' },
       { name: 'number', type: 'NUMBER', value: '1' }
     ]);
   });

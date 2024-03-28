@@ -8,7 +8,6 @@ import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from '../../../../components/widgets';
-import { useFieldset } from '../../../../components/widgets';
 import { PathFieldset } from '../../common';
 
 export function useTriggerCallPart(): PartProps {
@@ -39,16 +38,14 @@ const TriggerCallPart = () => {
 
   const action = useAction('newProcess');
   const createProcess: FieldsetControl = { label: 'Create new Trigger Process', icon: IvyIcons.Plus, action: () => action() };
-  const callField = useFieldset();
   return (
     <>
-      <PathFieldset label='Process start' {...callField.labelProps} controls={[createProcess]} path='processCall'>
+      <PathFieldset label='Process start' controls={[createProcess]} path='processCall'>
         <CallSelect
           start={config.processCall}
           onChange={change => update('processCall', change)}
           starts={startItems}
           startIcon={IvyIcons.Start}
-          comboboxInputProps={callField.inputProps}
         />
       </PathFieldset>
       <CallMapping variableInfo={variableInfo} />

@@ -6,16 +6,16 @@ import { useMemo } from 'react';
 
 export const ValidationCollapsible = ({ paths, children, ...props }: CollapsibleProps & { paths?: SchemaKeys[] }) => {
   const validations = useValidations();
-  const validation = useMemo(() => {
+  const pathValidations = useMemo(() => {
     if (paths) {
       for (const path of paths) {
-        return validations.find(val => val.path.includes(path));
+        return validations.filter(val => val.path.includes(path));
       }
     }
-    return validations.shift();
+    return validations;
   }, [paths, validations]);
   return (
-    <Collapsible {...props} message={validation}>
+    <Collapsible {...props} validations={pathValidations}>
       {children}
     </Collapsible>
   );

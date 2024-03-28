@@ -1,7 +1,7 @@
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import DocumentTable from './document/DocumentTable';
-import { Collapsible, Fieldset, Tags, Textarea, useFieldset } from '../../widgets';
+import { Collapsible, Fieldset, Tags, Textarea } from '../../widgets';
 import { useGeneralData } from './useGeneralData';
 
 export function useGeneralPart(options?: { hideTags?: boolean; disableName?: boolean }): PartProps {
@@ -19,28 +19,13 @@ export function useGeneralPart(options?: { hideTags?: boolean; disableName?: boo
 
 const GeneralPart = (props: { hideTags?: boolean; disableName?: boolean }) => {
   const { data, update } = useGeneralData();
-
-  const nameField = useFieldset();
-  const descriptionField = useFieldset();
-
   return (
     <>
-      <Fieldset label='Display name' {...nameField.labelProps}>
-        <Textarea
-          maxRows={3}
-          disabled={!!props.disableName}
-          value={data.name}
-          onChange={change => update('name', change)}
-          {...nameField.inputProps}
-        />
+      <Fieldset label='Display name'>
+        <Textarea maxRows={3} disabled={!!props.disableName} value={data.name} onChange={change => update('name', change)} />
       </Fieldset>
-      <Fieldset label='Description' {...descriptionField.labelProps}>
-        <Textarea
-          maxRows={10}
-          value={data.description}
-          onChange={change => update('description', change)}
-          {...descriptionField.inputProps}
-        />
+      <Fieldset label='Description'>
+        <Textarea maxRows={10} value={data.description} onChange={change => update('description', change)} />
       </Fieldset>
 
       <DocumentTable data={data.docs} onChange={change => update('docs', change)} />

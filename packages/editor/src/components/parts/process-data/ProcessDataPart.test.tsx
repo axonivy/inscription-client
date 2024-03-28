@@ -37,7 +37,7 @@ describe('ProcessDataPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', {
       data: 'screenshot.project.Order'
     });

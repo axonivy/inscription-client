@@ -1,34 +1,32 @@
-import './Fieldset.css';
-import type { LabelProps } from '@radix-ui/react-label';
-import { Label } from '@radix-ui/react-label';
 import { memo } from 'react';
 import type { FieldsetControl } from './fieldset-control';
-import type { MessageTextProps } from '../message/Message';
-import { MessageText } from '../message/Message';
-import HeadlineControls from '../headlineControls/HeadlineControls';
+import { ButtonGroup, Fieldset as Field, type FieldsetProps as FieldProps } from '@axonivy/ui-components';
+import { toMessageData, type ValidationMessage } from '../message/Message';
 
-export type FieldsetProps = LabelProps &
-  MessageTextProps & {
-    label?: string;
-    controls?: FieldsetControl[];
-  };
+export type FieldsetProps = Omit<FieldProps, 'message' | 'control'> & {
+  controls?: Array<FieldsetControl>;
+  validation?: ValidationMessage;
+};
 
-const Fieldset = ({ label, controls, message, children, ...labelProps }: FieldsetProps) => {
-  const severiry = message ? `fieldset-${message.severity.toString().toLowerCase()}` : '';
-  return (
-    <div className='fieldset-column'>
-      {label && (
-        <div className='fieldset-label'>
-          <Label {...labelProps} className={`label ${labelProps.className}`}>
-            {label}
-          </Label>
-          {controls && <HeadlineControls controls={controls} />}
-        </div>
-      )}
-      <div className={`fieldset-input ${severiry}`}>{children}</div>
-      <MessageText message={message} />
-    </div>
-  );
+const Controls = ({ controls }: Pick<FieldsetProps, 'controls'>) => {
+  if (controls) {
+    return (
+      <ButtonGroup
+        controls={controls.map(({ action, icon, label, active }) => ({
+          icon,
+          title: label,
+          onClick: action,
+          toggle: active,
+          'aria-label': label
+        }))}
+      />
+    );
+  }
+  return null;
+};
+
+const Fieldset = ({ label, controls, validation, ...props }: FieldsetProps) => {
+  return <Field label={label} message={toMessageData(validation)} control={<Controls controls={controls} />} {...props} />;
 };
 
 export default memo(Fieldset);

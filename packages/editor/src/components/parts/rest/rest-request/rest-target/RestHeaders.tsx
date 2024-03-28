@@ -1,5 +1,5 @@
 import type { ComboboxItem } from '../../../../widgets';
-import { Combobox, Fieldset, useFieldset } from '../../../../widgets';
+import { Combobox, Fieldset } from '../../../../widgets';
 import { useMeta } from '../../../../../context';
 import { PathCollapsible } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
@@ -14,16 +14,10 @@ export const RestHeaders = () => {
   const knownHeaders = useMeta('meta/rest/headers', undefined, []).data;
   const restResourceHeaders = useRestResourceMeta().headers?.map(header => header.name) ?? [];
 
-  const acceptFieldset = useFieldset();
   return (
     <PathCollapsible label='Headers' path='headers' defaultOpen={!deepEqual(config.target.headers, defaultConfig.target.headers)}>
-      <Fieldset label='Accept' {...acceptFieldset.labelProps}>
-        <Combobox
-          value={config.target.headers['Accept']}
-          onChange={updateAcceptHeader}
-          items={knownContentTypes}
-          {...acceptFieldset.inputProps}
-        />
+      <Fieldset label='Accept'>
+        <Combobox value={config.target.headers['Accept']} onChange={updateAcceptHeader} items={knownContentTypes} />
       </Fieldset>
       <PropertyTable
         properties={config.target.headers}

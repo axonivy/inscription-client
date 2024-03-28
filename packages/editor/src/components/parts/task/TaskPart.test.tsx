@@ -35,7 +35,7 @@ describe('TaskPart', () => {
   });
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { name: 'name' });
     assertState('configured', { description: 'desc' });
     assertState('configured', { category: 'cat' });

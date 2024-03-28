@@ -1,6 +1,8 @@
 import './App.css';
 import '@axonivy/ui-icons/src-gen/ivy-icons.css';
+import '@axonivy/ui-components/lib/style.css';
 import type { ElementData, InscriptionData, InscriptionElementContext, InscriptionValidation, PID } from '@axonivy/inscription-protocol';
+import { ReadonlyProvider } from '@axonivy/ui-components';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient, useTheme } from './context';
 import { inscriptionEditor } from './components/editors/InscriptionEditor';
@@ -89,29 +91,30 @@ function App(props: InscriptionElementContext) {
   }
 
   return (
-    <div ref={editorRef} className='editor-root' data-theme={theme} data-mutation-state={mutation.status}>
-      <EditorContextInstance.Provider
-        value={{
-          context: { app: context.app, pmv: context.pmv },
-          elementContext: context,
-          readonly: data.readonly ?? DEFAULT_EDITOR_CONTEXT.readonly,
-          editorRef,
-          type: data.type ?? DEFAULT_EDITOR_CONTEXT.type,
-          navigateTo: (pid: PID) => setContext(old => ({ ...old, pid }))
-        }}
-      >
-        <DataContextInstance.Provider
+    <div ref={editorRef} className={`editor-root ${theme}`} data-theme={theme} data-mutation-state={mutation.status}>
+      <ReadonlyProvider readonly={data.readonly ?? false}>
+        <EditorContextInstance.Provider
           value={{
-            data: data.data,
-            setData: mutation.mutate,
-            defaultData: data.defaults,
-            initData: initData[context.pid] ?? data.data,
-            validations
+            context: { app: context.app, pmv: context.pmv },
+            elementContext: context,
+            editorRef,
+            type: data.type ?? DEFAULT_EDITOR_CONTEXT.type,
+            navigateTo: (pid: PID) => setContext(old => ({ ...old, pid }))
           }}
         >
-          {inscriptionEditor(data.type.id)}
-        </DataContextInstance.Provider>
-      </EditorContextInstance.Provider>
+          <DataContextInstance.Provider
+            value={{
+              data: data.data,
+              setData: mutation.mutate,
+              defaultData: data.defaults,
+              initData: initData[context.pid] ?? data.data,
+              validations
+            }}
+          >
+            {inscriptionEditor(data.type.id)}
+          </DataContextInstance.Provider>
+        </EditorContextInstance.Provider>
+      </ReadonlyProvider>
     </div>
   );
 }

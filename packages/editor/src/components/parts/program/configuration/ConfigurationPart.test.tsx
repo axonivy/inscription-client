@@ -47,7 +47,7 @@ describe('ConfigurationPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', {
       userConfig: { directory: '/tmp/myDir' }
     });

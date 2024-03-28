@@ -9,20 +9,12 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { MappingTreeData } from './mapping-tree-data';
-import {
-  ScriptCell,
-  ExpandableCell,
-  ExpandableHeader,
-  Table,
-  TableCell,
-  TableHeader,
-  ResizableHeader,
-  TextHeader
-} from '../../../../components/widgets';
+import { ExpandableCell, ScriptCell, SearchTable } from '../../../../components/widgets';
 import type { MappingPartProps } from './MappingPart';
 import type { TableFilter } from './useMappingTree';
 import { calcFullPathId } from './useMappingTree';
-import { SelectableValidationRow } from '../path/validation/ValidationRow';
+import { ValidationRow } from '../path/validation/ValidationRow';
+import { ExpandableHeader, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 
 type MappingTreeProps = MappingPartProps & {
   globalFilter: TableFilter<string>;
@@ -43,12 +35,12 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
     [variableInfo, setTree]
   );
 
-  const columns = useMemo<ColumnDef<MappingTreeData>[]>(
+  const columns = useMemo<ColumnDef<MappingTreeData, string>[]>(
     () => [
       {
         accessorFn: row => row.attribute,
         id: 'attribute',
-        header: header => <ExpandableHeader header={header} name='Attribute' seperator={true} />,
+        header: header => <ExpandableHeader header={header} name='Attribute' />,
         cell: cell => (
           <ExpandableCell
             cell={cell}
@@ -64,7 +56,7 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
       {
         accessorFn: row => row.value,
         id: 'value',
-        header: header => <TextHeader header={header} name='Expression' />,
+        header: () => <span>Expression</span>,
         cell: cell => <ScriptCell cell={cell} type={cell.row.original.type} browsers={browsers} placeholder={cell.row.original.type} />,
         footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
@@ -112,30 +104,20 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
   });
 
   return (
-    <Table search={globalFilter.active ? { value: globalFilter.filter, onChange: globalFilter.setFilter } : undefined}>
-      <thead>
-        {table.getHeaderGroups().map(headerGroup => (
-          <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
-            {headerGroup.headers.map(header => (
-              <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
-                {flexRender(header.column.columnDef.header, header.getContext())}
-              </TableHeader>
-            ))}
-          </ResizableHeader>
-        ))}
-      </thead>
-      <tbody>
+    <SearchTable search={globalFilter.active ? { value: globalFilter.filter, onChange: globalFilter.setFilter } : undefined}>
+      <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
+      <TableBody>
         {table.getRowModel().rows.map(row => (
-          <SelectableValidationRow row={row} key={row.id} rowPathSuffix={calcFullPathId(row)}>
+          <ValidationRow row={row} key={row.id} rowPathSuffix={calcFullPathId(row)}>
             {row.getVisibleCells().map(cell => (
               <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </TableCell>
             ))}
-          </SelectableValidationRow>
+          </ValidationRow>
         ))}
-      </tbody>
-    </Table>
+      </TableBody>
+    </SearchTable>
   );
 };
 

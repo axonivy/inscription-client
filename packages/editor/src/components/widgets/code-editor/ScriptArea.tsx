@@ -7,6 +7,7 @@ import { useMonacoEditor } from './useCodeEditor';
 import { usePath } from '../../../context';
 import MaximizedCodeEditorBrowser from '../../browser/MaximizedCodeEditorBrowser';
 import { MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
+import { useField } from '@axonivy/ui-components';
 
 type ScriptAreaProps = CodeEditorAreaProps & {
   maximizeState: {
@@ -24,6 +25,7 @@ const ScriptArea = (props: ScriptAreaProps) => {
       props.maximizeState.setIsMaximizedCodeEditorOpen(true);
     });
   };
+  const { inputProps } = useField();
 
   return (
     <>
@@ -38,8 +40,7 @@ const ScriptArea = (props: ScriptAreaProps) => {
       />
       {!props.maximizeState.isMaximizedCodeEditorOpen && (
         <div className='script-area'>
-          <ResizableCodeEditor {...props} location={path} onMountFuncs={[setEditor, keyActionMountFunc]} />
-
+          <ResizableCodeEditor {...inputProps} {...props} location={path} onMountFuncs={[setEditor, keyActionMountFunc]} />
           <Browser {...browser} types={props.browsers} accept={modifyEditor} location={path} initSearchFilter={getMonacoSelection} />
         </div>
       )}
