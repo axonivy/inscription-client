@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useState } from 'react';
-import { ActionCell, Checkbox, ExpandableCell, SelectRow, Table, TableCell } from '../../widgets';
+import { ActionCell, Checkbox, ExpandableCell, SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, VisibilityState } from '@tanstack/react-table';
@@ -7,7 +7,7 @@ import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, 
 import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { Button, Message } from '@axonivy/ui-components';
+import { Button, Message, SelectRow, TableCell } from '@axonivy/ui-components';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 
@@ -159,7 +159,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
         <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
         <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
       </div>
-      <Table
+      <SearchTable
         search={{
           value: globalFilter,
           onChange: newFilterValue => {
@@ -179,12 +179,12 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
                   actions={[{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(row.original.fullPath) }]}
                 />
               ) : (
-                <TableCell> </TableCell>
+                <TableCell />
               )}
             </SelectRow>
           ))}
         </tbody>
-      </Table>
+      </SearchTable>
       {showHelper &&
         (value.length !== 0 && selectedContentObject ? (
           <pre className='browser-helptext'>

@@ -7,12 +7,12 @@ test.describe('Drag and drop features', () => {
     const conditions = inscriptionView.accordion('Condition');
     await conditions.toggle();
 
-    const rows = page.locator('.dnd-row');
+    const rows = page.locator('.ui-dnd-row');
     await expect(rows).toHaveCount(2);
     await expect(rows.first()).toHaveText(/Mock Element/);
     await expect(rows.last()).toHaveText(/f6/);
 
-    await rows.first().locator('.dnd-row-handle').dragTo(rows.last().locator('.dnd-row-handle'));
+    await rows.first().locator('.ui-dnd-row-handle').dragTo(rows.last().locator('.ui-dnd-row-handle'));
     await expect(rows.first()).toHaveText(/f6/);
     await expect(rows.last()).toHaveText(/Mock Element/);
   });

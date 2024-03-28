@@ -1,4 +1,4 @@
-import { act, screen, userEvent, waitFor, within } from 'test-utils';
+import { screen, userEvent, waitFor, within } from 'test-utils';
 import { expect } from 'vitest';
 
 export namespace TableUtil {
@@ -39,17 +39,19 @@ export namespace TableUtil {
 
   export async function assertAddRowWithKeyboard(
     view: { data: () => unknown[]; rerender: () => void },
-    firstCellOfLastRowValue: string
+    firstCellOfLastRowValue: string,
+    type?: string
   ): Promise<void> {
     const rowCount = screen.getAllByRole('row').length;
     const firstCellLastRow = screen.getByDisplayValue(firstCellOfLastRowValue);
     await userEvent.click(firstCellLastRow);
     expect(firstCellLastRow).toHaveFocus();
-    await act(async () => {
-      await userEvent.tab();
-      waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(rowCount + 1));
-      view.rerender();
-    });
+    if (type) {
+      await userEvent.keyboard(type);
+    }
+    await userEvent.tab();
+    view.rerender();
+    await waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(rowCount + 1));
   }
 
   export async function assertRemoveRow(view: { data: () => unknown[]; rerender: () => void }, expectedRows: number): Promise<void> {

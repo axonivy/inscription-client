@@ -20,18 +20,18 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@axonivy/jsonrpc@11.3.0-next.91":
-  version "11.3.0-next.91"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.3.0-next.91.tgz#262274d0fd7fd3b4fbf0ad36b5b4f5127911e48c"
-  integrity sha512-jNnun0v0sxQRyLFB7x3SLt1PsheYjEH51+m3KR7jvSirHgK0m6ywto8LRCJODDX95g97QzBDKuvpCT/5sJHWEw==
+"@axonivy/jsonrpc@11.3.0-next.96":
+  version "11.3.0-next.96"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.3.0-next.96.tgz#4f49043e6d5be7d858c3711c786b3e7aec1b9f38"
+  integrity sha512-lmieFCy8dIyz+SWVFJxdrQdEQ73P8IHzKN+gS2mRH6O7JqPZbWOYGlY0u5v2WcBtLSXqKXHFcChPs9jtfY6+4w==
   dependencies:
     vscode-jsonrpc "^8.2.0"
     vscode-ws-jsonrpc "^3.0.0"
 
-"@axonivy/ui-components@11.3.0-next.91":
-  version "11.3.0-next.91"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.3.0-next.91.tgz#14e2b60b8f4e0e58c2b63ca7b067ba20fb2c8deb"
-  integrity sha512-9XT64ujM460sFU1FGasSsePfsyHeaaEO2W4QySnaik0W5IhOutdt5FPsXjim58iD5muWubt6sOa7yLsbDpjZMw==
+"@axonivy/ui-components@11.3.0-next.96":
+  version "11.3.0-next.96"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.3.0-next.96.tgz#190c91fe1d9f92f4c1dccfe4e4bba041dc1fb799"
+  integrity sha512-foJlS3tbYcUtrMkxg685bSZxvM/3qwluNx9cL0Ewn/KwUe17V1OD61+J4rhEuC2O/W0e/uMLCZH7FFZaGJn6lA==
   dependencies:
     "@radix-ui/react-accordion" "^1.1.2"
     "@radix-ui/react-checkbox" "^1.0.4"
@@ -49,10 +49,10 @@
     downshift "^8.5.0"
     react-resizable-panels "^2.0.13"
 
-"@axonivy/ui-icons@11.3.0-next.91":
-  version "11.3.0-next.91"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.3.0-next.91.tgz#60ee0ad72d2197f1c62a2a0263cb31c689531d42"
-  integrity sha512-3LaD8S1/1EkwphaIrUNCNSijNIW0/xqXIiJA0IjNsknNUX3o17vPRuTuq/FZS6TwtdeOxXUajG12y8HBcAm30w==
+"@axonivy/ui-icons@11.3.0-next.96":
+  version "11.3.0-next.96"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.3.0-next.96.tgz#201d57eec1c87c18ae04190850443b033fa307a4"
+  integrity sha512-J8/Kan3rjLPHhHv9KHLzzgWAaEIrB4H8W3Xihk+fHlq6I1hYkfy4F6bAhPcwL6kC62Br5oYRsZ+HRkDMlZ6V2Q==
 
 "@babel/code-frame@^7.0.0":
   version "7.21.4"
@@ -2912,13 +2912,6 @@
   dependencies:
     "@tanstack/query-core" "5.27.5"
 
-"@tanstack/react-table@^8.11.2":
-  version "8.11.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-table/-/react-table-8.11.2.tgz#e584dbac8eb3ccce1facfe383863ac35c0ff1bb5"
-  integrity sha512-ztLg2OpM3HZIWzkQYjQER1inZuhbt79fBwZxc9bPXzsvqY+7RYI3dCZLw3CynYd9s4YltdrTbmSyh4xQSHexDQ==
-  dependencies:
-    "@tanstack/table-core" "8.11.2"
-
 "@tanstack/react-table@^8.13.2":
   version "8.15.0"
   resolved "https://registry.yarnpkg.com/@tanstack/react-table/-/react-table-8.15.0.tgz#668ceb9f396d33409165d5b9bee7734b657061c6"
@@ -2932,11 +2925,6 @@
   integrity sha512-IFOFuRUTaiM/yibty9qQ9BfycQnYXIDHGP2+cU+0LrFFGNhVxCXSQnaY6wkX8uJVteFEBjUondX0Hmpp7TNcag==
   dependencies:
     "@tanstack/virtual-core" "3.0.0"
-
-"@tanstack/table-core@8.11.2":
-  version "8.11.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.11.2.tgz#34c00547dca178a1409b7f5385704f8b435e23ab"
-  integrity sha512-rR0VEQOtr0ARLvaNLaSQnt2BVwOp0OavOUA0LcZ3N45tLYXc4sXruNv8kJ7R7+5W1CrzGha217tzjBG83CpoMQ==
 
 "@tanstack/table-core@8.14.0":
   version "8.14.0"

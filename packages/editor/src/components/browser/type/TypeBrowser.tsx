@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
-import { Checkbox, ExpandableCell, SelectRow, Table, TableCell } from '../../widgets';
+import { Checkbox, ExpandableCell, SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { ColumnDef, ExpandedState, FilterFn, RowSelectionState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
@@ -8,6 +8,7 @@ import type { JavaType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { getCursorValue } from './cursor-value';
+import { SelectRow, TableBody, TableCell } from '@axonivy/ui-components';
 export const TYPE_BROWSER_ID = 'type' as const;
 
 export type TypeBrowserObject = JavaType & { icon: IvyIcons };
@@ -229,7 +230,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
           }}
         />
       </div>
-      <Table
+      <SearchTable
         search={{
           value: globalFilter,
           onChange: newFilterValue => {
@@ -237,7 +238,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
           }
         }}
       >
-        <tbody>
+        <TableBody>
           {tableDynamic.getRowModel().rows.length > 0 ? (
             <>
               {!isFetching &&
@@ -254,8 +255,8 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
               <TableCell>No type found, enter a fitting search term</TableCell>
             </tr>
           )}
-        </tbody>
-      </Table>
+        </TableBody>
+      </SearchTable>
       {isFetching && (
         <div className='loader'>
           <p>loading more types...</p>
