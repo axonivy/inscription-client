@@ -30,5 +30,5 @@
 }
 
 .maximized-script-area .code-editor {
-  border-radius: var(--border-radius);
+  border-radius: var(--border-r1);
 }

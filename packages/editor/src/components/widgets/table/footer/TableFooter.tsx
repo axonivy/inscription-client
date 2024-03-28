@@ -1,4 +1,3 @@
-import './TableFooter.css';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { Button, TableHead, TableRow } from '@axonivy/ui-components';
 

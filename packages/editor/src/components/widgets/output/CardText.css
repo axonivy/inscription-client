@@ -1,5 +1,5 @@
 .card-text {
-  border-radius: var(--border-radius);
+  border-radius: var(--border-r1);
   border: var(--basic-border);
   background: var(--N25);
   font-size: 12px;
@@ -21,10 +21,10 @@
   color: var(--body);
   padding: 2px 0.24em;
   background-color: var(--background);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-r1);
   user-select: none;
   background-color: var(--N75);
-  border: var(--seperator-border);
+  border: var(--basic-border);
 }
 .card-text .card .card-icon {
   margin-right: var(--size-1);

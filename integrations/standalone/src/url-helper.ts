@@ -1,5 +1,3 @@
-import { defaultThemeMode, type ThemeMode } from '@axonivy/inscription-editor';
-
 export namespace URLParams {
   export function parameter(key: string): string | undefined {
     const param = new URLSearchParams(window.location.search).get(key);
@@ -22,8 +20,15 @@ export namespace URLParams {
     return `${isSecureConnection() ? 'wss' : 'ws'}://${server()}`;
   }
 
-  export function themeMode(): ThemeMode {
-    return (parameter('theme') as ThemeMode) ?? defaultThemeMode();
+  export function themeMode(): 'dark' | 'light' {
+    const theme = parameter('theme');
+    if (theme === 'dark') {
+      return theme;
+    }
+    if (theme === 'light') {
+      return 'light';
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
   const isSecureConnection = () => {
