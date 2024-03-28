@@ -4,21 +4,20 @@ import { useQueryData } from '../useQueryData';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import type { SelectItem } from '../../../../components/widgets';
-import {
-  ReorderWrapperIcon,
-  ResizableHeader,
-  SelectCell,
-  SelectableReorderRow,
-  Table,
-  TableAddRow,
-  TableCell,
-  TableHeader,
-  TextHeader
-} from '../../../../components/widgets';
 import { useEditorContext, useMeta } from '../../../../context';
 import { QUERY_ORDER } from '@axonivy/inscription-protocol';
 import { arraymove, indexOf } from '../../../../utils/array';
 import { IvyIcons } from '@axonivy/ui-icons';
+import {
+  ReorderHandleWrapper,
+  ReorderRow,
+  SelectCell,
+  Table,
+  TableAddRow,
+  TableBody,
+  TableCell,
+  TableResizableHeader
+} from '@axonivy/ui-components';
 
 type OrderDirection = keyof typeof QUERY_ORDER;
 
@@ -60,16 +59,16 @@ export const TableSort = () => {
     () => [
       {
         accessorKey: 'name',
-        header: header => <TextHeader header={header} name='Column' seperator={true} />,
+        header: () => <span>Column</span>,
         cell: cell => <SelectCell cell={cell} items={columnItems} />
       },
       {
         accessorKey: 'sorting',
-        header: header => <TextHeader header={header} name='Direction' />,
+        header: () => <span>Direction</span>,
         cell: cell => (
-          <ReorderWrapperIcon>
+          <ReorderHandleWrapper>
             <SelectCell cell={cell} items={orderItems} />
-          </ReorderWrapperIcon>
+          </ReorderHandleWrapper>
         )
       }
     ],
@@ -158,31 +157,23 @@ export const TableSort = () => {
 
   return (
     <PathCollapsible label='Sort' path='orderBy' defaultOpen={config.query.sql.orderBy?.length > 0} controls={tableActions}>
-      <Table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
-              {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
-              ))}
-            </ResizableHeader>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <SelectableReorderRow colSpan={2} row={row} key={row.id} id={row.original.name} updateOrder={updateOrder}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </SelectableReorderRow>
-          ))}
-        </tbody>
-      </Table>
-      {columnItems.length !== table.getRowModel().rows.length && <TableAddRow addRow={addRow} />}
+      <div>
+        <Table>
+          <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
+          <TableBody>
+            {table.getRowModel().rows.map(row => (
+              <ReorderRow row={row} key={row.id} id={row.original.name} updateOrder={updateOrder}>
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </ReorderRow>
+            ))}
+          </TableBody>
+        </Table>
+        {columnItems.length !== table.getRowModel().rows.length && <TableAddRow addRow={addRow} />}
+      </div>
     </PathCollapsible>
   );
 };

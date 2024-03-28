@@ -1,16 +1,6 @@
-import { SelectableValidationRow } from '../../../common';
+import { ValidationRow } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import {
-  EditableCell,
-  Fieldset,
-  ResizableHeader,
-  ScriptCell,
-  SortableHeader,
-  Table,
-  TableAddRow,
-  TableCell,
-  TableHeader
-} from '../../../../widgets';
+import { Fieldset, ScriptCell } from '../../../../widgets';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -21,6 +11,7 @@ import type { RestParam } from './rest-parameter';
 import { restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
 import { PathContext } from '../../../../../context';
 import { deepEqual } from '../../../../../utils/equals';
+import { InputCell, SortableHeader, Table, TableAddRow, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 
 const EMPTY_PARAMETER: RestParam = { name: '', expression: '', known: false };
 
@@ -38,16 +29,16 @@ export const RestForm = () => {
 
   const onChange = (params: RestParam[]) => updateBody('form', toRestMap(params));
 
-  const columns = useMemo<ColumnDef<RestParam>[]>(
+  const columns = useMemo<ColumnDef<RestParam, string>[]>(
     () => [
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Name' seperator={true} />,
-        cell: cell => <EditableCell cell={cell} disabled={cell.row.original.known} />
+        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        cell: cell => <InputCell cell={cell} disabled={cell.row.original.known} />
       },
       {
         accessorKey: 'expression',
-        header: header => <SortableHeader header={header} name='Expression' />,
+        header: ({ column }) => <SortableHeader column={column} name='Expression' />,
         cell: cell => (
           <ScriptCell
             placeholder={cell.row.original.type}
@@ -125,31 +116,21 @@ export const RestForm = () => {
       <div>
         {showTableActions && <Fieldset label=' ' controls={tableActions} />}
         <Table>
-          <thead>
-            {table.getHeaderGroups().map(headerGroup => (
-              <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
-                {headerGroup.headers.map(header => (
-                  <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHeader>
-                ))}
-              </ResizableHeader>
-            ))}
-          </thead>
-          <tbody>
+          <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
+          <TableBody>
             {table.getRowModel().rows.map(row => (
-              <SelectableValidationRow row={row} colSpan={2} key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
+              <ValidationRow row={row} key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
                 {row.getVisibleCells().map(cell => (
                   <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-              </SelectableValidationRow>
+              </ValidationRow>
             ))}
-          </tbody>
+          </TableBody>
         </Table>
+        {showAddButton() && <TableAddRow addRow={addRow} />}
       </div>
-      {showAddButton() && <TableAddRow addRow={addRow} />}
     </PathContext>
   );
 };

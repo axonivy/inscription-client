@@ -48,11 +48,10 @@ describe('CustomFieldTable', () => {
 
   test('table can add rows by keyboard', async () => {
     const view = renderTable();
-    await TableUtil.assertAddRowWithKeyboard(view, 'number');
-
+    await TableUtil.assertAddRowWithKeyboard(view, 'number', '1');
     expect(view.data()).toEqual([
       { name: 'field1', type: 'STRING', value: 'this is a string' },
-      { name: 'number', type: 'NUMBER', value: '1' },
+      { name: 'number1', type: 'NUMBER', value: '1' },
       { name: '', type: 'STRING', value: '' }
     ]);
   });

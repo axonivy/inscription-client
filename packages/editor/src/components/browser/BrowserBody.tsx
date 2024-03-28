@@ -26,7 +26,7 @@ const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply }: ReusableB
 
             <TabContent tabs={tabs} />
           </TabRoot>
-          <Flex alignItems='center' style={{ justifyContent: 'flex-end' }} gap={1}>
+          <Flex alignItems='center' justifyContent='flex-end' gap={1}>
             <DialogClose asChild>
               <Button aria-label='Cancel' size='large'>
                 Cancel

@@ -1,7 +1,6 @@
 import './ActionCell.css';
 import type { IvyIcons } from '@axonivy/ui-icons';
-import { Button, Flex, useReadonly } from '@axonivy/ui-components';
-import { TableCell } from './TableCell';
+import { Button, Flex, TableCell, useReadonly } from '@axonivy/ui-components';
 
 interface Action {
   label: string;
@@ -14,7 +13,7 @@ export const ActionCell = ({ actions }: { actions: Action[] }) => {
   const readonly = useReadonly();
   return (
     <TableCell className='action-cell'>
-      <Flex direction='row' gap={1} style={{ justifyContent: 'flex-end' }}>
+      <Flex direction='row' gap={1} justifyContent='flex-end'>
         {actions.map((action, index) => (
           <Button key={index} onClick={action.action} disabled={readonly || action.disabled} aria-label={action.label} icon={action.icon} />
         ))}

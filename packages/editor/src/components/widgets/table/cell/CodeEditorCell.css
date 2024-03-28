@@ -1,19 +1,24 @@
-.table-cell .monaco-editor-background {
+.ui-table-cell .monaco-editor-background {
   background-color: unset;
 }
 
-.table-cell:has(.code-editor) {
+.ui-table-cell:has(.script-input) {
   padding: 0px;
 }
 
-.table-cell .code-editor {
+.ui-table-cell .script-input .ui-input {
+  background-color: transparent;
+  border: none;
+}
+
+.ui-table-cell .script-input .code-editor {
   border-radius: 0px;
 }
 
-.table-cell .script-input .button {
+.ui-table-cell .script-input .button {
   color: var(--body);
 }
 
-.table-cell .code-editor .code-input {
+.ui-table-cell .code-editor .code-input {
   border-radius: 0px;
 }

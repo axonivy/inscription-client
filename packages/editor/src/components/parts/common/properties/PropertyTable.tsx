@@ -1,24 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
-import { SelectableValidationRow } from '../';
+import { ValidationRow } from '../';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import type { ComboboxItem } from '../../../../components/widgets';
-import {
-  Collapsible,
-  ComboCell,
-  ResizableHeader,
-  ScriptCell,
-  SortableHeader,
-  Table,
-  TableAddRow,
-  TableCell,
-  TableHeader
-} from '../../../../components/widgets';
+import { Collapsible, ScriptCell } from '../../../../components/widgets';
 import { Property } from './properties';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ScriptMappings } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { deepEqual } from '../../../../utils/equals';
+import { ComboCell, SortableHeader, Table, TableAddRow, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 
 type PropertyTableProps = {
   properties: ScriptMappings;
@@ -41,16 +32,16 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
 
   const knownPropertyItems = knownProperties.map<ComboboxItem>(prop => ({ value: prop }));
 
-  const columns = useMemo<ColumnDef<Property>[]>(
+  const columns = useMemo<ColumnDef<Property, string>[]>(
     () => [
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Name' seperator={true} />,
-        cell: cell => <ComboCell cell={cell} items={knownPropertyItems} />
+        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        cell: cell => <ComboCell cell={cell} options={knownPropertyItems} />
       },
       {
         accessorKey: 'expression',
-        header: header => <SortableHeader header={header} name='Expression' />,
+        header: ({ column }) => <SortableHeader column={column} name='Expression' />,
         cell: cell => (
           <ScriptCell
             cell={cell}
@@ -123,36 +114,28 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
 
   return (
     <Collapsible label={label} defaultOpen={defaultOpen} controls={tableActions}>
-      <Table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
-              {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
-              ))}
-            </ResizableHeader>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => {
-            if (hideProperties?.includes(row.original.name)) {
-              return null;
-            }
-            return (
-              <SelectableValidationRow row={row} colSpan={2} key={row.id} rowPathSuffix={row.original.name}>
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </SelectableValidationRow>
-            );
-          })}
-        </tbody>
-      </Table>
-      {showAddButton() && <TableAddRow addRow={addRow} />}
+      <div>
+        <Table>
+          <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
+          <TableBody>
+            {table.getRowModel().rows.map(row => {
+              if (hideProperties?.includes(row.original.name)) {
+                return null;
+              }
+              return (
+                <ValidationRow row={row} key={row.id} rowPathSuffix={row.original.name}>
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </ValidationRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+        {showAddButton() && <TableAddRow addRow={addRow} />}
+      </div>
     </Collapsible>
   );
 };

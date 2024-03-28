@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ExpandableCell, ExpandableHeader, Table, TableCell, TableHeader, SelectRow } from '../../widgets';
+import { ExpandableCell, SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { ColumnDef, ExpandedState, RowSelectionState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
@@ -9,6 +9,7 @@ import { useEditorContext, useMeta } from '../../../context';
 import { calcFullPathId } from '../../parts/common/mapping-tree/useMappingTree';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
+import { ExpandableHeader, SelectRow, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@axonivy/ui-components';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
@@ -58,7 +59,7 @@ const AttributeBrowser = ({
     [varInfo]
   );
 
-  const columns = useMemo<ColumnDef<MappingTreeData>[]>(
+  const columns = useMemo<ColumnDef<MappingTreeData, string>[]>(
     () => [
       {
         accessorFn: row => row.attribute,
@@ -115,19 +116,19 @@ const AttributeBrowser = ({
 
   return (
     <>
-      <Table search={{ value: globalFilter, onChange: setGlobalFilter }}>
-        <thead>
+      <SearchTable search={{ value: globalFilter, onChange: setGlobalFilter }}>
+        <TableHeader>
           {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
+            <TableRow key={headerGroup.id}>
               {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan}>
+                <TableHead key={header.id} colSpan={header.colSpan}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
+                </TableHead>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </thead>
-        <tbody>
+        </TableHeader>
+        <TableBody>
           {table.getRowModel().rows.map(row => (
             <SelectRow key={row.id} row={row} onDoubleClick={onDoubleClick}>
               {row.getVisibleCells().map(cell => (
@@ -135,8 +136,8 @@ const AttributeBrowser = ({
               ))}
             </SelectRow>
           ))}
-        </tbody>
-      </Table>
+        </TableBody>
+      </SearchTable>
       {showHelper && (
         <pre className='browser-helptext'>
           <code>{value}</code>
