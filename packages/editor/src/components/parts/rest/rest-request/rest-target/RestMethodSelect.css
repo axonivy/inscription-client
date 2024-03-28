@@ -11,6 +11,6 @@
 
 .combobox .combobox-method {
   border: 1px solid var(--background);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-r2);
   padding: 1px;
 }
