@@ -1,109 +1,10 @@
-:root {
-  /* ------all colors------*/
-  --body: #1b1b1b;
-  --background: #ffffff;
-  --N25: #fafafa;
-  --N50: #f8f8f8;
-  --N75: #f3f3f3;
-  --N100: #ebebeb;
-  --N200: #e7e7e7;
-  --N300: #dfdfdf;
-  --N400: #bfbfbf;
-  --N500: #b0b0b0;
-  --N600: #a3a3a3;
-  --N700: #858585;
-  --N800: #757575;
-  --N900: #4a4a4a;
-
-  --A50: #e6f1f5;
-  --A75: #97c4d4;
-  --A200: #6ba6ff;
-  --A300: #007095;
-  --A400: #004e69;
-  --A500: #003e9c;
-
-  --error-color: #ee4a52;
-  --warning-color: #ffac5e;
-  --success-color: #47c46b;
-  --transparent: rgba(0, 0, 0, 0);
-
-  --selected-text: #ffffff;
-  --background-radio-checkbox: var(--A50);
-  --radio-checkbox-icon-color: var(--A300);
-
-  --selected-row-text-color: var(--background);
-
-  /* ------borders------*/
-  --basic-border: 1px solid var(--N200);
-  --activ-border: 1px solid var(--A300);
-  --dashed-border: 1px dashed var(--N400);
-  --warning-border: 1px solid var(--warning-color);
-  --error-border: 1px solid var(--error-color);
-  --seperator-border: var(--basic-border);
-  --icon-seperator-line: 1px solid var(--N300);
-  --radio-checkbox-border: 1px solid var(--A75);
-
-  --border-radius: 5px;
-
-  /* ------box-shadow------*/
-  --editor-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
-    0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
-    0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
-  --focus-shadow: 0 0 0 1px var(--body);
-
-  /* ------sizes------*/
-  --size-1: 0.25rem;
-  --size-2: 0.5rem;
-  --size-3: 0.75rem;
-  --size-4: 1rem;
-  --input-padding: 10px;
-  --border-padding: 20px;
-  --tree-gap: calc((20px + var(--size-1)));
-}
-
 .editor-root {
-  color-scheme: light;
   background: var(--background);
   height: 100%;
 }
 
-.editor-root[data-theme='dark'] {
-  color-scheme: dark;
-
-  --body: #ffffff;
-  --background: #2c2c2c;
-  --N25: #333333;
-  --N50: #202020;
-  --N75: #202020;
-  --N100: #4a4a4a;
-  --N200: #4f4f4f;
-  --N300: #606060;
-  --N400: #b0b0b0;
-  --N500: #757575;
-  --N800: #a3a3a3;
-  --N900: #a3a3a3;
-
-  --A50: var(--A400);
-
-  --selected-row-text-color: var(--body);
-
-  --background-radio-checkbox: var(--background);
-  --radio-checkbox-icon-color: var(--A200);
-  --radio-checkbox-border: 1px solid var(--A300);
-
-  --basic-border: 1px solid var(--N200);
-  --thick-border: 2px solid var(--N200);
-  --dashed-border: 1px dashed var(--N400);
-  --border-radius: 5px;
-  --seperator-border: var(--basic-border);
-}
-
 .editor-state {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   color: var(--body);
 }
 
@@ -112,9 +13,6 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  position: relative;
-  top: 50%;
-  left: 50%;
   animation: rotate 1s linear infinite;
 }
 

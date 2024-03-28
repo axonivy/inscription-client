@@ -1,3 +1,6 @@
+.ui-table-cell .row-expand {
+  --tree-gap: calc((20px + var(--size-1)));
+}
 .ui-table-cell:has(.row-expand-button) {
   padding: var(--size-1);
 }

@@ -1,12 +1,13 @@
 import type { MonacoEditorApi, MonacoLanguageClientConfig, MonacoWorkerConfig } from '@axonivy/inscription-core';
 import { ConsoleTimer, Deferred, MonacoUtil } from '@axonivy/inscription-core';
 import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
-import { defaultThemeMode, type ThemeMode } from '../context/useTheme';
 import { ivyMacroConf, ivyMacroLang } from './ivy-macro-language';
 import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
 
 import type * as monacoEditorReact from '@monaco-editor/react';
 export type MonacoEditorReactApi = typeof monacoEditorReact;
+
+type ThemeMode = 'light' | 'dark';
 
 export const MONACO_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
   glyphMargin: false,
@@ -57,7 +58,7 @@ export const SINGLE_LINE_MONACO_OPTIONS: editor.IStandaloneEditorConstructionOpt
 export namespace MonacoEditorUtil {
   export const DEFAULT_THEME_NAME = 'axon-input';
 
-  export function themeData(theme: ThemeMode = defaultThemeMode()): editor.IStandaloneThemeData {
+  export function themeData(theme?: ThemeMode): editor.IStandaloneThemeData {
     if (theme === 'dark') {
       return {
         base: 'vs-dark',

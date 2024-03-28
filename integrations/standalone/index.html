@@ -14,7 +14,7 @@
     }
 
     /* from https://cssloaders.github.io/, licensed under MIT */
-    .loader {
+    .init-loader {
       width: 48px;
       height: 48px;
       border-radius: 50%;
@@ -24,7 +24,7 @@
       animation: rotate 1s linear infinite;
     }
 
-    .loader::before {
+    .init-loader::before {
       content: '';
       box-sizing: border-box;
       position: absolute;
@@ -67,7 +67,7 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root">
-    <div class="loader"></div>
+    <div class="init-loader"></div>
   </div>
   <script type="module" src="/src/index.tsx"></script>
 </body>

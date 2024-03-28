@@ -29,7 +29,7 @@
   box-shadow: var(--editor-shadow);
   left: var(--size-2);
   width: calc(100% - var(--size-4));
-  border-radius: var(--border-radius);
+  border-radius: var(--border-r2);
 }
 .combobox-menu-entry {
   padding: 0.5rem;
@@ -37,16 +37,16 @@
   flex-direction: column;
   gap: var(--size-2);
   cursor: pointer;
-  border-bottom: var(--seperator-border);
+  border-bottom: var(--basic-border);
 }
 .combobox-menu-entry:last-child {
   border-bottom: none;
 }
 .combobox-menu-entry.hover {
-  background: var(--A50);
+  background: var(--P50);
 }
 .combobox-menu-entry.selected {
-  background: var(--A300);
+  background: var(--P300);
   color: var(--background);
 }
 .combobox-menu-entry-additional {

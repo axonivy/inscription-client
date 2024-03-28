@@ -2,7 +2,7 @@
   background: var(--N25);
 }
 .code-editor .code-input {
-  border-radius: var(--border-radius);
+  border-radius: var(--border-r1);
   border: var(--basic-border);
   font-size: 12px;
   line-height: 12px;
