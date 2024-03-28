@@ -2,7 +2,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import './ExpandableCell.css';
 import type { CellContext } from '@tanstack/react-table';
 import IvyIcon from '../../IvyIcon';
-import { Button } from '@axonivy/ui-components';
+import { Button, Flex } from '@axonivy/ui-components';
 
 type ExpandableCellProps<TData> = {
   cell: CellContext<TData, unknown>;
@@ -31,7 +31,9 @@ export function ExpandableCell<TData>({
     row.toggleExpanded(true);
   };
   return (
-    <div
+    <Flex
+      alignItems='center'
+      gap={1}
       className='row-expand'
       style={{
         paddingLeft: `${
@@ -62,6 +64,6 @@ export function ExpandableCell<TData>({
       )}
       <span className={additionalInfo ? 'row-expand-label' : ''}>{cell.getValue() as string}</span>
       {additionalInfo && <span className='row-expand-label-info'> : {additionalInfo}</span>}
-    </div>
+    </Flex>
   );
 }

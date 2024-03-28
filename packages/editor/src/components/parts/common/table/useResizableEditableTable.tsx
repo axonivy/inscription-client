@@ -4,16 +4,17 @@ import { useState, useEffect } from 'react';
 import { deepEqual } from '../../../../utils/equals';
 import type { FieldsetControl } from '../../../widgets';
 import { IvyIcons } from '@axonivy/ui-icons';
+import { TableAddRow } from '@axonivy/ui-components';
 
 interface UseResizableEditableTableProps<TData> {
   data: TData[];
-  columns: ColumnDef<TData>[];
+  columns: ColumnDef<TData, string>[];
   onChange: (change: TData[]) => void;
   emptyDataObject: TData;
   specialUpdateData?: (rowId: string, columnId: string, value: unknown) => void;
 }
 
-const useResizableEditableTable = <TData>({
+const useResizableEditableTable = <TData,>({
   data,
   columns,
   onChange,
@@ -69,15 +70,18 @@ const useResizableEditableTable = <TData>({
     }
   }, [data, emptyDataObject, onChange, rowSelection, table]);
 
-  const showAddButton = () => {
-    return data.filter(obj => deepEqual(obj, emptyDataObject)).length === 0;
-  };
-
   const addRow = () => {
     const newData = [...data];
     newData.push(emptyDataObject);
     onChange(newData);
     setRowSelection({ [`${newData.length - 1}`]: true });
+  };
+
+  const showAddButton = () => {
+    if (data.filter(obj => deepEqual(obj, emptyDataObject)).length === 0) {
+      return <TableAddRow addRow={addRow} />;
+    }
+    return null;
   };
 
   const removeRow = (index: number) => {
@@ -97,7 +101,7 @@ const useResizableEditableTable = <TData>({
     action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
   };
 
-  return { table, rowSelection, removeRowAction, setRowSelection, addRow, showAddButton };
+  return { table, rowSelection, removeRowAction, setRowSelection, showAddButton };
 };
 
 export { useResizableEditableTable };

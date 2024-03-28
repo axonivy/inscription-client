@@ -1,4 +1,4 @@
-import { Table, TableCell, TableHeader, Fieldset, ResizableHeader, ScriptCell, ReorderWrapperIcon, TextHeader } from '../../widgets';
+import { Fieldset, ScriptCell } from '../../widgets';
 import { useCallback, useMemo, useState } from 'react';
 import { Condition } from './condition';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
@@ -6,6 +6,7 @@ import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@
 import { IvyIcons } from '@axonivy/ui-icons';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { ValidationSelectableReorderRow } from '../common';
+import { ReorderHandleWrapper, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {
@@ -36,16 +37,16 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     () => [
       {
         accessorKey: 'fid',
-        header: header => <TextHeader header={header} name='Type' seperator={true} />,
+        header: () => <span>Type</span>,
         cell: cell => <ConditionTypeCell condition={cell.row.original} />
       },
       {
         accessorKey: 'expression',
-        header: header => <TextHeader header={header} name='Expression' />,
+        header: () => <span>Expression</span>,
         cell: cell => (
-          <ReorderWrapperIcon>
+          <ReorderHandleWrapper>
             <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.BOOLEAN} browsers={['attr', 'func', 'type']} placeholder='Enter an Expression' />
-          </ReorderWrapperIcon>
+          </ReorderHandleWrapper>
         )
       }
     ],
@@ -93,26 +94,11 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     <div>
       <Fieldset label='Condition' controls={tableActions} />
       <Table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
-              {headerGroup.headers.map(header => (
-                <TableHeader
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  style={{ width: header.getSize() !== 15 ? header.getSize() : undefined }}
-                >
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
-              ))}
-            </ResizableHeader>
-          ))}
-        </thead>
-        <tbody>
+        <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
+        <TableBody>
           {table.getRowModel().rows.map(row => (
             <ValidationSelectableReorderRow
               row={row}
-              colSpan={2}
               key={row.id}
               id={row.original.fid}
               updateOrder={updateOrder}
@@ -123,7 +109,7 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
               ))}
             </ValidationSelectableReorderRow>
           ))}
-        </tbody>
+        </TableBody>
       </Table>
     </div>
   );

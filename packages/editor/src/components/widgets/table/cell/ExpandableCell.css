@@ -1,16 +1,12 @@
-.table-cell .row-expand {
-  display: flex;
-  align-items: center;
-  gap: var(--size-1);
+.ui-table-cell:has(.row-expand-button) {
+  padding: var(--size-1);
 }
-.table-cell .row-expand-button .ivy-chevron {
+.ui-table-cell .row-expand-button .ivy-chevron {
   transform: rotate(90deg);
-  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
 }
-.table-cell .row-expand-button[data-state='collapsed'] .ivy-chevron {
+.ui-table-cell .row-expand-button[data-state='collapsed'] .ivy-chevron {
   transform: rotate(0deg);
 }
-
-.table-cell .row-expand-label-info {
+.ui-table-cell .row-expand-label-info {
   color: var(--N500);
 }

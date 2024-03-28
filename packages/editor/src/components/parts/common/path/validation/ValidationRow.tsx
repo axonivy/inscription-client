@@ -1,13 +1,23 @@
-import type { ReactNode } from 'react';
+import './ValidationRow.css';
+import type { Row } from '@tanstack/react-table';
 import { mergePaths, usePath, useValidations } from '../../../../../context';
-import type { MessageRowProps, ReorderRowProps, SelectRowProps } from '../../../../widgets';
-import { MessageRow, SelectRow, SelectableReorderRow, styleMessageRow } from '../../../../widgets';
+import type { TableRow } from '@axonivy/ui-components';
+import { MessageRow, ReorderRow, SelectRow } from '@axonivy/ui-components';
+import type { ComponentPropsWithoutRef } from 'react';
+import { toMessageData, type ValidationMessage } from '../../../../widgets';
 
-type ValidationRowProps = {
+type ValidationProps<TData> = {
+  row: Row<TData>;
   rowPathSuffix: string | number;
-  children: ReactNode;
-  colSpan?: number;
-  title?: string;
+};
+
+type ValidationRowProps<TData> = ComponentPropsWithoutRef<typeof TableRow> & ValidationProps<TData>;
+
+const styleMessageRow = (validation?: ValidationMessage) => {
+  if (validation) {
+    return `row-${validation.severity.toLocaleLowerCase()}`;
+  }
+  return '';
 };
 
 const useValidationRow = (rowPathSuffix: string | number) => {
@@ -17,36 +27,28 @@ const useValidationRow = (rowPathSuffix: string | number) => {
   return validations.find(val => val.path === rowPath);
 };
 
-export const SelectableValidationRow = <TData extends object>({
-  rowPathSuffix,
-  children,
-  title,
-  row,
-  colSpan,
-  onDoubleClick
-}: ValidationRowProps & SelectRowProps<TData>) => {
-  const message = useValidationRow(rowPathSuffix);
+export const ValidationRow = <TData extends object>({ rowPathSuffix, row, ...props }: ValidationRowProps<TData>) => {
+  const validation = useValidationRow(rowPathSuffix);
   return (
     <>
-      <SelectRow row={row} onDoubleClick={onDoubleClick} title={title} className={styleMessageRow(message)}>
-        {children}
-      </SelectRow>
-      <MessageRow colSpan={colSpan ? colSpan : 2} message={message} />
+      <SelectRow row={row} {...props} className={styleMessageRow(validation)} />
+      <MessageRow columnCount={row.getVisibleCells().length} message={toMessageData(validation)} />
     </>
   );
 };
 
-type ValidationReorderRowProps<TData> = ValidationRowProps & ReorderRowProps & SelectRowProps<TData> & MessageRowProps;
+type ValidationReorderRowProps<TData> = ComponentPropsWithoutRef<typeof ReorderRow> & ValidationProps<TData>;
 
 export const ValidationSelectableReorderRow = <TData extends object>({
   rowPathSuffix,
-  children,
+  row,
   ...props
 }: ValidationReorderRowProps<TData>) => {
-  const message = useValidationRow(rowPathSuffix);
+  const validation = useValidationRow(rowPathSuffix);
   return (
-    <SelectableReorderRow message={message} {...props}>
-      {children}
-    </SelectableReorderRow>
+    <>
+      <ReorderRow row={row} {...props} className={styleMessageRow(validation)} />
+      <MessageRow columnCount={row.getVisibleCells().length} message={toMessageData(validation)} />
+    </>
   );
 };
