@@ -6,13 +6,13 @@ test.describe('Readonly', () => {
     const inscriptionView = await InscriptionView.mock(page);
     const name = inscriptionView.accordion('General');
     await name.toggle();
-    await name.textArea('Display name').expectEnabled();
+    await name.textArea({ label: 'Display name' }).expectEnabled();
   });
 
   test('readonly mode', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page, { readonly: true });
     const name = inscriptionView.accordion('General');
     await name.toggle();
-    await name.textArea('Display name').expectDisabled();
+    await name.textArea({ label: 'Display name' }).expectDisabled();
   });
 });

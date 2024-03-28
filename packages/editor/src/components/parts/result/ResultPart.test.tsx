@@ -51,7 +51,7 @@ describe('ResultPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { result: { code: 'code' } });
     assertState('configured', { result: { map: { key: 'value' } } });
     assertState('configured', { result: { params: [{ name: 'param', type: 'String', desc: 'desc' }] } });

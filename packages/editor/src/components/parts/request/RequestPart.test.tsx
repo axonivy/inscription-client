@@ -74,7 +74,7 @@ describe('RequestPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { request: { isHttpRequestable: false } });
     assertState('configured', { request: { isHttpRequestable: true, name: 'a' } });
     assertState('configured', { request: { isHttpRequestable: true, description: 'a' } });

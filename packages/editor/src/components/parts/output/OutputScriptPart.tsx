@@ -1,7 +1,7 @@
 import type { OutputData } from '@axonivy/inscription-protocol';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
-import { Checkbox, ScriptArea, useFieldset } from '../../widgets';
+import { Checkbox, ScriptArea } from '../../widgets';
 import { useOutputData } from './useOutputData';
 import { PathContext, useValidations } from '../../../context';
 import { PathFieldset } from '../common';
@@ -20,7 +20,6 @@ export function useOutputScriptPart(): PartProps {
 
 const OutputScriptPart = () => {
   const { config, update, updateSudo } = useOutputData();
-  const codeFieldset = useFieldset();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   const initHeight = useMemo(() => {
@@ -33,14 +32,13 @@ const OutputScriptPart = () => {
 
   return (
     <PathContext path='output'>
-      <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
+      <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
         <ScriptArea
           maximizeState={maximizeState}
           value={config.output.code}
           onChange={change => update('code', change)}
           browsers={['attr', 'func', 'type', 'cms']}
           initHeight={initHeight}
-          {...codeFieldset.inputProps}
         />
       </PathFieldset>
       <Checkbox label='Disable Permission Checks (Execute this Script Step as SYSTEM)' value={config.sudo} onChange={updateSudo} />

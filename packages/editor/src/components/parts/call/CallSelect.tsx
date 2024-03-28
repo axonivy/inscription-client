@@ -1,4 +1,4 @@
-import type { ComboboxItem, FieldsetInputProps } from '../../widgets';
+import type { ComboboxItem } from '../../widgets';
 import { Combobox, IvyIcon } from '../../widgets';
 import type { IvyIcons } from '@axonivy/ui-icons';
 import type { CallableStart } from '@axonivy/inscription-protocol';
@@ -11,10 +11,9 @@ type CallSelectProps = {
   onChange: (change: string) => void;
   starts: CallableStart[];
   startIcon: IvyIcons;
-  comboboxInputProps?: FieldsetInputProps;
 };
 
-const CallSelect = ({ start, onChange, starts, startIcon, comboboxInputProps }: CallSelectProps) => {
+const CallSelect = ({ start, onChange, starts, startIcon }: CallSelectProps) => {
   const items = useMemo<CallableStartItem[]>(
     () =>
       starts.map(start => {
@@ -58,7 +57,6 @@ const CallSelect = ({ start, onChange, starts, startIcon, comboboxInputProps }: 
       itemFilter={itemFilter}
       value={start}
       onChange={onChange}
-      {...comboboxInputProps}
       style={deprecatedSelection ? { textDecoration: 'line-through' } : {}}
     />
   );

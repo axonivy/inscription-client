@@ -4,7 +4,7 @@ import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useRestResponseData } from './useRestResponseData';
 import { MappingPart, PathFieldset } from '../common';
-import { Collapsible, ScriptArea, useFieldset } from '../../widgets';
+import { Collapsible, ScriptArea } from '../../widgets';
 import { RestError } from './rest-response/RestError';
 import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox';
 import { useRestEntityTypeMeta, useRestResourceMeta } from './useRestResourceMeta';
@@ -30,19 +30,16 @@ const RestResponsePart = () => {
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'response' }, { variables: [], types: {} });
   const resultTypes = useRestEntityTypeMeta('result');
   const showResultType = useShowResultTypeCombo(resultTypes, config.response.entity.type);
-  const typeFieldset = useFieldset();
-  const codeFieldset = useFieldset();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
   return (
     <PathContext path='response'>
       <PathContext path='entity'>
         {showResultType && (
-          <PathFieldset label='Read body as type (result variable)' {...typeFieldset.labelProps} path='type'>
+          <PathFieldset label='Read body as type (result variable)' path='type'>
             <RestEntityTypeCombobox
               value={config.response.entity.type}
               onChange={change => updateEntity('type', change)}
               items={resultTypes}
-              {...typeFieldset.inputProps}
             />
           </PathFieldset>
         )}
@@ -52,13 +49,12 @@ const RestResponsePart = () => {
           browsers={['attr', 'func', 'type']}
           onChange={change => updateEntity('map', change)}
         />
-        <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
+        <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
           <ScriptArea
             maximizeState={maximizeState}
             value={config.response.entity.code}
             onChange={change => updateEntity('code', change)}
             browsers={['attr', 'func', 'type']}
-            {...codeFieldset.inputProps}
           />
         </PathFieldset>
       </PathContext>

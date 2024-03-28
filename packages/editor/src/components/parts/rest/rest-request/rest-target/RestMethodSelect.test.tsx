@@ -24,7 +24,7 @@ describe('RestMethodSelect', () => {
 
   test('empty', async () => {
     renderMethodSelect();
-    expect(screen.getByLabelText('Resource')).toHaveValue('');
+    expect(screen.getByRole('textbox')).toHaveValue('');
     await SelectUtil.assertValue('GET');
     await SelectUtil.assertOptionsCount(Object.keys(HTTP_METHOD).length);
   });
@@ -36,7 +36,7 @@ describe('RestMethodSelect', () => {
 
   test('data', async () => {
     renderMethodSelect({ target: { path: '/my/rest/api' }, method: 'DELETE' });
-    expect(screen.getByLabelText('Resource')).toHaveValue('/my/rest/api');
+    expect(screen.getByRole('textbox')).toHaveValue('/my/rest/api');
     await SelectUtil.assertValue('DELETE');
   });
 

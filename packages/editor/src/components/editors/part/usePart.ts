@@ -1,9 +1,9 @@
 import type { InscriptionValidation } from '@axonivy/inscription-protocol';
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import { useMemo } from 'react';
 import { deepEqual } from '../../../utils/equals';
 
-export type PartStateFlag = 'empty' | 'configured' | 'warning' | 'error';
+export type PartStateFlag = 'configured' | 'warning' | 'error' | undefined;
 
 export type PartState = {
   state: PartStateFlag;
@@ -26,7 +26,7 @@ export function usePartState(defaultData: unknown, data: unknown, validations: I
     if (validations.find(message => message?.severity === 'WARNING')) {
       return 'warning';
     }
-    return deepEqual(data, defaultData) ? 'empty' : 'configured';
+    return deepEqual(data, defaultData) ? undefined : 'configured';
   }, [validations, data, defaultData]);
   return { state, validations };
 }

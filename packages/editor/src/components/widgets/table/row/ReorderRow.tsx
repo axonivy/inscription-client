@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import { useRef } from 'react';
 import type { TextDropItem } from 'react-aria';
 import { useDrag, useDrop } from 'react-aria';
-import type { MessageTextProps } from '../../message/Message';
 import { MessageRow, styleMessageRow, type MessageRowProps } from './MessageRow';
 import { SelectRow, type SelectRowProps } from './SelectRow';
 import IvyIcon from '../../IvyIcon';
@@ -25,7 +24,7 @@ export const SelectableReorderRow = <TData extends object>({
   title,
   onDoubleClick,
   ...props
-}: ReorderRowProps & MessageTextProps & SelectRowProps<TData> & MessageRowProps) => {
+}: ReorderRowProps & SelectRowProps<TData> & MessageRowProps) => {
   const DND_TYPE = 'text/id';
 
   const { dragProps, isDragging } = useDrag({

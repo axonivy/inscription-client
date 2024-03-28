@@ -49,7 +49,7 @@ describe('CasePart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { name: 'name' });
     assertState('configured', { description: 'des' });
     assertState('configured', { category: 'category' });

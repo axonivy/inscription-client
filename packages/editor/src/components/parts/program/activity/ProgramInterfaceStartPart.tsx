@@ -4,7 +4,7 @@ import type { PartProps } from '../../../editors';
 import { usePartDirty, usePartState } from '../../../editors';
 import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common';
 import { useProgramInterfaceStartData } from './useProgramInterfaceStartData';
-import { ScriptInput, useFieldset } from '../../../../components/widgets';
+import { ScriptInput } from '../../../../components/widgets';
 import { useValidations } from '../../../../context';
 import { deepEqual } from '../../../../utils/equals';
 import JavaClassSelector from '../JavaClassSelector';
@@ -26,10 +26,6 @@ export function useProgramInterfaceStartPart(options?: { thirdParty?: boolean })
 const ProgramInterfaceStartPart = ({ thirdParty }: { thirdParty?: boolean }) => {
   const { config, defaultConfig, update, updateTimeout } = useProgramInterfaceStartData();
 
-  const errorFieldset = useFieldset();
-  const timeoutSecondsFieldset = useFieldset();
-  const timeoutErrorFieldset = useFieldset();
-
   return (
     <>
       {(thirdParty === undefined || thirdParty === false) && (
@@ -37,32 +33,29 @@ const ProgramInterfaceStartPart = ({ thirdParty }: { thirdParty?: boolean }) => 
       )}
 
       <PathCollapsible label='Program' path='exceptionHandler' defaultOpen={config.exceptionHandler !== defaultConfig.exceptionHandler}>
-        <PathFieldset label='Error' path='error' {...errorFieldset.labelProps}>
+        <PathFieldset label='Error' path='error'>
           <ExceptionSelect
             value={config.exceptionHandler}
             onChange={change => update('exceptionHandler', change)}
             staticExceptions={[IVY_EXCEPTIONS.programException, IVY_EXCEPTIONS.ignoreException]}
-            inputProps={errorFieldset.inputProps}
           />
         </PathFieldset>
       </PathCollapsible>
 
       <PathCollapsible label='Timeout' path='timeout' defaultOpen={!deepEqual(config.timeout, defaultConfig.timeout)}>
-        <PathFieldset label='Seconds' {...timeoutSecondsFieldset.labelProps} path='seconds'>
+        <PathFieldset label='Seconds' path='seconds'>
           <ScriptInput
             value={config.timeout.seconds}
             onChange={change => updateTimeout('seconds', change)}
             type={IVY_SCRIPT_TYPES.DURATION}
             browsers={['attr', 'func', 'type']}
-            {...timeoutSecondsFieldset.inputProps}
           />
         </PathFieldset>
-        <PathFieldset label='Error' path='error' {...timeoutErrorFieldset.labelProps}>
+        <PathFieldset label='Error' path='error'>
           <ExceptionSelect
             value={config.timeout.error}
             onChange={change => updateTimeout('error', change)}
             staticExceptions={[IVY_EXCEPTIONS.programTimeout, IVY_EXCEPTIONS.ignoreException]}
-            inputProps={timeoutErrorFieldset.inputProps}
           />
         </PathFieldset>
       </PathCollapsible>

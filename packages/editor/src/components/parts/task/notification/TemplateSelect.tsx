@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import type { SelectItem } from '../../../widgets';
-import { Select, useFieldset } from '../../../widgets';
+import { Select } from '../../../widgets';
 import { PathFieldset } from '../../common';
 import { useTemplates } from './useTemplates';
 import type { WfNotification } from '@axonivy/inscription-protocol';
@@ -11,18 +11,11 @@ const TemplateSelect = ({ notification, onChange }: { notification: WfNotificati
     () => templates.find(e => e.value === notification.template) ?? { value: notification.template, label: notification.template },
     [notification.template, templates]
   );
-  const selectFieldset = useFieldset();
 
   return (
-    <PathFieldset label='Template' {...selectFieldset.labelProps} path='template'>
+    <PathFieldset label='Template' path='template'>
       <div className='template-select'>
-        <Select
-          value={selectedTemplate}
-          items={templates}
-          onChange={onChange}
-          disabled={notification.suppress}
-          inputProps={selectFieldset.inputProps}
-        />
+        <Select value={selectedTemplate} items={templates} onChange={onChange} disabled={notification.suppress} />
       </div>
     </PathFieldset>
   );

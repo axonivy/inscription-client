@@ -17,12 +17,12 @@ describe('WsPortSelect', () => {
   test('unknown', async () => {
     renderPart({ operation: { port: 'unknown' } });
     await SelectUtil.assertValue('unknown');
-    await SelectUtil.assertOptionsCount(3);
+    await SelectUtil.assertOptionsCount(4);
   });
 
   test('data', async () => {
     renderPart({ operation: { port: 'name' } });
     await SelectUtil.assertValue('name');
-    await SelectUtil.assertOptionsCount(3);
+    await SelectUtil.assertOptionsCount(4);
   });
 });

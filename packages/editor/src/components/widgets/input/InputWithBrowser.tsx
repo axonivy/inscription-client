@@ -1,26 +1,23 @@
-import './Input.css';
 import type { BrowserType } from '../../../components/browser';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
-import type { ComponentProps } from 'react';
-import Input from './Input';
+import Input, { type InputProps } from './Input';
 import type { BrowserValue } from '../../browser/Browser';
 import type { CmsTypeFilter } from '../../browser/cms/CmsBrowser';
+import { InputGroup } from '@axonivy/ui-components';
 
-type InputWithBrowserProps = Omit<ComponentProps<'input'>, 'value' | 'onChange' | 'ref'> & {
-  value?: string;
-  onChange: (change: string) => void;
+type InputWithBrowserProps = InputProps & {
   browsers: BrowserType[];
   typeFilter: CmsTypeFilter;
 };
 
-const InputWithBrowser = ({ value, onChange, disabled, browsers, typeFilter, ...props }: InputWithBrowserProps) => {
+const InputWithBrowser = ({ onChange, browsers, typeFilter, ...props }: InputWithBrowserProps) => {
   const browser = useBrowser();
   const path = usePath();
 
   return (
-    <div className='input-with-browser'>
-      <Input value={value as string} onChange={onChange} disabled={disabled} {...props} />
+    <InputGroup>
+      <Input onChange={onChange} {...props} />
       <Browser
         {...browser}
         types={browsers}
@@ -28,7 +25,7 @@ const InputWithBrowser = ({ value, onChange, disabled, browsers, typeFilter, ...
         accept={(change: BrowserValue) => onChange(change.cursorValue)}
         location={path}
       />
-    </div>
+    </InputGroup>
   );
 };
 
