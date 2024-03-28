@@ -1,5 +1,5 @@
 import { IvyScriptLanguage } from '@axonivy/inscription-core';
-import { App, ClientContextProvider, MonacoEditorUtil, QueryProvider, initQueryClient } from '@axonivy/inscription-editor';
+import { App, AppStateView, ClientContextProvider, MonacoEditorUtil, QueryProvider, initQueryClient } from '@axonivy/inscription-editor';
 import { ThemeProvider } from '@axonivy/ui-components';
 import type { InscriptionClient } from '@axonivy/inscription-protocol';
 import type { QueryClient } from '@tanstack/react-query';
@@ -39,5 +39,9 @@ export function LazyApp(props: LazyAppProps) {
       </React.StrictMode>
     );
   }
-  return <div className='loader' />;
+  return (
+    <AppStateView>
+      <div className='loader' />
+    </AppStateView>
+  );
 }

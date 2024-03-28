@@ -1,26 +1,6 @@
-:root {
-  /* ------all colors------*/
-  --A50: #e6f1f5;
-  --A300: #007095;
-  --A400: #004e69;
-
-  /* ------borders------*/
-  --seperator-border: var(--basic-border);
-
-  /* ------sizes------*/
-  --border-padding: 20px;
-  --tree-gap: calc((20px + var(--size-1)));
-}
-
 .editor-root {
   background: var(--background);
   height: 100%;
-}
-
-.editor-root[data-theme='dark'] {
-  --A50: var(--A400);
-
-  --seperator-border: var(--basic-border);
 }
 
 .editor-state {
@@ -33,9 +13,6 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  position: relative;
-  top: 50%;
-  left: 50%;
   animation: rotate 1s linear infinite;
 }
 
