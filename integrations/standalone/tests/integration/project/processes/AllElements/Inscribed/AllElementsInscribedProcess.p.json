@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.3.0/process.json",
   "id" : "16C51F1EE34D5EF5",
   "config" : {
     "data" : "screenshot.project.Order"
@@ -158,7 +158,7 @@
       },
       "visual" : {
         "at" : { "x" : 616, "y" : 64 },
-        "size" : { "width" : 160, "height" : 60 },
+        "size" : { "width" : 160 },
         "description" : "Verify that customer exists and that order is real."
       },
       "connect" : [
@@ -180,7 +180,7 @@
       },
       "visual" : {
         "at" : { "x" : 936, "y" : 320 },
-        "size" : { "width" : 128, "height" : 60 },
+        "size" : { "width" : 128 },
         "description" : "Discount is calculated on basis of unit price and quantity"
       },
       "connect" : [
@@ -195,7 +195,7 @@
       },
       "visual" : {
         "at" : { "x" : 936, "y" : 424 },
-        "labelOffset" : { "x" : 15, "y" : 37 }
+        "labelOffset" : { "y" : 37 }
       }
     }, {
       "id" : "f25",

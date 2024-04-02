@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.3.0/process.json",
   "id" : "159FF3D428E42BB5",
   "config" : {
     "data" : "com.axonivy.JaxRsServiceCallData"
@@ -138,7 +138,7 @@
       },
       "visual" : {
         "at" : { "x" : 226, "y" : 156 },
-        "size" : { "width" : 128, "height" : 60 }
+        "size" : { "width" : 128 }
       },
       "connect" : [
         { "id" : "f41", "to" : "f37" }
@@ -204,7 +204,7 @@
       },
       "visual" : {
         "at" : { "x" : 221, "y" : 240 },
-        "size" : { "width" : 128, "height" : 60 }
+        "size" : { "width" : 128 }
       },
       "connect" : [
         { "id" : "f8", "to" : "f6" }

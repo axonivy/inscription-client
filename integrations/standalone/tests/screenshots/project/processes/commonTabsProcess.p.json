@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.2.2/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.3.0/process.json",
   "id" : "168F0C6DF682858E",
   "config" : {
     "data" : "ch.ivyteam.documentation.project.AddContactData"
@@ -53,7 +53,7 @@
       ],
       "visual" : {
         "at" : { "x" : 224, "y" : 64 },
-        "size" : { "width" : 192, "height" : 60 },
+        "size" : { "width" : 192 },
         "description" : [
           "Checks if user id `userid` exists:",
           "- If `true` then the user id is transformed into user name, user address and user location.",
