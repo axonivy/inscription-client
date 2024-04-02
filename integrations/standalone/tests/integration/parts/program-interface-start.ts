@@ -101,7 +101,7 @@ class RuleInterfaceStart extends PartObject {
   async clear() {
     await this.errorProgram.choose('ivy:error:program:exception');
 
-    await this.seconds.fill('0');
+    await this.seconds.fill('');
     await this.errorTimeout.choose('ivy:error:program:timeout');
   }
 
