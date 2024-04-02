@@ -7,7 +7,9 @@ test.describe('Mappings', () => {
     const callPart = inscriptionView.accordion('Call');
     await callPart.toggle();
 
-    const dialogCombo = callPart.combobox('Dialog');
+    const dialogSection = callPart.section('Dialog');
+    await dialogSection.open();
+    const dialogCombo = dialogSection.combobox();
     await dialogCombo.choose('AcceptRequest');
     const callTable = callPart.table(['text', 'label', 'expression']);
     await callTable.expectRowCount(11);
@@ -21,6 +23,7 @@ test.describe('Mappings', () => {
     const resultPart = inscriptionView.accordion('Result');
     await resultPart.toggle();
 
+    await resultPart.section('Mapping').open();
     const resultTable = resultPart.table(['text', 'label', 'expression']);
     await resultTable.expectRowCount(1);
 

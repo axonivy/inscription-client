@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, screen, renderHook } from 'test-utils';
+import { render, screen, renderHook, CollapsableUtil } from 'test-utils';
 import { useScriptPart } from './ScriptPart';
 import type { PartStateFlag } from '../../editors';
 import type { ScriptData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
@@ -16,12 +16,12 @@ describe('ScriptPart', () => {
   }
 
   async function assertMainPart(code: string) {
-    expect(await screen.findByLabelText('Code')).toHaveValue(code);
+    expect(await screen.findByTestId('code-editor')).toHaveValue(code);
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('');
+    await CollapsableUtil.assertClosed('Code');
   });
 
   test('full data', async () => {

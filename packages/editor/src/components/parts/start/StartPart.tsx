@@ -4,7 +4,7 @@ import { usePartDirty, usePartState } from '../../editors';
 import { useStartData } from './useStartData';
 import type { StartData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { MappingPart, ParameterTable, PathFieldset } from '../common';
+import { MappingPart, ParameterTable, PathCollapsible, ValidationFieldset } from '../common';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
@@ -30,7 +30,7 @@ export function useStartPart(props?: StartPartProps): PartProps {
 }
 
 const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
-  const { config, updateSignature, update } = useStartData(synchParams);
+  const { config, defaultConfig, updateSignature, update } = useStartData(synchParams);
 
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'input' }, { variables: [], types: {} });
@@ -39,9 +39,11 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
 
   return (
     <>
-      <PathFieldset label='Signature' path='signature'>
-        <Input value={config.signature} onChange={change => updateSignature(change)} />
-      </PathFieldset>
+      <PathCollapsible label='Signature' path='signature' defaultOpen={config.signature !== defaultConfig.signature}>
+        <ValidationFieldset>
+          <Input value={config.signature} onChange={change => updateSignature(change)} />
+        </ValidationFieldset>
+      </PathCollapsible>
       <PathContext path='input'>
         <ParameterTable
           label='Input parameters'
@@ -55,14 +57,16 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
           onChange={change => update('map', change)}
           browsers={['attr', 'func', 'type']}
         />
-        <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
-          <ScriptArea
-            maximizeState={maximizeState}
-            value={config.input.code}
-            onChange={change => update('code', change)}
-            browsers={['attr', 'func', 'type']}
-          />
-        </PathFieldset>
+        <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.input.code !== defaultConfig.input.code}>
+          <ValidationFieldset>
+            <ScriptArea
+              maximizeState={maximizeState}
+              value={config.input.code}
+              onChange={change => update('code', change)}
+              browsers={['attr', 'func', 'type']}
+            />
+          </ValidationFieldset>
+        </PathCollapsible>
       </PathContext>
     </>
   );

@@ -6,6 +6,7 @@ import type { TextArea } from '../../pageobjects/TextArea';
 import { NewPartTest, PartObject } from './part-tester';
 
 class General extends PartObject {
+  nameSection: Section;
   displayName: TextArea;
   description: TextArea;
   meansDocumentsSection: Section;
@@ -15,8 +16,9 @@ class General extends PartObject {
 
   constructor(part: Part, private readonly hasTags: boolean, private readonly nameDisabled?: boolean) {
     super(part);
-    this.displayName = part.textArea({ label: 'Display name' });
-    this.description = part.textArea({ label: 'Description' });
+    this.nameSection = part.section('Name / Description');
+    this.displayName = this.nameSection.textArea({ label: 'Display name' });
+    this.description = this.nameSection.textArea({ label: 'Description' });
     this.meansDocumentsSection = part.section('Means / Documents');
     this.documents = this.meansDocumentsSection.table(['text', 'text']);
     this.tagsSection = part.section('Tags');
@@ -24,6 +26,7 @@ class General extends PartObject {
   }
 
   async fill() {
+    await this.nameSection.open();
     if (!this.nameDisabled) {
       await this.displayName.fill('test name');
     }
@@ -60,9 +63,10 @@ class General extends PartObject {
   }
   async assertClear() {
     if (!this.nameDisabled) {
-      await this.displayName.expectEmpty();
+      await this.nameSection.expectIsClosed();
+    } else {
+      await this.nameSection.expectIsOpen();
     }
-    await this.description.expectEmpty();
     await this.meansDocumentsSection.expectIsClosed();
     if (this.hasTags) {
       await this.tags.expectEmpty();

@@ -1,18 +1,20 @@
 import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 import type { Checkbox } from '../../pageobjects/Checkbox';
+import type { Section } from '../../pageobjects/Section';
 
 class Permissions extends PartObject {
+  section: Section;
   viewable: Checkbox;
-  defaultIsChecked: boolean;
 
-  constructor(part: Part, defaultIsChecked: boolean) {
+  constructor(part: Part, readonly defaultIsChecked: boolean) {
     super(part);
-    this.viewable = part.checkbox('Allow all workflow users to view the process on the Engine');
-    this.defaultIsChecked = defaultIsChecked;
+    this.section = part.section('Permissions');
+    this.viewable = this.section.checkbox('Allow all workflow users to view the process on the Engine');
   }
 
   async fill() {
+    await this.section.open();
     await this.viewable.click();
   }
 
@@ -29,11 +31,7 @@ class Permissions extends PartObject {
   }
 
   async assertClear() {
-    if (this.defaultIsChecked) {
-      await this.viewable.expectChecked();
-    } else {
-      await this.viewable.expectUnchecked();
-    }
+    await this.section.expectIsClosed();
   }
 }
 

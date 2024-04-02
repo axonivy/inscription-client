@@ -6,8 +6,11 @@ import type { ScriptArea } from '../../pageobjects/CodeEditor';
 import type { Combobox } from '../../pageobjects/Combobox';
 
 class RestResponse extends PartObject {
+  typeSection: Section;
   type: Combobox;
+  mappingSection: Section;
   mapping: Table;
+  codeSection: Section;
   code: ScriptArea;
   errorSection: Section;
   clientError: Combobox;
@@ -15,17 +18,23 @@ class RestResponse extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.type = part.combobox('Read body as type (result variable)');
-    this.mapping = part.table(['label', 'expression']);
-    this.code = part.scriptArea();
+    this.typeSection = part.section('Result Type');
+    this.type = this.typeSection.combobox('Read body as type (result variable)');
+    this.mappingSection = part.section('Mapping');
+    this.mapping = this.mappingSection.table(['label', 'expression']);
+    this.codeSection = part.section('Code');
+    this.code = this.codeSection.scriptArea();
     this.errorSection = part.section('Error');
     this.clientError = this.errorSection.combobox('On Error (Connection, Timeout, etc.)');
     this.statusError = this.errorSection.combobox('On Status Code not successful (2xx)');
   }
 
   async fill() {
+    await this.typeSection.open();
     await this.type.fill('type');
+    await this.mappingSection.open();
     await this.mapping.row(1).column(1).fill('"bla"');
+    await this.codeSection.open();
     await this.code.fill('code');
     await this.errorSection.toggle();
     await this.clientError.choose('>> Ignore error');
@@ -50,9 +59,9 @@ class RestResponse extends PartObject {
   }
 
   async assertClear() {
-    await this.type.expectValue('');
-    await this.mapping.row(1).column(1).expectValue('');
-    await this.code.expectValue('');
+    await this.typeSection.expectIsClosed();
+    await this.mappingSection.expectIsClosed();
+    await this.codeSection.expectIsClosed();
     await this.errorSection.expectIsClosed();
   }
 }

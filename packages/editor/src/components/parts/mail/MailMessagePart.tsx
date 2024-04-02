@@ -6,7 +6,7 @@ import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/inscription-protocol';
 import { MAIL_TYPE } from '@axonivy/inscription-protocol';
 import { useValidations } from '../../../context';
-import { PathFieldset } from '../common';
+import { PathFieldset, ValidationCollapsible } from '../common';
 import { useMemo } from 'react';
 
 export function useMailMessagePart(): PartProps {
@@ -19,11 +19,11 @@ export function useMailMessagePart(): PartProps {
 }
 
 const MailMessagePart = () => {
-  const { config, updateMessage } = useMailData();
+  const { config, defaultConfig, updateMessage } = useMailData();
   const typeItems = useMemo<SelectItem[]>(() => Object.values(MAIL_TYPE).map(value => ({ label: value, value })), []);
 
   return (
-    <>
+    <ValidationCollapsible label='Content' defaultOpen={config.message.body !== defaultConfig.message.body}>
       <PathFieldset label='Message' path='message'>
         <MacroArea value={config.message.body} onChange={change => updateMessage('body', change)} browsers={['attr', 'func', 'cms']} />
       </PathFieldset>
@@ -34,6 +34,6 @@ const MailMessagePart = () => {
           onChange={change => updateMessage('contentType', change.value)}
         />
       </Fieldset>
-    </>
+    </ValidationCollapsible>
   );
 };

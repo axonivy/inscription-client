@@ -5,7 +5,7 @@ import { usePartDirty, usePartState } from '../../editors';
 import { useResultData } from './useResultData';
 import type { ResultData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { MappingPart, ParameterTable, PathFieldset } from '../common';
+import { MappingPart, ParameterTable, PathCollapsible, ValidationFieldset } from '../common';
 import { useQueryClient } from '@tanstack/react-query';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
@@ -24,7 +24,7 @@ export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
 }
 
 const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
-  const { config, update } = useResultData();
+  const { config, defaultConfig, update } = useResultData();
 
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'result' }, { variables: [], types: {} });
@@ -49,14 +49,16 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
         onChange={change => update('map', change)}
         browsers={['attr', 'func', 'type']}
       />
-      <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
-        <ScriptArea
-          maximizeState={maximizeState}
-          value={config.result.code}
-          onChange={change => update('code', change)}
-          browsers={['attr', 'func', 'type']}
-        />
-      </PathFieldset>
+      <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.result.code !== defaultConfig.result.code}>
+        <ValidationFieldset>
+          <ScriptArea
+            maximizeState={maximizeState}
+            value={config.result.code}
+            onChange={change => update('code', change)}
+            browsers={['attr', 'func', 'type']}
+          />
+        </ValidationFieldset>
+      </PathCollapsible>
     </PathContext>
   );
 };

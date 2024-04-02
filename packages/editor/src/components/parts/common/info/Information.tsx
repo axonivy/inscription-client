@@ -6,6 +6,7 @@ import type { SchemaKeys, SchemaPath, WorkflowType } from '@axonivy/inscription-
 import { IvyIcons } from '@axonivy/ui-icons';
 import ClassificationCombobox, { type ClassifiedItem } from '../classification/ClassificationCombobox';
 import { classifiedItemInfo } from '../../../../utils/event-code-categorie';
+import { ValidationCollapsible } from '../path/validation/ValidationCollapsible';
 
 type InformationConfig = {
   name: string;
@@ -15,6 +16,7 @@ type InformationConfig = {
 
 type InformationProps<T> = {
   config: InformationConfig;
+  defaultConfig: InformationConfig;
   update: DataUpdater<T>;
 };
 
@@ -32,7 +34,7 @@ const toWorkflowType = (path: '' | SchemaPath | SchemaKeys): WorkflowType => {
   return '' as WorkflowType;
 };
 
-const Information = <T extends InformationConfig>({ config, update }: InformationProps<T>) => {
+const Information = <T extends InformationConfig>({ config, defaultConfig, update }: InformationProps<T>) => {
   const { context } = useEditorContext();
   const path = usePath();
   const openAction = useAction('openOrCreateCmsCategory');
@@ -45,7 +47,12 @@ const Information = <T extends InformationConfig>({ config, update }: Informatio
   ];
 
   return (
-    <>
+    <ValidationCollapsible
+      label='Details'
+      defaultOpen={
+        config.name !== defaultConfig.name || config.description !== defaultConfig.description || config.category !== defaultConfig.category
+      }
+    >
       <PathFieldset label='Name' path='name'>
         <MacroInput value={config.name} browsers={['attr', 'func', 'cms']} onChange={change => update('name', change)} />
       </PathFieldset>
@@ -65,7 +72,7 @@ const Information = <T extends InformationConfig>({ config, update }: Informatio
           withBrowser={true}
         />
       </PathFieldset>
-    </>
+    </ValidationCollapsible>
   );
 };
 

@@ -5,7 +5,7 @@ import { useEndPageData } from './useEndPageData';
 import type { EndPageData } from '@axonivy/inscription-protocol';
 import { useAction, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { PathFieldset } from '../common';
+import { PathCollapsible, ValidationFieldset } from '../common';
 import InputWithBrowser from '../../../components/widgets/input/InputWithBrowser';
 
 export function useEndPagePart(): PartProps {
@@ -18,13 +18,15 @@ export function useEndPagePart(): PartProps {
 }
 
 const EndPagePart = () => {
-  const { config, update } = useEndPageData();
+  const { config, defaultConfig, update } = useEndPageData();
 
   const action = useAction('openEndPage');
   const openFile: FieldsetControl = { label: 'Open file', icon: IvyIcons.GoToSource, action: () => action(config.page) };
   return (
-    <PathFieldset label='Display the following page' controls={[openFile]} path='page'>
-      <InputWithBrowser browsers={['cms']} typeFilter={'FILE'} value={config.page} onChange={change => update('page', change)} />
-    </PathFieldset>
+    <PathCollapsible label='End Page' controls={[openFile]} path='page' defaultOpen={config.page !== defaultConfig.page}>
+      <ValidationFieldset>
+        <InputWithBrowser browsers={['cms']} typeFilter={'FILE'} value={config.page} onChange={change => update('page', change)} />
+      </ValidationFieldset>
+    </PathCollapsible>
   );
 };

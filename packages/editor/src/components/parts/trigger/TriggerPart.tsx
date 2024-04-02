@@ -1,4 +1,4 @@
-import { Checkbox, Collapsible, ScriptInput } from '../../widgets';
+import { Checkbox, ScriptInput } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useTriggerData } from './useTriggerData';
@@ -6,7 +6,7 @@ import type { TriggerData } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import ResponsibleSelect from '../common/responsible/ResponsibleSelect';
-import { PathFieldset } from '../common';
+import { PathFieldset, ValidationCollapsible } from '../common';
 
 export function useTriggerPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useTriggerData();
@@ -19,7 +19,7 @@ export function useTriggerPart(): PartProps {
 }
 
 const TriggerPart = () => {
-  const { config, update, updateResponsible, updateDelay, updateAttach } = useTriggerData();
+  const { config, defaultConfig, update, updateResponsible, updateDelay, updateAttach } = useTriggerData();
 
   return (
     <>
@@ -30,8 +30,12 @@ const TriggerPart = () => {
       />
       {config.triggerable && (
         <PathContext path='task'>
-          <ResponsibleSelect responsible={config.task.responsible} updateResponsible={updateResponsible} />
-          <Collapsible label='Options' defaultOpen={!config.case.attachToBusinessCase || config.task.delay.length > 0}>
+          <ResponsibleSelect
+            responsible={config.task.responsible}
+            defaultResponsible={defaultConfig.task.responsible}
+            updateResponsible={updateResponsible}
+          />
+          <ValidationCollapsible label='Options' defaultOpen={!config.case.attachToBusinessCase || config.task.delay.length > 0}>
             <Checkbox
               value={config.case.attachToBusinessCase}
               onChange={change => updateAttach(change)}
@@ -45,7 +49,7 @@ const TriggerPart = () => {
                 browsers={['attr', 'func', 'type']}
               />
             </PathFieldset>
-          </Collapsible>
+          </ValidationCollapsible>
         </PathContext>
       )}
     </>

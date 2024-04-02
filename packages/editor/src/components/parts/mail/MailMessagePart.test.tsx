@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { SelectUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
 import type { MailData } from '@axonivy/inscription-protocol';
 import { MAIL_TYPE } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
@@ -23,7 +23,7 @@ describe('MailMessagePart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await assertPage();
+    await CollapsableUtil.assertClosed('Content');
   });
 
   test('full data', async () => {

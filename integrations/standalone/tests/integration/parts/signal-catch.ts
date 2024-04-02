@@ -3,20 +3,24 @@ import { NewPartTest, PartObject } from './part-tester';
 import type { Combobox } from '../../pageobjects/Combobox';
 import type { Checkbox } from '../../pageobjects/Checkbox';
 import type { MacroEditor } from '../../pageobjects/CodeEditor';
+import type { Section } from '../../pageobjects/Section';
 
 class SignalCatch extends PartObject {
+  section: Section;
   signal: Combobox;
   signalMacro: MacroEditor;
   attach: Checkbox;
 
   constructor(part: Part, private readonly makroSupport: boolean = false) {
     super(part);
-    this.signal = part.combobox('Signal Code');
-    this.signalMacro = part.macroInput('Signal Code');
-    this.attach = part.checkbox('Attach to Business Case that signaled this process');
+    this.section = part.section('Signal Code');
+    this.signal = this.section.combobox();
+    this.signalMacro = this.section.macroInput();
+    this.attach = this.section.checkbox('Attach to Business Case that signaled this process');
   }
 
   async fill() {
+    await this.section.open();
     if (!this.makroSupport) {
       await this.signal.fill('test:signal');
       await this.attach.click();
@@ -44,12 +48,7 @@ class SignalCatch extends PartObject {
   }
 
   async assertClear() {
-    if (!this.makroSupport) {
-      await this.signal.expectValue('');
-      await this.attach.expectChecked();
-    } else {
-      await this.signalMacro.expectEmpty();
-    }
+    await this.section.expectIsClosed();
   }
 }
 

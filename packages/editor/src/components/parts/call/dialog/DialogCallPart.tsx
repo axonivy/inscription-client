@@ -8,7 +8,7 @@ import { useCallData, useDialogCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from '../../../../components/widgets';
-import { PathFieldset } from '../../common';
+import { PathCollapsible, ValidationFieldset } from '../../common';
 
 export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
   const callData = useCallData();
@@ -31,7 +31,7 @@ export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
 }
 
 const DialogCallPart = ({ offline }: { offline?: boolean }) => {
-  const { config, update } = useDialogCallData();
+  const { config, defaultConfig, update } = useDialogCallData();
 
   const { context } = useEditorContext();
   const { data: startItems } = useMeta('meta/start/dialogs', { context, supportOffline: offline ?? false }, []);
@@ -45,14 +45,16 @@ const DialogCallPart = ({ offline }: { offline?: boolean }) => {
   const createDialog: FieldsetControl = { label: 'Create new Html Dialog', icon: IvyIcons.Plus, action: () => action() };
   return (
     <>
-      <PathFieldset label='Dialog' controls={[createDialog]} path='dialog'>
-        <CallSelect
-          start={config.dialog}
-          onChange={change => update('dialog', change)}
-          starts={startItems}
-          startIcon={IvyIcons.InitStart}
-        />
-      </PathFieldset>
+      <PathCollapsible label='Dialog' controls={[createDialog]} defaultOpen={config.dialog !== defaultConfig.dialog} path='dialog'>
+        <ValidationFieldset>
+          <CallSelect
+            start={config.dialog}
+            onChange={change => update('dialog', change)}
+            starts={startItems}
+            startIcon={IvyIcons.InitStart}
+          />
+        </ValidationFieldset>
+      </PathCollapsible>
       <CallMapping variableInfo={variableInfo} />
     </>
   );

@@ -11,9 +11,9 @@ import type { MacroEditor, ScriptInput } from '../../pageobjects/CodeEditor';
 class TablePart extends PartObject {
   table: Combobox;
 
-  constructor(part: Part) {
+  constructor(part: Part, section: Section) {
     super(part);
-    this.table = part.combobox('Table');
+    this.table = section.combobox('Table');
   }
 
   async fill(): Promise<void> {
@@ -210,7 +210,7 @@ class ErrorPart extends PartObject {
   constructor(part: Part) {
     super(part);
     this.section = part.section('Error');
-    this.error = this.section.select();
+    this.error = this.section.select({});
   }
 
   async fill(): Promise<void> {
@@ -231,6 +231,7 @@ class ErrorPart extends PartObject {
 }
 
 class Query extends PartObject {
+  databaseSection: Section;
   kind: Select;
   database: Select;
   table: TablePart;
@@ -244,9 +245,10 @@ class Query extends PartObject {
 
   constructor(part: Part, private readonly queryKind: QueryKind) {
     super(part);
-    this.kind = part.select('Query Kind');
-    this.database = part.select('Database');
-    this.table = new TablePart(part);
+    this.databaseSection = part.section('Database');
+    this.kind = this.databaseSection.select({ label: 'Query Kind' });
+    this.database = this.databaseSection.select({ label: 'Database' });
+    this.table = new TablePart(part, this.databaseSection);
     this.definition = new DefinitionPart(part);
     this.readFields = new FieldsReadPart(part);
     this.fields = new FieldsPart(part);
@@ -272,6 +274,7 @@ class Query extends PartObject {
   }
 
   async fill() {
+    await this.databaseSection.open();
     await this.kind.choose(this.queryKind);
     await this.database.choose('IvySystemDatabase');
     for (const test of this.tests()) {

@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, InscriptionValidation, ProcessDataData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useProcessDataPart } from './ProcessDataPart';
@@ -19,14 +19,14 @@ describe('ProcessDataPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    expect(screen.getByLabelText('Data Class')).toHaveValue('');
+    await CollapsableUtil.assertClosed('Data Class');
   });
 
   test('full data', async () => {
     renderPart({
       data: 'screenshot.project.Order'
     });
-    expect(screen.getByLabelText('Data Class')).toHaveValue('screenshot.project.Order');
+    expect(screen.getByRole('combobox')).toHaveValue('screenshot.project.Order');
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProcessDataData>, validation?: InscriptionValidation) {

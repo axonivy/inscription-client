@@ -1,14 +1,15 @@
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { ScriptInput } from '../../widgets';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
+import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ErrorThrowData } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import type { ClassifiedItem } from '../common';
-import { ClassificationCombobox, PathFieldset } from '../common';
+import { ClassificationCombobox, PathCollapsible, PathFieldset } from '../common';
 import { useErrorThrowData } from './useErrorThrowData';
 import { classifiedItemInfo } from '../../../utils/event-code-categorie';
+import { deepEqual } from '../../../utils/equals';
 
 export function useErrorThrowPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useErrorThrowData();
@@ -25,7 +26,7 @@ export function useErrorThrowPart(): PartProps {
 }
 
 const ErrorThrowPart = () => {
-  const { config, update } = useErrorThrowData();
+  const { config, defaultConfig, update } = useErrorThrowData();
   const { context } = useEditorContext();
   const errorCodes = [
     ...useMeta('meta/workflow/errorCodes', { context, thrower: true }, []).data.map<ClassifiedItem>(code => {
@@ -34,7 +35,7 @@ const ErrorThrowPart = () => {
   ];
 
   return (
-    <PathContext path='throws'>
+    <PathCollapsible label='Error' path='throws' defaultOpen={!deepEqual(config.throws, defaultConfig.throws)}>
       <PathFieldset label='Error Code to throw' path='error'>
         <ClassificationCombobox
           value={config.throws.error}
@@ -51,6 +52,6 @@ const ErrorThrowPart = () => {
           browsers={['attr', 'func', 'type']}
         />
       </PathFieldset>
-    </PathContext>
+    </PathCollapsible>
   );
 };

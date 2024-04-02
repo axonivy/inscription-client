@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { ComboboxUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, SignalCatchData } from '@axonivy/inscription-protocol';
 import { useSignalCatchPart } from './SignalCatchPart';
 import type { PartStateFlag } from '../../editors';
@@ -11,26 +11,24 @@ const Part = (props: { makroSupport?: boolean }) => {
 };
 
 describe('SignalCatchPart', () => {
-  function renderPart(data?: SignalCatchData, makroSupport?: boolean) {
+  function renderPart(data?: Partial<SignalCatchData>, makroSupport?: boolean) {
     render(<Part makroSupport={makroSupport} />, { wrapperProps: { data: data && { config: data } } });
   }
 
   test('empty data', async () => {
     renderPart();
-    await ComboboxUtil.assertEmpty({ label: 'Signal Code' });
-    await ComboboxUtil.assertOptionsCount(1);
-    expect(await screen.findByLabelText(/Attach to Business Case/)).toBeChecked();
+    await CollapsableUtil.assertClosed('Signal Code');
   });
 
   test('boundary', async () => {
-    renderPart(undefined, true);
-    await ComboboxUtil.assertEmpty({ label: 'Signal Code' });
+    renderPart({ signalCode: 'test:code' }, true);
+    await ComboboxUtil.assertValue('test:code', { nth: 0 });
     expect(screen.queryByText(/Attach to Business Case/)).not.toBeInTheDocument();
   });
 
   test('full data', async () => {
     renderPart({ signalCode: 'test:code', attachToBusinessCase: false });
-    await ComboboxUtil.assertValue('test:code', { label: 'Signal Code' });
+    await ComboboxUtil.assertValue('test:code', { nth: 0 });
     expect(await screen.findByLabelText(/Attach to Business Case/)).not.toBeChecked();
   });
 

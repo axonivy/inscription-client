@@ -7,10 +7,10 @@ import TaskCode from '../code/TaskCode';
 import CustomFieldTable from '../../common/customfield/CustomFieldTable';
 
 const RequestTask = () => {
-  const { task, update, updatePriority } = useTaskData();
+  const { task, defaultTask, update, updatePriority } = useTaskData();
   return (
     <>
-      <Information config={task} update={update} />
+      <Information config={task} defaultConfig={defaultTask} update={update} />
       <PrioritySelect priority={task.priority} updatePriority={updatePriority} />
       <PersistOptions />
       <ExpiryPart />

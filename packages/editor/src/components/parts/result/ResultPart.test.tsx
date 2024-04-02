@@ -24,12 +24,14 @@ describe('ResultPart', () => {
       TableUtil.assertRows(params, 1);
       TableUtil.assertRows(map, 3);
     }
-    expect(await screen.findByLabelText('Code')).toHaveValue(code);
+    expect(await screen.findByTestId('code-editor')).toHaveValue(code);
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart([], [], '');
+    await CollapsableUtil.assertClosed('Result parameters');
+    await CollapsableUtil.assertClosed('Mapping');
+    await CollapsableUtil.assertClosed('Code');
   });
 
   test('full data', async () => {

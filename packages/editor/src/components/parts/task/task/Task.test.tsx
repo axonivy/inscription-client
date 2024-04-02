@@ -12,8 +12,8 @@ describe('Task', () => {
     expect(screen.getByLabelText('Name')).toHaveValue(name);
     expect(screen.getByLabelText('Description')).toHaveValue(description);
     expect(screen.getByLabelText('Category')).toHaveValue(category);
-    await SelectUtil.assertValue(responsible, { label: 'Responsible' });
-    await SelectUtil.assertValue(priority, { label: 'Priority' });
+    await SelectUtil.assertValue(responsible, { index: 0 });
+    await SelectUtil.assertValue(priority, { index: 1 });
 
     if (code) {
       await CollapsableUtil.assertOpen('Code');
@@ -25,14 +25,18 @@ describe('Task', () => {
 
   test('task part render empty', async () => {
     renderTask();
-    await assertMainPart('', '', '', 'Role', 'Normal');
-    await SelectUtil.assertValue('Everybody', { index: 1 });
+    await CollapsableUtil.assertClosed('Details');
+    await CollapsableUtil.assertClosed('Responsible');
+    await CollapsableUtil.assertClosed('Priority');
+    await CollapsableUtil.assertClosed('Options');
+    await CollapsableUtil.assertClosed('Expiry');
+    await CollapsableUtil.assertClosed('Custom Fields');
+    await CollapsableUtil.assertClosed('Notification');
+    await CollapsableUtil.assertClosed('Code');
   });
 
   test('task part render skip task list option', async () => {
     renderTask(undefined);
-    expect(SelectUtil.select({ label: 'Responsible' })).toBeInTheDocument();
-
     const optionCollapse = screen.getByRole('button', { name: /Option/ });
     await userEvent.click(optionCollapse);
 

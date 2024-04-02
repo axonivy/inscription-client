@@ -19,7 +19,7 @@ describe('TriggerPart', () => {
     const triggerCheckbox = screen.getByLabelText('Yes, this can be started with a Trigger Activity');
     if (triggerable) {
       expect(triggerCheckbox).toBeChecked();
-      await SelectUtil.assertValue(responsible, { label: 'Responsible' });
+      await SelectUtil.assertValue(responsible, { index: 0 });
       await CollapsableUtil.assertOpen('Options');
       expect(screen.getByLabelText('Attach to Business Case that triggered this process')).toBeChecked();
       expect(screen.getByLabelText('Delay')).toHaveValue(delay);

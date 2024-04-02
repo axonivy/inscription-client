@@ -11,7 +11,7 @@ export namespace ComboboxUtil {
     if (options?.label) {
       return screen.getByRole('combobox', { name: options.label });
     }
-    if (options?.nth) {
+    if (options?.nth !== undefined) {
       return screen.getAllByRole('combobox').at(options.nth)!;
     }
     return screen.getByRole('combobox');

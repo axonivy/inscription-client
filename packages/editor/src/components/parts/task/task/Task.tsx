@@ -9,11 +9,16 @@ import NotificationPart from '../notification/NotificationPart';
 import CustomFieldTable from '../../common/customfield/CustomFieldTable';
 
 const Task = () => {
-  const { task, update, updateResponsible, updatePriority } = useTaskData();
+  const { task, defaultTask, update, updateResponsible, updatePriority } = useTaskData();
   return (
     <>
-      <Information config={task} update={update} />
-      <ResponsibleSelect responsible={task.responsible} updateResponsible={updateResponsible} optionFilter={['DELETE_TASK']} />
+      <Information config={task} defaultConfig={defaultTask} update={update} />
+      <ResponsibleSelect
+        responsible={task.responsible}
+        defaultResponsible={defaultTask.responsible}
+        updateResponsible={updateResponsible}
+        optionFilter={['DELETE_TASK']}
+      />
       <PrioritySelect priority={task.priority} updatePriority={updatePriority} />
       <TaskOptionsPart />
       <ExpiryPart />

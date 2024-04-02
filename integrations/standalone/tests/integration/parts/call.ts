@@ -3,22 +3,32 @@ import { NewPartTest, PartObject } from './part-tester';
 import type { Table } from '../../pageobjects/Table';
 import type { ScriptArea } from '../../pageobjects/CodeEditor';
 import type { Combobox } from '../../pageobjects/Combobox';
+import type { Section } from '../../pageobjects/Section';
 
 class Call extends PartObject {
+  callSection: Section;
   call: Combobox;
+  mappingSection: Section;
   mapping: Table;
+  codeSection: Section;
   code: ScriptArea;
 
   constructor(part: Part, readonly selectLabel: string, private readonly selectValue: string, private readonly assertSelectValue: string) {
     super(part);
-    this.call = part.combobox(selectLabel);
-    this.mapping = part.table(['text', 'expression']);
-    this.code = part.scriptArea();
+    this.callSection = part.section(selectLabel);
+    this.call = this.callSection.combobox();
+    this.mappingSection = part.section('Mapping');
+    this.mapping = this.mappingSection.table(['text', 'expression']);
+    this.codeSection = part.section('Code');
+    this.code = this.codeSection.scriptArea();
   }
 
   async fill() {
+    await this.callSection.open();
     await this.call.choose(this.selectValue);
+    await this.mappingSection.open();
     await this.mapping.row(2).column(1).fill('"test"');
+    await this.codeSection.open();
     await this.code.fill('code');
   }
 
@@ -35,8 +45,8 @@ class Call extends PartObject {
 
   async assertClear() {
     await this.call.expectValue(this.assertSelectValue);
-    await this.mapping.row(2).column(1).expectEmpty();
-    await this.code.expectEmpty();
+    await this.mappingSection.expectIsClosed();
+    await this.codeSection.expectIsClosed();
   }
 }
 

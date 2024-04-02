@@ -1,19 +1,23 @@
 import type { ScriptInput } from '../../pageobjects/CodeEditor';
 import type { Combobox } from '../../pageobjects/Combobox';
 import type { Part } from '../../pageobjects/Part';
+import type { Section } from '../../pageobjects/Section';
 import { NewPartTest, PartObject } from './part-tester';
 
 class ErrorThrow extends PartObject {
+  section: Section;
   error: Combobox;
   cause: ScriptInput;
 
   constructor(part: Part) {
     super(part);
-    this.error = part.combobox('Error Code to throw');
-    this.cause = part.scriptInput('Error Cause');
+    this.section = part.section('Error');
+    this.error = this.section.combobox('Error Code to throw');
+    this.cause = this.section.scriptInput('Error Cause');
   }
 
   async fill() {
+    await this.section.open();
     await this.error.choose('test:error');
     await this.cause.fill('cause');
   }
@@ -24,13 +28,12 @@ class ErrorThrow extends PartObject {
   }
 
   async clear() {
-    await this.error.fill('');
+    await this.error.fill('undefined');
     await this.cause.clear();
   }
 
   async assertClear() {
-    await this.error.expectValue('');
-    await this.cause.expectEmpty();
+    await this.section.expectIsClosed();
   }
 }
 

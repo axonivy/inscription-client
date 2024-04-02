@@ -2,7 +2,7 @@ import type { EventData, IntermediateEventTimeoutAction } from '@axonivy/inscrip
 import { EVENT_ACTION_TYPE, IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import type { PartProps } from '../../../editors';
 import { usePartDirty, usePartState } from '../../../editors';
-import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common';
+import { ExceptionSelect, PathCollapsible, PathFieldset, ValidationFieldset } from '../../common';
 import { ScriptInput, Radio } from '../../../widgets';
 import { useValidations } from '../../../../context';
 import { useEventData } from './useEventData';
@@ -32,14 +32,16 @@ const EventPart = ({ thirdParty }: { thirdParty?: boolean }) => {
         <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='INTERMEDIATE' />
       )}
 
-      <PathFieldset label='Event ID' path='eventId'>
-        <ScriptInput
-          value={config.eventId}
-          onChange={change => update('eventId', change)}
-          type={IVY_SCRIPT_TYPES.NUMBER}
-          browsers={['attr', 'func', 'type']}
-        />
-      </PathFieldset>
+      <PathCollapsible label='Event ID' path='eventId' defaultOpen={config.eventId !== defaultConfig.eventId}>
+        <ValidationFieldset>
+          <ScriptInput
+            value={config.eventId}
+            onChange={change => update('eventId', change)}
+            type={IVY_SCRIPT_TYPES.NUMBER}
+            browsers={['attr', 'func', 'type']}
+          />
+        </ValidationFieldset>
+      </PathCollapsible>
 
       <PathCollapsible label='Expiry' path='timeout' defaultOpen={!deepEqual(config.timeout, defaultConfig.timeout)}>
         <PathFieldset label='Duration' path='duration'>

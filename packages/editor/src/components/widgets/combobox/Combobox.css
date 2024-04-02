@@ -37,6 +37,7 @@
   flex-direction: column;
   gap: var(--size-2);
   cursor: pointer;
+  --basic-border: 1px solid var(--N200);
   border-bottom: var(--basic-border);
 }
 .combobox-menu-entry:last-child {

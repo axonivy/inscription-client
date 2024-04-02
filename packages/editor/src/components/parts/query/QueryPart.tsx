@@ -2,7 +2,7 @@ import { useQueryData } from './useQueryData';
 import type { QueryData } from '@axonivy/inscription-protocol';
 import { DatabaseSelect } from './database/DatabaseSelect';
 import { QueryKindSelect } from './database/QueryKindSelect';
-import type { PartProps} from '../../../components/editors';
+import type { PartProps } from '../../../components/editors';
 import { usePartDirty, usePartState } from '../../../components/editors';
 import { PathContext, useValidations } from '../../../context';
 import { QueryRead } from './db-query/QueryRead';
@@ -11,6 +11,8 @@ import { QueryUpdate } from './db-query/QueryUpdate';
 import { QueryDelete } from './db-query/QueryDelete';
 import { QueryAny } from './db-query/QueryAny';
 import { DbExceptionHandler } from './database/DbExceptionHandler';
+import { TableSelect } from './database/TableSelect';
+import { ValidationCollapsible } from '../common';
 
 export function useQueryPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useQueryData();
@@ -23,12 +25,16 @@ export function useQueryPart(): PartProps {
 }
 
 const QueryPart = () => {
+  const { config } = useQueryData();
   const query = useQuery();
   return (
     <>
       <PathContext path='query'>
-        <QueryKindSelect />
-        <DatabaseSelect />
+        <ValidationCollapsible label='Database' defaultOpen={config.query.dbName.length > 0}>
+          <QueryKindSelect />
+          <DatabaseSelect />
+          {config.query.sql.kind !== 'ANY' && <TableSelect />}
+        </ValidationCollapsible>
         {query}
       </PathContext>
       <DbExceptionHandler />

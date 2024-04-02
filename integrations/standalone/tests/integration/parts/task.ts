@@ -2,12 +2,13 @@ import type { Accordion } from '../../pageobjects/Accordion';
 import type { PartTest } from './part-tester';
 import { NewPartTest, PartObject } from './part-tester';
 import type { Part } from '../../pageobjects/Part';
-import type { MacroEditor, ScriptArea, ScriptInput } from '../../pageobjects/CodeEditor';
+import type { ScriptArea, ScriptInput } from '../../pageobjects/CodeEditor';
 import type { Section } from '../../pageobjects/Section';
-import type { ResponsibleSelect } from '../../pageobjects/ResponsibleSelect';
 import type { Select } from '../../pageobjects/Select';
 import type { Table } from '../../pageobjects/Table';
 import type { Checkbox } from '../../pageobjects/Checkbox';
+import type { InfoComponent } from '../../pageobjects/InfoComponent';
+import type { ResponsibleComponent } from '../../pageobjects/ResponsibleComponent';
 
 export class TasksTester implements PartTest {
   private tasks: { tab: string; test: PartTest }[];
@@ -53,10 +54,9 @@ export class TasksTester implements PartTest {
 type TaskTestOptions = { responsible: boolean; priority: boolean; expiry: boolean; options: 'persist' | 'list' | undefined };
 
 class Task extends PartObject {
-  name: MacroEditor;
-  description: MacroEditor;
-  category: MacroEditor;
-  responsible: ResponsibleSelect;
+  info: InfoComponent;
+  responsible: ResponsibleComponent;
+  prioritySection: Section;
   priority: Select;
   optionsSection: Section;
   skipTasklist: Checkbox;
@@ -68,7 +68,8 @@ class Task extends PartObject {
   expirySection: Section;
   timeout: ScriptInput;
   error: Select;
-  expiryResponsbile: ResponsibleSelect;
+  expiryResponsbile: ResponsibleComponent;
+  expiryPrioritySection: Section;
   expiryPriority: Select;
   customFieldsSection: Section;
   customFields: Table;
@@ -82,23 +83,23 @@ class Task extends PartObject {
     private readonly options: TaskTestOptions = { responsible: true, priority: true, expiry: true, options: 'list' }
   ) {
     super(part);
-    this.name = part.macroInput('Name');
-    this.description = part.macroArea('Description');
-    this.category = part.macroInput('Category');
-    this.responsible = part.responsibleSelect('Responsible');
-    this.priority = part.select('Priority');
+    this.info = part.infoComponent();
+    this.responsible = part.responsibleComponent();
+    this.prioritySection = part.section('Priority');
+    this.priority = this.prioritySection.select({});
     this.optionsSection = part.section('Options');
     this.skipTasklist = this.optionsSection.checkbox('Skip Tasklist');
     this.notificationSection = part.section('Notification');
     this.notificationSuppress = this.notificationSection.checkbox('Suppress');
-    this.notificationTemplate = this.notificationSection.select('Template');
+    this.notificationTemplate = this.notificationSection.select({ label: 'Template' });
     this.delay = this.optionsSection.scriptInput('Delay');
     this.persist = this.optionsSection.checkbox('Persist task on creation');
     this.expirySection = part.section('Expiry');
     this.timeout = this.expirySection.scriptInput('Timeout');
-    this.error = this.expirySection.select('Error');
-    this.expiryResponsbile = this.expirySection.responsibleSelect('Responsible');
-    this.expiryPriority = this.expirySection.select('Priority');
+    this.error = this.expirySection.select({ label: 'Error' });
+    this.expiryResponsbile = this.expirySection.responsibleComponent();
+    this.expiryPrioritySection = this.expirySection.section('Priority');
+    this.expiryPriority = this.expiryPrioritySection.select({});
     this.customFieldsSection = part.section('Custom Fields');
     this.customFields = this.customFieldsSection.table(['combobox', 'label', 'expression']);
     this.codeSection = part.section('Code');
@@ -106,16 +107,14 @@ class Task extends PartObject {
   }
 
   async fill() {
-    await this.name.fill(this.nameValue);
-    await this.description.fill('test desc');
-    await this.category.fill('test cat');
+    await this.info.fill(this.nameValue);
 
     if (this.options.responsible) {
-      await this.responsible.chooseType('Role from Attr.');
-      await this.responsible.fill('"Teamleader"');
+      await this.responsible.fill('Role from Attr.', '"Teamleader"');
     }
 
     if (this.options.priority) {
+      await this.prioritySection.open();
       await this.priority.choose('High');
     }
 
@@ -139,7 +138,8 @@ class Task extends PartObject {
       await this.expirySection.toggle();
       await this.timeout.fill('timeout');
       await this.error.choose(this.errorValue);
-      await this.expiryResponsbile.chooseType('Nobody & delete');
+      await this.expiryResponsbile.fill('Nobody & delete');
+      await this.expiryPrioritySection.open();
       await this.expiryPriority.choose('Low');
     }
 
@@ -152,13 +152,10 @@ class Task extends PartObject {
   }
 
   async assertFill() {
-    await this.name.expectValue(this.nameValue);
-    await this.description.expectValue('test desc');
-    await this.category.expectValue('test cat');
+    await this.info.expectFill(this.nameValue);
 
     if (this.options.responsible) {
-      await this.responsible.expectType('Role from Attr.');
-      await this.responsible.expectValue('"Teamleader"');
+      await this.responsible.expectFill('Role from Attr.', '"Teamleader"');
     }
 
     if (this.options.priority) {
@@ -183,7 +180,7 @@ class Task extends PartObject {
     if (this.options.expiry) {
       await this.timeout.expectValue('timeout');
       await this.error.expectValue(this.errorValue);
-      await this.expiryResponsbile.expectType('Nobody & delete');
+      await this.expiryResponsbile.expectFill('Nobody & delete');
       await this.expiryPriority.expectValue(/Low/);
     }
 
@@ -195,9 +192,7 @@ class Task extends PartObject {
   }
 
   async clear() {
-    await this.name.clear();
-    await this.description.clear();
-    await this.category.clear();
+    await this.info.clear();
 
     if (this.options.responsible) {
       await this.responsible.clear();
@@ -229,17 +224,14 @@ class Task extends PartObject {
   }
 
   async assertClear() {
-    await this.name.expectEmpty();
-    await this.description.expectEmpty();
-    await this.category.expectEmpty();
+    await this.info.expectEmpty();
 
     if (this.options.responsible) {
-      await this.responsible.expectType('Role');
-      await this.responsible.expectValue('Everybody');
+      await this.responsible.expectEmpty();
     }
 
     if (this.options.priority) {
-      await this.priority.expectValue('Normal');
+      await this.prioritySection.expectIsClosed();
     }
 
     if (this.options.options) {

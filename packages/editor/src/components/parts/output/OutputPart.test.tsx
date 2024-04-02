@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, screen, TableUtil, renderHook, waitFor } from 'test-utils';
+import { render, screen, TableUtil, renderHook, waitFor, CollapsableUtil } from 'test-utils';
 import { useOutputPart } from './OutputPart';
 import type { PartStateFlag } from '../../editors';
 import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
@@ -17,12 +17,13 @@ describe('OutputPart', () => {
 
   async function assertMainPart(map: RegExp[], code: string) {
     TableUtil.assertRows(map);
-    expect(await screen.findByLabelText('Code')).toHaveValue(code);
+    expect(await screen.findByTestId('code-editor')).toHaveValue(code);
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart([], '');
+    await CollapsableUtil.assertClosed('Mapping');
+    await CollapsableUtil.assertClosed('Code');
   });
 
   test('full data', async () => {

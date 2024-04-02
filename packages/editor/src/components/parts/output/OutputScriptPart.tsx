@@ -3,8 +3,8 @@ import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { Checkbox, ScriptArea } from '../../widgets';
 import { useOutputData } from './useOutputData';
-import { PathContext, useValidations } from '../../../context';
-import { PathFieldset } from '../common';
+import { useValidations } from '../../../context';
+import { PathCollapsible, ValidationFieldset } from '../common';
 import { splitNewLine } from '../../../utils/utils';
 import { useMemo } from 'react';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
@@ -19,7 +19,7 @@ export function useOutputScriptPart(): PartProps {
 }
 
 const OutputScriptPart = () => {
-  const { config, update, updateSudo } = useOutputData();
+  const { config, defaultConfig, update, updateSudo } = useOutputData();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   const initHeight = useMemo(() => {
@@ -31,8 +31,13 @@ const OutputScriptPart = () => {
   }, [config.output.code]);
 
   return (
-    <PathContext path='output'>
-      <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
+    <PathCollapsible
+      label='Code'
+      path='output'
+      controls={[maximizeCode]}
+      defaultOpen={config.output.code !== defaultConfig.output.code || config.sudo !== defaultConfig.sudo}
+    >
+      <ValidationFieldset>
         <ScriptArea
           maximizeState={maximizeState}
           value={config.output.code}
@@ -40,8 +45,8 @@ const OutputScriptPart = () => {
           browsers={['attr', 'func', 'type', 'cms']}
           initHeight={initHeight}
         />
-      </PathFieldset>
+      </ValidationFieldset>
       <Checkbox label='Disable Permission Checks (Execute this Script Step as SYSTEM)' value={config.sudo} onChange={updateSudo} />
-    </PathContext>
+    </PathCollapsible>
   );
 };

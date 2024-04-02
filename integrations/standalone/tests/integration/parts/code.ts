@@ -2,18 +2,22 @@ import { NewPartTest, PartObject } from './part-tester';
 import type { Part } from '../../pageobjects/Part';
 import type { ScriptArea } from '../../pageobjects/CodeEditor';
 import type { Checkbox } from '../../pageobjects/Checkbox';
+import type { Section } from '../../pageobjects/Section';
 
 class Script extends PartObject {
+  section: Section;
   code: ScriptArea;
   sudo: Checkbox;
 
   constructor(part: Part, private readonly hasSudo = true) {
     super(part);
-    this.code = part.scriptArea();
-    this.sudo = part.checkbox('Disable Permission Checks');
+    this.section = part.section('Code');
+    this.code = this.section.scriptArea();
+    this.sudo = this.section.checkbox('Disable Permission Checks');
   }
 
   async fill() {
+    await this.section.open();
     await this.code.fill('code');
     if (this.hasSudo) {
       await this.sudo.click();
@@ -35,10 +39,7 @@ class Script extends PartObject {
   }
 
   async assertClear() {
-    await this.code.expectEmpty();
-    if (this.hasSudo) {
-      await this.sudo.expectUnchecked();
-    }
+    await this.section.expectIsClosed();
   }
 }
 

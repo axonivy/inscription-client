@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, InscriptionValidation, RestRequestData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useRestRequestPart } from './RestRequestPart';
@@ -17,13 +17,10 @@ describe('RestRequestPart', () => {
 
   test('empty', async () => {
     renderPart();
-    expect(screen.getByLabelText('Client')).toBeInTheDocument();
-    expect(screen.getByLabelText('Resource')).toBeInTheDocument();
-    expect(screen.getByText('Parameters')).toBeInTheDocument();
-    expect(screen.getByText('Headers')).toBeInTheDocument();
-    expect(screen.getByText('Properties')).toBeInTheDocument();
-    expect(screen.queryByText('Body')).not.toBeInTheDocument();
-    expect(screen.queryByText('JAX-RS')).not.toBeInTheDocument();
+    await CollapsableUtil.assertClosed('Rest Service');
+    await CollapsableUtil.assertClosed('Parameters');
+    await CollapsableUtil.assertClosed('Headers');
+    await CollapsableUtil.assertClosed('Properties');
   });
 
   test('post', async () => {

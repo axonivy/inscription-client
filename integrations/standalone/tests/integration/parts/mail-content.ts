@@ -1,19 +1,23 @@
 import type { MacroEditor } from '../../pageobjects/CodeEditor';
 import type { Part } from '../../pageobjects/Part';
+import type { Section } from '../../pageobjects/Section';
 import type { Select } from '../../pageobjects/Select';
 import { NewPartTest, PartObject } from './part-tester';
 
 class MailContent extends PartObject {
+  section: Section;
   type: Select;
   message: MacroEditor;
 
   constructor(part: Part) {
     super(part);
-    this.type = part.select('Type');
-    this.message = part.macroArea('Message');
+    this.section = part.section('Content');
+    this.type = this.section.select({ label: 'Type' });
+    this.message = this.section.macroArea('Message');
   }
 
   async fill() {
+    await this.section.open();
     await this.type.choose('text/html');
     await this.message.fill('Hello\nWorld');
   }
@@ -26,8 +30,7 @@ class MailContent extends PartObject {
     await this.message.clear();
   }
   async assertClear() {
-    await this.type.expectValue('text/plain');
-    await this.message.expectEmpty();
+    await this.section.expectIsClosed();
   }
 }
 

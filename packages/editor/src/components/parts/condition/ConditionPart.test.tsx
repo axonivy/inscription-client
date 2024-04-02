@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, TableUtil, renderHook, screen } from 'test-utils';
+import { render, TableUtil, renderHook, screen, CollapsableUtil } from 'test-utils';
 import type { ConditionData, ConnectorRef, ElementData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useConditionPart } from './ConditionPart';
@@ -24,7 +24,7 @@ describe('ConditionPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart([]);
+    await CollapsableUtil.assertClosed('Condition');
   });
 
   test('full data', async () => {

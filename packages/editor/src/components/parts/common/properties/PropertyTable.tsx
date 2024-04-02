@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ValidationRow } from '../';
+import { ValidationCollapsible, ValidationRow } from '../';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import type { ComboboxItem } from '../../../../components/widgets';
-import { Collapsible, ScriptCell } from '../../../../components/widgets';
+import { ScriptCell } from '../../../../components/widgets';
 import { Property } from './properties';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ScriptMappings } from '@axonivy/inscription-protocol';
@@ -113,7 +113,7 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
       : [];
 
   return (
-    <Collapsible label={label} defaultOpen={defaultOpen} controls={tableActions}>
+    <ValidationCollapsible label={label} defaultOpen={defaultOpen} controls={tableActions}>
       <div>
         <Table>
           <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
@@ -136,6 +136,6 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
         </Table>
         {showAddButton() && <TableAddRow addRow={addRow} />}
       </div>
-    </Collapsible>
+    </ValidationCollapsible>
   );
 };

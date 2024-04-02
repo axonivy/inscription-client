@@ -1,6 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
 import { MacroEditor, ScriptArea, ScriptInput } from './CodeEditor';
-import { ResponsibleSelect } from './ResponsibleSelect';
 import { Select } from './Select';
 import type { ColumnType } from './Table';
 import { Table } from './Table';
@@ -31,19 +30,15 @@ export abstract class Composite {
     return new RadioGroup(this.locator);
   }
 
-  select(label?: string) {
-    return new Select(this.page, this.locator, { label });
+  select(options: { label?: string; nth?: number }) {
+    return new Select(this.page, this.locator, options);
   }
 
-  combobox(label: string) {
+  combobox(label?: string) {
     return new Combobox(this.page, this.locator, { label });
   }
 
-  responsibleSelect(label: string) {
-    return new ResponsibleSelect(this.page, this.locator, label);
-  }
-
-  macroInput(label: string) {
+  macroInput(label?: string) {
     return new MacroEditor(this.page, this.locator, label);
   }
 

@@ -4,7 +4,7 @@ import { PathContext, useEditorContext, useMeta, useValidations } from '../../..
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useWsResponseData } from './useWsResponseData';
-import { ExceptionSelect, MappingPart, PathCollapsible, PathFieldset, ValidationFieldset } from '../common';
+import { ExceptionSelect, MappingPart, PathCollapsible, ValidationFieldset } from '../common';
 import { ScriptArea } from '../../widgets';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
@@ -32,14 +32,16 @@ const WsResponsePart = () => {
           onChange={change => updateOutput('map', change)}
           browsers={['attr', 'func', 'type']}
         />
-        <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
-          <ScriptArea
-            maximizeState={maximizeState}
-            value={config.output.code}
-            onChange={change => updateOutput('code', change)}
-            browsers={['attr', 'func', 'type']}
-          />
-        </PathFieldset>
+        <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.output.code !== defaultConfig.output.code}>
+          <ValidationFieldset>
+            <ScriptArea
+              maximizeState={maximizeState}
+              value={config.output.code}
+              onChange={change => updateOutput('code', change)}
+              browsers={['attr', 'func', 'type']}
+            />
+          </ValidationFieldset>
+        </PathCollapsible>
       </PathContext>
       <PathCollapsible label='Error' defaultOpen={config.exceptionHandler !== defaultConfig.exceptionHandler} path='exceptionHandler'>
         <ValidationFieldset>

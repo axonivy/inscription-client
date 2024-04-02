@@ -6,6 +6,7 @@ import type { ScriptInput } from '../../pageobjects/CodeEditor';
 import type { Combobox } from '../../pageobjects/Combobox';
 
 class ProgramInterfaceStart extends PartObject {
+  javaSection: Section;
   javaClass: Combobox;
   programSection: Section;
   errorProgram: Select;
@@ -16,17 +17,19 @@ class ProgramInterfaceStart extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.javaClass = part.combobox('Java Class');
+    this.javaSection = part.section('Java Class');
+    this.javaClass = this.javaSection.combobox();
 
     this.programSection = part.section('Program');
-    this.errorProgram = this.programSection.select('Error');
+    this.errorProgram = this.programSection.select({ label: 'Error' });
 
     this.timeoutSection = part.section('Timeout');
     this.seconds = this.timeoutSection.scriptInput('Seconds');
-    this.errorTimeout = this.timeoutSection.select('Error');
+    this.errorTimeout = this.timeoutSection.select({ label: 'Error' });
   }
 
   async fill() {
+    await this.javaSection.open();
     await this.javaClass.choose('ch.ivyteam.ivy.process.extension.impl.AbstractUserProcessExtension');
 
     await this.programSection.toggle();
@@ -73,11 +76,11 @@ class RuleInterfaceStart extends PartObject {
   constructor(part: Part) {
     super(part);
     this.programSection = part.section('Program');
-    this.errorProgram = this.programSection.select('Error');
+    this.errorProgram = this.programSection.select({ label: 'Error' });
 
     this.timeoutSection = part.section('Timeout');
     this.seconds = this.timeoutSection.scriptInput('Seconds');
-    this.errorTimeout = this.timeoutSection.select('Error');
+    this.errorTimeout = this.timeoutSection.select({ label: 'Error' });
   }
 
   async fill() {

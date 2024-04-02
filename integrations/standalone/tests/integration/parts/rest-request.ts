@@ -1,7 +1,7 @@
 import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 import type { Section } from '../../pageobjects/Section';
-import { Select } from '../../pageobjects/Select';
+import type { Select } from '../../pageobjects/Select';
 import type { Table } from '../../pageobjects/Table';
 import type { ScriptInput } from '../../pageobjects/CodeEditor';
 import type { Combobox } from '../../pageobjects/Combobox';
@@ -9,6 +9,7 @@ import type { Locator } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 class RestRequest extends PartObject {
+  serviceSection: Section;
   targetUrl: Locator;
   client: Select;
   resource: Combobox;
@@ -24,11 +25,12 @@ class RestRequest extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.targetUrl = this.part.currentLocator().locator('.rest-target-url');
-    this.client = part.select('Client');
-    this.resource = part.combobox('Resource');
-    this.method = new Select(part.page, part.currentLocator(), { nth: 1 });
-    this.path = part.scriptInput();
+    this.serviceSection = part.section('Rest Service');
+    this.targetUrl = this.serviceSection.currentLocator().locator('.rest-target-url');
+    this.client = this.serviceSection.select({ label: 'Client' });
+    this.resource = this.serviceSection.combobox('Resource');
+    this.method = this.serviceSection.select({ nth: 1 });
+    this.path = this.serviceSection.scriptInput();
     this.parametersSection = part.section('Parameters');
     this.parameters = this.parametersSection.table(['select', 'text', 'expression']);
     this.headersSection = part.section('Headers');
@@ -39,6 +41,7 @@ class RestRequest extends PartObject {
   }
 
   async fill() {
+    await this.serviceSection.open();
     await expect(this.targetUrl).toBeHidden();
     await this.client.choose('stock');
     await this.method.choose('POST');
@@ -108,6 +111,7 @@ class RestRequest extends PartObject {
 
 class RestRequestOpenApi extends RestRequest {
   override async fill() {
+    await this.serviceSection.open();
     await this.client.choose('pet');
     await this.resource.choose('DELETE');
 

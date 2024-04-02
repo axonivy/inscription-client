@@ -7,11 +7,12 @@ import type { ResponsibleUpdater } from '../../common/responsible/ResponsibleSel
 
 export function useExpiryData(): {
   expiry: WfExpiry;
+  defaultExpiry: WfExpiry;
   update: DataUpdater<WfExpiry>;
   updateResponsible: ResponsibleUpdater;
   updatePriority: PriorityUpdater;
 } {
-  const { task, setTask } = useTaskDataContext();
+  const { task, defaultTask, setTask } = useTaskDataContext();
 
   const update: DataUpdater<WfExpiry> = (field, value) => {
     setTask(
@@ -39,6 +40,7 @@ export function useExpiryData(): {
 
   return {
     expiry: task.expiry,
+    defaultExpiry: defaultTask.expiry,
     update,
     updateResponsible,
     updatePriority

@@ -8,7 +8,7 @@ import type { HttpMethod, RestResource } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES, HTTP_METHOD } from '@axonivy/inscription-protocol';
 import './RestMethodSelect.css';
 import { useUpdateRestResource } from '../../useUpdateRestResource';
-import { Field } from '@axonivy/ui-components';
+import { Field, Flex } from '@axonivy/ui-components';
 
 type RestMethodItem = ComboboxItem & RestResource;
 
@@ -54,7 +54,7 @@ export const RestMethodSelect = () => {
           comboboxItem={comboboxItem}
         />
       ) : (
-        <div className='rest-method-input'>
+        <Flex direction='row' gap={2} className='rest-method-input'>
           <Select
             value={{ label: config.method, value: config.method }}
             onChange={item => update('method', item.value as HttpMethod)}
@@ -69,7 +69,7 @@ export const RestMethodSelect = () => {
               browsers={['attr']}
             />
           </Field>
-        </div>
+        </Flex>
       )}
     </PathFieldset>
   );

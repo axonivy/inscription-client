@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, InscriptionValidation, ProgramStartData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { useProgramStartPart } from './ProgramStartPart';
@@ -20,6 +20,7 @@ describe('StartPart', () => {
   test('empty data', async () => {
     renderPart();
     await CollapsableUtil.assertClosed('Permission');
+    await CollapsableUtil.assertClosed('Java Class');
   });
 
   test('full data', async () => {
@@ -31,7 +32,7 @@ describe('StartPart', () => {
         role: 'SYSTEM'
       }
     });
-    expect(screen.getByLabelText('Java Class')).toHaveValue('Test');
+    await ComboboxUtil.assertValue('Test', { nth: 0 });
     await CollapsableUtil.assertOpen('Permission');
     expect(screen.getByRole('checkbox')).not.toBeChecked();
     await SelectUtil.assertValue('SYSTEM', { index: 1 });

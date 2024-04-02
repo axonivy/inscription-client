@@ -17,8 +17,8 @@ class WebService extends PartObject {
   constructor(part: Part) {
     super(part);
     this.permissionSection = part.section('Permission');
-    this.role = this.permissionSection.select('Role');
-    this.error = this.permissionSection.select('Violation error');
+    this.role = this.permissionSection.select({ label: 'Role' });
+    this.error = this.permissionSection.select({ label: 'Violation error' });
     this.exceptionSection = part.section('Exception');
     this.useExceptionHandling = this.exceptionSection.checkbox('Use exception handling');
     this.condition = this.exceptionSection.scriptInput('Condition');

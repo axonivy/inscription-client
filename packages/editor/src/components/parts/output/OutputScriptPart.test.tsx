@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, screen, renderHook } from 'test-utils';
+import { render, screen, renderHook, CollapsableUtil } from 'test-utils';
 import { useOutputScriptPart } from './OutputScriptPart';
 import type { PartStateFlag } from '../../editors';
 import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
@@ -16,7 +16,7 @@ describe('OutputScriptPart', () => {
   }
 
   async function assertMainPart(code: string, sudo: boolean) {
-    expect(await screen.findByLabelText('Code')).toHaveValue(code);
+    expect(await screen.findByTestId('code-editor')).toHaveValue(code);
     const sudoCheckbox = await screen.findByLabelText(/Disable Permission/);
     if (sudo) {
       expect(sudoCheckbox).toBeChecked();
@@ -27,7 +27,7 @@ describe('OutputScriptPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('', false);
+    await CollapsableUtil.assertClosed('Code');
   });
 
   test('full data', async () => {

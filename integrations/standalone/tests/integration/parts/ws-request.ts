@@ -5,24 +5,29 @@ import type { Select } from '../../pageobjects/Select';
 import type { Table } from '../../pageobjects/Table';
 
 class WsRequest extends PartObject {
+  serviceSection: Section;
   client: Select;
   port: Select;
   operation: Select;
   propertiesSection: Section;
   properties: Table;
+  mappingSection: Section;
   mapping: Table;
 
   constructor(part: Part) {
     super(part);
-    this.client = part.select('Client');
-    this.port = part.select('Port');
-    this.operation = part.select('Operation');
+    this.serviceSection = part.section('Web Service');
+    this.client = this.serviceSection.select({ label: 'Client' });
+    this.port = this.serviceSection.select({ label: 'Port' });
+    this.operation = this.serviceSection.select({ label: 'Operation' });
     this.propertiesSection = part.section('Properties');
     this.properties = this.propertiesSection.table(['combobox', 'expression']);
-    this.mapping = part.table(['label', 'expression']);
+    this.mappingSection = part.section('Mapping');
+    this.mapping = this.mappingSection.table(['label', 'expression']);
   }
 
   async fill() {
+    await this.serviceSection.open();
     await this.client.choose('GeoIpService');
     await this.port.choose('GeoIPServiceSoap');
     await this.operation.choose('GetGeoIP');
@@ -32,6 +37,7 @@ class WsRequest extends PartObject {
     await row.fill(['endpoint.cache', '123']);
     await this.propertiesSection.toggle();
 
+    await this.mappingSection.open();
     await this.mapping.row(1).column(1).fill('"bla"');
   }
 
@@ -63,7 +69,7 @@ class WsRequest extends PartObject {
     await this.operation.expectValue('GetGeoIPContext');
 
     await this.propertiesSection.expectIsClosed();
-    await this.mapping.expectRowCount(1);
+    await this.mappingSection.expectIsClosed();
   }
 }
 

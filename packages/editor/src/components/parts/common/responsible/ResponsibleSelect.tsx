@@ -5,9 +5,10 @@ import { RESPONSIBLE_TYPE, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protoco
 import type { SelectItem } from '../../../widgets';
 import { ScriptInput, Select } from '../../../widgets';
 import type { DataUpdater } from '../../../../types/lambda';
-import { PathFieldset } from '..';
+import { PathCollapsible, ValidationFieldset } from '..';
 import RoleSelect from './RoleSelect';
-import { Field } from '@axonivy/ui-components';
+import { Flex } from '@axonivy/ui-components';
+import { deepEqual } from '../../../../utils/equals';
 
 export type ResponsibleUpdater = DataUpdater<WfTask['responsible']>;
 
@@ -45,6 +46,7 @@ const DEFAULT_RESPONSIBLE_TYPE: SelectItem & { value: WfActivatorType } = { labe
 
 const ResponsibleSelect = (props: {
   responsible?: WfActivator;
+  defaultResponsible: WfActivator;
   updateResponsible: ResponsibleUpdater;
   optionFilter?: WfActivatorType[];
 }) => {
@@ -61,14 +63,18 @@ const ResponsibleSelect = (props: {
   );
 
   return (
-    <PathFieldset label='Responsible' path='responsible'>
-      <div className='responsible-select'>
-        <Select items={typeItems} value={selectedType} onChange={item => props.updateResponsible('type', item.value as WfActivatorType)} />
-        <Field>
+    <PathCollapsible label='Responsible' path='responsible' defaultOpen={!deepEqual(props.responsible, props.defaultResponsible)}>
+      <ValidationFieldset>
+        <Flex direction='row' gap={2} className='responsible-select'>
+          <Select
+            items={typeItems}
+            value={selectedType}
+            onChange={item => props.updateResponsible('type', item.value as WfActivatorType)}
+          />
           <ResponsibleActivator {...props} selectedType={selectedType?.value as WfActivatorType} />
-        </Field>
-      </div>
-    </PathFieldset>
+        </Flex>
+      </ValidationFieldset>
+    </PathCollapsible>
   );
 };
 

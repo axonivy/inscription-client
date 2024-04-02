@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { ScriptArea } from '../../widgets';
 import { useCallData } from './useCallData';
 import { PathContext, useValidations } from '../../../context';
-import { MappingPart, PathFieldset } from '../common';
+import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 export function useCallPartValidation(): InscriptionValidation[] {
@@ -11,7 +11,7 @@ export function useCallPartValidation(): InscriptionValidation[] {
 }
 
 const CallMapping = ({ variableInfo }: { variableInfo: VariableInfo }) => {
-  const { config, update } = useCallData();
+  const { config, defaultConfig, update } = useCallData();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   return (
@@ -22,14 +22,16 @@ const CallMapping = ({ variableInfo }: { variableInfo: VariableInfo }) => {
         onChange={change => update('map', change)}
         browsers={['attr', 'func', 'type']}
       />
-      <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
-        <ScriptArea
-          maximizeState={maximizeState}
-          value={config.call.code}
-          onChange={change => update('code', change)}
-          browsers={['attr', 'func', 'type']}
-        />
-      </PathFieldset>
+      <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.call.code !== defaultConfig.call.code}>
+        <ValidationFieldset>
+          <ScriptArea
+            maximizeState={maximizeState}
+            value={config.call.code}
+            onChange={change => update('code', change)}
+            browsers={['attr', 'func', 'type']}
+          />
+        </ValidationFieldset>
+      </PathCollapsible>
     </PathContext>
   );
 };

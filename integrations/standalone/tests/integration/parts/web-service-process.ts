@@ -1,19 +1,23 @@
 import type { Part } from '../../pageobjects/Part';
 import type { RadioGroup } from '../../pageobjects/RadioGroup';
+import type { Section } from '../../pageobjects/Section';
 import type { TextArea } from '../../pageobjects/TextArea';
 import { NewPartTest, PartObject } from './part-tester';
 
 class WsProcessPart extends PartObject {
+  section: Section;
   authentication: RadioGroup;
   qualifiedName: TextArea;
 
   constructor(part: Part) {
     super(part);
-    this.authentication = part.radioGroup();
-    this.qualifiedName = part.textArea({ label: 'Qualified name' });
+    this.section = part.section('Process');
+    this.authentication = this.section.radioGroup();
+    this.qualifiedName = this.section.textArea({ label: 'Qualified name' });
   }
 
   async fill() {
+    await this.section.open();
     await this.authentication.choose('WS Security');
     await this.qualifiedName.fill('test');
   }
@@ -29,8 +33,7 @@ class WsProcessPart extends PartObject {
   }
 
   async assertClear() {
-    await this.authentication.expectSelected('None/Container');
-    await this.qualifiedName.expectEmpty();
+    await this.section.expectIsClosed();
   }
 }
 
