@@ -37,7 +37,7 @@ describe('ScriptPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { code: 'code' });
 
     assertState('error', undefined, { path: 'code', message: '', severity: 'ERROR' });

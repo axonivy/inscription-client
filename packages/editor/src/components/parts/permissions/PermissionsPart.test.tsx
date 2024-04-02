@@ -39,7 +39,7 @@ describe('PermissionsPart', () => {
   }
 
   test('configured', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', {
       permissions: {
         view: { allowed: false }

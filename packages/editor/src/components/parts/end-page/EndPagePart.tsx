@@ -1,5 +1,4 @@
 import type { FieldsetControl } from '../../widgets';
-import { useFieldset } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useEndPageData } from './useEndPageData';
@@ -23,16 +22,9 @@ const EndPagePart = () => {
 
   const action = useAction('openEndPage');
   const openFile: FieldsetControl = { label: 'Open file', icon: IvyIcons.GoToSource, action: () => action(config.page) };
-  const pageFieldset = useFieldset();
   return (
-    <PathFieldset label='Display the following page' {...pageFieldset.labelProps} controls={[openFile]} path='page'>
-      <InputWithBrowser
-        browsers={['cms']}
-        typeFilter={'FILE'}
-        value={config.page}
-        onChange={change => update('page', change)}
-        {...pageFieldset.inputProps}
-      />
+    <PathFieldset label='Display the following page' controls={[openFile]} path='page'>
+      <InputWithBrowser browsers={['cms']} typeFilter={'FILE'} value={config.page} onChange={change => update('page', change)} />
     </PathFieldset>
   );
 };

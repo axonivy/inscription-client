@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { SelectRow, Table, TableCell } from '../../widgets';
+import { SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
@@ -14,6 +14,7 @@ import {
 } from '@tanstack/react-table';
 import { useQueryData } from '../../parts/query/useQueryData';
 import type { DatabaseColumn } from '@axonivy/inscription-protocol';
+import { SelectRow, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
 export const TABLE_COL_BROWSER_ID = 'tablecol' as const;
 
 export const useTableColBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
@@ -98,7 +99,7 @@ const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserVal
 
   return (
     <>
-      <Table
+      <SearchTable
         search={{
           value: globalFilter,
           onChange: newFilterValue => {
@@ -106,7 +107,7 @@ const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserVal
           }
         }}
       >
-        <tbody>
+        <TableBody>
           {table.getRowModel().rows.length > 0 ? (
             table.getRowModel().rows.map(row => (
               <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
@@ -116,12 +117,12 @@ const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserVal
               </SelectRow>
             ))
           ) : (
-            <tr>
+            <TableRow>
               <TableCell>No Columns found</TableCell>
-            </tr>
+            </TableRow>
           )}
-        </tbody>
-      </Table>
+        </TableBody>
+      </SearchTable>
       {showHelper && (
         <pre className='browser-helptext'>
           <b>{props.value}</b>

@@ -3,10 +3,11 @@ import { useMemo } from 'react';
 import type { WfActivator, WfActivatorType, WfTask } from '@axonivy/inscription-protocol';
 import { RESPONSIBLE_TYPE, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import type { SelectItem } from '../../../widgets';
-import { ScriptInput, Select, useFieldset } from '../../../widgets';
+import { ScriptInput, Select } from '../../../widgets';
 import type { DataUpdater } from '../../../../types/lambda';
 import { PathFieldset } from '..';
 import RoleSelect from './RoleSelect';
+import { Field } from '@axonivy/ui-components';
 
 export type ResponsibleUpdater = DataUpdater<WfTask['responsible']>;
 
@@ -59,18 +60,13 @@ const ResponsibleSelect = (props: {
     [props.responsible?.type, typeItems]
   );
 
-  const selectFieldset = useFieldset();
-
   return (
-    <PathFieldset label='Responsible' {...selectFieldset.labelProps} path='responsible'>
+    <PathFieldset label='Responsible' path='responsible'>
       <div className='responsible-select'>
-        <Select
-          items={typeItems}
-          value={selectedType}
-          onChange={item => props.updateResponsible('type', item.value as WfActivatorType)}
-          inputProps={selectFieldset.inputProps}
-        />
-        <ResponsibleActivator {...props} selectedType={selectedType?.value as WfActivatorType} />
+        <Select items={typeItems} value={selectedType} onChange={item => props.updateResponsible('type', item.value as WfActivatorType)} />
+        <Field>
+          <ResponsibleActivator {...props} selectedType={selectedType?.value as WfActivatorType} />
+        </Field>
       </div>
     </PathFieldset>
   );

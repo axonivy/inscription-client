@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { SelectRow, Table, TableCell, ExpandableCell } from '../../widgets';
+import { SearchTable, ExpandableCell } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
@@ -15,6 +15,7 @@ import {
 } from '@tanstack/react-table';
 import { useRoles } from '../../parts/common/responsible/useRoles';
 import type { RoleMeta } from '@axonivy/inscription-protocol';
+import { SelectRow, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
 export const ROLE_BROWSER = 'role' as const;
 
 export type RoleOptions = {
@@ -92,7 +93,7 @@ const RoleBrowser = (props: {
 
   return (
     <>
-      <Table
+      <SearchTable
         search={{
           value: globalFilter,
           onChange: newFilterValue => {
@@ -102,7 +103,7 @@ const RoleBrowser = (props: {
           }
         }}
       >
-        <tbody>
+        <TableBody>
           {table.getRowModel().rows.length > 0 ? (
             table.getRowModel().rows.map(row => (
               <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
@@ -112,12 +113,12 @@ const RoleBrowser = (props: {
               </SelectRow>
             ))
           ) : (
-            <tr>
+            <TableRow>
               <TableCell>No Columns found</TableCell>
-            </tr>
+            </TableRow>
           )}
-        </tbody>
-      </Table>
+        </TableBody>
+      </SearchTable>
       {showHelper && (
         <pre className='browser-helptext'>
           <b>{props.value}</b>

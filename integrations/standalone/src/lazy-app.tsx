@@ -1,13 +1,6 @@
 import { IvyScriptLanguage } from '@axonivy/inscription-core';
-import {
-  App,
-  ClientContextProvider,
-  MonacoEditorUtil,
-  QueryProvider,
-  ThemeContextProvider,
-  initQueryClient,
-  type ThemeMode
-} from '@axonivy/inscription-editor';
+import { App, AppStateView, ClientContextProvider, MonacoEditorUtil, QueryProvider, initQueryClient } from '@axonivy/inscription-editor';
+import { ThemeProvider } from '@axonivy/ui-components';
 import type { InscriptionClient } from '@axonivy/inscription-protocol';
 import type { QueryClient } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
@@ -18,7 +11,7 @@ export interface LazyAppProps {
   app: string;
   pmv: string;
   pid: string;
-  theme: ThemeMode;
+  theme: 'dark' | 'light';
 }
 
 export function LazyApp(props: LazyAppProps) {
@@ -36,15 +29,19 @@ export function LazyApp(props: LazyAppProps) {
   if (client) {
     return (
       <React.StrictMode>
-        <ThemeContextProvider theme={props.theme}>
+        <ThemeProvider defaultTheme={props.theme}>
           <ClientContextProvider client={client}>
             <QueryProvider client={queryClient}>
               <App app={props.app} pmv={props.pmv} pid={props.pid} />
             </QueryProvider>
           </ClientContextProvider>
-        </ThemeContextProvider>
+        </ThemeProvider>
       </React.StrictMode>
     );
   }
-  return <div className='loader' />;
+  return (
+    <AppStateView>
+      <div className='loader' />
+    </AppStateView>
+  );
 }

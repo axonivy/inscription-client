@@ -27,7 +27,7 @@ describe('WsClientSelect', () => {
   test('unknown', async () => {
     renderPart({ clientId: 'unknown' });
     await SelectUtil.assertValue('unknown');
-    await SelectUtil.assertOptionsCount(2);
+    await SelectUtil.assertOptionsCount(3);
   });
 
   test('data', async () => {

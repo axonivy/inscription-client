@@ -1,5 +1,4 @@
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
-import { useFieldset } from '../../../widgets';
 import type { PathFieldsetProps } from '../../common';
 import { PathFieldset } from '../../common';
 import { useEditorContext, useMeta } from '../../../../context';
@@ -25,10 +24,9 @@ export const RestError = ({ label, path, value, onChange }: RestErrorProps) => {
     })
   ];
 
-  const fieldset = useFieldset();
   return (
-    <PathFieldset label={label} path={path} {...fieldset.labelProps}>
-      <ExceptionCombobox value={value} onChange={onChange} items={items} {...fieldset.inputProps} />
+    <PathFieldset label={label} path={path}>
+      <ExceptionCombobox value={value} onChange={onChange} items={items} />
     </PathFieldset>
   );
 };

@@ -1,17 +1,7 @@
-import { PathCollapsible, SelectableValidationRow } from '../../../common';
+import { PathCollapsible, ValidationRow } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
 import type { SelectItem } from '../../../../widgets';
-import {
-  EditableCell,
-  ResizableHeader,
-  ScriptCell,
-  SelectCell,
-  SortableHeader,
-  Table,
-  TableAddRow,
-  TableCell,
-  TableHeader
-} from '../../../../widgets';
+import { ScriptCell } from '../../../../widgets';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -21,6 +11,16 @@ import { Parameter } from './parameters';
 import { useRestResourceMeta } from '../../useRestResourceMeta';
 import { useFindPathParams } from './usePathParams';
 import { deepEqual } from '../../../../../utils/equals';
+import {
+  InputCell,
+  SelectCell,
+  SortableHeader,
+  Table,
+  TableAddRow,
+  TableBody,
+  TableCell,
+  TableResizableHeader
+} from '@axonivy/ui-components';
 
 const EMPTY_PARAMETER: Parameter = { kind: 'Query', name: '', expression: '', known: false };
 
@@ -42,21 +42,21 @@ export const RestParameters = () => {
     updateParameters({ queryParams: Parameter.to(props, 'Query'), templateParams: Parameter.to(props, 'Path') });
   const kindItems = useMemo<SelectItem[]>(() => Object.entries(REST_PARAM_KIND).map(([value, label]) => ({ label, value })), []);
 
-  const columns = useMemo<ColumnDef<Parameter>[]>(
+  const columns = useMemo<ColumnDef<Parameter, string>[]>(
     () => [
       {
         accessorKey: 'kind',
-        header: header => <SortableHeader header={header} name='Kind' seperator={true} />,
+        header: ({ column }) => <SortableHeader column={column} name='Kind' />,
         cell: cell => <SelectCell cell={cell} items={kindItems} disabled={cell.row.original.known} />
       },
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Name' seperator={true} />,
-        cell: cell => <EditableCell cell={cell} disabled={cell.row.original.known} />
+        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        cell: cell => <InputCell cell={cell} disabled={cell.row.original.known} />
       },
       {
         accessorKey: 'expression',
-        header: header => <SortableHeader header={header} name='Expression' />,
+        header: ({ column }) => <SortableHeader column={column} name='Expression' />,
         cell: cell => (
           <ScriptCell
             cell={cell}
@@ -130,28 +130,18 @@ export const RestParameters = () => {
   return (
     <PathCollapsible label='Parameters' path='parameters' defaultOpen={data.length > 0} controls={tableActions}>
       <Table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
-              {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
-              ))}
-            </ResizableHeader>
-          ))}
-        </thead>
-        <tbody>
+        <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
+        <TableBody>
           {table.getRowModel().rows.map(row => (
-            <SelectableValidationRow row={row} colSpan={3} key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
+            <ValidationRow row={row} key={row.id} rowPathSuffix={row.original.name} title={row.original.doc}>
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </TableCell>
               ))}
-            </SelectableValidationRow>
+            </ValidationRow>
           ))}
-        </tbody>
+        </TableBody>
       </Table>
       {showAddButton() && <TableAddRow addRow={addRow} />}
     </PathCollapsible>

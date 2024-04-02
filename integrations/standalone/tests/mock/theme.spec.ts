@@ -35,5 +35,6 @@ test.describe('Theme mode light', () => {
 });
 
 async function assertThemeMode(page: Page, theme: 'dark' | 'light'): Promise<void> {
-  await expect(page.locator('.editor-root')).toHaveCSS('color-scheme', theme);
+  await expect(page.locator('html')).toHaveClass(theme);
+  await expect(page.locator('html')).toHaveCSS('color-scheme', theme);
 }

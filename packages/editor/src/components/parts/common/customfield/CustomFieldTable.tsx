@@ -5,22 +5,13 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { memo, useMemo } from 'react';
 import type { SelectItem } from '../../../../components/widgets';
-import {
-  SelectCell,
-  Table,
-  TableHeader,
-  TableCell,
-  TableAddRow,
-  SortableHeader,
-  ScriptCell,
-  ResizableHeader,
-  ComboCell
-} from '../../../../components/widgets';
+import { ScriptCell } from '../../../../components/widgets';
 import { useAction, useEditorContext, useMeta } from '../../../../context';
-import { SelectableValidationRow } from '../path/validation/ValidationRow';
+import { ValidationRow } from '../path/validation/ValidationRow';
 import { PathCollapsible } from '../path/PathCollapsible';
 import { useResizableEditableTable } from '../table/useResizableEditableTable';
 import { deepEqual } from '../../../../utils/equals';
+import { ComboCell, SelectCell, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 
 type CustomFieldTableProps = {
   data: WfCustomField[];
@@ -37,26 +28,26 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
 
   const predefinedCustomField: WfCustomField[] = useMeta('meta/workflow/customFields', { context, type: type }, []).data;
 
-  const columns = useMemo<ColumnDef<WfCustomField>[]>(
+  const columns = useMemo<ColumnDef<WfCustomField, string>[]>(
     () => [
       {
         accessorKey: 'name',
-        header: header => <SortableHeader header={header} name='Name' seperator={true} />,
+        header: ({ column }) => <SortableHeader column={column} name='Name' />,
         cell: cell => (
           <ComboCell
-            items={predefinedCustomField.filter(pcf => !data.find(d => d.name === pcf.name)).map(pcf => ({ value: pcf.name }))}
+            options={predefinedCustomField.filter(pcf => !data.find(d => d.name === pcf.name)).map(pcf => ({ value: pcf.name }))}
             cell={cell}
           />
         )
       },
       {
         accessorKey: 'type',
-        header: header => <SortableHeader header={header} name='Type' seperator={true} />,
+        header: ({ column }) => <SortableHeader column={column} name='Type' />,
         cell: cell => <SelectCell cell={cell} items={items} />
       },
       {
         accessorKey: 'value',
-        header: header => <SortableHeader header={header} name='Expression' />,
+        header: ({ column }) => <SortableHeader column={column} name='Expression' />,
         cell: cell => <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} browsers={['attr', 'func', 'type', 'cms']} />
       }
     ],
@@ -94,7 +85,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
     }
   };
 
-  const { table, rowSelection, setRowSelection, addRow, removeRowAction, showAddButton } = useResizableEditableTable({
+  const { table, rowSelection, setRowSelection, removeRowAction, showAddButton } = useResizableEditableTable({
     data,
     columns,
     onChange,
@@ -118,29 +109,21 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
 
   return (
     <PathCollapsible path='customFields' label='Custom Fields' defaultOpen={data.length > 0} controls={tableActions}>
-      <Table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <ResizableHeader key={headerGroup.id} headerGroup={headerGroup} setRowSelection={setRowSelection}>
-              {headerGroup.headers.map(header => (
-                <TableHeader key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHeader>
-              ))}
-            </ResizableHeader>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <SelectableValidationRow row={row} colSpan={3} key={row.id} rowPathSuffix={row.original.name}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-              ))}
-            </SelectableValidationRow>
-          ))}
-        </tbody>
-      </Table>
-      {showAddButton() && <TableAddRow addRow={addRow} />}
+      <div>
+        <Table>
+          <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
+          <TableBody>
+            {table.getRowModel().rows.map(row => (
+              <ValidationRow row={row} key={row.id} rowPathSuffix={row.original.name}>
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                ))}
+              </ValidationRow>
+            ))}
+          </TableBody>
+        </Table>
+        {showAddButton()}
+      </div>
     </PathCollapsible>
   );
 };

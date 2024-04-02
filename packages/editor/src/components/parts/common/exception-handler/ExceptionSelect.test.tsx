@@ -8,7 +8,7 @@ describe('ExceptionSelect', () => {
       { id: 'error1', label: 'this is error1' },
       { id: 'bla', label: 'blablabla' }
     ];
-    render(<ExceptionSelect value={options?.error ?? ''} onChange={() => {}} staticExceptions={['', 'test123']} />, {
+    render(<ExceptionSelect value={options?.error ?? ''} onChange={() => {}} staticExceptions={['test123']} />, {
       wrapperProps: { meta: { expiryErrors } }
     });
   }
@@ -16,7 +16,7 @@ describe('ExceptionSelect', () => {
   test('select will render', async () => {
     renderSelect();
     await SelectUtil.assertEmpty();
-    await SelectUtil.assertOptionsCount(4);
+    await SelectUtil.assertOptionsCount(3);
   });
 
   test('select will render unknown value', async () => {

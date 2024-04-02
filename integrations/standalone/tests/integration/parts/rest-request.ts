@@ -28,7 +28,7 @@ class RestRequest extends PartObject {
     this.client = part.select('Client');
     this.resource = part.combobox('Resource');
     this.method = new Select(part.page, part.currentLocator(), { nth: 1 });
-    this.path = part.scriptInput('Resource');
+    this.path = part.scriptInput();
     this.parametersSection = part.section('Parameters');
     this.parameters = this.parametersSection.table(['select', 'text', 'expression']);
     this.headersSection = part.section('Headers');

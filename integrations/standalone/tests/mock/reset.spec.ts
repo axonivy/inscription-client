@@ -9,7 +9,7 @@ test.describe('Reset part', () => {
 
     const resetBtn = part.resetButton('General');
     await expect(resetBtn).not.toBeVisible();
-    const name = part.textArea('Display name');
+    const name = part.textArea({ label: 'Display name' });
     await name.fill('bla');
     await expect(resetBtn).toBeVisible();
 

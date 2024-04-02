@@ -1,4 +1,4 @@
-import { Fieldset, ScriptCell, Table, TableAddRow, TableCell } from '../../widgets';
+import { Fieldset, ScriptCell } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
@@ -7,8 +7,9 @@ import { PathContext, useValidations } from '../../../context';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { SelectableValidationRow } from '../common';
+import { ValidationRow } from '../common';
 import { useResizableEditableTable } from '../common/table/useResizableEditableTable';
+import { Table, TableBody, TableCell } from '@axonivy/ui-components';
 
 export function useMailAttachmentPart(): PartProps {
   const { config, initConfig, defaultConfig, resetAttachments } = useMailData();
@@ -32,7 +33,7 @@ const MailAttachmentTable = () => {
   type MailAttachment = { attachment: string };
   const [data, setData] = useState<MailAttachment[]>(config.attachments.map(filename => ({ attachment: filename })));
 
-  const columns = useMemo<ColumnDef<MailAttachment>[]>(
+  const columns = useMemo<ColumnDef<MailAttachment, string>[]>(
     () => [
       {
         id: 'attachment',
@@ -51,7 +52,7 @@ const MailAttachmentTable = () => {
     update('attachments', mappedData);
   };
 
-  const { table, setRowSelection, addRow, removeRowAction, showAddButton } = useResizableEditableTable({
+  const { table, setRowSelection, removeRowAction, showAddButton } = useResizableEditableTable({
     data,
     columns,
     onChange,
@@ -72,21 +73,21 @@ const MailAttachmentTable = () => {
         />
         {table.getRowModel().rows.length > 0 && (
           <Table>
-            <tbody>
+            <TableBody>
               {table.getRowModel().rows.map(row => (
-                <SelectableValidationRow row={row} colSpan={1} key={row.id} rowPathSuffix={row.index}>
+                <ValidationRow row={row} key={row.id} rowPathSuffix={row.index}>
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
-                </SelectableValidationRow>
+                </ValidationRow>
               ))}
-            </tbody>
+            </TableBody>
           </Table>
         )}
       </div>
-      {showAddButton() && <TableAddRow addRow={addRow} />}
+      {showAddButton()}
     </>
   );
 };

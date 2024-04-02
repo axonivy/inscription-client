@@ -1,13 +1,12 @@
 import type { ReactNode } from 'react';
 import './App.css';
-import { useTheme } from './context/useTheme';
+import { Flex } from '@axonivy/ui-components';
 
 function AppStateView({ children }: { children: ReactNode }) {
-  const { mode: theme } = useTheme();
   return (
-    <div className='editor-root editor-state' data-theme={theme}>
+    <Flex direction='column' alignItems='center' justifyContent='center' className='editor-root editor-state'>
       {children}
-    </div>
+    </Flex>
   );
 }
 

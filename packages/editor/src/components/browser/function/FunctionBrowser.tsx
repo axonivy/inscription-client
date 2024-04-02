@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ExpandableCell, SelectRow, Table, TableCell, TableFooter, TableShowMore } from '../../widgets';
+import { ExpandableCell, SearchTable, TableShowMore } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { Function } from '@axonivy/inscription-protocol';
 import {
@@ -17,6 +17,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { useEditorContext, useMeta } from '../../../context';
 import { getParentNames } from './parent-name';
+import { SelectRow, TableBody, TableCell, TableFooter } from '@axonivy/ui-components';
 export const FUNCTION_BROWSER_ID = 'func' as const;
 
 export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
@@ -115,7 +116,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
   });
 
   const { rows } = table.getRowModel();
-  const parentRef = useRef<HTMLDivElement>(null);
+  const parentRef = useRef<HTMLTableElement>(null);
 
   const virtualizer = useVirtualizer({
     count: rows.length > 0 ? Math.min(rows.length, rowNumber) : 0,
@@ -152,7 +153,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
 
   return (
     <>
-      <Table
+      <SearchTable
         search={{
           value: globalFilter,
           onChange: newFilterValue => {
@@ -164,7 +165,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
         }}
         ref={parentRef}
       >
-        <tbody>
+        <TableBody>
           {virtualizer.getVirtualItems().map(virtualRow => {
             const row = rows[virtualRow.index];
             return (
@@ -175,17 +176,17 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
               </SelectRow>
             );
           })}
-        </tbody>
+        </TableBody>
         {rowNumber < rows.length && (
           <TableFooter>
             <TableShowMore
-              colSpan={4}
+              colSpan={columns.length}
               showMore={() => setRowNumber(old => old + 100)}
               helpertext={rowNumber + ' out of ' + rows.length + ' shown'}
             />
           </TableFooter>
         )}
-      </Table>
+      </SearchTable>
       {showHelper && (
         <pre className='browser-helptext' dangerouslySetInnerHTML={{ __html: `<b>${props.value}</b>${selectedFunctionDoc}` }} />
       )}

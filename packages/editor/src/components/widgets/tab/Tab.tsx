@@ -2,14 +2,14 @@ import './Tab.css';
 import { Tabs as TabsRoot, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import type { ReactNode } from 'react';
 import { useMemo } from 'react';
-import type { Message } from '../message/Message';
+import type { ValidationMessage } from '../message/Message';
 import IvyIcon from '../IvyIcon';
 import type { IvyIcons } from '@axonivy/ui-icons';
 
 export type Tab = {
   id: string;
   name: string;
-  messages?: Message[];
+  messages?: ValidationMessage[];
   icon?: IvyIcons;
   content: ReactNode;
 };

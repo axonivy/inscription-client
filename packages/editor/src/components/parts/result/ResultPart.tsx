@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ScriptArea, useFieldset } from '../../widgets';
+import { ScriptArea } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useResultData } from './useResultData';
@@ -33,7 +33,6 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
     queryClient.invalidateQueries({ queryKey: ['meta/scripting/out'] });
   }, [config.result.params, queryClient]);
 
-  const codeFieldset = useFieldset();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   return (
@@ -50,13 +49,12 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
         onChange={change => update('map', change)}
         browsers={['attr', 'func', 'type']}
       />
-      <PathFieldset label='Code' {...codeFieldset.labelProps} path='code' controls={[maximizeCode]}>
+      <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
         <ScriptArea
           maximizeState={maximizeState}
           value={config.result.code}
           onChange={change => update('code', change)}
           browsers={['attr', 'func', 'type']}
-          {...codeFieldset.inputProps}
         />
       </PathFieldset>
     </PathContext>

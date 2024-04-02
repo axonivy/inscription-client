@@ -5,6 +5,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
+import { useField } from '@axonivy/ui-components';
 import { afterEach, vi } from 'vitest';
 import { cloneObject } from './object-utils';
 
@@ -25,7 +26,8 @@ global.ResizeObserver = class ResizeObserver {
 global.structuredClone = cloneObject;
 
 const CodeEditorMock = ({ id, value, onChange }: { id: string; value: string; onChange: (value: string) => void }) => {
-  return <input data-testid='code-editor' id={id} value={value} onChange={e => onChange(e.target.value)} />;
+  const { inputProps } = useField();
+  return <input data-testid='code-editor' {...inputProps} id={id} value={value} onChange={e => onChange(e.target.value)} />;
 };
 
 vi.mock('../components/widgets/code-editor', () => ({
@@ -36,3 +38,6 @@ vi.mock('../components/widgets/code-editor', () => ({
   MacroInput: CodeEditorMock,
   SingleLineCodeEditor: CodeEditorMock
 }));
+
+window.HTMLElement.prototype.scrollIntoView = vi.fn();
+window.HTMLElement.prototype.hasPointerCapture = vi.fn();

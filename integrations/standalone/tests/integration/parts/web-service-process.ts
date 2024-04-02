@@ -10,7 +10,7 @@ class WsProcessPart extends PartObject {
   constructor(part: Part) {
     super(part);
     this.authentication = part.radioGroup();
-    this.qualifiedName = part.textArea('Qualified name');
+    this.qualifiedName = part.textArea({ label: 'Qualified name' });
   }
 
   async fill() {

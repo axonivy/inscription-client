@@ -1,23 +1,52 @@
-import { Collapsible as CollapsibleRoot, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
+import {
+  Collapsible as CollapsibleRoot,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  type CollapsibleControlProps,
+  CollapsibleState,
+  ButtonGroup,
+  Flex
+} from '@axonivy/ui-components';
 import type { ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
-import './Collapsible.css';
-import { IvyIcons } from '@axonivy/ui-icons';
-import IvyIcon from '../IvyIcon';
-import type { MessageTextProps } from '../message/Message';
-import { MessageText } from '../message/Message';
 import type { FieldsetControl } from '../fieldset';
-import HeadlineControls from '../headlineControls/HeadlineControls';
+import { type ValidationMessage, toMessageDataArray } from '../message/Message';
 
-export type CollapsibleProps = MessageTextProps & {
+export type CollapsibleProps = {
   label: string;
   defaultOpen?: boolean;
   autoClosable?: boolean;
   children: ReactNode;
-  controls?: FieldsetControl[];
+  controls?: Array<FieldsetControl>;
+  validations?: Array<ValidationMessage>;
 };
 
-const Collapsible = ({ label, defaultOpen, message, children, autoClosable, controls }: CollapsibleProps) => {
+const Controls = ({ controls, ...props }: Pick<CollapsibleProps, 'controls'> & CollapsibleControlProps) => {
+  if (controls) {
+    return (
+      <ButtonGroup
+        {...props}
+        controls={controls.map(({ action, icon, label, active }) => ({
+          icon,
+          title: label,
+          onClick: action,
+          toggle: active,
+          'aria-label': label
+        }))}
+      />
+    );
+  }
+  return null;
+};
+
+const State = ({ validations }: Pick<CollapsibleProps, 'validations'>) => {
+  if (validations) {
+    return <CollapsibleState messages={toMessageDataArray(validations)} />;
+  }
+  return null;
+};
+
+const Collapsible = ({ label, defaultOpen, validations, children, autoClosable, controls }: CollapsibleProps) => {
   const [open, setOpen] = useState(defaultOpen ?? false);
   useEffect(() => {
     if (autoClosable) {
@@ -29,20 +58,14 @@ const Collapsible = ({ label, defaultOpen, message, children, autoClosable, cont
     }
   }, [autoClosable, defaultOpen]);
   return (
-    <CollapsibleRoot className='collapsible-root' open={open} onOpenChange={setOpen}>
-      <div className='collapsible-header'>
-        <CollapsibleTrigger asChild className='collapsible-trigger button'>
-          <button>
-            <IvyIcon icon={IvyIcons.Toggle} />
-            {label}
-          </button>
-        </CollapsibleTrigger>
-        {!open && <MessageText message={message} />}
-        {controls && open && <HeadlineControls controls={controls} />}
-      </div>
-
-      <CollapsibleContent className='collapsible-content'>
-        <div className='collapsible-content-data'>{children}</div>
+    <CollapsibleRoot open={open} onOpenChange={setOpen}>
+      <CollapsibleTrigger control={props => <Controls {...props} controls={controls} />} state={<State validations={validations} />}>
+        {label}
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <Flex direction='column' gap={3}>
+          {children}
+        </Flex>
       </CollapsibleContent>
     </CollapsibleRoot>
   );

@@ -3,7 +3,7 @@ import { EVENT_ACTION_TYPE, IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/in
 import type { PartProps } from '../../../editors';
 import { usePartDirty, usePartState } from '../../../editors';
 import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common';
-import { ScriptInput, useFieldset, Radio } from '../../../widgets';
+import { ScriptInput, Radio } from '../../../widgets';
 import { useValidations } from '../../../../context';
 import { useEventData } from './useEventData';
 import JavaClassSelector from '../JavaClassSelector';
@@ -26,52 +26,43 @@ export function useEventPart(options?: { thirdParty?: boolean }): PartProps {
 const EventPart = ({ thirdParty }: { thirdParty?: boolean }) => {
   const { config, defaultConfig, update, updateTimeout } = useEventData();
 
-  const eventIdFieldset = useFieldset();
-  const timeoutDurationFieldset = useFieldset();
-  const timeoutErrorFieldset = useFieldset();
-  const actionFieldset = useFieldset();
-
   return (
     <>
       {(thirdParty === undefined || thirdParty === false) && (
         <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='INTERMEDIATE' />
       )}
 
-      <PathFieldset label='Event ID' path='eventId' {...eventIdFieldset.labelProps}>
+      <PathFieldset label='Event ID' path='eventId'>
         <ScriptInput
           value={config.eventId}
           onChange={change => update('eventId', change)}
           type={IVY_SCRIPT_TYPES.NUMBER}
           browsers={['attr', 'func', 'type']}
-          {...eventIdFieldset.inputProps}
         />
       </PathFieldset>
 
       <PathCollapsible label='Expiry' path='timeout' defaultOpen={!deepEqual(config.timeout, defaultConfig.timeout)}>
-        <PathFieldset label='Duration' {...timeoutDurationFieldset.labelProps} path='duration'>
+        <PathFieldset label='Duration' path='duration'>
           <ScriptInput
             value={config.timeout.duration}
             onChange={change => updateTimeout('duration', change)}
             type={IVY_SCRIPT_TYPES.DURATION}
             browsers={['attr', 'func', 'type']}
-            {...timeoutDurationFieldset.inputProps}
           />
         </PathFieldset>
-        <PathFieldset label='Error' path='error' {...timeoutErrorFieldset.labelProps}>
+        <PathFieldset label='Error' path='error'>
           <ExceptionSelect
             value={config.timeout.error}
             onChange={change => updateTimeout('error', change)}
             staticExceptions={[IVY_EXCEPTIONS.intermediate]}
-            inputProps={timeoutErrorFieldset.inputProps}
           />
         </PathFieldset>
 
-        <PathFieldset label='Action' path='action' {...actionFieldset.labelProps}>
+        <PathFieldset label='Action' path='action'>
           <Radio
             value={config.timeout.action}
             onChange={change => updateTimeout('action', change as IntermediateEventTimeoutAction)}
             items={Object.entries(EVENT_ACTION_TYPE).map(([value, label]) => ({ label, value }))}
-            {...actionFieldset.inputProps}
             orientation='vertical'
           />
         </PathFieldset>

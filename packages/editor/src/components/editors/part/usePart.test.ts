@@ -11,7 +11,7 @@ describe('PartState', () => {
   }
 
   test('states', async () => {
-    assertState('empty');
+    assertState(undefined);
     assertState('configured', { something: 'else' });
     assertState('configured', { something: 'else' }, [{ path: '', severity: 'INFO', message: '' }]);
     assertState('warning', { something: 'else' }, [

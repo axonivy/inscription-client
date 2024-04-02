@@ -27,12 +27,12 @@ describe('WsOperationSelect', () => {
   test('unknown', async () => {
     renderPart({ operation: { name: 'unknown' } });
     await SelectUtil.assertValue('unknown');
-    await SelectUtil.assertOptionsCount(2);
+    await SelectUtil.assertOptionsCount(3);
   });
 
   test('data', async () => {
     renderPart({ operation: { name: 'name' } });
     await SelectUtil.assertValue('name');
-    await SelectUtil.assertOptionsCount(2);
+    await SelectUtil.assertOptionsCount(3);
   });
 });
