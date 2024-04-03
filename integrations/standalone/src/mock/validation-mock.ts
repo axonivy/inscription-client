@@ -35,6 +35,7 @@ export namespace ValidationMock {
     const msgs: InscriptionValidation[] = [];
     if (data.config.dialog === undefined || data.config.dialog.length === 0) {
       msgs.push({ path: 'dialog', severity: 'WARNING', message: 'No User Dialog specified, auto dialog will be shown.' });
+      msgs.push({ path: 'call.map.param.procurementRequest', severity: 'WARNING', message: 'Unknown mapping' });
     }
     return msgs;
   };
