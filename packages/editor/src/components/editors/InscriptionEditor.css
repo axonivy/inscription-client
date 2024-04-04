@@ -4,7 +4,6 @@
   flex-direction: column;
   padding-bottom: var(--size-3);
   height: 100%;
-  overflow-y: auto;
   position: relative;
 }
 
@@ -26,6 +25,7 @@
   gap: var(--size-2);
   border-bottom: var(--basic-border);
   height: 24px; /* need to be full height 48px to be same with process editor*/
+  flex: 0 0 24px;
 }
 
 .header-left {
@@ -80,4 +80,5 @@
 .content {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }

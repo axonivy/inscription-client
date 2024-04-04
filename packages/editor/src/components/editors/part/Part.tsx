@@ -1,3 +1,4 @@
+import './Part.css';
 import { useState } from 'react';
 import { IvyIcons } from '@axonivy/ui-icons';
 import {
@@ -14,6 +15,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import type { PartProps } from './usePart';
 import { ErrorFallback } from '../../widgets';
 import type { Severity } from '@axonivy/inscription-protocol';
+import { useSticky } from './useSticky';
 
 const Control = ({ name, reset, control, ...props }: Pick<PartProps, 'name' | 'reset' | 'control'> & AccordionControlProps) => {
   if (reset.dirty || control) {
@@ -44,23 +46,28 @@ const Part = ({ parts }: { parts: PartProps[] }) => {
 
   return (
     <Accordion type='single' collapsible value={value} onValueChange={setValue}>
-      {parts.map(part => {
-        return (
-          <AccordionItem value={part.name} key={part.name}>
-            <AccordionTrigger control={props => <Control {...props} {...part} />} state={<State state={part.state} />}>
-              {part.name}
-            </AccordionTrigger>
-            <AccordionContent>
-              <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[part]}>
-                <Flex direction='column' gap={3}>
-                  {part.content}
-                </Flex>
-              </ErrorBoundary>
-            </AccordionContent>
-          </AccordionItem>
-        );
-      })}
+      {parts.map(part => (
+        <PartItem {...part} key={part.name} />
+      ))}
     </Accordion>
+  );
+};
+
+const PartItem = (part: PartProps) => {
+  const { ref, isSticky } = useSticky();
+  return (
+    <AccordionItem value={part.name} data-sticky={isSticky ? 'true' : undefined}>
+      <AccordionTrigger ref={ref} control={props => <Control {...props} {...part} />} state={<State state={part.state} />}>
+        {part.name}
+      </AccordionTrigger>
+      <AccordionContent>
+        <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[part]}>
+          <Flex direction='column' gap={3}>
+            {part.content}
+          </Flex>
+        </ErrorBoundary>
+      </AccordionContent>
+    </AccordionItem>
   );
 };
 
