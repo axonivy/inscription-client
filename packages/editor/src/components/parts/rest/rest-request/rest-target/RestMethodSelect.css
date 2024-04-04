@@ -1,16 +1,6 @@
-.rest-method-input {
-  display: flex;
-  gap: var(--size-4);
-}
-.rest-method-input .select:first-child {
+.rest-method-input > :first-child:has(~ *) {
   flex: 0 0 8rem;
 }
-.rest-method-input .script-input {
-  width: calc(100% - 8rem - var(--size-4));
-}
-
-.combobox .combobox-method {
-  border: 1px solid var(--background);
-  border-radius: var(--border-r2);
-  padding: 1px;
+.rest-method-input > * {
+  width: 100%;
 }

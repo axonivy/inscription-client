@@ -1,6 +1,6 @@
 import { useSubCallPart } from './SubCallPart';
 import type { DeepPartial } from 'test-utils';
-import { render, screen, TableUtil, renderHook } from 'test-utils';
+import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
 import type { CallData, ElementData, ProcessCallData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { describe, test, expect } from 'vitest';
@@ -16,14 +16,16 @@ describe('SubCallPart', () => {
   }
 
   async function assertMainPart(dialog: string, map: RegExp[], code: string) {
-    expect(await screen.findByRole('combobox', { name: 'Process start' })).toHaveValue(dialog);
+    expect(await screen.findByRole('combobox')).toHaveValue(dialog);
     TableUtil.assertRows(map);
-    expect(await screen.findByLabelText('Code')).toHaveValue(code);
+    expect(await screen.findByTestId('code-editor')).toHaveValue(code);
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('', [], '');
+    await CollapsableUtil.assertClosed('Process start');
+    await CollapsableUtil.assertClosed('Mapping');
+    await CollapsableUtil.assertClosed('Code');
   });
 
   test('full data', async () => {

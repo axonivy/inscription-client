@@ -6,6 +6,7 @@ import type { Select } from '../../pageobjects/Select';
 import { NewPartTest, PartObject } from './part-tester';
 
 class MailHeader extends PartObject {
+  headers: Section;
   subject: MacroEditor;
   from: MacroEditor;
   reply: MacroEditor;
@@ -18,18 +19,20 @@ class MailHeader extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.subject = part.macroInput('Subject');
-    this.from = part.macroInput('From');
-    this.reply = part.macroInput('Reply to');
-    this.to = part.macroInput('To');
-    this.cc = part.macroInput('CC');
-    this.bcc = part.macroInput('BCC');
+    this.headers = part.section('Headers');
+    this.subject = this.headers.macroInput('Subject');
+    this.from = this.headers.macroInput('From');
+    this.reply = this.headers.macroInput('Reply to');
+    this.to = this.headers.macroInput('To');
+    this.cc = this.headers.macroInput('CC');
+    this.bcc = this.headers.macroInput('BCC');
     this.options = part.section('Options');
-    this.error = this.options.select('Error');
+    this.error = this.options.select({ label: 'Error' });
     this.throw = this.options.checkbox('Throw');
   }
 
   async fill() {
+    await this.headers.open();
     await this.subject.fill('subject');
     await this.from.fill('from');
     await this.reply.fill('reply');
@@ -64,12 +67,7 @@ class MailHeader extends PartObject {
     await this.throw.click();
   }
   async assertClear() {
-    await this.subject.expectEmpty();
-    await this.from.expectEmpty();
-    await this.reply.expectEmpty();
-    await this.to.expectEmpty();
-    await this.cc.expectEmpty();
-    await this.bcc.expectEmpty();
+    await this.headers.expectIsClosed();
     await this.options.expectIsClosed();
   }
 }

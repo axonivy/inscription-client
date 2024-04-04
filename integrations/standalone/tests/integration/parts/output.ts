@@ -1,46 +1,80 @@
 import type { ScriptArea } from '../../pageobjects/CodeEditor';
 import type { Part } from '../../pageobjects/Part';
+import type { Section } from '../../pageobjects/Section';
 import type { Table } from '../../pageobjects/Table';
 import { NewPartTest, PartObject } from './part-tester';
 
 class Output extends PartObject {
+  mappingSection: Section;
   mapping: Table;
-  code: ScriptArea;
 
-  constructor(part: Part, private readonly hasCode: boolean = true) {
+  constructor(part: Part) {
     super(part);
-    this.mapping = part.table(['text', 'expression']);
-    this.code = part.scriptArea();
+    this.mappingSection = part.section('Mapping');
+    this.mapping = this.mappingSection.table(['text', 'expression']);
   }
 
   async fill() {
+    await this.mappingSection.open();
     await this.mapping.row(1).column(1).fill('"bla"');
-    if (this.hasCode) {
-      await this.code.fill('code');
-    }
   }
 
   async assertFill() {
     await this.mapping.row(1).column(1).expectValue('"bla"');
-    if (this.hasCode) {
-      await this.code.expectValue('code');
-    }
   }
 
   async clear() {
     await this.mapping.row(1).column(1).clearExpression();
-    if (this.hasCode) {
-      await this.code.clear();
-    }
   }
 
   async assertClear() {
     await this.mapping.row(1).column(1).expectEmpty();
-    if (this.hasCode) {
-      await this.code.expectEmpty();
-    }
   }
 }
 
-export const OutputTest = new NewPartTest('Output', (part: Part) => new Output(part));
-export const ScriptOutputTest = new NewPartTest('Output', (part: Part) => new Output(part, false));
+class OutputCode extends Output {
+  codeSection: Section;
+  code: ScriptArea;
+
+  constructor(part: Part) {
+    super(part);
+    this.codeSection = part.section('Code');
+    this.code = this.codeSection.scriptArea();
+  }
+
+  override async fill() {
+    await super.fill();
+    await this.codeSection.open();
+    await this.code.fill('code');
+  }
+
+  override async assertFill() {
+    await super.assertFill();
+    await this.code.expectValue('code');
+  }
+
+  override async clear() {
+    await super.clear();
+    await this.code.clear();
+  }
+
+  override async assertClear() {
+    await super.assertClear();
+    await this.codeSection.expectIsClosed();
+  }
+}
+
+class OutputEmptyMap extends OutputCode {
+  constructor(part: Part) {
+    super(part);
+  }
+
+  override async assertClear() {
+    await this.mappingSection.expectIsClosed();
+    await this.codeSection.expectIsClosed();
+  }
+}
+
+export const OutputTest = new NewPartTest('Output', (part: Part) => new OutputCode(part));
+export const ScriptOutputTest = new NewPartTest('Output', (part: Part) => new Output(part));
+export const SignalOutputTest = new NewPartTest('Output', (part: Part) => new OutputEmptyMap(part));

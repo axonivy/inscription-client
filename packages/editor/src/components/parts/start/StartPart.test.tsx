@@ -16,7 +16,7 @@ describe('StartPart', () => {
   }
 
   async function assertMainPart(signature: string, params: RegExp[], map: RegExp[], code: string) {
-    expect(await screen.findByLabelText('Signature')).toHaveValue(signature);
+    expect(await screen.getAllByRole('textbox')[0]).toHaveValue(signature);
     await CollapsableUtil.assertClosed('Input parameters');
     if (params.length === 0) {
       TableUtil.assertRows(map);
@@ -25,12 +25,15 @@ describe('StartPart', () => {
       TableUtil.assertRows(params, 1);
       TableUtil.assertRows(map, 3);
     }
-    expect(await screen.findByLabelText('Code')).toHaveValue(code);
+    expect(await screen.findByTestId('code-editor')).toHaveValue(code);
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('', [], [], '');
+    await CollapsableUtil.assertClosed('Signature');
+    await CollapsableUtil.assertClosed('Input parameters');
+    await CollapsableUtil.assertClosed('Mapping');
+    await CollapsableUtil.assertClosed('Code');
   });
 
   test('full data', async () => {

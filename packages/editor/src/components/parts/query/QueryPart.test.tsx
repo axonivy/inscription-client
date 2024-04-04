@@ -84,7 +84,12 @@ describe('QueryPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await assertPage();
+    await CollapsableUtil.assertClosed('Database');
+    await CollapsableUtil.assertClosed('Fields');
+    await CollapsableUtil.assertClosed('Condition');
+    await CollapsableUtil.assertClosed('Sort');
+    await CollapsableUtil.assertClosed('Limit');
+    await CollapsableUtil.assertClosed('Error');
   });
 
   test('read data', async () => {

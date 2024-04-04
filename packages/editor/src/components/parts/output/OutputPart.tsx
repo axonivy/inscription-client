@@ -4,7 +4,7 @@ import { PathContext, useEditorContext, useMeta, useValidations } from '../../..
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useOutputData } from './useOutputData';
-import { MappingPart, PathFieldset } from '../common';
+import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
 import type { BrowserType } from '../../../components/browser';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
@@ -23,7 +23,7 @@ export function useOutputPart(options?: { hideCode?: boolean; additionalBrowsers
 }
 
 const OutputPart = (props: { showCode?: boolean; additionalBrowsers?: BrowserType[] }) => {
-  const { config, update } = useOutputData();
+  const { config, defaultConfig, update } = useOutputData();
 
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'output' }, { variables: [], types: {} });
@@ -36,14 +36,16 @@ const OutputPart = (props: { showCode?: boolean; additionalBrowsers?: BrowserTyp
     <PathContext path='output'>
       <MappingPart data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} browsers={browsers} />
       {props.showCode && (
-        <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
-          <ScriptArea
-            maximizeState={maximizeState}
-            value={config.output.code}
-            onChange={change => update('code', change)}
-            browsers={browsers}
-          />
-        </PathFieldset>
+        <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.output.code !== defaultConfig.output.code}>
+          <ValidationFieldset>
+            <ScriptArea
+              maximizeState={maximizeState}
+              value={config.output.code}
+              onChange={change => update('code', change)}
+              browsers={browsers}
+            />
+          </ValidationFieldset>
+        </PathCollapsible>
       )}
     </PathContext>
   );

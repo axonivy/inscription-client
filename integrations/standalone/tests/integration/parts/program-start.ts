@@ -6,6 +6,7 @@ import type { Select } from '../../pageobjects/Select';
 import type { Combobox } from '../../pageobjects/Combobox';
 
 class ProgramStart extends PartObject {
+  javaSection: Section;
   javaClass: Combobox;
   permissionSection: Section;
   anonymousAllow: Checkbox;
@@ -14,15 +15,17 @@ class ProgramStart extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.javaClass = part.combobox('Java Class');
+    this.javaSection = part.section('Java Class');
+    this.javaClass = this.javaSection.combobox();
 
     this.permissionSection = part.section('Permission');
     this.anonymousAllow = this.permissionSection.checkbox('Allow anonymous');
-    this.role = this.permissionSection.select('Role');
-    this.error = this.permissionSection.select('Violation error');
+    this.role = this.permissionSection.select({ label: 'Role' });
+    this.error = this.permissionSection.select({ label: 'Violation error' });
   }
 
   async fill() {
+    await this.javaSection.open();
     await this.javaClass.choose('ch.ivyteam.ivy.process.eventstart.AbstractProcessStartEventBean');
 
     await this.permissionSection.toggle();

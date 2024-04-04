@@ -1,7 +1,7 @@
 import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 import type { Section } from '../../pageobjects/Section';
-import { Select } from '../../pageobjects/Select';
+import type { Select } from '../../pageobjects/Select';
 import type { Table } from '../../pageobjects/Table';
 import type { MacroEditor, ScriptArea } from '../../pageobjects/CodeEditor';
 import type { Combobox } from '../../pageobjects/Combobox';
@@ -12,6 +12,7 @@ import { expect } from '@playwright/test';
 class EntityPart extends PartObject {
   bodyType: RadioGroup;
   entityType: Combobox;
+  mappingSection: Section;
   mapping: Table;
   code: ScriptArea;
 
@@ -19,13 +20,15 @@ class EntityPart extends PartObject {
     super(part);
     this.bodyType = body.radioGroup();
     this.entityType = body.combobox('Entity-Type');
-    this.mapping = body.table(['label', 'expression']);
+    this.mappingSection = body.section('Mapping');
+    this.mapping = this.mappingSection.table(['label', 'expression']);
     this.code = body.scriptArea();
   }
 
   async fill() {
     await this.bodyType.expectSelected('Entity');
     await this.entityType.fill('ch.ivyteam.test.Person');
+    await this.mappingSection.open();
     await expect(this.mapping.row(0).locator).toHaveText('param');
     await this.mapping.row(2).fill(['CH']);
     await this.code.fill('code');
@@ -46,6 +49,7 @@ class EntityPart extends PartObject {
 class EntityOpenApiPart extends EntityPart {
   override async fill() {
     await this.bodyType.expectSelected('Entity');
+    await this.mappingSection.open();
     await expect(this.mapping.row(0).locator).toHaveText('param');
     await this.mapping.row(2).fill(['CH']);
     await this.code.fill('code');
@@ -113,6 +117,7 @@ class RawPart extends PartObject {
 }
 
 class RestRequestBody extends PartObject {
+  serviceSection: Section;
   client: Select;
   resource: Combobox;
   method: Select;
@@ -125,9 +130,10 @@ class RestRequestBody extends PartObject {
 
   constructor(part: Part, readonly type: InputType = 'ENTITY') {
     super(part);
-    this.client = part.select('Client');
-    this.resource = part.combobox('Resource');
-    this.method = new Select(part.page, part.currentLocator(), { nth: 1 });
+    this.serviceSection = part.section('Rest Service');
+    this.client = this.serviceSection.select({ label: 'Client' });
+    this.resource = this.serviceSection.combobox('Resource');
+    this.method = this.serviceSection.select({ nth: 1 });
     this.jaxRs = part.scriptArea();
     this.bodySection = part.section('Body');
     this.entityPart = new EntityPart(part, this.bodySection);
@@ -148,6 +154,7 @@ class RestRequestBody extends PartObject {
   }
 
   async fill() {
+    await this.serviceSection.open();
     await this.client.choose('stock');
     await this.method.choose('POST');
 
@@ -177,6 +184,7 @@ class RestRequestBody extends PartObject {
 
 class RestRequestBodyJaxRs extends RestRequestBody {
   override async fill() {
+    await this.serviceSection.open();
     await this.client.choose('stock');
     await this.method.choose('JAX_RS');
     await this.jaxRs.fill('jax');
@@ -204,6 +212,7 @@ class RestRequestBodyOpenApi extends RestRequestBody {
   }
 
   override async fill() {
+    await this.serviceSection.open();
     await this.client.choose('pet');
     await this.resource.choose('POST');
     await this.bodySection.expectIsOpen();

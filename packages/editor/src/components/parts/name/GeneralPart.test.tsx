@@ -10,7 +10,7 @@ const Part = (props: { hideTags?: boolean; disableName?: boolean }) => {
 };
 
 describe('NamePart', () => {
-  function renderPart(data?: GeneralData, hideTags?: boolean, disableName?: boolean) {
+  function renderPart(data?: Partial<GeneralData>, hideTags?: boolean, disableName?: boolean) {
     render(<Part hideTags={hideTags} disableName={disableName} />, { wrapperProps: { data } });
   }
 
@@ -21,20 +21,18 @@ describe('NamePart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('', '');
+    await CollapsableUtil.assertClosed('Name / Description');
     await CollapsableUtil.assertClosed('Means / Documents');
     await CollapsableUtil.assertClosed('Tags');
   });
 
   test('hide tags', async () => {
     renderPart(undefined, true);
-    await assertMainPart('', '');
     expect(screen.queryByText('Tags')).not.toBeInTheDocument();
   });
 
   test('disable name', async () => {
-    renderPart(undefined, undefined, true);
-    await assertMainPart('', '');
+    renderPart({ name: 'name' }, undefined, true);
     expect(await screen.findByLabelText('Display name')).toBeDisabled();
   });
 

@@ -16,11 +16,11 @@ export function useCasePart(): PartProps {
 }
 
 const CasePart = () => {
-  const { config, update } = useCaseData();
+  const { config, defaultConfig, update } = useCaseData();
 
   return (
     <PathContext path='case'>
-      <Information config={config.case} update={update} />
+      <Information config={config.case} defaultConfig={defaultConfig.case} update={update} />
       <CustomFieldTable data={config.case.customFields} onChange={change => update('customFields', change)} type='CASE' />
     </PathContext>
   );

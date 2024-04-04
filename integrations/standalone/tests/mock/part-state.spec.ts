@@ -17,7 +17,8 @@ test.describe('Part states', () => {
     await callPart.expectState('warning');
 
     await callPart.toggle();
-    await callPart.combobox('Dialog').choose('AcceptRequest');
+    await callPart.section('Dialog').open();
+    await callPart.combobox().choose('AcceptRequest');
     await callPart.toggle();
     await casePart.expectState('error');
     await callPart.expectState('configured');

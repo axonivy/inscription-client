@@ -23,7 +23,7 @@ describe('CasePart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('', '', '');
+    await CollapsableUtil.assertClosed('Details');
     await CollapsableUtil.assertClosed('Custom Fields');
   });
 

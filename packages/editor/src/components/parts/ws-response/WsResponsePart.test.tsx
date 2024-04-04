@@ -17,13 +17,15 @@ describe('WsResponsePart', () => {
 
   test('empty', async () => {
     renderPart();
+    await CollapsableUtil.assertClosed('Mapping');
+    await CollapsableUtil.assertClosed('Code');
     await CollapsableUtil.assertClosed('Error');
   });
 
   test('data', async () => {
     renderPart({ output: { map: { bla: '123' }, code: 'code' }, exceptionHandler: 'ex' });
     TableUtil.assertRows(['⛔ bla 123']);
-    expect(screen.getByLabelText('Code')).toHaveValue('code');
+    expect(screen.getByTestId('code-editor')).toHaveValue('code');
     await CollapsableUtil.assertOpen('Error');
     await SelectUtil.assertValue('ex');
   });

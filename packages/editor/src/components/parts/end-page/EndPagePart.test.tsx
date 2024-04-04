@@ -1,4 +1,4 @@
-import { render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
 import type { EndPageData } from '@axonivy/inscription-protocol';
 import { useEndPagePart } from './EndPagePart';
 import type { PartStateFlag } from '../../editors';
@@ -15,12 +15,12 @@ describe('EndPagePart', () => {
   }
 
   async function assertPage(page: string) {
-    expect(await screen.findByLabelText('Display the following page')).toHaveValue(page);
+    expect(screen.getByRole('textbox')).toHaveValue(page);
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertPage('');
+    await CollapsableUtil.assertClosed('End Page');
   });
 
   test('full data', async () => {

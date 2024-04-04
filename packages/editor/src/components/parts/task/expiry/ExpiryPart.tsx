@@ -7,11 +7,10 @@ import { useExpiryData } from './useExpiryData';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 
 const ExpiryPart = () => {
-  const { expiry, update, updateResponsible, updatePriority } = useExpiryData();
-  const isTimeout = expiry.timeout.length > 0;
+  const { expiry, defaultExpiry, update, updateResponsible, updatePriority } = useExpiryData();
 
   return (
-    <PathCollapsible label='Expiry' defaultOpen={isTimeout} path='expiry'>
+    <PathCollapsible label='Expiry' defaultOpen={expiry.timeout.length > 0} path='expiry'>
       <PathFieldset label='Timeout' path='timeout'>
         <ScriptInput
           value={expiry.timeout}
@@ -20,15 +19,13 @@ const ExpiryPart = () => {
           browsers={['attr', 'func', 'type']}
         />
       </PathFieldset>
-      <>
-        {isTimeout && (
-          <>
-            <ErrorSelect value={expiry.error} onChange={change => update('error', change)} />
-            <ResponsibleSelect responsible={expiry.responsible} updateResponsible={updateResponsible} />
-            <PrioritySelect priority={expiry.priority} updatePriority={updatePriority} />
-          </>
-        )}
-      </>
+      <ErrorSelect value={expiry.error} onChange={change => update('error', change)} />
+      <ResponsibleSelect
+        responsible={expiry.responsible}
+        defaultResponsible={defaultExpiry.responsible}
+        updateResponsible={updateResponsible}
+      />
+      <PrioritySelect priority={expiry.priority} updatePriority={updatePriority} />
     </PathCollapsible>
   );
 };

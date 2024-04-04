@@ -14,7 +14,7 @@ describe('ExpiryPart', () => {
     await userEvent.click(expiryCollapse);
 
     expect(screen.getByLabelText('Timeout')).toHaveValue('');
-    expect(screen.queryByText('Responsible')).not.toBeInTheDocument();
+    expect(screen.queryByText('Responsible')).toBeInTheDocument();
   });
 
   test('expiry part will render all', async () => {
@@ -26,7 +26,7 @@ describe('ExpiryPart', () => {
     });
     expect(screen.getByLabelText('Timeout')).toHaveValue('timeout');
     await SelectUtil.assertValue('f0', { label: 'Error' });
-    await SelectUtil.assertValue('Role from Attr.', { label: 'Responsible' });
-    await SelectUtil.assertValue('High', { label: 'Priority' });
+    await SelectUtil.assertValue('Role from Attr.', { index: 1 });
+    await SelectUtil.assertValue('High', { index: 2 });
   });
 });

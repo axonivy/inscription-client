@@ -12,7 +12,7 @@ test.describe('Drag and drop features', () => {
     await expect(rows.first()).toHaveText(/Mock Element/);
     await expect(rows.last()).toHaveText(/f6/);
 
-    await rows.first().locator('.ui-dnd-row-handle').dragTo(rows.last().locator('.ui-dnd-row-handle'));
+    await rows.first().locator('.ui-dnd-row-handleicon').dragTo(rows.last().locator('.ui-dnd-row-handleicon'));
     await expect(rows.first()).toHaveText(/f6/);
     await expect(rows.last()).toHaveText(/Mock Element/);
   });

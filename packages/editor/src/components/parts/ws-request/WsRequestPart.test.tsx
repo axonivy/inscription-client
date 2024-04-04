@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, render, renderHook } from 'test-utils';
 import type { ElementData, InscriptionValidation, WsRequestData } from '@axonivy/inscription-protocol';
 import { useWsRequestPart } from './WsRequestPart';
 import type { PartStateFlag } from '../../editors';
@@ -17,11 +17,9 @@ describe('WsRequestPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    expect(screen.getByLabelText('Client')).toBeInTheDocument();
-    expect(screen.getByLabelText('Port')).toBeInTheDocument();
-    expect(screen.getByLabelText('Operation')).toBeInTheDocument();
-    expect(screen.getByText('Properties')).toBeInTheDocument();
-    expect(screen.getByText('Mapping')).toBeInTheDocument();
+    await CollapsableUtil.assertClosed('Web Service');
+    await CollapsableUtil.assertClosed('Properties');
+    await CollapsableUtil.assertClosed('Mapping');
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<WsRequestData>, validation?: InscriptionValidation) {

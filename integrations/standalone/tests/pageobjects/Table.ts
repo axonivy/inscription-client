@@ -96,8 +96,8 @@ export class Row {
   }
 
   async dragTo(targetRow: Row) {
-    const source = this.locator.locator('.ui-dnd-row-handle');
-    const target = targetRow.locator.locator('.ui-dnd-row-handle');
+    const source = this.locator.locator('.ui-dnd-row-handleicon');
+    const target = targetRow.locator.locator('.ui-dnd-row-handleicon');
     await source.dragTo(target);
   }
 }

@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
 import type { WebServiceProcessData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useWebServiceProcessPart } from './WebServiceProcessPart';
@@ -19,12 +19,7 @@ describe('WebServiceProcessPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    expect(screen.getByLabelText('Qualified name')).toHaveValue('');
-    expect(screen.getByRole('radiogroup')).toBeInTheDocument();
-    expect(screen.getAllByRole('radio')).toHaveLength(3);
-    expect(screen.getByRole('radio', { name: 'None/Container' })).toBeChecked();
-    expect(screen.getByRole('radio', { name: 'WS Security' })).not.toBeChecked();
-    expect(screen.getByRole('radio', { name: 'HTTP Basic' })).not.toBeChecked();
+    await CollapsableUtil.assertClosed('Process');
   });
 
   test('full data', async () => {

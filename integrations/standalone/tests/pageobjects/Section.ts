@@ -1,6 +1,7 @@
 import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { Composite } from './Composite';
+import { ResponsibleComponent } from './ResponsibleComponent';
 
 export class Section extends Composite {
   private readonly toggleButtonLocator: Locator;
@@ -35,5 +36,13 @@ export class Section extends Composite {
   private static toggleButtonLocatorInternal(page: Page, label: string) {
     const regexLabel = new RegExp(`^${label}$`);
     return page.locator(`.ui-collapsible-trigger`, { hasText: regexLabel });
+  }
+
+  section(label: string) {
+    return new Section(this.page, this.locator, label);
+  }
+
+  responsibleComponent() {
+    return new ResponsibleComponent(this);
   }
 }

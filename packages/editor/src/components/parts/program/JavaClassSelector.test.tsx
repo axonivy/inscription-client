@@ -1,11 +1,11 @@
-import { SelectUtil, render } from 'test-utils';
+import { CollapsableUtil, SelectUtil, render } from 'test-utils';
 import type { ProgramStartData } from '@axonivy/inscription-protocol';
 import JavaClassSelector from './JavaClassSelector';
 import { describe, test } from 'vitest';
 
 describe('StartPart', () => {
-  function renderPart(data?: ProgramStartData) {
-    render(<JavaClassSelector javaClass='' onChange={() => {}} type='START' />, {
+  function renderPart(data?: Partial<ProgramStartData>) {
+    render(<JavaClassSelector javaClass={data?.javaClass ?? ''} onChange={() => {}} type='START' />, {
       wrapperProps: {
         data: data && { config: data },
         meta: {
@@ -18,8 +18,13 @@ describe('StartPart', () => {
     });
   }
 
-  test('meta', async () => {
+  test('empty', async () => {
     renderPart();
+    await CollapsableUtil.assertClosed('Java Class');
+  });
+
+  test('meta', async () => {
+    renderPart({ javaClass: 'bla' });
     await SelectUtil.assertEmpty();
     await SelectUtil.assertOptionsCount(2);
   });

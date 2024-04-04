@@ -1,11 +1,11 @@
-import { Fieldset, ScriptCell } from '../../widgets';
+import { ScriptCell } from '../../widgets';
 import { useCallback, useMemo, useState } from 'react';
 import { Condition } from './condition';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { ValidationSelectableReorderRow } from '../common';
+import { ValidationCollapsible, ValidationSelectableReorderRow } from '../common';
 import { ReorderHandleWrapper, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
@@ -91,8 +91,7 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     : [];
 
   return (
-    <div>
-      <Fieldset label='Condition' controls={tableActions} />
+    <ValidationCollapsible label='Condition' controls={tableActions} defaultOpen={data.length > 0}>
       <Table>
         <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
         <TableBody>
@@ -111,7 +110,7 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
           ))}
         </TableBody>
       </Table>
-    </div>
+    </ValidationCollapsible>
   );
 };
 

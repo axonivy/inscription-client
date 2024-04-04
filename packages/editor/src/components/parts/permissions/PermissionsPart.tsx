@@ -1,6 +1,6 @@
-import type { PartProps} from '../../../components/editors';
+import type { PartProps } from '../../../components/editors';
 import { usePartDirty, usePartState } from '../../../components/editors';
-import { Checkbox } from '../../../components/widgets';
+import { Checkbox, Collapsible } from '../../../components/widgets';
 import { usePermissionsData } from './usePermissionsData';
 import type { PermissionsData } from '@axonivy/inscription-protocol';
 
@@ -13,13 +13,14 @@ export function usePermissionsPart(): PartProps {
 }
 
 const PermissionsPart = () => {
-  const { config, update } = usePermissionsData();
-
+  const { config, defaultConfig, update } = usePermissionsData();
   return (
-    <Checkbox
-      label='Allow all workflow users to view the process on the Engine'
-      value={config.permissions.view.allowed}
-      onChange={change => update('allowed', change)}
-    />
+    <Collapsible label='Permissions' defaultOpen={config.permissions.view.allowed !== defaultConfig.permissions.view.allowed}>
+      <Checkbox
+        label='Allow all workflow users to view the process on the Engine'
+        value={config.permissions.view.allowed}
+        onChange={change => update('allowed', change)}
+      />
+    </Collapsible>
   );
 };

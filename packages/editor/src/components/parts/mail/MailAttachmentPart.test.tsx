@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
 import type { MailData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useMailAttachmentPart } from './MailAttachmentPart';
@@ -17,7 +17,7 @@ describe('MailAttachmentPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    expect(screen.queryByRole('table')).toBeNull();
+    await CollapsableUtil.assertClosed('Attachments');
   });
 
   test('full data', async () => {

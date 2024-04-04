@@ -22,18 +22,15 @@ describe('MailHeaderPart', () => {
     expect(screen.getByLabelText('To')).toHaveValue(data?.headers?.to ?? '');
     expect(screen.getByLabelText('CC')).toHaveValue(data?.headers?.cc ?? '');
     expect(screen.getByLabelText('BCC')).toHaveValue(data?.headers?.bcc ?? '');
-    if (data?.failIfMissingAttachments) {
-      await CollapsableUtil.assertOpen('Options');
-      await SelectUtil.assertValue('f9');
-      expect(screen.getByRole('checkbox')).toBeChecked();
-    } else {
-      await CollapsableUtil.assertClosed('Options');
-    }
+    await CollapsableUtil.assertOpen('Options');
+    await SelectUtil.assertValue('f9');
+    expect(screen.getByRole('checkbox')).toBeChecked();
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertPage();
+    await CollapsableUtil.assertClosed('Headers');
+    await CollapsableUtil.assertClosed('Options');
   });
 
   test('full data', async () => {

@@ -36,7 +36,7 @@ const RequestPart = () => {
               onChange={change => updateRequest('isVisibleOnStartList', change)}
               label='Start list'
             />
-            <Information config={config.request} update={updateRequest} />
+            <Information config={config.request} defaultConfig={defaultConfig.request} update={updateRequest} />
 
             <StartCustomFieldTable data={config.request.customFields} onChange={change => updateRequest('customFields', change)} />
           </PathContext>

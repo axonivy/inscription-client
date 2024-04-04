@@ -5,7 +5,7 @@ import { usePartDirty, usePartState } from '../../../components/editors';
 import { useValidations } from '../../../context';
 import { Input, Radio } from '../../../components/widgets';
 import { useWebServiceProcessData } from './useWebServiceProcessData';
-import { PathFieldset } from '../common';
+import { PathFieldset, ValidationCollapsible } from '../common';
 
 export function useWebServiceProcessPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useWebServiceProcessData();
@@ -17,10 +17,10 @@ export function useWebServiceProcessPart(): PartProps {
 }
 
 const WebServiceProcessPart = () => {
-  const { config, update } = useWebServiceProcessData();
+  const { config, defaultConfig, update } = useWebServiceProcessData();
 
   return (
-    <>
+    <ValidationCollapsible label='Process' defaultOpen={config.wsTypeName !== defaultConfig.wsTypeName}>
       <PathFieldset label='Qualified name' path='wsTypeName'>
         <Input value={config.wsTypeName} onChange={change => update('wsTypeName', change)} type={IVY_SCRIPT_TYPES.STRING} />
       </PathFieldset>
@@ -29,8 +29,9 @@ const WebServiceProcessPart = () => {
           value={config.wsAuth}
           onChange={change => update('wsAuth', change as WsAuth)}
           items={Object.entries(WS_AUTH_TYPE).map(([value, label]) => ({ label, value }))}
+          orientation='horizontal'
         />
       </PathFieldset>
-    </>
+    </ValidationCollapsible>
   );
 };

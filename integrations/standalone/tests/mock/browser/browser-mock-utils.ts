@@ -2,12 +2,12 @@ import { expect, type Page } from '@playwright/test';
 
 export async function assertCodeHidden(page: Page) {
   await expect(code(page)).toBeHidden();
-  await expect(browserBtn(page)).toHaveCount(1);
+  await expect(browserBtn(page)).toHaveCount(0);
 }
 
 export async function assertCodeVisible(page: Page) {
   await expect(code(page)).toBeVisible();
-  await expect(browserBtn(page)).toHaveCount(2);
+  await expect(browserBtn(page)).toHaveCount(1);
 }
 
 export function code(page: Page) {

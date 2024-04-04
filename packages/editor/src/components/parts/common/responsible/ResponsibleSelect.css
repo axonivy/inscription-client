@@ -1,10 +1,6 @@
-.responsible-select {
-  display: flex;
-  gap: var(--size-4);
-}
-.responsible-select .select:first-child {
+.responsible-select > :first-child:has(~ *) {
   flex: 0 0 8rem;
 }
-.responsible-select .script-input {
-  width: calc(100% - 8rem - var(--size-4));
+.responsible-select > * {
+  width: 100%;
 }

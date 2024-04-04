@@ -1,6 +1,6 @@
 import type { WsRequestData } from '@axonivy/inscription-protocol';
 import { useValidations } from '../../../context';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useWsRequestData } from './useWsRequestData';
 import { WsClientSelect } from './WsClientSelect';
@@ -8,6 +8,7 @@ import { WsPortSelect } from './WsPortSelect';
 import { WsOperationSelect } from './WsOperationSelect';
 import { WsProperties } from './WsProperties';
 import { WsMapping } from './WsMapping';
+import { ValidationCollapsible } from '../common';
 
 export function useWsRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useWsRequestData();
@@ -19,11 +20,14 @@ export function useWsRequestPart(): PartProps {
 }
 
 const WsRequestPart = () => {
+  const { config, defaultConfig } = useWsRequestData();
   return (
     <>
-      <WsClientSelect />
-      <WsPortSelect />
-      <WsOperationSelect />
+      <ValidationCollapsible label='Web Service' defaultOpen={config.clientId !== defaultConfig.clientId}>
+        <WsClientSelect />
+        <WsPortSelect />
+        <WsOperationSelect />
+      </ValidationCollapsible>
       <WsProperties />
       <WsMapping />
     </>

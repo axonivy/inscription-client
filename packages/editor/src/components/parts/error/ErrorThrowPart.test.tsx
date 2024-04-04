@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { ComboboxUtil, render, renderHook } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, render, renderHook } from 'test-utils';
 import type { ElementData, ErrorThrowData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useErrorThrowPart } from './ErrorThrowPart';
@@ -24,7 +24,7 @@ describe('ErrorThrowPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('');
+    await CollapsableUtil.assertClosed('Error');
   });
 
   test('full data', async () => {

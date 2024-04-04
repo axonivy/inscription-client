@@ -6,7 +6,7 @@ import { useSignalCatchData } from './useSignalCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import type { SignalCatchData } from '@axonivy/inscription-protocol';
 import type { ClassifiedItem } from '../common';
-import { ClassificationCombobox, PathFieldset } from '../common';
+import { ClassificationCombobox, PathCollapsible, ValidationFieldset } from '../common';
 import { classifiedItemInfo } from '../../../utils/event-code-categorie';
 
 export function useSignalCatchPart(options?: { makroSupport?: boolean; withBrowser?: boolean }): PartProps {
@@ -24,7 +24,7 @@ export function useSignalCatchPart(options?: { makroSupport?: boolean; withBrows
 }
 
 const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean; withBrowser?: boolean }) => {
-  const { config, update, updateSignal } = useSignalCatchData();
+  const { config, defaultConfig, update, updateSignal } = useSignalCatchData();
   const { context } = useEditorContext();
   const signalCodes = [
     { value: '', label: '<< Empty >>', info: 'Receives every signal' },
@@ -34,8 +34,8 @@ const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean
   ];
 
   return (
-    <>
-      <PathFieldset label='Signal Code' path='signalCode'>
+    <PathCollapsible label='Signal Code' path='signalCode' defaultOpen={config.signalCode !== defaultConfig.signalCode}>
+      <ValidationFieldset>
         <ClassificationCombobox
           value={config.signalCode}
           onChange={change => updateSignal(change)}
@@ -43,7 +43,7 @@ const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean
           icon={IvyIcons.StartSignal}
           withBrowser={withBrowser}
         />
-      </PathFieldset>
+      </ValidationFieldset>
       {!makroSupport && (
         <Checkbox
           label='Attach to Business Case that signaled this process'
@@ -51,6 +51,6 @@ const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean
           onChange={change => update('attachToBusinessCase', change)}
         />
       )}
-    </>
+    </PathCollapsible>
   );
 };

@@ -17,13 +17,16 @@ describe('RestResponsePart', () => {
 
   test('empty', async () => {
     renderPart();
+    await CollapsableUtil.assertClosed('Result Type');
+    await CollapsableUtil.assertClosed('Mapping');
+    await CollapsableUtil.assertClosed('Code');
     await CollapsableUtil.assertClosed('Error');
   });
 
   test('data', async () => {
     renderPart({ response: { entity: { map: { bla: '123' }, code: 'code' }, clientError: 'client', statusError: 'status' } });
     TableUtil.assertRows(['⛔ bla 123']);
-    expect(screen.getByLabelText('Code')).toHaveValue('code');
+    expect(screen.getByTestId('code-editor')).toHaveValue('code');
     await CollapsableUtil.assertOpen('Error');
     await ComboboxUtil.assertValue('client', { label: 'On Error (Connection, Timeout, etc.)' });
     await ComboboxUtil.assertValue('status', { label: 'On Status Code not successful (2xx)' });

@@ -158,9 +158,12 @@ describe('MappingPart', () => {
   });
 
   test('tree support readonly mode', async () => {
-    render(<MappingPart browsers={['attr', 'func', 'type']} data={{}} variableInfo={variableInfo} onChange={() => {}} />, {
-      wrapperProps: { editor: { readonly: true } }
-    });
+    render(
+      <MappingPart browsers={['attr', 'func', 'type']} data={{ bla: 'unknown value' }} variableInfo={variableInfo} onChange={() => {}} />,
+      {
+        wrapperProps: { editor: { readonly: true } }
+      }
+    );
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();
   });
 });

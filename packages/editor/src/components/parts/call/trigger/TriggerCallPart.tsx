@@ -8,7 +8,7 @@ import { useCallData, useProcessCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from '../../../../components/widgets';
-import { PathFieldset } from '../../common';
+import { PathCollapsible, ValidationFieldset } from '../../common';
 
 export function useTriggerCallPart(): PartProps {
   const callData = useCallData();
@@ -26,7 +26,7 @@ export function useTriggerCallPart(): PartProps {
 }
 
 const TriggerCallPart = () => {
-  const { config, update } = useProcessCallData();
+  const { config, defaultConfig, update } = useProcessCallData();
 
   const { context } = useEditorContext();
   const { data: startItems } = useMeta('meta/start/triggers', context, []);
@@ -40,14 +40,21 @@ const TriggerCallPart = () => {
   const createProcess: FieldsetControl = { label: 'Create new Trigger Process', icon: IvyIcons.Plus, action: () => action() };
   return (
     <>
-      <PathFieldset label='Process start' controls={[createProcess]} path='processCall'>
-        <CallSelect
-          start={config.processCall}
-          onChange={change => update('processCall', change)}
-          starts={startItems}
-          startIcon={IvyIcons.Start}
-        />
-      </PathFieldset>
+      <PathCollapsible
+        label='Process start'
+        controls={[createProcess]}
+        defaultOpen={config.processCall !== defaultConfig.processCall}
+        path='processCall'
+      >
+        <ValidationFieldset>
+          <CallSelect
+            start={config.processCall}
+            onChange={change => update('processCall', change)}
+            starts={startItems}
+            startIcon={IvyIcons.Start}
+          />
+        </ValidationFieldset>
+      </PathCollapsible>
       <CallMapping variableInfo={variableInfo} />
     </>
   );

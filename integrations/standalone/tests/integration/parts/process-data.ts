@@ -1,16 +1,20 @@
 import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 import type { Combobox } from '../../pageobjects/Combobox';
+import type { Section } from '../../pageobjects/Section';
 
 class ProcessData extends PartObject {
+  section: Section;
   dataClass: Combobox;
 
   constructor(part: Part) {
     super(part);
-    this.dataClass = part.combobox('Data Class');
+    this.section = part.section('Data Class');
+    this.dataClass = this.section.combobox();
   }
 
   async fill() {
+    await this.section.open();
     await this.dataClass.fill('test');
   }
 

@@ -1,6 +1,6 @@
 import ResponsibleSelect from './ResponsibleSelect';
 import type { RoleMeta, WfActivator, WfActivatorType } from '@axonivy/inscription-protocol';
-import { render, screen, SelectUtil } from 'test-utils';
+import { CollapsableUtil, render, screen, SelectUtil } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('ResponsibleSelect', () => {
@@ -18,25 +18,38 @@ describe('ResponsibleSelect', () => {
       { id: 'CREATOR', label: 'CREATOR', children: [] },
       { id: 'SYSTEM', label: 'SYSTEM', children: [] }
     ];
-    render(<ResponsibleSelect responsible={responsible} updateResponsible={() => {}} optionFilter={options?.optionsFilter} />, {
-      wrapperProps: { meta: { roleTree, taskRoles } }
-    });
+    render(
+      <ResponsibleSelect
+        responsible={responsible}
+        defaultResponsible={{ type: 'ROLE', activator: 'Everybody' }}
+        updateResponsible={() => {}}
+        optionFilter={options?.optionsFilter}
+      />,
+      {
+        wrapperProps: { meta: { roleTree, taskRoles } }
+      }
+    );
   }
 
+  test('empty', async () => {
+    renderSelect({ type: 'ROLE', activator: 'Everybody' });
+    await CollapsableUtil.assertClosed('Responsible');
+  });
+
   test('all options', async () => {
-    renderSelect();
-    await SelectUtil.assertValue('Role', { label: 'Responsible' });
-    await SelectUtil.assertOptionsCount(4, { label: 'Responsible' });
+    renderSelect({ type: 'ROLE', activator: 'bla' });
+    await SelectUtil.assertValue('Role', { index: 0 });
+    await SelectUtil.assertOptionsCount(4, { index: 0 });
   });
 
   test('no delete option', async () => {
     renderSelect({ optionsFilter: ['DELETE_TASK'] });
-    await SelectUtil.assertOptionsCount(3, { label: 'Responsible' });
+    await SelectUtil.assertOptionsCount(3, { index: 0 });
   });
 
   test('select for role option', async () => {
     renderSelect({ type: 'ROLE', activator: 'Teamleader' });
-    await SelectUtil.assertValue('Role', { label: 'Responsible' });
+    await SelectUtil.assertValue('Role', { index: 0 });
     await SelectUtil.assertValue('Teamleader', { index: 1 });
     await SelectUtil.assertOptionsCount(5, { index: 1 });
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
@@ -44,19 +57,19 @@ describe('ResponsibleSelect', () => {
 
   test('input for role attr option', async () => {
     renderSelect({ type: 'ROLE_FROM_ATTRIBUTE', activator: 'role activator' });
-    await SelectUtil.assertValue('Role from Attr', { label: 'Responsible' });
+    await SelectUtil.assertValue('Role from Attr', { index: 0 });
     expect(screen.getByRole('textbox')).toHaveValue('role activator');
   });
 
   test('input for user attr option', async () => {
     renderSelect({ type: 'USER_FROM_ATTRIBUTE', activator: 'user activator' });
-    await SelectUtil.assertValue('User from Attr', { label: 'Responsible' });
+    await SelectUtil.assertValue('User from Attr', { index: 0 });
     expect(screen.getByRole('textbox')).toHaveValue('user activator');
   });
 
   test('nothing for delete option', async () => {
     renderSelect({ type: 'DELETE_TASK' });
-    await SelectUtil.assertValue('Nobody & delete', { label: 'Responsible' });
+    await SelectUtil.assertValue('Nobody & delete', { index: 0 });
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 });

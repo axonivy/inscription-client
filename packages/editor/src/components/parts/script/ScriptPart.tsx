@@ -4,7 +4,7 @@ import { usePartDirty, usePartState } from '../../editors';
 import { ScriptArea } from '../../widgets';
 import { useScriptData } from './useScriptData';
 import { useValidations } from '../../../context';
-import { PathFieldset } from '../common';
+import { PathCollapsible, ValidationFieldset } from '../common';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
 export function useScriptPart(): PartProps {
@@ -17,17 +17,19 @@ export function useScriptPart(): PartProps {
 }
 
 const ScriptPart = () => {
-  const { config, update } = useScriptData();
+  const { config, defaultConfig, update } = useScriptData();
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   return (
-    <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
-      <ScriptArea
-        maximizeState={maximizeState}
-        value={config.code}
-        onChange={change => update('code', change)}
-        browsers={['attr', 'func', 'type', 'cms']}
-      />
-    </PathFieldset>
+    <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.code !== defaultConfig.code}>
+      <ValidationFieldset>
+        <ScriptArea
+          maximizeState={maximizeState}
+          value={config.code}
+          onChange={change => update('code', change)}
+          browsers={['attr', 'func', 'type', 'cms']}
+        />
+      </ValidationFieldset>
+    </PathCollapsible>
   );
 };

@@ -1,10 +1,6 @@
-.priority-select {
-  display: flex;
-  gap: var(--size-4);
-}
-.priority-select .select:first-child {
+.priority-select > :first-child:has(~ *) {
   flex: 0 0 8rem;
 }
-.priority-select .script-input {
-  width: calc(100% - 8rem - var(--size-4));
+.priority-select > * {
+  width: 100%;
 }

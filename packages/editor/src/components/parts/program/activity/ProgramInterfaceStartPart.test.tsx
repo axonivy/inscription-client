@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, InscriptionValidation, ProgramInterfaceStartData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { useProgramInterfaceStartPart } from './ProgramInterfaceStartPart';
@@ -19,6 +19,7 @@ describe('ProgramInterfaceStartPart', () => {
 
   test('empty data', async () => {
     renderPart();
+    await CollapsableUtil.assertClosed('Java Class');
     await CollapsableUtil.assertClosed('Program');
     await CollapsableUtil.assertClosed('Timeout');
   });
@@ -29,7 +30,7 @@ describe('ProgramInterfaceStartPart', () => {
       exceptionHandler: '>> Ignore Exception',
       timeout: { seconds: '123', error: 'ivy:error:program:timeout' }
     });
-    expect(screen.getByLabelText('Java Class')).toHaveValue('Test');
+    await ComboboxUtil.assertValue('Test', { nth: 0 });
     await CollapsableUtil.assertOpen('Program');
     await SelectUtil.assertValue('>> Ignore Exception', { index: 1 });
     await CollapsableUtil.assertOpen('Timeout');

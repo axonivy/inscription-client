@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../pageobjects/InscriptionView';
-import type { CreateProcessResult} from '../../glsp-protocol';
+import type { CreateProcessResult } from '../../glsp-protocol';
 import { createProcess } from '../../glsp-protocol';
 
 test.describe('Code Editor', () => {
@@ -18,7 +18,9 @@ test.describe('Code Editor', () => {
   test('MacroInput', async () => {
     const taskPart = view.accordion('Task');
     await taskPart.toggle();
-    const name = taskPart.macroInput('Name');
+    const details = taskPart.section('Details');
+    await details.open();
+    const name = details.macroInput('Name');
     await name.triggerContentAssist();
     await name.expectContentAssistContains('Insert Macro');
   });
@@ -26,7 +28,9 @@ test.describe('Code Editor', () => {
   test('MacroArea', async () => {
     const taskPart = view.accordion('Task');
     await taskPart.toggle();
-    const description = taskPart.macroArea('Description');
+    const details = taskPart.section('Details');
+    await details.open();
+    const description = details.macroArea('Description');
     await description.triggerContentAssist();
     await description.expectContentAssistContains('Insert Macro');
   });

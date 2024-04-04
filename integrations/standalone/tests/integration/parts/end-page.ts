@@ -1,16 +1,20 @@
 import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 import type { TextArea } from '../../pageobjects/TextArea';
+import type { Section } from '../../pageobjects/Section';
 
 class EndPage extends PartObject {
+  section: Section;
   endPage: TextArea;
 
   constructor(part: Part) {
     super(part);
-    this.endPage = part.textArea({ label: 'Display the following page' });
+    this.section = part.section('End Page');
+    this.endPage = this.section.textArea({});
   }
 
   async fill() {
+    await this.section.open();
     await this.endPage.fill('page.xhtml');
   }
 
@@ -23,7 +27,7 @@ class EndPage extends PartObject {
   }
 
   async assertClear() {
-    await this.endPage.expectEmpty();
+    await this.section.expectIsClosed();
   }
 }
 

@@ -4,16 +4,17 @@ import type { Table } from '../../pageobjects/Table';
 import { NewPartTest, PartObject } from './part-tester';
 
 class Attachements extends PartObject {
+  section: Section;
   table: Table;
-  fieldset: Section;
 
   constructor(part: Part) {
     super(part);
-    this.table = part.table(['expression']);
-    this.fieldset = part.section('Attachments');
+    this.section = part.section('Attachments');
+    this.table = this.section.table(['expression']);
   }
 
   async fill() {
+    await this.section.open();
     const row = await this.table.addRow();
     await row.fill(['hi']);
   }
@@ -24,7 +25,7 @@ class Attachements extends PartObject {
     await this.table.row(0).remove(true);
   }
   async assertClear() {
-    await this.table.expectEmpty();
+    await this.section.expectIsClosed();
   }
 }
 

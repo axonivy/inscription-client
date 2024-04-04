@@ -2,7 +2,7 @@ import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 export class Select {
-  private readonly locator: Locator;
+  readonly locator: Locator;
 
   constructor(readonly page: Page, readonly parentLocator: Locator, options?: { label?: string; nth?: number }) {
     if (options?.label) {

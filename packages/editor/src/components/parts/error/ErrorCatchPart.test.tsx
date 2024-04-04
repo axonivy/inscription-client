@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { ComboboxUtil, render, renderHook } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, render, renderHook } from 'test-utils';
 import type { ElementData, ErrorCatchData } from '@axonivy/inscription-protocol';
 import { useErrorCatchPart } from './ErrorCatchPart';
 import type { PartStateFlag } from '../../editors';
@@ -18,13 +18,13 @@ describe('ErrorCatchPart', () => {
   }
 
   async function assertMainPart(errorCode: string) {
-    await ComboboxUtil.assertValue(errorCode, { label: 'Error Code' });
+    await ComboboxUtil.assertValue(errorCode, { nth: 0 });
     await ComboboxUtil.assertOptionsCount(2);
   }
 
   test('empty data', async () => {
     renderPart();
-    await assertMainPart('');
+    await CollapsableUtil.assertClosed('Error Code');
   });
 
   test('full data', async () => {

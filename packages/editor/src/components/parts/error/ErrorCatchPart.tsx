@@ -5,7 +5,7 @@ import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ErrorCatchData } from '@axonivy/inscription-protocol';
 import type { ClassifiedItem } from '../common';
-import { ClassificationCombobox, PathFieldset } from '../common';
+import { ClassificationCombobox, PathCollapsible, ValidationFieldset } from '../common';
 import { classifiedItemInfo } from '../../../utils/event-code-categorie';
 
 export function useErrorCatchPart(): PartProps {
@@ -23,7 +23,7 @@ export function useErrorCatchPart(): PartProps {
 }
 
 const ErrorCatchPart = () => {
-  const { config, updateError } = useErrorCatchData();
+  const { config, defaultConfig, updateError } = useErrorCatchData();
   const { context } = useEditorContext();
   const errorCodes = [
     { value: '', label: '<< Empty >>', info: 'Catches all errors' },
@@ -33,8 +33,10 @@ const ErrorCatchPart = () => {
   ];
 
   return (
-    <PathFieldset label='Error Code' path='errorCode'>
-      <ClassificationCombobox value={config.errorCode} onChange={change => updateError(change)} data={errorCodes} icon={IvyIcons.Error} />
-    </PathFieldset>
+    <PathCollapsible label='Error Code' path='errorCode' defaultOpen={config.errorCode !== defaultConfig.errorCode}>
+      <ValidationFieldset>
+        <ClassificationCombobox value={config.errorCode} onChange={change => updateError(change)} data={errorCodes} icon={IvyIcons.Error} />
+      </ValidationFieldset>
+    </PathCollapsible>
   );
 };

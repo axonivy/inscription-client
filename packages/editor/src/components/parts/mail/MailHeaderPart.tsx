@@ -1,12 +1,13 @@
-import { Checkbox, Collapsible, MacroInput } from '../../widgets';
+import { Checkbox, MacroInput } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
-import { ExceptionSelect, PathFieldset } from '../common';
+import { useValidations } from '../../../context';
+import { ExceptionSelect, PathCollapsible, PathFieldset, ValidationCollapsible } from '../common';
 import type { BrowserType } from '../../../components/browser';
+import { deepEqual } from '../../../utils/equals';
 
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetHeaders } = useMailData();
@@ -24,7 +25,7 @@ const MailHeaderPart = () => {
 
   return (
     <>
-      <PathContext path='headers'>
+      <PathCollapsible label='Headers' path='headers' defaultOpen={!deepEqual(config.headers, defaultConfig.headers)}>
         <PathFieldset label='Subject' path='subject'>
           <MacroInput value={config.headers.subject} onChange={change => updateHeader('subject', change)} browsers={borwserTypes} />
         </PathFieldset>
@@ -43,8 +44,8 @@ const MailHeaderPart = () => {
         <PathFieldset label='BCC' path='bcc'>
           <MacroInput value={config.headers.bcc} onChange={change => updateHeader('bcc', change)} browsers={borwserTypes} />
         </PathFieldset>
-      </PathContext>
-      <Collapsible
+      </PathCollapsible>
+      <ValidationCollapsible
         label='Options'
         defaultOpen={config.failIfMissingAttachments || config.exceptionHandler !== defaultConfig.exceptionHandler}
       >
@@ -62,7 +63,7 @@ const MailHeaderPart = () => {
             update('failIfMissingAttachments', change);
           }}
         />
-      </Collapsible>
+      </ValidationCollapsible>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import type { HttpMethod, RestRequestData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import type { PartProps} from '../../editors';
+import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useRestRequestData } from './useRestRequestData';
 import { RestClientSelect } from './rest-request/rest-target/RestClientSelect';
@@ -11,6 +11,7 @@ import { RestParameters } from './rest-request/rest-target/RestParameters';
 import { RestTargetUrl } from './rest-request/rest-target/RestTargetUrl';
 import { RestJaxRsCode } from './rest-request/rest-body/RestJaxRsCode';
 import { RestBody } from './rest-request/rest-body/RestBody';
+import { ValidationCollapsible } from '../common';
 
 export function useRestRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestRequestData();
@@ -27,7 +28,7 @@ export function useRestRequestPart(): PartProps {
 }
 
 const RestRequestPart = () => {
-  const { config } = useRestRequestData();
+  const { config, defaultConfig } = useRestRequestData();
 
   const bodyPart = (method: HttpMethod) => {
     switch (method) {
@@ -45,9 +46,11 @@ const RestRequestPart = () => {
   return (
     <>
       <PathContext path='target'>
-        <RestTargetUrl />
-        <RestClientSelect />
-        <RestMethodSelect />
+        <ValidationCollapsible label='Rest Service' defaultOpen={config.target.clientId !== defaultConfig.target.clientId}>
+          <RestTargetUrl />
+          <RestClientSelect />
+          <RestMethodSelect />
+        </ValidationCollapsible>
         <RestParameters />
         <RestHeaders />
         <RestProperties />

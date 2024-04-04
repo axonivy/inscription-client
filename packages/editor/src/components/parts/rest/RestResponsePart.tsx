@@ -3,8 +3,8 @@ import { PathContext, useEditorContext, useMeta, useValidations } from '../../..
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useRestResponseData } from './useRestResponseData';
-import { MappingPart, PathFieldset } from '../common';
-import { Collapsible, ScriptArea } from '../../widgets';
+import { MappingPart, PathCollapsible, ValidationCollapsible, ValidationFieldset } from '../common';
+import { ScriptArea } from '../../widgets';
 import { RestError } from './rest-response/RestError';
 import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox';
 import { useRestEntityTypeMeta, useRestResourceMeta } from './useRestResourceMeta';
@@ -35,13 +35,15 @@ const RestResponsePart = () => {
     <PathContext path='response'>
       <PathContext path='entity'>
         {showResultType && (
-          <PathFieldset label='Read body as type (result variable)' path='type'>
-            <RestEntityTypeCombobox
-              value={config.response.entity.type}
-              onChange={change => updateEntity('type', change)}
-              items={resultTypes}
-            />
-          </PathFieldset>
+          <PathCollapsible label='Result Type' path='type' defaultOpen={config.response.entity.type !== defaultConfig.response.entity.type}>
+            <ValidationFieldset label='Read body as type (result variable)'>
+              <RestEntityTypeCombobox
+                value={config.response.entity.type}
+                onChange={change => updateEntity('type', change)}
+                items={resultTypes}
+              />
+            </ValidationFieldset>
+          </PathCollapsible>
         )}
         <MappingPart
           data={config.response.entity.map}
@@ -49,17 +51,24 @@ const RestResponsePart = () => {
           browsers={['attr', 'func', 'type']}
           onChange={change => updateEntity('map', change)}
         />
-        <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
-          <ScriptArea
-            maximizeState={maximizeState}
-            value={config.response.entity.code}
-            onChange={change => updateEntity('code', change)}
-            browsers={['attr', 'func', 'type']}
-          />
-        </PathFieldset>
+        <PathCollapsible
+          label='Code'
+          path='code'
+          controls={[maximizeCode]}
+          defaultOpen={config.response.entity.code !== defaultConfig.response.entity.code}
+        >
+          <ValidationFieldset>
+            <ScriptArea
+              maximizeState={maximizeState}
+              value={config.response.entity.code}
+              onChange={change => updateEntity('code', change)}
+              browsers={['attr', 'func', 'type']}
+            />
+          </ValidationFieldset>
+        </PathCollapsible>
       </PathContext>
 
-      <Collapsible
+      <ValidationCollapsible
         label='Error'
         defaultOpen={
           config.response.clientError !== defaultConfig.response.clientError ||
@@ -78,7 +87,7 @@ const RestResponsePart = () => {
           onChange={change => update('statusError', change)}
           path='statusError'
         />
-      </Collapsible>
+      </ValidationCollapsible>
     </PathContext>
   );
 };

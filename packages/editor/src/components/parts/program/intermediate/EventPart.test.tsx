@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, EventData, InscriptionValidation } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { useEventPart } from './EventPart';
@@ -19,7 +19,8 @@ describe('EventPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    expect(screen.getByLabelText('Event ID')).toBeInTheDocument();
+    await CollapsableUtil.assertClosed('Java Class');
+    await CollapsableUtil.assertClosed('Event ID');
     await CollapsableUtil.assertClosed('Expiry');
   });
 
@@ -33,8 +34,8 @@ describe('EventPart', () => {
         duration: '456'
       }
     });
-    expect(screen.getByLabelText('Java Class')).toHaveValue('Test');
-    expect(screen.getByLabelText('Event ID')).toHaveValue('123');
+    await ComboboxUtil.assertValue('Test', { nth: 0 });
+    expect(screen.getAllByTestId('code-editor')[0]).toHaveValue('123');
     await CollapsableUtil.assertOpen('Expiry');
     await SelectUtil.assertValue('ivy:error:program:timeout', { index: 1 });
     expect(screen.getByLabelText('Duration')).toHaveValue('456');

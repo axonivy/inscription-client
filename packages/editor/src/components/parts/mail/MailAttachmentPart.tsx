@@ -1,4 +1,4 @@
-import { Fieldset, ScriptCell } from '../../widgets';
+import { ScriptCell } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
@@ -7,7 +7,7 @@ import { PathContext, useValidations } from '../../../context';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { ValidationRow } from '../common';
+import { ValidationCollapsible, ValidationRow } from '../common';
 import { useResizableEditableTable } from '../common/table/useResizableEditableTable';
 import { Table, TableBody, TableCell } from '@axonivy/ui-components';
 
@@ -52,7 +52,7 @@ const MailAttachmentTable = () => {
     update('attachments', mappedData);
   };
 
-  const { table, setRowSelection, removeRowAction, showAddButton } = useResizableEditableTable({
+  const { table, removeRowAction, showAddButton } = useResizableEditableTable({
     data,
     columns,
     onChange,
@@ -62,15 +62,8 @@ const MailAttachmentTable = () => {
   const tableActions = table.getSelectedRowModel().rows.length > 0 ? [removeRowAction] : [];
 
   return (
-    <>
+    <ValidationCollapsible label='Attachments' controls={tableActions} defaultOpen={config.attachments.length > 0}>
       <div>
-        <Fieldset
-          label='Attachments'
-          controls={tableActions}
-          onClick={() => {
-            setRowSelection({});
-          }}
-        />
         {table.getRowModel().rows.length > 0 && (
           <Table>
             <TableBody>
@@ -86,8 +79,8 @@ const MailAttachmentTable = () => {
             </TableBody>
           </Table>
         )}
+        {showAddButton()}
       </div>
-      {showAddButton()}
-    </>
+    </ValidationCollapsible>
   );
 };
