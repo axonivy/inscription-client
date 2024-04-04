@@ -11,6 +11,20 @@ import { cloneObject } from './object-utils';
 
 afterEach(() => cleanup());
 
+//@ts-ignore
+global.IntersectionObserver = class IntersectionObserver {
+  constructor() {}
+  observe() {
+    return null;
+  }
+  disconnect() {
+    return null;
+  }
+  unobserve() {
+    return null;
+  }
+};
+
 global.ResizeObserver = class ResizeObserver {
   [x: string]: any;
   constructor(cb: any) {
