@@ -12,7 +12,6 @@ import { expect } from '@playwright/test';
 class EntityPart extends PartObject {
   bodyType: RadioGroup;
   entityType: Combobox;
-  mappingSection: Section;
   mapping: Table;
   code: ScriptArea;
 
@@ -20,15 +19,13 @@ class EntityPart extends PartObject {
     super(part);
     this.bodyType = body.radioGroup();
     this.entityType = body.combobox('Entity-Type');
-    this.mappingSection = body.section('Mapping');
-    this.mapping = this.mappingSection.table(['label', 'expression']);
+    this.mapping = body.table(['label', 'expression']);
     this.code = body.scriptArea();
   }
 
   async fill() {
     await this.bodyType.expectSelected('Entity');
     await this.entityType.fill('ch.ivyteam.test.Person');
-    await this.mappingSection.open();
     await expect(this.mapping.row(0).locator).toHaveText('param');
     await this.mapping.row(2).fill(['CH']);
     await this.code.fill('code');
@@ -49,7 +46,6 @@ class EntityPart extends PartObject {
 class EntityOpenApiPart extends EntityPart {
   override async fill() {
     await this.bodyType.expectSelected('Entity');
-    await this.mappingSection.open();
     await expect(this.mapping.row(0).locator).toHaveText('param');
     await this.mapping.row(2).fill(['CH']);
     await this.code.fill('code');

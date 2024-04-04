@@ -1,24 +1,22 @@
 import type { RESPONSIBLE_TYPE, ValuesAsUnion } from '@axonivy/inscription-protocol';
-import type { ScriptInput } from './CodeEditor';
-import type { Select } from './Select';
+import { ScriptInput } from './CodeEditor';
+import { Select } from './Select';
 import type { Section } from './Section';
 import type { Part } from './Part';
 
 export class ResponsibleComponent {
-  private readonly section: Section;
-  private readonly typeSelect: Select;
-  private readonly script: ScriptInput;
-  private readonly select: Select;
+  typeSelect: Select;
+  script: ScriptInput;
+  select: Select;
 
-  constructor(readonly part: Part | Section) {
-    this.section = part.section('Responsible');
-    this.typeSelect = this.section.select({ nth: 0 });
-    this.script = this.section.scriptInput();
-    this.select = this.section.select({ nth: 1 });
+  constructor(part: Part | Section) {
+    const locator = part.currentLocator().locator('.responsible-select').first();
+    this.typeSelect = new Select(part.page, locator, { nth: 0 });
+    this.script = new ScriptInput(part.page, locator);
+    this.select = new Select(part.page, locator, { nth: 1 });
   }
 
   async fill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible?: string) {
-    this.section.open();
     await this.typeSelect.choose(type);
     switch (type) {
       case 'Role from Attr.':
@@ -52,6 +50,36 @@ export class ResponsibleComponent {
   }
 
   async expectEmpty() {
+    await this.typeSelect.expectValue('Role');
+    await this.select.expectValue('Everybody');
+  }
+}
+
+export class ResponsibleSection extends ResponsibleComponent {
+  readonly section: Section;
+
+  constructor(part: Part | Section) {
+    super(part);
+    this.section = part.section('Responsible');
+    this.typeSelect = this.section.select({ nth: 0 });
+    this.script = this.section.scriptInput();
+    this.select = this.section.select({ nth: 1 });
+  }
+
+  override async fill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible?: string) {
+    await this.section.open();
+    await super.fill(type, responsible);
+  }
+
+  override async expectFill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible?: string) {
+    await super.expectFill(type, responsible);
+  }
+
+  override async clear() {
+    await super.clear();
+  }
+
+  override async expectEmpty() {
     await this.section.expectIsClosed();
   }
 }

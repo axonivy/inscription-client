@@ -15,7 +15,7 @@ class Trigger extends PartObject {
   constructor(part: Part) {
     super(part);
     this.triggerable = part.checkbox('Yes, this can be started with a Trigger Activity');
-    this.responsible = part.responsibleComponent();
+    this.responsible = part.responsibleSection();
     this.options = part.section('Options');
     this.attach = part.checkbox('Attach to Business Case that triggered this process');
     this.delay = part.scriptInput('Delay');

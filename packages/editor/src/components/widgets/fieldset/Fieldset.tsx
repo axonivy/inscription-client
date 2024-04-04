@@ -1,4 +1,3 @@
-import './Fieldset.css';
 import { memo } from 'react';
 import type { FieldsetControl } from './fieldset-control';
 import { ButtonGroup, Fieldset as Field, type FieldsetProps as FieldProps } from '@axonivy/ui-components';
@@ -27,15 +26,7 @@ const Controls = ({ controls }: Pick<FieldsetProps, 'controls'>) => {
 };
 
 const Fieldset = ({ label, controls, validation, ...props }: FieldsetProps) => {
-  return (
-    <Field
-      label={label}
-      message={toMessageData(validation)}
-      control={<Controls controls={controls} />}
-      className='ui-fieldset'
-      {...props}
-    />
-  );
+  return <Field label={label} message={toMessageData(validation)} control={<Controls controls={controls} />} {...props} />;
 };
 
 export default memo(Fieldset);

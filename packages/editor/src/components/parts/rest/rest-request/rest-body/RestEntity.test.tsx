@@ -1,6 +1,6 @@
 import type { RestRequestData, VariableInfo } from '@axonivy/inscription-protocol';
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, ComboboxUtil, TableUtil, render, screen } from 'test-utils';
+import { ComboboxUtil, TableUtil, render, screen } from 'test-utils';
 import { RestEntity } from './RestEntity';
 import { describe, test, expect } from 'vitest';
 
@@ -22,8 +22,8 @@ describe('RestEntity', () => {
 
   test('empty', async () => {
     renderPart();
-    await CollapsableUtil.assertClosed('Mapping');
-
+    await screen.findByText('param');
+    TableUtil.assertRows(['param']);
     expect(screen.getByLabelText('Code')).toHaveValue('');
   });
 
