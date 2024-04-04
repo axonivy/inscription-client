@@ -1,4 +1,4 @@
-import { MappingPart, PathFieldset } from '../../../common';
+import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
 import { ScriptArea } from '../../../../widgets';
 import { PathContext, useEditorContext, useMeta } from '../../../../../context';
@@ -6,6 +6,7 @@ import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from '../../RestEn
 import { useRestEntityTypeMeta, useRestResourceMeta } from '../../useRestResourceMeta';
 import { EMPTY_VAR_INFO } from '@axonivy/inscription-protocol';
 import useMaximizedCodeEditor from '../../../../browser/useMaximizedCodeEditor';
+import { MappingField } from '../../../common/mapping-tree/MappingPart';
 
 const useShowEntityTypeCombo = (types: string[], currentType: string) => {
   const resource = useRestResourceMeta();
@@ -26,7 +27,7 @@ export const RestEntity = () => {
           <RestEntityTypeCombobox value={config.body.entity.type} onChange={change => updateEntity('type', change)} items={entityTypes} />
         </PathFieldset>
       )}
-      <MappingPart
+      <MappingField
         browsers={['attr', 'func', 'type']}
         data={config.body.entity.map}
         onChange={change => updateEntity('map', change)}

@@ -5,10 +5,8 @@ import { RESPONSIBLE_TYPE, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protoco
 import type { SelectItem } from '../../../widgets';
 import { ScriptInput, Select } from '../../../widgets';
 import type { DataUpdater } from '../../../../types/lambda';
-import { PathCollapsible, ValidationFieldset } from '..';
 import RoleSelect from './RoleSelect';
-import { Flex } from '@axonivy/ui-components';
-import { deepEqual } from '../../../../utils/equals';
+import { Field, Flex } from '@axonivy/ui-components';
 
 export type ResponsibleUpdater = DataUpdater<WfTask['responsible']>;
 
@@ -44,37 +42,34 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
 
 const DEFAULT_RESPONSIBLE_TYPE: SelectItem & { value: WfActivatorType } = { label: 'Role', value: 'ROLE' };
 
-const ResponsibleSelect = (props: {
-  responsible?: WfActivator;
-  defaultResponsible: WfActivator;
-  updateResponsible: ResponsibleUpdater;
+export type ResponsibleSelectProps = ResponsibleProps & {
   optionFilter?: WfActivatorType[];
-}) => {
+};
+
+const ResponsibleSelect = ({ responsible, updateResponsible, optionFilter }: ResponsibleSelectProps) => {
   const typeItems = useMemo<SelectItem[]>(
     () =>
       Object.entries(RESPONSIBLE_TYPE)
-        .filter(([value]) => !(props.optionFilter && props.optionFilter.includes(value as WfActivatorType)))
+        .filter(([value]) => !(optionFilter && optionFilter.includes(value as WfActivatorType)))
         .map(([value, label]) => ({ label, value })),
-    [props.optionFilter]
+    [optionFilter]
   );
   const selectedType = useMemo<SelectItem>(
-    () => typeItems.find(e => e.value === props.responsible?.type) ?? DEFAULT_RESPONSIBLE_TYPE,
-    [props.responsible?.type, typeItems]
+    () => typeItems.find(e => e.value === responsible?.type) ?? DEFAULT_RESPONSIBLE_TYPE,
+    [responsible?.type, typeItems]
   );
 
   return (
-    <PathCollapsible label='Responsible' path='responsible' defaultOpen={!deepEqual(props.responsible, props.defaultResponsible)}>
-      <ValidationFieldset>
-        <Flex direction='row' gap={2} className='responsible-select'>
-          <Select
-            items={typeItems}
-            value={selectedType}
-            onChange={item => props.updateResponsible('type', item.value as WfActivatorType)}
-          />
-          <ResponsibleActivator {...props} selectedType={selectedType?.value as WfActivatorType} />
-        </Flex>
-      </ValidationFieldset>
-    </PathCollapsible>
+    <Flex direction='row' gap={2} className='responsible-select'>
+      <Select items={typeItems} value={selectedType} onChange={item => updateResponsible('type', item.value as WfActivatorType)} />
+      <Field>
+        <ResponsibleActivator
+          responsible={responsible}
+          updateResponsible={updateResponsible}
+          selectedType={selectedType?.value as WfActivatorType}
+        />
+      </Field>
+    </Flex>
   );
 };
 

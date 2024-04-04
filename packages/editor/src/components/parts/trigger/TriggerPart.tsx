@@ -5,8 +5,8 @@ import { useTriggerData } from './useTriggerData';
 import type { TriggerData } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import ResponsibleSelect from '../common/responsible/ResponsibleSelect';
 import { PathFieldset, ValidationCollapsible } from '../common';
+import { ResponsibleCollapsible } from '../common/responsible/ResponsiblePart';
 
 export function useTriggerPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useTriggerData();
@@ -30,7 +30,7 @@ const TriggerPart = () => {
       />
       {config.triggerable && (
         <PathContext path='task'>
-          <ResponsibleSelect
+          <ResponsibleCollapsible
             responsible={config.task.responsible}
             defaultResponsible={defaultConfig.task.responsible}
             updateResponsible={updateResponsible}

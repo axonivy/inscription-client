@@ -1,6 +1,6 @@
 import { Composite } from './Composite';
 import { InfoComponent } from './InfoComponent';
-import { ResponsibleComponent } from './ResponsibleComponent';
+import { ResponsibleComponent, ResponsibleSection } from './ResponsibleComponent';
 import { Section } from './Section';
 
 export abstract class Part extends Composite {
@@ -14,5 +14,9 @@ export abstract class Part extends Composite {
 
   responsibleComponent() {
     return new ResponsibleComponent(this);
+  }
+
+  responsibleSection() {
+    return new ResponsibleSection(this);
   }
 }

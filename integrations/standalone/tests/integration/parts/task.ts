@@ -69,7 +69,6 @@ class Task extends PartObject {
   timeout: ScriptInput;
   error: Select;
   expiryResponsbile: ResponsibleComponent;
-  expiryPrioritySection: Section;
   expiryPriority: Select;
   customFieldsSection: Section;
   customFields: Table;
@@ -84,7 +83,7 @@ class Task extends PartObject {
   ) {
     super(part);
     this.info = part.infoComponent();
-    this.responsible = part.responsibleComponent();
+    this.responsible = part.responsibleSection();
     this.prioritySection = part.section('Priority');
     this.priority = this.prioritySection.select({});
     this.optionsSection = part.section('Options');
@@ -98,8 +97,7 @@ class Task extends PartObject {
     this.timeout = this.expirySection.scriptInput('Timeout');
     this.error = this.expirySection.select({ label: 'Error' });
     this.expiryResponsbile = this.expirySection.responsibleComponent();
-    this.expiryPrioritySection = this.expirySection.section('Priority');
-    this.expiryPriority = this.expiryPrioritySection.select({});
+    this.expiryPriority = this.expirySection.select({ label: 'Priority' });
     this.customFieldsSection = part.section('Custom Fields');
     this.customFields = this.customFieldsSection.table(['combobox', 'label', 'expression']);
     this.codeSection = part.section('Code');
@@ -139,7 +137,6 @@ class Task extends PartObject {
       await this.timeout.fill('timeout');
       await this.error.choose(this.errorValue);
       await this.expiryResponsbile.fill('Nobody & delete');
-      await this.expiryPrioritySection.open();
       await this.expiryPriority.choose('Low');
     }
 

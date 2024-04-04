@@ -1,6 +1,6 @@
 import ResponsibleSelect from './ResponsibleSelect';
 import type { RoleMeta, WfActivator, WfActivatorType } from '@axonivy/inscription-protocol';
-import { CollapsableUtil, render, screen, SelectUtil } from 'test-utils';
+import { render, screen, SelectUtil } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('ResponsibleSelect', () => {
@@ -18,23 +18,10 @@ describe('ResponsibleSelect', () => {
       { id: 'CREATOR', label: 'CREATOR', children: [] },
       { id: 'SYSTEM', label: 'SYSTEM', children: [] }
     ];
-    render(
-      <ResponsibleSelect
-        responsible={responsible}
-        defaultResponsible={{ type: 'ROLE', activator: 'Everybody' }}
-        updateResponsible={() => {}}
-        optionFilter={options?.optionsFilter}
-      />,
-      {
-        wrapperProps: { meta: { roleTree, taskRoles } }
-      }
-    );
+    render(<ResponsibleSelect responsible={responsible} updateResponsible={() => {}} optionFilter={options?.optionsFilter} />, {
+      wrapperProps: { meta: { roleTree, taskRoles } }
+    });
   }
-
-  test('empty', async () => {
-    renderSelect({ type: 'ROLE', activator: 'Everybody' });
-    await CollapsableUtil.assertClosed('Responsible');
-  });
 
   test('all options', async () => {
     renderSelect({ type: 'ROLE', activator: 'bla' });
