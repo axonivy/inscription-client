@@ -20,8 +20,7 @@ describe('Part', () => {
     name: 'Result',
     state: { state: 'error', validations: [] },
     reset: { dirty: false, action: () => {} },
-    content: <h1>Result</h1>,
-    summary: <span>summary</span>
+    content: <h1>Result</h1>
   };
 
   function renderAccordion(partProps: PartProps): {

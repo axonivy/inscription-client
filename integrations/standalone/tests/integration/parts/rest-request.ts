@@ -133,7 +133,7 @@ class RestRequestOpenApi extends RestRequest {
   }
 
   override async clear() {
-    await this.part.currentLocator().getByRole('button', { name: 'OpenAPI' }).click();
+    await this.part.currentLocator().getByRole('switch', { name: 'OpenAPI' }).click();
     await this.path.fill('/pet');
 
     await this.parameters.clear();

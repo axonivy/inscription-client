@@ -1,22 +1,3 @@
-.rest-target {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  padding-inline: var(--size-1);
-}
-.rest-target button {
-  border-radius: var(--border-radius);
-  padding: 3px;
-  &:hover {
-    cursor: pointer;
-    background-color: var(--background);
-  }
-  &:where(:focus-visible, .active) {
-    background-color: var(--background);
-    box-shadow: var(--focus-shadow);
-  }
-}
 .rest-target-url .path-param,
 .rest-target-url .query-value {
   color: #0891b2;
