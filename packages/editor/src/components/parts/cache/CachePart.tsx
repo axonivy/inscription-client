@@ -1,5 +1,5 @@
 import type { CacheData } from '@axonivy/inscription-protocol';
-import type { PartProps} from '../../../components/editors';
+import type { PartProps } from '../../../components/editors';
 import { usePartDirty, usePartState } from '../../../components/editors';
 import { useCacheData } from './useCacheData';
 import { PathContext, useValidations } from '../../../context';
@@ -27,6 +27,7 @@ const CachePart = () => {
           { label: 'Cache', value: 'CACHE', description: 'Use if you call an operation that only reads data.' },
           { label: 'Invalidate Cache', value: 'INVALIDATE_CACHE', description: 'Use if you call an operation that modifies data' }
         ]}
+        style={{ paddingInline: 'var(--size-2)' }}
       />
       {config.cache.mode !== 'DO_NOT_CACHE' && (
         <>
