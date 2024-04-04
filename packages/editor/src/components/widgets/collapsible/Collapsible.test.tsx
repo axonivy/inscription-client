@@ -1,5 +1,5 @@
 import Collapsible from './Collapsible';
-import { render, screen, userEvent } from 'test-utils';
+import { CollapsableUtil, render, screen, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 import type { ValidationMessage } from '../message/Message';
 
@@ -17,6 +17,11 @@ describe('Collapsible', () => {
   function collapseBtn(): HTMLElement {
     return screen.getByRole('button', { name: /Test/i });
   }
+
+  test('open if validations', async () => {
+    renderCollapsible(false, { validations: [{ message: '', severity: 'ERROR' }] });
+    await CollapsableUtil.assertOpen('Test');
+  });
 
   test('collapse part will render after click on trigger', async () => {
     renderCollapsible(false);

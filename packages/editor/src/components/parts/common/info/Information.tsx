@@ -52,6 +52,7 @@ const Information = <T extends InformationConfig>({ config, defaultConfig, updat
       defaultOpen={
         config.name !== defaultConfig.name || config.description !== defaultConfig.description || config.category !== defaultConfig.category
       }
+      paths={['name', 'description', 'category']}
     >
       <PathFieldset label='Name' path='name'>
         <MacroInput value={config.name} browsers={['attr', 'func', 'cms']} onChange={change => update('name', change)} />

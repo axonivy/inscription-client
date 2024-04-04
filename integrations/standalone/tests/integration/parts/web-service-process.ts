@@ -33,7 +33,9 @@ class WsProcessPart extends PartObject {
   }
 
   async assertClear() {
-    await this.section.expectIsClosed();
+    await this.section.expectIsOpen(); //error on input
+    await this.qualifiedName.expectEmpty();
+    await this.authentication.expectSelected('None/Container');
   }
 }
 

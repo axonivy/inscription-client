@@ -12,6 +12,10 @@ export class Select {
     }
   }
 
+  async clear() {
+    await this.choose('');
+  }
+
   async choose(value: string | RegExp) {
     await this.locator.click();
     await this.page.getByRole('option', { name: value, exact: true }).first().click();

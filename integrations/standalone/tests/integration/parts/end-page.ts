@@ -7,7 +7,7 @@ class EndPage extends PartObject {
   section: Section;
   endPage: TextArea;
 
-  constructor(part: Part) {
+  constructor(part: Part, readonly warningIfEmpty = false) {
     super(part);
     this.section = part.section('End Page');
     this.endPage = this.section.textArea({});
@@ -27,8 +27,14 @@ class EndPage extends PartObject {
   }
 
   async assertClear() {
-    await this.section.expectIsClosed();
+    if (this.warningIfEmpty) {
+      await this.section.expectIsOpen();
+      await this.endPage.expectEmpty();
+    } else {
+      await this.section.expectIsClosed();
+    }
   }
 }
 
 export const EndPageTest = new NewPartTest('End Page', (part: Part) => new EndPage(part));
+export const EndPageTestEmptyWarning = new NewPartTest('End Page', (part: Part) => new EndPage(part, true));

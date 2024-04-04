@@ -21,7 +21,7 @@ const ExceptionSelect = ({ value, onChange, staticExceptions }: ExceptionSelectP
   ];
   const selectedItem = items.find(e => e.value === value) ?? { label: value, value };
 
-  return <Select items={items} value={selectedItem} onChange={item => onChange(item.value)} />;
+  return <Select items={items} emptyItem={true} value={selectedItem} onChange={item => onChange(item.value)} />;
 };
 
 export default ExceptionSelect;

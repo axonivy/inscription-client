@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { EndPageTest, GeneralTest, runTest } from '../../parts';
+import { EndPageTestEmptyWarning, GeneralTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 
@@ -25,6 +25,6 @@ test.describe('End Page', () => {
   });
 
   test('EndPage', async () => {
-    await runTest(view, EndPageTest);
+    await runTest(view, EndPageTestEmptyWarning);
   });
 });
