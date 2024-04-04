@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
-import type { ElementData, InscriptionValidation, RestRequestData } from '@axonivy/inscription-protocol';
+import type { ElementData, InscriptionValidation, RestRequestData, RestResource } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useRestRequestPart } from './RestRequestPart';
 import { describe, test, expect } from 'vitest';
@@ -10,9 +10,14 @@ const Part = () => {
   return <>{part.content}</>;
 };
 
+const Control = () => {
+  const part = useRestRequestPart();
+  return <>{part.control}</>;
+};
+
 describe('RestRequestPart', () => {
-  function renderPart(data?: DeepPartial<RestRequestData>) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+  function renderPart(data?: DeepPartial<RestRequestData>, restResources?: DeepPartial<RestResource[]>) {
+    render(<Part />, { wrapperProps: { data: data && { config: data }, meta: { restResources } } });
   }
 
   test('empty', async () => {
@@ -70,5 +75,15 @@ describe('RestRequestPart', () => {
     expect(data.config?.body?.mediaType).toEqual('application/json');
     expect(data.config?.target?.clientId).toEqual('');
     expect(data.config?.target?.headers).toEqual({ Accept: '*/*' });
+  });
+
+  async function renderControl() {
+    render(<Control />, { wrapperProps: { data: { config: { target: { clientId: 'client' } } }, meta: { restResources: [{}] } } });
+    await screen.findByText('OpenAPI');
+  }
+
+  test('openapi', async () => {
+    await renderControl();
+    expect(screen.getByRole('switch', { name: 'OpenAPI' })).toBeInTheDocument();
   });
 });

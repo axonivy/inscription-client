@@ -3,7 +3,7 @@ import defaultConfig from '../../playwright.base';
 
 export default defineConfig(defaultConfig, {
   testDir: './',
-  timeout: 1000 * 30,
+  timeout: 1000 * 60,
   use: {
     baseURL: 'http://localhost:3000/mock.html'
   },

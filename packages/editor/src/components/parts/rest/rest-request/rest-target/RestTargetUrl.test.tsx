@@ -33,9 +33,4 @@ describe('RestTargetUrl', () => {
     expect(screen.getByText('bla')).toBeVisible();
     expect(screen.getByText('hi')).toBeVisible();
   });
-
-  test('openapi', async () => {
-    await renderTargetUrl({ target: { clientId: 'client' } }, [{}]);
-    expect(screen.getByRole('button', { name: 'OpenAPI' })).toBeInTheDocument();
-  });
 });

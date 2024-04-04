@@ -15,9 +15,14 @@ import type { PartProps } from './usePart';
 import { ErrorFallback } from '../../widgets';
 import type { Severity } from '@axonivy/inscription-protocol';
 
-const UndoControl = ({ name, reset, ...props }: Pick<PartProps, 'name' | 'reset'> & AccordionControlProps) => {
-  if (reset.dirty) {
-    return <Button {...props} icon={IvyIcons.Undo} onClick={reset.action} title={`Reset ${name}`} aria-label={`Reset ${name}`} />;
+const Control = ({ name, reset, control, ...props }: Pick<PartProps, 'name' | 'reset' | 'control'> & AccordionControlProps) => {
+  if (reset.dirty || control) {
+    return (
+      <Flex direction='row' gap={2} {...props}>
+        {control}
+        {reset.dirty && <Button icon={IvyIcons.Undo} onClick={reset.action} title={`Reset ${name}`} aria-label={`Reset ${name}`} />}
+      </Flex>
+    );
   }
   return null;
 };
@@ -42,10 +47,7 @@ const Part = ({ parts }: { parts: PartProps[] }) => {
       {parts.map(part => {
         return (
           <AccordionItem value={part.name} key={part.name}>
-            <AccordionTrigger
-              control={props => <UndoControl {...props} name={part.name} reset={part.reset} />}
-              state={<State state={part.state} />}
-            >
+            <AccordionTrigger control={props => <Control {...props} {...part} />} state={<State state={part.state} />}>
               {part.name}
             </AccordionTrigger>
             <AccordionContent>

@@ -1,5 +1,6 @@
 import type { HttpMethod, RestRequestData } from '@axonivy/inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
+import { Field, Label, Switch } from '@axonivy/ui-components';
+import { PathContext, useEditorContext, useMeta, useOpenApi, useValidations } from '../../../context';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useRestRequestData } from './useRestRequestData';
@@ -24,7 +25,13 @@ export function useRestRequestPart(): PartProps {
   const compareData = (data: RestRequestData) => [data.body, data.code, data.method, data.target];
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Request', state: state, reset: { dirty, action: () => resetData() }, content: <RestRequestPart /> };
+  return {
+    name: 'Request',
+    state: state,
+    reset: { dirty, action: () => resetData() },
+    content: <RestRequestPart />,
+    control: <OpenApiSwitch />
+  };
 }
 
 const RestRequestPart = () => {
@@ -57,5 +64,21 @@ const RestRequestPart = () => {
       </PathContext>
       {bodyPart(config.method)}
     </>
+  );
+};
+
+const OpenApiSwitch = () => {
+  const { openApi, setOpenApi } = useOpenApi();
+  const { context } = useEditorContext();
+  const { config } = useRestRequestData();
+  const resources = useMeta('meta/rest/resources', { context, clientId: config.target.clientId }, []).data;
+  if (resources.length === 0) {
+    return null;
+  }
+  return (
+    <Field direction='row' alignItems='center' gap={2}>
+      <Label style={{ fontWeight: 'normal' }}>OpenAPI</Label>
+      <Switch checked={openApi} onCheckedChange={setOpenApi} />
+    </Field>
   );
 };

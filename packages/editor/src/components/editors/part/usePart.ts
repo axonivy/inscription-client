@@ -15,7 +15,7 @@ export type PartProps = {
   state: PartState;
   reset: { dirty: boolean; action: () => void };
   content: ReactNode;
-  summary?: ReactNode;
+  control?: ReactNode;
 };
 
 export function usePartState(defaultData: unknown, data: unknown, validations: InscriptionValidation[]): PartState {
