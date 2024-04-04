@@ -15,28 +15,25 @@ describe('RequestPart', () => {
     render(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
-  async function assertMainPart(http: boolean, data?: DeepPartial<RequestData>) {
+  async function assertMainPart(data?: DeepPartial<RequestData>) {
     const httpCheckbox = screen.getByLabelText('Yes, this can be started with a HTTP-Request / -Link');
-    if (http) {
-      expect(httpCheckbox).toBeChecked();
-      expect(screen.getByLabelText('Start list')).not.toBeChecked();
-      expect(screen.getByLabelText('Name')).toHaveValue(data?.request?.name);
-      expect(screen.getByLabelText('Description')).toHaveValue(data?.request?.description);
-      expect(screen.getByLabelText('Category')).toHaveValue(data?.request?.category);
-      TableUtil.assertRows(['field value']);
-      await CollapsableUtil.assertOpen('Permission');
-      expect(screen.getByLabelText('Allow anonymous')).not.toBeChecked();
-      SelectUtil.assertValue('Test', { label: 'Role' });
-      SelectUtil.assertValue('>> Ignore Exception', { label: 'Violation error' });
-    } else {
-      expect(httpCheckbox).not.toBeChecked();
-      expect(screen.queryByLabelText('Start list')).not.toBeInTheDocument();
-    }
+    expect(httpCheckbox).toBeChecked();
+    expect(screen.getByLabelText('Show on start list')).toBeChecked();
+    expect(screen.getByLabelText('Name')).toHaveValue(data?.request?.name);
+    expect(screen.getByLabelText('Description')).toHaveValue(data?.request?.description);
+    expect(screen.getByLabelText('Category')).toHaveValue(data?.request?.category);
+    TableUtil.assertRows(['field value']);
+    await CollapsableUtil.assertOpen('Permission');
+    expect(screen.getByLabelText('Allow anonymous')).not.toBeChecked();
+    SelectUtil.assertValue('Test', { label: 'Role' });
+    SelectUtil.assertValue('>> Ignore Exception', { label: 'Violation error' });
   }
 
   test('empty data', async () => {
     renderPart({ request: { isHttpRequestable: false } });
-    await assertMainPart(false);
+    const httpCheckbox = screen.getByLabelText('Yes, this can be started with a HTTP-Request / -Link');
+    expect(httpCheckbox).not.toBeChecked();
+    expect(screen.queryByLabelText('Show on start list')).not.toBeInTheDocument();
   });
 
   test('permissions default', async () => {
@@ -46,11 +43,25 @@ describe('RequestPart', () => {
     expect(screen.queryByLabelText('Role')).not.toBeInTheDocument();
   });
 
+  test('hide detail if show on start list is false', async () => {
+    const data: DeepPartial<RequestData> = {
+      request: {
+        isHttpRequestable: true,
+        isVisibleOnStartList: false
+      }
+    };
+    renderPart(data);
+    const httpCheckbox = screen.getByLabelText('Yes, this can be started with a HTTP-Request / -Link');
+    expect(httpCheckbox).toBeChecked();
+    expect(screen.getByLabelText('Show on start list')).not.toBeChecked();
+    expect(screen.queryByLabelText('Name')).not.toBeInTheDocument();
+  });
+
   test('full data', async () => {
     const data: DeepPartial<RequestData> = {
       request: {
         isHttpRequestable: true,
-        isVisibleOnStartList: false,
+        isVisibleOnStartList: true,
         name: 'test',
         description: 'desc',
         category: 'cat',
@@ -63,7 +74,7 @@ describe('RequestPart', () => {
       }
     };
     renderPart(data);
-    await assertMainPart(true, data);
+    await assertMainPart(data);
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<RequestData>, validation?: InscriptionValidation) {

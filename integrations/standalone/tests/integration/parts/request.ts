@@ -20,7 +20,7 @@ class Request extends PartObject {
   constructor(part: Part) {
     super(part);
     this.httpable = part.checkbox('Yes, this can be started with a HTTP-Request / -Link');
-    this.startList = part.checkbox('Start list');
+    this.startList = part.checkbox('Show on start list');
     this.info = part.infoComponent();
     this.customFieldSection = part.section('Custom Fields');
     this.customFields = this.customFieldSection.table(['combobox', 'expression']);
@@ -31,7 +31,6 @@ class Request extends PartObject {
   }
 
   async fill() {
-    await this.startList.click();
     await this.info.fill();
     await this.customFieldSection.toggle();
     const customField = await this.customFields.addRow();
@@ -40,6 +39,7 @@ class Request extends PartObject {
     await this.anonym.click();
     await this.role.choose('Support');
     await this.error.choose('>> Ignore Exception');
+    await this.startList.click();
     await this.httpable.click();
   }
 
@@ -47,6 +47,7 @@ class Request extends PartObject {
     await this.httpable.expectUnchecked();
     await this.httpable.click();
     await this.startList.expectUnchecked();
+    await this.startList.click();
     await this.info.expectFill();
     await this.customFieldSection.expectIsOpen();
     await this.customFields.row(0).expectValues(['field', 'value']);
@@ -58,7 +59,7 @@ class Request extends PartObject {
 
   async clear() {
     await this.httpable.expectChecked();
-    await this.startList.click();
+    await this.startList.expectChecked();
     await this.info.clear();
     await this.customFields.clear();
     await this.role.choose('Everybody');

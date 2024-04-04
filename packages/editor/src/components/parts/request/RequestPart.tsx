@@ -26,6 +26,7 @@ const RequestPart = () => {
         value={config.request.isHttpRequestable}
         onChange={change => updateRequest('isHttpRequestable', change)}
         label='Yes, this can be started with a HTTP-Request / -Link'
+        style={{ paddingInline: 'var(--size-2)' }}
       />
       {config.request.isHttpRequestable && (
         <>
@@ -34,9 +35,12 @@ const RequestPart = () => {
             <Checkbox
               value={config.request.isVisibleOnStartList}
               onChange={change => updateRequest('isVisibleOnStartList', change)}
-              label='Start list'
+              label='Show on start list'
+              style={{ paddingInline: 'var(--size-2)' }}
             />
-            <Information config={config.request} defaultConfig={defaultConfig.request} update={updateRequest} />
+            {config.request.isVisibleOnStartList && (
+              <Information config={config.request} defaultConfig={defaultConfig.request} update={updateRequest} />
+            )}
 
             <StartCustomFieldTable data={config.request.customFields} onChange={change => updateRequest('customFields', change)} />
           </PathContext>

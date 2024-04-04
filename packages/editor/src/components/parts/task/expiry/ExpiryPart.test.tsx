@@ -14,7 +14,7 @@ describe('ExpiryPart', () => {
     await userEvent.click(expiryCollapse);
 
     expect(screen.getByLabelText('Timeout')).toHaveValue('');
-    expect(screen.queryByText('Responsible')).toBeInTheDocument();
+    expect(screen.queryByText('Responsible')).not.toBeInTheDocument();
   });
 
   test('expiry part will render all', async () => {
