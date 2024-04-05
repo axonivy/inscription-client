@@ -33,7 +33,9 @@ class ErrorThrow extends PartObject {
   }
 
   async assertClear() {
-    await this.section.expectIsClosed();
+    await this.section.expectIsOpen(); //warning in input
+    await this.error.expectValue('undefined');
+    await this.cause.expectEmpty();
   }
 }
 

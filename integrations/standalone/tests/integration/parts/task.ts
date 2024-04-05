@@ -212,6 +212,7 @@ class Task extends PartObject {
     }
 
     if (this.options.expiry) {
+      await this.error.clear();
       await this.timeout.clear();
     }
 

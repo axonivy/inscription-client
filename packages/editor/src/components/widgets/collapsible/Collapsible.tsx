@@ -47,7 +47,7 @@ const State = ({ validations }: Pick<CollapsibleProps, 'validations'>) => {
 };
 
 const Collapsible = ({ label, defaultOpen, validations, children, autoClosable, controls }: CollapsibleProps) => {
-  const [open, setOpen] = useState(defaultOpen ?? false);
+  const [open, setOpen] = useState(defaultOpen || (validations?.length ?? 0) > 0);
   useEffect(() => {
     if (autoClosable) {
       setOpen(!!defaultOpen);

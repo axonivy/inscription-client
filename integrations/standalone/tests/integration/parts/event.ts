@@ -64,8 +64,8 @@ class Event extends PartObject {
 
   async assertClear() {
     await this.javaClass.expectValue('ch.ivyteam.ivy.process.intermediateevent.AbstractProcessIntermediateEventBean');
-    await this.eventSection.expectIsClosed();
-
+    await this.eventSection.expectIsOpen(); //error on event input
+    await this.eventId.expectEmpty();
     await this.expirySection.expectIsClosed();
   }
 }
