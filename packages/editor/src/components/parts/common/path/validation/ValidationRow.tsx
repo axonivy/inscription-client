@@ -37,7 +37,7 @@ export const ValidationRow = <TData extends object>({ rowPathSuffix, row, ...pro
   );
 };
 
-type ValidationReorderRowProps<TData> = ComponentPropsWithoutRef<typeof ReorderRow> & ValidationProps<TData>;
+type ValidationReorderRowProps<TData> = ComponentPropsWithoutRef<typeof ReorderRow<TData>> & ValidationProps<TData>;
 
 export const ValidationSelectableReorderRow = <TData extends object>({
   rowPathSuffix,

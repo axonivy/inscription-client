@@ -12,4 +12,7 @@
 }
 .ui-table-cell .row-expand-label-info {
   color: var(--N500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
