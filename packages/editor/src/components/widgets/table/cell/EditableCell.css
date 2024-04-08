@@ -1,12 +1,10 @@
-.ui-table-cell:has(.input) {
+.ui-table-cell:has(.ui-input) {
   padding: 0px;
 }
-.ui-table-cell .input {
+.ui-table-cell .ui-input {
   border: none;
   padding: 8px;
   width: calc(100% - 15px);
-  background-color: var(--background);
-  color: var(--body);
   border-radius: 0px;
 }
 
@@ -16,7 +14,15 @@
   align-items: center;
 }
 
-.editableCell-with-browser .input {
+.editableCell-with-browser .ui-input {
   flex: auto;
   width: 100%;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+.ui-select-row[data-state='selected'] .ui-input {
+  background-color: var(--P300);
+  color: var(--background);
 }

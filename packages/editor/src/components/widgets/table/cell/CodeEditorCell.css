@@ -15,7 +15,7 @@
   border-radius: 0px;
 }
 
-.ui-table-cell .script-input .button {
+.ui-table-cell .script-input .ui-button {
   color: var(--body);
 }
 
