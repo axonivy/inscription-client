@@ -4,17 +4,13 @@
   align-items: center;
   position: relative;
 }
-.script-input .input {
-  flex: auto;
-  width: 100%;
-}
 
 .script-input .code-editor {
   flex: 1;
   position: relative;
 }
 
-.script-input .button {
+.script-input .ui-button {
   position: absolute;
   top: 0;
   right: 0;

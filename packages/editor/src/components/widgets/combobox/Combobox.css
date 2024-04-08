@@ -3,7 +3,7 @@
   gap: var(--size-1);
   align-items: center;
 }
-.combobox-input .input,
+.combobox-input .ui-input,
 .combobox-input .code-editor {
   flex: 1 1 auto;
 }
