@@ -30,7 +30,6 @@ describe('Select', () => {
 
     await userEvent.click(select);
     expect(select).toHaveTextContent('label');
-    screen.debug();
     expect(screen.getByRole('listbox')).toBeInTheDocument();
     expect(screen.getAllByRole('option')).toHaveLength(2);
     expect(screen.getByRole('option', { name: 'label' })).toHaveAttribute('data-state', 'checked');

@@ -7,7 +7,7 @@ import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, 
 import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { Button, Message, SelectRow, TableCell } from '@axonivy/ui-components';
+import { Button, Message, SelectRow, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 
@@ -168,22 +168,29 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
           }
         }}
       >
-        <tbody>
+        <TableBody>
           {table.getRowModel().rows.map(row => (
-            <SelectRow key={row.id} row={row} isNotSelectable={row.original.type === 'FOLDER'} onDoubleClick={onDoubleClick}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-              ))}
+            <>
               {row.original.type === 'FOLDER' ? (
-                <ActionCell
-                  actions={[{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(row.original.fullPath) }]}
-                />
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  ))}
+                  <ActionCell
+                    actions={[{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(row.original.fullPath) }]}
+                  />
+                </TableRow>
               ) : (
-                <TableCell />
+                <SelectRow key={row.id} row={row} onDoubleClick={onDoubleClick}>
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                  ))}
+                  <TableCell />
+                </SelectRow>
               )}
-            </SelectRow>
+            </>
           ))}
-        </tbody>
+        </TableBody>
       </SearchTable>
       {showHelper &&
         (value.length !== 0 && selectedContentObject ? (
