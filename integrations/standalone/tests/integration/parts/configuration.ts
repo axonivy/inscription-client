@@ -2,15 +2,25 @@ import type { Part } from '../../pageobjects/Part';
 import { NewPartTest, PartObject } from './part-tester';
 import type { TextArea } from '../../pageobjects/TextArea';
 import type { ScriptArea } from '../../pageobjects/CodeEditor';
+import type { Section } from '../../pageobjects/Section';
 
-class FilePickupStartEventBean extends PartObject {
+abstract class Configuration extends PartObject {
+  section: Section;
+
+  constructor(part: Part) {
+    super(part);
+    this.section = part.section('Configuration');
+  }
+}
+
+class FilePickupStartEventBean extends Configuration {
   path: TextArea;
   processAttribut: TextArea;
 
   constructor(part: Part) {
     super(part);
-    this.path = part.textArea({ nth: 0 });
-    this.processAttribut = part.textArea({ nth: 1 });
+    this.path = this.section.textArea({ nth: 0 });
+    this.processAttribut = this.section.textArea({ nth: 1 });
   }
 
   async fill() {
@@ -34,12 +44,12 @@ class FilePickupStartEventBean extends PartObject {
   }
 }
 
-class TimerBean extends FilePickupStartEventBean {
+class TimerBean extends Configuration {
   time: ScriptArea;
 
   constructor(part: Part) {
     super(part);
-    this.time = part.scriptInput();
+    this.time = this.section.scriptInput();
   }
 
   override async fill() {
@@ -59,14 +69,14 @@ class TimerBean extends FilePickupStartEventBean {
   }
 }
 
-class FileIntermediateEventBean extends FilePickupStartEventBean {
-  override path: TextArea;
+class FileIntermediateEventBean extends Configuration {
+  path: TextArea;
   eventId: TextArea;
 
   constructor(part: Part) {
     super(part);
-    this.path = part.textArea({ nth: 0 });
-    this.eventId = part.textArea({ nth: 1 });
+    this.path = this.section.textArea({ nth: 0 });
+    this.eventId = this.section.textArea({ nth: 1 });
   }
 
   override async fill() {

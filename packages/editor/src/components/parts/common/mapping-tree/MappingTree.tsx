@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, SortingState } from '@tanstack/react-table';
+import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState } from '@tanstack/react-table';
 import {
   flexRender,
   getCoreRowModel,
@@ -50,22 +50,20 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
             title={cell.row.original.description}
           />
         ),
-        footer: props => props.column.id,
-        enableSorting: false
+        size: 100,
+        minSize: 60
       },
       {
         accessorFn: row => row.value,
         id: 'value',
         header: () => <span>Expression</span>,
         cell: cell => <ScriptCell cell={cell} type={cell.row.original.type} browsers={browsers} placeholder={cell.row.original.type} />,
-        footer: props => props.column.id,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
       }
     ],
     [browsers, loadChildren]
   );
 
-  const [sorting, setSorting] = useState<SortingState>([]);
   const [expanded, setExpanded] = useState<ExpandedState>(true);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
@@ -73,7 +71,6 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
     data: tree,
     columns: columns,
     state: {
-      sorting,
       expanded,
       rowSelection,
       globalFilter: globalFilter.filter,
@@ -90,7 +87,6 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
     onGlobalFilterChange: globalFilter.setFilter,
     onColumnFiltersChange: onlyInscribedFilter.setFilter,
     getSubRows: row => row.children,
-    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),

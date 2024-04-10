@@ -2,11 +2,12 @@ import type { ConfigurationData, Label, Script, Text, Widget } from '@axonivy/in
 import type { PartProps } from '../../../editors';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
 import { usePartDirty, usePartState } from '../../../editors';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../../context';
+import { useEditorContext, useMeta, useValidations } from '../../../../context';
 import { useConfigurationData } from './useConfigurationData';
 import { Input, ScriptInput } from '../../../widgets';
 import './Configuration.css';
-import { Message } from '@axonivy/ui-components';
+import { Flex, Message } from '@axonivy/ui-components';
+import { PathCollapsible } from '../../common';
 
 export function useConfigurationPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useConfigurationData();
@@ -86,12 +87,12 @@ const ConfigurationPart = () => {
   }
 
   return (
-    <PathContext path={'userConfig'}>
+    <PathCollapsible label='Configuration' defaultOpen={true} path={'userConfig'}>
       {editorItems.map((widget, index) => (
-        <div className='configuration-widget' key={index}>
+        <Flex direction='column' className='configuration-widget' key={index}>
           {renderWidgetComponent(widget)}
-        </div>
+        </Flex>
       ))}
-    </PathContext>
+    </PathCollapsible>
   );
 };
