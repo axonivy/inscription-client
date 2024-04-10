@@ -18,17 +18,17 @@
 .code-editor .monaco-placeholder {
   position: absolute;
   display: none;
-  white-space: pre-wrap;
+  white-space: nowrap;
   top: 12px;
   left: 11px;
   font-size: 12px;
+  font-style: italic;
   color: var(--N500);
-  font-family: Consolas, 'Courier New', monospace;
   pointer-events: none;
   user-select: none;
 }
 
-.code-editor .with-lineNumbers {
+.code-editor .monaco-placeholder.with-lineNumbers {
   left: 35px;
 }
 
