@@ -6,7 +6,6 @@ import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { IvyIcon } from '../widgets';
 import { useAction, useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useGeneralData } from '../parts/name/useGeneralData';
@@ -14,7 +13,7 @@ import Part from './part/Part';
 import type { PartProps } from './part/usePart';
 import { otherEditors } from './other-editors';
 import { thirdPartyEditors } from './third-party/all-third-party-editors';
-import { Button, Message } from '@axonivy/ui-components';
+import { Button, Flex, Message, SidebarHeader, SidebarMessages } from '@axonivy/ui-components';
 
 const editors = new Map<ElementType, ReactNode>([
   ...eventEditors,
@@ -36,49 +35,38 @@ export interface EditorProps {
   parts: PartProps[];
 }
 
-const Header = (props: EditorProps) => {
+const Header = ({ icon }: Pick<EditorProps, 'icon'>) => {
   const { data } = useGeneralData();
   const validations = useDataContext().validations.filter(val => val.path.length === 0);
   const editorContext = useEditorContext();
   const helpUrl = editorContext.type.helpUrl;
   const action = useAction('openPage');
+  const title = `${editorContext.type.shortLabel}${data.name.length > 0 ? ` - ${data.name}` : ''}`;
   return (
     <>
-      <div className='header'>
-        <div className='header-left'>
-          {props.icon && <IvyIcon icon={props.icon} />}
-          <div className='header-title'>
-            {editorContext.type.shortLabel}
-            {data.name.length > 0 && ` - ${data.name}`}
-          </div>
-        </div>
-
+      <SidebarHeader title={title} icon={icon} className='header'>
         {helpUrl !== undefined && helpUrl !== '' && (
-          <div className='header-right'>
-            <Button icon={IvyIcons.Help} onClick={() => action(helpUrl)} aria-label={`Open Help for ${editorContext.type.shortLabel}`} />
-          </div>
+          <Button icon={IvyIcons.Help} onClick={() => action(helpUrl)} aria-label={`Open Help for ${editorContext.type.shortLabel}`} />
         )}
-      </div>
+      </SidebarHeader>
       {validations.length > 0 && (
-        <div className='header-messages'>
+        <SidebarMessages className='header-messages'>
           {validations.map((validaiton, index) => (
             <Message key={index} message={validaiton.message} variant={validaiton.severity.toLocaleLowerCase() as Lowercase<Severity>} />
           ))}
-        </div>
+        </SidebarMessages>
       )}
     </>
   );
 };
 
-const InscriptionEditor = (props: EditorProps) => {
-  return (
-    <div className='editor'>
-      <Header {...props} />
-      <div className='content'>
-        <Part parts={props.parts} />
-      </div>
-    </div>
-  );
-};
+const InscriptionEditor = ({ icon, parts }: EditorProps) => (
+  <Flex direction='column' className='editor'>
+    <Header icon={icon} />
+    <Flex direction='column' className='content'>
+      <Part parts={parts} />
+    </Flex>
+  </Flex>
+);
 
 export default memo(InscriptionEditor);
