@@ -1,84 +1,14 @@
 .editor {
   color: var(--body);
-  display: flex;
-  flex-direction: column;
   padding-bottom: var(--size-3);
   height: 100%;
   position: relative;
 }
 
-.editor button:disabled {
-  opacity: 0.6 !important;
-  cursor: not-allowed !important;
-}
 .editor a {
   color: var(--P300);
 }
 
-/* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--background);
-  padding: var(--size-3) var(--size-4);
-  gap: var(--size-2);
-  border-bottom: var(--basic-border);
-  height: 24px; /* need to be full height 48px to be same with process editor*/
-  flex: 0 0 24px;
-}
-
-.header-left {
-  display: flex;
-  gap: 0.75rem;
-  font-weight: 500;
-  font-size: 14px;
-  flex: 1;
-  min-width: 7rem;
-  align-items: center;
-}
-
-.header-right .ivy {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-}
-
-.header-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.header-left .ivy {
-  font-size: 1.3rem;
-}
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 12px;
-}
-.header-right .header-search {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.header-right .header-search .ivy {
-  font-size: 14px;
-}
-
-.header-messages {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-1);
-  margin: 0 var(--size-4);
-  max-height: calc(15px * 2 + var(--size-1) * 2);
-  overflow: auto;
-}
-
 .content {
-  display: flex;
-  flex-direction: column;
   overflow-y: auto;
 }
