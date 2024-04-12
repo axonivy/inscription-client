@@ -37,8 +37,8 @@ describe('ConditionPart', () => {
     };
     renderPart(conditions);
 
-    expect(await screen.findByText(/db: Database/)).toBeInTheDocument();
-    await assertMainPart([/db: Database in.accepted == false/, /⛔ f6 false/, /end: TaskEnd/]);
+    expect(await screen.findByText(/Database: db/)).toBeInTheDocument();
+    await assertMainPart([/Database: db in.accepted == false/, /f6 false/, /TaskEnd: end/]);
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<ConditionData>) {

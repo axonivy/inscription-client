@@ -26,6 +26,9 @@
   color: var(--N500);
   pointer-events: none;
   user-select: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100% - 40px);
 }
 
 .code-editor .monaco-placeholder.with-lineNumbers {

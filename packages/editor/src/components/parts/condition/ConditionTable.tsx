@@ -10,9 +10,10 @@ import { ReorderHandleWrapper, Table, TableBody, TableCell, TableResizableHeader
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {
-    return <span>{`${condition.target.name}: ${condition.target.type.id}`}</span>;
+    const name = condition.target.name;
+    return <span>{`${condition.target.type.id}${name && name.length > 0 ? `: ${name}` : ''}`}</span>;
   }
-  return <span>⛔ {condition.fid}</span>;
+  return <span style={{ textDecoration: 'line-through' }}>{condition.fid}</span>;
 };
 
 const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (change: Condition[]) => void }) => {
