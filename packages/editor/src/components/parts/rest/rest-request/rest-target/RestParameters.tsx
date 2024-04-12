@@ -109,9 +109,9 @@ export const RestParameters = () => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     meta: {
-      updateData: (rowId: string, columnId: string, value: unknown) => {
+      updateData: (rowId: string, columnId: string, value: string) => {
         const rowIndex = parseInt(rowId);
-        onChange(Parameter.update(data, rowIndex, columnId, value as string));
+        onChange(Parameter.update(data, rowIndex, columnId, value));
       }
     }
   });

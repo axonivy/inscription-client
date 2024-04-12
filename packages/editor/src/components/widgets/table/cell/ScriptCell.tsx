@@ -9,7 +9,7 @@ export const ScriptCell = <TData,>({
   browsers,
   placeholder
 }: {
-  cell: CellContext<TData, unknown>;
+  cell: CellContext<TData, string>;
   type: string;
   browsers: BrowserType[];
   placeholder?: string;

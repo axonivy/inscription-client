@@ -33,7 +33,7 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     onChange(newData);
   };
 
-  const columns = useMemo<ColumnDef<Condition>[]>(
+  const columns = useMemo<ColumnDef<Condition, string>[]>(
     () => [
       {
         accessorKey: 'fid',
@@ -70,9 +70,9 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     meta: {
-      updateData: (rowId: string, columnId: string, value: unknown) => {
+      updateData: (rowId: string, columnId: string, value: string) => {
         const rowIndex = parseInt(rowId);
-        onChange(Condition.update(data, rowIndex, columnId, value as string));
+        onChange(Condition.update(data, rowIndex, columnId, value));
       }
     }
   });

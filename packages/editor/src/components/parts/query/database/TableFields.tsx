@@ -69,7 +69,7 @@ export const TableFields = () => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     meta: {
-      updateData: (rowId: string, columnId: string, value: unknown) => {
+      updateData: (rowId: string, columnId: string, value: string) => {
         const rowIndex = parseInt(rowId);
         const fields: Record<string, string> = {};
         data

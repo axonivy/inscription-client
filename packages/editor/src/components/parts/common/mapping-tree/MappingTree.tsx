@@ -92,7 +92,7 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
     getExpandedRowModel: getExpandedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     meta: {
-      updateData: (rowId: string, columnId: string, value: unknown) => {
+      updateData: (rowId: string, columnId: string, value: string) => {
         const rowIndex = rowId.split('.').map(parseFloat);
         onChange(MappingTreeData.to(MappingTreeData.updateDeep(tree, rowIndex, columnId, value)));
       }

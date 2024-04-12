@@ -45,7 +45,7 @@ const RoleBrowser = (props: {
 
   const [showHelper, setShowHelper] = useState(false);
 
-  const columns = useMemo<ColumnDef<RoleMeta>[]>(
+  const columns = useMemo<ColumnDef<RoleMeta, string>[]>(
     () => [
       {
         accessorFn: row => row.id,

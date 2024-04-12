@@ -94,9 +94,9 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     meta: {
-      updateData: (rowId: string, columnId: string, value: unknown) => {
+      updateData: (rowId: string, columnId: string, value: string) => {
         const rowIndex = parseInt(rowId);
-        onChange(Property.update(data, rowIndex, columnId, value as string));
+        onChange(Property.update(data, rowIndex, columnId, value));
       }
     }
   });

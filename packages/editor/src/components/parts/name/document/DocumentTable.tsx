@@ -11,7 +11,7 @@ import { InputCell, SelectRow, SortableHeader, Table, TableBody, TableCell, Tabl
 const EMPTY_DOCUMENT: Document = { name: '', url: '' } as const;
 
 const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change: Document[]) => void }) => {
-  const columns = useMemo<ColumnDef<Document>[]>(
+  const columns = useMemo<ColumnDef<Document, string>[]>(
     () => [
       {
         accessorKey: 'name',

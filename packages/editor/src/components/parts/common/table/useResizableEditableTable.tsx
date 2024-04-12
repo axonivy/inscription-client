@@ -11,7 +11,7 @@ interface UseResizableEditableTableProps<TData> {
   columns: ColumnDef<TData, string>[];
   onChange: (change: TData[]) => void;
   emptyDataObject: TData;
-  specialUpdateData?: (rowId: string, columnId: string, value: unknown) => void;
+  specialUpdateData?: (rowId: string, columnId: string, value: string) => void;
 }
 
 const useResizableEditableTable = <TData,>({
@@ -24,7 +24,7 @@ const useResizableEditableTable = <TData,>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-  const updateData = (rowId: string, columnId: string, value: unknown) => {
+  const updateData = (rowId: string, columnId: string, value: string) => {
     const rowIndex = parseInt(rowId);
     const updatedData = data.map((row, index) => {
       if (index === rowIndex) {

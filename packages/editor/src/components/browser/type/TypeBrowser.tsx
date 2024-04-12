@@ -123,7 +123,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
     setRowSelection({});
   }, [setTypes.length, mainFilter]);
 
-  const columns = useMemo<ColumnDef<TypeBrowserObject>[]>(
+  const columns = useMemo<ColumnDef<TypeBrowserObject, string>[]>(
     () => [
       {
         accessorFn: row => row.simpleName,
