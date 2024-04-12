@@ -9,12 +9,12 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { MappingTreeData } from './mapping-tree-data';
-import { ExpandableCell, ScriptCell, SearchTable } from '../../../../components/widgets';
+import { ScriptCell, SearchTable } from '../../../../components/widgets';
 import type { MappingPartProps } from './MappingPart';
 import type { TableFilter } from './useMappingTree';
 import { calcFullPathId } from './useMappingTree';
 import { ValidationRow } from '../path/validation/ValidationRow';
-import { ExpandableHeader, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
+import { ExpandableCell, ExpandableHeader, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 
 type MappingTreeProps = MappingPartProps & {
   globalFilter: TableFilter<string>;
@@ -42,13 +42,14 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
         id: 'attribute',
         header: header => <ExpandableHeader header={header} name='Attribute' />,
         cell: cell => (
-          <ExpandableCell
-            cell={cell}
-            isLoaded={cell.row.original.isLoaded}
-            loadChildren={() => loadChildren(cell.row.original)}
-            isUnknown={cell.row.original.type.length === 0}
-            title={cell.row.original.description}
-          />
+          <ExpandableCell cell={cell} lazy={{ isLoaded: cell.row.original.isLoaded, loadChildren: () => loadChildren(cell.row.original) }}>
+            <span
+              style={cell.row.original.type.length === 0 ? { textDecoration: 'line-through' } : undefined}
+              title={cell.row.original.description}
+            >
+              {cell.getValue()}
+            </span>
+          </ExpandableCell>
         ),
         size: 100,
         minSize: 60

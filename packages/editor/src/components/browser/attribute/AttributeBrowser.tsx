@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ExpandableCell, SearchTable } from '../../widgets';
+import { SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { ColumnDef, ExpandedState, RowSelectionState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
@@ -9,7 +9,17 @@ import { useEditorContext, useMeta } from '../../../context';
 import { calcFullPathId } from '../../parts/common/mapping-tree/useMappingTree';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { ExpandableHeader, SelectRow, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@axonivy/ui-components';
+import {
+  ExpandableCell,
+  ExpandableHeader,
+  SelectRow,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@axonivy/ui-components';
+import { BrowserCell } from '../BrowserCell';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
@@ -68,12 +78,11 @@ const AttributeBrowser = ({
         cell: cell => (
           <ExpandableCell
             cell={cell}
-            isLoaded={cell.row.original.isLoaded}
-            loadChildren={() => loadChildren(cell.row.original)}
-            title={cell.row.original.description}
-            additionalInfo={cell.row.original.simpleType}
+            lazy={{ isLoaded: cell.row.original.isLoaded, loadChildren: () => loadChildren(cell.row.original) }}
             icon={IvyIcons.Attribute}
-          />
+          >
+            <BrowserCell value={cell.getValue()} description={cell.row.original.description} info={cell.row.original.simpleType} />
+          </ExpandableCell>
         )
       }
     ],

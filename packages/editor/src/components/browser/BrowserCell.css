@@ -1,0 +1,6 @@
+.browser-cell .browser-cell-info {
+  color: var(--N500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

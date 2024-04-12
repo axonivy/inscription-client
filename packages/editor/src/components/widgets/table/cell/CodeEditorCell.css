@@ -9,6 +9,7 @@
 .ui-table-cell .script-input .ui-input {
   background-color: transparent;
   border: none;
+  padding: 8px;
 }
 .ui-table-cell .script-input .ui-input::placeholder {
   color: var(--N500);
