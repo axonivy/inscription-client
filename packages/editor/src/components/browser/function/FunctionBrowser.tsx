@@ -67,7 +67,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
     }
   }, [tree]);
 
-  const columns = useMemo<ColumnDef<Function>[]>(
+  const columns = useMemo<ColumnDef<Function, string>[]>(
     () => [
       {
         accessorFn: row =>

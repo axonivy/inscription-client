@@ -5,7 +5,7 @@ import IvyIcon from '../../IvyIcon';
 import { Button, Flex } from '@axonivy/ui-components';
 
 type ExpandableCellProps<TData> = {
-  cell: CellContext<TData, unknown>;
+  cell: CellContext<TData, string>;
   isLoaded?: boolean;
   loadChildren?: () => void;
   isUnknown?: boolean;

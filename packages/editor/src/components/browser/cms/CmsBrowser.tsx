@@ -59,7 +59,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
 
   const newAction = useAction('newCmsString');
 
-  const columns = useMemo<ColumnDef<ContentObject>[]>(
+  const columns = useMemo<ColumnDef<ContentObject, string>[]>(
     () => [
       {
         accessorFn: row => row.name,

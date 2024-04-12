@@ -55,7 +55,7 @@ export const TableSort = () => {
     setData(data);
   }, [config.query.sql.orderBy]);
 
-  const columns = useMemo<ColumnDef<Column>[]>(
+  const columns = useMemo<ColumnDef<Column, string>[]>(
     () => [
       {
         accessorKey: 'name',
@@ -103,7 +103,7 @@ export const TableSort = () => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     meta: {
-      updateData: (rowId: string, columnId: string, value: unknown) => {
+      updateData: (rowId: string, columnId: string, value: string) => {
         const rowIndex = parseInt(rowId);
         const newData = data.map((row, index) => {
           if (index === rowIndex) {

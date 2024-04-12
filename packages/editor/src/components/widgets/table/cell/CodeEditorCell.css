@@ -14,6 +14,9 @@
   color: var(--N500);
   font-style: italic;
 }
+.ui-select-row[data-state='selected'] .ui-table-cell .script-input .ui-input {
+  color: var(--background);
+}
 .ui-select-row[data-state='selected'] .ui-table-cell .script-input .ui-input::placeholder {
   color: var(--N300);
 }

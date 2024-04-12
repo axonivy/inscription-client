@@ -54,7 +54,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
     [data, items, predefinedCustomField]
   );
 
-  const updateCustomFields = (rowId: string, columnId: string, value: unknown) => {
+  const updateCustomFields = (rowId: string, columnId: string, value: string) => {
     const rowIndex = parseInt(rowId);
     const updatedData = data.map((row, index) => {
       if (index === rowIndex) {

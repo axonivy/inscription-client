@@ -91,9 +91,9 @@ export const RestForm = () => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     meta: {
-      updateData: (rowId: string, columnId: string, value: unknown) => {
+      updateData: (rowId: string, columnId: string, value: string) => {
         const rowIndex = parseInt(rowId);
-        onChange(updateRestParams(data, rowIndex, columnId, value as string));
+        onChange(updateRestParams(data, rowIndex, columnId, value));
       }
     }
   });

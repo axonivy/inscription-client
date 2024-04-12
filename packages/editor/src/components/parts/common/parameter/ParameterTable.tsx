@@ -6,7 +6,7 @@ import { ValidationRow } from '../path/validation/ValidationRow';
 import { PathCollapsible } from '../path/PathCollapsible';
 import { useResizableEditableTable } from '../table/useResizableEditableTable';
 import { InputCell, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
-import { EditableCell } from '../../../widgets';
+import { BrowserInputCell } from '../../../widgets';
 
 type ParameterTableProps = {
   data: ScriptVariable[];
@@ -19,7 +19,7 @@ const EMPTY_SCRIPT_VARIABLE: ScriptVariable = { name: '', type: 'String', desc: 
 
 const ParameterTable = ({ data, onChange, hideDesc, label }: ParameterTableProps) => {
   const columns = useMemo(() => {
-    const colDef: ColumnDef<ScriptVariable>[] = [
+    const colDef: ColumnDef<ScriptVariable, string>[] = [
       {
         accessorKey: 'name',
         header: ({ column }) => <SortableHeader column={column} name='Name' />,
@@ -28,7 +28,7 @@ const ParameterTable = ({ data, onChange, hideDesc, label }: ParameterTableProps
       {
         accessorKey: 'type',
         header: ({ column }) => <SortableHeader column={column} name='Type' />,
-        cell: cell => <EditableCell cell={cell} withBrowser={true} />
+        cell: cell => <BrowserInputCell cell={cell} />
       }
     ];
     if (hideDesc === undefined || !hideDesc) {

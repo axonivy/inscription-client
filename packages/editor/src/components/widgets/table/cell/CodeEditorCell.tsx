@@ -1,5 +1,5 @@
 import './CodeEditorCell.css';
-import type { CellContext, RowData } from '@tanstack/react-table';
+import type { CellContext } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { usePath } from '../../../../context';
 import { Input } from '../../input';
@@ -9,15 +9,8 @@ import { Browser, useBrowser } from '../../../browser';
 import { useMonacoEditor } from '../../code-editor/useCodeEditor';
 import { useOnFocus } from '../../../browser/useOnFocus';
 
-declare module '@tanstack/react-table' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface TableMeta<TData extends RowData> {
-    updateData: (rowId: string, columnId: string, value: unknown) => void;
-  }
-}
-
 type CodeEditorCellProps<TData> = {
-  cell: CellContext<TData, unknown>;
+  cell: CellContext<TData, string>;
   makro: boolean;
   type?: string;
   placeholder?: string;
