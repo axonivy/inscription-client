@@ -1,6 +1,11 @@
 {
   "extensions": {
-    "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "zixuanchen.vitest-explorer", "ms-playwright.playwright"]
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "zixuanchen.vitest-explorer",
+      "ms-playwright.playwright"
+    ]
   },
   "folders": [
     {
@@ -27,15 +32,15 @@
   "settings": {
     "task.autoDetect": "off",
     "typescript.tsdk": "node_modules/typescript/lib",
-    "vitest.commandLine": "yarn --cwd packages/editor test",
-    "vitest.disabledWorkspaceFolders": ["root", "packages/core", "packages/protocol", "packages/icons", "integrations/standalone"],
-    "vitest.include": ["packages/editor/src/**/*.test.{ts,tsx}"],
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit"
     },
     "editor.insertSpaces": true,
-    "eslint.validate": ["javascript", "typescript"],
+    "eslint.validate": [
+      "javascript",
+      "typescript"
+    ],
     "search.exclude": {
       "**/node_modules": true,
       "**/lib": true
