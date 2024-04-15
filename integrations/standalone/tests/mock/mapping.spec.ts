@@ -4,7 +4,7 @@ import { InscriptionView } from '../pageobjects/InscriptionView';
 test.describe('Mappings', () => {
   test('DialogCall change will update mapping tree', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page);
-    const callPart = inscriptionView.accordion('Call');
+    const callPart = inscriptionView.accordion('Dialog');
     await callPart.toggle();
 
     const dialogSection = callPart.section('Dialog');

@@ -23,7 +23,7 @@ export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
   );
   const dirty = usePartDirty(compareData(callData.initConfig, targetData.initConfig), compareData(callData.config, targetData.config));
   return {
-    name: 'Call',
+    name: 'Dialog',
     state,
     reset: { dirty, action: () => targetData.resetData() },
     content: <DialogCallPart offline={options?.offline} />

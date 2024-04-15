@@ -57,4 +57,4 @@ class ProgramStart extends PartObject {
   }
 }
 
-export const ProgramStartTest = new NewPartTest('Start', (part: Part) => new ProgramStart(part));
+export const ProgramStartTest = new NewPartTest('Java Bean', (part: Part) => new ProgramStart(part));

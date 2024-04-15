@@ -114,5 +114,5 @@ class RuleInterfaceStart extends PartObject {
   }
 }
 
-export const ProgramInterfaceStartTest = new NewPartTest('Start', (part: Part) => new ProgramInterfaceStart(part));
-export const RuleInterfaceStartTest = new NewPartTest('Start', (part: Part) => new RuleInterfaceStart(part));
+export const ProgramInterfaceStartTest = new NewPartTest('Java Bean', (part: Part) => new ProgramInterfaceStart(part));
+export const RuleInterfaceStartTest = new NewPartTest('Java Bean', (part: Part) => new RuleInterfaceStart(part));

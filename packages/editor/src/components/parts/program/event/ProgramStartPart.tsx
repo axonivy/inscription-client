@@ -13,7 +13,7 @@ export function useProgramStartPart(options?: { thirdParty?: boolean }): PartPro
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Start',
+    name: 'Java Bean',
     state,
     reset: { dirty, action: () => reset() },
     content: <ProgramStartPart thirdParty={options?.thirdParty} />

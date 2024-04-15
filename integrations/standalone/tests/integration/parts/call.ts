@@ -51,12 +51,12 @@ class Call extends PartObject {
 }
 
 export const DialogCallTest = new NewPartTest(
-  'Call',
+  'Dialog',
   (part: Part) => new Call(part, 'Dialog', 'PersonEditor', 'com.acme.PersonEditor:start(ch.ivyteam.test.Person)')
 );
 
 export const SubCallTest = new NewPartTest(
-  'Process call',
+  'Process',
   (part: Part) =>
     new Call(
       part,
@@ -67,7 +67,7 @@ export const SubCallTest = new NewPartTest(
 );
 
 export const TriggerCallTest = new NewPartTest(
-  'Trigger',
+  'Process',
   (part: Part) =>
     new Call(
       part,

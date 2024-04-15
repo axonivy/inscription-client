@@ -1,3 +1,4 @@
+import type { Checkbox } from '../../pageobjects/Checkbox';
 import type { ScriptArea } from '../../pageobjects/CodeEditor';
 import type { Part } from '../../pageobjects/Part';
 import type { Section } from '../../pageobjects/Section';
@@ -35,27 +36,38 @@ class Output extends PartObject {
 class OutputCode extends Output {
   codeSection: Section;
   code: ScriptArea;
+  sudo: Checkbox;
 
-  constructor(part: Part) {
+  constructor(part: Part, private readonly hasSudo = false) {
     super(part);
     this.codeSection = part.section('Code');
     this.code = this.codeSection.scriptArea();
+    this.sudo = this.codeSection.checkbox('Disable Permission Checks');
   }
 
   override async fill() {
     await super.fill();
     await this.codeSection.open();
     await this.code.fill('code');
+    if (this.hasSudo) {
+      await this.sudo.click();
+    }
   }
 
   override async assertFill() {
     await super.assertFill();
     await this.code.expectValue('code');
+    if (this.hasSudo) {
+      await this.sudo.expectChecked();
+    }
   }
 
   override async clear() {
     await super.clear();
     await this.code.clear();
+    if (this.hasSudo) {
+      await this.sudo.click();
+    }
   }
 
   override async assertClear() {
@@ -75,6 +87,6 @@ class OutputEmptyMap extends OutputCode {
   }
 }
 
-export const OutputTest = new NewPartTest('Output', (part: Part) => new OutputCode(part));
-export const ScriptOutputTest = new NewPartTest('Output', (part: Part) => new Output(part));
-export const SignalOutputTest = new NewPartTest('Output', (part: Part) => new OutputEmptyMap(part));
+export const OutputTest = new NewPartTest('Output Data', (part: Part) => new OutputCode(part));
+export const ScriptOutputTest = new NewPartTest('Output Data', (part: Part) => new OutputCode(part, true));
+export const SignalOutputTest = new NewPartTest('Output Data', (part: Part) => new OutputEmptyMap(part));

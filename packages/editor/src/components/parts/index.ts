@@ -1,6 +1,5 @@
 export * from './name/GeneralPart';
 export * from './output/OutputPart';
-export * from './output/OutputScriptPart';
 export * from './start/StartPart';
 export * from './result/ResultPart';
 export * from './case/CasePart';
@@ -18,7 +17,6 @@ export * from './mail/MailMessagePart';
 export * from './mail/MailAttachmentPart';
 export * from './trigger/TriggerPart';
 export * from './request/RequestPart';
-export * from './script/ScriptPart';
 export * from './error/ErrorThrowPart';
 export * from './query/QueryPart';
 export * from './cache/CachePart';

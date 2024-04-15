@@ -61,4 +61,4 @@ class DbCache extends PartObject {
   }
 }
 
-export const DataCacheTest = new NewPartTest('Data Cache', (part: Part) => new DbCache(part));
+export const DataCacheTest = new NewPartTest('Cache', (part: Part) => new DbCache(part));

@@ -28,7 +28,7 @@ describe('ErrorThrowPart', () => {
   });
 
   test('full data', async () => {
-    renderPart({ throws: { error: 'test:code', cause: 'adsf' } });
+    renderPart({ throws: { error: 'test:code', cause: 'adsf' }, code: 'code' });
     await assertMainPart('test:code');
   });
 

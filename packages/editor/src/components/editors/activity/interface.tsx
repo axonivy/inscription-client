@@ -24,9 +24,9 @@ import { OpenApiContextProvider } from '../../../context/useOpenApi';
 const DatabaseEditor = memo(() => {
   const name = useGeneralPart();
   const query = useQueryPart();
-  const cache = useCachePart();
   const output = useOutputPart({ additionalBrowsers: ['tablecol'] });
-  return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, cache, output]} />;
+  const cache = useCachePart();
+  return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, output, cache]} />;
 });
 
 const WebServiceEditor = memo(() => {

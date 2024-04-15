@@ -1,4 +1,4 @@
-import type { ConfigDataContext} from '../../../context';
+import type { ConfigDataContext } from '../../../context';
 import { useConfigDataContext } from '../../../context';
 import type { OutputData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
@@ -31,16 +31,16 @@ export function useOutputData(): ConfigDataContext<OutputData> & {
     setConfig(
       produce(draft => {
         draft.output.code = config.initConfig.output.code;
-        draft.sudo = config.initConfig.sudo;
       })
     );
 
-  const resetOutput = (resetCode?: boolean) =>
+  const resetOutput = (resetSudo?: boolean) =>
     setConfig(
       produce(draft => {
         draft.output.map = config.initConfig.output.map;
-        if (resetCode) {
-          draft.output.code = config.initConfig.output.code;
+        draft.output.code = config.initConfig.output.code;
+        if (resetSudo) {
+          draft.sudo = config.initConfig.sudo;
         }
       })
     );

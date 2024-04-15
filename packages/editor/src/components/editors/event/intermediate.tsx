@@ -16,11 +16,11 @@ import {
 
 const TaskSwitchEventEditor = memo(() => {
   const name = useGeneralPart();
-  const output = useOutputPart();
   const task = useTaskPart();
   const casePart = useCasePart();
   const endPage = useEndPagePart();
-  return <InscriptionEditor icon={IvyIcons.Task} parts={[name, output, task, casePart, endPage]} />;
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.Task} parts={[name, task, casePart, endPage, output]} />;
 });
 
 const WaitEventEditor = memo(() => {

@@ -28,10 +28,7 @@ import type {
   ProgramInterfaceStartData,
   ConfigurationData
 } from '../data';
-import {
-  MAIL_TYPE,
-  IVY_EXCEPTIONS
-} from '../data';
+import { MAIL_TYPE, IVY_EXCEPTIONS } from '../data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
 export const DEFAULT_NAME_DATA: GeneralData = {
@@ -131,7 +128,8 @@ export const DEFAULT_ERROR_THROW_DATA: ErrorThrowData = {
   throws: {
     cause: '',
     error: ''
-  }
+  },
+  code: ''
 } as const;
 
 export const DEFAULT_WEB_SERVICE_DATA: WebserviceStartData = {

@@ -5,14 +5,14 @@ import type { PartStateFlag } from '../../editors';
 import type { ElementData, OutputData } from '@axonivy/inscription-protocol';
 import { describe, test, expect } from 'vitest';
 
-const Part = (props: { hideCode?: boolean }) => {
-  const part = useOutputPart({ hideCode: props.hideCode });
+const Part = (props: { showSudo?: boolean }) => {
+  const part = useOutputPart({ showSudo: props.showSudo });
   return <>{part.content}</>;
 };
 
 describe('OutputPart', () => {
-  function renderPart(data?: Partial<OutputData>, hideCode?: boolean) {
-    render(<Part hideCode={hideCode} />, { wrapperProps: { data: data && { config: data } } });
+  function renderPart(data?: Partial<OutputData>, showSudo?: boolean) {
+    render(<Part showSudo={showSudo} />, { wrapperProps: { data: data && { config: data } } });
   }
 
   async function assertMainPart(map: RegExp[], code: string) {
@@ -32,20 +32,20 @@ describe('OutputPart', () => {
     await assertMainPart([/key value/], 'code');
   });
 
-  test('hide code', async () => {
-    renderPart({}, true);
-    await waitFor(() => expect(screen.queryByTestId('code-editor')).not.toBeInTheDocument());
+  test('enable Sudo', async () => {
+    renderPart({ sudo: true }, true);
+    await waitFor(() => expect(screen.queryByLabelText(/Disable Permission/)).toBeInTheDocument());
   });
 
-  function assertState(expectedState: PartStateFlag, data?: Partial<OutputData>, hideCode?: boolean) {
-    const { result } = renderHook(() => useOutputPart({ hideCode }), { wrapperProps: { data: data && { config: data } } });
+  function assertState(expectedState: PartStateFlag, data?: Partial<OutputData>, showSudo?: boolean) {
+    const { result } = renderHook(() => useOutputPart({ showSudo }), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
   test('configured', async () => {
     assertState(undefined);
-    assertState(undefined, { sudo: true });
-    assertState(undefined, { output: { code: 'code', map: {} } }, true);
+    assertState(undefined, { sudo: false });
+    assertState('configured', { output: { code: '', map: {} }, sudo: true });
     assertState('configured', { output: { code: 'code', map: {} } });
     assertState('configured', { output: { code: '', map: { key: 'value' } } });
   });
@@ -64,17 +64,16 @@ describe('OutputPart', () => {
     expect(data.config?.output?.map).toEqual({});
   });
 
-  test('reset - hide code', () => {
+  test('reset - enable Sudo', () => {
     let data: DeepPartial<ElementData> = {
-      config: { output: { map: { key: 'value' }, code: 'code' } }
+      config: { output: { map: { key: 'value' }, code: 'code' }, sudo: true }
     };
-    const view = renderHook(() => useOutputPart({ hideCode: true }), {
-      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { output: { code: 'init' } } } }
+    const view = renderHook(() => useOutputPart({ showSudo: true }), {
+      wrapperProps: { data, setData: newData => (data = newData), initData: { config: { sudo: false } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config?.output?.code).toEqual('code');
-    expect(data.config?.output?.map).toEqual({});
+    expect(data.config?.sudo).toEqual(false);
   });
 });

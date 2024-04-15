@@ -2,7 +2,6 @@ export * from './part-tester';
 
 export * from './call';
 export * from './case';
-export * from './code';
 export * from './condition';
 export * from './end-page';
 export * from './error-catch';
