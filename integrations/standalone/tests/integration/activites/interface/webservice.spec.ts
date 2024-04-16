@@ -33,7 +33,7 @@ test.describe('Web Service', () => {
     await runTest(view, WsResponseTest);
   });
 
-  test('Data Cache', async () => {
+  test('Cache', async () => {
     await runTest(view, DataCacheTest);
   });
 });

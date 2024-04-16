@@ -5,7 +5,7 @@ import { assertCodeHidden, assertCodeVisible, browserBtn, code } from './browser
 
 test('browser init searchfilter', async ({ page }) => {
   const inscriptionView = await InscriptionView.mock(page);
-  const task = inscriptionView.accordion('Call');
+  const task = inscriptionView.accordion('Dialog');
   await task.toggle();
 
   const codeSection = task.section('Code');

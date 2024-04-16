@@ -1,5 +1,5 @@
 import type { OutputData } from '@axonivy/inscription-protocol';
-import { ScriptArea } from '../../widgets';
+import { Checkbox, ScriptArea } from '../../widgets';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
@@ -8,22 +8,22 @@ import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
 import type { BrowserType } from '../../../components/browser';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
-export function useOutputPart(options?: { hideCode?: boolean; additionalBrowsers?: BrowserType[] }): PartProps {
+export function useOutputPart(options?: { showSudo?: boolean; additionalBrowsers?: BrowserType[] }): PartProps {
   const { config, defaultConfig, initConfig, resetOutput } = useOutputData();
-  const compareData = (data: OutputData) => [data.output.map, options?.hideCode ? '' : data.output.code];
-  const validations = useValidations(options?.hideCode ? ['output', 'map'] : ['output']);
+  const compareData = (data: OutputData) => [data];
+  const validations = [...useValidations(['output']), ...useValidations(['map'])];
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Output',
+    name: 'Output Data',
     state,
-    reset: { dirty, action: () => resetOutput(!options?.hideCode) },
-    content: <OutputPart showCode={!options?.hideCode} additionalBrowsers={options?.additionalBrowsers} />
+    reset: { dirty, action: () => resetOutput(options?.showSudo) },
+    content: <OutputPart showSudo={options?.showSudo} additionalBrowsers={options?.additionalBrowsers} />
   };
 }
 
-const OutputPart = (props: { showCode?: boolean; additionalBrowsers?: BrowserType[] }) => {
-  const { config, defaultConfig, update } = useOutputData();
+const OutputPart = (props: { showSudo?: boolean; additionalBrowsers?: BrowserType[] }) => {
+  const { config, defaultConfig, update, updateSudo } = useOutputData();
 
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'output' }, { variables: [], types: {} });
@@ -35,18 +35,24 @@ const OutputPart = (props: { showCode?: boolean; additionalBrowsers?: BrowserTyp
   return (
     <PathContext path='output'>
       <MappingPart data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} browsers={browsers} />
-      {props.showCode && (
-        <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.output.code !== defaultConfig.output.code}>
-          <ValidationFieldset>
-            <ScriptArea
-              maximizeState={maximizeState}
-              value={config.output.code}
-              onChange={change => update('code', change)}
-              browsers={browsers}
-            />
-          </ValidationFieldset>
-        </PathCollapsible>
-      )}
+      <PathCollapsible
+        label='Code'
+        path='code'
+        controls={[maximizeCode]}
+        defaultOpen={config.output.code !== defaultConfig.output.code || config.sudo !== defaultConfig.sudo}
+      >
+        <ValidationFieldset>
+          <ScriptArea
+            maximizeState={maximizeState}
+            value={config.output.code}
+            onChange={change => update('code', change)}
+            browsers={browsers}
+          />
+        </ValidationFieldset>
+        {props.showSudo && (
+          <Checkbox label='Disable Permission Checks (Execute this Script Step as SYSTEM)' value={config.sudo} onChange={updateSudo} />
+        )}
+      </PathCollapsible>
     </PathContext>
   );
 };

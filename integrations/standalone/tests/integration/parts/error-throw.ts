@@ -1,30 +1,37 @@
-import type { ScriptInput } from '../../pageobjects/CodeEditor';
+import type { ScriptArea, ScriptInput } from '../../pageobjects/CodeEditor';
 import type { Combobox } from '../../pageobjects/Combobox';
 import type { Part } from '../../pageobjects/Part';
 import type { Section } from '../../pageobjects/Section';
 import { NewPartTest, PartObject } from './part-tester';
 
 class ErrorThrow extends PartObject {
-  section: Section;
+  errorSection: Section;
   error: Combobox;
   cause: ScriptInput;
+  codeSection: Section;
+  code: ScriptArea;
 
   constructor(part: Part) {
     super(part);
-    this.section = part.section('Error');
-    this.error = this.section.combobox('Error Code to throw');
-    this.cause = this.section.scriptInput('Error Cause');
+    this.errorSection = part.section('Error');
+    this.error = this.errorSection.combobox('Error Code to throw');
+    this.cause = this.errorSection.scriptInput('Error Cause');
+    this.codeSection = part.section('Code');
+    this.code = this.codeSection.scriptArea();
   }
 
   async fill() {
-    await this.section.open();
+    await this.errorSection.open();
     await this.error.choose('test:error');
     await this.cause.fill('cause');
+    await this.codeSection.open();
+    await this.code.fill('code');
   }
 
   async assertFill() {
     await this.error.expectValue('test:error');
     await this.cause.expectValue('cause');
+    await this.code.expectValue('code');
   }
 
   async clear() {
@@ -33,9 +40,11 @@ class ErrorThrow extends PartObject {
   }
 
   async assertClear() {
-    await this.section.expectIsOpen(); //warning in input
+    await this.errorSection.expectIsOpen(); //warning in input
     await this.error.expectValue('undefined');
     await this.cause.expectEmpty();
+    await this.codeSection.expectIsOpen();
+    await this.code.clear();
   }
 }
 

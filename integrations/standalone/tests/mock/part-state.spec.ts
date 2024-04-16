@@ -5,22 +5,22 @@ test.describe('Part states', () => {
   test('different states on different parts', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page);
     const casePart = inscriptionView.accordion('Case');
-    const callPart = inscriptionView.accordion('Call');
+    const dialogPart = inscriptionView.accordion('Dialog');
 
     await casePart.expectState('configured');
-    await callPart.expectState('warning');
+    await dialogPart.expectState('warning');
 
     await casePart.toggle();
     await casePart.macroInput('Name').clear();
     await casePart.toggle();
     await casePart.expectState('error');
-    await callPart.expectState('warning');
+    await dialogPart.expectState('warning');
 
-    await callPart.toggle();
-    await callPart.section('Dialog').open();
-    await callPart.combobox().choose('AcceptRequest');
-    await callPart.toggle();
+    await dialogPart.toggle();
+    await dialogPart.section('Dialog').open();
+    await dialogPart.combobox().choose('AcceptRequest');
+    await dialogPart.toggle();
     await casePart.expectState('error');
-    await callPart.expectState('configured');
+    await dialogPart.expectState('configured');
   });
 });

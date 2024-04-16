@@ -22,7 +22,7 @@ export function useTriggerCallPart(): PartProps {
     [...triggerCallValidations, ...callValidations]
   );
   const dirty = usePartDirty(compareData(callData.initConfig, targetData.initConfig), compareData(callData.config, targetData.config));
-  return { name: 'Trigger', state, reset: { dirty, action: () => targetData.resetData() }, content: <TriggerCallPart /> };
+  return { name: 'Process', state, reset: { dirty, action: () => targetData.resetData() }, content: <TriggerCallPart /> };
 }
 
 const TriggerCallPart = () => {

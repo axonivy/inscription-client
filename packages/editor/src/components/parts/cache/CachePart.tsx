@@ -12,7 +12,7 @@ export function useCachePart(): PartProps {
   const validation = useValidations(['cache']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Data Cache', state, reset: { dirty, action: () => reset() }, content: <CachePart /> };
+  return { name: 'Cache', state, reset: { dirty, action: () => reset() }, content: <CachePart /> };
 }
 
 const CachePart = () => {

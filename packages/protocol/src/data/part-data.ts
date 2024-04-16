@@ -33,9 +33,7 @@ export type TriggerData = Pick<ConfigData, 'triggerable' | 'case' | 'task'>;
 
 export type RequestData = Pick<ConfigData, 'request' | 'permission'>;
 
-export type ScriptData = Pick<ConfigData, 'code'>;
-
-export type ErrorThrowData = Pick<ConfigData, 'throws'>;
+export type ErrorThrowData = Pick<ConfigData, 'throws' | 'code'>;
 
 export type QueryData = Pick<ConfigData, 'query' | 'exceptionHandler'>;
 

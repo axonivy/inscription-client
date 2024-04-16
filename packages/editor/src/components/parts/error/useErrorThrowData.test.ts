@@ -14,14 +14,15 @@ describe('useErrorThrowData', () => {
   test('in synch', () => {
     const { view, data } = renderDataHook({ throws: { error: 'test' } });
 
-    view.result.current.update('error', 'myCoolName');
-    expect(data().name).toEqual('myCoolName');
+    view.result.current.updateThrows('error', 'myCoolName');
+    view.result.current.update('code', 'test code');
+    expect(data().config?.code).toEqual('test code');
   });
 
   test('not in synch', () => {
     const { view, data } = renderDataHook({ throws: { error: 'error' } });
 
-    view.result.current.update('error', 'myCoolName');
+    view.result.current.updateThrows('error', 'myCoolName');
     expect(data().name).toEqual('test');
   });
 });

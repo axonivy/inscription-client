@@ -43,7 +43,7 @@ test.describe('Database', () => {
     await runTest(view, QueryAnyTest);
   });
 
-  test('Data Cache', async () => {
+  test('Cache', async () => {
     await runTest(view, DataCacheTest);
   });
 

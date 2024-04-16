@@ -7,7 +7,6 @@ import NameEditor from '../NameEditor';
 import { IvyIcons } from '@axonivy/ui-icons';
 import {
   useCasePart,
-  useOutputScriptPart,
   useDialogCallPart,
   useGeneralPart,
   useOutputPart,
@@ -18,25 +17,24 @@ import {
 
 const DialogCallEditor = memo(() => {
   const name = useGeneralPart();
-  const call = useDialogCallPart();
+  const dialog = useDialogCallPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.UserDialog} parts={[name, call, output]} />;
+  return <InscriptionEditor icon={IvyIcons.UserDialog} parts={[name, dialog, output]} />;
 });
 
 const UserTaskEditor = memo(() => {
   const name = useGeneralPart();
-  const call = useDialogCallPart({ offline: true });
+  const dialog = useDialogCallPart({ offline: true });
   const task = useTaskPart();
   const casePart = useCasePart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.UserTask} parts={[name, task, casePart, call, output]} />;
+  return <InscriptionEditor icon={IvyIcons.UserTask} parts={[name, task, casePart, dialog, output]} />;
 });
 
 const ScriptEditor = memo(() => {
   const name = useGeneralPart();
-  const output = useOutputPart({ hideCode: true, additionalBrowsers: ['cms'] });
-  const code = useOutputScriptPart();
-  return <InscriptionEditor icon={IvyIcons.Script} parts={[name, output, code]} />;
+  const output = useOutputPart({ showSudo: true, additionalBrowsers: ['cms'] });
+  return <InscriptionEditor icon={IvyIcons.Script} parts={[name, output]} />;
 });
 
 const SubProcessCallEditor = memo(() => {

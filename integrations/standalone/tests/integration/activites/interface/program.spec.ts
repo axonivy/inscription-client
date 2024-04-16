@@ -25,7 +25,7 @@ test.describe('Program', () => {
     await runTest(view, GeneralTest);
   });
 
-  test('Start', async () => {
+  test('Java Bean', async () => {
     await runTest(view, ProgramInterfaceStartTest);
   });
 });

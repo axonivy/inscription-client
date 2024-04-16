@@ -24,9 +24,9 @@ test.describe('Validations', () => {
     await expect(desc.locator).toHaveCSS('border-color', warningColor);
   });
 
-  test('call', async ({ page }) => {
+  test('dialog', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page);
-    const part = inscriptionView.accordion('Call');
+    const part = inscriptionView.accordion('Dialog');
     const dialogSection = part.section('Dialog');
     const mappingSection = part.section('Mapping');
     const dialog = dialogSection.combobox();
