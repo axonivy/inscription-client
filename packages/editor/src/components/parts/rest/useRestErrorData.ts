@@ -1,12 +1,11 @@
 import type { RestResponseData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import type { DataUpdater } from '../../../types/lambda';
-import type { ConfigDataContext} from '../../../context';
+import type { ConfigDataContext } from '../../../context';
 import { useConfigDataContext } from '../../../context';
 
-export function useRestResponseData(): ConfigDataContext<RestResponseData> & {
+export function useRestErrorData(): ConfigDataContext<RestResponseData> & {
   update: DataUpdater<RestResponseData['response']>;
-  updateEntity: DataUpdater<RestResponseData['response']['entity']>;
   resetData: () => void;
 } {
   const { setConfig, ...config } = useConfigDataContext();
@@ -19,25 +18,17 @@ export function useRestResponseData(): ConfigDataContext<RestResponseData> & {
     );
   };
 
-  const updateEntity: DataUpdater<RestResponseData['response']['entity']> = (field, value) => {
-    setConfig(
-      produce(draft => {
-        draft.response.entity[field] = value;
-      })
-    );
-  };
-
   const resetData = () =>
     setConfig(
       produce(draft => {
-        draft.response = config.initConfig.response;
+        draft.response.clientError = config.initConfig.response.clientError;
+        draft.response.statusError = config.initConfig.response.statusError;
       })
     );
 
   return {
     ...config,
     update,
-    updateEntity,
     resetData
   };
 }

@@ -13,37 +13,40 @@ import {
   useQueryPart,
   useCachePart,
   useWsRequestPart,
-  useWsResponsePart,
-  useRestResponsePart,
+  useWsErrorPart,
+  useRestOutputPart,
   useRestRequestPart,
   useProgramInterfaceStartPart,
-  useConfigurationPart
+  useConfigurationPart,
+  useRestErrorPart
 } from '../../../components/parts';
 import { OpenApiContextProvider } from '../../../context/useOpenApi';
 
 const DatabaseEditor = memo(() => {
   const name = useGeneralPart();
   const query = useQueryPart();
-  const output = useOutputPart({ additionalBrowsers: ['tablecol'] });
   const cache = useCachePart();
-  return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, output, cache]} />;
+  const output = useOutputPart({ additionalBrowsers: ['tablecol'] });
+  return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, cache, output]} />;
 });
 
 const WebServiceEditor = memo(() => {
   const name = useGeneralPart();
   const request = useWsRequestPart();
-  const response = useWsResponsePart();
   const cache = useCachePart();
-  return <InscriptionEditor icon={IvyIcons.WebService} parts={[name, request, response, cache]} />;
+  const error = useWsErrorPart();
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.WebService} parts={[name, request, cache, error, output]} />;
 });
 
 const RestEditor = memo(() => {
   const name = useGeneralPart();
   const request = useRestRequestPart();
-  const response = useRestResponsePart();
+  const error = useRestErrorPart();
+  const output = useRestOutputPart();
   return (
     <OpenApiContextProvider>
-      <InscriptionEditor icon={IvyIcons.RestClient} parts={[name, request, response]} />
+      <InscriptionEditor icon={IvyIcons.RestClient} parts={[name, request, error, output]} />
     </OpenApiContextProvider>
   );
 });
