@@ -1,6 +1,0 @@
-.ui-fieldset-validation:has(.ui-message[data-state='error']) {
-  --basic-border: 1px solid var(--error-color);
-}
-.ui-fieldset-validation:has(.ui-message[data-state='warning']) {
-  --basic-border: 1px solid var(--warning-color);
-}
