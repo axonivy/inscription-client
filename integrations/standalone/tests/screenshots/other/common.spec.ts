@@ -20,7 +20,7 @@ test.describe('Common', () => {
   });
 
   test('Code', async ({ page }) => {
-    await screenshotAccordion(page, GENERIC_PID.SCRIPT, 'Script', 'common-tab-code.png');
+    await screenshotSection(page, GENERIC_PID.SCRIPT, 'Output', 'Code', 'common-tab-code.png');
   });
 
   test('Start', async ({ page }) => {
@@ -32,7 +32,7 @@ test.describe('Common', () => {
   });
 
   test('Data Cache', async ({ page }) => {
-    await screenshotAccordion(page, GENERIC_PID.WS_CALL, 'Data Cache', 'common-tab-data-cache.png');
+    await screenshotAccordion(page, GENERIC_PID.WS_CALL, 'Cache', 'common-tab-data-cache.png');
   });
 
   test('Case', async ({ page }) => {
@@ -64,6 +64,6 @@ test.describe('Common', () => {
   });
 
   test('Call', async ({ page }) => {
-    await screenshotAccordion(page, GENERIC_PID.USER_TASK, 'Call', 'common-tab-call.png');
+    await screenshotAccordion(page, GENERIC_PID.USER_TASK, 'Dialog', 'common-tab-call.png');
   });
 });
