@@ -8,12 +8,12 @@ const WORKFLOW_PID = {
 
 test.describe('Call Sub', () => {
   test('Process Call Tab', async ({ page }) => {
-    await screenshotAccordion(page, WORKFLOW_PID.CALL_SUB, 'Process call', 'call-sub-tab-process-call.png');
+    await screenshotAccordion(page, WORKFLOW_PID.CALL_SUB, 'Process', 'call-sub-tab-process-call.png');
   });
 });
 
 test.describe('Trigger', () => {
   test('Trigger Tab', async ({ page }) => {
-    await screenshotAccordion(page, WORKFLOW_PID.TRIGGER, 'Trigger', 'trigger-tab-trigger.png');
+    await screenshotAccordion(page, WORKFLOW_PID.TRIGGER, 'Process', 'trigger-tab-trigger.png');
   });
 });

@@ -31,7 +31,7 @@ test.describe('Signal Start', () => {
 
 test.describe('Program Start', () => {
   test('Start Tab', async ({ page }) => {
-    await screenshotAccordion(page, START_PID.PROGRAM, 'Start', 'program-start-tab-start.png');
+    await screenshotAccordion(page, START_PID.PROGRAM, 'Java Bean', 'program-start-tab-start.png');
   });
 
   test('Editor Tab', async ({ page }) => {
