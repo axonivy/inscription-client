@@ -10,16 +10,14 @@ import { QueryWrite } from './db-query/QueryWrite';
 import { QueryUpdate } from './db-query/QueryUpdate';
 import { QueryDelete } from './db-query/QueryDelete';
 import { QueryAny } from './db-query/QueryAny';
-import { DbExceptionHandler } from './database/DbExceptionHandler';
 import { TableSelect } from './database/TableSelect';
 import { ValidationCollapsible } from '../common';
 
 export function useQueryPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useQueryData();
   const queryVal = useValidations(['query']);
-  const exceptionVal = useValidations(['exceptionHandler']);
-  const compareData = (data: QueryData) => [data.query, data.exceptionHandler];
-  const state = usePartState(compareData(defaultConfig), compareData(config), [...queryVal, ...exceptionVal]);
+  const compareData = (data: QueryData) => [data.query];
+  const state = usePartState(compareData(defaultConfig), compareData(config), queryVal);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Query', state: state, reset: { dirty, action: () => reset() }, content: <QueryPart /> };
 }
@@ -37,7 +35,6 @@ const QueryPart = () => {
         </ValidationCollapsible>
         {query}
       </PathContext>
-      <DbExceptionHandler />
     </>
   );
 };

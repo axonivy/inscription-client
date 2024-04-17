@@ -29,7 +29,6 @@ describe('QueryPart', () => {
     await SelectUtil.assertOptionsCount(5, { label: 'Query Kind' });
     await SelectUtil.assertValue(data?.query?.dbName ?? '', { label: 'Database' });
     assertDynamicPart(data);
-    await CollapsableUtil.assertClosed('Error');
   }
 
   async function assertDynamicPart(data?: DeepPartial<QueryData>) {
@@ -89,7 +88,6 @@ describe('QueryPart', () => {
     await CollapsableUtil.assertClosed('Condition');
     await CollapsableUtil.assertClosed('Sort');
     await CollapsableUtil.assertClosed('Limit');
-    await CollapsableUtil.assertClosed('Error');
   });
 
   test('read data', async () => {
@@ -131,10 +129,9 @@ describe('QueryPart', () => {
 
   test('configured', async () => {
     assertState(undefined);
-    assertState('configured', { exceptionHandler: 'bla' });
     assertState('configured', { query: { dbName: 'bla' } });
 
-    assertState('error', undefined, { path: 'exceptionHandler', message: '', severity: 'ERROR' });
+    assertState('error', undefined, { path: 'query.dbName', message: '', severity: 'ERROR' });
     assertState('warning', undefined, { path: 'query.dbName', message: '', severity: 'WARNING' });
   });
 
@@ -150,7 +147,6 @@ describe('QueryPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config.exceptionHandler).toEqual('err');
     expect(data.config.query.dbName).toEqual('init');
     expect(data.config.query.sql.stmt).toEqual('');
   });

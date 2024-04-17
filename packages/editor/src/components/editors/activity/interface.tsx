@@ -18,7 +18,8 @@ import {
   useRestRequestPart,
   useProgramInterfaceStartPart,
   useConfigurationPart,
-  useRestErrorPart
+  useRestErrorPart,
+  useDbErrorPart
 } from '../../../components/parts';
 import { OpenApiContextProvider } from '../../../context/useOpenApi';
 
@@ -26,8 +27,9 @@ const DatabaseEditor = memo(() => {
   const name = useGeneralPart();
   const query = useQueryPart();
   const cache = useCachePart();
+  const error = useDbErrorPart();
   const output = useOutputPart({ additionalBrowsers: ['tablecol'] });
-  return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, cache, output]} />;
+  return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, cache, error, output]} />;
 });
 
 const WebServiceEditor = memo(() => {

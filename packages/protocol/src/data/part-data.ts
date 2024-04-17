@@ -35,7 +35,9 @@ export type RequestData = Pick<ConfigData, 'request' | 'permission'>;
 
 export type ErrorThrowData = Pick<ConfigData, 'throws' | 'code'>;
 
-export type QueryData = Pick<ConfigData, 'query' | 'exceptionHandler'>;
+export type QueryData = Pick<ConfigData, 'query'>;
+
+export type DbErrorData = Pick<ConfigData, 'exceptionHandler'>;
 
 export type CacheData = Pick<ConfigData, 'cache'>;
 

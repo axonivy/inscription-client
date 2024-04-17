@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { InscriptionView } from '../../../pageobjects/InscriptionView';
-import { GeneralTest, OutputTest, runTest } from '../../parts';
+import { DbErrorTest, GeneralTest, OutputTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 import { QueryAnyTest, QueryDeleteTest, QueryReadTest, QueryUpdateTest, QueryWriteTest } from '../../parts/query';
@@ -45,6 +45,10 @@ test.describe('Database', () => {
 
   test('Cache', async () => {
     await runTest(view, DataCacheTest);
+  });
+
+  test('Error', async () => {
+    await runTest(view, DbErrorTest);
   });
 
   test('Output', async () => {
