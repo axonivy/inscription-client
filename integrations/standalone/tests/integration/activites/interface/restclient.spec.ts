@@ -7,7 +7,8 @@ import {
   RestRequestBodyJaxRsTest,
   RestRequestBodyRawTest,
   RestRequestTest,
-  RestResponseTest,
+  RestOutputTest,
+  RestErrorTest,
   runTest
 } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
@@ -53,7 +54,11 @@ test.describe('Rest Client', () => {
     await runTest(view, RestRequestBodyJaxRsTest);
   });
 
-  test('Response', async () => {
-    await runTest(view, RestResponseTest);
+  test('Error', async () => {
+    await runTest(view, RestErrorTest);
+  });
+
+  test('Output Data', async () => {
+    await runTest(view, RestOutputTest);
   });
 });

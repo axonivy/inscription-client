@@ -2,21 +2,21 @@ import type { RestResponseData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
-import { useRestResponseData } from './useRestResponseData';
-import { MappingPart, PathCollapsible, ValidationCollapsible, ValidationFieldset } from '../common';
+import { useRestOutputData } from './useRestOutputData';
+import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
 import { ScriptArea } from '../../widgets';
-import { RestError } from './rest-response/RestError';
 import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox';
 import { useRestEntityTypeMeta, useRestResourceMeta } from './useRestResourceMeta';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
-export function useRestResponsePart(): PartProps {
-  const { config, defaultConfig, initConfig, resetData } = useRestResponseData();
+export function useRestOutputPart(): PartProps {
+  const { config, defaultConfig, initConfig, resetData } = useRestOutputData();
   const validations = useValidations(['response']);
-  const compareData = (data: RestResponseData) => [data.response];
-  const state = usePartState(compareData(defaultConfig), compareData(config), validations);
+  const filteredOutputValidations = validations.filter(item => item.path.startsWith('response.entity'));
+  const compareData = (data: RestResponseData) => [data.response.entity];
+  const state = usePartState(compareData(defaultConfig), compareData(config), filteredOutputValidations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Response', state: state, reset: { dirty, action: () => resetData() }, content: <RestResponsePart /> };
+  return { name: 'Output Data', state: state, reset: { dirty, action: () => resetData() }, content: <RestOutputPart /> };
 }
 
 const useShowResultTypeCombo = (types: string[], currentType: string) => {
@@ -24,8 +24,8 @@ const useShowResultTypeCombo = (types: string[], currentType: string) => {
   return useShowRestEntityTypeCombo(types, currentType, resource?.method?.outResult);
 };
 
-const RestResponsePart = () => {
-  const { config, defaultConfig, update, updateEntity } = useRestResponseData();
+const RestOutputPart = () => {
+  const { config, defaultConfig, updateEntity } = useRestOutputData();
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'response' }, { variables: [], types: {} });
   const resultTypes = useRestEntityTypeMeta('result');
@@ -67,27 +67,6 @@ const RestResponsePart = () => {
           </ValidationFieldset>
         </PathCollapsible>
       </PathContext>
-
-      <ValidationCollapsible
-        label='Error'
-        defaultOpen={
-          config.response.clientError !== defaultConfig.response.clientError ||
-          config.response.statusError !== defaultConfig.response.statusError
-        }
-      >
-        <RestError
-          label='On Error (Connection, Timeout, etc.)'
-          value={config.response.clientError}
-          onChange={change => update('clientError', change)}
-          path='clientError'
-        />
-        <RestError
-          label='On Status Code not successful (2xx)'
-          value={config.response.statusError}
-          onChange={change => update('statusError', change)}
-          path='statusError'
-        />
-      </ValidationCollapsible>
     </PathContext>
   );
 };
