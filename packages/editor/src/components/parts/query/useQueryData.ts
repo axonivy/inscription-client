@@ -1,13 +1,12 @@
 import type { QueryData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
-import type { Consumer, DataUpdater } from '../../../types/lambda';
-import type { ConfigDataContext} from '../../../context';
+import type { DataUpdater } from '../../../types/lambda';
+import type { ConfigDataContext } from '../../../context';
 import { useConfigDataContext } from '../../../context';
 
 export function useQueryData(): ConfigDataContext<QueryData> & {
   update: DataUpdater<QueryData['query']>;
   updateSql: DataUpdater<QueryData['query']['sql']>;
-  updateException: Consumer<string>;
   reset: () => void;
 } {
   const { setConfig, ...config } = useConfigDataContext();
@@ -28,19 +27,10 @@ export function useQueryData(): ConfigDataContext<QueryData> & {
     );
   };
 
-  const updateException = (value: string) => {
-    setConfig(
-      produce(draft => {
-        draft.exceptionHandler = value;
-      })
-    );
-  };
-
   const reset = () =>
     setConfig(
       produce(draft => {
         draft.query = config.initConfig.query;
-        draft.exceptionHandler = config.initConfig.exceptionHandler;
       })
     );
 
@@ -48,7 +38,6 @@ export function useQueryData(): ConfigDataContext<QueryData> & {
     ...config,
     update,
     updateSql,
-    updateException,
     reset
   };
 }

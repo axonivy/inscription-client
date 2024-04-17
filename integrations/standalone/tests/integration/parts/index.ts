@@ -17,6 +17,7 @@ export * from './signal-catch';
 export * from './start';
 export * from './task';
 export * from './trigger';
+export * from './db-error';
 export * from './web-service';
 export * from './ws-request';
 export * from './ws-output';

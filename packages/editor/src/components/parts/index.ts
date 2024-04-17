@@ -19,6 +19,7 @@ export * from './trigger/TriggerPart';
 export * from './request/RequestPart';
 export * from './error/ErrorThrowPart';
 export * from './query/QueryPart';
+export * from './query/db-error/DbErrorPart';
 export * from './cache/CachePart';
 export * from './ws-request/WsRequestPart';
 export * from './ws-error/WsErrorPart';

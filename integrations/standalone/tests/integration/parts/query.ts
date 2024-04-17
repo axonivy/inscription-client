@@ -203,33 +203,6 @@ class LimitPart extends PartObject {
   }
 }
 
-class ErrorPart extends PartObject {
-  section: Section;
-  error: Select;
-
-  constructor(part: Part) {
-    super(part);
-    this.section = part.section('Error');
-    this.error = this.section.select({});
-  }
-
-  async fill(): Promise<void> {
-    await this.section.expectIsClosed();
-    await this.section.toggle();
-    await this.error.choose('>> Ignore Exception');
-  }
-  async assertFill(): Promise<void> {
-    await this.section.expectIsOpen();
-    await this.error.expectValue('>> Ignore Exception');
-  }
-  async clear(): Promise<void> {
-    await this.error.choose('ivy:error:database');
-  }
-  async assertClear(): Promise<void> {
-    await this.section.expectIsClosed();
-  }
-}
-
 class Query extends PartObject {
   databaseSection: Section;
   kind: Select;
@@ -240,7 +213,6 @@ class Query extends PartObject {
   condition: ConditionPart;
   sort: SortPart;
   limit: LimitPart;
-  error: ErrorPart;
   definition: DefinitionPart;
 
   constructor(part: Part, private readonly queryKind: QueryKind) {
@@ -255,21 +227,20 @@ class Query extends PartObject {
     this.condition = new ConditionPart(part);
     this.sort = new SortPart(part);
     this.limit = new LimitPart(part);
-    this.error = new ErrorPart(part);
   }
 
   tests() {
     switch (this.queryKind) {
       case 'READ':
-        return [this.table, this.readFields, this.condition, this.sort, this.limit, this.error];
+        return [this.table, this.readFields, this.condition, this.sort, this.limit];
       case 'WRITE':
-        return [this.table, this.fields, this.error];
+        return [this.table, this.fields];
       case 'UPDATE':
-        return [this.table, this.fields, this.condition, this.error];
+        return [this.table, this.fields, this.condition];
       case 'DELETE':
-        return [this.table, this.condition, this.error];
+        return [this.table, this.condition];
       case 'ANY':
-        return [this.definition, this.limit, this.error];
+        return [this.definition, this.limit];
     }
   }
 
