@@ -1,4 +1,3 @@
-import './ValidationFieldset.css';
 import type { FieldsetProps } from '../../../../widgets/fieldset/Fieldset';
 import Fieldset from '../../../../widgets/fieldset/Fieldset';
 import { useValidation } from '../../../../../context';

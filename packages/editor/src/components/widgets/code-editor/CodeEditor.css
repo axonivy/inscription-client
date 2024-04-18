@@ -3,7 +3,7 @@
 }
 .code-editor .code-input {
   border-radius: var(--border-r1);
-  border: var(--basic-border);
+  border: var(--input-border);
   font-size: 12px;
   line-height: 12px;
   color: var(--body);
