@@ -1,4 +1,4 @@
-import { Checkbox, ScriptInput } from '../../widgets';
+import { Checkbox, EmptyWidget, ScriptInput } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useTriggerData } from './useTriggerData';
@@ -23,34 +23,40 @@ const TriggerPart = () => {
 
   return (
     <>
-      <Checkbox
-        value={config.triggerable}
-        onChange={change => update('triggerable', change)}
-        label='Yes, this can be started with a Trigger Activity'
-      />
-      {config.triggerable && (
-        <PathContext path='task'>
-          <ResponsibleCollapsible
-            responsible={config.task.responsible}
-            defaultResponsible={defaultConfig.task.responsible}
-            updateResponsible={updateResponsible}
+      {defaultConfig.task ? (
+        <>
+          <Checkbox
+            value={config.triggerable}
+            onChange={change => update('triggerable', change)}
+            label='Yes, this can be started with a Trigger Activity'
           />
-          <ValidationCollapsible label='Options' defaultOpen={!config.case.attachToBusinessCase || config.task.delay.length > 0}>
-            <Checkbox
-              value={config.case.attachToBusinessCase}
-              onChange={change => updateAttach(change)}
-              label='Attach to Business Case that triggered this process'
-            />
-            <PathFieldset label='Delay' path='delay'>
-              <ScriptInput
-                value={config.task.delay}
-                onChange={change => updateDelay(change)}
-                type={IVY_SCRIPT_TYPES.DURATION}
-                browsers={['attr', 'func', 'type']}
+          {config.triggerable && (
+            <PathContext path='task'>
+              <ResponsibleCollapsible
+                responsible={config.task.responsible}
+                defaultResponsible={defaultConfig.task.responsible}
+                updateResponsible={updateResponsible}
               />
-            </PathFieldset>
-          </ValidationCollapsible>
-        </PathContext>
+              <ValidationCollapsible label='Options' defaultOpen={!config.case.attachToBusinessCase || config.task.delay.length > 0}>
+                <Checkbox
+                  value={config.case.attachToBusinessCase}
+                  onChange={change => updateAttach(change)}
+                  label='Attach to Business Case that triggered this process'
+                />
+                <PathFieldset label='Delay' path='delay'>
+                  <ScriptInput
+                    value={config.task.delay}
+                    onChange={change => updateDelay(change)}
+                    type={IVY_SCRIPT_TYPES.DURATION}
+                    browsers={['attr', 'func', 'type']}
+                  />
+                </PathFieldset>
+              </ValidationCollapsible>
+            </PathContext>
+          )}
+        </>
+      ) : (
+        <EmptyWidget message='There is no (Task) output flow connected.' />
       )}
     </>
   );
