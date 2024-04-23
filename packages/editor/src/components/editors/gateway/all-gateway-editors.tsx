@@ -26,11 +26,11 @@ const SplitEditor = memo(() => {
 
 const TaskSwitchGatewayEditor = memo(() => {
   const name = useGeneralPart();
-  const output = useOutputPart();
   const multiTasks = useMultiTasksPart();
   const casePart = useCasePart();
   const endPage = useEndPagePart();
-  return <InscriptionEditor icon={IvyIcons.JoinTasksGateways} parts={[name, output, multiTasks, casePart, endPage]} />;
+  const output = useOutputPart();
+  return <InscriptionEditor icon={IvyIcons.JoinTasksGateways} parts={[name, multiTasks, casePart, endPage, output]} />;
 });
 
 export const gatewayEditors = new Map<ElementType, ReactNode>([

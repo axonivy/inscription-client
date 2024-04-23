@@ -19,7 +19,8 @@ import {
   useProgramInterfaceStartPart,
   useConfigurationPart,
   useRestErrorPart,
-  useDbErrorPart
+  useDbErrorPart,
+  useMailErrorPart
 } from '../../../components/parts';
 import { OpenApiContextProvider } from '../../../context/useOpenApi';
 
@@ -56,9 +57,10 @@ const RestEditor = memo(() => {
 const EMailEditor = memo(() => {
   const name = useGeneralPart();
   const header = useMailHeaderPart();
+  const error = useMailErrorPart();
   const content = useMailMessagePart();
   const attachment = useMailAttachmentPart();
-  return <InscriptionEditor icon={IvyIcons.EMail} parts={[name, header, content, attachment]} />;
+  return <InscriptionEditor icon={IvyIcons.EMail} parts={[name, header, error, content, attachment]} />;
 });
 
 const ProgramInterfaceEditor = memo(() => {

@@ -58,7 +58,7 @@ test.describe('Rest Client', () => {
     await runTest(view, RestErrorTest);
   });
 
-  test('Output Data', async () => {
+  test('Output', async () => {
     await runTest(view, RestOutputTest);
   });
 });

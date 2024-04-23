@@ -37,7 +37,7 @@ test.describe('Web Service', () => {
     await runTest(view, WsErrorTest);
   });
 
-  test('Output Data', async () => {
+  test('Output', async () => {
     await runTest(view, WsOutputTest);
   });
 });

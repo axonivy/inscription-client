@@ -1,4 +1,4 @@
-import type { ConfigDataContext} from '../../../context';
+import type { ConfigDataContext } from '../../../context';
 import { useConfigDataContext } from '../../../context';
 import type { MailData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
@@ -10,6 +10,7 @@ export function useMailData(): ConfigDataContext<MailData> & {
   resetHeaders: () => void;
   updateMessage: DataUpdater<MailData['message']>;
   resetMessage: () => void;
+  resetError: () => void;
   resetAttachments: () => void;
 } {
   const { setConfig, ...config } = useConfigDataContext();
@@ -32,8 +33,6 @@ export function useMailData(): ConfigDataContext<MailData> & {
     setConfig(
       produce(draft => {
         draft.headers = config.initConfig.headers;
-        draft.failIfMissingAttachments = config.initConfig.failIfMissingAttachments;
-        draft.exceptionHandler = config.initConfig.exceptionHandler;
       })
     );
 
@@ -58,6 +57,14 @@ export function useMailData(): ConfigDataContext<MailData> & {
       })
     );
 
+  const resetError = () =>
+    setConfig(
+      produce(draft => {
+        draft.exceptionHandler = config.initConfig.exceptionHandler;
+        draft.failIfMissingAttachments = config.initConfig.failIfMissingAttachments;
+      })
+    );
+
   return {
     ...config,
     update,
@@ -65,6 +72,7 @@ export function useMailData(): ConfigDataContext<MailData> & {
     resetHeaders,
     updateMessage,
     resetMessage,
+    resetError,
     resetAttachments
   };
 }

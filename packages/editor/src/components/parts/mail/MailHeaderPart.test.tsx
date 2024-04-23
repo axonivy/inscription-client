@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
 import type { MailData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useMailHeaderPart } from './MailHeaderPart';
@@ -22,22 +22,16 @@ describe('MailHeaderPart', () => {
     expect(screen.getByLabelText('To')).toHaveValue(data?.headers?.to ?? '');
     expect(screen.getByLabelText('CC')).toHaveValue(data?.headers?.cc ?? '');
     expect(screen.getByLabelText('BCC')).toHaveValue(data?.headers?.bcc ?? '');
-    await CollapsableUtil.assertOpen('Options');
-    await SelectUtil.assertValue('f9');
-    expect(screen.getByRole('checkbox')).toBeChecked();
   }
 
   test('empty data', async () => {
     renderPart();
     await CollapsableUtil.assertClosed('Headers');
-    await CollapsableUtil.assertClosed('Options');
   });
 
   test('full data', async () => {
     const data: DeepPartial<MailData> = {
-      headers: { subject: 'sub', from: 'from', replyTo: 'reply', to: 'to', cc: 'cc', bcc: 'bcc' },
-      failIfMissingAttachments: true,
-      exceptionHandler: 'f9'
+      headers: { subject: 'sub', from: 'from', replyTo: 'reply', to: 'to', cc: 'cc', bcc: 'bcc' }
     };
     renderPart(data);
     await assertPage(data);
@@ -56,16 +50,12 @@ describe('MailHeaderPart', () => {
     assertState('configured', { headers: { replyTo: 's' } });
     assertState('configured', { headers: { cc: 's' } });
     assertState('configured', { headers: { bcc: 's' } });
-    assertState('configured', { failIfMissingAttachments: true });
-    assertState('configured', { exceptionHandler: 'hi' });
   });
 
   test('reset', () => {
     let data = {
       config: {
-        headers: { subject: 'sub', from: 'from', replyTo: 'reply', to: 'to', cc: 'cc', bcc: 'bcc' },
-        failIfMissingAttachments: true,
-        exceptionHandler: 'hi'
+        headers: { subject: 'sub', from: 'from', replyTo: 'reply', to: 'to', cc: 'cc', bcc: 'bcc' }
       }
     };
     const view = renderHook(() => useMailHeaderPart(), {
@@ -80,7 +70,5 @@ describe('MailHeaderPart', () => {
     expect(data.config.headers.cc).toEqual('');
     expect(data.config.headers.bcc).toEqual('');
     expect(data.config.headers.to).toEqual('');
-    expect(data.config.failIfMissingAttachments).toBeFalsy();
-    expect(data.config.exceptionHandler).toEqual('');
   });
 });
