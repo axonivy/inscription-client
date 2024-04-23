@@ -9,6 +9,7 @@ export * from './error-throw';
 export * from './mail-attachments';
 export * from './mail-content';
 export * from './mail-header';
+export * from './mail-error';
 export * from './name';
 export * from './output';
 export * from './request';

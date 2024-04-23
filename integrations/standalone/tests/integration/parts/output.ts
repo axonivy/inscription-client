@@ -87,6 +87,6 @@ class OutputEmptyMap extends OutputCode {
   }
 }
 
-export const OutputTest = new NewPartTest('Output Data', (part: Part) => new OutputCode(part));
-export const ScriptOutputTest = new NewPartTest('Output Data', (part: Part) => new OutputCode(part, true));
-export const SignalOutputTest = new NewPartTest('Output Data', (part: Part) => new OutputEmptyMap(part));
+export const OutputTest = new NewPartTest('Output', (part: Part) => new OutputCode(part));
+export const ScriptOutputTest = new NewPartTest('Output', (part: Part) => new OutputCode(part, true));
+export const SignalOutputTest = new NewPartTest('Output', (part: Part) => new OutputEmptyMap(part));

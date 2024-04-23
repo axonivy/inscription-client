@@ -27,7 +27,7 @@ test.describe('Web Service Call', () => {
   });
 
   test('Response Tab', async ({ page }) => {
-    await screenshotAccordion(page, INTERFACE_PID.WS_CALL, 'Output Data', 'web-service-call-tab-response.png');
+    await screenshotAccordion(page, INTERFACE_PID.WS_CALL, 'Output', 'web-service-call-tab-response.png');
   });
 });
 
@@ -69,7 +69,7 @@ test.describe('Rest Client', () => {
   });
 
   test('Response Tab', async ({ page }) => {
-    await screenshotAccordion(page, INTERFACE_PID.REST_POST, 'Output Data', 'rest-client-tab-response.png');
+    await screenshotAccordion(page, INTERFACE_PID.REST_POST, 'Output', 'rest-client-tab-response.png');
   });
 });
 

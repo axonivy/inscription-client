@@ -16,7 +16,7 @@ export function useRestOutputPart(): PartProps {
   const compareData = (data: RestResponseData) => [data.response.entity];
   const state = usePartState(compareData(defaultConfig), compareData(config), filteredOutputValidations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Output Data', state: state, reset: { dirty, action: () => resetData() }, content: <RestOutputPart /> };
+  return { name: 'Output', state: state, reset: { dirty, action: () => resetData() }, content: <RestOutputPart /> };
 }
 
 const useShowResultTypeCombo = (types: string[], currentType: string) => {

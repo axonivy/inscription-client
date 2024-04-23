@@ -41,4 +41,4 @@ class WsOutput extends PartObject {
   }
 }
 
-export const WsOutputTest = new NewPartTest('Output Data', (part: Part) => new WsOutput(part));
+export const WsOutputTest = new NewPartTest('Output', (part: Part) => new WsOutput(part));

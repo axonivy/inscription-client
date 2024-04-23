@@ -51,4 +51,4 @@ class RestOutput extends PartObject {
   }
 }
 
-export const RestOutputTest = new NewPartTest('Output Data', (part: Part) => new RestOutput(part));
+export const RestOutputTest = new NewPartTest('Output', (part: Part) => new RestOutput(part));

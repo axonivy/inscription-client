@@ -15,7 +15,7 @@ export function useOutputPart(options?: { showSudo?: boolean; additionalBrowsers
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Output Data',
+    name: 'Output',
     state,
     reset: { dirty, action: () => resetOutput(options?.showSudo) },
     content: <OutputPart showSudo={options?.showSudo} additionalBrowsers={options?.additionalBrowsers} />

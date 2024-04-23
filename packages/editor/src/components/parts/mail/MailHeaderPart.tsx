@@ -1,26 +1,24 @@
-import { Checkbox, MacroInput } from '../../widgets';
+import { MacroInput } from '../../widgets';
 import type { PartProps } from '../../editors';
 import { usePartDirty, usePartState } from '../../editors';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/inscription-protocol';
-import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { useValidations } from '../../../context';
-import { ExceptionSelect, PathCollapsible, PathFieldset, ValidationCollapsible } from '../common';
+import { PathCollapsible, PathFieldset } from '../common';
 import type { BrowserType } from '../../../components/browser';
 import { deepEqual } from '../../../utils/equals';
 
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetHeaders } = useMailData();
-  const compareData = (data: MailData) => [data.headers, data.failIfMissingAttachments, data.exceptionHandler];
+  const compareData = (data: MailData) => [data.headers];
   const headerValidations = useValidations(['headers']);
-  const exceptionValidations = useValidations(['exceptionHandler']);
-  const state = usePartState(compareData(defaultConfig), compareData(config), [...headerValidations, ...exceptionValidations]);
+  const state = usePartState(compareData(defaultConfig), compareData(config), headerValidations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return { name: 'Header', state, reset: { dirty, action: () => resetHeaders() }, content: <MailHeaderPart /> };
 }
 
 const MailHeaderPart = () => {
-  const { config, defaultConfig, update, updateHeader } = useMailData();
+  const { config, defaultConfig, updateHeader } = useMailData();
   const borwserTypes: BrowserType[] = ['attr', 'func', 'cms'];
 
   return (
@@ -45,25 +43,6 @@ const MailHeaderPart = () => {
           <MacroInput value={config.headers.bcc} onChange={change => updateHeader('bcc', change)} browsers={borwserTypes} />
         </PathFieldset>
       </PathCollapsible>
-      <ValidationCollapsible
-        label='Options'
-        defaultOpen={config.failIfMissingAttachments || config.exceptionHandler !== defaultConfig.exceptionHandler}
-      >
-        <PathFieldset label='Error' path='exceptionHandler'>
-          <ExceptionSelect
-            value={config.exceptionHandler}
-            onChange={change => update('exceptionHandler', change)}
-            staticExceptions={[IVY_EXCEPTIONS.mail, IVY_EXCEPTIONS.ignoreException]}
-          />
-        </PathFieldset>
-        <Checkbox
-          label='Throw an error if any attachment is missing'
-          value={config.failIfMissingAttachments}
-          onChange={change => {
-            update('failIfMissingAttachments', change);
-          }}
-        />
-      </ValidationCollapsible>
     </>
   );
 };
