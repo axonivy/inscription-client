@@ -30,3 +30,5 @@ export * from './rest-request-body';
 export * from './permissions';
 export * from './process-data';
 export * from './web-service-process';
+export * from './program-interface-error';
+export * from './program-interface-start';

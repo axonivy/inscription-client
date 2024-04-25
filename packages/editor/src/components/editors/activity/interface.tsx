@@ -20,7 +20,8 @@ import {
   useConfigurationPart,
   useRestErrorPart,
   useDbErrorPart,
-  useMailErrorPart
+  useMailErrorPart,
+  useProgramInterfaceErrorPart
 } from '../../../components/parts';
 import { OpenApiContextProvider } from '../../../context/useOpenApi';
 
@@ -66,8 +67,9 @@ const EMailEditor = memo(() => {
 const ProgramInterfaceEditor = memo(() => {
   const name = useGeneralPart();
   const start = useProgramInterfaceStartPart();
+  const error = useProgramInterfaceErrorPart();
   const configuration = useConfigurationPart();
-  return <InscriptionEditor icon={IvyIcons.ProgramOutline} parts={[name, start, configuration]} />;
+  return <InscriptionEditor icon={IvyIcons.ProgramOutline} parts={[name, start, error, configuration]} />;
 });
 
 export const interfaceActivityEditors = new Map<ElementType, ReactNode>([

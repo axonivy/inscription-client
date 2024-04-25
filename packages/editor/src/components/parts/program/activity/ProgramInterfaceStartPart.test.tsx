@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, ComboboxUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, render, renderHook } from 'test-utils';
 import type { ElementData, InscriptionValidation, ProgramInterfaceStartData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { useProgramInterfaceStartPart } from './ProgramInterfaceStartPart';
@@ -20,22 +20,13 @@ describe('ProgramInterfaceStartPart', () => {
   test('empty data', async () => {
     renderPart();
     await CollapsableUtil.assertClosed('Java Class');
-    await CollapsableUtil.assertClosed('Program');
-    await CollapsableUtil.assertClosed('Timeout');
   });
 
   test('full data', async () => {
     renderPart({
-      javaClass: 'Test',
-      exceptionHandler: '>> Ignore Exception',
-      timeout: { seconds: '123', error: 'ivy:error:program:timeout' }
+      javaClass: 'Test'
     });
     await ComboboxUtil.assertValue('Test', { nth: 0 });
-    await CollapsableUtil.assertOpen('Program');
-    await SelectUtil.assertValue('>> Ignore Exception', { index: 1 });
-    await CollapsableUtil.assertOpen('Timeout');
-    expect(screen.getByLabelText('Seconds')).toHaveValue('123');
-    await SelectUtil.assertValue('ivy:error:program:timeout', { index: 2 });
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProgramInterfaceStartData>, validation?: InscriptionValidation) {
@@ -48,17 +39,14 @@ describe('ProgramInterfaceStartPart', () => {
   test('configured', async () => {
     assertState(undefined);
     assertState('configured', { javaClass: 'Bla' });
-    assertState('configured', { exceptionHandler: '>> Ignore Exception' });
-    assertState('configured', { timeout: { seconds: '123' } });
 
     assertState('error', undefined, { path: 'javaClass.cause', message: '', severity: 'ERROR' });
-    assertState('warning', undefined, { path: 'exceptionHandler.error', message: '', severity: 'WARNING' });
-    assertState('error', undefined, { path: 'timeout.cause', message: '', severity: 'ERROR' });
+    assertState('warning', undefined, { path: 'javaClass.cause', message: '', severity: 'WARNING' });
   });
 
   test('reset', () => {
     let data: DeepPartial<ElementData> = {
-      config: { javaClass: 'Test', exceptionHandler: '>> Ignore Exception', timeout: { seconds: '123' } }
+      config: { javaClass: 'Test' }
     };
     const view = renderHook(() => useProgramInterfaceStartPart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
@@ -67,7 +55,5 @@ describe('ProgramInterfaceStartPart', () => {
 
     view.result.current.reset.action();
     expect(data.config?.javaClass).toEqual('');
-    expect(data.config?.exceptionHandler).toEqual('');
-    expect(data.config?.timeout?.seconds).toEqual('');
   });
 });
