@@ -258,7 +258,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
         </TableBody>
       </SearchTable>
       {isFetching && (
-        <div className='loader'>
+        <div className='loader-message'>
           <p>loading more types...</p>
         </div>
       )}
