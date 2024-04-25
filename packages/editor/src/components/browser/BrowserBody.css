@@ -83,12 +83,12 @@
   align-items: center;
 }
 
-.loader {
+.loader-message {
   text-align: center;
   font-size: 14px;
 }
 
-.loader p {
+.loader-message p {
   display: inline-block;
   opacity: 0;
   animation: load-fade 1.5s infinite;
