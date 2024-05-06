@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/inscription-editor",
-  "version": "11.3.0-next",
+  "version": "11.4.0-next",
   "private": false,
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Axon Ivy AG",
@@ -14,8 +14,8 @@
     "src"
   ],
   "dependencies": {
-    "@axonivy/inscription-core": "11.3.0-next",
-    "@axonivy/inscription-protocol": "11.3.0-next",
+    "@axonivy/inscription-core": "11.4.0-next",
+    "@axonivy/inscription-protocol": "11.4.0-next",
     "@axonivy/ui-components": "11.3.0-next.142",
     "@monaco-editor/react": "^4.6.0",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -47,8 +47,8 @@
     "@types/react": "^18.2.45",
     "deepmerge-ts": "^5.1.0",
     "eslint-plugin-testing-library": "^6.2.1",
-    "vitest": "^1.5.0",
-    "jsdom": "^24.0.0"
+    "jsdom": "^24.0.0",
+    "vitest": "^1.5.0"
   },
   "type": "module",
   "module": "lib/index",
