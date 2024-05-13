@@ -25,6 +25,14 @@ const ScriptArea = (props: ScriptAreaProps) => {
       props.maximizeState.setIsMaximizedCodeEditorOpen(true);
     });
   };
+  const setScrollPosition = (editor: monaco.editor.IStandaloneCodeEditor) => {
+    const text = editor.getValue();
+    const importRegex = /^import .+;/gm;
+    const importMatches = text.match(importRegex);
+    const importAmount = importMatches ? importMatches.length : 0;
+    editor.revealLine(importAmount + 1);
+  };
+
   const { inputProps } = useField();
 
   return (
@@ -40,7 +48,13 @@ const ScriptArea = (props: ScriptAreaProps) => {
       />
       {!props.maximizeState.isMaximizedCodeEditorOpen && (
         <div className='script-area'>
-          <ResizableCodeEditor {...inputProps} {...props} location={path} onMountFuncs={[setEditor, keyActionMountFunc]} />
+          <ResizableCodeEditor
+            {...inputProps}
+            {...props}
+            initHeight={props.value.length > 0 ? 250 : undefined}
+            location={path}
+            onMountFuncs={[setEditor, keyActionMountFunc, setScrollPosition]}
+          />
           <Browser {...browser} types={props.browsers} accept={modifyEditor} location={path} initSearchFilter={getMonacoSelection} />
         </div>
       )}

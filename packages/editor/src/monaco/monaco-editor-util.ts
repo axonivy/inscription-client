@@ -24,7 +24,10 @@ export const MONACO_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
   fontSize: 12,
   tabSize: 2,
   renderWhitespace: 'all',
-  fixedOverflowWidgets: true
+  fixedOverflowWidgets: true,
+  scrollbar: {
+    useShadows: false
+  }
 };
 
 export const MAXIMIZED_MONACO_OPTIONS: editor.IStandaloneEditorConstructionOptions = {
