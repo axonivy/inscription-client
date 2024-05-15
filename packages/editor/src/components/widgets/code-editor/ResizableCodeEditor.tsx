@@ -7,6 +7,10 @@ import type { BrowserType } from '../../../components/browser';
 
 export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'options' | 'onMount' | 'location'> & {
   browsers: BrowserType[];
+  maximizeState?: {
+    isMaximizedCodeEditorOpen: boolean;
+    setIsMaximizedCodeEditorOpen: (open: boolean) => void;
+  };
 };
 
 type ResizableCodeEditorProps = Omit<CodeEditorProps, 'height' | 'context'> & {

@@ -50,7 +50,8 @@ vi.mock('../components/widgets/code-editor', () => ({
   ScriptInput: CodeEditorMock,
   MacroArea: CodeEditorMock,
   MacroInput: CodeEditorMock,
-  SingleLineCodeEditor: CodeEditorMock
+  SingleLineCodeEditor: CodeEditorMock,
+  MaximizedCodeEditorBrowser: CodeEditorMock
 }));
 
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
