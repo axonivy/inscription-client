@@ -1,6 +1,6 @@
 .browser-dialog {
   --browser-padding: 20px;
-  background-color: var(--N75);
+  background-color: var(--background);
   color: var(--body);
   box-shadow: var(--editor-shadow);
   position: absolute;
