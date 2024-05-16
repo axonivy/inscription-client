@@ -26,7 +26,7 @@
   flex: 1;
   gap: var(--size-1);
 }
-.tabs-trigger:focus {
+.tabs-trigger:focus-visible {
   border: 1.5px solid var(--body);
 }
 .tabs-trigger:hover {
