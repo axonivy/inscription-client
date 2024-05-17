@@ -25,10 +25,18 @@
   border-radius: 0px;
 }
 
+.ui-table-cell .script-input .code-editor .code-input {
+  padding-right: 55px;
+}
+
 .ui-table-cell .script-input .ui-button {
   color: var(--body);
 }
 
 .ui-table-cell .code-editor .code-input {
   border-radius: 0px;
+}
+
+.ui-table-cell .maximize-code-button {
+  margin-right: 30px;
 }
