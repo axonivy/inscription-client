@@ -67,6 +67,8 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
             location={path}
             applyEditor={focusValue.onChange}
             selectionRange={getSelectionRange()}
+            macro={makro}
+            type={type}
           />
           {!maximizeState.isMaximizedCodeEditorOpen && (
             <>

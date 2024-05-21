@@ -33,6 +33,7 @@ const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps)
               location={path}
               applyEditor={focusValue.onChange}
               selectionRange={getSelectionRange()}
+              macro={true}
             />
           )}
           {!props.maximizeState?.isMaximizedCodeEditorOpen && (
