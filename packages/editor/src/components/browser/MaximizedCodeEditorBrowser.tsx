@@ -14,7 +14,9 @@ const MaximizedCodeEditorBrowser = ({
   editorValue,
   applyEditor,
   location,
-  selectionRange
+  selectionRange,
+  macro,
+  type
 }: MaximaziedCodeEditorBrowserProps) => {
   const tabs: Tab[] = [
     {
@@ -31,6 +33,8 @@ const MaximizedCodeEditorBrowser = ({
               onOpenChange(false);
             }
           }}
+          type={type}
+          macro={macro}
         />
       ),
       id: 'maxCode',
