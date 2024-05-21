@@ -16,6 +16,8 @@ export type MaximizedCodeEditorProps = {
   keyActions?: {
     escape?: () => void;
   };
+  macro?: boolean;
+  type?: string;
 };
 
 const MaximizedCodeEditor = ({
@@ -25,9 +27,11 @@ const MaximizedCodeEditor = ({
   applyEditor,
   selectionRange,
   keyActions,
+  macro,
+  type,
   open
 }: MaximizedCodeEditorProps) => {
-  const { setEditor, modifyEditor, getMonacoSelection } = useMonacoEditor();
+  const { setEditor, modifyEditor, getMonacoSelection } = useMonacoEditor(macro ? { modifyAction: value => `<%=${value}%>` } : undefined);
   const browser = useBrowser();
 
   const setSelection = (editor: monaco.editor.IStandaloneCodeEditor) => {
@@ -62,9 +66,10 @@ const MaximizedCodeEditor = ({
           <CodeEditor
             value={editorValue}
             onChange={applyEditor}
-            context={{ location }}
+            context={{ type, location }}
             onMountFuncs={[setEditor, delayedMonacoAutoFocus, setSelection, keyActionMountFunc]}
             options={MAXIMIZED_MONACO_OPTIONS}
+            macro={macro}
           />
         </div>
         <Browser {...browser} types={browsers} accept={modifyEditor} location={location} initSearchFilter={getMonacoSelection} />
