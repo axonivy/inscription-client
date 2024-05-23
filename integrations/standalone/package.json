@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/inscription-standalone",
-  "version": "11.3.0-next",
+  "version": "11.3.1-next",
   "private": true,
   "author": "Axon Ivy AG",
   "homepage": "https://developer.axonivy.com/",
@@ -9,8 +9,8 @@
     "url": "https://github.com/axonivy/inscription-client"
   },
   "dependencies": {
-    "@axonivy/inscription-core": "11.3.0-next",
-    "@axonivy/inscription-editor": "11.3.0-next",
+    "@axonivy/inscription-core": "11.3.1-next",
+    "@axonivy/inscription-editor": "11.3.1-next",
     "@axonivy/ui-icons": "11.3.0-next.154",
     "path-browserify": "^1.0.1"
   },
