@@ -21,7 +21,7 @@ export const TableFields = () => {
   const [data, setData] = useState<Column[]>([]);
 
   useEffect(() => {
-    const fields = config.query.sql.fields;
+    const fields = config.query.sql.fields ?? {};
     const columnData = columnMetas.map<Column>(c => {
       return { ...c, expression: fields[c.name] ?? '' };
     });
@@ -91,7 +91,11 @@ export const TableFields = () => {
 
   return (
     <PathContext path='sql'>
-      <PathCollapsible label='Fields' path='fields' defaultOpen={Object.keys(config.query.sql.fields).length > 0}>
+      <PathCollapsible
+        label='Fields'
+        path='fields'
+        defaultOpen={config.query.sql.fields && Object.keys(config.query.sql.fields).length > 0}
+      >
         <Table>
           <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
           <TableBody>
