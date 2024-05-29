@@ -1,4 +1,4 @@
-import type { InscriptionValidation, VariableInfo } from '@axonivy/inscription-protocol';
+import type { ValidationResult, VariableInfo } from '@axonivy/inscription-protocol';
 import { memo } from 'react';
 import { ScriptArea } from '../../widgets';
 import { useCallData } from './useCallData';
@@ -6,7 +6,7 @@ import { PathContext, useValidations } from '../../../context';
 import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
 
-export function useCallPartValidation(): InscriptionValidation[] {
+export function useCallPartValidation(): ValidationResult[] {
   return useValidations(['call']);
 }
 

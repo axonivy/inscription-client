@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { render, renderHook, screen, TableUtil, CollapsableUtil } from 'test-utils';
-import type { ElementData, InscriptionValidation, RestResponseData } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, RestResponseData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useRestOutputPart } from './RestOutputPart';
 import { describe, test, expect } from 'vitest';
@@ -28,7 +28,7 @@ describe('RestOutputPart', () => {
     expect(screen.getByTestId('code-editor')).toHaveValue('code');
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<RestResponseData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<RestResponseData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useRestOutputPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

@@ -3,7 +3,7 @@ import type {
   InscriptionData,
   InscriptionSaveData,
   InscriptionType,
-  InscriptionValidation,
+  ValidationResult,
   ElementType,
   ElementData,
   InscriptionActionArgs,
@@ -24,7 +24,7 @@ export class InscriptionClientMock implements InscriptionClient {
   private elementData = {} as ElementData;
   constructor(readonly readonly = false, readonly type: ElementType = 'UserTask') {}
 
-  protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
+  protected onValidationEmitter = new Emitter<ValidationResult[]>();
   onValidation = this.onValidationEmitter.event;
   protected onDataChangedEmitter = new Emitter<void>();
   onDataChanged = this.onDataChangedEmitter.event;
@@ -53,12 +53,12 @@ export class InscriptionClientMock implements InscriptionClient {
     });
   }
 
-  saveData(saveData: InscriptionSaveData): Promise<InscriptionValidation[]> {
+  saveData(saveData: InscriptionSaveData): Promise<ValidationResult[]> {
     this.elementData = saveData.data;
     return Promise.resolve(ValidationMock.validateData(this.type, saveData));
   }
 
-  validate(context: InscriptionElementContext): Promise<InscriptionValidation[]> {
+  validate(context: InscriptionElementContext): Promise<ValidationResult[]> {
     return Promise.resolve(ValidationMock.validateData(this.type, { context, data: this.elementData }));
   }
 

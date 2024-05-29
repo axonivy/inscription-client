@@ -10,7 +10,7 @@ import type {
   EventCodeMeta,
   InscriptionActionArgs,
   InscriptionContext,
-  InscriptionValidation,
+  ValidationResult,
   RestClient,
   RestClientRequest,
   RestContentTypeRequest,
@@ -100,14 +100,14 @@ export interface InscriptionMetaRequestTypes {
 export interface InscriptionRequestTypes extends InscriptionMetaRequestTypes {
   initialize: [void, boolean];
   data: [InscriptionContext, InscriptionData];
-  saveData: [InscriptionSaveData, InscriptionValidation[]];
+  saveData: [InscriptionSaveData, ValidationResult[]];
 
-  validate: [InscriptionContext, InscriptionValidation[]];
+  validate: [InscriptionContext, ValidationResult[]];
 
   action: [InscriptionActionArgs, void];
 }
 
 export interface InscriptionNotificationTypes {
   dataChanged: void;
-  validation: InscriptionValidation[];
+  validation: ValidationResult[];
 }

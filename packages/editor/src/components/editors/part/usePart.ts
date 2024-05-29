@@ -1,4 +1,4 @@
-import type { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ValidationResult } from '@axonivy/inscription-protocol';
 import type { ReactNode } from 'react';
 import { useMemo } from 'react';
 import { deepEqual } from '../../../utils/equals';
@@ -7,7 +7,7 @@ export type PartStateFlag = 'configured' | 'warning' | 'error' | undefined;
 
 export type PartState = {
   state: PartStateFlag;
-  validations: InscriptionValidation[];
+  validations: ValidationResult[];
 };
 
 export type PartProps = {
@@ -18,7 +18,7 @@ export type PartProps = {
   control?: ReactNode;
 };
 
-export function usePartState(defaultData: unknown, data: unknown, validations: InscriptionValidation[]): PartState {
+export function usePartState(defaultData: unknown, data: unknown, validations: ValidationResult[]): PartState {
   const state = useMemo(() => {
     if (validations.find(message => message?.severity === 'ERROR')) {
       return 'error';

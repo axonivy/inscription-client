@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
-import type { ElementData, InscriptionValidation, PermissionsData } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, PermissionsData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { usePermissionsPart } from './PermissionsPart';
 import { describe, test, expect } from 'vitest';
@@ -31,7 +31,7 @@ describe('PermissionsPart', () => {
     expect(screen.getByLabelText('Allow all workflow users to view the process on the Engine')).not.toBeChecked();
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<PermissionsData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<PermissionsData>, validation?: ValidationResult) {
     const { result } = renderHook(() => usePermissionsPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

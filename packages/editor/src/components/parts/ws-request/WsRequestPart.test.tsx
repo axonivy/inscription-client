@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook } from 'test-utils';
-import type { ElementData, InscriptionValidation, WsRequestData } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, WsRequestData } from '@axonivy/inscription-protocol';
 import { useWsRequestPart } from './WsRequestPart';
 import type { PartStateFlag } from '../../editors';
 import { describe, test, expect } from 'vitest';
@@ -22,7 +22,7 @@ describe('WsRequestPart', () => {
     await CollapsableUtil.assertClosed('Mapping');
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<WsRequestData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<WsRequestData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useWsRequestPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

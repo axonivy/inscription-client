@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook } from 'test-utils';
-import type { DbErrorData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { DbErrorData, ValidationResult } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { describe, test, expect } from 'vitest';
 import { useDbErrorPart } from './DbErrorPart';
@@ -22,7 +22,7 @@ describe('DbErrorPart', () => {
     await CollapsableUtil.assertClosed('Error');
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<DbErrorData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<DbErrorData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useDbErrorPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

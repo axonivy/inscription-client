@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, ComboboxUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
-import type { ElementData, InscriptionValidation, ProgramStartData } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, ProgramStartData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { useProgramStartPart } from './ProgramStartPart';
 import { describe, test, expect } from 'vitest';
@@ -39,7 +39,7 @@ describe('StartPart', () => {
     await SelectUtil.assertValue('>> Ignore Exception', { index: 2 });
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProgramStartData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProgramStartData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useProgramStartPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

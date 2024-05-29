@@ -1,6 +1,6 @@
-import type { InscriptionValidation, Severity } from '@axonivy/inscription-protocol';
+import type { ValidationResult, Severity } from '@axonivy/inscription-protocol';
 
-export type ValidationMessage = Omit<InscriptionValidation, 'path'>;
+export type ValidationMessage = Omit<ValidationResult, 'path'>;
 
 export type MessageData = {
   message?: string;

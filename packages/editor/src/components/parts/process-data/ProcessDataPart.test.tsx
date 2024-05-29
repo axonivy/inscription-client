@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
-import type { ElementData, InscriptionValidation, ProcessDataData } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, ProcessDataData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useProcessDataPart } from './ProcessDataPart';
 import { describe, test, expect } from 'vitest';
@@ -29,7 +29,7 @@ describe('ProcessDataPart', () => {
     expect(screen.getByRole('combobox')).toHaveValue('screenshot.project.Order');
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProcessDataData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProcessDataData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useProcessDataPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
