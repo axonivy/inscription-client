@@ -20,8 +20,8 @@ export type IntermediateEventTimeoutAction = "NOTHING" | "DESTROY_TASK" | "CONTI
 export type HttpMethod = "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | "OPTIONS" | "JAX_RS";
 export type InputType = "ENTITY" | "FORM" | "RAW";
 export type WsAuth = "NONE" | "WS_SECURITY" | "HTTP_BASIC";
-export type Severity = "INFO" | "WARNING" | "ERROR";
 export type Type = "START" | "INTERMEDIATE" | "ACTIVITY";
+export type Severity = "INFO" | "WARNING" | "ERROR";
 export type Widget = Script | Label | Text;
 export type WidgetType = "TEXT" | "LABEL" | "SCRIPT";
 
@@ -48,7 +48,6 @@ export interface Inscription {
   inscriptionElementContext: InscriptionElementContext;
   inscriptionRequest: InscriptionRequest;
   inscriptionSaveRequest: InscriptionSaveRequest;
-  inscriptionValidation: InscriptionValidation[];
   javaType: JavaType[];
   programEditorRequest: ProgramEditorRequest;
   programInterface: ProgramInterface[];
@@ -63,8 +62,9 @@ export interface Inscription {
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
-  string: string;
+  string: string[];
   typeSearchRequest: TypeSearchRequest;
+  validationResult: ValidationResult[];
   variableInfo: VariableInfo;
   void: Void;
   webServiceClient: WebServiceClient[];
@@ -708,11 +708,6 @@ export interface InscriptionSaveRequest {
   context: InscriptionElementContext;
   data: Data;
 }
-export interface InscriptionValidation {
-  message: string;
-  path: string;
-  severity: Severity;
-}
 export interface JavaType {
   fullQualifiedName: string;
   packageName: string;
@@ -819,6 +814,11 @@ export interface TypeSearchRequest {
   context: InscriptionContext;
   limit: number;
   type: string;
+}
+export interface ValidationResult {
+  message: string;
+  path: string;
+  severity: Severity;
 }
 export interface Void {}
 export interface WebServiceClient {
