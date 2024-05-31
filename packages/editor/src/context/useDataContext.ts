@@ -1,4 +1,4 @@
-import type { ConfigData, ElementData, InscriptionValidation, WfTask } from '@axonivy/inscription-protocol';
+import type { ConfigData, ElementData, ValidationResult, WfTask } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
 import { createContext, useCallback, useContext } from 'react';
 import type { UpdateConsumer } from '../types/lambda';
@@ -8,7 +8,7 @@ export interface DataContext {
   setData: UpdateConsumer<ElementData>;
   defaultData: ConfigData;
   initData: ElementData;
-  validations: InscriptionValidation[];
+  validations: ValidationResult[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

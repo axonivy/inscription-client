@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { render, renderHook, screen } from 'test-utils';
-import type { ConfigurationData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ConfigurationData, ElementData, ValidationResult } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { useConfigurationPart } from './ConfigurationPart';
 import { describe, test, expect } from 'vitest';
@@ -39,7 +39,7 @@ describe('ConfigurationPart', () => {
     expect(screen.getByDisplayValue('/tmp/myDir')).toBeInTheDocument();
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ConfigurationData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ConfigurationData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useConfigurationPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

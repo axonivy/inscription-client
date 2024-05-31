@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { render, renderHook, screen } from 'test-utils';
-import type { CacheData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { CacheData, ElementData, ValidationResult } from '@axonivy/inscription-protocol';
 import { useCachePart } from './CachePart';
 import type { PartStateFlag } from '../../editors';
 import { describe, test, expect } from 'vitest';
@@ -45,7 +45,7 @@ describe('CachePart', () => {
     expect(screen.getByText('Entry')).toBeInTheDocument();
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<CacheData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<CacheData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useCachePart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

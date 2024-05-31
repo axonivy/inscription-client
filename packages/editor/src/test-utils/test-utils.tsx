@@ -4,7 +4,7 @@ import type {
   ConfigData,
   CallableStart,
   ErrorStartMeta,
-  InscriptionValidation,
+  ValidationResult,
   VariableInfo,
   RoleMeta,
   ConnectorRef,
@@ -46,7 +46,7 @@ type ContextHelperProps = {
   setData?: (data: ElementData) => void;
   defaultData?: DeepPartial<ConfigData>;
   initData?: DeepPartial<ElementData>;
-  validations?: InscriptionValidation[];
+  validations?: ValidationResult[];
   meta?: {
     roleTree?: RoleMeta;
     taskRoles?: RoleMeta[];

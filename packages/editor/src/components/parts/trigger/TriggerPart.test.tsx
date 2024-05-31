@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { render, screen, renderHook, CollapsableUtil, SelectUtil } from 'test-utils';
-import type { ElementData, InscriptionValidation, TriggerData } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, TriggerData } from '@axonivy/inscription-protocol';
 import { useTriggerPart } from './TriggerPart';
 import type { PartStateFlag } from '../../editors';
 import { describe, test, expect } from 'vitest';
@@ -56,7 +56,7 @@ describe('TriggerPart', () => {
     await assertMainPart(true, 'Role from Attr.', 'test');
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<TriggerData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<TriggerData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useTriggerPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

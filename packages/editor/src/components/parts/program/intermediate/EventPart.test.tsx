@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, ComboboxUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
-import type { ElementData, EventData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ElementData, EventData, ValidationResult } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { useEventPart } from './EventPart';
 import { describe, test, expect } from 'vitest';
@@ -43,7 +43,7 @@ describe('EventPart', () => {
     expect(screen.getByRole('radio', { name: 'Delete the Task' })).toBeChecked();
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<EventData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<EventData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useEventPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

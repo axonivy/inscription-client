@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, ComboboxUtil, render, renderHook } from 'test-utils';
-import type { ElementData, ErrorThrowData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ElementData, ErrorThrowData, ValidationResult } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useErrorThrowPart } from './ErrorThrowPart';
 import { describe, test, expect } from 'vitest';
@@ -32,7 +32,7 @@ describe('ErrorThrowPart', () => {
     await assertMainPart('test:code');
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ErrorThrowData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ErrorThrowData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useErrorThrowPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { render, renderHook, screen } from 'test-utils';
-import type { ElementData, InscriptionValidation, WebserviceStartData } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, WebserviceStartData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useWebServicePart } from './WebServicePart';
 import { describe, test, expect } from 'vitest';
@@ -23,7 +23,7 @@ describe('WebServicePart', () => {
     expect(screen.queryByText('Exception')).toBeInTheDocument();
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<WebserviceStartData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<WebserviceStartData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useWebServicePart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

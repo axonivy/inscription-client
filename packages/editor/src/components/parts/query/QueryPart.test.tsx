@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
-import type { InscriptionValidation, QueryData } from '@axonivy/inscription-protocol';
+import type { ValidationResult, QueryData } from '@axonivy/inscription-protocol';
 import { useQueryPart } from './QueryPart';
 import type { PartStateFlag } from '../../editors';
 import { describe, test, expect } from 'vitest';
@@ -120,7 +120,7 @@ describe('QueryPart', () => {
     await assertPage(data);
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<QueryData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<QueryData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useQueryPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

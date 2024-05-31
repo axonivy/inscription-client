@@ -1,7 +1,7 @@
-import type { ElementData, ElementType, InscriptionSaveData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ElementData, ElementType, InscriptionSaveData, ValidationResult } from '@axonivy/inscription-protocol';
 
 export namespace ValidationMock {
-  export function validateData(type: ElementType, data: InscriptionSaveData): InscriptionValidation[] {
+  export function validateData(type: ElementType, data: InscriptionSaveData): ValidationResult[] {
     switch (type) {
       case 'UserTask':
       case 'DialogCall':
@@ -11,15 +11,15 @@ export namespace ValidationMock {
     }
   }
 
-  const validateDialogCallEditor = (data: ElementData): InscriptionValidation[] => {
-    const msgs: InscriptionValidation[] = [];
+  const validateDialogCallEditor = (data: ElementData): ValidationResult[] => {
+    const msgs: ValidationResult[] = [];
     msgs.push(...validateCaseData(data));
     msgs.push(...validateCallData(data));
     return msgs;
   };
 
-  const validateCaseData = (data: ElementData): InscriptionValidation[] => {
-    const msgs: InscriptionValidation[] = [];
+  const validateCaseData = (data: ElementData): ValidationResult[] => {
+    const msgs: ValidationResult[] = [];
     const name = data.config.case?.name;
     const desc = data.config.case?.description;
     if (name === undefined || name.length === 0) {
@@ -31,8 +31,8 @@ export namespace ValidationMock {
     return msgs;
   };
 
-  const validateCallData = (data: ElementData): InscriptionValidation[] => {
-    const msgs: InscriptionValidation[] = [];
+  const validateCallData = (data: ElementData): ValidationResult[] => {
+    const msgs: ValidationResult[] = [];
     if (data.config.dialog === undefined || data.config.dialog.length === 0) {
       msgs.push({ path: 'dialog', severity: 'WARNING', message: 'No User Dialog specified, auto dialog will be shown.' });
       msgs.push({ path: 'call.map.param.procurementRequest', severity: 'WARNING', message: 'Unknown mapping' });

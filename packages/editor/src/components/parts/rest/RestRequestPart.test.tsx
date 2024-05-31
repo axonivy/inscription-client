@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
-import type { ElementData, InscriptionValidation, RestRequestData, RestResource } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, RestRequestData, RestResource } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useRestRequestPart } from './RestRequestPart';
 import { describe, test, expect } from 'vitest';
@@ -40,7 +40,7 @@ describe('RestRequestPart', () => {
     expect(screen.getByText('JAX-RS')).toBeInTheDocument();
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<RestRequestData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<RestRequestData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useRestRequestPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

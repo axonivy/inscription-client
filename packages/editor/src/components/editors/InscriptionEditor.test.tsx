@@ -1,6 +1,6 @@
 import InscriptionEditor from './InscriptionEditor';
 import type { PartProps } from './part/usePart';
-import type { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ValidationResult } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { render, screen, userEvent } from 'test-utils';
 import { describe, test, expect, afterEach, beforeEach, vi } from 'vitest';
@@ -10,7 +10,7 @@ describe('Editor', () => {
     throw new Error('this is an exception');
   };
 
-  function renderEditor(options: { headerState?: InscriptionValidation[] } = {}) {
+  function renderEditor(options: { headerState?: ValidationResult[] } = {}) {
     const parts: PartProps[] = [
       { name: 'Name', content: <h1>Name</h1>, reset: { dirty: false, action: () => {} }, state: { state: undefined, validations: [] } },
       { name: 'Call', content: <h1>Call</h1>, reset: { dirty: false, action: () => {} }, state: { state: undefined, validations: [] } },
@@ -28,7 +28,7 @@ describe('Editor', () => {
   });
 
   test('editor show messages', () => {
-    const headerState: InscriptionValidation[] = [
+    const headerState: ValidationResult[] = [
       { path: '', message: 'this is an error', severity: 'ERROR' },
       { path: '', message: 'this is an warning', severity: 'WARNING' }
     ];
@@ -38,7 +38,7 @@ describe('Editor', () => {
   });
 
   test('editor do not show messages with path', () => {
-    const headerState: InscriptionValidation[] = [{ path: 'output', message: 'message on output', severity: 'ERROR' }];
+    const headerState: ValidationResult[] = [{ path: 'output', message: 'message on output', severity: 'ERROR' }];
     renderEditor({ headerState: headerState });
     expect(screen.queryByTitle(/message on output/i)).not.toBeInTheDocument();
   });

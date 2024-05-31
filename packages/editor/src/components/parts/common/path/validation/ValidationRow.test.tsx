@@ -1,12 +1,12 @@
 import { render, screen } from 'test-utils';
-import type { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ValidationResult } from '@axonivy/inscription-protocol';
 import { describe, test, expect } from 'vitest';
 import { ValidationRow } from './ValidationRow';
 import type { Row } from '@tanstack/react-table';
 
 describe('ValidationRow', () => {
   function renderTable(path: string) {
-    const validations: InscriptionValidation[] = [{ path: 'test.bla', message: 'this is an error', severity: 'ERROR' }];
+    const validations: ValidationResult[] = [{ path: 'test.bla', message: 'this is an error', severity: 'ERROR' }];
     render(
       <table>
         <tbody>

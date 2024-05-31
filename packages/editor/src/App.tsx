@@ -1,7 +1,7 @@
 import './App.css';
 import '@axonivy/ui-icons/src-gen/ivy-icons.css';
 import '@axonivy/ui-components/lib/style.css';
-import type { ElementData, InscriptionData, InscriptionElementContext, InscriptionValidation, PID } from '@axonivy/inscription-protocol';
+import type { ElementData, InscriptionData, InscriptionElementContext, ValidationResult, PID } from '@axonivy/inscription-protocol';
 import { ReadonlyProvider } from '@axonivy/ui-components';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient } from './context';
@@ -74,7 +74,7 @@ function App(props: InscriptionElementContext) {
       }
       return Promise.resolve([]);
     },
-    onSuccess: (data: InscriptionValidation[]) => queryClient.setQueryData(queryKeys.validation(), data)
+    onSuccess: (data: ValidationResult[]) => queryClient.setQueryData(queryKeys.validation(), data)
   });
 
   if (isPending) {

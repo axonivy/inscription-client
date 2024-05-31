@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { render, renderHook, CollapsableUtil, SelectUtil } from 'test-utils';
-import type { ElementData, InscriptionValidation, WsErrorData } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, WsErrorData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useWsErrorPart } from './WsErrorPart';
 import { describe, test, expect } from 'vitest';
@@ -26,7 +26,7 @@ describe('WsResponsePart', () => {
     await SelectUtil.assertValue('ex');
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<WsErrorData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<WsErrorData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useWsErrorPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

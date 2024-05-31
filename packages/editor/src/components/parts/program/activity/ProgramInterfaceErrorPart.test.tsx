@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
-import type { ElementData, InscriptionValidation, ProgramInterfaceStartData } from '@axonivy/inscription-protocol';
+import type { ElementData, ValidationResult, ProgramInterfaceStartData } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../../editors';
 import { useProgramInterfaceErrorPart } from './ProgramInterfaceErrorPart';
 import { describe, test, expect } from 'vitest';
@@ -34,7 +34,7 @@ describe('ProgramInterfaceErrorPart', () => {
     await SelectUtil.assertValue('ivy:error:program:timeout', { index: 1 });
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProgramInterfaceStartData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProgramInterfaceStartData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useProgramInterfaceErrorPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

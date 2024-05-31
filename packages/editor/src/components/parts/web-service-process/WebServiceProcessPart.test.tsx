@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
-import type { WebServiceProcessData, ElementData, InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { WebServiceProcessData, ElementData, ValidationResult } from '@axonivy/inscription-protocol';
 import type { PartStateFlag } from '../../editors';
 import { useWebServiceProcessPart } from './WebServiceProcessPart';
 import { describe, test, expect } from 'vitest';
@@ -32,7 +32,7 @@ describe('WebServiceProcessPart', () => {
     expect(screen.getByRole('radio', { name: 'HTTP Basic' })).toBeChecked();
   });
 
-  function assertState(expectedState: PartStateFlag, data?: DeepPartial<WebServiceProcessData>, validation?: InscriptionValidation) {
+  function assertState(expectedState: PartStateFlag, data?: DeepPartial<WebServiceProcessData>, validation?: ValidationResult) {
     const { result } = renderHook(() => useWebServiceProcessPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });

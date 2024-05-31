@@ -5,7 +5,7 @@ import type {
   InscriptionNotificationTypes,
   InscriptionRequestTypes,
   InscriptionSaveData,
-  InscriptionValidation,
+  ValidationResult,
   InscriptionMetaRequestTypes,
   InscriptionElementContext,
   Event
@@ -22,8 +22,8 @@ import {
 export class InscriptionClientJsonRpc extends BaseRpcClient implements InscriptionClient {
   protected onDataChangedEmitter = new Emitter<void>();
   onDataChanged: Event<void> = this.onDataChangedEmitter.event;
-  protected onValidationEmitter = new Emitter<InscriptionValidation[]>();
-  onValidation: Event<InscriptionValidation[]> = this.onValidationEmitter.event;
+  protected onValidationEmitter = new Emitter<ValidationResult[]>();
+  onValidation: Event<ValidationResult[]> = this.onValidationEmitter.event;
 
   protected override setupConnection(): void {
     super.setupConnection();
@@ -41,11 +41,11 @@ export class InscriptionClientJsonRpc extends BaseRpcClient implements Inscripti
     return this.sendRequest('data', { ...context });
   }
 
-  saveData(saveData: InscriptionSaveData): Promise<InscriptionValidation[]> {
+  saveData(saveData: InscriptionSaveData): Promise<ValidationResult[]> {
     return this.sendRequest('saveData', { ...saveData });
   }
 
-  validate(context: InscriptionElementContext): Promise<InscriptionValidation[]> {
+  validate(context: InscriptionElementContext): Promise<ValidationResult[]> {
     return this.sendRequest('validate', { ...context });
   }
 

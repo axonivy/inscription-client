@@ -1,11 +1,11 @@
 import { renderHook } from 'test-utils';
 import type { PartStateFlag } from './usePart';
 import { usePartState } from './usePart';
-import type { InscriptionValidation } from '@axonivy/inscription-protocol';
+import type { ValidationResult } from '@axonivy/inscription-protocol';
 import { describe, test, expect } from 'vitest';
 
 describe('PartState', () => {
-  function assertState(expectedState: PartStateFlag, data?: unknown, message?: InscriptionValidation[]) {
+  function assertState(expectedState: PartStateFlag, data?: unknown, message?: ValidationResult[]) {
     const { result } = renderHook(() => usePartState({}, data ?? {}, message ?? []));
     expect(result.current.state).toEqual(expectedState);
   }
