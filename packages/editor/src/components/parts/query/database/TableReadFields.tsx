@@ -14,7 +14,7 @@ type Column = Omit<DatabaseColumn, 'ivyType'> & {
 
 export const TableReadFields = () => {
   const { config, updateSql } = useQueryData();
-  const selectAll = config.query.sql.select?.length === 1 && config.query.sql.select[0] === '*';
+  const selectAll = !config.query.sql.select || (config.query.sql.select?.length === 1 && config.query.sql.select[0] === '*');
 
   const { elementContext: context } = useEditorContext();
   const columnMetas = useMeta('meta/database/columns', { context, database: config.query.dbName, table: config.query.sql.table }, []).data;
