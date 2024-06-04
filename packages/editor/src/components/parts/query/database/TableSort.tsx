@@ -43,7 +43,7 @@ export const TableSort = () => {
   const orderItems = useMemo<SelectItem[]>(() => Object.entries(QUERY_ORDER).map(([label, value]) => ({ label, value })), []);
 
   useEffect(() => {
-    const data = config.query.sql.orderBy.map<Column>(order => {
+    const data = config.query.sql.orderBy?.map<Column>(order => {
       const parts = order.split(' ');
       const name = parts[0];
       let sorting: OrderDirection = 'ASCENDING';
@@ -52,7 +52,7 @@ export const TableSort = () => {
       }
       return { name, sorting };
     });
-    setData(data);
+    setData(data ?? []);
   }, [config.query.sql.orderBy]);
 
   const columns = useMemo<ColumnDef<Column, string>[]>(

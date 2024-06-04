@@ -14,7 +14,7 @@ export const Condition = () => {
       <PathCollapsible
         label='Condition'
         controls={[maximizeCode]}
-        defaultOpen={config.query.sql.condition !== defaultConfig.query.sql.condition}
+        defaultOpen={config.query.sql.condition !== defaultConfig.query.sql.condition && config.query.sql.condition !== undefined}
         path='condition'
       >
         <ValidationFieldset>
