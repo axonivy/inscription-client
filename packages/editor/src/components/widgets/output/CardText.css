@@ -12,8 +12,12 @@
   overflow: hidden;
   min-height: 14px;
 }
+
+.card-text > .card-text-line {
+  line-height: 25px;
+}
+
 .card-text .card-text-line {
-  height: 20px;
   white-space: pre-wrap;
 }
 
@@ -30,6 +34,5 @@
   margin-right: var(--size-1);
   display: inline-block;
   width: 1em;
-  height: 1em;
-  vertical-align: bottom;
+  vertical-align: middle;
 }
