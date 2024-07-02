@@ -88,8 +88,12 @@ test.describe('Email', () => {
 });
 
 test.describe('Rule', () => {
-  test.skip('Call Tab', async ({ page }) => {
-    await screenshotAccordion(page, INTERFACE_PID.RULE, 'Call', 'rule-tab-call.png');
+  test('Error Tab', async ({ page }) => {
+    await screenshotAccordion(page, INTERFACE_PID.RULE, 'Error', 'rule-tab-error.png');
+  });
+
+  test('Configuration Tab', async ({ page }) => {
+    await screenshotAccordion(page, INTERFACE_PID.RULE, 'Configuration', 'rule-tab-configuration.png');
   });
 });
 
