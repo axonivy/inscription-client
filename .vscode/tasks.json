@@ -7,9 +7,6 @@
       "label": "Start Dev Server",
       "type": "shell",
       "command": "yarn dev",
-      "windows": {
-        "command": "yarn standalone start:mock:win"
-      },
       "problemMatcher": [
         {
           "owner": "typescript",

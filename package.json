@@ -20,7 +20,7 @@
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
     "lint:fix": "lerna run lint:fix --",
     "standalone": "yarn -s --cwd integrations/standalone",
-    "dev": "yarn standalone start:mock",
+    "dev": "yarn standalone start",
     "generate": "lerna run generate",
     "protocol": "yarn --cwd packages/protocol",
     "test": "yarn --cwd packages/editor test",

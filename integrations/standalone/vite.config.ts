@@ -23,7 +23,7 @@ export default defineConfig(() => {
         }
       }
     },
-    server: { port: 3000, open: true },
+    server: { port: 3000 },
     resolve: {
       alias: {
         path: 'path-browserify',
@@ -40,8 +40,5 @@ export default defineConfig(() => {
       ]
     }
   };
-  if (process.env.MOCK) {
-    config.server!.open = false;
-  }
   return config;
 });

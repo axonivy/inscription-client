@@ -13,9 +13,10 @@ export default defineConfig(defaultConfig, {
       }
     }
   ],
+  timeout: 1000 * 60,
   webServer: {
-    command: 'yarn start',
-    url: 'http://localhost:3000',
+    command: 'yarn serve',
+    url: process.env.CI ? 'http://localhost:4173' : 'http://localhost:3000',
     reuseExistingServer: !process.env.CI
   }
 });
