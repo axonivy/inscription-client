@@ -4,7 +4,7 @@ import { memo, useEffect, useState } from 'react';
 import './Combobox.css';
 import { usePath } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { Button, Input, useField, useReadonly } from '@axonivy/ui-components';
+import { Button, Input, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, useField, useReadonly } from '@axonivy/ui-components';
 import { SingleLineCodeEditor } from '../code-editor';
 import { useMonacoEditor } from '../code-editor/useCodeEditor';
 import type { BrowserType } from '../../../components/browser';
@@ -13,8 +13,14 @@ import { CardText } from '../output/CardText';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import type { BrowserValue } from '../../browser/Browser';
 
+interface TooltipProps {
+  main: string;
+  additional?: string;
+}
+
 export interface ComboboxItem {
   value: string;
+  tooltip?: TooltipProps;
 }
 
 export type ComboboxProps<T extends ComboboxItem> = Omit<ComponentPropsWithRef<'input'>, 'value' | 'onChange'> & {
@@ -65,7 +71,7 @@ const Combobox = <T extends ComboboxItem>({
         switch (actionAndChanges.type) {
           case useCombobox.stateChangeTypes.InputBlur:
           case useCombobox.stateChangeTypes.InputKeyDownEnter:
-            selectItem({ value: actionAndChanges.changes.inputValue ?? '' });
+            selectItem({ value: actionAndChanges.changes.inputValue ?? '', tooltip: undefined } as T);
         }
         return actionAndChanges.changes;
       },
@@ -81,12 +87,12 @@ const Combobox = <T extends ComboboxItem>({
       itemToString(item) {
         return item?.value ?? '';
       },
-      initialSelectedItem: { value }
+      initialSelectedItem: { value, tooltip: undefined } as T
     });
 
   useEffect(() => {
     if (!updateOnInputChange || updateOnInputChange == undefined) {
-      selectItem({ value });
+      selectItem({ value, tooltip: undefined } as T);
       setFilteredItems(items);
     }
   }, [updateOnInputChange, items, selectItem, value]);
@@ -132,17 +138,43 @@ const Combobox = <T extends ComboboxItem>({
       </div>
       <ul {...getMenuProps()} className='combobox-menu'>
         {isOpen &&
-          filteredItems.map((item, index) => (
-            <li
-              className={`combobox-menu-entry ${highlightedIndex === index ? 'hover' : ''} ${
-                selectedItem?.value === item.value ? 'selected' : ''
-              }`}
-              key={`${item.value}${index}`}
-              {...getItemProps({ item, index })}
-            >
-              {option(item)}
-            </li>
-          ))}
+          filteredItems.map((item, index) =>
+            item.tooltip ? (
+              <TooltipProvider key={`${item.value}${index}`}>
+                <Tooltip delayDuration={700}>
+                  <TooltipTrigger asChild>
+                    <li
+                      className={`combobox-menu-entry ${highlightedIndex === index ? 'hover' : ''} ${
+                        selectedItem?.value === item.value ? 'selected' : ''
+                      }`}
+                      {...getItemProps({ item, index })}
+                    >
+                      {option(item)}
+                    </li>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <span>{item.tooltip.main}</span>
+                    {item.tooltip && item.tooltip.additional && (
+                      <>
+                        <br />
+                        <span className='tooltip-additional'>{item.tooltip.additional}</span>
+                      </>
+                    )}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ) : (
+              <li
+                key={`${item.value}${index}`}
+                className={`combobox-menu-entry ${highlightedIndex === index ? 'hover' : ''} ${
+                  selectedItem?.value === item.value ? 'selected' : ''
+                }`}
+                {...getItemProps({ item, index })}
+              >
+                {option(item)}
+              </li>
+            )
+          )}
       </ul>
     </div>
   );

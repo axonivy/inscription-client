@@ -17,7 +17,11 @@ const CallSelect = ({ start, onChange, starts, startIcon }: CallSelectProps) => 
   const items = useMemo<CallableStartItem[]>(
     () =>
       starts.map(start => {
-        return { ...start, value: start.id };
+        return {
+          ...start,
+          value: start.id,
+          tooltip: { main: `${start.process} : ${start.startName}`, additional: `${start.project} ${start.packageName}` }
+        };
       }),
     [starts]
   );
@@ -39,9 +43,9 @@ const CallSelect = ({ start, onChange, starts, startIcon }: CallSelectProps) => 
       <>
         <div>
           <IvyIcon icon={startIcon} />
-          <span style={item.deprecated ? { textDecoration: 'line-through' } : {}}>{item.process}</span>
+          <span style={item.deprecated ? { textDecoration: 'line-through' } : {}}>{`${item.process} : ${item.startName} `}</span>
         </div>
-        <div className='combobox-menu-entry-additional'>{` : ${item.startName} - ${item.packageName}`}</div>
+        <div className='combobox-menu-entry-additional'>{`[${item.project} ${item.packageName}]`}</div>
       </>
     );
   };
