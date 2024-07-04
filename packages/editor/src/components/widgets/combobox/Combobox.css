@@ -34,7 +34,8 @@
 .combobox-menu-entry {
   padding: 0.5rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: var(--size-2);
   cursor: pointer;
   --basic-border: 1px solid var(--N200);
@@ -51,12 +52,13 @@
   color: var(--background);
 }
 .combobox-menu-entry-additional {
-  color: var(--seperator-color);
+  color: var(--N500);
 }
 .combobox-menu-entry > div {
   display: flex;
   align-items: center;
   gap: var(--size-1);
+  word-break: break-all;
 }
 .combobox-menu-entry .ivy {
   font-size: 1rem;

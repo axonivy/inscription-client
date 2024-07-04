@@ -18,13 +18,9 @@ const ClassificationCombobox = ({ value, onChange, data, icon, withBrowser }: Cl
       <>
         <div>
           {icon && <IvyIcon icon={icon} />}
-          {item.label ? item.label : item.value}
+          <span>{item.label ? item.label : item.value}</span>
         </div>
-        {item.info && (
-          <div>
-            <span className='combobox-menu-entry-additional'>{item.info}</span>
-          </div>
-        )}
+        {item.info && <div className='combobox-menu-entry-additional'>{` - ${item.info}`}</div>}
       </>
     );
   };

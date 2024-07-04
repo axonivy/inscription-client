@@ -39,11 +39,9 @@ const CallSelect = ({ start, onChange, starts, startIcon }: CallSelectProps) => 
       <>
         <div>
           <IvyIcon icon={startIcon} />
-          <span style={item.deprecated ? { textDecoration: 'line-through' } : {}}>{item.startName}</span>
+          <span style={item.deprecated ? { textDecoration: 'line-through' } : {}}>{item.process}</span>
         </div>
-        <div>
-          <span className='combobox-menu-entry-additional'>{`${item.project} > ${item.packageName}.${item.process}`}</span>
-        </div>
+        <div className='combobox-menu-entry-additional'>{` : ${item.startName} - ${item.packageName}`}</div>
       </>
     );
   };

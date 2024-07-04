@@ -21,11 +21,7 @@ export const ExceptionCombobox = ({ value, onChange, items, ...props }: Exceptio
           {item.icon && <IvyIcon icon={item.icon} />}
           {item.label}
         </div>
-        {item.info && (
-          <div>
-            <span className='combobox-menu-entry-additional'>{item.info}</span>
-          </div>
-        )}
+        {item.info && <div className='combobox-menu-entry-additional'>{` - ${item.info}`}</div>}
       </>
     );
   };

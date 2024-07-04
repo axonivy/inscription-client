@@ -19,13 +19,7 @@ const DataClassSelector = ({ dataClass, onChange, dataClasses }: DataClassSelect
           <IvyIcon icon={IvyIcons.DataClass} />
           {item.name}
         </div>
-        {item.packageName && (
-          <div>
-            <span className='combobox-menu-entry-additional'>{item.packageName}</span>
-            <span className='combobox-menu-entry-additional'> - </span>
-            <span className='combobox-menu-entry-additional'>{item.path}</span>
-          </div>
-        )}
+        {item.packageName && <div className='combobox-menu-entry-additional'>{`${item.packageName} - ${item.path}`}</div>}
       </>
     );
   };

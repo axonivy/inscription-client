@@ -29,11 +29,7 @@ export const RestMethodSelect = () => {
           <span className='combobox-method'>{item.method.httpMethod}</span>
           {item.path}
         </div>
-        {item.doc && item.doc.length > 0 && (
-          <div>
-            <span className='combobox-menu-entry-additional'>{item.doc}</span>
-          </div>
-        )}
+        {item.doc && item.doc.length > 0 && <div className='combobox-menu-entry-additional'>{` - ${item.doc}`}</div>}
       </>
     );
   };
