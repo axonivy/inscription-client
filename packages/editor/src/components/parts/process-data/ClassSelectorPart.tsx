@@ -13,13 +13,14 @@ type DataClassSelectorProps = {
 
 const DataClassSelector = ({ dataClass, onChange, dataClasses }: DataClassSelectorProps) => {
   const comboboxItem = (item: DataClassItem) => {
+    const tooltip = `${item.name} ${item.packageName ? `${item.packageName} - ${item.path}` : ''}`;
     return (
       <>
-        <div>
+        <div title={tooltip} aria-label={tooltip}>
           <IvyIcon icon={IvyIcons.DataClass} />
-          {item.name}
+          <span>{item.name}</span>
+          {item.packageName && <span className='combobox-menu-entry-additional'>{`${item.packageName} - ${item.path}`}</span>}
         </div>
-        {item.packageName && <div className='combobox-menu-entry-additional'>{`${item.packageName} - ${item.path}`}</div>}
       </>
     );
   };

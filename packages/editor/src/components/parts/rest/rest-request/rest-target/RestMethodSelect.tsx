@@ -23,13 +23,14 @@ export const RestMethodSelect = () => {
   const methodItems = useMemo<SelectItem[]>(() => Object.entries(HTTP_METHOD).map(([value, label]) => ({ label, value })), []);
 
   const comboboxItem = (item: RestMethodItem) => {
+    const tooltip = `${item.method.httpMethod} ${item.path}${item.doc && item.doc.length > 0 ? ` - ${item.doc}` : ''}`;
     return (
       <>
-        <div>
+        <div title={tooltip} aria-label={tooltip}>
           <span className='combobox-method'>{item.method.httpMethod}</span>
-          {item.path}
+          <span>{item.path}</span>
+          {item.doc && item.doc.length > 0 && <span className='combobox-menu-entry-additional'>{` - ${item.doc}`}</span>}
         </div>
-        {item.doc && item.doc.length > 0 && <div className='combobox-menu-entry-additional'>{` - ${item.doc}`}</div>}
       </>
     );
   };

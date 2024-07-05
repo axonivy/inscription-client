@@ -15,13 +15,14 @@ export type ExceptionItem = {
 
 export const ExceptionCombobox = ({ value, onChange, items, ...props }: ExceptionComboboxProps) => {
   const comboboxItem = (item: ExceptionItem) => {
+    const tooltip = `${item.label}${item.info ? ` - ${item.info}` : ''}`;
     return (
       <>
-        <div>
+        <div title={tooltip} aria-label={tooltip}>
           {item.icon && <IvyIcon icon={item.icon} />}
-          {item.label}
+          <span>{item.label}</span>
+          {item.info && <span className='combobox-menu-entry-additional'>{` - ${item.info}`}</span>}
         </div>
-        {item.info && <div className='combobox-menu-entry-additional'>{` - ${item.info}`}</div>}
       </>
     );
   };
