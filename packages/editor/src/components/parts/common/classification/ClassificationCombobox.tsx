@@ -14,13 +14,14 @@ type ClassificatioComboboxProps = {
 
 const ClassificationCombobox = ({ value, onChange, data, icon, withBrowser }: ClassificatioComboboxProps) => {
   const comboboxItem = (item: ClassifiedItem) => {
+    const tooltip = `${item.label ? item.label : item.value}${item.info ?? ` - ${item.info}`}`;
     return (
       <>
-        <div>
+        <div title={tooltip} aria-label={tooltip}>
           {icon && <IvyIcon icon={icon} />}
           <span>{item.label ? item.label : item.value}</span>
+          {item.info && <span className='combobox-menu-entry-additional'>{` - ${item.info}`}</span>}
         </div>
-        {item.info && <div className='combobox-menu-entry-additional'>{` - ${item.info}`}</div>}
       </>
     );
   };

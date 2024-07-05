@@ -35,13 +35,14 @@ const CallSelect = ({ start, onChange, starts, startIcon }: CallSelectProps) => 
   };
 
   const comboboxItem = (item: CallableStartItem) => {
+    const tooltip = `${item.process} : ${item.startName} - ${item.packageName}`;
     return (
       <>
-        <div>
+        <div title={tooltip} aria-label={tooltip}>
           <IvyIcon icon={startIcon} />
-          <span style={item.deprecated ? { textDecoration: 'line-through' } : {}}>{item.process}</span>
+          <span style={item.deprecated ? { textDecoration: 'line-through' } : {}}>{`${item.process} : ${item.startName} `}</span>
+          <span className='combobox-menu-entry-additional'>{` - ${item.packageName}`}</span>
         </div>
-        <div className='combobox-menu-entry-additional'>{` : ${item.startName} - ${item.packageName}`}</div>
       </>
     );
   };
