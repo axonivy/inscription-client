@@ -1,8 +1,0 @@
-AddContactData #class
-ch.ivyteam.documentation.project #namespace
-organisation String #field
-organisation PERSISTENT #fieldModifier
-persons List<String> #field
-persons PERSISTENT #fieldModifier
-addPerson String #field
-addPerson PERSISTENT #fieldModifier

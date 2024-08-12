@@ -1,6 +1,0 @@
-Mailer #class
-screenshot.project #namespace
-subject String #field
-error ch.ivyteam.ivy.bpm.error.BpmError #field
-user ch.ivyteam.test.Person #field
-documents java.util.List<File> #field

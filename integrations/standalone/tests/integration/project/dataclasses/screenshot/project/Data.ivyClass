@@ -1,4 +1,0 @@
-Data #class
-screenshot.project #namespace
-city String #field
-city PERSISTENT #fieldModifier

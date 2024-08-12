@@ -1,4 +1,0 @@
-JaxWsServiceCallData #class
-com.axonivy #namespace
-user ch.ivyteam.test.Person #field
-user PERSISTENT #fieldModifier

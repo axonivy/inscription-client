@@ -1,4 +1,0 @@
-SignalElementsDataClass #class
-screenshot.project #namespace
-user screenshot.project.User #field
-user PERSISTENT #fieldModifier

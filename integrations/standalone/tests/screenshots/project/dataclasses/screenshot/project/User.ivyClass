@@ -1,4 +1,0 @@
-User #class
-screenshot.project #namespace
-userKey String #field
-userKey PERSISTENT #fieldModifier
