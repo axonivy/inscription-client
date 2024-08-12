@@ -1,7 +1,0 @@
-CreditDossier #class
-ch.ivyteam.ivy.business.data.store.context.BusinessCaseData #classAnnotation
-com.axonivy #namespace
-customer ch.ivyteam.test.Person #field
-customer PERSISTENT #fieldModifier
-needsApproval Boolean #field
-needsApproval PERSISTENT #fieldModifier

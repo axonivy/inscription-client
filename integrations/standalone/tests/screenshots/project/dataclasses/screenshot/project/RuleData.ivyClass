@@ -1,4 +1,0 @@
-RuleData #class
-screenshot.project #namespace
-member screenshot.project.Member #field
-member PERSISTENT #fieldModifier
