@@ -91,7 +91,7 @@ describe('Part', () => {
     if (state) {
       expect(screen.getByRole('button', { name: accordionName }).querySelector('.ui-state-dot')).toHaveAttribute('data-state', state);
     } else {
-      expect(screen.getByRole('button', { name: accordionName }).querySelector('.ui-state-dot')).toBeNull;
+      expect(screen.getByRole('button', { name: accordionName }).querySelector('.ui-state-dot')).not.toHaveAttribute('data-state');
     }
   }
 });

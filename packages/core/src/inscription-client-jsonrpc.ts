@@ -61,7 +61,11 @@ export class InscriptionClientJsonRpc extends BaseRpcClient implements Inscripti
   }
 
   sendNotification<K extends keyof InscriptionRequestTypes>(command: K, args: InscriptionRequestTypes[K][0]): void {
-    args === undefined ? this.connection.sendNotification(command) : this.connection.sendNotification(command, args);
+    if (args === undefined) {
+      this.connection.sendNotification(command);
+    } else {
+      this.connection.sendNotification(command, args);
+    }
   }
 
   sendRequest<K extends keyof InscriptionRequestTypes>(

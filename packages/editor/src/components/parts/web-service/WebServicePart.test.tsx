@@ -61,6 +61,6 @@ describe('WebServicePart', () => {
 
     view.result.current.reset.action();
     expect(data.config?.exception?.message).toEqual('');
-    expect(data.config?.exception?.enabled).toBeFalsy;
+    expect(data.config?.exception?.enabled).toBeFalsy();
   });
 });

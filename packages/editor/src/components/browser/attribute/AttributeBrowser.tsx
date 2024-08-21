@@ -45,9 +45,11 @@ const AttributeBrowser = ({
   const [showHelper, setShowHelper] = useState(false);
 
   useEffect(() => {
-    location.endsWith('code')
-      ? setVarInfo({ variables: [...inVarInfo.variables, ...outVarInfo.variables], types: { ...inVarInfo.types, ...outVarInfo.types } })
-      : setVarInfo(inVarInfo);
+    if (location.endsWith('code')) {
+      setVarInfo({ variables: [...inVarInfo.variables, ...outVarInfo.variables], types: { ...inVarInfo.types, ...outVarInfo.types } });
+    } else {
+      setVarInfo(inVarInfo);
+    }
   }, [inVarInfo, outVarInfo, location]);
 
   useEffect(() => {
