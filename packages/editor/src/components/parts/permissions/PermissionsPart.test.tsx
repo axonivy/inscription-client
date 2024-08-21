@@ -61,6 +61,6 @@ describe('PermissionsPart', () => {
     expect(view.result.current.reset.dirty).toEqual(true);
 
     view.result.current.reset.action();
-    expect(data.config?.permissions?.view?.allowed).toBeTruthy;
+    expect(data.config?.permissions?.view?.allowed).toBeTruthy();
   });
 });

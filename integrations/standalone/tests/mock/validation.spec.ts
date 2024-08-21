@@ -3,8 +3,8 @@ import { InscriptionView } from '../pageobjects/InscriptionView';
 
 test.describe('Validations', () => {
   const normalColor = 'rgb(231, 231, 231)';
-  const errorColor = 'rgb(238, 74, 82)';
-  const warningColor = 'rgb(255, 172, 94)';
+  const errorColor = 'rgb(229, 21, 28)';
+  const warningColor = 'rgb(255, 115, 0)';
 
   test('case', async ({ page }) => {
     const inscriptionView = await InscriptionView.mock(page);
