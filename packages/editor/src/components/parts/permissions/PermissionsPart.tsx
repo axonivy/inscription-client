@@ -1,5 +1,4 @@
-import type { PartProps } from '../../../components/editors';
-import { usePartDirty, usePartState } from '../../../components/editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
 import { Checkbox, Collapsible } from '../../../components/widgets';
 import { usePermissionsData } from './usePermissionsData';
 import type { PermissionsData } from '@axonivy/inscription-protocol';

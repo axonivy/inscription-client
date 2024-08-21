@@ -1,8 +1,7 @@
 import type { HttpMethod, RestRequestData } from '@axonivy/inscription-protocol';
 import { Field, Label, Switch } from '@axonivy/ui-components';
 import { PathContext, useEditorContext, useMeta, useOpenApi, useValidations } from '../../../context';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useRestRequestData } from './useRestRequestData';
 import { RestClientSelect } from './rest-request/rest-target/RestClientSelect';
 import { RestMethodSelect } from './rest-request/rest-target/RestMethodSelect';

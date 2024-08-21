@@ -1,31 +1,14 @@
-import InscriptionEditor from './InscriptionEditor';
-import type { PartProps } from './part/usePart';
 import type { ValidationResult } from '@axonivy/inscription-protocol';
-import { IvyIcons } from '@axonivy/ui-icons';
 import { render, screen, userEvent } from 'test-utils';
-import { describe, test, expect, afterEach, beforeEach, vi } from 'vitest';
+import { describe, test, expect } from 'vitest';
+import { InscriptionEditor, type InscriptionEditorProps } from './InscriptionEditor';
 
 describe('Editor', () => {
-  const ErrorWidget = () => {
-    throw new Error('this is an exception');
-  };
-
-  function renderEditor(options: { headerState?: ValidationResult[] } = {}) {
-    const parts: PartProps[] = [
-      { name: 'Name', content: <h1>Name</h1>, reset: { dirty: false, action: () => {} }, state: { state: undefined, validations: [] } },
-      { name: 'Call', content: <h1>Call</h1>, reset: { dirty: false, action: () => {} }, state: { state: undefined, validations: [] } },
-      { name: 'Result', content: <ErrorWidget />, reset: { dirty: false, action: () => {} }, state: { state: undefined, validations: [] } }
-    ];
-    render(<InscriptionEditor icon={IvyIcons.Plus} parts={parts} />, {
+  function renderEditor(options: { headerState?: ValidationResult[]; outline?: InscriptionEditorProps } = {}) {
+    render(<InscriptionEditor outline={options.outline} />, {
       wrapperProps: { validations: options.headerState, editor: { title: 'Test Editor' } }
     });
   }
-
-  test('editor will render', () => {
-    renderEditor();
-    expect(screen.getByText(/Test Editor/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Name' })).toHaveAttribute('data-state', 'closed');
-  });
 
   test('editor show messages', () => {
     const headerState: ValidationResult[] = [
@@ -43,22 +26,18 @@ describe('Editor', () => {
     expect(screen.queryByTitle(/message on output/i)).not.toBeInTheDocument();
   });
 
-  describe('Editor with errors', () => {
-    const original = console.error;
+  test('no outline', () => {
+    renderEditor();
+    expect(screen.getByText('Test Editor')).toBeInTheDocument();
+    expect(screen.queryByRole('switch')).not.toBeInTheDocument();
+  });
 
-    beforeEach(() => {
-      console.error = vi.fn();
-    });
+  test('outline', async () => {
+    renderEditor({ outline: { outline: [{ id: 'test', title: 'test node', children: [] }] } });
+    expect(screen.getByText('Test Editor')).toBeInTheDocument();
+    expect(screen.queryByRole('row', { name: 'test node' })).not.toBeInTheDocument();
 
-    afterEach(() => {
-      console.error = original;
-    });
-
-    test('editor part render error', async () => {
-      renderEditor();
-      await userEvent.click(screen.getByRole('button', { name: 'Result' }));
-      expect(screen.getByRole('alert')).toHaveTextContent('this is an exception');
-      expect(console.error).toHaveBeenCalled();
-    });
+    await userEvent.click(screen.getByRole('switch'));
+    expect(screen.getByRole('row', { name: 'test node' })).toBeInTheDocument();
   });
 });

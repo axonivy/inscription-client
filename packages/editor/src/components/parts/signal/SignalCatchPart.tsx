@@ -1,6 +1,5 @@
 import { IvyIcons } from '@axonivy/ui-icons';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { Checkbox } from '../../widgets';
 import { useSignalCatchData } from './useSignalCatchData';
 import { useEditorContext, useMeta, useValidations } from '../../../context';

@@ -1,5 +1,4 @@
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { ScriptArea, ScriptInput } from '../../widgets';
 import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';

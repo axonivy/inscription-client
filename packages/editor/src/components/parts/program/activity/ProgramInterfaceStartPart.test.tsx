@@ -1,7 +1,7 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, ComboboxUtil, render, renderHook } from 'test-utils';
 import type { ElementData, ValidationResult, ProgramInterfaceStartData } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../../editors';
+import type { PartStateFlag } from '../../../editors/part/usePart';
 import { useProgramInterfaceStartPart } from './ProgramInterfaceStartPart';
 import { describe, test, expect } from 'vitest';
 

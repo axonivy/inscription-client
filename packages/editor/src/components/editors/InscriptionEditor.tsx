@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { memo } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
+import { useState } from 'react';
 import './InscriptionEditor.css';
 import type { ElementType, Severity } from '@axonivy/inscription-protocol';
 import NoEditor from './NoEditor';
@@ -9,13 +9,13 @@ import { gatewayEditors } from './gateway/all-gateway-editors';
 import { useAction, useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useGeneralData } from '../parts/name/useGeneralData';
-import Part from './part/Part';
-import type { PartProps } from './part/usePart';
 import { otherEditors } from './other-editors';
 import { thirdPartyEditors } from './third-party/all-third-party-editors';
-import { Button, Flex, Message, SidebarHeader, SidebarMessages } from '@axonivy/ui-components';
+import { Button, Flex, Message, Outline, SidebarHeader, SidebarMessages, Switch } from '@axonivy/ui-components';
 
-const editors = new Map<ElementType, ReactNode>([
+export type KnownEditor = { editor: ReactNode; icon?: IvyIcons };
+
+const editors = new Map<ElementType, KnownEditor>([
   ...eventEditors,
   ...gatewayEditors,
   ...activityEditors,
@@ -23,30 +23,27 @@ const editors = new Map<ElementType, ReactNode>([
   ...otherEditors
 ]);
 
-export const inscriptionEditor = (type?: ElementType): ReactNode => {
+const inscriptionEditor = (type?: ElementType): ReactNode => {
   if (type) {
-    return editors.get(type) ?? <NoEditor type={type} />;
+    return editors.get(type)?.editor ?? <NoEditor type={type} />;
   }
   return <NoEditor />;
 };
 
-export interface EditorProps {
-  icon?: IvyIcons;
-  parts: PartProps[];
-}
-
-const Header = ({ icon }: Pick<EditorProps, 'icon'>) => {
+const Header = ({ children }: { children?: ReactNode }) => {
   const { data } = useGeneralData();
   const validations = useDataContext().validations.filter(val => val.path.length === 0);
-  const editorContext = useEditorContext();
-  const helpUrl = editorContext.type.helpUrl;
+  const { type } = useEditorContext();
+  const helpUrl = type.helpUrl;
   const action = useAction('openPage');
-  const title = `${editorContext.type.shortLabel}${data.name.length > 0 ? ` - ${data.name}` : ''}`;
+  const title = type.id?.length === 0 ? 'Inscription' : `${type.shortLabel}${data.name?.length > 0 ? ` - ${data.name}` : ''}`;
+  const icon = editors.get(type.id)?.icon;
   return (
     <>
       <SidebarHeader title={title} icon={icon} className='header'>
+        {children}
         {helpUrl !== undefined && helpUrl !== '' && (
-          <Button icon={IvyIcons.Help} onClick={() => action(helpUrl)} aria-label={`Open Help for ${editorContext.type.shortLabel}`} />
+          <Button icon={IvyIcons.Help} onClick={() => action(helpUrl)} aria-label={`Open Help for ${type.shortLabel}`} />
         )}
       </SidebarHeader>
       {validations.length > 0 && (
@@ -60,13 +57,17 @@ const Header = ({ icon }: Pick<EditorProps, 'icon'>) => {
   );
 };
 
-const InscriptionEditor = ({ icon, parts }: EditorProps) => (
-  <Flex direction='column' className='editor'>
-    <Header icon={icon} />
-    <Flex direction='column' className='content'>
-      <Part parts={parts} />
-    </Flex>
-  </Flex>
-);
+export type InscriptionEditorProps = Omit<ComponentProps<typeof Outline>, 'onDoubleClick'>;
 
-export default memo(InscriptionEditor);
+export const InscriptionEditor = ({ outline }: { outline?: Omit<ComponentProps<typeof Outline>, 'onDoubleClick'> }) => {
+  const { type } = useEditorContext();
+  const [showOutline, setShowOutline] = useState(false);
+  return (
+    <Flex direction='column' className='editor' style={{ height: '100%' }}>
+      <Header>
+        {outline && <Switch size='large' icon={{ icon: IvyIcons.List }} checked={showOutline} onCheckedChange={setShowOutline} />}
+      </Header>
+      {outline && showOutline ? <Outline {...outline} onDoubleClick={() => setShowOutline(false)} /> : inscriptionEditor(type.id)}
+    </Flex>
+  );
+};

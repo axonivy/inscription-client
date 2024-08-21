@@ -1,6 +1,5 @@
 import { IVY_EXCEPTIONS, type DbErrorData } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../../components/editors';
-import { usePartDirty, usePartState } from '../../../../components/editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../../components/editors/part/usePart';
 import { useValidations } from '../../../../context';
 import { ExceptionSelect, PathCollapsible, ValidationFieldset } from '../../common';
 import { useDbErrorData } from './useDbErrorData';

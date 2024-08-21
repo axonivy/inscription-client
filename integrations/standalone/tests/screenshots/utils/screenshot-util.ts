@@ -8,7 +8,7 @@ export async function screenshotAccordion(page: Page, pid: string, accordionName
   const accordion = view.accordion(accordionName);
   await accordion.toggle();
   if (fullView) {
-    await screenshot(view.page.locator('.editor .content'), screenshotName);
+    await screenshot(view.page.locator('.editor'), screenshotName);
   } else {
     await screenshot(accordion.currentLocator(), screenshotName);
   }

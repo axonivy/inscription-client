@@ -1,38 +1,35 @@
 import { IvyScriptLanguage } from '@axonivy/inscription-core';
 import { App, AppStateView, ClientContextProvider, MonacoEditorUtil, QueryProvider, initQueryClient } from '@axonivy/inscription-editor';
-import { ThemeProvider } from '@axonivy/ui-components';
+import { ThemeProvider, Spinner } from '@axonivy/ui-components';
 import type { InscriptionClient } from '@axonivy/inscription-protocol';
 import type { QueryClient } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, type ComponentProps } from 'react';
 
-export interface LazyAppProps {
+export interface LazyAppProps extends ComponentProps<typeof App> {
   clientCreator: () => Promise<InscriptionClient>;
   server?: string;
-  app: string;
-  pmv: string;
-  pid: string;
   theme: 'dark' | 'light';
 }
 
-export function LazyApp(props: LazyAppProps) {
+export function LazyApp({ clientCreator, server, theme, ...props }: LazyAppProps) {
   const [client, setClient] = useState<InscriptionClient>();
   const [queryClient] = useState<QueryClient>(initQueryClient());
 
   useEffect(() => {
-    const instance = MonacoEditorUtil.configureInstance({ theme: props.theme, debug: true });
-    if (props.server) {
-      IvyScriptLanguage.startWebSocketClient(props.server, instance);
+    const instance = MonacoEditorUtil.configureInstance({ theme, debug: true });
+    if (server) {
+      IvyScriptLanguage.startWebSocketClient(server, instance);
     }
-    props.clientCreator().then(client => setClient(client));
-  }, [props, props.server, props.theme]);
+    clientCreator().then(client => setClient(client));
+  }, [clientCreator, server, theme]);
 
   if (client) {
     return (
       <React.StrictMode>
-        <ThemeProvider defaultTheme={props.theme}>
+        <ThemeProvider defaultTheme={theme}>
           <ClientContextProvider client={client}>
             <QueryProvider client={queryClient}>
-              <App app={props.app} pmv={props.pmv} pid={props.pid} />
+              <App {...props} />
             </QueryProvider>
           </ClientContextProvider>
         </ThemeProvider>
@@ -41,7 +38,7 @@ export function LazyApp(props: LazyAppProps) {
   }
   return (
     <AppStateView>
-      <div className='loader' />
+      <Spinner size='large' />
     </AppStateView>
   );
 }

@@ -2,7 +2,7 @@ import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, ComboboxUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, SignalCatchData } from '@axonivy/inscription-protocol';
 import { useSignalCatchPart } from './SignalCatchPart';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
 
 const Part = (props: { makroSupport?: boolean }) => {

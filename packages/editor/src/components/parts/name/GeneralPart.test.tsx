@@ -1,6 +1,6 @@
 import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
 import type { GeneralData } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { useGeneralPart } from './GeneralPart';
 import { describe, test, expect } from 'vitest';
 

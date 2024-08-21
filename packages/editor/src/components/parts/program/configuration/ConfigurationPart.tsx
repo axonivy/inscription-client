@@ -1,7 +1,6 @@
 import type { ConfigurationData, Label, Script, Text, Widget } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../editors';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import { usePartDirty, usePartState } from '../../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
 import { useEditorContext, useMeta, useValidations } from '../../../../context';
 import { useConfigurationData } from './useConfigurationData';
 import { Input, ScriptInput } from '../../../widgets';

@@ -1,16 +1,16 @@
 /* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
-import type { ReactNode } from 'react';
 import NameEditor from '../NameEditor';
+import type { KnownEditor } from '../InscriptionEditor';
 
-export const bpmnActivityEditors = new Map<ElementType, ReactNode>([
-  ['GenericBpmnElement', <NameEditor icon={IvyIcons.SubActivities} hideTags={true} />],
-  ['UserBpmnElement', <NameEditor icon={IvyIcons.User} hideTags={true} />],
-  ['ManualBpmnElement', <NameEditor icon={IvyIcons.Manual} hideTags={true} />],
-  ['ScriptBpmnElement', <NameEditor icon={IvyIcons.Script} hideTags={true} />],
-  ['ServiceBpmnElement', <NameEditor icon={IvyIcons.SettingsOutline} hideTags={true} />],
-  ['RuleBpmnElement', <NameEditor icon={IvyIcons.Rule} hideTags={true} />],
-  ['SendBpmnElement', <NameEditor icon={IvyIcons.Send} hideTags={true} />],
-  ['ReceiveBpmnElement', <NameEditor icon={IvyIcons.Receive} hideTags={true} />]
+export const bpmnActivityEditors = new Map<ElementType, KnownEditor>([
+  ['GenericBpmnElement', { editor: <NameEditor hideTags={true} />, icon: IvyIcons.SubActivities }],
+  ['UserBpmnElement', { editor: <NameEditor hideTags={true} />, icon: IvyIcons.User }],
+  ['ManualBpmnElement', { editor: <NameEditor hideTags={true} />, icon: IvyIcons.Manual }],
+  ['ScriptBpmnElement', { editor: <NameEditor hideTags={true} />, icon: IvyIcons.Script }],
+  ['ServiceBpmnElement', { editor: <NameEditor hideTags={true} />, icon: IvyIcons.SettingsOutline }],
+  ['RuleBpmnElement', { editor: <NameEditor hideTags={true} />, icon: IvyIcons.Rule }],
+  ['SendBpmnElement', { editor: <NameEditor hideTags={true} />, icon: IvyIcons.Send }],
+  ['ReceiveBpmnElement', { editor: <NameEditor hideTags={true} />, icon: IvyIcons.Receive }]
 ]);

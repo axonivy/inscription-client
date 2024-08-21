@@ -1,27 +1,27 @@
 /* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
-import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
+import { type KnownEditor } from '../InscriptionEditor';
 import { useCasePart, useConditionPart, useEndPagePart, useMultiTasksPart, useGeneralPart, useOutputPart } from '../../../components/parts';
+import Part from '../part/Part';
 
 const AlternativeEditor = memo(() => {
   const name = useGeneralPart();
   const condition = useConditionPart();
-  return <InscriptionEditor icon={IvyIcons.AlternativeGateways} parts={[name, condition]} />;
+  return <Part parts={[name, condition]} />;
 });
 
 const JoinEditor = memo(() => {
   const name = useGeneralPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.JoinGateways} parts={[name, output]} />;
+  return <Part parts={[name, output]} />;
 });
 
 const SplitEditor = memo(() => {
   const name = useGeneralPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.JoinGateways} parts={[name, output]} />;
+  return <Part parts={[name, output]} />;
 });
 
 const TaskSwitchGatewayEditor = memo(() => {
@@ -30,12 +30,12 @@ const TaskSwitchGatewayEditor = memo(() => {
   const casePart = useCasePart();
   const endPage = useEndPagePart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.JoinTasksGateways} parts={[name, multiTasks, casePart, endPage, output]} />;
+  return <Part parts={[name, multiTasks, casePart, endPage, output]} />;
 });
 
-export const gatewayEditors = new Map<ElementType, ReactNode>([
-  ['Alternative', <AlternativeEditor />],
-  ['Join', <JoinEditor />],
-  ['Split', <SplitEditor />],
-  ['TaskSwitchGateway', <TaskSwitchGatewayEditor />]
+export const gatewayEditors = new Map<ElementType, KnownEditor>([
+  ['Alternative', { editor: <AlternativeEditor />, icon: IvyIcons.AlternativeGateways }],
+  ['Join', { editor: <JoinEditor />, icon: IvyIcons.JoinGateways }],
+  ['Split', { editor: <SplitEditor />, icon: IvyIcons.JoinGateways }],
+  ['TaskSwitchGateway', { editor: <TaskSwitchGatewayEditor />, icon: IvyIcons.JoinTasksGateways }]
 ]);

@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
-import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
+import { type KnownEditor } from '../InscriptionEditor';
 import {
   useMailAttachmentPart,
   useMailHeaderPart,
@@ -24,6 +23,7 @@ import {
   useProgramInterfaceErrorPart
 } from '../../../components/parts';
 import { OpenApiContextProvider } from '../../../context/useOpenApi';
+import Part from '../part/Part';
 
 const DatabaseEditor = memo(() => {
   const name = useGeneralPart();
@@ -31,7 +31,7 @@ const DatabaseEditor = memo(() => {
   const cache = useCachePart();
   const error = useDbErrorPart();
   const output = useOutputPart({ additionalBrowsers: ['tablecol'] });
-  return <InscriptionEditor icon={IvyIcons.Database} parts={[name, query, cache, error, output]} />;
+  return <Part parts={[name, query, cache, error, output]} />;
 });
 
 const WebServiceEditor = memo(() => {
@@ -40,7 +40,7 @@ const WebServiceEditor = memo(() => {
   const cache = useCachePart();
   const error = useWsErrorPart();
   const output = useOutputPart();
-  return <InscriptionEditor icon={IvyIcons.WebService} parts={[name, request, cache, error, output]} />;
+  return <Part parts={[name, request, cache, error, output]} />;
 });
 
 const RestEditor = memo(() => {
@@ -50,7 +50,7 @@ const RestEditor = memo(() => {
   const output = useRestOutputPart();
   return (
     <OpenApiContextProvider>
-      <InscriptionEditor icon={IvyIcons.RestClient} parts={[name, request, error, output]} />
+      <Part parts={[name, request, error, output]} />
     </OpenApiContextProvider>
   );
 });
@@ -61,7 +61,7 @@ const EMailEditor = memo(() => {
   const error = useMailErrorPart();
   const content = useMailMessagePart();
   const attachment = useMailAttachmentPart();
-  return <InscriptionEditor icon={IvyIcons.EMail} parts={[name, header, error, content, attachment]} />;
+  return <Part parts={[name, header, error, content, attachment]} />;
 });
 
 const ProgramInterfaceEditor = memo(() => {
@@ -69,14 +69,13 @@ const ProgramInterfaceEditor = memo(() => {
   const start = useProgramInterfaceStartPart();
   const error = useProgramInterfaceErrorPart();
   const configuration = useConfigurationPart();
-  return <InscriptionEditor icon={IvyIcons.ProgramOutline} parts={[name, start, error, configuration]} />;
+  return <Part parts={[name, start, error, configuration]} />;
 });
 
-export const interfaceActivityEditors = new Map<ElementType, ReactNode>([
-  ['Database', <DatabaseEditor />],
-  ['WebServiceCall', <WebServiceEditor />],
-  ['RestClientCall', <RestEditor />],
-  ['EMail', <EMailEditor />],
-  // ['Rule', <NameEditor title='Rule Activity'/>],
-  ['ProgramInterface', <ProgramInterfaceEditor />]
+export const interfaceActivityEditors = new Map<ElementType, KnownEditor>([
+  ['Database', { editor: <DatabaseEditor />, icon: IvyIcons.Database }],
+  ['WebServiceCall', { editor: <WebServiceEditor />, icon: IvyIcons.WebService }],
+  ['RestClientCall', { editor: <RestEditor />, icon: IvyIcons.RestClient }],
+  ['EMail', { editor: <EMailEditor />, icon: IvyIcons.EMail }],
+  ['ProgramInterface', { editor: <ProgramInterfaceEditor />, icon: IvyIcons.ProgramOutline }]
 ]);

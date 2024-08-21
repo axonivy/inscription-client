@@ -1,6 +1,5 @@
 import type { FieldsetControl } from '../../widgets';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useEndPageData } from './useEndPageData';
 import type { EndPageData } from '@axonivy/inscription-protocol';
 import { useAction, useValidations } from '../../../context';

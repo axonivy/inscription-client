@@ -1,7 +1,6 @@
 import type { WebServiceProcessData, WsAuth } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES, WS_AUTH_TYPE } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../components/editors';
-import { usePartDirty, usePartState } from '../../../components/editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
 import { useValidations } from '../../../context';
 import { Input, Radio } from '../../../components/widgets';
 import { useWebServiceProcessData } from './useWebServiceProcessData';

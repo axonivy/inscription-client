@@ -1,6 +1,5 @@
 import { Checkbox, EmptyWidget, ScriptInput } from '../../widgets';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useTriggerData } from './useTriggerData';
 import type { TriggerData } from '@axonivy/inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';

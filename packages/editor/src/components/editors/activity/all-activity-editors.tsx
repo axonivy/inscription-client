@@ -2,9 +2,9 @@ import type { ElementType } from '@axonivy/inscription-protocol';
 import { workflowActivityEditors } from './workflow';
 import { bpmnActivityEditors } from './bpmn';
 import { interfaceActivityEditors } from './interface';
-import type { ReactNode } from 'react';
+import type { KnownEditor } from '../InscriptionEditor';
 
-export const activityEditors = new Map<ElementType, ReactNode>([
+export const activityEditors = new Map<ElementType, KnownEditor>([
   ...workflowActivityEditors,
   ...interfaceActivityEditors,
   ...bpmnActivityEditors

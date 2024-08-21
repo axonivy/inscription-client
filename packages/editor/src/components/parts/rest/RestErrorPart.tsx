@@ -1,7 +1,6 @@
 import type { RestResponseData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { ValidationCollapsible } from '../common';
 import { RestError } from './rest-response/RestError';
 import { useRestErrorData } from './useRestErrorData';

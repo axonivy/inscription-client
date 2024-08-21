@@ -1,6 +1,5 @@
 import type { CacheData } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../components/editors';
-import { usePartDirty, usePartState } from '../../../components/editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
 import { useCacheData } from './useCacheData';
 import { PathContext, useValidations } from '../../../context';
 import { Collapsible, Radio } from '../../../components/widgets';

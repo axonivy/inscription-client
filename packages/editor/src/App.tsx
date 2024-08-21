@@ -2,20 +2,22 @@ import './App.css';
 import '@axonivy/ui-icons/src-gen/ivy-icons.css';
 import '@axonivy/ui-components/lib/style.css';
 import type { ElementData, InscriptionData, InscriptionElementContext, ValidationResult, PID } from '@axonivy/inscription-protocol';
-import { ReadonlyProvider } from '@axonivy/ui-components';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { PanelMessage, ReadonlyProvider, Spinner } from '@axonivy/ui-components';
+import { useEffect, useMemo, useRef, useState, type ComponentProps } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient } from './context';
-import { inscriptionEditor } from './components/editors/InscriptionEditor';
 import AppStateView from './AppStateView';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Unary } from './types/lambda';
+import { IvyIcons } from '@axonivy/ui-icons';
+import { InscriptionEditor } from './components/editors/InscriptionEditor';
 
-function App(props: InscriptionElementContext) {
-  const [context, setContext] = useState(props);
+function App({ outline, app, pmv, pid }: InscriptionElementContext & ComponentProps<typeof InscriptionEditor>) {
+  const [context, setContext] = useState({ app, pmv, pid });
   const [initData, setInitData] = useState<Record<string, ElementData>>({});
+
   useEffect(() => {
-    setContext(props);
-  }, [props]);
+    setContext({ app, pmv, pid });
+  }, [app, pmv, pid]);
 
   const client = useClient();
   const queryClient = useQueryClient();
@@ -80,13 +82,17 @@ function App(props: InscriptionElementContext) {
   if (isPending) {
     return (
       <AppStateView>
-        <div className='loader' />
+        <Spinner size='large' />
       </AppStateView>
     );
   }
 
   if (isError) {
-    return <AppStateView>{'An error has occurred: ' + error}</AppStateView>;
+    return (
+      <AppStateView>
+        <PanelMessage icon={IvyIcons.ErrorXMark} message={`An error occurred: ${error}`} />
+      </AppStateView>
+    );
   }
 
   return (
@@ -110,7 +116,7 @@ function App(props: InscriptionElementContext) {
               validations
             }}
           >
-            {inscriptionEditor(data.type.id)}
+            <InscriptionEditor outline={outline} />
           </DataContextInstance.Provider>
         </EditorContextInstance.Provider>
       </ReadonlyProvider>

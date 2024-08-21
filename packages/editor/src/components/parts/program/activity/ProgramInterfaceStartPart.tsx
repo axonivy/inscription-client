@@ -1,6 +1,5 @@
 import type { ProgramInterfaceStartData } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../editors';
-import { usePartDirty, usePartState } from '../../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
 import { useProgramInterfaceData } from './useProgramInterfaceData';
 import { useValidations } from '../../../../context';
 import JavaClassSelector from '../JavaClassSelector';

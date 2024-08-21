@@ -2,7 +2,7 @@ import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
 import type { ValidationResult, QueryData } from '@axonivy/inscription-protocol';
 import { useQueryPart } from './QueryPart';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
 
 const Part = () => {
