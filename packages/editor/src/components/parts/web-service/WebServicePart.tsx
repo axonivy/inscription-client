@@ -1,6 +1,5 @@
 import type { WebserviceStartData } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../components/editors';
-import { usePartDirty, usePartState } from '../../../components/editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
 import { useEditorContext, useValidations } from '../../../context';
 import { useWebServiceData } from './useWebServiceData';
 import { Exception } from './Exception';

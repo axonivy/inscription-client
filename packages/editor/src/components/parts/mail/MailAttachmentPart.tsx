@@ -1,6 +1,5 @@
 import { ScriptCell } from '../../widgets';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';

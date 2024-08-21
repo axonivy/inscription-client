@@ -1,7 +1,7 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
 import type { ElementData, ValidationResult, RestRequestData, RestResource } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { useRestRequestPart } from './RestRequestPart';
 import { describe, test, expect } from 'vitest';
 

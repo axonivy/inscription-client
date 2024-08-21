@@ -4,7 +4,7 @@ import type { WfTask, TaskData, ElementData } from '@axonivy/inscription-protoco
 import { DEFAULT_TASK } from '@axonivy/inscription-protocol';
 import type { TaskPartProps } from './TaskPart';
 import { useTaskPart } from './TaskPart';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
 
 const Part = () => {

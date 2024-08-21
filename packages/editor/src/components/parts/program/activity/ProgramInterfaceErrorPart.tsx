@@ -1,7 +1,6 @@
 import type { ProgramInterfaceStartData } from '@axonivy/inscription-protocol';
 import { IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../editors';
-import { usePartDirty, usePartState } from '../../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
 import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common';
 import { useProgramInterfaceData } from './useProgramInterfaceData';
 import { ScriptInput } from '../../../../components/widgets';

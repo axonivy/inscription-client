@@ -16,7 +16,7 @@
   "dependencies": {
     "@axonivy/inscription-core": "~11.4.0-next",
     "@axonivy/inscription-protocol": "~11.4.0-next",
-    "@axonivy/ui-components": "~11.4.0-next.277",
+    "@axonivy/ui-components": "~11.4.0-next.279",
     "@monaco-editor/react": "^4.6.0",
     "@radix-ui/react-dialog": "1.1.1",
     "@radix-ui/react-radio-group": "1.2.0",

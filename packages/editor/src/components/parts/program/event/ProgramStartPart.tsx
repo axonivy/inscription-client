@@ -1,6 +1,5 @@
 import type { ProgramStartData } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../editors';
-import { usePartDirty, usePartState } from '../../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
 import { useValidations } from '../../../../context';
 import { useProgramStartData } from './useProgramStartData';
 import { Permission } from '../../common/permission/Permission';

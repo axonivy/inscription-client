@@ -1,5 +1,4 @@
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useConditionData } from './useConditionData';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { useEffect, useState } from 'react';

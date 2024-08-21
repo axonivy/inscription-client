@@ -2,7 +2,7 @@ import type { DeepPartial } from 'test-utils';
 import { render, screen, renderHook, userEvent } from 'test-utils';
 import type { TaskData, ElementData } from '@axonivy/inscription-protocol';
 import { DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { useMultiTasksPart } from './MultiTasksPart';
 import { deepmerge } from 'deepmerge-ts';
 import { describe, test, expect } from 'vitest';

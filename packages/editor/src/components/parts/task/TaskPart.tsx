@@ -1,6 +1,5 @@
-import type { PartProps} from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
-import type { TaskPersistData} from './options/usePersistOptionsData';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
+import type { TaskPersistData } from './options/usePersistOptionsData';
 import { useTaskPersistData } from './options/usePersistOptionsData';
 import Task from './task/Task';
 import { useTaskData } from './useTaskData';

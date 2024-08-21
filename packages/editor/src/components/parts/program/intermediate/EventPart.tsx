@@ -1,7 +1,6 @@
 import type { EventData, IntermediateEventTimeoutAction } from '@axonivy/inscription-protocol';
 import { EVENT_ACTION_TYPE, IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/inscription-protocol';
-import type { PartProps } from '../../../editors';
-import { usePartDirty, usePartState } from '../../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
 import { ExceptionSelect, PathCollapsible, PathFieldset, ValidationFieldset } from '../../common';
 import { ScriptInput, Radio } from '../../../widgets';
 import { useValidations } from '../../../../context';

@@ -2,7 +2,7 @@ import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, ComboboxUtil, render, renderHook } from 'test-utils';
 import type { ElementData, ErrorCatchData } from '@axonivy/inscription-protocol';
 import { useErrorCatchPart } from './ErrorCatchPart';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
 
 const Part = () => {

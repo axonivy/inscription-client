@@ -1,26 +1,26 @@
 /* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/inscription-protocol';
-import type { ReactNode } from 'react';
 import { memo } from 'react';
-import InscriptionEditor from '../InscriptionEditor';
+import { type KnownEditor } from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
 import { useEndPagePart, useGeneralPart, useErrorThrowPart } from '../../../components/parts';
+import Part from '../part/Part';
 
 const TaskEndPageEditor = memo(() => {
   const name = useGeneralPart();
   const endPage = useEndPagePart();
-  return <InscriptionEditor icon={IvyIcons.EndPage} parts={[name, endPage]} />;
+  return <Part parts={[name, endPage]} />;
 });
 
 const ErrorEndEditor = memo(() => {
   const name = useGeneralPart();
   const error = useErrorThrowPart();
-  return <InscriptionEditor icon={IvyIcons.ErrorEnd} parts={[name, error]} />;
+  return <Part parts={[name, error]} />;
 });
 
-export const endEventEditors = new Map<ElementType, ReactNode>([
-  ['TaskEnd', <NameEditor icon={IvyIcons.ProcessEnd} />],
-  ['TaskEndPage', <TaskEndPageEditor />],
-  ['ErrorEnd', <ErrorEndEditor />]
+export const endEventEditors = new Map<ElementType, KnownEditor>([
+  ['TaskEnd', { editor: <NameEditor />, icon: IvyIcons.ProcessEnd }],
+  ['TaskEndPage', { editor: <TaskEndPageEditor />, icon: IvyIcons.EndPage }],
+  ['ErrorEnd', { editor: <ErrorEndEditor />, icon: IvyIcons.ErrorEnd }]
 ]);

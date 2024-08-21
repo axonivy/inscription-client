@@ -28,18 +28,18 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@axonivy/jsonrpc@~11.4.0-next.277":
-  version "11.4.0-next.277"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.4.0-next.277.tgz#9af26eab80cda98fd25bd817a41951bdd659f8c6"
-  integrity sha512-U4sGiqB0olYYEENcvxULfKFmJ/D5AY4rxI/u6kQxvEmCHMOjFdkF3B9ZMwwluQZrszVeUR1AJMCUAU7SJQhplw==
+"@axonivy/jsonrpc@~11.4.0-next.279":
+  version "11.4.0-next.279"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.4.0-next.279.tgz#848ae52de1cd45e6ef2428be7b04ea6da07d7b95"
+  integrity sha512-UAI671nMbLDzM1JmhLM0VLUKgXzrNMt1lQDvl0IbgxQht/ovqrE0r7M3+ih81FrOXiJ6JDvjVy/gAPlMR5AZcA==
   dependencies:
     vscode-jsonrpc "^8.2.0"
     vscode-ws-jsonrpc "^3.0.0"
 
-"@axonivy/ui-components@~11.4.0-next.277":
-  version "11.4.0-next.277"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.4.0-next.277.tgz#a345a8d89e9cb5c01ad8c67cc79041457b8fa67c"
-  integrity sha512-dpd9oSKfJiMW3AHJ3l6PlLRhvJ85SZxS0f9VMf4o/ga88C4kxAxVQ7DsS+VA1BYjIXy6iss7Md5RdfeZuaf+WA==
+"@axonivy/ui-components@~11.4.0-next.279":
+  version "11.4.0-next.279"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.4.0-next.279.tgz#80fb3b1e27bba5e5fa60bdfc8a07a2468751a60f"
+  integrity sha512-EfVNjFZgSgJuOXTEz2CXfW5WvyVPcezP+WM8+zfPnd++Wl/WG2NLOLJ6nkFvkqOjmKGA2OtgiUCoex8QWMBiVg==
   dependencies:
     "@radix-ui/react-accordion" "1.2.0"
     "@radix-ui/react-checkbox" "1.1.1"
@@ -62,10 +62,10 @@
     react-resizable-panels "2.1.0"
     sonner "1.5.0"
 
-"@axonivy/ui-icons@11.3.2-next.161":
-  version "11.3.2-next.161"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.3.2-next.161.tgz#587de306fd975f0c078661fac969368cd1094408"
-  integrity sha512-qT0kAzfquxvHAPJ2MjpOioCBOiG185pOYlRfmicyLpLqdYp/gKKE4twhFFi9zCLj0h8LoDiaUpzbsZk1Kqsw9A==
+"@axonivy/ui-icons@11.4.0-next.279":
+  version "11.4.0-next.279"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.4.0-next.279.tgz#06a7d71810f4dd5cba9aa2530a891a0cef2374bf"
+  integrity sha512-u8ZjfHnGCrM0cL5isKotYiWozc/4hadQS93/4MEtzI0qVag0ALGHxyrRiheFZNFAvmWKbciNXmfvgoIinWoDMg==
 
 "@babel/code-frame@^7.0.0":
   version "7.21.4"

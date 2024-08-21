@@ -1,8 +1,7 @@
 import type { OutputData } from '@axonivy/inscription-protocol';
 import { Checkbox, ScriptArea } from '../../widgets';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useOutputData } from './useOutputData';
 import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
 import type { BrowserType } from '../../../components/browser';

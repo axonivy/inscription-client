@@ -1,5 +1,4 @@
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useRequestData } from './useRequestData';
 import type { RequestData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';

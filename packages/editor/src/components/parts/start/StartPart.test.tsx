@@ -1,9 +1,9 @@
 import type { DeepPartial } from 'test-utils';
 import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
 import type { ElementData, StartData } from '@axonivy/inscription-protocol';
-import { useStartPart } from './StartPart';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
+import { useStartPart } from './StartPart';
 
 const Part = () => {
   const part = useStartPart();

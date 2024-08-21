@@ -1,7 +1,6 @@
 import type { RestResponseData } from '@axonivy/inscription-protocol';
 import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useRestOutputData } from './useRestOutputData';
 import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
 import { ScriptArea } from '../../widgets';

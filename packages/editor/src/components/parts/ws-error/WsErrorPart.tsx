@@ -1,8 +1,7 @@
 import type { WsErrorData } from '@axonivy/inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/inscription-protocol';
 import { useValidations } from '../../../context';
-import type { PartProps } from '../../editors';
-import { usePartDirty, usePartState } from '../../editors';
+import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useWsErrorData } from './useWsErrorData';
 import { ExceptionSelect, PathCollapsible, ValidationFieldset } from '../common';
 

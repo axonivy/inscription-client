@@ -1,7 +1,11 @@
 import { render, screen, userEvent } from 'test-utils';
 import Part from './Part';
 import type { PartProps, PartStateFlag } from './usePart';
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest';
+
+const ErrorWidget = () => {
+  throw new Error('this is an exception');
+};
 
 describe('Part', () => {
   const generalPart: PartProps = {
@@ -22,8 +26,14 @@ describe('Part', () => {
     reset: { dirty: false, action: () => {} },
     content: <h1>Result</h1>
   };
+  const errorPart: PartProps = {
+    name: 'Error',
+    state: { state: 'error', validations: [] },
+    reset: { dirty: false, action: () => {} },
+    content: <ErrorWidget />
+  };
 
-  function renderAccordion(partProps: PartProps): {
+  function renderPart(partProps: PartProps): {
     data: () => PartProps;
     rerender: () => void;
   } {
@@ -35,30 +45,40 @@ describe('Part', () => {
     };
   }
 
+  const original = console.error;
+
+  beforeEach(() => {
+    console.error = vi.fn();
+  });
+
+  afterEach(() => {
+    console.error = original;
+  });
+
   test('render', () => {
-    renderAccordion(generalPart);
+    renderPart(generalPart);
     assertExpanded('General', false);
   });
 
   test('state', () => {
-    renderAccordion(generalPart);
+    renderPart(generalPart);
     assertPartState('General', undefined);
-    renderAccordion(callPart);
+    renderPart(callPart);
     assertPartState('Call', 'warning');
-    renderAccordion(resultPart);
+    renderPart(resultPart);
     assertPartState('Result', 'error');
   });
 
   test('reset data', async () => {
     let dirty = true;
     const action = () => (dirty = false);
-    renderAccordion({ ...callPart, reset: { dirty, action } });
+    renderPart({ ...callPart, reset: { dirty, action } });
     await userEvent.click(screen.getByRole('button', { name: 'Reset Call' }));
     expect(dirty).toBeFalsy();
   });
 
   test('open section', async () => {
-    renderAccordion(generalPart);
+    renderPart(generalPart);
     const trigger = screen.getByRole('button', { name: 'General' });
     assertExpanded('General', false);
     await userEvent.click(trigger);
@@ -68,7 +88,7 @@ describe('Part', () => {
   });
 
   test('open section by keyboard', async () => {
-    renderAccordion(callPart);
+    renderPart(callPart);
 
     const trigger = screen.getByRole('button', { name: 'Call' });
 
@@ -81,6 +101,13 @@ describe('Part', () => {
 
     await userEvent.keyboard('[Space]');
     assertExpanded('Call', false);
+  });
+
+  test('part render error', async () => {
+    renderPart(errorPart);
+    await userEvent.click(screen.getByRole('button', { name: 'Error' }));
+    expect(screen.getByRole('alert')).toHaveTextContent('this is an exception');
+    expect(console.error).toHaveBeenCalled();
   });
 
   function assertExpanded(accordionName: string, expanded: boolean) {

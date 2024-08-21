@@ -1,12 +1,16 @@
 import { memo } from 'react';
-import './NoEditor.css';
+import { PanelMessage } from '@axonivy/ui-components';
+import { IvyIcons } from '@axonivy/ui-icons';
+import AppStateView from '../../AppStateView';
 
-const NoEditor = (props: { type?: string }) => {
-  return props.type ? (
-    <div className='no-editor'>No Editor found for type: {props.type}</div>
-  ) : (
-    <div className='no-editor'>Please select a process element</div>
-  );
-};
+const NoEditor = (props: { type?: string }) => (
+  <AppStateView>
+    {props.type ? (
+      <PanelMessage icon={IvyIcons.Help} message={`No editor found for type: ${props.type}`} />
+    ) : (
+      <PanelMessage icon={IvyIcons.DragDrop} message='Select a process element' />
+    )}
+  </AppStateView>
+);
 
 export default memo(NoEditor);

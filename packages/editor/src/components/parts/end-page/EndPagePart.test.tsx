@@ -1,7 +1,7 @@
 import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
 import type { EndPageData } from '@axonivy/inscription-protocol';
 import { useEndPagePart } from './EndPagePart';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
 
 const Part = () => {

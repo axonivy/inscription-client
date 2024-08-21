@@ -1,7 +1,7 @@
 import type { DeepPartial } from 'test-utils';
 import { render, renderHook, screen } from 'test-utils';
 import type { ElementData, ValidationResult, WebserviceStartData } from '@axonivy/inscription-protocol';
-import type { PartStateFlag } from '../../editors';
+import type { PartStateFlag } from '../../editors/part/usePart';
 import { useWebServicePart } from './WebServicePart';
 import { describe, test, expect } from 'vitest';
 
