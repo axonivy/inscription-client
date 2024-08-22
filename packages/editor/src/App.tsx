@@ -3,17 +3,18 @@ import '@axonivy/ui-icons/src-gen/ivy-icons.css';
 import '@axonivy/ui-components/lib/style.css';
 import type { ElementData, InscriptionData, InscriptionElementContext, ValidationResult, PID } from '@axonivy/inscription-protocol';
 import { PanelMessage, ReadonlyProvider, Spinner } from '@axonivy/ui-components';
-import { useEffect, useMemo, useRef, useState, type ComponentProps } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient } from './context';
 import AppStateView from './AppStateView';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Unary } from './types/lambda';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { InscriptionEditor } from './components/editors/InscriptionEditor';
+import { InscriptionEditor, type InscriptionOutlineProps } from './components/editors/InscriptionEditor';
 
-function App({ outline, app, pmv, pid }: InscriptionElementContext & ComponentProps<typeof InscriptionEditor>) {
+function App({ outline, app, pmv, pid }: InscriptionElementContext & InscriptionOutlineProps) {
   const [context, setContext] = useState({ app, pmv, pid });
   const [initData, setInitData] = useState<Record<string, ElementData>>({});
+  const [showOutline, setShowOutline] = useState(false);
 
   useEffect(() => {
     setContext({ app, pmv, pid });
@@ -116,7 +117,7 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & ComponentPr
               validations
             }}
           >
-            <InscriptionEditor outline={outline} />
+            <InscriptionEditor outline={outline} showOutline={showOutline} setShowOutline={setShowOutline} />
           </DataContextInstance.Provider>
         </EditorContextInstance.Provider>
       </ReadonlyProvider>

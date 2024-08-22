@@ -1,14 +1,13 @@
 import type { ValidationResult } from '@axonivy/inscription-protocol';
-import { render, screen, userEvent } from 'test-utils';
+import { render, screen } from 'test-utils';
 import { describe, test, expect } from 'vitest';
-import { InscriptionEditor, type InscriptionEditorProps } from './InscriptionEditor';
+import { InscriptionEditor } from './InscriptionEditor';
 
 describe('Editor', () => {
-  function renderEditor(options: { headerState?: ValidationResult[]; outline?: InscriptionEditorProps } = {}) {
-    render(<InscriptionEditor outline={options.outline} />, {
+  const renderEditor = (options: { headerState?: ValidationResult[] } = {}) =>
+    render(<InscriptionEditor showOutline={false} setShowOutline={() => {}} />, {
       wrapperProps: { validations: options.headerState, editor: { title: 'Test Editor' } }
     });
-  }
 
   test('editor show messages', () => {
     const headerState: ValidationResult[] = [
@@ -33,11 +32,17 @@ describe('Editor', () => {
   });
 
   test('outline', async () => {
-    renderEditor({ outline: { outline: [{ id: 'test', title: 'test node', children: [] }] } });
+    const view = renderEditor();
     expect(screen.getByText('Test Editor')).toBeInTheDocument();
     expect(screen.queryByRole('row', { name: 'test node' })).not.toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole('switch'));
+    view.rerender(
+      <InscriptionEditor
+        outline={{ outline: [{ id: 'test', title: 'test node', children: [] }] }}
+        showOutline={true}
+        setShowOutline={() => {}}
+      />
+    );
     expect(screen.getByRole('row', { name: 'test node' })).toBeInTheDocument();
   });
 });

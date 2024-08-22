@@ -1,5 +1,4 @@
 import type { ComponentProps, ReactNode } from 'react';
-import { useState } from 'react';
 import './InscriptionEditor.css';
 import type { ElementType, Severity } from '@axonivy/inscription-protocol';
 import NoEditor from './NoEditor';
@@ -57,11 +56,15 @@ const Header = ({ children }: { children?: ReactNode }) => {
   );
 };
 
-export type InscriptionEditorProps = Omit<ComponentProps<typeof Outline>, 'onDoubleClick'>;
+export type InscriptionOutlineProps = { outline?: Omit<ComponentProps<typeof Outline>, 'onDoubleClick'> };
 
-export const InscriptionEditor = ({ outline }: { outline?: Omit<ComponentProps<typeof Outline>, 'onDoubleClick'> }) => {
+type InscriptionEditorProps = InscriptionOutlineProps & {
+  showOutline: boolean;
+  setShowOutline: (show: boolean) => void;
+};
+
+export const InscriptionEditor = ({ outline, showOutline, setShowOutline }: InscriptionEditorProps) => {
   const { type } = useEditorContext();
-  const [showOutline, setShowOutline] = useState(false);
   return (
     <Flex direction='column' className='editor' style={{ height: '100%' }}>
       <Header>
