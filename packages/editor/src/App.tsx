@@ -1,6 +1,4 @@
 import './App.css';
-import '@axonivy/ui-icons/src-gen/ivy-icons.css';
-import '@axonivy/ui-components/lib/style.css';
 import type { ElementData, InscriptionData, InscriptionElementContext, ValidationResult, PID } from '@axonivy/inscription-protocol';
 import { PanelMessage, ReadonlyProvider, Spinner } from '@axonivy/ui-components';
 import { useEffect, useMemo, useRef, useState } from 'react';

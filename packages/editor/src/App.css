@@ -1,3 +1,8 @@
+@layer icons, components;
+
+@import '@axonivy/ui-icons/src-gen/ivy-icons.css' layer(icons);
+@import '@axonivy/ui-components/lib/style.css' layer(components);
+
 .editor-root {
   height: 100%;
 }
