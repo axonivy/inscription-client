@@ -66,11 +66,17 @@ type InscriptionEditorProps = InscriptionOutlineProps & {
 export const InscriptionEditor = ({ outline, showOutline, setShowOutline }: InscriptionEditorProps) => {
   const { type } = useEditorContext();
   return (
-    <Flex direction='column' className='editor' style={{ height: '100%' }}>
+    <Flex direction='column' className='editor'>
       <Header>
         {outline && <Switch size='large' icon={{ icon: IvyIcons.List }} checked={showOutline} onCheckedChange={setShowOutline} />}
       </Header>
-      {outline && showOutline ? <Outline {...outline} onDoubleClick={() => setShowOutline(false)} /> : inscriptionEditor(type.id)}
+      {outline && showOutline ? (
+        <Outline {...outline} onDoubleClick={() => setShowOutline(false)} />
+      ) : (
+        <Flex direction='column' className='content'>
+          {inscriptionEditor(type.id)}
+        </Flex>
+      )}
     </Flex>
   );
 };
