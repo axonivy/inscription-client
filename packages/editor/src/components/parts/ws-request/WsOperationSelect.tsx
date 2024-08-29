@@ -1,6 +1,5 @@
-import { IvyIcons } from '@axonivy/ui-icons';
-import { PathContext, useAction, useEditorContext, useMeta } from '../../../context';
-import type { FieldsetControl, SelectItem } from '../../widgets';
+import { PathContext, useEditorContext, useMeta } from '../../../context';
+import type { SelectItem } from '../../widgets';
 import { Select } from '../../widgets';
 import { PathFieldset } from '../common';
 import { useWsRequestData } from './useWsRequestData';
@@ -18,11 +17,9 @@ export const WsOperationSelect = () => {
   });
   const selectedItem = items.find(i => i.value === config.operation.name) ?? { label: config.operation.name, value: config.operation.name };
 
-  const action = useAction('openTestWs');
-  const testWs: FieldsetControl = { label: 'Test WebService config', icon: IvyIcons.Play, action: () => action() };
   return (
     <PathContext path='operation'>
-      <PathFieldset label='Operation' path='name' controls={[testWs]}>
+      <PathFieldset label='Operation' path='name'>
         <Select value={selectedItem} onChange={item => updateOperation('name', item.value)} items={items} />
       </PathFieldset>
     </PathContext>
