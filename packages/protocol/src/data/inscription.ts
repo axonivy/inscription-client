@@ -278,8 +278,7 @@ export interface InscriptionActionArgs {
     | "openEndPage"
     | "openOrCreateCmsCategory"
     | "openPage"
-    | "openProgram"
-    | "openTestWs";
+    | "openProgram";
   context: InscriptionElementContext;
   payload: string | OpenCustomField;
 }
