@@ -49,6 +49,8 @@ export interface Inscription {
   inscriptionRequest: InscriptionRequest;
   inscriptionSaveRequest: InscriptionSaveRequest;
   javaType: JavaType[];
+  outlineNode: OutlineNode;
+  processMetaRequest: ProcessMetaRequest;
   programEditorRequest: ProgramEditorRequest;
   programInterface: ProgramInterface[];
   programInterfacesRequest: ProgramInterfacesRequest;
@@ -62,7 +64,7 @@ export interface Inscription {
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
-  string: string[];
+  string: string;
   typeSearchRequest: TypeSearchRequest;
   validationResult: ValidationResult[];
   variableInfo: VariableInfo;
@@ -711,6 +713,17 @@ export interface JavaType {
   fullQualifiedName: string;
   packageName: string;
   simpleName: string;
+}
+export interface OutlineNode {
+  children: OutlineNode[];
+  id: string;
+  info: string;
+  title: string;
+  type: string;
+}
+export interface ProcessMetaRequest {
+  context: InscriptionContext;
+  processId: string;
 }
 export interface ProgramEditorRequest {
   context: InscriptionContext;

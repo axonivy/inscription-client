@@ -7,7 +7,6 @@ import { LazyApp, type LazyAppProps } from './lazy-app';
 import { InscriptionClientMock } from './mock/inscription-client-mock';
 import { URLParams } from './url-helper';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { outlineData } from './mock/mock-outline';
 
 export async function start(): Promise<void> {
   const readonly = URLParams.parameter('readonly') ? true : false;
@@ -18,13 +17,12 @@ export async function start(): Promise<void> {
     pmv: '',
     pid: '1',
     theme: URLParams.themeMode(),
-    clientCreator: async () => new InscriptionClientMock(readonly, type),
-    outline: { outline: outlineData }
+    clientCreator: async () => new InscriptionClientMock(readonly, type)
   };
 
   const root = createRoot(document.getElementById('root')!);
   try {
-    root.render(<LazyApp {...props} />);
+    root.render(<LazyApp {...props} outline={{ selection: '15254DC87A1B183B-f3', onClick: id => alert(id) }} />);
   } catch (error) {
     console.error(error);
     root.render(

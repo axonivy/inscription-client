@@ -25,24 +25,14 @@ describe('Editor', () => {
     expect(screen.queryByTitle(/message on output/i)).not.toBeInTheDocument();
   });
 
-  test('no outline', () => {
-    renderEditor();
-    expect(screen.getByText('Test Editor')).toBeInTheDocument();
-    expect(screen.queryByRole('switch')).not.toBeInTheDocument();
-  });
-
   test('outline', async () => {
     const view = renderEditor();
     expect(screen.getByText('Test Editor')).toBeInTheDocument();
-    expect(screen.queryByRole('row', { name: 'test node' })).not.toBeInTheDocument();
+    expect(screen.getByRole('switch')).not.toBeChecked();
+    expect(screen.queryByRole('row')).not.toBeInTheDocument();
 
-    view.rerender(
-      <InscriptionEditor
-        outline={{ outline: [{ id: 'test', title: 'test node', children: [] }] }}
-        showOutline={true}
-        setShowOutline={() => {}}
-      />
-    );
-    expect(screen.getByRole('row', { name: 'test node' })).toBeInTheDocument();
+    view.rerender(<InscriptionEditor showOutline={true} setShowOutline={() => {}} />);
+    expect(screen.getByRole('switch')).toBeChecked();
+    expect(screen.getByRole('row', { name: 'Process' })).toBeInTheDocument();
   });
 });

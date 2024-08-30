@@ -39,7 +39,9 @@ import type {
   ApiDocRequest,
   CategoryPathMeta,
   WorkflowTypeRequest,
-  WfCustomField
+  WfCustomField,
+  ProcessMetaRequest,
+  OutlineNode
 } from './data/inscription';
 import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -95,6 +97,8 @@ export interface InscriptionMetaRequestTypes {
   'meta/cms/tree': [CmsMetaRequest, ContentObject[]];
 
   'meta/connector/out': [InscriptionElementContext, ConnectorRef[]];
+
+  'meta/process/outline': [ProcessMetaRequest, OutlineNode];
 }
 
 export interface InscriptionRequestTypes extends InscriptionMetaRequestTypes {
