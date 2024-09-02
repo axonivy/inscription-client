@@ -9,7 +9,8 @@ import type {
   DataClass,
   JavaType,
   CategoryPathMeta,
-  DatabaseColumn
+  DatabaseColumn,
+  OutlineNode
 } from '@axonivy/inscription-protocol';
 
 export namespace MetaMock {
@@ -346,4 +347,54 @@ export namespace MetaMock {
       target: NODE_OF
     }
   ];
+
+  export const OUTLINE: OutlineNode = {
+    id: '15254DC87A1B183B',
+    title: 'ProcurementRequestParallel',
+    info: 'Business Process',
+    type: 'Process',
+    children: [
+      {
+        id: '15254DC87A1B183B-f3',
+        title: 'User Dialog',
+        info: 'Enter Request',
+        type: 'ACTIVITY',
+        children: [{ id: '15254DC87A1B183B-f22', title: 'Error Boundary', info: '', type: 'EVENT_BOUNDARY', children: [] }]
+      },
+      { id: '15254DC87A1B183B-f8', title: 'E-Mail', info: 'Notify Requester', type: 'ACTIVITY', children: [] },
+      { id: '15254DC87A1B183B-f16', title: 'User Dialog', info: 'Accept Request', type: 'ACTIVITY', children: [] },
+      {
+        id: '15254DC87A1B183B-f14',
+        title: 'Note',
+        info: 'This example shows the use of a Parallel Task Switch Gateway.\nA procurement request is made by an employee, verified by the team leader and by a manager \nand accepted by an executive.',
+        type: 'ACTIVITY',
+        children: []
+      },
+      {
+        id: '15254DC87A1B183B-S10',
+        title: 'Sub',
+        info: 'Sub 1',
+        type: 'ACTIVITY',
+        children: [
+          { id: '15254DC87A1B183B-S10-f6', title: 'User Dialog', info: 'Verify Request\nby Manager', type: 'ACTIVITY', children: [] },
+          {
+            id: '15254DC87A1B183B-S10-f24',
+            title: 'Note',
+            info: "This is a gateway with a task switch.\nYou can use it to delegate parallel tasks to different users.\nDon't use the Split-Gateway to implement this, because there \nwill be problems with the session handling.",
+            type: 'ACTIVITY',
+            children: []
+          },
+          { id: '15254DC87A1B183B-S10-f5', title: 'User Dialog', info: 'Verify Request\nby Team Leader', type: 'ACTIVITY', children: [] },
+          { id: '15254DC87A1B183B-S10-g1', title: 'Embedded End', info: 'out 1', type: 'EVENT_END', children: [] },
+          { id: '15254DC87A1B183B-S10-g0', title: 'Embedded Start', info: 'in 1', type: 'EVENT_START', children: [] },
+          { id: '15254DC87A1B183B-S10-f7', title: 'Tasks', info: '', type: 'GATEWAY', children: [] },
+          { id: '15254DC87A1B183B-S10-f2', title: 'Tasks', info: '', type: 'GATEWAY', children: [] }
+        ]
+      },
+      { id: '15254DC87A1B183B-f1', title: 'End', info: '', type: 'EVENT_END', children: [] },
+      { id: '15254DC87A1B183B-f26', title: 'Task', info: '', type: 'EVENT_INTERMEDIATE', children: [] },
+      { id: '15254DC87A1B183B-f0', title: 'Start', info: 'start.ivp', type: 'EVENT_START', children: [] },
+      { id: '15254DC87A1B183B-f19', title: 'Alternative', info: 'Verified?', type: 'GATEWAY', children: [] }
+    ]
+  };
 }

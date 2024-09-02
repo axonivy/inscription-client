@@ -1,4 +1,4 @@
-import type { ComponentProps, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import './InscriptionEditor.css';
 import type { ElementType, Severity } from '@axonivy/inscription-protocol';
 import NoEditor from './NoEditor';
@@ -10,7 +10,8 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { useGeneralData } from '../parts/name/useGeneralData';
 import { otherEditors } from './other-editors';
 import { thirdPartyEditors } from './third-party/all-third-party-editors';
-import { Button, Flex, Message, Outline, SidebarHeader, SidebarMessages, Switch } from '@axonivy/ui-components';
+import { Button, Flex, Message, SidebarHeader, SidebarMessages, Switch } from '@axonivy/ui-components';
+import { ProcessOutline, type ProcessOutlineProps } from './ProcessOutline';
 
 export type KnownEditor = { editor: ReactNode; icon?: IvyIcons };
 
@@ -56,7 +57,7 @@ const Header = ({ children }: { children?: ReactNode }) => {
   );
 };
 
-export type InscriptionOutlineProps = { outline?: Omit<ComponentProps<typeof Outline>, 'onDoubleClick'> };
+export type InscriptionOutlineProps = { outline?: Omit<ProcessOutlineProps, 'onDoubleClick'> };
 
 type InscriptionEditorProps = InscriptionOutlineProps & {
   showOutline: boolean;
@@ -67,11 +68,9 @@ export const InscriptionEditor = ({ outline, showOutline, setShowOutline }: Insc
   const { type } = useEditorContext();
   return (
     <Flex direction='column' className='editor'>
-      <Header>
-        {outline && <Switch size='large' icon={{ icon: IvyIcons.List }} checked={showOutline} onCheckedChange={setShowOutline} />}
-      </Header>
-      {outline && showOutline ? (
-        <Outline {...outline} onDoubleClick={() => setShowOutline(false)} />
+      <Header>{<Switch size='large' icon={{ icon: IvyIcons.List }} checked={showOutline} onCheckedChange={setShowOutline} />}</Header>
+      {showOutline ? (
+        <ProcessOutline {...outline} onDoubleClick={() => setShowOutline(false)} />
       ) : (
         <Flex direction='column' className='content'>
           {inscriptionEditor(type.id)}
