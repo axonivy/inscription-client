@@ -8,11 +8,11 @@ import { useMemo } from 'react';
 export type ProcessOutlineProps = Omit<OutlineProps, 'outline'>;
 
 export const ProcessOutline = (props: ProcessOutlineProps) => {
-  const { context, elementContext } = useEditorContext();
+  const { elementContext } = useEditorContext();
   const processId = PID.processId(elementContext.pid);
   const outlineData = useMeta(
     'meta/process/outline',
-    { context, processId },
+    { ...elementContext, pid: processId },
     { id: processId, title: 'Process', type: 'PROCESS', info: processId, children: [] }
   ).data;
   const outline = useMemo(() => outlineNodes(outlineData), [outlineData]);

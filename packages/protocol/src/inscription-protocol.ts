@@ -40,7 +40,6 @@ import type {
   CategoryPathMeta,
   WorkflowTypeRequest,
   WfCustomField,
-  ProcessMetaRequest,
   OutlineNode
 } from './data/inscription';
 import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
@@ -98,7 +97,7 @@ export interface InscriptionMetaRequestTypes {
 
   'meta/connector/out': [InscriptionElementContext, ConnectorRef[]];
 
-  'meta/process/outline': [ProcessMetaRequest, OutlineNode];
+  'meta/process/outline': [InscriptionElementContext, OutlineNode];
 }
 
 export interface InscriptionRequestTypes extends InscriptionMetaRequestTypes {
