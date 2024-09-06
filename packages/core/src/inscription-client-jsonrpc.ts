@@ -16,7 +16,9 @@ import {
   createMessageConnection,
   Emitter,
   type Connection,
-  type Disposable
+  type Disposable,
+  urlBuilder,
+  type MessageConnection
 } from '@axonivy/jsonrpc';
 
 export class InscriptionClientJsonRpc extends BaseRpcClient implements InscriptionClient {
@@ -90,11 +92,17 @@ export namespace InscriptionClientJsonRpc {
     return startClient(connection);
   }
 
-  export async function startClient(connection: Connection) {
-    const messageConnection = createMessageConnection(connection.reader, connection.writer);
-    const client = new InscriptionClientJsonRpc(messageConnection);
+  export function webSocketUrl(url: string | URL) {
+    return urlBuilder(url, 'ivy-inscription-lsp');
+  }
+
+  export async function startClient(connection: Connection): Promise<InscriptionClientJsonRpc> {
+    return startMessageClient(createMessageConnection(connection.reader, connection.writer));
+  }
+
+  export async function startMessageClient(connection: MessageConnection) {
+    const client = new InscriptionClientJsonRpc(connection);
     client.start();
-    connection.reader.onClose(() => client.stop());
     return client;
   }
 }
