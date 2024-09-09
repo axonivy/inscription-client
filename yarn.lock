@@ -28,18 +28,18 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@axonivy/jsonrpc@~11.4.0-next.279":
-  version "11.4.0-next.279"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.4.0-next.279.tgz#848ae52de1cd45e6ef2428be7b04ea6da07d7b95"
-  integrity sha512-UAI671nMbLDzM1JmhLM0VLUKgXzrNMt1lQDvl0IbgxQht/ovqrE0r7M3+ih81FrOXiJ6JDvjVy/gAPlMR5AZcA==
+"@axonivy/jsonrpc@~11.4.0-next.298":
+  version "11.4.0-next.298"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.4.0-next.298.tgz#c3153340b737cecbfdad2122506ef9476e57dd4c"
+  integrity sha512-GMu4alMsqQJEovfL8+ydnVpiKKUOxUGBAvm6wyTzDqLPPCQGd3fsBb3bOZayvsVDM9ZaQV+9dZjOIhNo9oAphw==
   dependencies:
     vscode-jsonrpc "^8.2.0"
     vscode-ws-jsonrpc "^3.0.0"
 
-"@axonivy/ui-components@~11.4.0-next.279":
-  version "11.4.0-next.279"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.4.0-next.279.tgz#80fb3b1e27bba5e5fa60bdfc8a07a2468751a60f"
-  integrity sha512-EfVNjFZgSgJuOXTEz2CXfW5WvyVPcezP+WM8+zfPnd++Wl/WG2NLOLJ6nkFvkqOjmKGA2OtgiUCoex8QWMBiVg==
+"@axonivy/ui-components@~11.4.0-next.298":
+  version "11.4.0-next.298"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.4.0-next.298.tgz#6a657ec4c6eb4167b4e382daec3d8d986d4c91b6"
+  integrity sha512-srAUAMM8F7kFURhzJAMzxgUJoQPb5XwVwTuL0eEY11N7VxI6kex2Dzdf9cyT2LkTdhIU76MmZ8nOc4/A338UGg==
   dependencies:
     "@radix-ui/react-accordion" "1.2.0"
     "@radix-ui/react-checkbox" "1.1.1"
@@ -62,10 +62,10 @@
     react-resizable-panels "2.1.0"
     sonner "1.5.0"
 
-"@axonivy/ui-icons@11.4.0-next.279":
-  version "11.4.0-next.279"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.4.0-next.279.tgz#06a7d71810f4dd5cba9aa2530a891a0cef2374bf"
-  integrity sha512-u8ZjfHnGCrM0cL5isKotYiWozc/4hadQS93/4MEtzI0qVag0ALGHxyrRiheFZNFAvmWKbciNXmfvgoIinWoDMg==
+"@axonivy/ui-icons@11.4.0-next.298":
+  version "11.4.0-next.298"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.4.0-next.298.tgz#db21ef7393dcb13fdf568b8fcd69ca4bb7119940"
+  integrity sha512-gY/h6a5UkQ6COJwTi46CCEsUSkGO1Zeo68/eVggsfdWMBjEm/yIjnVPrP5vnk+yRep6YAKSviVdKnM7FLd4Yrg==
 
 "@babel/code-frame@^7.0.0":
   version "7.21.4"
@@ -9249,16 +9249,7 @@ strict-event-emitter-types@^2.0.0:
   resolved "https://registry.yarnpkg.com/strict-event-emitter-types/-/strict-event-emitter-types-2.0.0.tgz#05e15549cb4da1694478a53543e4e2f4abcf277f"
   integrity sha512-Nk/brWYpD85WlOgzw5h173aci0Teyv8YdIAEtV+N88nDB0dLlazZyJMIsN6eo1/AR61l+p6CJTG1JIyFaoNEEA==
 
-"string-width-cjs@npm:string-width@^4.2.0":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
-  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
-  dependencies:
-    emoji-regex "^8.0.0"
-    is-fullwidth-code-point "^3.0.0"
-    strip-ansi "^6.0.1"
-
-"string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0", "string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -9371,14 +9362,7 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
-  dependencies:
-    ansi-regex "^5.0.1"
-
-strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -10264,16 +10248,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
-  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
-  dependencies:
-    ansi-styles "^4.0.0"
-    string-width "^4.1.0"
-    strip-ansi "^6.0.0"
-
-wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
