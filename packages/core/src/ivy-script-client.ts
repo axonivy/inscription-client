@@ -1,12 +1,6 @@
-import { createWebSocketConnection, urlBuilder, type Connection } from '@axonivy/jsonrpc';
+import { urlBuilder, type Connection } from '@axonivy/jsonrpc';
 
 export namespace IvyScriptLanguage {
-  export async function startWebSocketClient(url: string, isMonacoReady: Promise<any>): Promise<any> {
-    const webSocketUrl = new URL('ivy-script-lsp', url);
-    const connection = await createWebSocketConnection(webSocketUrl);
-    return startClient(connection, isMonacoReady);
-  }
-
   export function webSocketUrl(url: string | URL) {
     return urlBuilder(url, 'ivy-script-lsp');
   }

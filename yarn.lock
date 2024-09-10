@@ -28,18 +28,17 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@axonivy/jsonrpc@~11.4.0-next.298":
-  version "11.4.0-next.298"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.4.0-next.298.tgz#c3153340b737cecbfdad2122506ef9476e57dd4c"
-  integrity sha512-GMu4alMsqQJEovfL8+ydnVpiKKUOxUGBAvm6wyTzDqLPPCQGd3fsBb3bOZayvsVDM9ZaQV+9dZjOIhNo9oAphw==
+"@axonivy/jsonrpc@~11.4.0-next.304":
+  version "11.4.0-next.304"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.4.0-next.304.tgz#ebdec21953e82c451c565af2ad36a46f522c8c20"
+  integrity sha512-u3ZXEH6pRpDFYdWcY3zbshYA4yL54CjPAut01QxCnrkYDcPUmGGdbYm0d4I93Pmr8FZvngn91rqfEWxJNu02Aw==
   dependencies:
     vscode-jsonrpc "^8.2.0"
-    vscode-ws-jsonrpc "^3.0.0"
 
-"@axonivy/ui-components@~11.4.0-next.298":
-  version "11.4.0-next.298"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.4.0-next.298.tgz#6a657ec4c6eb4167b4e382daec3d8d986d4c91b6"
-  integrity sha512-srAUAMM8F7kFURhzJAMzxgUJoQPb5XwVwTuL0eEY11N7VxI6kex2Dzdf9cyT2LkTdhIU76MmZ8nOc4/A338UGg==
+"@axonivy/ui-components@~11.4.0-next.304":
+  version "11.4.0-next.304"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.4.0-next.304.tgz#8adfda10b64ba2f67a2ab45dac21d78adcc95b1c"
+  integrity sha512-fJ2XaloRUxmiwncyW/6vRjWqwyt7YhBA17AHkMT6eZ3yfuTap1x/YnbsOsLYeDCALQqppLcex01+isIETkHrTQ==
   dependencies:
     "@radix-ui/react-accordion" "1.2.0"
     "@radix-ui/react-checkbox" "1.1.1"
@@ -62,10 +61,10 @@
     react-resizable-panels "2.1.0"
     sonner "1.5.0"
 
-"@axonivy/ui-icons@11.4.0-next.298":
-  version "11.4.0-next.298"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.4.0-next.298.tgz#db21ef7393dcb13fdf568b8fcd69ca4bb7119940"
-  integrity sha512-gY/h6a5UkQ6COJwTi46CCEsUSkGO1Zeo68/eVggsfdWMBjEm/yIjnVPrP5vnk+yRep6YAKSviVdKnM7FLd4Yrg==
+"@axonivy/ui-icons@11.4.0-next.304":
+  version "11.4.0-next.304"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.4.0-next.304.tgz#a4749e173a55f834f077e67932f5727165109062"
+  integrity sha512-7kqwvu7MAU1ITCkop2k/ZGTEgsfQTkzOodMq59ZD3fk5dQOVhPE6PeKu9JO7gLYayLsoGnCC5FzKD8mJh12gDA==
 
 "@babel/code-frame@^7.0.0":
   version "7.21.4"
@@ -10032,7 +10031,7 @@ vitest@^2.0.5:
     vite-node "2.0.5"
     why-is-node-running "^2.3.0"
 
-vscode-jsonrpc@8.1.0, vscode-jsonrpc@~8.1.0:
+vscode-jsonrpc@8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-8.1.0.tgz#cb9989c65e219e18533cc38e767611272d274c94"
   integrity sha512-6TDy/abTQk+zDGYazgbIPc+4JoXdwC8NHU9Pbn4UJP1fehUyZmM4RHp5IthX7A6L5KS30PRui+j+tbbMMMafdw==
@@ -10076,13 +10075,6 @@ vscode-languageserver-types@3.17.5:
   version "3.17.5"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.17.5.tgz#3273676f0cf2eab40b3f44d085acbb7f08a39d8a"
   integrity sha512-Ld1VelNuX9pdF39h2Hgaeb5hEZM2Z3jUrrMgWQAu82jMtZp7p3vJT3BzToKtZI7NgQssZje5o0zryOrhQvzQAg==
-
-vscode-ws-jsonrpc@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/vscode-ws-jsonrpc/-/vscode-ws-jsonrpc-3.0.0.tgz#e51081980333b198261b99eff1b9fe2fa7cd53f0"
-  integrity sha512-22IbVb2K691np9pOubyahNBj1BicsbtlbiaHOJu5/rvyWDqmqPMAqpAfojwGjdBztp8EtO8TAO7lmyY6hnmYAA==
-  dependencies:
-    vscode-jsonrpc "~8.1.0"
 
 "vscode@npm:@codingame/monaco-vscode-api@1.83.5", "vscode@npm:@codingame/monaco-vscode-api@>=1.83.3 <1.84.0":
   version "1.83.5"

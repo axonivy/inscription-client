@@ -11,7 +11,6 @@ import type {
   Event
 } from '@axonivy/inscription-protocol';
 import {
-  createWebSocketConnection,
   BaseRpcClient,
   createMessageConnection,
   Emitter,
@@ -86,12 +85,6 @@ export class InscriptionClientJsonRpc extends BaseRpcClient implements Inscripti
 }
 
 export namespace InscriptionClientJsonRpc {
-  export async function startWebSocketClient(url: string): Promise<InscriptionClient> {
-    const webSocketUrl = new URL('ivy-inscription-lsp', url);
-    const connection = await createWebSocketConnection(webSocketUrl);
-    return startClient(connection);
-  }
-
   export function webSocketUrl(url: string | URL) {
     return urlBuilder(url, 'ivy-inscription-lsp');
   }
