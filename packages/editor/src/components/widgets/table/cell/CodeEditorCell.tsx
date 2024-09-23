@@ -3,13 +3,15 @@ import type { CellContext } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { usePath } from '../../../../context';
 import { Input } from '../../input';
-import { MaximizedCodeEditorBrowser, SingleLineCodeEditor } from '../../code-editor';
+import { MaximizedCodeEditorBrowser } from '../../code-editor';
 import type { BrowserType } from '../../../browser';
 import { Browser, useBrowser } from '../../../browser';
 import { useMonacoEditor } from '../../code-editor/useCodeEditor';
 import { useOnFocus } from '../../../browser/useOnFocus';
 import useMaximizedCodeEditor from '../../../browser/useMaximizedCodeEditor';
 import { Button } from '@axonivy/ui-components';
+import { SingleLineCodeEditor } from '@axonivy/codemirror';
+import { useContextPath } from '../../code-editor/useContextPath';
 
 type CodeEditorCellProps<TData> = {
   cell: CellContext<TData, string>;
@@ -27,8 +29,9 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
     setValue(initialValue);
   }, [initialValue]);
 
-  const { setEditor, modifyEditor, getSelectionRange } = useMonacoEditor();
+  const { /*setEditor,*/ modifyEditor /*, getSelectionRange*/ } = useMonacoEditor();
   const path = usePath();
+  const contextPath = useContextPath(type);
   const browser = useBrowser();
 
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
@@ -48,12 +51,12 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
     }
   }, [cell.row, isFocusWithin]);
 
-  const activeElementBlur = () => {
-    const activeElement = document.activeElement;
-    if (activeElement instanceof HTMLElement) {
-      activeElement.blur();
-    }
-  };
+  // const activeElementBlur = () => {
+  //   const activeElement = document.activeElement;
+  //   if (activeElement instanceof HTMLElement) {
+  //     activeElement.blur();
+  //   }
+  // };
 
   return (
     <div className='script-input' {...focusWithinProps} tabIndex={1}>
@@ -66,7 +69,7 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
             editorValue={value}
             location={path}
             applyEditor={focusValue.onChange}
-            selectionRange={getSelectionRange()}
+            // selectionRange={getSelectionRange()}
             macro={makro}
             type={type}
           />
@@ -74,13 +77,13 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
             <>
               <SingleLineCodeEditor
                 {...focusValue}
-                context={{ type, location: path }}
-                keyActions={{
-                  enter: activeElementBlur,
-                  escape: activeElementBlur
-                }}
-                onMountFuncs={[setEditor]}
-                macro={makro}
+                contextPath={contextPath}
+                // keyActions={{
+                //   enter: activeElementBlur,
+                //   escape: activeElementBlur
+                // }}
+                // onMountFuncs={[setEditor]}
+                language={makro ? 'ivyMacro' : 'ivyScript'}
               />
 
               <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />

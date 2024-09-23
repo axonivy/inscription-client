@@ -14,7 +14,7 @@ const MaximizedCodeEditorBrowser = ({
   editorValue,
   applyEditor,
   location,
-  selectionRange,
+  // selectionRange,
   macro,
   type
 }: MaximaziedCodeEditorBrowserProps) => {
@@ -26,7 +26,7 @@ const MaximizedCodeEditorBrowser = ({
           browsers={browsers}
           editorValue={editorValue}
           location={location}
-          selectionRange={selectionRange}
+          // selectionRange={selectionRange}
           open={open}
           keyActions={{
             escape: () => {

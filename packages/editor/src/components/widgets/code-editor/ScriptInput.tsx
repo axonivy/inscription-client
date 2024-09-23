@@ -1,28 +1,30 @@
 import './ScriptInput.css';
 import { Input } from '../input';
-import type { CodeEditorInputProps } from './SingleLineCodeEditor';
-import SingleLineCodeEditor from './SingleLineCodeEditor';
 import { useMonacoEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
-import { usePath } from '../../../context';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import { useField } from '@axonivy/ui-components';
+import { SingleLineCodeEditor } from '@axonivy/codemirror';
+import { useContextPath } from './useContextPath';
+import { usePath } from '../../../context';
+import type { CodeEditorInputProps } from './code-editor-props';
 
 const ScriptInput = ({
   value,
   onChange,
   type,
-  editorOptions,
-  keyActions,
-  modifyAction,
+  // editorOptions,
+  // keyActions,
+  // modifyAction,
   browsers,
   placeholder,
   ...props
 }: CodeEditorInputProps & { type: string }) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
-  const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: modifyAction });
+  const { /*setEditor,*/ modifyEditor } = useMonacoEditor(/*{ modifyAction: modifyAction }*/);
   const path = usePath();
+  const contextPath = useContextPath(type);
   const { inputProps } = useField();
 
   return (
@@ -34,10 +36,11 @@ const ScriptInput = ({
             {...focusValue}
             {...inputProps}
             {...props}
-            context={{ type, location: path }}
-            onMountFuncs={[setEditor]}
-            editorOptions={editorOptions}
-            keyActions={keyActions}
+            contextPath={contextPath}
+            language='ivyScript'
+            // onMountFuncs={[setEditor]}
+            // editorOptions={editorOptions}
+            // keyActions={keyActions}
           />
           <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
         </>

@@ -2,6 +2,7 @@
 
 @import '@axonivy/ui-icons/src-gen/ivy-icons.css' layer(icons);
 @import '@axonivy/ui-components/lib/style.css';
+@import '@axonivy/codemirror/lib/style.css';
 
 .editor-root {
   height: 100%;

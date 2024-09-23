@@ -13,10 +13,6 @@
       "path": "."
     },
     {
-      "name": "package/core",
-      "path": "./packages/core"
-    },
-    {
       "name": "package/protocol",
       "path": "./packages/protocol"
     },
