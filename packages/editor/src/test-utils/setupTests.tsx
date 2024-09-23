@@ -50,8 +50,11 @@ vi.mock('../components/widgets/code-editor', () => ({
   ScriptInput: CodeEditorMock,
   MacroArea: CodeEditorMock,
   MacroInput: CodeEditorMock,
-  SingleLineCodeEditor: CodeEditorMock,
   MaximizedCodeEditorBrowser: CodeEditorMock
+}));
+vi.mock('@axonivy/monaco', () => ({
+  __esModule: true,
+  SingleLineCodeEditor: CodeEditorMock
 }));
 
 window.HTMLElement.prototype.scrollIntoView = vi.fn();

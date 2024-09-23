@@ -1,28 +1,24 @@
 import './ScriptArea.css';
-import type { CodeEditorAreaProps } from './ResizableCodeEditor';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import ResizableCodeEditor from './ResizableCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { useMonacoEditor } from './useCodeEditor';
 import { usePath } from '../../../context';
 import MaximizedCodeEditorBrowser from '../../browser/MaximizedCodeEditorBrowser';
-import { MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
 import { useField } from '@axonivy/ui-components';
+import { MonacoEditorUtil, ResizableCodeEditor } from '@axonivy/monaco';
+import { useContextPath } from './useContextPath';
+import type { CodeEditorAreaProps, MaximizedCodeEditorState } from './code-editor-props';
 
-type ScriptAreaProps = CodeEditorAreaProps & {
-  maximizeState: {
-    isMaximizedCodeEditorOpen: boolean;
-    setIsMaximizedCodeEditorOpen: (open: boolean) => void;
-  };
-};
+type ScriptAreaProps = CodeEditorAreaProps & Required<MaximizedCodeEditorState>;
 
-const ScriptArea = (props: ScriptAreaProps) => {
+const ScriptArea = ({ maximizeState, ...props }: ScriptAreaProps) => {
   const browser = useBrowser();
   const { setEditor, modifyEditor, getMonacoSelection, getSelectionRange } = useMonacoEditor();
   const path = usePath();
+  const contextPath = useContextPath();
   const keyActionMountFunc = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editor.addCommand(MonacoEditorUtil.KeyCode.F2, () => {
-      props.maximizeState.setIsMaximizedCodeEditorOpen(true);
+      maximizeState.setIsMaximizedCodeEditorOpen(true);
     });
   };
   const setScrollPosition = (editor: monaco.editor.IStandaloneCodeEditor) => {
@@ -38,21 +34,22 @@ const ScriptArea = (props: ScriptAreaProps) => {
   return (
     <>
       <MaximizedCodeEditorBrowser
-        open={props.maximizeState.isMaximizedCodeEditorOpen}
-        onOpenChange={props.maximizeState.setIsMaximizedCodeEditorOpen}
+        open={maximizeState.isMaximizedCodeEditorOpen}
+        onOpenChange={maximizeState.setIsMaximizedCodeEditorOpen}
         browsers={props.browsers}
         editorValue={props.value}
         location={path}
         applyEditor={props.onChange}
         selectionRange={getSelectionRange()}
       />
-      {!props.maximizeState.isMaximizedCodeEditorOpen && (
+      {!maximizeState.isMaximizedCodeEditorOpen && (
         <div className='script-area'>
           <ResizableCodeEditor
             {...inputProps}
             {...props}
+            language='ivyScript'
             initHeight={props.value.length > 0 ? 250 : undefined}
-            location={path}
+            contextPath={contextPath}
             onMountFuncs={[setEditor, keyActionMountFunc, setScrollPosition]}
           />
           <Browser {...browser} types={props.browsers} accept={modifyEditor} location={path} initSearchFilter={getMonacoSelection} />

@@ -1,20 +1,20 @@
 import './ScriptInput.css';
-import type { CodeEditorInputProps } from './SingleLineCodeEditor';
-import SingleLineCodeEditor from './SingleLineCodeEditor';
 import { useMonacoEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
 import { CardText } from '../output/CardText';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import { useField } from '@axonivy/ui-components';
+import { SingleLineCodeEditor } from '@axonivy/monaco';
+import type { CodeEditorInputProps } from './code-editor-props';
+import { useContextPath } from './useContextPath';
 
-type MacroInputProps = Omit<CodeEditorInputProps, 'context'>;
-
-const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) => {
+const MacroInput = ({ value, onChange, browsers, ...props }: CodeEditorInputProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: value => `<%=${value}%>` });
   const path = usePath();
+  const contextPath = useContextPath();
   const { inputProps } = useField();
 
   return (
@@ -26,8 +26,8 @@ const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) =>
             {...focusValue}
             {...inputProps}
             {...props}
-            context={{ location: path }}
-            macro={true}
+            contextPath={contextPath}
+            language='ivyMacro'
             onMountFuncs={[setEditor]}
           />
           <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />

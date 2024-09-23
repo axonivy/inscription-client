@@ -5,13 +5,13 @@ import './Combobox.css';
 import { usePath } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { Button, Input, useField, useReadonly } from '@axonivy/ui-components';
-import { SingleLineCodeEditor } from '../code-editor';
 import { useMonacoEditor } from '../code-editor/useCodeEditor';
 import type { BrowserType } from '../../../components/browser';
 import { Browser, useBrowser } from '../../../components/browser';
 import { CardText } from '../output/CardText';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import type { BrowserValue } from '../../browser/Browser';
+import { SingleLineCodeEditor } from '@axonivy/monaco';
 
 export interface ComboboxItem {
   value: string;
@@ -109,8 +109,8 @@ const Combobox = <T extends ComboboxItem>({
                 {...focusValue}
                 value={value}
                 onChange={onChange}
-                context={{ location: path }}
-                macro={true}
+                contextPath={path}
+                language={macro ? 'ivyMacro' : 'ivyScript'}
                 onMountFuncs={[setEditor]}
               />
               {browserTypes || (macro && browserTypes!) ? (
