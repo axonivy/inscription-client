@@ -1,6 +1,7 @@
-import { App, ClientContextProvider, MonacoEditorUtil, QueryProvider, initQueryClient } from '@axonivy/inscription-editor';
+import { App, ClientContextProvider, QueryProvider, initQueryClient } from '@axonivy/inscription-editor';
 import type { ElementType } from '@axonivy/inscription-protocol';
 import { ThemeProvider } from '@axonivy/ui-components';
+import { MonacoEditorUtil } from '@axonivy/monaco';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { InscriptionClientMock } from './mock/inscription-client-mock';

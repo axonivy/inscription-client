@@ -1,9 +1,0 @@
-{
-  "extends": "../../config/tsconfig.package.json",
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib"
-  },
-  "include": ["src"],
-  "references": [{ "path": "../protocol/tsconfig.json" }]
-}
