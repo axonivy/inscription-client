@@ -10,7 +10,6 @@
   "include": ["src", "tests"],
   "exclude": ["**/playwright.config.ts"],
   "references": [
-    { "path": "../../packages/core/tsconfig.json" },
     { "path": "../../packages/editor/tsconfig.production.json" },
     { "path": "../../packages/protocol/tsconfig.json" }
   ]

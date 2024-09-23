@@ -6,7 +6,6 @@
   },
   "references": [
     { "path": "integrations/standalone/tsconfig.json" },
-    { "path": "packages/core/tsconfig.json" },
     { "path": "packages/editor/tsconfig.production.json" },
     { "path": "packages/protocol/tsconfig.json" }
   ]

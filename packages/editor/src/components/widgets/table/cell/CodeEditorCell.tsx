@@ -3,13 +3,15 @@ import type { CellContext } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { usePath } from '../../../../context';
 import { Input } from '../../input';
-import { MaximizedCodeEditorBrowser, SingleLineCodeEditor } from '../../code-editor';
+import { MaximizedCodeEditorBrowser } from '../../code-editor';
 import type { BrowserType } from '../../../browser';
 import { Browser, useBrowser } from '../../../browser';
 import { useMonacoEditor } from '../../code-editor/useCodeEditor';
 import { useOnFocus } from '../../../browser/useOnFocus';
 import useMaximizedCodeEditor from '../../../browser/useMaximizedCodeEditor';
 import { Button } from '@axonivy/ui-components';
+import { SingleLineCodeEditor } from '@axonivy/monaco';
+import { useContextPath } from '../../code-editor/useContextPath';
 
 type CodeEditorCellProps<TData> = {
   cell: CellContext<TData, string>;
@@ -29,6 +31,7 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
 
   const { setEditor, modifyEditor, getSelectionRange } = useMonacoEditor();
   const path = usePath();
+  const contextPath = useContextPath(type);
   const browser = useBrowser();
 
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
@@ -74,13 +77,13 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
             <>
               <SingleLineCodeEditor
                 {...focusValue}
-                context={{ type, location: path }}
+                contextPath={contextPath}
                 keyActions={{
                   enter: activeElementBlur,
                   escape: activeElementBlur
                 }}
                 onMountFuncs={[setEditor]}
-                macro={makro}
+                language={makro ? 'ivyMacro' : 'ivyScript'}
               />
 
               <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />

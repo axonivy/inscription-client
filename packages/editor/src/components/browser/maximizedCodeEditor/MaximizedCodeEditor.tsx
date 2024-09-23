@@ -1,10 +1,10 @@
 import './MaximizedCodeEditor.css';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { useBrowser, type BrowserType } from '../useBrowser';
-import { monacoAutoFocus, useMonacoEditor } from '../../widgets/code-editor/useCodeEditor';
-import CodeEditor from '../../widgets/code-editor/CodeEditor';
+import { useMonacoEditor } from '../../widgets/code-editor/useCodeEditor';
 import Browser from '../Browser';
-import { MAXIMIZED_MONACO_OPTIONS, MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
+import { CodeEditor, MAXIMIZED_MONACO_OPTIONS, monacoAutoFocus, MonacoEditorUtil } from '@axonivy/monaco';
+import { useContextPath } from '../../widgets/code-editor/useContextPath';
 
 export type MaximizedCodeEditorProps = {
   editorValue: string;
@@ -33,6 +33,7 @@ const MaximizedCodeEditor = ({
 }: MaximizedCodeEditorProps) => {
   const { setEditor, modifyEditor, getMonacoSelection } = useMonacoEditor(macro ? { modifyAction: value => `<%=${value}%>` } : undefined);
   const browser = useBrowser();
+  const contextPath = useContextPath(type);
 
   const setSelection = (editor: monaco.editor.IStandaloneCodeEditor) => {
     if (selectionRange !== null) {
@@ -66,10 +67,10 @@ const MaximizedCodeEditor = ({
           <CodeEditor
             value={editorValue}
             onChange={applyEditor}
-            context={{ type, location }}
+            contextPath={contextPath}
             onMountFuncs={[setEditor, delayedMonacoAutoFocus, setSelection, keyActionMountFunc]}
             options={MAXIMIZED_MONACO_OPTIONS}
-            macro={macro}
+            language={macro ? 'ivyMacro' : 'ivyScript'}
           />
         </div>
         <Browser {...browser} types={browsers} accept={modifyEditor} location={location} initSearchFilter={getMonacoSelection} />

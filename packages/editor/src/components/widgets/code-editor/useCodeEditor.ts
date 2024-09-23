@@ -3,14 +3,6 @@ import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import type { BrowserValue } from '../../browser/Browser';
 import type { BrowserType } from '../../browser';
 
-export const monacoAutoFocus = (editor: monaco.editor.IStandaloneCodeEditor) => {
-  const range = editor.getModel()?.getFullModelRange();
-  if (range) {
-    editor.setPosition(range.getEndPosition());
-  }
-  editor.focus();
-};
-
 export type ModifyAction = (value: string) => string;
 
 export const useMonacoEditor = (options?: { modifyAction?: ModifyAction }) => {

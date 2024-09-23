@@ -1,12 +1,13 @@
 import './ScriptInput.css';
 import { Input } from '../input';
-import type { CodeEditorInputProps } from './SingleLineCodeEditor';
-import SingleLineCodeEditor from './SingleLineCodeEditor';
 import { useMonacoEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
-import { usePath } from '../../../context';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import { useField } from '@axonivy/ui-components';
+import { SingleLineCodeEditor } from '@axonivy/monaco';
+import { useContextPath } from './useContextPath';
+import { usePath } from '../../../context';
+import type { CodeEditorInputProps } from './code-editor-props';
 
 const ScriptInput = ({
   value,
@@ -23,6 +24,7 @@ const ScriptInput = ({
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: modifyAction });
   const path = usePath();
+  const contextPath = useContextPath(type);
   const { inputProps } = useField();
 
   return (
@@ -34,7 +36,8 @@ const ScriptInput = ({
             {...focusValue}
             {...inputProps}
             {...props}
-            context={{ type, location: path }}
+            contextPath={contextPath}
+            language='ivyScript'
             onMountFuncs={[setEditor]}
             editorOptions={editorOptions}
             keyActions={keyActions}

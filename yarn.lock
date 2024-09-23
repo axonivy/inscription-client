@@ -29,16 +29,31 @@
     "@jridgewell/trace-mapping" "^0.3.24"
 
 "@axonivy/jsonrpc@~12.0.0-next.330":
-  version "12.0.0-next.330"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-12.0.0-next.330.tgz#d3dcf3d7c41ff25d88ff1afcb0831a1511309a76"
-  integrity sha512-QIEcu3YiRYpHYclv84e/nxX6maI6jNeECzuhZgFZIIQlvYLF6Pr5ZnvX5HglqzWRBHrlvub+Xu4MhiivVHIuHA==
+  version "12.0.0-next.340"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-12.0.0-next.340.tgz#bf61b53b604387668d29f24e1c864c7c3a00cede"
+  integrity sha512-Y+dy3Y8o5fu3yKZUiU1PrMbJdYt1wNBU8GFAMUcadlNNU53HLYo3youv34vZ0RKGyksvaiTo1egyIodBgMmcCQ==
   dependencies:
     vscode-jsonrpc "^8.2.0"
 
+"@axonivy/monaco@~0.0.0-dev":
+  version "0.0.0-dev"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/monaco/-/monaco-0.0.0-dev.tgz#f41f66709e073417370f0c49900142a394767510"
+  integrity sha512-j7ZcLdichNWeYjS8I6Gwj+dk4xAtXgJvTL7XaBodv2rGB2BhxaEY9nPWMNFMUXngjNlvxALygUH4v3et4pPuFA==
+  dependencies:
+    "@codingame/monaco-vscode-editor-service-override" "1.83.3"
+    "@codingame/monaco-vscode-languages-service-override" "1.83.3"
+    "@codingame/monaco-vscode-model-service-override" "1.83.3"
+    "@monaco-editor/react" "^4.6.0"
+    "@react-aria/interactions" "^3.22.2"
+    monaco-editor "0.44.0"
+    monaco-editor-workers "0.44.0"
+    monaco-languageclient "6.6.1"
+    vscode-languageserver-protocol "3.17.5"
+
 "@axonivy/ui-components@~12.0.0-next.330":
-  version "12.0.0-next.330"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-12.0.0-next.330.tgz#6ebede0c0683a64e5694f565d90958ff16f1c33a"
-  integrity sha512-eA1ErmnTVreZGuu1WzL2saWwhnLG+VUHPatHTdrH0h3MVsw+8ky7EAeNsuhvwORF7pQfkyF2sKtvsdLSLqw7ng==
+  version "12.0.0-next.340"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-12.0.0-next.340.tgz#a5aab316b6a1fc3a078d08a4c19c26faaba4a525"
+  integrity sha512-mzNUug2TKLEQSO0OE/8d1DZrgYqqHXMdRNY3BzR556549S1aVrKv/dWhqn+L9x646Bmzw1mDxmUgZR/Jun5TpQ==
   dependencies:
     "@radix-ui/react-accordion" "1.2.1"
     "@radix-ui/react-checkbox" "1.1.2"
@@ -339,6 +354,14 @@
     call-me-maybe "^1.0.1"
     js-yaml "^4.1.0"
 
+"@codingame/monaco-vscode-editor-service-override@1.83.3":
+  version "1.83.3"
+  resolved "https://registry.yarnpkg.com/@codingame/monaco-vscode-editor-service-override/-/monaco-vscode-editor-service-override-1.83.3.tgz#9bc2690ae47edc5aa2e714dab8f6d93b693bc3f7"
+  integrity sha512-9j3ixC2KO+U2U4edm27ki17UetdpiQm/nGRAtdLXzUj6fnj34vr4EOyiVaj6/YtCa+qUuEqBrveosvRbUdxJAQ==
+  dependencies:
+    monaco-editor "0.44.0"
+    vscode "npm:@codingame/monaco-vscode-api@1.83.3"
+
 "@codingame/monaco-vscode-editor-service-override@~1.83.3":
   version "1.83.5"
   resolved "https://registry.yarnpkg.com/@codingame/monaco-vscode-editor-service-override/-/monaco-vscode-editor-service-override-1.83.5.tgz#2b414cefd937e024c4611a4966bb6bd00cfd6861"
@@ -347,6 +370,14 @@
     monaco-editor "0.44.0"
     vscode "npm:@codingame/monaco-vscode-api@1.83.5"
 
+"@codingame/monaco-vscode-languages-service-override@1.83.3":
+  version "1.83.3"
+  resolved "https://registry.yarnpkg.com/@codingame/monaco-vscode-languages-service-override/-/monaco-vscode-languages-service-override-1.83.3.tgz#7a782c1ebe68b9591e201fc997b5716dce236697"
+  integrity sha512-ECIZbjFnB1gv+KiEhYVH26InXYUhBy1lZ8L8LJqL2fk8M9uni3bnVoV8yfP0OXd0L+tpjsL3hsNXv304a222+g==
+  dependencies:
+    monaco-editor "0.44.0"
+    vscode "npm:@codingame/monaco-vscode-api@1.83.3"
+
 "@codingame/monaco-vscode-languages-service-override@~1.83.3":
   version "1.83.5"
   resolved "https://registry.yarnpkg.com/@codingame/monaco-vscode-languages-service-override/-/monaco-vscode-languages-service-override-1.83.5.tgz#ec64289c7f150265b01170fd897ffe8b807d9db6"
@@ -354,6 +385,14 @@
   dependencies:
     monaco-editor "0.44.0"
     vscode "npm:@codingame/monaco-vscode-api@1.83.5"
+
+"@codingame/monaco-vscode-model-service-override@1.83.3":
+  version "1.83.3"
+  resolved "https://registry.yarnpkg.com/@codingame/monaco-vscode-model-service-override/-/monaco-vscode-model-service-override-1.83.3.tgz#7e90ce7465d40b21c47f2bfbce1e734b7378a30b"
+  integrity sha512-Bc0LujY0SBMvVJqB1YOVQzJPfApWyhHU79pCQiCPG2HbhdAOw1RDakbZ1iTA2i95q8ksgQTKVzgWLfL1Kj/McA==
+  dependencies:
+    monaco-editor "0.44.0"
+    vscode "npm:@codingame/monaco-vscode-api@1.83.3"
 
 "@codingame/monaco-vscode-model-service-override@~1.83.3":
   version "1.83.5"
@@ -7424,19 +7463,19 @@ modify-values@^1.0.1:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-monaco-editor-workers@^0.44.0:
+monaco-editor-workers@0.44.0:
   version "0.44.0"
   resolved "https://registry.yarnpkg.com/monaco-editor-workers/-/monaco-editor-workers-0.44.0.tgz#c3c3d3c0e97d36cbc8c93e63647e818c612a4034"
   integrity sha512-rvdO292CMnxs9Y3Hl6nAjVx8d0SjcDgmXmZNVoaOCNJrdnTEEzcWcHJzEQsajTAAq4H2oeBmDZRpDE0US5DhXA==
   dependencies:
     monaco-editor "~0.44.0"
 
-monaco-editor@0.44.0, monaco-editor@^0.44.0, monaco-editor@~0.44.0:
+monaco-editor@0.44.0, monaco-editor@~0.44.0:
   version "0.44.0"
   resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.44.0.tgz#3c0fe3655923bbf7dd647057302070b5095b6c59"
   integrity sha512-5SmjNStN6bSuSE5WPT2ZV+iYn1/yI9sd4Igtk23ChvqB7kDk9lZbB9F5frsuvpB+2njdIeGGFf2G4gbE6rCC9Q==
 
-monaco-languageclient@^6.6.1:
+monaco-languageclient@6.6.1:
   version "6.6.1"
   resolved "https://registry.yarnpkg.com/monaco-languageclient/-/monaco-languageclient-6.6.1.tgz#b6ddb14255a47bb6613bb4fcfcca88e68069dd73"
   integrity sha512-BtuVTfwnFbutgOd4npXj0EXXrp8wl8FENM4ub5pJdV19uK8YwlMtoMcFIGONZp+pxU/gte25k62kAi4r5QsNEw==
@@ -9982,10 +10021,15 @@ vscode-jsonrpc@8.1.0:
   resolved "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-8.1.0.tgz#cb9989c65e219e18533cc38e767611272d274c94"
   integrity sha512-6TDy/abTQk+zDGYazgbIPc+4JoXdwC8NHU9Pbn4UJP1fehUyZmM4RHp5IthX7A6L5KS30PRui+j+tbbMMMafdw==
 
-vscode-jsonrpc@8.2.0, vscode-jsonrpc@^8.2.0:
+vscode-jsonrpc@8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-8.2.0.tgz#f43dfa35fb51e763d17cd94dcca0c9458f35abf9"
   integrity sha512-C+r0eKJUIfiDIfwJhria30+TYWPtuHJXHtI7J0YlOmKAo7ogxP20T0zxB7HZQIFhIyvoBPwWskjxrvAtfjyZfA==
+
+vscode-jsonrpc@^8.2.0:
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-8.2.1.tgz#a322cc0f1d97f794ffd9c4cd2a898a0bde097f34"
+  integrity sha512-kdjOSJ2lLIn7r1rtrMbbNCHjyMPfRnowdKjBQ+mGq6NAW5QY2bEZC/khaC5OR8svbbjvLEaIXkOq45e2X9BIbQ==
 
 vscode-languageclient@~8.1.0:
   version "8.1.0"
@@ -10004,7 +10048,7 @@ vscode-languageserver-protocol@3.17.3:
     vscode-jsonrpc "8.1.0"
     vscode-languageserver-types "3.17.3"
 
-vscode-languageserver-protocol@^3.17.5:
+vscode-languageserver-protocol@3.17.5:
   version "3.17.5"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-protocol/-/vscode-languageserver-protocol-3.17.5.tgz#864a8b8f390835572f4e13bd9f8313d0e3ac4bea"
   integrity sha512-mb1bvRJN8SVznADSGWM9u/b07H7Ecg0I3OgXDuLdn307rl/J3A9YD6/eYOssqhecL27hK1IPZAsaqh00i/Jljg==
@@ -10021,6 +10065,13 @@ vscode-languageserver-types@3.17.5:
   version "3.17.5"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.17.5.tgz#3273676f0cf2eab40b3f44d085acbb7f08a39d8a"
   integrity sha512-Ld1VelNuX9pdF39h2Hgaeb5hEZM2Z3jUrrMgWQAu82jMtZp7p3vJT3BzToKtZI7NgQssZje5o0zryOrhQvzQAg==
+
+"vscode@npm:@codingame/monaco-vscode-api@1.83.3":
+  version "1.83.3"
+  resolved "https://registry.yarnpkg.com/@codingame/monaco-vscode-api/-/monaco-vscode-api-1.83.3.tgz#9d7440500a5a35b687c3583783efe9cd9e181dc6"
+  integrity sha512-UhhThNT7mgUrnpLgoW0QiidFjD5vI0ia5uPvw88Z6uj4FngzXG33rqOhA/36xYwkFZKkNqOvSPnCG3zyTd0l2Q==
+  dependencies:
+    monaco-editor "0.44.0"
 
 "vscode@npm:@codingame/monaco-vscode-api@1.83.5", "vscode@npm:@codingame/monaco-vscode-api@>=1.83.3 <1.84.0":
   version "1.83.5"

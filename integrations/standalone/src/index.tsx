@@ -1,7 +1,7 @@
-import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
 import type { MonacoLanguageClient } from 'monaco-languageclient';
-import { App, ClientContextProvider, MonacoEditorUtil, QueryProvider, initQueryClient } from '@axonivy/inscription-editor';
+import { App, ClientContextProvider, InscriptionClientJsonRpc, QueryProvider, initQueryClient } from '@axonivy/inscription-editor';
 import { ThemeProvider, Spinner, Flex } from '@axonivy/ui-components';
+import { MonacoEditorUtil, IvyScriptLanguage } from '@axonivy/monaco';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { URLParams } from './url-helper';
@@ -54,7 +54,8 @@ export async function start(): Promise<void> {
     logger: console
   });
 
-  const instance = MonacoEditorUtil.configureInstance({ theme, debug: true });
+  const worker = await import('monaco-editor/esm/vs/editor/editor.worker?worker');
+  const instance = MonacoEditorUtil.configureInstance({ theme, debug: true, worker: { workerConstructor: worker.default } });
 
   const initializeScript = async (connection: Connection) => {
     return await IvyScriptLanguage.startClient(connection, instance);
