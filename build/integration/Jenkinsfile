@@ -53,7 +53,7 @@ pipeline {
                 yarn protocol clean
 
                 artifacts="https://jenkins.ivyteam.io/job/core_json-schema/job/'''+branchName+'''/lastSuccessfulBuild/artifact"
-                devSchema="${artifacts}/workspace/ch.ivyteam.ivy.lsp.inscription.schema/target/schema/process/*/inscription.json/*zip*/process.zip"
+                devSchema="${artifacts}/workspace/ch.ivyteam.ivy.inscription.lsp.schema/target/schema/process/*/inscription.json/*zip*/process.zip"
                 curl -o process.zip ${devSchema}
                 unzip -j process.zip
                 yarn protocol generate $PWD/inscription.json
