@@ -61,12 +61,10 @@ const useResizableEditableTable = <TData,>({
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
       const filteredData = data.filter(obj => !deepEqual(obj, emptyDataObject));
-
       if (filteredData.length !== data.length) {
         setRowSelection({});
         onChange(filteredData);
       }
-      return;
     }
   }, [data, emptyDataObject, onChange, rowSelection, table]);
 
