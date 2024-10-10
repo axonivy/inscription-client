@@ -5,7 +5,7 @@ import type { MailData } from '@axonivy/inscription-protocol';
 import { PathContext, useValidations } from '../../../context';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { ValidationCollapsible, ValidationRow } from '../common';
 import { useResizableEditableTable } from '../common/table/useResizableEditableTable';
 import { Table, TableBody, TableCell } from '@axonivy/ui-components';
@@ -27,10 +27,12 @@ const MailAttachmentsPart = () => {
   );
 };
 
+type MailAttachment = { attachment: string };
+const EMPTY_ATTACHMENT: MailAttachment = { attachment: '' } as const;
+
 const MailAttachmentTable = () => {
   const { config, update } = useMailData();
-  type MailAttachment = { attachment: string };
-  const [data, setData] = useState<MailAttachment[]>(config.attachments.map(filename => ({ attachment: filename })));
+  const data = useMemo<MailAttachment[]>(() => config.attachments.map(filename => ({ attachment: filename })), [config.attachments]);
 
   const columns = useMemo<ColumnDef<MailAttachment, string>[]>(
     () => [
@@ -46,8 +48,7 @@ const MailAttachmentTable = () => {
   );
 
   const onChange = (change: MailAttachment[]) => {
-    setData(change);
-    const mappedData: string[] = change.map(attachment => attachment.attachment);
+    const mappedData = change.map<string>(attachment => attachment.attachment);
     update('attachments', mappedData);
   };
 
@@ -55,7 +56,7 @@ const MailAttachmentTable = () => {
     data,
     columns,
     onChange,
-    emptyDataObject: { attachment: '' }
+    emptyDataObject: EMPTY_ATTACHMENT
   });
 
   const tableActions = table.getSelectedRowModel().rows.length > 0 ? [removeRowAction] : [];

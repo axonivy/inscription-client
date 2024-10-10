@@ -20,7 +20,7 @@ pipeline {
             }
           }
           archiveArtifacts artifacts: '**/integrations/standalone/build/**', allowEmptyArchive: true
-          currentBuild.description = "<a href=${BUILD_URL}artifact/integrations/standalone/build/index.html?server=dev.demo.ivyteam.io&secure=true&app=demo-app-dev&pmv=workflow-demos&pid=15254DC87A1B183B-f3>Inscription</a>"
+          currentBuild.description = "<a href=${BUILD_URL}artifact/integrations/standalone/build/index.html?server=neo.ivyteam.io/ivy-dev-workflow-demos&secure=true&app=ivy-dev-workflow-demos&pmv=workflow-demos&pid=15254DC87A1B183B-f0>Inscription</a>"
           withChecks('ESLint') {
             recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: 'packages/**/eslint.xml,integrations/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
           }
