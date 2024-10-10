@@ -1,7 +1,7 @@
 import type {
   CallableStart,
   ConnectorRef,
-  DataClass,
+  DataclassType,
   DatabaseColumn,
   DatabaseColumnRequest,
   DatabaseTablesRequest,
@@ -81,7 +81,7 @@ export interface InscriptionMetaRequestTypes {
 
   'meta/scripting/out': [ScriptingDataArgs, VariableInfo];
   'meta/scripting/in': [ScriptingDataArgs, VariableInfo];
-  'meta/scripting/dataClasses': [InscriptionContext, DataClass[]];
+  'meta/scripting/dataClasses': [InscriptionContext, DataclassType[]];
   'meta/scripting/allTypes': [TypeSearchRequest, JavaType[]];
   'meta/scripting/ivyTypes': [void, JavaType[]];
   'meta/scripting/ownTypes': [TypeSearchRequest, JavaType[]];

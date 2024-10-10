@@ -21,7 +21,7 @@ import type {
   ProgramInterface,
   ContentObject,
   JavaType,
-  DataClass
+  DataclassType
 } from '@axonivy/inscription-protocol';
 import { DEFAULT_DATA, EMPTY_ROLE, EMPTY_VAR_INFO } from '@axonivy/inscription-protocol';
 import { ReadonlyProvider } from '@axonivy/ui-components';
@@ -77,7 +77,7 @@ type ContextHelperProps = {
     contentObject?: ContentObject[];
     datatypes?: JavaType[];
     ivyTypes?: JavaType[];
-    dataClasses?: DataClass[];
+    dataClasses?: DataclassType[];
     tags?: string[];
   };
   editor?: { title?: string; readonly?: boolean };
