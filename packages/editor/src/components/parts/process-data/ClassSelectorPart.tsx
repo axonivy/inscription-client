@@ -1,9 +1,9 @@
-import type { DataClass } from '@axonivy/inscription-protocol';
+import type { DataclassType } from '@axonivy/inscription-protocol';
 import type { ComboboxItem } from '../../widgets';
 import { Combobox, IvyIcon } from '../../widgets';
 import { IvyIcons } from '@axonivy/ui-icons';
 
-export type DataClassItem = Pick<DataClass, 'name' | 'packageName' | 'path'> & ComboboxItem;
+export type DataClassItem = Pick<DataclassType, 'name' | 'packageName' | 'path'> & ComboboxItem;
 
 type DataClassSelectorProps = {
   dataClass: string;

@@ -6,7 +6,7 @@ import type {
   NodeRef,
   RoleMeta,
   ContentObject,
-  DataClass,
+  DataclassType,
   JavaType,
   CategoryPathMeta,
   DatabaseColumn,
@@ -159,7 +159,7 @@ export namespace MetaMock {
     }
   ];
 
-  export const DATACLASS: DataClass[] = [
+  export const DATACLASS: DataclassType[] = [
     {
       name: 'Person',
       fullQualifiedName: 'ch.ivyteam.test.Person',
