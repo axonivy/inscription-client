@@ -18,25 +18,24 @@ pipeline {
     stage('Screenshots') {
       steps {
         script {
-          docker.build('node-webtest', '-f build/playwright/Dockerfile .').inside {
-            sh 'npm install'
-            sh 'npm run package'
-            dir ('integrations/standalone/tests/screenshots/project') {
-              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
+          docker.build('node-webtest', '-f build/Dockerfile.playwright .').inside {
+            sh 'npm install && npm run package'
+            dir ('playwright/inscription-test-project') {
+              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource} -Dwebtest.cmd=webtest:screenshots"
             }
           }
-          archiveArtifacts artifacts: 'integrations/standalone/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: 'integrations/standalone/**/target/**/ivy.log', allowEmptyArchive: true
-          archiveArtifacts artifacts: 'integrations/standalone/**/target/screenshots/*.png', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/test-results/**', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/inscription-test-project/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/inscription-test-project/target/screenshots/*.png', allowEmptyArchive: true
           withChecks('Screenshots') {
-            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'integrations/**/report.xml'
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'playwright/**/report.xml'
           }
         }
       }
     }
     stage('Deploy') {
       when {
-        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
+        expression { isReleasingBranch() && currentBuild.currentResult == 'SUCCESS' }
       }
       steps {
         script {
@@ -48,8 +47,4 @@ pipeline {
       }
     }
   }
-}
-
-def isReleaseOrMasterBranch() {
-  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
 }

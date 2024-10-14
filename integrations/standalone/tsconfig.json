@@ -4,10 +4,10 @@
     "types": ["vite/client", "node"],
     "jsx": "preserve",
     "rootDir": ".",
-    "rootDirs": ["src", "tests"],
+    "rootDirs": ["src"],
     "outDir": "lib"
   },
-  "include": ["src", "tests"],
+  "include": ["src"],
   "exclude": ["**/playwright.config.ts"],
   "references": [
     { "path": "../../packages/core/tsconfig.json" },

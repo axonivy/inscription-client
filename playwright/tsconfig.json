@@ -1,0 +1,11 @@
+{
+  "extends": "../config/tsconfig.integration.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "rootDirs": ["tests"],
+    "outDir": "lib",
+    "noImplicitAny": false,
+    "types": ["node"]
+  },
+  "include": ["tests"]
+}

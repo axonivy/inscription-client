@@ -27,6 +27,10 @@
     {
       "name": "integrations/standalone",
       "path": "./integrations/standalone"
+    },
+    {
+      "name": "playwright",
+      "path": "./playwright"
     }
   ],
   "settings": {

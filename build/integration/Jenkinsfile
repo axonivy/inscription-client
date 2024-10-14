@@ -16,35 +16,35 @@ pipeline {
   }
 
   stages {
-    stage('Integration Test') {
+    stage('Integration Tests') {
       environment {
         BROWSERS = browser()
       }
       steps {
         script {
-          docker.build('node-webtest', '-f build/playwright/Dockerfile .').inside {
-            sh 'npm install'
-            sh 'npm run package'
-            dir ('integrations/standalone/tests/integration/project') {
-              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
+          docker.build('node-webtest', '-f build/Dockerfile.playwright .').inside {
+            sh 'npm run update:axonivy:next'
+            sh 'npm install && npm run package'
+            dir ('playwright/inscription-test-project') {
+              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource} -Dwebtest.cmd=webtest:${browser()}"
             }
           }
-          archiveArtifacts artifacts: 'integrations/standalone/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: 'integrations/standalone/**/target/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/test-results/**', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/inscription-test-project/**/ivy.log', allowEmptyArchive: true
           withChecks('Integration WebTest') {
-            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'integrations/**/report.xml'
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'playwright/**/report.xml'
           }
         }
       }
     }
     stage('Protocol') {
       when {
-        expression { isReleaseOrMasterBranch() }
+        expression { isReleasingBranch() }
       }
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.build('node', '-f build/Dockerfile .').inside {
+            docker.build('node', '-f build/Dockerfile.node .').inside {
               def branchName = env.BRANCH_NAME.replace("/", "%252F")
               sh '''
                 npm install
@@ -69,13 +69,9 @@ pipeline {
   }
 }
 
-def isReleaseOrMasterBranch() {
-  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
-}
-
 def browser() {
   if (params.browser == '') {
-    if (isReleaseOrMasterBranch()) {
+    if (isReleasingBranch()) {
       return 'all'
     }
     return 'chrome'
