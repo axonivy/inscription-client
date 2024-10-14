@@ -11,7 +11,7 @@
   "dependencies": {
     "@axonivy/inscription-core": "~12.0.0-next",
     "@axonivy/inscription-editor": "~12.0.0-next",
-    "@axonivy/ui-icons": "~12.0.0-next.330",
+    "@axonivy/ui-icons": "~12.0.0-next.340",
     "path-browserify": "^1.0.1"
   },
   "devDependencies": {
@@ -31,17 +31,17 @@
   "scripts": {
     "clean": "rimraf build tsconfig.tsbuildinfo",
     "build": "tsc --build",
-    "build:clean": "yarn clean && yarn build",
+    "build:clean": "npm run clean && npm run build",
     "package": "vite build",
     "type": "tsc --noEmit",
-    "start": "vite",
+    "dev": "vite",
     "serve": "vite preview",
     "lint": "eslint --ext .ts,.tsx ./src ./tests",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src ./tests",
-    "webtest": "yarn playwright test",
-    "webtest:mock": "yarn webtest -c ./tests/mock",
-    "webtest:engine": "yarn webtest -c ./tests/integration",
-    "webtest:screenshot": "yarn webtest -c ./tests/screenshots"
+    "webtest": "playwright test",
+    "webtest:mock": "playwright test -c ./tests/mock",
+    "webtest:engine": "playwright test -c ./tests/integration",
+    "webtest:screenshot": "playwright test -c ./tests/screenshots"
   },
   "type": "module",
   "browserslist": {

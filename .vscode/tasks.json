@@ -6,7 +6,7 @@
     {
       "label": "Start Dev Server",
       "type": "shell",
-      "command": "yarn dev",
+      "command": "npm run dev",
       "problemMatcher": [
         {
           "owner": "typescript",

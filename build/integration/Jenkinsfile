@@ -23,9 +23,8 @@ pipeline {
       steps {
         script {
           docker.build('node-webtest', '-f build/playwright/Dockerfile .').inside {
-            sh 'build/use-mirror-npm.sh'
-            sh 'yarn install'
-            sh 'yarn package'
+            sh 'npm install'
+            sh 'npm run package'
             dir ('integrations/standalone/tests/integration/project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
             }
@@ -48,17 +47,16 @@ pipeline {
             docker.build('node', '-f build/Dockerfile .').inside {
               def branchName = env.BRANCH_NAME.replace("/", "%252F")
               sh '''
-                build/use-mirror-npm.sh
-                yarn
-                yarn protocol clean
+                npm install
+                npm run protocol clean
 
                 artifacts="https://jenkins.ivyteam.io/job/core_json-schema/job/'''+branchName+'''/lastSuccessfulBuild/artifact"
                 devSchema="${artifacts}/workspace/ch.ivyteam.ivy.inscription.lsp.schema/target/schema/process/*/inscription.json/*zip*/process.zip"
                 curl -o process.zip ${devSchema}
                 unzip -j process.zip
-                yarn protocol generate $PWD/inscription.json
+                npm run protocol generate $PWD/inscription.json
 
-                yarn build && yarn lint:ci
+                npm run build && npm run lint:ci
               '''
             }
           }

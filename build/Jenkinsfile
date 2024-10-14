@@ -15,8 +15,7 @@ pipeline {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
             docker.build('node', '-f build/Dockerfile .').inside {
-              sh 'build/use-mirror-npm.sh'
-              sh 'yarn ci'
+              sh 'npm run ci'
             }
           }
           archiveArtifacts artifacts: '**/integrations/standalone/build/**', allowEmptyArchive: true
@@ -35,7 +34,7 @@ pipeline {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
             docker.image('mcr.microsoft.com/playwright:v1.46.0-jammy').inside {
-              sh 'yarn standalone webtest:mock'
+              sh 'npm run standalone webtest:mock'
             }
           }
           archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
@@ -53,11 +52,11 @@ pipeline {
       steps {
         script {
           docker.build('node', '-f build/Dockerfile .').inside {
-            sh 'git checkout yarn.lock'
-            sh 'yarn build'
+            sh 'git checkout package-lock.json'
+            sh 'npm run build'
             withCredentials([string(credentialsId: 'npmjs-registry.ivyteam.ch-auth-token', variable: 'NPM_AUTH_TOKEN')]) {
               sh 'npm set "//npmjs-registry.ivyteam.ch/:_authToken = $NPM_AUTH_TOKEN"'
-              sh 'yarn publish:next'
+              sh 'npm run publish:next'
             }
           }
         }

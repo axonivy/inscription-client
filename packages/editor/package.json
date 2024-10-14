@@ -16,7 +16,7 @@
   "dependencies": {
     "@axonivy/inscription-core": "~12.0.0-next",
     "@axonivy/inscription-protocol": "~12.0.0-next",
-    "@axonivy/ui-components": "~12.0.0-next.330",
+    "@axonivy/ui-components": "~12.0.0-next.340",
     "@monaco-editor/react": "^4.6.0",
     "@radix-ui/react-dialog": "1.1.2",
     "@radix-ui/react-radio-group": "1.2.1",
@@ -54,11 +54,11 @@
     "clean": "rimraf lib *.tsbuildinfo",
     "build": "tsc --build && tscp",
     "package": "tsc -p tsconfig.production.json && tscp",
-    "build:clean": "yarn clean && yarn build",
+    "build:clean": "npm run clean && npm run build",
     "type": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
-    "test": "yarn vitest",
-    "test:ci": "yarn test --watch=false"
+    "test": "vitest",
+    "test:ci": "vitest --watch=false"
   }
 }

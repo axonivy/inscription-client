@@ -2,14 +2,13 @@
   "private": true,
   "name": "parent",
   "engines": {
-    "yarn": ">=1.7.0 <2.x.x",
     "node": ">=20.10.0"
   },
   "volta": {
     "node": "20.10.0"
   },
   "scripts": {
-    "ci": "yarn install && yarn package && yarn lint:ci && yarn test:ci",
+    "ci": "npm install && npm run package && npm run lint:ci && npm run test:ci",
     "clean": "lerna run clean",
     "build": "tsc --build && tscp --build",
     "package": "lerna run package",
@@ -17,14 +16,15 @@
     "build:clean": "lerna run build:clean",
     "type": "lerna run type",
     "lint": "lerna run lint --",
-    "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
+    "lint:ci": "npm run lint -- -o eslint.xml -f checkstyle",
     "lint:fix": "lerna run lint:fix --",
-    "standalone": "yarn -s --cwd integrations/standalone",
-    "dev": "yarn standalone start",
+    "standalone": "npm run --workspace=@axonivy/inscription-standalone",
+    "dev": "npm run standalone dev",
     "generate": "lerna run generate",
-    "protocol": "yarn --cwd packages/protocol",
-    "test": "yarn --cwd packages/editor test",
+    "protocol": "npm run --workspace=@axonivy/inscription-protocol",
+    "test": "npm run --workspace=@axonivy/inscription-editor test",
     "test:ci": "lerna run test:ci",
+    "webtest": "lerna run webtest --",
     "update:axonivy:next": "npx --yes npm-check-updates @axonivy* -ws -t patch -u",
     "publish:next": "lerna publish --exact --canary --preid next --tag-version-prefix beta --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
@@ -33,7 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^8.2.0",
     "@typescript-eslint/parser": "^8.2.0",
     "concurrently": "^8.2.2",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-react": "^7.35.0",
