@@ -11,7 +11,7 @@ export default defineConfig(defaultConfig, {
   },
   retries: process.env.CI ? 1 : 0,
   webServer: {
-    command: 'yarn serve',
+    command: 'npm run serve',
     url: baseUrl,
     reuseExistingServer: !process.env.CI
   }

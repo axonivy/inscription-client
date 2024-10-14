@@ -3,7 +3,7 @@ set -e
 
 sed -i -E "s/(\"@axonivy[^\"]*\"): \"[^\"]*\"/\1: \"~${1/SNAPSHOT/next}\"/" packages/*/package.json
 sed -i -E "s/(\"@axonivy[^\"]*\"): \"[^\"]*\"/\1: \"~${1/SNAPSHOT/next}\"/" integrations/*/package.json
-yarn update:axonivy:next
+npm run update:axonivy:next
 if [ "$DRY_RUN" = false ]; then
-  yarn install --ignore-scripts
+  npm install
 fi

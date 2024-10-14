@@ -15,7 +15,7 @@ export default defineConfig(defaultConfig, {
   ],
   timeout: 1000 * 60,
   webServer: {
-    command: 'yarn serve',
+    command: 'npm run serve',
     url: process.env.CI ? 'http://localhost:4173' : 'http://localhost:3000',
     reuseExistingServer: !process.env.CI
   }

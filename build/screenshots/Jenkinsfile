@@ -19,9 +19,8 @@ pipeline {
       steps {
         script {
           docker.build('node-webtest', '-f build/playwright/Dockerfile .').inside {
-            sh 'build/use-mirror-npm.sh'
-            sh 'yarn install'
-            sh 'yarn package'
+            sh 'npm install'
+            sh 'npm run package'
             dir ('integrations/standalone/tests/screenshots/project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
             }
