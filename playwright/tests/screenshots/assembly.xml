@@ -12,7 +12,7 @@
 
   <fileSets>
     <fileSet>
-      <directory>../../target/screenshots</directory>
+      <directory>../../inscription-test-project/target/screenshots</directory>
       <outputDirectory>process-inscription</outputDirectory>
     </fileSet>
   </fileSets>
