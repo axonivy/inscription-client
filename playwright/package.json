@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "name": "@axonivy/inscription-editor-playwright",
+  "version": "12.0.0-next",
+  "description": "Playwright tests for the Axon Ivy process inscriptions",
+  "author": "Axon Ivy AG",
+  "homepage": "https://developer.axonivy.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axonivy/form-editor-client"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.46.0"
+  },
+  "type": "module",
+  "scripts": {
+    "type": "tsc --noEmit",
+    "build": "tsc --build",
+    "lint": "eslint --ext .ts,.tsx ./tests",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ./tests",
+    "webtest": "playwright test --project=integration-chrome",
+    "webtest:screenshots": "playwright test --project=screenshots",
+    "webtest:*": "playwright test --project=integration-*",
+    "webtest:chrome": "playwright test --project=integration-chrome",
+    "webtest:firefox": "playwright test --project=integration-firefox",
+    "webtest:webkit": "playwright test --project=integration-webkit"
+  }
+}

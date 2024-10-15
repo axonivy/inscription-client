@@ -10,11 +10,12 @@ pipeline {
   }
 
   stages {
-    stage('Client') {
+    stage('Build') {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.build('node', '-f build/Dockerfile .').inside {
+            docker.build('node', '-f build/Dockerfile.node .').inside {
+              sh 'npm run update:axonivy:next'
               sh 'npm run ci'
             }
           }
@@ -29,29 +30,14 @@ pipeline {
         }
       }
     }
-    stage('Mock Tests') {
-      steps {
-        script {
-          catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.image('mcr.microsoft.com/playwright:v1.46.0-jammy').inside {
-              sh 'npm run standalone webtest:mock'
-            }
-          }
-          archiveArtifacts artifacts: '**/standalone/test-results/**', allowEmptyArchive: true
-          withChecks('Mock WebTest') {
-            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'integrations/**/report.xml'
-          }
-        }
-      }
-    }
 
-    stage('Publish next') {
+    stage('Publish (NPM)') {
       when {
-        expression { isReleaseOrMasterBranch() && currentBuild.changeSets.size() > 0 }
+        expression { isReleasingBranch() && currentBuild.changeSets.size() > 0 }
       }
       steps {
         script {
-          docker.build('node', '-f build/Dockerfile .').inside {
+          docker.build('node', '-f build/Dockerfile.node .').inside {
             sh 'git checkout package-lock.json'
             sh 'npm run build'
             withCredentials([string(credentialsId: 'npmjs-registry.ivyteam.ch-auth-token', variable: 'NPM_AUTH_TOKEN')]) {
@@ -63,8 +49,4 @@ pipeline {
       }
     }
   }
-}
-
-def isReleaseOrMasterBranch() {
-  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
 }
