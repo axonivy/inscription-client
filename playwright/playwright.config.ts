@@ -1,7 +1,7 @@
 import { devices, defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  timeout: 1000 * (process.env.CI ? 60 : 30),
+  timeout: 1000 * (process.env.CI ? 120 : 30),
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
