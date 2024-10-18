@@ -10,6 +10,7 @@
     "url": "https://github.com/axonivy/form-editor-client"
   },
   "devDependencies": {
+    "@open-rpc/client-js": "1.8.1",
     "@playwright/test": "1.46.0"
   },
   "type": "module",
