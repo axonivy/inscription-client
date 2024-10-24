@@ -16,3 +16,7 @@
   right: 0;
   margin: var(--size-2);
 }
+
+.input-badge-wrapper {
+  width: 100%;
+}
