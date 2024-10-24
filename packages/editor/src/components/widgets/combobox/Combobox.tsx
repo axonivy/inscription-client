@@ -4,14 +4,14 @@ import { memo, useEffect, useState } from 'react';
 import './Combobox.css';
 import { usePath } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { Button, Input, useField, useReadonly } from '@axonivy/ui-components';
+import { Button, Input, InputBadge, useField, useReadonly } from '@axonivy/ui-components';
 import { SingleLineCodeEditor } from '../code-editor';
 import { useMonacoEditor } from '../code-editor/useCodeEditor';
 import type { BrowserType } from '../../../components/browser';
 import { Browser, useBrowser } from '../../../components/browser';
-import { CardText } from '../output/CardText';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import type { BrowserValue } from '../../browser/Browser';
+import { badgePropsExpression } from '../../../utils/badgeproperties';
 
 export interface ComboboxItem {
   value: string;
@@ -123,7 +123,9 @@ const Combobox = <T extends ComboboxItem>({
               ) : null}
             </>
           ) : (
-            <CardText value={value} {...inputProps} {...props} />
+            <div className='input-badge-wrapper'>
+              <InputBadge badgeProps={badgePropsExpression} value={value} {...inputProps} />
+            </div>
           )
         ) : (
           <Input {...getInputProps()} {...inputProps} {...props} />
