@@ -4,9 +4,9 @@ import SingleLineCodeEditor from './SingleLineCodeEditor';
 import { useMonacoEditor } from './useCodeEditor';
 import { Browser, useBrowser } from '../../../components/browser';
 import { usePath } from '../../../context';
-import { CardText } from '../output/CardText';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
-import { useField } from '@axonivy/ui-components';
+import { useField, InputBadge } from '@axonivy/ui-components';
+import { badgePropsExpression } from '../../../utils/badgeproperties';
 
 type MacroInputProps = Omit<CodeEditorInputProps, 'context'>;
 
@@ -33,7 +33,7 @@ const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) =>
           <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
         </>
       ) : (
-        <CardText value={value} {...inputProps} {...props} />
+        <InputBadge badgeProps={badgePropsExpression} value={value} {...inputProps} {...props} />
       )}
     </div>
   );

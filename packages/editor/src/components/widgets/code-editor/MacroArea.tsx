@@ -4,11 +4,11 @@ import type { CodeEditorAreaProps } from './ResizableCodeEditor';
 import ResizableCodeEditor from './ResizableCodeEditor';
 import { monacoAutoFocus, useMonacoEditor } from './useCodeEditor';
 import { usePath } from '../../../context';
-import { CardArea } from '../output/CardText';
 import type { ElementRef } from 'react';
 import { useRef } from 'react';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
-import { useField } from '@axonivy/ui-components';
+import { InputBadgeArea, useField } from '@axonivy/ui-components';
+import { badgePropsExpression } from '../../../utils/badgeproperties';
 import MaximizedCodeEditorBrowser from '../../browser/MaximizedCodeEditorBrowser';
 
 const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps) => {
@@ -52,7 +52,7 @@ const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps)
           )}
         </>
       ) : (
-        <CardArea value={value} {...inputProps} {...props} ref={areaRef} />
+        <InputBadgeArea badgeProps={badgePropsExpression} value={value} {...inputProps} {...props} ref={areaRef} />
       )}
     </div>
   );
