@@ -33,9 +33,7 @@ const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) =>
           <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
         </>
       ) : (
-        <div className='input-badge-wrapper'>
-          <InputBadge badgeProps={badgePropsExpression} value={value} {...inputProps} {...props} />
-        </div>
+        <InputBadge badgeProps={badgePropsExpression} value={value} {...inputProps} {...props} />
       )}
     </div>
   );

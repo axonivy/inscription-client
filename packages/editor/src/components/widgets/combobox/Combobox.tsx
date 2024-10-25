@@ -123,9 +123,7 @@ const Combobox = <T extends ComboboxItem>({
               ) : null}
             </>
           ) : (
-            <div className='input-badge-wrapper'>
-              <InputBadge badgeProps={badgePropsExpression} value={value} {...inputProps} />
-            </div>
+            <InputBadge badgeProps={badgePropsExpression} value={value} {...inputProps} />
           )
         ) : (
           <Input {...getInputProps()} {...inputProps} {...props} />

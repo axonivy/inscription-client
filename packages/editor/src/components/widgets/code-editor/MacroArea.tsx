@@ -52,9 +52,7 @@ const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps)
           )}
         </>
       ) : (
-        <div className='input-badge-wrapper'>
-          <InputBadgeArea badgeProps={badgePropsExpression} value={value} {...inputProps} {...props} ref={areaRef} />
-        </div>
+        <InputBadgeArea badgeProps={badgePropsExpression} value={value} {...inputProps} {...props} ref={areaRef} />
       )}
     </div>
   );
