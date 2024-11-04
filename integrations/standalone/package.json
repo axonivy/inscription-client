@@ -11,11 +11,10 @@
   "dependencies": {
     "@axonivy/inscription-core": "~12.0.0-next",
     "@axonivy/inscription-editor": "~12.0.0-next",
-    "@axonivy/ui-icons": "~12.0.0-next.340",
+    "@axonivy/ui-icons": "~12.0.0-next.372",
     "path-browserify": "^1.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.10.5",
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
     "@types/uuid": "^9.0.7",
