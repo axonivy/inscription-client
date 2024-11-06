@@ -73,6 +73,8 @@ export class InscriptionClientMock implements InscriptionClient {
         return Promise.resolve(MetaMock.CALLABLE_STARTS);
       case 'meta/workflow/roleTree':
         return Promise.resolve(MetaMock.ROLES);
+      case 'meta/workflow/addRole':
+        return Promise.resolve(MetaMock.ROLES);
       case 'meta/workflow/errorStarts':
         return Promise.resolve(MetaMock.EXPIRY_ERRORS);
       case 'meta/workflow/errorCodes':

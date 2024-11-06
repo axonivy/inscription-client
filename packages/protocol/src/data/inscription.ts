@@ -26,6 +26,7 @@ export type Widget = Script | Label | Text;
 export type WidgetType = "TEXT" | "LABEL" | "SCRIPT";
 
 export interface Inscription {
+  addRoleRequest: AddRoleRequest;
   apiDocRequest: ApiDocRequest;
   boolean: boolean;
   callableDialogRequest: CallableDialogRequest;
@@ -76,15 +77,23 @@ export interface Inscription {
   workflowTypeRequest: WorkflowTypeRequest;
   [k: string]: unknown;
 }
+export interface AddRoleRequest {
+  context: InscriptionContext;
+  newRole: AddNewRole;
+}
+export interface InscriptionContext {
+  app: string;
+  pmv: string;
+}
+export interface AddNewRole {
+  identifier: string;
+  parent: string;
+}
 export interface ApiDocRequest {
   context: InscriptionContext;
   method: string;
   paramTypes: string[];
   type: string;
-}
-export interface InscriptionContext {
-  app: string;
-  pmv: string;
 }
 export interface CallableDialogRequest {
   context: InscriptionContext;

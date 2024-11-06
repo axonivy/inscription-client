@@ -13,6 +13,16 @@ test('browser add role', async ({ page }) => {
   await expect(page.getByRole('combobox').nth(1)).toHaveText('Employee');
 });
 
+test('browser role open add role popover', async ({ page }) => {
+  const inscriptionView = await InscriptionView.mock(page);
+  const task = inscriptionView.accordion('Task');
+  await task.toggle();
+  await assertCodeHidden(page);
+  await task.section('Responsible').open();
+  await applyRoleBrowser(page, 'Employee', 1, undefined, true);
+  await expect(page.getByRole('combobox').nth(1)).toHaveText('Employee');
+});
+
 test('browser add role doubleclick', async ({ page }) => {
   const inscriptionView = await InscriptionView.mock(page);
   const task = inscriptionView.accordion('Task');
@@ -23,18 +33,29 @@ test('browser add role doubleclick', async ({ page }) => {
   await expect(page.getByRole('combobox').nth(1)).toHaveText('Employee');
 });
 
-async function applyRoleBrowser(page: Page, expectedSelection: string = '', rowToCheck: number, dblClick?: boolean) {
+async function applyRoleBrowser(page: Page, expectedSelection: string = '', rowToCheck: number, dblClick?: boolean, openPopover?: boolean) {
   await browserBtn(page).nth(0).click();
-  await expect(page.getByRole('dialog')).toBeVisible();
+  const browserDialog = page.getByRole('dialog');
+  await expect(browserDialog).toBeVisible();
+  await browserDialog.getByText('Role').nth(1).click();
+  await browserDialog.getByRole('row').nth(rowToCheck).click();
+  if (openPopover) {
+    await browserDialog.getByRole('button', { name: 'Add Role to Employee' }).click();
+    const popover = page.getByRole('dialog').nth(1);
+    await expect(popover).toBeVisible();
+    const addRoleInput = popover.getByLabel('New role name');
+    const addRoleButton = popover.getByRole('button', { name: 'Add new Role' });
+    await addRoleInput.fill('test');
+    await addRoleButton.click();
 
-  await page.getByText('Role').nth(1).click();
-  await page.getByRole('row').nth(rowToCheck).click();
+    await expect(popover).not.toBeVisible();
+  }
 
   if (dblClick) {
-    await page.getByRole('row').nth(rowToCheck).dblclick();
+    await browserDialog.getByRole('row').nth(rowToCheck).dblclick();
   } else {
-    await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
-    await page.getByRole('button', { name: 'Apply' }).click();
+    await expect(browserDialog.locator('.browser-helptext')).toHaveText(expectedSelection);
+    await browserDialog.getByRole('button', { name: 'Apply' }).click();
   }
 
   await expect(page.getByRole('dialog')).toBeHidden();
