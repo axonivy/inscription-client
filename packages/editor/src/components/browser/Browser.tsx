@@ -24,6 +24,7 @@ type BrowserProps = UseBrowserReturnValue & {
 
 const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, roleOptions, initSearchFilter }: BrowserProps) => {
   const [active, setActive] = useState<BrowserType>(types[0]);
+  const [disableApply, setDisableApply] = useState(false);
 
   const acceptBrowser = () => {
     accept(allBrowsers.find(browser => browser.id === active)?.accept() ?? { cursorValue: '' }, active);
@@ -35,7 +36,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, role
   };
 
   const attrBrowser = useAttributeBrowser(onRowDoubleClick, location);
-  const cmsBrowser = useCmsBrowser(onRowDoubleClick, location, cmsOptions);
+  const cmsBrowser = useCmsBrowser(onRowDoubleClick, location, setDisableApply, cmsOptions);
   const funcBrowser = useFuncBrowser(onRowDoubleClick);
   const typeBrowser = useTypeBrowser(
     onRowDoubleClick,
@@ -65,6 +66,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, role
           onApply={() => acceptBrowser()}
           open={open}
           tabs={tabs}
+          disableApply={disableApply}
         />
       </Dialog>
     </>

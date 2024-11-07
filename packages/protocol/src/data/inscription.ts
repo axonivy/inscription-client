@@ -50,6 +50,7 @@ export interface Inscription {
   inscriptionRequest: InscriptionRequest;
   inscriptionSaveRequest: InscriptionSaveRequest;
   javaType: JavaType[];
+  newCmsStringRequest: NewCmsStringRequest;
   outlineNode: OutlineNode;
   programEditorRequest: ProgramEditorRequest;
   programInterface: ProgramInterface[];
@@ -277,7 +278,6 @@ export interface PublicType {
 }
 export interface InscriptionActionArgs {
   actionId:
-    | "newCmsString"
     | "newHtmlDialog"
     | "newProcess"
     | "newProgram"
@@ -288,7 +288,8 @@ export interface InscriptionActionArgs {
     | "openEndPage"
     | "openOrCreateCmsCategory"
     | "openPage"
-    | "openProgram";
+    | "openProgram"
+    | "openUrl";
   context: InscriptionElementContext;
   payload: string | OpenCustomField;
 }
@@ -721,6 +722,10 @@ export interface JavaType {
   fullQualifiedName: string;
   packageName: string;
   simpleName: string;
+}
+export interface NewCmsStringRequest {
+  context: InscriptionContext;
+  parentUri: string;
 }
 export interface OutlineNode {
   children: OutlineNode[];

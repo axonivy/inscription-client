@@ -1,13 +1,15 @@
 import { useMemo, useEffect, useState } from 'react';
-import { ActionCell, Checkbox, ExpandableCell, SearchTable } from '../../widgets';
+import { Checkbox, ExpandableCell, SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
-import { useAction, useEditorContext, useMeta } from '../../../context';
+import { useEditorContext, useMeta } from '../../../context';
 import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, VisibilityState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import type { ContentObject, ContentObjectType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { Button, Message, SelectRow, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
+import { Button, Flex, Message, SelectRow, TableBody, TableCell, toast } from '@axonivy/ui-components';
+import { useFunction } from '../../../context/useFunction';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 
@@ -18,7 +20,12 @@ export type CmsOptions = {
   typeFilter?: CmsTypeFilter;
 };
 
-export const useCmsBrowser = (onDoubleClick: () => void, location: string, options?: CmsOptions): UseBrowserImplReturnValue => {
+export const useCmsBrowser = (
+  onDoubleClick: () => void,
+  location: string,
+  setDisableApply: (value: boolean) => void,
+  options?: CmsOptions
+): UseBrowserImplReturnValue => {
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
 
   return {
@@ -32,6 +39,7 @@ export const useCmsBrowser = (onDoubleClick: () => void, location: string, optio
         typeFilter={options?.typeFilter}
         onDoubleClick={onDoubleClick}
         location={location}
+        setDisableApply={setDisableApply}
       />
     ),
     accept: () => value,
@@ -42,22 +50,39 @@ export const useCmsBrowser = (onDoubleClick: () => void, location: string, optio
 interface CmsBrowserProps {
   value: string;
   onChange: (value: BrowserValue) => void;
+  onDoubleClick: () => void;
+  setDisableApply: (value: boolean) => void;
+  location: string;
   noApiCall?: boolean;
   typeFilter?: CmsTypeFilter;
-  onDoubleClick: () => void;
-  location: string;
 }
 
-const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, location }: CmsBrowserProps) => {
+const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, location, setDisableApply }: CmsBrowserProps) => {
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
-  const { data: tree, refetch } = useMeta('meta/cms/tree', { context, requiredProjects: requiredProject }, []);
+  const { data: tree } = useMeta('meta/cms/tree', { context, requiredProjects: requiredProject }, []);
 
   const [selectedContentObject, setSelectedContentObject] = useState<ContentObject | undefined>();
   const [showHelper, setShowHelper] = useState<boolean>(false);
 
-  const newAction = useAction('newCmsString');
+  const queryClient = useQueryClient();
+  const addNewCmsString = useFunction(
+    'meta/cms/newCmsString',
+    {
+      context,
+      parentUri: ''
+    },
+    {
+      onSuccess: () => {
+        toast.info('String successfully added to CMS');
+        queryClient.invalidateQueries({ queryKey: ['meta/cms/tree', { context, requiredProjects: requiredProject }] });
+      },
+      onError: error => {
+        toast.error('Failed to add cms', { description: error.message });
+      }
+    }
+  );
 
   const columns = useMemo<ColumnDef<ContentObject, string>[]>(
     () => [
@@ -133,6 +158,9 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
       if (noApiCall || value.length === 0) {
         return value;
       }
+      if (type === 'FOLDER') {
+        return value;
+      }
       if (type === 'FILE' && location === 'attachments') {
         return `ivy.cm.findObject("${value}")`;
       } else if (type === 'FILE' && location !== 'message') {
@@ -153,12 +181,33 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
     onChange({ cursorValue: addIvyPathToValue(selectedRow.original.fullPath, selectedRow.original.type, noApiCall) });
   }, [onChange, rowSelection, noApiCall, table, location]);
 
+  const folderSelected = (): boolean => {
+    if (table.getSelectedRowModel().flatRows.length === 0) {
+      return false;
+    }
+    if (table.getSelectedRowModel().flatRows[0].original.type === 'FOLDER') {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <>
-      <div className='browser-table-header'>
+      <Flex direction='row' justifyContent='space-between' alignItems='center'>
         <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
-        <Button onClick={() => refetch()} title='Refresh CMS-Browser' aria-label='refresh' icon={IvyIcons.Redo} />
-      </div>
+        <Button
+          icon={IvyIcons.Plus}
+          onClick={() => addNewCmsString.mutate({ context, parentUri: table.getSelectedRowModel().flatRows[0].original.fullPath })}
+          aria-label='Add new Role'
+          title='Add new Role'
+          disabled={
+            table.getSelectedRowModel().flatRows.length === 0 ||
+            requiredProject ||
+            table.getSelectedRowModel().flatRows[0].original.type !== 'FOLDER'
+          }
+        />
+      </Flex>
+
       <SearchTable
         search={{
           value: globalFilter,
@@ -170,25 +219,17 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
       >
         <TableBody>
           {table.getRowModel().rows.map(row => (
-            <>
-              {row.original.type === 'FOLDER' ? (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                  ))}
-                  <ActionCell
-                    actions={[{ label: 'Create new CMS-String', icon: IvyIcons.Plus, action: () => newAction(row.original.fullPath) }]}
-                  />
-                </TableRow>
-              ) : (
-                <SelectRow key={row.id} row={row} onDoubleClick={onDoubleClick}>
-                  {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                  ))}
-                  <TableCell />
-                </SelectRow>
-              )}
-            </>
+            <SelectRow
+              key={row.id}
+              row={row}
+              onDoubleClick={folderSelected() ? undefined : onDoubleClick}
+              onClick={() => (row.original.type === 'FOLDER' ? setDisableApply(true) : setDisableApply(false))}
+            >
+              {row.getVisibleCells().map(cell => (
+                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+              ))}
+              <TableCell />
+            </SelectRow>
           ))}
         </TableBody>
       </SearchTable>
