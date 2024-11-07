@@ -56,19 +56,20 @@ test('browser add table column doubleclick', async ({ page }) => {
 
 async function applyTableColBrowser(page: Page, expectedSelection: string = '', rowToCheck: number, numberOfRows?: number, dblClick?: boolean) {
   await browserBtn(page).nth(0).click();
-  await expect(page.getByRole('dialog')).toBeVisible();
-  await page.getByText('Table Column').first().click();
+  const browserDialog = page.getByRole('dialog');
+  await expect(browserDialog).toBeVisible();
+  await browserDialog.getByText('Table Column').first().click();
 
   if (dblClick) {
-    await page.getByRole('row').nth(rowToCheck).click();
-    await page.getByRole('row').nth(rowToCheck).dblclick();
+    await browserDialog.getByRole('row').nth(rowToCheck).click();
+    await browserDialog.getByRole('row').nth(rowToCheck).dblclick();
   } else {
     if (numberOfRows) {
-      expect(page.getByRole('row')).toHaveCount(numberOfRows);
+      expect(browserDialog.getByRole('row')).toHaveCount(numberOfRows);
     }
-    await page.getByRole('row').nth(rowToCheck).click();
-    await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
-    await page.getByRole('button', { name: 'Apply' }).click();
+    await browserDialog.getByRole('row').nth(rowToCheck).click();
+    await expect(browserDialog.locator('.browser-helptext')).toHaveText(expectedSelection);
+    await browserDialog.getByRole('button', { name: 'Apply' }).click();
   }
 
   await expect(page.getByRole('dialog')).toBeHidden();

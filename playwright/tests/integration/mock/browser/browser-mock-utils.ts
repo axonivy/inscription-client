@@ -20,15 +20,16 @@ export function browserBtn(page: Page) {
 
 export async function applyBrowser(page: Page, browser: string, expectedSelection: string = '', rowToCheck: number, dblClick?: boolean) {
   await browserBtn(page).nth(0).click();
-  await expect(page.getByRole('dialog')).toBeVisible();
-  await page.getByText(browser).first().click();
-  await page.getByRole('row').nth(rowToCheck).click();
+  const browserDialog = page.getByRole('dialog');
+  await expect(browserDialog).toBeVisible();
+  await browserDialog.getByText(browser).first().click();
+  await browserDialog.getByRole('row').nth(rowToCheck).click();
 
   if (dblClick) {
-    await page.getByRole('row').nth(rowToCheck).dblclick();
+    await browserDialog.getByRole('row').nth(rowToCheck).dblclick();
   } else {
-    await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
-    await page.getByRole('button', { name: 'Apply' }).click();
+    await expect(browserDialog.locator('.browser-helptext')).toHaveText(expectedSelection);
+    await browserDialog.getByRole('button', { name: 'Apply' }).click();
   }
 
   await expect(page.getByRole('dialog')).toBeHidden();

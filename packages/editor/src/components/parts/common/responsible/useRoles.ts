@@ -29,5 +29,5 @@ export const useRoles = (showTaskRoles = false) => {
     setRoles(flatRoles);
   }, [roleTree, setRolesAsTree, showTaskRoles, taskRoles]);
 
-  return { rolesAsTree, roles };
+  return { rolesAsTree, roles, taskRoles };
 };

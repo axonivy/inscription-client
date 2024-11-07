@@ -40,7 +40,8 @@ import type {
   CategoryPathMeta,
   WorkflowTypeRequest,
   WfCustomField,
-  OutlineNode
+  OutlineNode,
+  AddRoleRequest
 } from './data/inscription';
 import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -51,6 +52,7 @@ export interface InscriptionMetaRequestTypes {
 
   'meta/workflow/roleTree': [InscriptionContext, RoleMeta];
   'meta/workflow/taskRoles': [InscriptionElementContext, RoleMeta[]];
+  'meta/workflow/addRole': [AddRoleRequest, RoleMeta];
   'meta/workflow/errorStarts': [InscriptionElementContext, ErrorStartMeta[]];
   'meta/workflow/errorCodes': [ErrorCodeRequest, EventCodeMeta[]];
   'meta/workflow/signalCodes': [SignalCodeRequest, EventCodeMeta[]];

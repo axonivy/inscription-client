@@ -55,7 +55,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, role
 
   return (
     <>
-      <Dialog open={open} onOpenChange={onOpenChange}>
+      <Dialog open={open} onOpenChange={onOpenChange} modal={false}>
         <DialogTrigger asChild>
           <Button icon={IvyIcons.ListSearch} aria-label='Browser' />
         </DialogTrigger>

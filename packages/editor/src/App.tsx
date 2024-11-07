@@ -1,6 +1,6 @@
 import './App.css';
 import type { ElementData, InscriptionData, InscriptionElementContext, ValidationResult, PID } from '@axonivy/inscription-protocol';
-import { PanelMessage, ReadonlyProvider, Spinner } from '@axonivy/ui-components';
+import { PanelMessage, ReadonlyProvider, Spinner, Toaster } from '@axonivy/ui-components';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient } from './context';
 import AppStateView from './AppStateView';
@@ -119,6 +119,7 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & Inscription
           </DataContextInstance.Provider>
         </EditorContextInstance.Provider>
       </ReadonlyProvider>
+      <Toaster closeButton={true} position='bottom-left' />
     </div>
   );
 }

@@ -15,7 +15,8 @@ import {
 } from '@tanstack/react-table';
 import { useRoles } from '../../parts/common/responsible/useRoles';
 import type { RoleMeta } from '@axonivy/inscription-protocol';
-import { SelectRow, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
+import { Flex, SelectRow, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
+import { AddRolePopover } from './AddRolePopover';
 export const ROLE_BROWSER = 'role' as const;
 
 export type RoleOptions = {
@@ -93,6 +94,9 @@ const RoleBrowser = (props: {
 
   return (
     <>
+      <Flex justifyContent='flex-end'>
+        <AddRolePopover value={props.value} table={table} />
+      </Flex>
       <SearchTable
         search={{
           value: globalFilter,

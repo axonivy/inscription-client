@@ -69,20 +69,21 @@ test('browser add type doubleclick', async ({ page }) => {
 
 async function applyTypeBrowser(page: Page, rowToCheck: number, expectedSelection: string = '', checkListGeneric?: boolean, dblClick?: boolean) {
   await browserBtn(page).nth(0).click();
-  await expect(page.getByRole('dialog')).toBeVisible();
-  await page.getByText('Type').first().click();
-  await page.getByRole('row').nth(rowToCheck).click();
+  const browserDialog = page.getByRole('dialog');
+  await expect(browserDialog).toBeVisible();
+  await browserDialog.getByText('Type').first().click();
+  await browserDialog.getByRole('row').nth(rowToCheck).click();
 
   if (dblClick) {
-    await page.getByRole('row').nth(rowToCheck).dblclick();
+    await browserDialog.getByRole('row').nth(rowToCheck).dblclick();
   } else {
     if (checkListGeneric) {
-      await page.getByLabel('Use Type as List').click();
-      await expect(page.locator('.browser-helptext')).toHaveText('List<' + expectedSelection + '>');
+      await browserDialog.getByLabel('Use Type as List').click();
+      await expect(browserDialog.locator('.browser-helptext')).toHaveText('List<' + expectedSelection + '>');
     } else {
-      await expect(page.locator('.browser-helptext')).toHaveText(expectedSelection);
+      await expect(browserDialog.locator('.browser-helptext')).toHaveText(expectedSelection);
     }
-    await page.getByRole('button', { name: 'Apply' }).click();
+    await browserDialog.getByRole('button', { name: 'Apply' }).click();
   }
 
   await expect(page.getByRole('dialog')).toBeHidden();
