@@ -4,7 +4,11 @@ import { describe, test, expect } from 'vitest';
 import type { BrowserValue } from '../Browser';
 
 const Browser = (props: { location: string; accept: (value: BrowserValue) => void }) => {
-  const browser = useCmsBrowser(() => {}, props.location);
+  const browser = useCmsBrowser(
+    () => {},
+    props.location,
+    () => {}
+  );
   return (
     <>
       {browser.content}

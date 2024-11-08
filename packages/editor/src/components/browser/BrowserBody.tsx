@@ -10,9 +10,10 @@ interface ReusableBrowserDialogProps {
   activeTab: string;
   onTabsChange?: (change: string) => void;
   onApply?: () => void;
+  disableApply?: boolean;
 }
 
-const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply }: ReusableBrowserDialogProps) => {
+const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply, disableApply }: ReusableBrowserDialogProps) => {
   const { editorRef } = useEditorContext();
 
   return (
@@ -33,7 +34,7 @@ const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply }: ReusableB
               </Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button aria-label='Apply' onClick={onApply} size='large' variant='primary'>
+              <Button aria-label='Apply' onClick={onApply} size='large' variant='primary' disabled={disableApply}>
                 Apply
               </Button>
             </DialogClose>

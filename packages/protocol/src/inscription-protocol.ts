@@ -41,7 +41,8 @@ import type {
   WorkflowTypeRequest,
   WfCustomField,
   OutlineNode,
-  AddRoleRequest
+  AddRoleRequest,
+  NewCmsStringRequest
 } from './data/inscription';
 import type { InscriptionData, InscriptionSaveData } from './data/inscription-data';
 
@@ -96,6 +97,7 @@ export interface InscriptionMetaRequestTypes {
   'meta/program/editor': [ProgramEditorRequest, Widget[]];
 
   'meta/cms/tree': [CmsMetaRequest, ContentObject[]];
+  'meta/cms/newCmsString': [NewCmsStringRequest, void];
 
   'meta/connector/out': [InscriptionElementContext, ConnectorRef[]];
 
