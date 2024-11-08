@@ -38,7 +38,7 @@ pipeline {
       steps {
         script {
           docker.build('node', '-f build/Dockerfile.node .').inside {
-            sh 'git checkout package-lock.json'
+            sh 'git checkout .'
             sh 'npm run build'
             withCredentials([string(credentialsId: 'npmjs-registry.ivyteam.ch-auth-token', variable: 'NPM_AUTH_TOKEN')]) {
               sh 'npm set "//npmjs-registry.ivyteam.ch/:_authToken = $NPM_AUTH_TOKEN"'
