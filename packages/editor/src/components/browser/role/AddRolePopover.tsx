@@ -16,11 +16,19 @@ import { useFunction } from '../../../context/useFunction';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEditorContext } from '../../../context';
 import type { RoleMeta } from '@axonivy/inscription-protocol';
-import type { Table } from '@tanstack/react-table';
+import { type Table } from '@tanstack/react-table';
 import { useRoles } from '../../parts/common/responsible/useRoles';
 import { isValidRowSelected, newNameExists, newNameIsValid } from './validate-role';
 
-export const AddRolePopover = ({ value, table }: { value: string; table: Table<RoleMeta> }) => {
+export const AddRolePopover = ({
+  value,
+  table,
+  setAddedRoleName
+}: {
+  value: string;
+  table: Table<RoleMeta>;
+  setAddedRoleName: (value: string) => void;
+}) => {
   const [open, setOpen] = useState(false);
   const { taskRoles } = useRoles();
   const [newRoleName, setNewRoleName] = useState('');
@@ -74,6 +82,7 @@ export const AddRolePopover = ({ value, table }: { value: string; table: Table<R
                 context,
                 newRole: { identifier: newRoleName, parent: value }
               });
+              setAddedRoleName(newRoleName);
             }}
             aria-label='Add new Role'
             title='Add new Role'
