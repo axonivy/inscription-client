@@ -92,10 +92,23 @@ const RoleBrowser = (props: {
     props.onChange({ cursorValue: selectedRow.original.id });
   }, [props, rowSelection, table]);
 
+  const [addedRole, setAddedRoleName] = useState('');
+
+  useEffect(() => {
+    if (addedRole.length === 0) {
+      return;
+    }
+    const newRow = table.getRowModel().flatRows.find(row => row.original.id === addedRole);
+    if (newRow) {
+      newRow.getParentRow()?.toggleExpanded(true);
+      setRowSelection({ [newRow.id]: true });
+    }
+  }, [addedRole, roleItems, table]);
+
   return (
     <>
       <Flex justifyContent='flex-end'>
-        <AddRolePopover value={props.value} table={table} />
+        <AddRolePopover value={props.value} table={table} setAddedRoleName={setAddedRoleName} />
       </Flex>
       <SearchTable
         search={{
