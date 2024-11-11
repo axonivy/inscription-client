@@ -69,29 +69,33 @@ export const AddRolePopover = ({
           disabled={!isValidRowSelected(table, taskRoles)}
         />
       </PopoverTrigger>
-      <PopoverContent sideOffset={12} collisionPadding={5} style={{ zIndex: '10000' }}>
-        <Flex direction='column' gap={2} alignItems='center'>
-          <BasicField label='New role name' style={{ width: '100%' }}>
-            <Input value={newRoleName} onChange={e => setNewRoleName(e.target.value)} />
-          </BasicField>
-          {newNameExists(table, newRoleName) && <Message variant='error' message='A role with that name already exists' />}
-          <Button
-            icon={IvyIcons.Plus}
-            onClick={() => {
-              addRole.mutate({
-                context,
-                newRole: { identifier: newRoleName, parent: value }
-              });
-              setAddedRoleName(newRoleName);
-            }}
-            aria-label='Add new Role'
-            title='Add new Role'
-            disabled={!newNameIsValid(table, newRoleName)}
-            style={{ width: '100%' }}
-          >
-            Add Role to {value}
-          </Button>
-        </Flex>
+      <PopoverContent collisionPadding={5} style={{ zIndex: '10000' }}>
+        <form onSubmit={event => event.preventDefault()}>
+          <Flex direction='column' gap={2} alignItems='center'>
+            <BasicField label='New role name' style={{ width: '100%' }}>
+              <Input value={newRoleName} onChange={e => setNewRoleName(e.target.value)} />
+            </BasicField>
+            {newNameExists(table, newRoleName) && <Message variant='error' message='A role with that name already exists' />}
+            <Button
+              icon={IvyIcons.Plus}
+              onClick={() => {
+                addRole.mutate({
+                  context,
+                  newRole: { identifier: newRoleName, parent: value }
+                });
+                setAddedRoleName(newRoleName);
+              }}
+              aria-label='Add new Role'
+              title='Add new Role'
+              disabled={!newNameIsValid(table, newRoleName)}
+              style={{ width: '100%' }}
+              variant='primary'
+              type='submit'
+            >
+              Add Role to {value}
+            </Button>
+          </Flex>
+        </form>
         <PopoverArrow />
       </PopoverContent>
     </Popover>

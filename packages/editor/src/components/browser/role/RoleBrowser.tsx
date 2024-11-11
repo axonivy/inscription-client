@@ -102,6 +102,7 @@ const RoleBrowser = (props: {
     if (newRow) {
       newRow.getParentRow()?.toggleExpanded(true);
       setRowSelection({ [newRow.id]: true });
+      setAddedRoleName('');
     }
   }, [addedRole, roleItems, table]);
 
