@@ -9,9 +9,9 @@
     "url": "https://github.com/axonivy/inscription-client"
   },
   "dependencies": {
-    "@axonivy/inscription-core": "13.1.0-next",
-    "@axonivy/inscription-editor": "13.1.0-next",
-    "@axonivy/ui-icons": "~12.0.0-next.374",
+    "@axonivy/inscription-core": "~13.1.0-next",
+    "@axonivy/inscription-editor": "~13.1.0-next",
+    "@axonivy/ui-icons": "~13.1.0-next.384",
     "path-browserify": "^1.0.1"
   },
   "devDependencies": {
