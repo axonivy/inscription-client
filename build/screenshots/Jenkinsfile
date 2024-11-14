@@ -27,6 +27,7 @@ pipeline {
           archiveArtifacts artifacts: 'playwright/test-results/**', allowEmptyArchive: true
           archiveArtifacts artifacts: 'playwright/inscription-test-project/**/ivy.log', allowEmptyArchive: true
           archiveArtifacts artifacts: 'playwright/inscription-test-project/target/screenshots/*.png', allowEmptyArchive: true
+          currentBuild.description = "<a href='${BUILD_URL}artifact/playwright/inscription-test-project/target/screenshots/'>Screenshots</a>"
           withChecks('Screenshots') {
             junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'playwright/**/report.xml'
           }
