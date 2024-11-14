@@ -4,3 +4,4 @@ Notification:
     Templates:
       Customer:
         dummy: ''
+        subject: Welcome to Axon.ivy workflows

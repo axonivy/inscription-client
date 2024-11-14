@@ -106,6 +106,10 @@ export class Browser {
   get table() {
     return this.dialog.locator('.ui-table');
   }
+
+  get help() {
+    return this.dialog.locator('.browser-helptext');
+  }
 }
 
 export class ScriptArea extends CodeEditor {
