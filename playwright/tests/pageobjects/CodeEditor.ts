@@ -4,10 +4,12 @@ import { expect } from '@playwright/test';
 class CodeEditor {
   private readonly contentAssist: Locator;
   private readonly code: Locator;
+  private readonly scriptArea: Locator;
 
   constructor(readonly page: Page, readonly locator: Locator, readonly value: Locator, readonly parentLocator: Locator) {
     this.contentAssist = parentLocator.locator('div.suggest-widget');
     this.code = parentLocator.locator('div.code-input').first();
+    this.scriptArea = parentLocator.locator('div.script-area');
   }
 
   async triggerContentAssist() {
@@ -34,6 +36,20 @@ class CodeEditor {
     await this.locator.click();
     await this.waitLazyLoading();
     await expect(this.code).toBeVisible();
+  }
+
+  async openBrowsers() {
+    await this.focus();
+    await this.scriptArea.getByRole('button', { name: 'Browser' }).click();
+    await expect(this.page.locator('.browser-content')).toBeVisible();
+    return new Browser(this.page);
+  }
+
+  async openFullScreen() {
+    await this.focus();
+    await this.page.getByRole('button', { name: 'Fullsize Code Editor' }).click();
+    await expect(this.page.locator('.browser-content')).toBeVisible();
+    return new Browser(this.page);
   }
 
   async waitLazyLoading() {
@@ -63,6 +79,32 @@ class CodeEditor {
 
   async expectContentAssistContains(contentAssist: string) {
     await expect(this.contentAssist).toContainText(contentAssist);
+  }
+}
+
+export class Browser {
+  constructor(readonly page: Page) {}
+
+  async openTab(name: string) {
+    const tab = this.page.locator('button.tabs-trigger', { hasText: name });
+    tab.click();
+    await expect(tab).toHaveAttribute('aria-selected', 'true');
+  }
+
+  async search(lookup: string) {
+    const search = this.dialog.getByRole('textbox');
+    await search.click();
+    await search.focus();
+    await search.fill('');
+    await search.pressSequentially(lookup);
+  }
+
+  get dialog() {
+    return this.page.getByRole('dialog');
+  }
+
+  get table() {
+    return this.dialog.locator('.ui-table');
   }
 }
 

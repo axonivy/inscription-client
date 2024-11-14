@@ -29,7 +29,7 @@ export async function screenshotSection(page: Page, pid: string, accordionName: 
   await accordion.toggle();
 }
 
-async function screenshot(page: Locator, name: string) {
+export async function screenshot(page: Locator, name: string) {
   const code = page.locator('div.code-input').first();
   if (await code.isVisible()) {
     await expect(code).not.toHaveText('Loading Editor...');
