@@ -23,6 +23,9 @@ describe('useStartData', () => {
     const startData: StartData = { signature: 'test', input: { params: [], map: {}, code: '' } };
     const { view, data } = renderDataHook(startData, { synchParams: true });
 
+    view.result.current.update('params', [{ name: '', type: 'String', desc: '' }]);
+    expect(data().name).toEqual('test()');
+
     view.result.current.update('params', [
       { name: 'test', type: 'String', desc: '' },
       { name: 'list', type: 'java.util.List<Number>', desc: '' }

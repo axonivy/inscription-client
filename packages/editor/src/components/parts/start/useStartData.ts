@@ -1,4 +1,4 @@
-import type { ConfigDataContext} from '../../../context';
+import type { ConfigDataContext } from '../../../context';
 import { useConfigDataContext, useDataContext } from '../../../context';
 import type { StartData } from '@axonivy/inscription-protocol';
 import { produce } from 'immer';
@@ -26,7 +26,10 @@ export function useStartData(synchParams?: boolean): ConfigDataContext<StartData
 
   const nameSyncher = (data: StartData) => {
     if (synchParams) {
-      return `${data.signature}(${data.input.params.map(param => param.type.substring(param.type.lastIndexOf('.') + 1)).join(',')})`;
+      return `${data.signature}(${data.input.params
+        .filter(param => param.name.length > 0)
+        .map(param => param.type.substring(param.type.lastIndexOf('.') + 1))
+        .join(',')})`;
     }
     return data.signature;
   };
