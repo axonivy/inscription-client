@@ -17,22 +17,25 @@ test.describe('Browsers', () => {
     const dialog = browser.dialog;
 
     await browser.openTab('Attribute');
-    await expect(browser.table.getByRole('row', { name: 'addPerson' }).first()).toBeVisible();
+    await browser.table.getByRole('row', { name: 'addPerson' }).first().click();
+    await expect(browser.help).toContainText('in.addPerson');
     await screenshot(dialog, 'browser-attribute.png');
 
     await browser.openTab('CMS');
-    await browser.search('Customer');
-    await expect(browser.table.getByRole('row', { name: 'Customer' })).toBeVisible();
+    await browser.search('subject');
+    await browser.table.getByRole('row', { name: 'subject' }).click();
+    await expect(browser.help).toContainText('Welcome');
     await screenshot(dialog, 'browser-cms.png');
 
     await browser.openTab('Function');
     await browser.search('role');
-    await expect(browser.table.getByRole('row', { name: 'ivy' })).toBeVisible();
+    await browser.table.getByRole('row', { name: 'security :' }).click();
+    await expect(browser.help).toContainText('ivy.security');
     await screenshot(dialog, 'browser-function.png');
 
     await browser.openTab('Type');
     await browser.search('Per');
-    await expect(browser.table.getByRole('cell', { name: 'Person :' })).toBeVisible();
+    await browser.table.getByRole('row', { name: 'Person :' }).first().click();
     await screenshot(dialog, 'browser-type.png');
   });
 
@@ -47,7 +50,8 @@ test.describe('Browsers', () => {
     const section = await openSection(page, GENERIC_PID.USER_TASK, 'Task', 'Responsible');
     await section.currentLocator().getByLabel('Browser').click();
     const browser = new Browser(page);
-    await expect(browser.table.getByRole('row', { name: 'IT-Manager' })).toBeVisible();
+    await browser.table.getByRole('row', { name: 'IT-Manager' }).click();
+    await expect(browser.help).toContainText('IT-Manager');
     await screenshot(browser.dialog, 'browser-role.png');
   });
 
@@ -56,7 +60,8 @@ test.describe('Browsers', () => {
     await section.currentLocator().locator('.script-area').click();
     await section.currentLocator().getByLabel('Browser').click();
     const browser = new Browser(page);
-    await expect(browser.table.getByRole('row', { name: 'NAME: VARCHAR', exact: true })).toBeVisible();
+    await browser.table.getByRole('row', { name: 'NAME: VARCHAR', exact: true }).click();
+    await expect(browser.help).toContainText('NAME');
     await screenshot(browser.dialog, 'browser-dbColumn.png');
   });
 });
