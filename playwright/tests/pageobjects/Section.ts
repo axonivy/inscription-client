@@ -21,6 +21,12 @@ export class Section extends Composite {
     }
   }
 
+  async close() {
+    if ((await this.toggleButtonLocator.getAttribute('data-state')) === 'open') {
+      await this.toggleButtonLocator.click();
+    }
+  }
+
   async expectIsClosed() {
     await expect(this.toggleButtonLocator).toHaveAttribute('data-state', 'closed');
   }
