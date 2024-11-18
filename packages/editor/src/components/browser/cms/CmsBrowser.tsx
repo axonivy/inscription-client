@@ -195,17 +195,19 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
     <>
       <Flex direction='row' justifyContent='space-between' alignItems='center'>
         <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
-        <Button
-          icon={IvyIcons.Plus}
-          onClick={() => addNewCmsString.mutate({ context, parentUri: table.getSelectedRowModel().flatRows[0].original.fullPath })}
-          aria-label='Add new Role'
-          title='Add new Role'
-          disabled={
-            table.getSelectedRowModel().flatRows.length === 0 ||
-            requiredProject ||
-            table.getSelectedRowModel().flatRows[0].original.type !== 'FOLDER'
-          }
-        />
+        {context.app === 'designer' && (
+          <Button
+            icon={IvyIcons.Plus}
+            onClick={() => addNewCmsString.mutate({ context, parentUri: table.getSelectedRowModel().flatRows[0].original.fullPath })}
+            aria-label='Add new CMS String'
+            title='Add new CMS String'
+            disabled={
+              table.getSelectedRowModel().flatRows.length === 0 ||
+              requiredProject ||
+              table.getSelectedRowModel().flatRows[0].original.type !== 'FOLDER'
+            }
+          />
+        )}
       </Flex>
 
       <SearchTable
