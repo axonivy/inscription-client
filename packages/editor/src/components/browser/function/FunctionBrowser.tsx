@@ -9,15 +9,15 @@ import {
   type RowSelectionState,
   getCoreRowModel,
   getExpandedRowModel,
-  getFilteredRowModel,
-  flexRender
+  getFilteredRowModel
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { useEditorContext, useMeta } from '../../../context';
 import { getParentNames } from './parent-name';
-import { SelectRow, TableBody, TableCell, TableFooter } from '@axonivy/ui-components';
+import { TableBody, TableFooter } from '@axonivy/ui-components';
+import BrowserTableRow from '../BrowserTableRow';
 export const FUNCTION_BROWSER_ID = 'func' as const;
 
 export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
@@ -36,36 +36,31 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
   const [method, setMethod] = useState('');
   const [paramTypes, setParamTypes] = useState<string[]>([]);
   const [type, setType] = useState('');
-  const [sortedTree, setSortedTree] = useState<Function[]>([]);
   const { data: tree } = useMeta('meta/scripting/functions', undefined, []);
   const { data: doc } = useMeta('meta/scripting/apiDoc', { context, method, paramTypes, type }, '');
+  const sortedTree = useMemo(() => {
+    if (!tree || tree.length === 0) {
+      return [];
+    }
+
+    const sortedReturnTypes = tree
+      .map(entry => entry.returnType)
+      .filter(returnType => returnType)
+      .map(returnType => ({
+        ...returnType,
+        functions: returnType.functions.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }))
+      }));
+
+    return tree.map((entry, index) => ({
+      ...entry,
+      returnType: sortedReturnTypes[index]
+    }));
+  }, [tree]);
 
   const [rowNumber, setRowNumber] = useState(100);
 
   const [selectedFunctionDoc, setSelectedFunctionDoc] = useState('');
-
-  const [showHelper, setShowHelper] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (tree && tree.length > 0) {
-      // Extracting and sorting functions inside root.returnType alphabetically
-      const sortedReturnTypes = tree
-        .map(entry => entry.returnType)
-        .filter(returnType => returnType)
-        .map(returnType => ({
-          ...returnType,
-          functions: returnType.functions.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }))
-        }));
-
-      // Replace the root.returnType from sortedData with the sortedReturnTypes
-      const finalSortedData = tree.map((entry, index) => ({
-        ...entry,
-        returnType: sortedReturnTypes[index]
-      }));
-
-      setSortedTree(finalSortedData);
-    }
-  }, [tree]);
+  const [showHelper, setShowHelper] = useState(false);
 
   const columns = useMemo<ColumnDef<Function, string>[]>(
     () => [
@@ -166,16 +161,12 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
         ref={parentRef}
       >
         <TableBody>
-          {virtualizer.getVirtualItems().map(virtualRow => {
-            const row = rows[virtualRow.index];
-            return (
-              <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                ))}
-              </SelectRow>
-            );
-          })}
+          {rows.some(row => row.depth === 1 && row.getIsExpanded())
+            ? virtualizer.getVirtualItems().map(virtualRow => {
+                const row = rows[virtualRow.index];
+                return <BrowserTableRow key={row.id} row={row} onDoubleClick={props.onDoubleClick} />;
+              })
+            : table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={props.onDoubleClick} />)}
         </TableBody>
         {rowNumber < rows.length && (
           <TableFooter>

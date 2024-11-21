@@ -4,17 +4,11 @@ import type { UseBrowserImplReturnValue } from '../useBrowser';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { useEditorContext, useMeta } from '../../../context';
-import {
-  useReactTable,
-  type ColumnDef,
-  type RowSelectionState,
-  getCoreRowModel,
-  getFilteredRowModel,
-  flexRender
-} from '@tanstack/react-table';
+import { useReactTable, type ColumnDef, type RowSelectionState, getCoreRowModel, getFilteredRowModel } from '@tanstack/react-table';
 import { useQueryData } from '../../parts/query/useQueryData';
 import type { DatabaseColumn } from '@axonivy/inscription-protocol';
-import { SelectRow, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
+import { TableBody, TableCell, TableRow } from '@axonivy/ui-components';
+import BrowserTableRow from '../BrowserTableRow';
 export const TABLE_COL_BROWSER_ID = 'tablecol' as const;
 
 export const useTableColBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
@@ -109,13 +103,7 @@ const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserVal
       >
         <TableBody>
           {table.getRowModel().rows.length > 0 ? (
-            table.getRowModel().rows.map(row => (
-              <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                ))}
-              </SelectRow>
-            ))
+            table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={props.onDoubleClick} />)
           ) : (
             <TableRow>
               <TableCell>No Columns found</TableCell>
