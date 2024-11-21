@@ -9,14 +9,14 @@ import {
   type RowSelectionState,
   getCoreRowModel,
   getFilteredRowModel,
-  flexRender,
   type ExpandedState,
   getExpandedRowModel
 } from '@tanstack/react-table';
 import { useRoles } from '../../parts/common/responsible/useRoles';
 import type { RoleMeta } from '@axonivy/inscription-protocol';
-import { Flex, SelectRow, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
+import { Flex, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
 import { AddRolePopover } from './AddRolePopover';
+import BrowserTableRow from '../BrowserTableRow';
 export const ROLE_BROWSER = 'role' as const;
 
 export type RoleOptions = {
@@ -123,13 +123,7 @@ const RoleBrowser = (props: {
       >
         <TableBody>
           {table.getRowModel().rows.length > 0 ? (
-            table.getRowModel().rows.map(row => (
-              <SelectRow key={row.id} row={row} onDoubleClick={props.onDoubleClick}>
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                ))}
-              </SelectRow>
-            ))
+            table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={props.onDoubleClick} />)
           ) : (
             <TableRow>
               <TableCell>No Columns found</TableCell>

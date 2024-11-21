@@ -9,7 +9,8 @@ import { useEditorContext, useMeta } from '../../../context';
 import { calcFullPathId } from '../../parts/common/mapping-tree/useMappingTree';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { ExpandableHeader, SelectRow, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@axonivy/ui-components';
+import { ExpandableHeader, TableBody, TableHead, TableHeader, TableRow } from '@axonivy/ui-components';
+import BrowserTableRow from '../BrowserTableRow';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
@@ -132,11 +133,7 @@ const AttributeBrowser = ({
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows.map(row => (
-            <SelectRow key={row.id} row={row} onDoubleClick={onDoubleClick}>
-              {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-              ))}
-            </SelectRow>
+            <BrowserTableRow key={row.id} row={row} onDoubleClick={onDoubleClick} />
           ))}
         </TableBody>
       </SearchTable>

@@ -2,13 +2,14 @@ import { useMemo, useState, useEffect } from 'react';
 import { Checkbox, ExpandableCell, SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { ColumnDef, ExpandedState, FilterFn, RowSelectionState } from '@tanstack/react-table';
-import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
+import { getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import { useEditorContext, useMeta } from '../../../context';
 import type { JavaType } from '@axonivy/inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { getCursorValue } from './cursor-value';
-import { SelectRow, TableBody, TableCell } from '@axonivy/ui-components';
+import { TableBody, TableCell } from '@axonivy/ui-components';
+import BrowserTableRow from '../BrowserTableRow';
 export const TYPE_BROWSER_ID = 'type' as const;
 
 export type TypeBrowserObject = JavaType & { icon: IvyIcons };
@@ -244,13 +245,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
           {tableDynamic.getRowModel().rows.length > 0 ? (
             <>
               {!isFetching &&
-                tableDynamic.getRowModel().rows.map(row => (
-                  <SelectRow key={row.id} row={row} onDoubleClick={onDoubleClick}>
-                    {row.getVisibleCells().map(cell => (
-                      <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                    ))}
-                  </SelectRow>
-                ))}
+                tableDynamic.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={onDoubleClick} />)}
             </>
           ) : (
             <tr>
