@@ -37,7 +37,9 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
   const [paramTypes, setParamTypes] = useState<string[]>([]);
   const [type, setType] = useState('');
   const { data: tree } = useMeta('meta/scripting/functions', undefined, []);
-  const { data: doc } = useMeta('meta/scripting/apiDoc', { context, method, paramTypes, type }, '');
+  const { data: doc } = useMeta('meta/scripting/apiDoc', { context, method, paramTypes, type }, '', {
+    disable: context.app !== 'designer'
+  });
   const sortedTree = useMemo(() => {
     if (!tree || tree.length === 0) {
       return [];
