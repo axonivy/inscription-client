@@ -1,3 +1,7 @@
+## ⚠️ Deprecated
+
+This code lives now integrated in the [Process-Editor-Client repo](https://github.com/axonivy/process-editor-client).
+
 # Inscription View
 
 This repo contains the web-based next gen inscription view for Axon Ivy process elements.
